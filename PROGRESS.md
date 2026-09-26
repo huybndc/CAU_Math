@@ -7,6 +7,17 @@
 - **Phase 1, 2, 3 xong** (Logic) · LinAlg có ngân hàng câu (D24) · mục Công cụ (D25) · câu khái niệm bằng Gemini (D27).
 - Chạy: app "Ôn tập" (⌘ Space) hoặc `cd ~/Claude_projects/CAU_Math && npm run dev` → http://localhost:5180.
 
+## Phiên 2026-09-26 (27) — Ngân hàng câu từ nguồn thật (D48)
+- Người học: câu do AI sinh quá ít; lấy từ tài liệu trên mạng, kiểm đáp án rồi đưa vào. Quy tắc chung đã ghi vào CLAUDE.md toàn cục.
+- LinAlg có dạng "Khái niệm" (22 câu ch1–ch3) từ đề MIT 18.06 + lời giải Strang; mọi câu tính được có `check` chạy bộ giải
+  của app (`linalg/src/logic/concept-check.js`). Đã xem thật trên trình duyệt (chọn sai hiện lý do + lời giải). 1108 test.
+- Lưu ý: `main` trên GitHub đã được gộp thành 1 commit (repo công khai, ẩn danh) — nhánh cũ trên máy phải dựng lại từ `origin/main`.
+
+### Việc tiếp theo
+1. Discrete: lô câu từ đề MIT 6.042J F2010 midterm/practice (logic, quy nạp, bất biến, đồng dư, đồ thị) + `concept-check` cho Discrete.
+2. Logic: lô câu từ MIT 6.004 S2017 worksheet (dùng `check` sẵn có: equiv, minterms, literals).
+3. LinAlg: thêm câu 2.2 (trụ, khử hỏng), 2.5–2.7 (nghịch đảo, chuyển vị) từ lời giải Strang ch2.
+
 ## Phiên 2026-09-25 (26) — Lịch 01/09 + chương đang học theo việc làm thật (D43)
 - Người học: lớp dạy khác thứ tự syllabus, học kỳ bắt đầu 01/09; ưu tiên sửa hết lỗi quan trọng trước khi làm tính năng mới.
 - Tuần học tính từ 01/09 (giữa kỳ 20/10). Gợi ý luyện, đề thi mặc định, chương mặc định ở Học/Luyện tập nay lấy từ các chương

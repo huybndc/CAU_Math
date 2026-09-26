@@ -57,6 +57,8 @@ Claude Code đọc file này đầu mỗi phiên. Quy ước riêng của từng
 
 ## Nội dung học tập (D05)
 - Bám syllabus + sách của từng môn. Tự diễn đạt lại, ghi nguồn. Không commit slide/PDF/syllabus.
+- Câu khái niệm: ưu tiên đề/bài có lời giải bên ngoài (MIT OCW, lời giải của tác giả sách), đáp án kiểm bằng `check` chạy
+  bộ giải của app; chỉ sửa khi nguồn sai; AI phái sinh chỉ lấp chỗ trống (D48).
 - Song ngữ VI/EN: hai từ điển cùng tập khoá, cùng tham số — test canh.
 - Chữ trên màn hình ngắn: một thẻ một ý; chữ dài bỏ vào "Xem thêm".
 - Lời giải phải DÒ LẠI ĐƯỢC: dạng có bảng chân trị thì vẽ bảng (`tableLine`), không chỉ in chuỗi bit. Đáp án + lời giải

@@ -481,3 +481,13 @@ khác syllabus, lịch học bắt đầu từ 2026/09/01".)
   `math.lock`, chạy `vite build` ở đây (thêm `rollupOptions.input` 4 trang) rồi chép 3 app vào `dist` của hub ⇒ một link,
   một lần đăng nhập, link "cần luyện" trong hub mở thẳng dạng bài. Repo này không cần mã deploy riêng; bản online không có
   `/__sync` (app tự tắt đồng bộ thư mục, D37) — đồng bộ tiến độ trên bản online do hub lo (Study Hub D33).
+
+- **D48. Câu khái niệm lấy từ đề/bài có lời giải bên ngoài, không phụ thuộc AI phái sinh (2026-09-26).** Câu do Gemini sinh
+  (D27) quá ít và phải duyệt từng câu; nguồn thật (đề thi có lời giải, lời giải của tác giả sách) thì nhiều và đã được kiểm.
+  Quy trình: (1) lọc nguồn đúng chương/mục giáo trình, có lời giải, giấy phép cho dùng; (2) lấy đáp án nguồn làm mẫu, tự diễn
+  đạt lại (VI/EN), ghi nguồn tới số bài; (3) dạng tính được thì gắn `check` — test chạy lại bằng bộ giải của app
+  (`<app>/src/logic/concept-check.js`), đáp án nguồn sai là test đỏ; chỉ sửa khi nguồn sai; (4) qua `validateItem` + test.
+  Câu không được tham chiếu câu khác ("như trên") vì câu được xáo. Lô đầu LinAlg: 22 câu (ch1–ch3) từ MIT OCW 18.06 S2010
+  Quiz 1, 18.06SC F2011 Unit 1 Exam (CC BY-NC-SA) và lời giải Strang ILA 6th ed. ch1; thêm `concept-check.js` cho LinAlg
+  (dims, system, solves, product, inverse). Thử đột biến 5 đáp án nguồn đều bị bắt. Gemini (scripts/gen/) chỉ còn để lấp chỗ
+  không có nguồn.
