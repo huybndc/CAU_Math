@@ -1,0 +1,45 @@
+<!-- ============================ CHƯƠNG 4 ============================ -->
+<section class="page" id="page-ch4">
+  <div class="pane" id="pane-ch4-theory">
+    <div class="card theory-body" id="theory-ch4-body"></div>
+  </div>
+
+  <div class="pane" id="pane-ch4-interactive">
+    <!-- Công cụ (ch4-tools.js): bộ cộng–trừ đi từng bit · thực hiện hàm bằng MUX / decoder -->
+    <div class="card">
+      <h2 data-i18n="t4a.title"></h2>
+      <div class="row">
+        <label class="inline">A = <input type="text" id="t4a-a" value="0111" size="9" inputmode="numeric" autocomplete="off" spellcheck="false"></label>
+        <label class="inline">B = <input type="text" id="t4a-b" value="0011" size="9" inputmode="numeric" autocomplete="off" spellcheck="false"></label>
+        <div class="seg" id="t4a-m" role="group">
+          <button type="button" data-m="0" aria-pressed="true">M = 0 (A + B)</button>
+          <button type="button" data-m="1" aria-pressed="false">M = 1 (A − B)</button>
+        </div>
+        <span class="spacer"></span>
+        <button class="btn primary" type="button" id="t4a-next" data-i18n="t4a.next"></button>
+        <button class="btn" type="button" id="t4a-all" data-i18n="t4a.all"></button>
+      </div>
+      <p class="small muted" data-i18n-html="t4a.hint"></p>
+      <div id="t4a-err" class="small bad"></div>
+      <div class="steps-box">
+        <div class="tblbox"><table class="grid" id="t4a-table"></table></div>
+        <div id="t4a-out"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 data-i18n="t4m.title"></h2>
+      <div class="row">
+        <label class="inline">F = Σm( <input type="text" id="t4m-f" value="1, 2, 6, 7" size="22" autocomplete="off" spellcheck="false"> )</label>
+        <label class="inline"><span data-i18n="t4m.vars"></span>
+          <select id="t4m-n"><option value="3" selected>3 (x, y, z)</option><option value="4">4 (w, x, y, z)</option></select></label>
+      </div>
+      <p class="small muted" data-i18n-html="t4m.hint"></p>
+      <div id="t4m-err" class="small bad"></div>
+      <div class="steps-box">
+        <div class="tblbox"><table class="grid" id="t4m-table"></table></div>
+        <div id="t4m-out"></div>
+      </div>
+    </div>
+  </div>
+</section>

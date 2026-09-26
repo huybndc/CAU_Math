@@ -1,0 +1,108 @@
+<!-- ============================ CHƯƠNG 3 ============================ -->
+<section class="page" id="page-ch3">
+
+  <div class="pane" id="pane-ch3-theory">
+  <div class="card theory-body" id="theory-ch3-body"></div>
+  </div>
+
+  <div class="pane" id="pane-ch3-example">
+  <div class="card">
+    <h2 data-i18n="gray.tableTitle"></h2>
+    <div class="row">
+      <label class="inline"><span data-i18n="gray.bits"></span>
+        <select id="g-n"><option>1</option><option>2</option><option selected>3</option><option>4</option><option>5</option></select>
+      </label>
+      <span class="hint" data-i18n-html="gray.tableNote"></span>
+    </div>
+    <div class="tblbox" style="margin-top:10px;max-height:420px;overflow-y:auto">
+      <table class="grid" id="g-table"></table>
+    </div>
+    <p class="small muted" id="g-cyclic"></p>
+  </div>
+
+  <div class="card">
+    <h2 data-i18n="gray.buildTitle"></h2>
+    <p class="hint" data-i18n-html="gray.buildNote"></p>
+    <div class="row">
+      <button class="btn primary" id="gb-next" data-i18n="gray.next" data-icon="next"></button>
+      <button class="btn" id="gb-reset" data-i18n="gray.reset"></button>
+      <span class="mono small muted" id="gb-state"></span>
+    </div>
+    <div class="steps-box" style="margin-top:10px"><div id="gb-msg"></div></div>
+    <div class="gb-list" id="gb-list" style="margin-top:10px"></div>
+  </div>
+
+  <div class="card">
+    <h2 data-i18n="gray.convTitle"></h2>
+    <div class="row">
+      <div class="seg" id="conv-dir">
+        <button data-d="b2g" aria-pressed="true">Binary → Gray</button>
+        <button data-d="g2b" aria-pressed="false">Gray → Binary</button>
+      </div>
+      <label class="inline"><span id="conv-lab">Binary</span>:
+        <input type="text" id="conv-in" value="1011" size="10" inputmode="numeric" autocomplete="off" spellcheck="false">
+      </label>
+    </div>
+    <div id="conv-err" class="small bad"></div>
+    <div class="steps-box" style="margin-top:10px">
+      <h4 id="conv-formula" class="mono"></h4>
+      <div class="conv-steps" id="conv-steps"></div>
+      <div style="margin-top:9px" class="row tight">
+        <span class="small muted" id="conv-outlab"></span>
+        <div class="bitbar" id="conv-out"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 data-i18n="gray.whyTitle"></h2>
+    <div class="note">
+      <p style="margin:.2em 0" data-i18n-html="gray.why1"></p>
+      <p style="margin:.2em 0" data-i18n-html="gray.why2"></p>
+      <p style="margin:.6em 0 .2em" class="row tight">
+        <button class="btn" data-goto="ch3:theory" data-i18n="gray.gotoTheory" data-icon="next"></button>
+        <button class="btn" data-goto="ch3:interactive" data-i18n="gray.gotoKmap" data-icon="next"></button>
+      </p>
+    </div>
+  </div>
+  </div>
+
+  <div class="pane" id="pane-ch3-interactive">
+  <!-- Công cụ rút gọn K-map (kmap-page.js): nhập Σm/ΠM hoặc biểu thức → bản đồ bên trái, các bước bên phải -->
+  <div class="card kt">
+    <h2 data-i18n="kt.title"></h2>
+    <div class="kt-input">
+      <input type="text" id="k-spec" autocomplete="off" spellcheck="false" data-i18n-ph="kt.ph">
+      <button class="btn primary" id="k-apply" data-i18n="kt.go"></button>
+      <select id="k-n" aria-label="n"><option value="2">2</option><option value="3">3</option><option value="4" selected>4</option><option value="5">5</option></select>
+      <button class="btn" id="k-rand" data-i18n="kt.random"></button>
+      <button class="btn" id="k-clear" data-i18n="kt.clear"></button>
+    </div>
+    <div id="k-specerr" class="small bad"></div>
+    <div class="kt-body">
+      <div class="kt-left">
+        <div class="maps" id="k-maps"></div>
+        <p class="kt-tip" data-i18n="kt.tip"></p>
+      </div>
+      <div class="kt-right">
+        <div class="kt-head">
+          <div class="seg" id="k-form" role="group">
+            <button type="button" data-f="sop" aria-pressed="true">SOP</button>
+            <button type="button" data-f="pos" aria-pressed="false">POS</button>
+          </div>
+          <div class="expr" id="k-result"></div>
+        </div>
+        <p class="kt-cost" id="k-cost"></p>
+        <ol class="kt-steps" id="k-steps"></ol>
+        <div class="row">
+          <button class="btn primary" id="st-next" data-i18n="kt.next" data-icon="next"></button>
+          <button class="btn" id="st-all" data-i18n="kt.all"></button>
+          <button class="btn" id="st-reset" data-i18n="kt.restart"></button>
+        </div>
+      </div>
+    </div>
+    <details class="kt-tt"><summary data-i18n="kt.table"></summary><div class="tblbox" id="k-tt"></div></details>
+  </div>
+  </div>
+
+</section>

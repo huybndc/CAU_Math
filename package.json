@@ -1,0 +1,26 @@
+{
+  "name": "study-apps",
+  "private": true,
+  "version": "2.0.0",
+  "type": "module",
+  "description": "Ba app ôn tập chạy localhost: Logic Circuit, Linear Algebra, Discrete Math",
+  "scripts": {
+    "dev": "vite --open",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "check": "bash scripts/check_file_sizes.sh .",
+    "launcher": "bash scripts/make-launcher.sh",
+    "gen": "vite-node scripts/gen/generate.js",
+    "gen:review": "vite-node scripts/gen/review.js"
+  },
+  "devDependencies": {
+    "vite": "^7.1.5",
+    "vitest": "^3.2.4"
+  },
+  "dependencies": {
+    "@fontsource/be-vietnam-pro": "^5.3.0",
+    "@fontsource/jetbrains-mono": "^5.3.0",
+    "@fontsource/stix-two-text": "^5.3.0",
+    "marked": "^15.0.12"
+  }
+}

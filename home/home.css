@@ -1,0 +1,33 @@
+/* Trang Tổng quan chung: dải 16 tuần + ba môn, cùng khung chữ/màu với các app (toeic-app). */
+.home-wrap{max-width:46rem;margin:0 auto;padding:1.5rem 1rem 3rem;position:relative}
+.home-wrap > .theme-toggle{position:absolute;top:1.5rem;right:1rem}
+.home-wrap > .sync-btn{position:absolute;top:1.5rem;right:3.4rem}
+.head h1{font-size:var(--fs-xl);font-weight:700;margin:0 0 .25rem}
+
+/* dải tuần: tuần đã qua đậm dần, tuần này tô màu chữ, tuần thi viền đỏ + nhãn */
+.strip{list-style:none;padding:0;margin:0 0 2.4rem;display:grid;grid-template-columns:repeat(16,1fr);gap:4px}
+.wk{position:relative;height:34px;border-radius:6px;background:var(--panel);border:1px solid var(--line);
+  display:flex;align-items:flex-start;padding:4px 5px}
+.wk span{font:600 11px/1 var(--mono);color:var(--ink-dim)}
+.wk.past{background:var(--panel2)}
+.wk.now{background:var(--ink);border-color:var(--ink)}
+.wk.now span{color:var(--bg)}
+.wk.exam{border:1.5px dashed var(--bad)}
+.wk em{position:absolute;left:0;top:calc(100% + 4px);font-style:normal;font-size:.68rem;font-weight:600;color:var(--bad);white-space:nowrap}
+
+.subjects{display:grid;gap:.75rem}
+.subject{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);padding:.9rem 1rem;border-left:3px solid var(--accent)}
+.subject-head{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem}
+.subject h2{margin:0;font-size:1.05rem;font-weight:700;color:var(--accent)}
+.subject h2 a{color:inherit;text-decoration:none}
+.subject h2 a::after{content:" ↗";font-weight:400;opacity:.55}
+.subject h2 a:hover{text-decoration:underline;text-underline-offset:3px}
+.subject-head p{margin:.1rem 0 0;font-size:.78rem;color:var(--ink-dim)}
+.stat{font-size:.78rem;color:var(--ink-dim);text-align:right;white-space:nowrap}
+.actions{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.8rem}
+
+@media (max-width:40rem){
+  .strip{grid-template-columns:repeat(8,1fr);row-gap:22px}
+  .subject-head{flex-direction:column;gap:.3rem}
+  .stat{text-align:left;white-space:normal}
+}

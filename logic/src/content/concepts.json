@@ -1,0 +1,562 @@
+[
+  {
+    "id": "l1-seed1",
+    "chapter": "ch1",
+    "section": "1.3",
+    "type": "why",
+    "answer": 0,
+    "vi": {
+      "q": "Đổi (41)₁₀ sang nhị phân bằng cách chia liên tiếp cho 2. Vì sao phải đọc các số dư từ DƯỚI LÊN?",
+      "options": [
+        "Số dư đầu tiên là chữ số hàng thấp nhất (2⁰)",
+        "Số dư cuối cùng luôn bằng 1 nên phải đặt nó ở đầu",
+        "Phép chia làm đảo thứ tự các bit nên phải đọc ngược lại cho đúng",
+        "Đọc từ trên xuống chỉ dùng khi đổi sang cơ số 8 hoặc 16"
+      ],
+      "why": [
+        "41 = 2·20 + 1, nên số dư đầu là bit hàng đơn vị; thương 20 là phần còn lại đã \"dịch phải\" một bậc.",
+        "Số dư cuối luôn là 1 (bit cao nhất khác 0), nhưng đó là hệ quả, không giải thích thứ tự đọc.",
+        "Phép chia không đảo gì cả: mỗi số dư đơn giản là chữ số ở vị trí cao hơn số dư trước.",
+        "Cơ số nào cũng vậy: chia liên tiếp cho r thì luôn đọc số dư từ dưới lên."
+      ],
+      "explain": "Số dư của lần chia thứ k là chữ số có trọng số rᵏ⁻¹. Lần chia đầu cho ra bit thấp nhất, nên kết quả đọc từ số dư cuối (bit cao nhất) ngược về đầu: (41)₁₀ = (101001)₂."
+    },
+    "en": {
+      "q": "Convert (41)10 to binary by repeated division by 2. Why are the remainders read from the BOTTOM UP?",
+      "options": [
+        "The first remainder is the lowest digit (the 2^0 place)",
+        "The last remainder is always 1, so it must go first",
+        "Division reverses the order of the bits, so we read backwards to undo it",
+        "Top-down reading is only used when converting to base 8 or 16"
+      ],
+      "why": [
+        "41 = 2·20 + 1, so the first remainder is the units bit; the quotient 20 is what is left after shifting right one place.",
+        "The last remainder is always 1 (the leading bit is nonzero), but that is a consequence, not the reason for the order.",
+        "Nothing is reversed: each remainder is simply the digit one position higher than the previous one.",
+        "Any base works the same way: repeated division by r is always read bottom up."
+      ],
+      "explain": "The k-th remainder is the digit with weight r^(k-1). The first division yields the lowest bit, so the result is read from the last remainder (highest bit) back to the first: (41)10 = (101001)2."
+    },
+    "check": {
+      "type": "convert",
+      "value": "41",
+      "from": 10,
+      "to": 2,
+      "result": "101001"
+    },
+    "source": "claude (mẫu, soạn tay)",
+    "approved": "2026-09-24"
+  },
+  {
+    "id": "l1-seed2",
+    "chapter": "ch1",
+    "section": "1.5",
+    "type": "trap",
+    "answer": 0,
+    "vi": {
+      "q": "Tính 72532 − 03250 bằng bù 10: 72532 + 96750 = 169282. Bước tiếp theo đúng là gì?",
+      "options": [
+        "Bỏ số nhớ 1 ở đầu: kết quả là 69282",
+        "Cộng số nhớ vòng về hàng đơn vị: kết quả là 69283",
+        "Lấy bù 10 của 169282 rồi thêm dấu trừ",
+        "Giữ nguyên 169282 vì phép cộng đã xong"
+      ],
+      "why": [
+        "Với bù r, có số nhớ ra ngoài nghĩa là kết quả dương; bỏ số nhớ đi.",
+        "Cộng vòng số nhớ (end-around carry) là quy tắc của bù (r − 1), không phải bù r.",
+        "Lấy bù rồi thêm dấu trừ chỉ làm khi KHÔNG có số nhớ ra ngoài (kết quả âm).",
+        "Kết quả phải giữ đúng 5 chữ số; chữ số 1 thứ sáu là số nhớ, không thuộc hiệu."
+      ],
+      "explain": "M − N = M + (bù 10 của N). Có số nhớ ra ngoài ⇒ M ≥ N: bỏ số nhớ, 72532 − 3250 = 69282."
+    },
+    "en": {
+      "q": "Compute 72532 − 03250 with the 10's complement: 72532 + 96750 = 169282. What is the correct next step?",
+      "options": [
+        "Discard the leading carry 1: the result is 69282",
+        "Add the carry back into the units digit: the result is 69283",
+        "Take the 10's complement of 169282 and put a minus sign in front",
+        "Keep 169282 because the addition is finished"
+      ],
+      "why": [
+        "With the r's complement, an end carry means the result is positive; discard the carry.",
+        "The end-around carry belongs to the (r - 1)'s complement, not the r's complement.",
+        "Complementing and adding a minus sign is only for the case with NO end carry (negative result).",
+        "The result must keep 5 digits; the sixth digit 1 is the carry, not part of the difference."
+      ],
+      "explain": "M − N = M + (10's complement of N). An end carry means M ≥ N: discard it, 72532 − 3250 = 69282."
+    },
+    "check": {
+      "type": "complement",
+      "value": "03250",
+      "radix": 10,
+      "diminished": false,
+      "result": "96750"
+    },
+    "source": "claude (mẫu, soạn tay)",
+    "approved": "2026-09-24"
+  },
+  {
+    "id": "l1-seed3",
+    "chapter": "ch1",
+    "section": "1.6",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "Chuỗi 8 bit `11111010` ở dạng bù 2 (signed 2′s complement) biểu diễn số nào?",
+      "options": [
+        "−6",
+        "250",
+        "−5",
+        "−122"
+      ],
+      "why": [
+        "Bit dấu có trọng số −128; −128 + 64 + 32 + 16 + 8 + 2 = −6.",
+        "250 là cách đọc như số KHÔNG dấu, bỏ qua bit dấu.",
+        "−5 là cách đọc theo bù 1: đảo bit được 00000101 = 5 nhưng quên cộng 1.",
+        "−122 là cách đọc theo dấu–độ lớn: 1111010 = 122."
+      ],
+      "explain": "Ở bù 2, bit cao nhất có trọng số −2ⁿ⁻¹. Cách khác: đảo bit (00000101) rồi +1 được 6, nên số là −6."
+    },
+    "en": {
+      "q": "What number does the 8-bit string `11111010` represent in signed 2's complement?",
+      "options": [
+        "−6",
+        "250",
+        "−5",
+        "−122"
+      ],
+      "why": [
+        "The sign bit weighs −128; −128 + 64 + 32 + 16 + 8 + 2 = −6.",
+        "250 reads the bits as an UNSIGNED number, ignoring the sign bit.",
+        "−5 is the 1's complement reading: flipping gives 00000101 = 5 but the +1 is missing.",
+        "−122 is the sign-magnitude reading: 1111010 = 122."
+      ],
+      "explain": "In 2's complement the top bit weighs −2^(n-1). Alternatively flip the bits (00000101) and add 1 to get 6, so the number is −6."
+    },
+    "check": {
+      "type": "signed",
+      "bits": "11111010",
+      "format": "twos",
+      "value": -6
+    },
+    "source": "claude (mẫu, soạn tay)",
+    "approved": "2026-09-24"
+  },
+  {
+    "id": "l2-seed1",
+    "chapter": "ch2",
+    "section": "2.4",
+    "type": "compare",
+    "answer": 0,
+    "vi": {
+      "q": "Cho F = x + y′z. Phát biểu nào đúng về đối ngẫu (dual) và phần bù (complement) của F?",
+      "options": [
+        "Dual: x(y′ + z). Phần bù: x′(y + z′)",
+        "Dual và phần bù đều là x′(y + z′)",
+        "Dual: x′ + yz′. Phần bù: x(y′ + z)",
+        "Dual: x(y′ + z). Phần bù: x′ + yz′"
+      ],
+      "why": [
+        "Dual chỉ đổi + ↔ · (giữ nguyên literal); phần bù đổi cả phép toán lẫn bù từng literal (DeMorgan).",
+        "Nhầm dual với phần bù: dual KHÔNG bù các literal.",
+        "Đảo vai trò: x′ + yz′ chỉ bù literal mà không đổi phép toán — không phải dual cũng không phải phần bù.",
+        "Phần bù sai: bù literal mà quên đổi + ↔ · theo DeMorgan."
+      ],
+      "explain": "Phần bù = dual của F rồi bù từng literal. Dual của x + y′z là x(y′ + z); bù từng literal được F′ = x′(y + z′)."
+    },
+    "en": {
+      "q": "Let F = x + y′z. Which statement about the dual and the complement of F is correct?",
+      "options": [
+        "Dual: x(y′ + z). Complement: x′(y + z′)",
+        "The dual and the complement are both x′(y + z′)",
+        "Dual: x′ + yz′. Complement: x(y′ + z)",
+        "Dual: x(y′ + z). Complement: x′ + yz′"
+      ],
+      "why": [
+        "The dual only swaps + and · (literals unchanged); the complement also complements every literal (DeMorgan).",
+        "Confuses the dual with the complement: the dual does NOT complement the literals.",
+        "Roles swapped: x′ + yz′ complements literals without swapping operators, so it is neither.",
+        "Wrong complement: literals are complemented but + and · are not swapped as DeMorgan requires."
+      ],
+      "explain": "Complement = take the dual of F, then complement each literal. The dual of x + y′z is x(y′ + z); complementing literals gives F′ = x′(y + z′)."
+    },
+    "check": {
+      "type": "equiv",
+      "a": "(x + y'z)'",
+      "b": "x'(y + z')",
+      "same": true
+    },
+    "source": "claude (mẫu, soạn tay)",
+    "approved": "2026-09-24"
+  },
+  {
+    "id": "l2-seed2",
+    "chapter": "ch2",
+    "section": "2.6",
+    "type": "trap",
+    "answer": 0,
+    "vi": {
+      "q": "F(x, y, z) = Σm(1, 3, 5). Một bạn viết dạng tích chuẩn là F = ΠM(1, 3, 5). Chỗ sai là gì?",
+      "options": [
+        "ΠM phải liệt kê các chỉ số KHÔNG có trong Σm: F = ΠM(0, 2, 4, 6, 7)",
+        "Không sai: Σm và ΠM của cùng một hàm luôn có cùng danh sách chỉ số",
+        "Phải lấy 7 − i cho từng chỉ số: F = ΠM(6, 4, 2)",
+        "Phải viết F = Σm(0, 2, 4, 6, 7), đó mới là dạng tích chuẩn"
+      ],
+      "why": [
+        "Maxterm Mᵢ bằng 0 đúng ở dòng i, nên ΠM gồm các dòng F = 0 — phần còn lại của Σm.",
+        "Σm liệt kê dòng F = 1, ΠM liệt kê dòng F = 0; hai danh sách bù nhau.",
+        "7 − i là quy tắc lấy bù chỉ số khi bù các BIẾN, không phải đổi từ Σm sang ΠM.",
+        "Σm(0, 2, 4, 6, 7) là của F′, và nó vẫn là tổng, không phải tích."
+      ],
+      "explain": "Σm và ΠM của cùng một hàm dùng hai tập chỉ số bù nhau trong 0…7: F = Σm(1, 3, 5) = ΠM(0, 2, 4, 6, 7)."
+    },
+    "en": {
+      "q": "F(x, y, z) = Σm(1, 3, 5). A student writes the canonical product as F = ΠM(1, 3, 5). What is wrong?",
+      "options": [
+        "ΠM must list the indices NOT in Σm: F = ΠM(0, 2, 4, 6, 7)",
+        "Nothing: Σm and ΠM of the same function always list the same indices",
+        "Each index must become 7 − i: F = ΠM(6, 4, 2)",
+        "It should be F = Σm(0, 2, 4, 6, 7), which is the canonical product"
+      ],
+      "why": [
+        "Maxterm Mi is 0 exactly on row i, so ΠM lists the rows where F = 0, the rest of Σm.",
+        "Σm lists the rows with F = 1, ΠM the rows with F = 0; the lists are complementary.",
+        "7 − i is what happens when the VARIABLES are complemented, not when converting Σm to ΠM.",
+        "Σm(0, 2, 4, 6, 7) is F′, and it is still a sum, not a product."
+      ],
+      "explain": "Σm and ΠM of one function use complementary index sets within 0…7: F = Σm(1, 3, 5) = ΠM(0, 2, 4, 6, 7)."
+    },
+    "check": {
+      "type": "equiv",
+      "a": "x'y'z + x'yz + xy'z",
+      "b": "(x + y + z)(x + y' + z)(x' + y + z)(x' + y' + z)(x' + y' + z')",
+      "same": true
+    },
+    "source": "claude (mẫu, soạn tay)",
+    "approved": "2026-09-24"
+  },
+  {
+    "id": "l2-seed3",
+    "chapter": "ch2",
+    "section": "2.8",
+    "type": "why",
+    "answer": 0,
+    "vi": {
+      "q": "Vì sao NAND được gọi là cổng vạn năng (universal gate)?",
+      "options": [
+        "Chỉ dùng NAND có thể dựng NOT, AND và OR, nên dựng được mọi hàm Boolean",
+        "Vì cổng NAND có thể có bao nhiêu ngõ vào cũng được",
+        "Vì NAND chứa sẵn AND và NOT, dù không dựng được OR",
+        "Vì NAND có tính kết hợp, nên nối tiếp các NAND 2 ngõ vào được NAND nhiều ngõ vào"
+      ],
+      "why": [
+        "(xx)′ = x′, (xy)′′ = xy, và (x′y′)′ = x + y theo DeMorgan.",
+        "Số ngõ vào không liên quan: AND, OR cũng có nhiều ngõ vào mà không vạn năng.",
+        "NAND dựng được OR: (x′y′)′ = x + y. Thiếu OR thì đã không vạn năng.",
+        "NAND KHÔNG có tính kết hợp: ((xy)′z)′ ≠ (x(yz)′)′, nên không nối tiếp tuỳ ý được."
+      ],
+      "explain": "Mọi hàm Boolean viết được bằng AND, OR, NOT; NAND dựng được cả ba (NOT: nối chung ngõ vào; OR: NAND của các ngõ vào đã đảo)."
+    },
+    "en": {
+      "q": "Why is NAND called a universal gate?",
+      "options": [
+        "NAND alone builds NOT, AND and OR, hence every Boolean function",
+        "Because a NAND gate can have any number of inputs",
+        "Because NAND contains AND and NOT, even though it cannot build OR",
+        "Because NAND is associative, so 2-input NANDs chain into a multi-input NAND"
+      ],
+      "why": [
+        "(xx)′ = x′, ((xy)′)′ = xy, and (x′y′)′ = x + y by DeMorgan.",
+        "Input count is irrelevant: AND and OR also come with many inputs and are not universal.",
+        "NAND does build OR: (x′y′)′ = x + y. Without OR it would not be universal.",
+        "NAND is NOT associative: ((xy)′z)′ ≠ (x(yz)′)′, so NANDs cannot be chained freely."
+      ],
+      "explain": "Every Boolean function can be written with AND, OR and NOT; NAND builds all three (NOT: tie the inputs together; OR: NAND of the inverted inputs)."
+    },
+    "check": {
+      "type": "equiv",
+      "a": "(x'y')'",
+      "b": "x + y",
+      "same": true
+    },
+    "source": "claude (mẫu, soạn tay)",
+    "approved": "2026-09-24"
+  },
+  {
+    "id": "l3-seed1",
+    "chapter": "ch3",
+    "section": "3.2",
+    "type": "why",
+    "answer": 0,
+    "vi": {
+      "q": "Vì sao hàng và cột của K-map xếp theo thứ tự 00, 01, 11, 10 chứ không phải 00, 01, 10, 11?",
+      "options": [
+        "Để hai ô kề nhau chỉ khác đúng một biến",
+        "Để số thứ tự minterm tăng dần từ trái sang phải",
+        "Vì trong mã Gray, 11 lớn hơn 10 nên đứng trước",
+        "Để ô 00 và ô 10 nằm cạnh nhau ngay trong bảng, không cần quấn biên"
+      ],
+      "why": [
+        "Đây là thứ tự mã Gray — đi sang ô bên cạnh chỉ đổi một bit, nên hai ô kề nhau gộp được.",
+        "Ngược lại: thứ tự Gray làm số minterm KHÔNG tăng dần (cột 11 đứng trước cột 10).",
+        "Mã Gray không xếp theo độ lớn; điều quan trọng là mỗi bước chỉ đổi một bit.",
+        "00 và 10 nằm ở hai đầu; chúng kề nhau nhờ quấn biên, đó chính là lý do phải nhớ nhóm quấn biên."
+      ],
+      "explain": "Theo thứ tự Gray, mọi cặp ô kề nhau (kể cả hai đầu) chỉ khác một biến. Gộp hai ô đó thì biến khác nhau bị khử: xy′ + xy = x."
+    },
+    "en": {
+      "q": "Why are K-map rows and columns ordered 00, 01, 11, 10 rather than 00, 01, 10, 11?",
+      "options": [
+        "So that neighbouring cells differ in exactly one variable",
+        "So that minterm numbers increase from left to right",
+        "Because in Gray code 11 is larger than 10, so it comes first",
+        "So that cells 00 and 10 sit side by side inside the table, without wrap-around"
+      ],
+      "why": [
+        "This is Gray-code order; moving to a neighbouring cell changes one bit, so neighbours can be merged.",
+        "The opposite: Gray order makes minterm numbers NOT increase (column 11 comes before column 10).",
+        "Gray code is not ordered by size; what matters is that each step changes one bit.",
+        "00 and 10 sit at the two ends; they are adjacent through wrap-around, which is why wrap-around groups matter."
+      ],
+      "explain": "In Gray order every pair of neighbouring cells (the two ends included) differs in one variable. Merging them removes that variable: xy′ + xy = x."
+    },
+    "check": {
+      "type": "gray",
+      "bin": "10",
+      "gray": "11"
+    },
+    "source": "claude (mẫu, soạn tay)",
+    "approved": "2026-09-24"
+  },
+  {
+    "id": "l3-seed2",
+    "chapter": "ch3",
+    "section": "3.5",
+    "type": "trap",
+    "answer": 0,
+    "vi": {
+      "q": "Rút gọn F = Σm(1, 3, 7, 11, 15) với don′t care d(0, 2, 5). Một bạn nói: \"Mọi ô X đều phải được khoanh vào một nhóm.\" Nhận xét nào đúng?",
+      "options": [
+        "Sai: ô X chỉ dùng khi giúp nhóm to hơn, không bắt buộc phủ",
+        "Đúng: ô X được coi là 1 nên phải phủ như ô 1",
+        "Đúng với SOP, nhưng sai với POS",
+        "Sai: ô X không bao giờ được khoanh vì giá trị không xác định"
+      ],
+      "why": [
+        "Ở ví dụ này F = yz + w′x′ dùng X ở 0, 2 nhưng bỏ X ở 5 — vẫn tối giản.",
+        "X là \"tuỳ ý\": được chọn là 1 hay 0 tuỳ cái nào có lợi, không bắt buộc là 1.",
+        "Quy tắc giống nhau cho SOP và POS: dùng X khi có lợi, bỏ khi không.",
+        "Khoanh ô X là được phép và thường làm nhóm to hơn, bớt literal."
+      ],
+      "explain": "Ô X chỉ là \"trợ giúp\": khoanh vào khi làm nhóm lớn hơn. Kết quả tối giản ở đây có 4 literal, ví dụ F = yz + w′x′."
+    },
+    "en": {
+      "q": "Simplify F = Σm(1, 3, 7, 11, 15) with don′t-cares d(0, 2, 5). A student says: \"Every X cell must be included in some group.\" Which comment is correct?",
+      "options": [
+        "False: use an X only if it enlarges a group; never required",
+        "True: X cells count as 1s, so they must be covered like 1s",
+        "True for SOP but false for POS",
+        "False: X cells may never be grouped because their value is unknown"
+      ],
+      "why": [
+        "Here F = yz + w′x′ uses the X at 0 and 2 but leaves the X at 5, and it is minimal.",
+        "X means \"either\": it is taken as 1 or 0, whichever helps; it is not forced to 1.",
+        "The rule is the same for SOP and POS: use an X when it helps, ignore it otherwise.",
+        "Grouping X cells is allowed and usually makes groups larger with fewer literals."
+      ],
+      "explain": "X cells are only helpers: include them when they enlarge a group. The minimal result here has 4 literals, for example F = yz + w′x′."
+    },
+    "check": {
+      "type": "literals",
+      "minterms": [
+        1,
+        3,
+        7,
+        11,
+        15
+      ],
+      "dontcares": [
+        0,
+        2,
+        5
+      ],
+      "n": 4,
+      "form": "sop",
+      "count": 4
+    },
+    "source": "claude (mẫu, soạn tay)",
+    "approved": "2026-09-24"
+  },
+  {
+    "id": "l3-seed3",
+    "chapter": "ch3",
+    "section": "3.8",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "Hàm F = x ⊕ y ⊕ z bằng 1 ở những minterm nào?",
+      "options": [
+        "Σm(1, 2, 4, 7)",
+        "Σm(0, 3, 5, 6)",
+        "Σm(1, 2, 4)",
+        "Σm(3, 5, 6, 7)"
+      ],
+      "why": [
+        "XOR nhiều biến là hàm lẻ — bằng 1 khi số bit 1 là lẻ: 001, 010, 100, 111.",
+        "Đây là các dòng có số bit 1 CHẴN — hàm XNOR (hàm chẵn).",
+        "Nhầm XOR là \"đúng một biến bằng 1\": quên dòng 111 có ba bit 1 (vẫn lẻ).",
+        "Đây là hàm đa số (ít nhất hai biến bằng 1), không phải XOR."
+      ],
+      "explain": "x ⊕ y ⊕ z = 1 khi có một số LẺ biến bằng 1. Trên K-map các ô này xếp thành hình bàn cờ, không gộp được nhóm nào."
+    },
+    "en": {
+      "q": "For which minterms is F = x ⊕ y ⊕ z equal to 1?",
+      "options": [
+        "Σm(1, 2, 4, 7)",
+        "Σm(0, 3, 5, 6)",
+        "Σm(1, 2, 4)",
+        "Σm(3, 5, 6, 7)"
+      ],
+      "why": [
+        "Multi-variable XOR is the odd function, 1 when the number of 1 bits is odd: 001, 010, 100, 111.",
+        "These rows have an EVEN number of 1s, the XNOR (even) function.",
+        "Treats XOR as \"exactly one variable is 1\": row 111 has three 1s, which is still odd.",
+        "This is the majority function (at least two variables are 1), not XOR."
+      ],
+      "explain": "x ⊕ y ⊕ z = 1 when an ODD number of variables are 1. On a K-map these cells form a checkerboard, so no cells can be grouped."
+    },
+    "check": {
+      "type": "minterms",
+      "expr": "x'y'z + x'yz' + xy'z' + xyz",
+      "list": [
+        1,
+        2,
+        4,
+        7
+      ]
+    },
+    "source": "claude (mẫu, soạn tay)",
+    "approved": "2026-09-24"
+  },
+  {
+    "id": "l4-ripple-slow",
+    "chapter": "ch4",
+    "section": "4.5",
+    "type": "why",
+    "answer": 0,
+    "vi": {
+      "q": "Vì sao bộ cộng nối tiếp (ripple carry) chậm khi số bit lớn?",
+      "options": [
+        "Bit cao phải chờ carry lan qua mọi bit dưới",
+        "Vì mỗi bit cần nhiều cổng XOR",
+        "Vì bộ cộng toàn phần có ba ngõ vào",
+        "Vì phép trừ phải cộng hai lần"
+      ],
+      "why": [
+        "Cᵢ₊₁ phụ thuộc Cᵢ, nên trễ tăng theo số bit: bit n chờ n tầng carry.",
+        "Số cổng mỗi bit cố định, không làm trễ tăng theo n.",
+        "Ba ngõ vào là của MỘT bộ cộng; vấn đề là chuỗi nối các bộ đó.",
+        "Phép trừ dùng cùng một lần cộng (A + B′ + 1)."
+      ],
+      "explain": "Carry lookahead sửa đúng chỗ này: mọi Cᵢ viết bằng G, P, C₀ thành mạch hai mức, không phải chờ lan."
+    },
+    "en": {
+      "q": "Why is a ripple-carry adder slow for many bits?",
+      "options": [
+        "High bits wait for the carry to ripple up",
+        "Because each bit needs many XOR gates",
+        "Because a full adder has three inputs",
+        "Because subtraction adds twice"
+      ],
+      "why": [
+        "Cᵢ₊₁ depends on Cᵢ, so the delay grows with the bit count: bit n waits for n carry stages.",
+        "The gate count per bit is fixed; it does not make delay grow with n.",
+        "Three inputs belong to ONE adder; the problem is the chain of adders.",
+        "Subtraction uses a single addition (A + B′ + 1)."
+      ],
+      "explain": "Carry lookahead fixes exactly this: every Cᵢ is written in terms of G, P, C₀ as a two-level circuit, with no waiting."
+    },
+    "source": "Mano §4.5 (tự diễn đạt)"
+  },
+  {
+    "id": "l4-unsigned-carry",
+    "chapter": "ch4",
+    "section": "4.5",
+    "type": "trap",
+    "answer": 0,
+    "vi": {
+      "q": "Cộng hai số KHÔNG dấu 4 bit. Dấu hiệu nào cho biết tổng vượt quá 4 bit?",
+      "options": [
+        "C₄ = 1",
+        "V = C₄ ⊕ C₃ = 1",
+        "S₃ = 1",
+        "C₃ = 1"
+      ],
+      "why": [
+        "Không dấu: tổng lớn hơn 15 thì cần bit thứ năm, chính là carry ra C₄.",
+        "V dành cho số CÓ dấu; vd 1000 + 1000 có V = 1 và cũng C₄ = 1, nhưng 0111 + 0001 có V = 1 mà tổng 8 vẫn vừa 4 bit.",
+        "S₃ = 1 chỉ nói tổng từ 8 trở lên, vẫn có thể vừa 4 bit.",
+        "C₃ là carry vào bit cao nhất, chưa phải carry ra."
+      ],
+      "explain": "Cùng một mạch cộng: đọc không dấu thì nhìn C₄, đọc có dấu (bù 2) thì nhìn V = C₄ ⊕ C₃."
+    },
+    "en": {
+      "q": "Adding two UNSIGNED 4-bit numbers, which signal shows the sum does not fit in 4 bits?",
+      "options": [
+        "C₄ = 1",
+        "V = C₄ ⊕ C₃ = 1",
+        "S₃ = 1",
+        "C₃ = 1"
+      ],
+      "why": [
+        "Unsigned: a sum above 15 needs a fifth bit, which is exactly the carry out C₄.",
+        "V is for SIGNED numbers; 0111 + 0001 has V = 1 yet the sum 8 fits in 4 unsigned bits.",
+        "S₃ = 1 only says the sum is at least 8, which may still fit.",
+        "C₃ is the carry into the top bit, not the carry out."
+      ],
+      "explain": "Same adder circuit: read unsigned, look at C₄; read signed (2’s complement), look at V = C₄ ⊕ C₃."
+    },
+    "source": "Mano §4.5 (tự diễn đạt)"
+  },
+  {
+    "id": "l4-decoder-any",
+    "chapter": "ch4",
+    "section": "4.9",
+    "type": "why",
+    "answer": 0,
+    "vi": {
+      "q": "Decoder 3 → 8 cùng các cổng OR thực hiện được những hàm 3 biến nào?",
+      "options": [
+        "Mọi hàm 3 biến",
+        "Chỉ hàm có đúng một minterm",
+        "Chỉ hàm đã rút gọn SOP",
+        "Đúng 8 hàm, mỗi ngõ ra một hàm"
+      ],
+      "why": [
+        "Mỗi ngõ ra Dᵢ là minterm mᵢ; mọi hàm là OR của các minterm của nó (dạng chính tắc).",
+        "Một ngõ ra là một minterm, nhưng OR nhiều ngõ ra cho hàm nhiều minterm.",
+        "Không cần rút gọn: decoder làm việc trực tiếp với dạng Σm.",
+        "Có 2⁸ = 256 hàm 3 biến, mỗi hàm là một cách chọn tập ngõ ra để OR."
+      ],
+      "explain": "Decoder n → 2ⁿ sinh sẵn đủ 2ⁿ minterm, nên cùng một decoder dùng chung cho nhiều hàm — ví dụ bộ cộng toàn phần: S = Σm(1, 2, 4, 7), C = Σm(3, 5, 6, 7)."
+    },
+    "en": {
+      "q": "Which 3-variable functions can a 3 → 8 decoder plus OR gates implement?",
+      "options": [
+        "Every 3-variable function",
+        "Only functions with exactly one minterm",
+        "Only simplified SOP functions",
+        "Exactly 8 functions, one per output"
+      ],
+      "why": [
+        "Each output Dᵢ is minterm mᵢ; every function is the OR of its minterms (canonical form).",
+        "One output is one minterm, but ORing several outputs gives functions with several minterms.",
+        "No simplification needed: the decoder works directly with the Σm form.",
+        "There are 2⁸ = 256 functions of 3 variables; each is a choice of outputs to OR."
+      ],
+      "explain": "An n → 2ⁿ decoder provides all 2ⁿ minterms, so one decoder can serve several functions — e.g. a full adder: S = Σm(1, 2, 4, 7), C = Σm(3, 5, 6, 7)."
+    },
+    "source": "Mano §4.9 (tự diễn đạt)"
+  }
+]
