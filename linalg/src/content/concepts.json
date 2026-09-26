@@ -1,0 +1,1482 @@
+[
+  {
+    "id": "la1-sum-zero",
+    "chapter": "ch1",
+    "section": "1.1",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "v = (1, −2, 1), w = (0, 1, −1). b = (3, 3, 6) có phải một tổ hợp cv + dw không?",
+      "options": [
+        "Không: mọi cv + dw có tổng thành phần bằng 0",
+        "Có: chọn c = 3, d = 9",
+        "Có: hai vectơ độc lập nên phủ cả R³",
+        "Có: mọi thành phần của b chia hết cho 3"
+      ],
+      "why": [
+        "Thành phần của v và của w đều cộng lại bằng 0, nên mọi cv + dw cũng vậy; b có tổng 12.",
+        "3v + 9w = (3, 3, −6): thành phần cuối là −6, không phải 6.",
+        "Hai vectơ độc lập chỉ phủ một mặt phẳng trong R³.",
+        "Chia hết cho 3 không liên quan; điều kiện là tổng các thành phần bằng 0."
+      ],
+      "explain": "Mặt phẳng sinh bởi v và w là x + y + z = 0. b = (3, 3, 6) có tổng 12 ≠ 0 nên nằm ngoài mặt phẳng: hệ cv + dw = b vô nghiệm."
+    },
+    "en": {
+      "q": "v = (1, −2, 1), w = (0, 1, −1). Is b = (3, 3, 6) a combination cv + dw?",
+      "options": [
+        "No: every cv + dw has components adding to 0",
+        "Yes: take c = 3, d = 9",
+        "Yes: two independent vectors fill all of R³",
+        "Yes: every component of b is divisible by 3"
+      ],
+      "why": [
+        "The components of v and of w add to 0, so the same holds for every cv + dw; b adds to 12.",
+        "3v + 9w = (3, 3, −6): the last component is −6, not 6.",
+        "Two independent vectors only fill a plane in R³.",
+        "Divisibility by 3 is irrelevant; the condition is that the components add to 0."
+      ],
+      "explain": "The plane of v and w is x + y + z = 0. b = (3, 3, 6) adds to 12 ≠ 0, so it lies off the plane: cv + dw = b has no solution."
+    },
+    "check": {
+      "type": "system",
+      "A": [
+        [
+          1,
+          0
+        ],
+        [
+          -2,
+          1
+        ],
+        [
+          1,
+          -1
+        ]
+      ],
+      "b": [
+        3,
+        3,
+        6
+      ],
+      "kind": "none"
+    },
+    "source": "Strang, Introduction to Linear Algebra 6th ed., Problem Set 1.1 #8 (lời giải của tác giả, math.mit.edu/linearalgebra) — tự diễn đạt"
+  },
+  {
+    "id": "la1-middle",
+    "chapter": "ch1",
+    "section": "1.1",
+    "type": "why",
+    "answer": 0,
+    "vi": {
+      "q": "Khi nào (a, b, c) là tổ hợp x₁u + x₂v của u = (1, 1, 0) và v = (0, 1, 1)?",
+      "options": [
+        "Khi b = a + c",
+        "Với mọi a, b, c",
+        "Khi a = b = c",
+        "Khi a + b + c = 0"
+      ],
+      "why": [
+        "x₁u + x₂v = (x₁, x₁ + x₂, x₂): thành phần đầu cho x₁ = a, cuối cho x₂ = c, nên giữa phải là a + c.",
+        "Hai vectơ chỉ phủ một mặt phẳng trong R³; ba phương trình hai ẩn có thể vô nghiệm.",
+        "(1, 1, 1) có a + c = 2 ≠ 1 = b nên không đạt được.",
+        "(1, −1, 0) có tổng 0 nhưng a + c = 1 ≠ −1 = b."
+      ],
+      "explain": "Viết tổ hợp ra từng thành phần: (x₁, x₁ + x₂, x₂). Hai thành phần ngoài xác định x₁, x₂; thành phần giữa thành điều kiện b = a + c — đó là mặt phẳng sinh bởi u, v."
+    },
+    "en": {
+      "q": "When is (a, b, c) a combination x₁u + x₂v of u = (1, 1, 0) and v = (0, 1, 1)?",
+      "options": [
+        "When b = a + c",
+        "For every a, b, c",
+        "When a = b = c",
+        "When a + b + c = 0"
+      ],
+      "why": [
+        "x₁u + x₂v = (x₁, x₁ + x₂, x₂): the first component gives x₁ = a, the last gives x₂ = c, so the middle must be a + c.",
+        "Two vectors only fill a plane in R³; three equations in two unknowns can have no solution.",
+        "(1, 1, 1) has a + c = 2 ≠ 1 = b, so it cannot be reached.",
+        "(1, −1, 0) adds to 0 but a + c = 1 ≠ −1 = b."
+      ],
+      "explain": "Write the combination component by component: (x₁, x₁ + x₂, x₂). The outer components fix x₁, x₂; the middle one becomes the condition b = a + c, the plane of u and v."
+    },
+    "check": {
+      "type": "system",
+      "A": [
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "b": [
+        1,
+        1,
+        1
+      ],
+      "kind": "none"
+    },
+    "source": "Strang, Introduction to Linear Algebra 6th ed., Problem Set 1.1 #10 (lời giải của tác giả) — tự diễn đạt"
+  },
+  {
+    "id": "la1-norm-range",
+    "chapter": "ch1",
+    "section": "1.2",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "Biết ‖v‖ = 5 và ‖w‖ = 3 (v, w bất kỳ). ‖v − w‖ và v·w nằm trong khoảng nào?",
+      "options": [
+        "2 ≤ ‖v − w‖ ≤ 8 và −15 ≤ v·w ≤ 15",
+        "‖v − w‖ = 2 và v·w = 15",
+        "0 ≤ ‖v − w‖ ≤ 8 và 0 ≤ v·w ≤ 15",
+        "2 ≤ ‖v − w‖ ≤ 8 và −8 ≤ v·w ≤ 8"
+      ],
+      "why": [
+        "Bất đẳng thức tam giác: |5 − 3| ≤ ‖v − w‖ ≤ 5 + 3. Schwarz: |v·w| ≤ 5·3.",
+        "Đó chỉ là trường hợp v, w cùng hướng; đề hỏi mọi khả năng.",
+        "‖v − w‖ = 0 cần v = w, không thể khi độ dài khác nhau; v·w âm khi góc tù.",
+        "Chặn của v·w là tích độ dài 15, không phải tổng 8."
+      ],
+      "explain": "Hiệu ngắn nhất khi v, w cùng hướng (5 − 3 = 2), dài nhất khi ngược hướng (5 + 3 = 8). v·w = ‖v‖‖w‖cos θ nên |v·w| ≤ 15, bằng ±15 khi cùng / ngược hướng."
+    },
+    "en": {
+      "q": "Given ‖v‖ = 5 and ‖w‖ = 3 (any v, w). What ranges can ‖v − w‖ and v·w take?",
+      "options": [
+        "2 ≤ ‖v − w‖ ≤ 8 and −15 ≤ v·w ≤ 15",
+        "‖v − w‖ = 2 and v·w = 15",
+        "0 ≤ ‖v − w‖ ≤ 8 and 0 ≤ v·w ≤ 15",
+        "2 ≤ ‖v − w‖ ≤ 8 and −8 ≤ v·w ≤ 8"
+      ],
+      "why": [
+        "Triangle inequality: |5 − 3| ≤ ‖v − w‖ ≤ 5 + 3. Schwarz: |v·w| ≤ 5·3.",
+        "That is only the case where v and w point the same way; the question asks for every possibility.",
+        "‖v − w‖ = 0 needs v = w, impossible with different lengths; v·w is negative for obtuse angles.",
+        "The bound on v·w is the product of lengths 15, not the sum 8."
+      ],
+      "explain": "The difference is shortest when v, w point the same way (5 − 3 = 2) and longest when opposite (5 + 3 = 8). v·w = ‖v‖‖w‖cos θ, so |v·w| ≤ 15, with ±15 for same / opposite directions."
+    },
+    "source": "Strang, Introduction to Linear Algebra 6th ed., Problem Set 1.2 #25 (lời giải của tác giả) — tự diễn đạt"
+  },
+  {
+    "id": "la1-unit-diff",
+    "chapter": "ch1",
+    "section": "1.2",
+    "type": "trap",
+    "answer": 0,
+    "vi": {
+      "q": "v và w là hai vectơ đơn vị bất kỳ. (v − 2w)·(v + 2w) bằng bao nhiêu?",
+      "options": [
+        "−3, với mọi góc giữa v và w",
+        "0, vì hai vectơ này luôn vuông góc",
+        "Phụ thuộc góc θ giữa v và w",
+        "−3, nhưng chỉ khi v vuông góc w"
+      ],
+      "why": [
+        "Khai triển: v·v + 2v·w − 2w·v − 4w·w = 1 − 4; hai số hạng chéo triệt nhau.",
+        "(v + w)·(v − w) mới bằng 0; ở đây hệ số 2 cho 1 − 4.",
+        "Các số hạng chứa v·w triệt tiêu, nên góc không ảnh hưởng.",
+        "Không cần vuông góc: v·w bị triệt dù bằng bao nhiêu."
+      ],
+      "explain": "(a − b)·(a + b) = ‖a‖² − ‖b‖² vì a·b = b·a. Với a = v, b = 2w: 1 − 4 = −3, bất kể góc."
+    },
+    "en": {
+      "q": "v and w are any two unit vectors. What is (v − 2w)·(v + 2w)?",
+      "options": [
+        "−3, for every angle between v and w",
+        "0, because these vectors are always perpendicular",
+        "It depends on the angle θ between v and w",
+        "−3, but only when v is perpendicular to w"
+      ],
+      "why": [
+        "Expand: v·v + 2v·w − 2w·v − 4w·w = 1 − 4; the cross terms cancel.",
+        "(v + w)·(v − w) is the one that equals 0; the factor 2 here gives 1 − 4.",
+        "The terms with v·w cancel, so the angle has no effect.",
+        "No perpendicularity needed: v·w cancels whatever it is."
+      ],
+      "explain": "(a − b)·(a + b) = ‖a‖² − ‖b‖² because a·b = b·a. With a = v, b = 2w: 1 − 4 = −3, whatever the angle."
+    },
+    "source": "Strang, Introduction to Linear Algebra 6th ed., Problem Set 1.2 #4 (lời giải của tác giả) — tự diễn đạt"
+  },
+  {
+    "id": "la1-dependent",
+    "chapter": "ch1",
+    "section": "1.3",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "A có các hàng (1, 2, 3), (3, 5, 6), (4, 7, 9). Khử xong, hai hàng dưới đều thành −x₂ − 3x₃ = 0. Các cột của A thế nào?",
+      "options": [
+        "Phụ thuộc: 3·cột 1 − 3·cột 2 + cột 3 = 0",
+        "Độc lập: không cột nào là bội của cột khác",
+        "Độc lập, vì A là ma trận vuông 3 × 3",
+        "Phụ thuộc: cột 3 = cột 1 + cột 2"
+      ],
+      "why": [
+        "Cho x₃ = 1 thì x₂ = −3, x₁ = 3: Ax = 0 với x = (3, −3, 1) ≠ 0.",
+        "Không có cặp cột tỉ lệ vẫn có thể phụ thuộc theo cả ba cột.",
+        "Vuông không bảo đảm độc lập; phải xem Ax = 0 có nghiệm khác 0 không.",
+        "cột 1 + cột 2 = (3, 8, 11) ≠ (3, 6, 9)."
+      ],
+      "explain": "Hai hàng sau khử trùng nhau nên chỉ có hai trụ, x₃ tự do. Nghiệm khác 0 của Ax = 0 chính là một tổ hợp các cột bằng 0: cột phụ thuộc, A không khả nghịch."
+    },
+    "en": {
+      "q": "A has rows (1, 2, 3), (3, 5, 6), (4, 7, 9). After elimination both lower rows become −x₂ − 3x₃ = 0. What about the columns of A?",
+      "options": [
+        "Dependent: 3·col 1 − 3·col 2 + col 3 = 0",
+        "Independent: no column is a multiple of another",
+        "Independent, because A is a square 3 × 3 matrix",
+        "Dependent: col 3 = col 1 + col 2"
+      ],
+      "why": [
+        "Take x₃ = 1, then x₂ = −3, x₁ = 3: Ax = 0 with x = (3, −3, 1) ≠ 0.",
+        "No proportional pair of columns, yet the three columns together can still be dependent.",
+        "Square does not guarantee independence; check whether Ax = 0 has a nonzero solution.",
+        "col 1 + col 2 = (3, 8, 11) ≠ (3, 6, 9)."
+      ],
+      "explain": "The two rows after elimination are equal, so there are only two pivots and x₃ is free. A nonzero solution of Ax = 0 is a combination of the columns giving 0: the columns are dependent and A is not invertible."
+    },
+    "check": {
+      "type": "solves",
+      "A": [
+        [
+          1,
+          2,
+          3
+        ],
+        [
+          3,
+          5,
+          6
+        ],
+        [
+          4,
+          7,
+          9
+        ]
+      ],
+      "x": [
+        3,
+        -3,
+        1
+      ]
+    },
+    "source": "Strang, Introduction to Linear Algebra 6th ed., Problem Set 1.3 #21 (lời giải của tác giả) — tự diễn đạt"
+  },
+  {
+    "id": "la1-col-comb",
+    "chapter": "ch1",
+    "section": "1.3",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "A có hai cột (2, 6, 2) và (1, 5, 4). b = (8, 28, 14) có thuộc không gian cột của A không?",
+      "options": [
+        "Có: b = 3·cột 1 + 2·cột 2",
+        "Không: hai cột không thể phủ R³",
+        "Có: b = 4·cột 1 + 0·cột 2",
+        "Không: 3 phương trình mà chỉ 2 ẩn"
+      ],
+      "why": [
+        "3(2, 6, 2) + 2(1, 5, 4) = (8, 28, 14), nên x = (3, 2) giải Ax = b.",
+        "Đúng là không phủ R³, nhưng b vẫn có thể nằm trên mặt phẳng hai cột sinh ra.",
+        "4·(2, 6, 2) = (8, 24, 8) ≠ b.",
+        "Nhiều phương trình hơn ẩn chỉ nghĩa là CÓ THỂ vô nghiệm, không chắc chắn."
+      ],
+      "explain": "b ∈ C(A) ⇔ Ax = b có nghiệm; hệ số của tổ hợp chính là x. Khử ma trận mở rộng: hàng cuối thành 0 = 0, nên có nghiệm x = (3, 2)."
+    },
+    "en": {
+      "q": "A has columns (2, 6, 2) and (1, 5, 4). Is b = (8, 28, 14) in the column space of A?",
+      "options": [
+        "Yes: b = 3·col 1 + 2·col 2",
+        "No: two columns cannot fill R³",
+        "Yes: b = 4·col 1 + 0·col 2",
+        "No: 3 equations but only 2 unknowns"
+      ],
+      "why": [
+        "3(2, 6, 2) + 2(1, 5, 4) = (8, 28, 14), so x = (3, 2) solves Ax = b.",
+        "True they do not fill R³, but b can still lie on the plane of the two columns.",
+        "4·(2, 6, 2) = (8, 24, 8) ≠ b.",
+        "More equations than unknowns means there MAY be no solution, not that there is none."
+      ],
+      "explain": "b ∈ C(A) ⇔ Ax = b is solvable; the coefficients of the combination are x. Eliminating the augmented matrix leaves the last row 0 = 0, so x = (3, 2) exists."
+    },
+    "check": {
+      "type": "solves",
+      "A": [
+        [
+          2,
+          1
+        ],
+        [
+          6,
+          5
+        ],
+        [
+          2,
+          4
+        ]
+      ],
+      "b": [
+        8,
+        28,
+        14
+      ],
+      "x": [
+        3,
+        2
+      ]
+    },
+    "source": "MIT OCW 18.06 Spring 2010, Quiz 1 (có lời giải), bài 4 — CC BY-NC-SA, tự diễn đạt"
+  },
+  {
+    "id": "la1-indep-mn",
+    "chapter": "ch1",
+    "section": "1.3",
+    "type": "why",
+    "answer": 0,
+    "vi": {
+      "q": "A là ma trận 4 × 7 (4 hàng, 7 cột). A có thể có 5 cột độc lập không?",
+      "options": [
+        "Không: cột nằm trong R⁴, tối đa 4 vectơ độc lập",
+        "Có: A có tới 7 cột để chọn",
+        "Có, nếu các phần tử của A được chọn ngẫu nhiên",
+        "Không: A không vuông nên không cột nào độc lập"
+      ],
+      "why": [
+        "Mỗi cột có 4 thành phần; 5 vectơ trong R⁴ luôn phụ thuộc.",
+        "Số cột nhiều không giúp: mọi cột vẫn nằm trong R⁴.",
+        "Ngẫu nhiên chỉ cho 4 cột độc lập là tối đa, không thể 5.",
+        "Không vuông vẫn có thể có tới 4 cột độc lập."
+      ],
+      "explain": "n cột độc lập trong Rᵐ thì n ≤ m. Ở đây m = 4 nên nhiều nhất 4 cột độc lập, hạng A ≤ 4; Ax = 0 luôn có nghiệm khác 0 vì 7 ẩn mà tối đa 4 trụ."
+    },
+    "en": {
+      "q": "A is a 4 × 7 matrix (4 rows, 7 columns). Can A have 5 independent columns?",
+      "options": [
+        "No: the columns lie in R⁴, at most 4 independent",
+        "Yes: A has as many as 7 columns to pick from",
+        "Yes, if the entries of A are chosen at random",
+        "No: A is not square, so no column is independent"
+      ],
+      "why": [
+        "Each column has 4 components; 5 vectors in R⁴ are always dependent.",
+        "Having many columns does not help: every column still lies in R⁴.",
+        "Random entries give at most 4 independent columns, never 5.",
+        "A non-square matrix can still have up to 4 independent columns."
+      ],
+      "explain": "n independent columns in Rᵐ force n ≤ m. Here m = 4, so at most 4 independent columns and rank A ≤ 4; Ax = 0 always has a nonzero solution since 7 unknowns meet at most 4 pivots."
+    },
+    "source": "Strang, Introduction to Linear Algebra 6th ed., Problem Set 1.4 #5 và 1.3 #16b (lời giải của tác giả) — tự diễn đạt"
+  },
+  {
+    "id": "la2-e-order",
+    "chapter": "ch2",
+    "section": "2.3",
+    "type": "compare",
+    "answer": 0,
+    "vi": {
+      "q": "A khử về I bằng ba bước theo thứ tự: E₂₁ (hàng 2 − 4·hàng 1), E₃₁ (hàng 3 − 3·hàng 1), E₂₃ (hàng 2 − hàng 3). A⁻¹ bằng tích nào?",
+      "options": [
+        "E₂₃E₃₁E₂₁",
+        "E₂₁E₃₁E₂₃",
+        "E₂₁⁻¹E₃₁⁻¹E₂₃⁻¹",
+        "E₂₃⁻¹E₃₁⁻¹E₂₁⁻¹"
+      ],
+      "why": [
+        "E₂₃E₃₁E₂₁A = I; bước làm trước đứng sát A nhất, nên A⁻¹ = E₂₃E₃₁E₂₁.",
+        "Viết theo thứ tự làm là sai: phép nhân ma trận tác động từ phải sang trái.",
+        "Tích này bằng chính A (làm ngược các bước), không phải A⁻¹.",
+        "Đây là nghịch đảo theo sai thứ tự; không bằng A cũng không bằng A⁻¹."
+      ],
+      "explain": "Áp ba phép lên I theo đúng thứ tự: I → E₂₁ → E₃₁E₂₁ → E₂₃E₃₁E₂₁ = A⁻¹, ra hàng (1, 0, 0), (−1, 1, −1), (−3, 0, 1)."
+    },
+    "en": {
+      "q": "A reduces to I by three steps in order: E₂₁ (row 2 − 4·row 1), E₃₁ (row 3 − 3·row 1), E₂₃ (row 2 − row 3). Which product is A⁻¹?",
+      "options": [
+        "E₂₃E₃₁E₂₁",
+        "E₂₁E₃₁E₂₃",
+        "E₂₁⁻¹E₃₁⁻¹E₂₃⁻¹",
+        "E₂₃⁻¹E₃₁⁻¹E₂₁⁻¹"
+      ],
+      "why": [
+        "E₂₃E₃₁E₂₁A = I; the first step sits next to A, so A⁻¹ = E₂₃E₃₁E₂₁.",
+        "Writing them in the order performed is wrong: matrix products act from right to left.",
+        "That product equals A itself (undoing the steps), not A⁻¹.",
+        "Those are inverses in the wrong order; this is neither A nor A⁻¹."
+      ],
+      "explain": "Apply the three steps to I in order: I → E₂₁ → E₃₁E₂₁ → E₂₃E₃₁E₂₁ = A⁻¹, with rows (1, 0, 0), (−1, 1, −1), (−3, 0, 1)."
+    },
+    "check": {
+      "type": "inverse",
+      "A": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          4,
+          1,
+          1
+        ],
+        [
+          3,
+          0,
+          1
+        ]
+      ],
+      "inv": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          -1,
+          1,
+          -1
+        ],
+        [
+          -3,
+          0,
+          1
+        ]
+      ]
+    },
+    "source": "MIT OCW 18.06SC Fall 2011, Unit 1 Exam (có lời giải), bài 2a — CC BY-NC-SA, tự diễn đạt"
+  },
+  {
+    "id": "la2-recover-a",
+    "chapter": "ch2",
+    "section": "2.5",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "A khử về I bằng ba bước theo thứ tự: hàng 2 − 4·hàng 1, hàng 3 − 3·hàng 1, hàng 2 − hàng 3. Hàng 2 của A là gì?",
+      "options": [
+        "(4, 1, 1)",
+        "(7, 1, 1)",
+        "(−1, 1, −1)",
+        "(4, 1, 0)"
+      ],
+      "why": [
+        "A = E₂₁⁻¹E₃₁⁻¹E₂₃⁻¹: làm các phép ngược theo thứ tự ngược lên I, hàng 2 thành (4, 1, 1).",
+        "Làm các phép ngược sai thứ tự (E₂₃⁻¹E₃₁⁻¹E₂₁⁻¹): hàng 3 đã bị cộng 3·hàng 1 trước khi cộng vào hàng 2.",
+        "Đó là hàng 2 của A⁻¹, không phải của A.",
+        "Đó là hàng 2 của L; A còn chịu thêm E₂₃."
+      ],
+      "explain": "Từ I: cộng hàng 3 vào hàng 2 (ngược E₂₃), cộng 3·hàng 1 vào hàng 3, cộng 4·hàng 1 vào hàng 2 ⇒ A có hàng (1, 0, 0), (4, 1, 1), (3, 0, 1). Kiểm: A·A⁻¹ = I."
+    },
+    "en": {
+      "q": "A reduces to I by three steps in order: row 2 − 4·row 1, row 3 − 3·row 1, row 2 − row 3. What is row 2 of A?",
+      "options": [
+        "(4, 1, 1)",
+        "(7, 1, 1)",
+        "(−1, 1, −1)",
+        "(4, 1, 0)"
+      ],
+      "why": [
+        "A = E₂₁⁻¹E₃₁⁻¹E₂₃⁻¹: apply the inverse steps to I in reverse order; row 2 becomes (4, 1, 1).",
+        "That applies the inverse steps in the wrong order (E₂₃⁻¹E₃₁⁻¹E₂₁⁻¹): row 3 already got 3·row 1 before being added to row 2.",
+        "That is row 2 of A⁻¹, not of A.",
+        "That is row 2 of L; A also carries E₂₃."
+      ],
+      "explain": "From I: add row 3 to row 2 (undo E₂₃), add 3·row 1 to row 3, add 4·row 1 to row 2 ⇒ A has rows (1, 0, 0), (4, 1, 1), (3, 0, 1). Check: A·A⁻¹ = I."
+    },
+    "check": {
+      "type": "inverse",
+      "A": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          4,
+          1,
+          1
+        ],
+        [
+          3,
+          0,
+          1
+        ]
+      ],
+      "inv": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          -1,
+          1,
+          -1
+        ],
+        [
+          -3,
+          0,
+          1
+        ]
+      ]
+    },
+    "source": "MIT OCW 18.06SC Fall 2011, Unit 1 Exam (có lời giải), bài 2b — CC BY-NC-SA, tự diễn đạt"
+  },
+  {
+    "id": "la2-lu",
+    "chapter": "ch2",
+    "section": "2.6",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "A có hàng (1, 0, 0), (4, 1, 1), (3, 0, 1); khử xuôi dùng ℓ₂₁ = 4, ℓ₃₁ = 3. Trong A = LU, L là gì?",
+      "options": [
+        "Hàng (1, 0, 0), (4, 1, 0), (3, 0, 1)",
+        "Hàng (1, 4, 3), (0, 1, 0), (0, 0, 1)",
+        "Hàng (1, 0, 0), (4, 1, 1), (3, 0, 1)",
+        "Hàng (1, 0, 0), (−1, 1, −1), (−3, 0, 1)"
+      ],
+      "why": [
+        "L = E₂₁⁻¹E₃₁⁻¹: các hệ số nhân ℓ nằm nguyên chỗ, đúng dấu; U có hàng (1, 0, 0), (0, 1, 1), (0, 0, 1).",
+        "Hệ số nhân ℓᵢⱼ nằm ở hàng i, cột j — dưới đường chéo; ma trận này lại tam giác trên.",
+        "Đó là chính A; L phải tam giác dưới.",
+        "Đó là A⁻¹; E₂₃ khử ngược lên nên không thuộc L."
+      ],
+      "explain": "Khử xuôi chỉ cần E₂₁, E₃₁ để ra U tam giác trên. L giữ các hệ số nhân 4, 3 ở vị trí (2, 1), (3, 1). Kiểm: LU = A."
+    },
+    "en": {
+      "q": "A has rows (1, 0, 0), (4, 1, 1), (3, 0, 1); forward elimination uses ℓ₂₁ = 4, ℓ₃₁ = 3. In A = LU, what is L?",
+      "options": [
+        "Rows (1, 0, 0), (4, 1, 0), (3, 0, 1)",
+        "Rows (1, 4, 3), (0, 1, 0), (0, 0, 1)",
+        "Rows (1, 0, 0), (4, 1, 1), (3, 0, 1)",
+        "Rows (1, 0, 0), (−1, 1, −1), (−3, 0, 1)"
+      ],
+      "why": [
+        "L = E₂₁⁻¹E₃₁⁻¹: the multipliers ℓ sit in place with their signs; U has rows (1, 0, 0), (0, 1, 1), (0, 0, 1).",
+        "The multiplier ℓᵢⱼ sits in row i, column j, below the diagonal; this matrix is upper triangular.",
+        "That is A itself; L must be lower triangular.",
+        "That is A⁻¹; E₂₃ eliminates upward, so it is not part of L."
+      ],
+      "explain": "Forward elimination needs only E₂₁, E₃₁ to reach an upper triangular U. L keeps the multipliers 4, 3 at positions (2, 1), (3, 1). Check: LU = A."
+    },
+    "check": {
+      "type": "product",
+      "A": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          4,
+          1,
+          0
+        ],
+        [
+          3,
+          0,
+          1
+        ]
+      ],
+      "B": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          1
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "C": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          4,
+          1,
+          1
+        ],
+        [
+          3,
+          0,
+          1
+        ]
+      ]
+    },
+    "source": "MIT OCW 18.06SC Fall 2011, Unit 1 Exam (có lời giải), bài 2c — CC BY-NC-SA, tự diễn đạt"
+  },
+  {
+    "id": "la2-back-b",
+    "chapter": "ch2",
+    "section": "2.3",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "Khử Ax = b bằng: hàng 2 − 3·hàng 1, rồi hàng 3 − 5·hàng 1, được vế phải d = (4, 0, 0). b ban đầu là gì?",
+      "options": [
+        "(4, 12, 20)",
+        "(4, 20, 12)",
+        "(4, 0, 0)",
+        "(4, 3, 5)"
+      ],
+      "why": [
+        "d = Eb với E = E₃₁E₂₁, nên b = E⁻¹d; E⁻¹ có hàng (1, 0, 0), (3, 1, 0), (5, 0, 1).",
+        "Nhầm cặp: hệ số 3 đi với hàng 2, hệ số 5 đi với hàng 3.",
+        "Phép khử có đổi vế phải; b và d khác nhau.",
+        "Chỉ chép các hệ số nhân, quên nhân với d₁ = 4."
+      ],
+      "explain": "Đi ngược phép khử: b₁ = 4, b₂ = 0 + 3·4 = 12, b₃ = 0 + 5·4 = 20. Cùng cách đó, A = E⁻¹R."
+    },
+    "en": {
+      "q": "Elimination on Ax = b does row 2 − 3·row 1, then row 3 − 5·row 1, giving the right side d = (4, 0, 0). What was the original b?",
+      "options": [
+        "(4, 12, 20)",
+        "(4, 20, 12)",
+        "(4, 0, 0)",
+        "(4, 3, 5)"
+      ],
+      "why": [
+        "d = Eb with E = E₃₁E₂₁, so b = E⁻¹d; E⁻¹ has rows (1, 0, 0), (3, 1, 0), (5, 0, 1).",
+        "Mixed up the pairs: multiplier 3 belongs to row 2, multiplier 5 to row 3.",
+        "Elimination changes the right side; b and d differ.",
+        "That copies the multipliers and forgets to multiply by d₁ = 4."
+      ],
+      "explain": "Run elimination backward: b₁ = 4, b₂ = 0 + 3·4 = 12, b₃ = 0 + 5·4 = 20. The same way, A = E⁻¹R."
+    },
+    "check": {
+      "type": "product",
+      "A": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          3,
+          1,
+          0
+        ],
+        [
+          5,
+          0,
+          1
+        ]
+      ],
+      "B": [
+        [
+          4
+        ],
+        [
+          0
+        ],
+        [
+          0
+        ]
+      ],
+      "C": [
+        [
+          4
+        ],
+        [
+          12
+        ],
+        [
+          20
+        ]
+      ]
+    },
+    "source": "MIT OCW 18.06 Spring 2010, Quiz 1 (có lời giải), bài 1b — CC BY-NC-SA, tự diễn đạt"
+  },
+  {
+    "id": "la2-cr-rc",
+    "chapter": "ch2",
+    "section": "2.4",
+    "type": "compare",
+    "answer": 0,
+    "vi": {
+      "q": "C là cột (1, 3), R là hàng (2, 4). So sánh CR và RC.",
+      "options": [
+        "CR là ma trận 2 × 2, RC là số 14",
+        "CR = RC vì cùng hai thừa số",
+        "CR là số 14, RC là ma trận 2 × 2",
+        "Chỉ nhân được CR, không nhân được RC"
+      ],
+      "why": [
+        "(2 × 1)(1 × 2) cho 2 × 2 = hàng (2, 4), (6, 12); (1 × 2)(2 × 1) cho 1 × 1 = 2 + 12.",
+        "Phép nhân ma trận không giao hoán; ở đây đến kích thước cũng khác.",
+        "Đảo ngược: cột nhân hàng mới ra ma trận.",
+        "RC nhân được: số cột của R (2) bằng số hàng của C (2)."
+      ],
+      "explain": "Cột × hàng cho ma trận hạng 1; hàng × cột cho tích vô hướng. AB và BA có thể khác cả kích thước — một lý do AB ≠ BA."
+    },
+    "en": {
+      "q": "C is the column (1, 3) and R is the row (2, 4). Compare CR and RC.",
+      "options": [
+        "CR is a 2 × 2 matrix, RC is the number 14",
+        "CR = RC since the factors are the same",
+        "CR is the number 14, RC is a 2 × 2 matrix",
+        "Only CR can be multiplied, RC cannot"
+      ],
+      "why": [
+        "(2 × 1)(1 × 2) gives 2 × 2 = rows (2, 4), (6, 12); (1 × 2)(2 × 1) gives 1 × 1 = 2 + 12.",
+        "Matrix multiplication does not commute; here even the sizes differ.",
+        "Reversed: column times row is the one giving a matrix.",
+        "RC works: R has 2 columns and C has 2 rows."
+      ],
+      "explain": "Column times row gives a rank-1 matrix; row times column gives a dot product. AB and BA can differ even in size — one reason AB ≠ BA."
+    },
+    "check": {
+      "type": "product",
+      "A": [
+        [
+          1
+        ],
+        [
+          3
+        ]
+      ],
+      "B": [
+        [
+          2,
+          4
+        ]
+      ],
+      "C": [
+        [
+          2,
+          4
+        ],
+        [
+          6,
+          12
+        ]
+      ]
+    },
+    "source": "Strang, Introduction to Linear Algebra 6th ed., Problem Set 1.4 #13 (lời giải của tác giả) — tự diễn đạt"
+  },
+  {
+    "id": "la2-commute-all",
+    "chapter": "ch2",
+    "section": "2.4",
+    "type": "why",
+    "answer": 0,
+    "vi": {
+      "q": "Ma trận 2 × 2 A thoả AB = BA với MỌI ma trận 2 × 2 B. A phải có dạng nào?",
+      "options": [
+        "A = cI, bội của ma trận đơn vị",
+        "A là ma trận khả nghịch bất kỳ",
+        "A là ma trận đối xứng bất kỳ",
+        "A là ma trận chéo bất kỳ"
+      ],
+      "why": [
+        "Thử B có một số 1 ở góc (1, 1) ép hai phần tử ngoài chéo bằng 0; thử B có số 1 ở (1, 2) ép hai phần tử chéo bằng nhau.",
+        "Khả nghịch không đủ: phần lớn cặp khả nghịch không giao hoán.",
+        "Đối xứng không đủ: hai ma trận đối xứng thường không giao hoán.",
+        "Chéo chưa đủ: A chéo (1, 2) nhân B có số 1 ở (1, 2) cho 1 một bên, 2 bên kia."
+      ],
+      "explain": "Giao hoán với mọi B là điều kiện rất mạnh. Chọn khéo B để đọc từng phần tử của A: ngoài chéo bằng 0, hai phần tử chéo bằng nhau ⇒ A = cI."
+    },
+    "en": {
+      "q": "A 2 × 2 matrix A satisfies AB = BA for EVERY 2 × 2 matrix B. What must A look like?",
+      "options": [
+        "A = cI (a multiple of I)",
+        "A is any invertible matrix",
+        "A is any symmetric matrix",
+        "A is any diagonal matrix"
+      ],
+      "why": [
+        "B with a single 1 at (1, 1) forces the off-diagonal entries to 0; B with a single 1 at (1, 2) forces the diagonal entries to be equal.",
+        "Invertible is not enough: most invertible pairs do not commute.",
+        "Symmetric is not enough: two symmetric matrices usually do not commute.",
+        "Diagonal is not enough: A = diag(1, 2) with B having a 1 at (1, 2) gives 1 on one side, 2 on the other."
+      ],
+      "explain": "Commuting with every B is a strong condition. Clever choices of B read off the entries of A: off-diagonal 0, equal diagonal ⇒ A = cI."
+    },
+    "check": {
+      "type": "product",
+      "A": [
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          2
+        ]
+      ],
+      "B": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "C": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    "source": "Strang, Introduction to Linear Algebra 6th ed., Problem Set 1.4 #17c (lời giải của tác giả) — tự diễn đạt"
+  },
+  {
+    "id": "la3-colspace",
+    "chapter": "ch3",
+    "section": "3.1",
+    "type": "trap",
+    "answer": 0,
+    "vi": {
+      "q": "A có hàng (0, 1, 2, 2), (0, 3, 8, 7), (0, 0, 4, 2). Mô tả không gian cột C(A).",
+      "options": [
+        "Mặt phẳng trong R³ sinh bởi cột 2 và cột 3",
+        "Toàn bộ R³, vì A có 4 cột",
+        "Mặt phẳng sinh bởi cột 1 và cột 2",
+        "Một mặt phẳng nằm trong R⁴"
+      ],
+      "why": [
+        "Hạng 2, trụ ở cột 2 và 3: C(A) = tổ hợp của (1, 3, 0) và (2, 8, 4).",
+        "Số cột không quyết định: chỉ có 2 trụ nên C(A) 2 chiều.",
+        "Cột 1 là vectơ 0, không góp gì vào không gian cột.",
+        "Cột có 3 thành phần nên C(A) nằm trong R³, không phải R⁴."
+      ],
+      "explain": "“Mọi tổ hợp của bốn cột” chưa đủ: khử cho thấy chỉ cột 2, 3 là cột trụ, các cột khác là tổ hợp của chúng. C(A) là mặt phẳng trong R³."
+    },
+    "en": {
+      "q": "A has rows (0, 1, 2, 2), (0, 3, 8, 7), (0, 0, 4, 2). Describe the column space C(A).",
+      "options": [
+        "A plane in R³ spanned by columns 2 and 3",
+        "All of R³, since A has 4 columns",
+        "The plane spanned by columns 1 and 2",
+        "A plane that lies in R⁴"
+      ],
+      "why": [
+        "Rank 2, pivots in columns 2 and 3: C(A) = combinations of (1, 3, 0) and (2, 8, 4).",
+        "The number of columns does not decide it: only 2 pivots, so C(A) is 2-dimensional.",
+        "Column 1 is the zero vector and adds nothing to the column space.",
+        "Columns have 3 components, so C(A) lies in R³, not R⁴."
+      ],
+      "explain": "“All combinations of the four columns” is not enough: elimination shows only columns 2, 3 are pivot columns, the others are combinations of them. C(A) is a plane in R³."
+    },
+    "check": {
+      "type": "dims",
+      "A": [
+        [
+          0,
+          1,
+          2,
+          2
+        ],
+        [
+          0,
+          3,
+          8,
+          7
+        ],
+        [
+          0,
+          0,
+          4,
+          2
+        ]
+      ],
+      "rank": 2
+    },
+    "source": "MIT OCW 18.06 Spring 2010, Quiz 1 (có lời giải), bài 2b — CC BY-NC-SA, tự diễn đạt"
+  },
+  {
+    "id": "la3-special",
+    "chapter": "ch3",
+    "section": "3.2",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "A có hàng (0, 1, 2, 2), (0, 3, 8, 7), (0, 0, 4, 2). Không gian nghiệm N(A) là gì?",
+      "options": [
+        "Mặt phẳng trong R⁴ sinh bởi (1, 0, 0, 0) và (0, −1, −1/2, 1)",
+        "Chỉ có vectơ 0, vì A có 3 hàng khác 0",
+        "Đường thẳng trong R⁴ sinh bởi (0, −1, −1/2, 1)",
+        "Mặt phẳng trong R³ sinh bởi (1, 3, 0) và (2, 8, 4)"
+      ],
+      "why": [
+        "Biến tự do x₁, x₄; mỗi biến tự do cho một nghiệm đặc biệt, nên N(A) 2 chiều trong R⁴.",
+        "Khử xong chỉ còn 2 hàng khác 0 (hạng 2), nên có 4 − 2 = 2 biến tự do.",
+        "Quên biến tự do x₁: cột 1 bằng 0 nên x₁ tự do, cho nghiệm (1, 0, 0, 0).",
+        "Đó là không gian cột C(A), nằm trong R³."
+      ],
+      "explain": "rref(A) có hàng (0, 1, 0, 1), (0, 0, 1, 1/2), (0, 0, 0, 0). Cho lần lượt một biến tự do bằng 1, biến kia bằng 0 để được hai nghiệm đặc biệt."
+    },
+    "en": {
+      "q": "A has rows (0, 1, 2, 2), (0, 3, 8, 7), (0, 0, 4, 2). What is the nullspace N(A)?",
+      "options": [
+        "A plane in R⁴ spanned by (1, 0, 0, 0) and (0, −1, −1/2, 1)",
+        "Only the zero vector, since A has 3 nonzero rows",
+        "The line in R⁴ spanned by (0, −1, −1/2, 1)",
+        "The plane in R³ spanned by (1, 3, 0) and (2, 8, 4)"
+      ],
+      "why": [
+        "Free variables x₁, x₄; each gives one special solution, so N(A) is 2-dimensional in R⁴.",
+        "After elimination only 2 rows are nonzero (rank 2), so there are 4 − 2 = 2 free variables.",
+        "This forgets the free variable x₁: column 1 is zero, so x₁ is free and gives (1, 0, 0, 0).",
+        "That is the column space C(A), which lives in R³."
+      ],
+      "explain": "rref(A) has rows (0, 1, 0, 1), (0, 0, 1, 1/2), (0, 0, 0, 0). Set one free variable to 1 and the other to 0, in turn, to get the two special solutions."
+    },
+    "check": {
+      "type": "solves",
+      "A": [
+        [
+          0,
+          1,
+          2,
+          2
+        ],
+        [
+          0,
+          3,
+          8,
+          7
+        ],
+        [
+          0,
+          0,
+          4,
+          2
+        ]
+      ],
+      "x": [
+        0,
+        -1,
+        -0.5,
+        1
+      ]
+    },
+    "source": "MIT OCW 18.06 Spring 2010, Quiz 1 (có lời giải), bài 2a — CC BY-NC-SA, tự diễn đạt"
+  },
+  {
+    "id": "la3-block",
+    "chapter": "ch3",
+    "section": "3.3",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "R = rref(A). Ma trận khối B có hai hàng khối (A, A) và (A, A). rref(B) là gì?",
+      "options": [
+        "Hai hàng khối (R, R) và (0, 0)",
+        "Hai hàng khối (R, 0) và (0, R)",
+        "Hai hàng khối (R, R) và (R, R)",
+        "Hai hàng khối (I, I) và (0, 0)"
+      ],
+      "why": [
+        "Trừ nửa trên khỏi nửa dưới được (0, 0); nửa trên (A, A) khử như A nên thành (R, R).",
+        "Khối bên phải là bản sao của khối trái, không thể thành 0 khi khối trái là R.",
+        "Nửa dưới trùng nửa trên nên bị khử hết thành 0.",
+        "R chỉ là I khi A vuông khả nghịch; A ở đây tuỳ ý."
+      ],
+      "explain": "Các phép hàng tác động giống nhau lên hai khối cột (A và bản sao A). Nửa dưới lặp nửa trên nên thành hàng 0: rank B = rank A."
+    },
+    "en": {
+      "q": "R = rref(A). The block matrix B has block rows (A, A) and (A, A). What is rref(B)?",
+      "options": [
+        "Block rows (R, R) and (0, 0)",
+        "Block rows (R, 0) and (0, R)",
+        "Block rows (R, R) and (R, R)",
+        "Block rows (I, I) and (0, 0)"
+      ],
+      "why": [
+        "Subtract the top half from the bottom to get (0, 0); the top (A, A) reduces like A to (R, R).",
+        "The right block copies the left one, so it cannot become 0 while the left becomes R.",
+        "The bottom half repeats the top half, so it is eliminated to 0.",
+        "R is I only when A is square and invertible; here A is arbitrary."
+      ],
+      "explain": "Row operations act the same way on both column blocks (A and its copy). The bottom half repeats the top, so it becomes zero rows: rank B = rank A."
+    },
+    "check": {
+      "type": "dims",
+      "A": [
+        [
+          0,
+          1,
+          2,
+          2,
+          0,
+          1,
+          2,
+          2
+        ],
+        [
+          0,
+          3,
+          8,
+          7,
+          0,
+          3,
+          8,
+          7
+        ],
+        [
+          0,
+          0,
+          4,
+          2,
+          0,
+          0,
+          4,
+          2
+        ],
+        [
+          0,
+          1,
+          2,
+          2,
+          0,
+          1,
+          2,
+          2
+        ],
+        [
+          0,
+          3,
+          8,
+          7,
+          0,
+          3,
+          8,
+          7
+        ],
+        [
+          0,
+          0,
+          4,
+          2,
+          0,
+          0,
+          4,
+          2
+        ]
+      ],
+      "rank": 2
+    },
+    "source": "MIT OCW 18.06 Spring 2010, Quiz 1 (có lời giải), bài 2c — CC BY-NC-SA, tự diễn đạt"
+  },
+  {
+    "id": "la3-rank-c",
+    "chapter": "ch3",
+    "section": "3.3",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "A có hàng (1, 1, 2, 4), (3, c, 2, 8), (0, 0, 2, 2). Với c nào thì hạng A là 2, và khi đó cơ sở của C(A)?",
+      "options": [
+        "c = 3; cột 1 và cột 3 của A",
+        "c = 3; cột 1 và cột 2 của A",
+        "c = 0; cột 1 và cột 3 của A",
+        "Không có c nào; hạng luôn là 3"
+      ],
+      "why": [
+        "Hàng 2 − 3·hàng 1 = (0, c − 3, −4, −4). c = 3 thì cột 2 mất trụ và hàng 3 bị khử hết: trụ ở cột 1, 3.",
+        "Khi c = 3, cột 2 = cột 1 nên không phải cột trụ.",
+        "c = 0 cho c − 3 = −3 ≠ 0, cột 2 có trụ, hạng 3.",
+        "c = 3 làm hàng 3 thành 0 sau khử, hạng giảm còn 2."
+      ],
+      "explain": "Trụ thứ hai là c − 3. c ≠ 3: ba trụ (cột 1, 2, 3), hạng 3. c = 3: hàng 3 = −½·hàng 2 mới, chỉ còn trụ ở cột 1 và 3. Cơ sở lấy CỘT CỦA A tại vị trí trụ."
+    },
+    "en": {
+      "q": "A has rows (1, 1, 2, 4), (3, c, 2, 8), (0, 0, 2, 2). For which c is rank A = 2, and what is then a basis of C(A)?",
+      "options": [
+        "c = 3; columns 1 and 3 of A",
+        "c = 3; columns 1 and 2 of A",
+        "c = 0; columns 1 and 3 of A",
+        "No c works; the rank is always 3"
+      ],
+      "why": [
+        "Row 2 − 3·row 1 = (0, c − 3, −4, −4). For c = 3 column 2 loses its pivot and row 3 is eliminated: pivots in columns 1, 3.",
+        "For c = 3, column 2 equals column 1, so it is not a pivot column.",
+        "c = 0 gives c − 3 = −3 ≠ 0, a pivot in column 2, rank 3.",
+        "c = 3 turns row 3 into zeros after elimination, dropping the rank to 2."
+      ],
+      "explain": "The second pivot is c − 3. c ≠ 3: three pivots (columns 1, 2, 3), rank 3. c = 3: row 3 = −½·new row 2, pivots only in columns 1 and 3. The basis uses the COLUMNS OF A at the pivot positions."
+    },
+    "check": {
+      "type": "dims",
+      "A": [
+        [
+          1,
+          1,
+          2,
+          4
+        ],
+        [
+          3,
+          3,
+          2,
+          8
+        ],
+        [
+          0,
+          0,
+          2,
+          2
+        ]
+      ],
+      "rank": 2
+    },
+    "source": "MIT OCW 18.06SC Fall 2011, Unit 1 Exam (có lời giải), bài 3a — CC BY-NC-SA, tự diễn đạt"
+  },
+  {
+    "id": "la3-full-row",
+    "chapter": "ch3",
+    "section": "3.4",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "A là ma trận 3 × 5 có hạng r = 3. Phương trình Ax = b thì sao?",
+      "options": [
+        "Luôn có vô số nghiệm, với mọi b",
+        "Luôn có đúng một nghiệm",
+        "Có b thì vô nghiệm, có b thì vô số nghiệm",
+        "Luôn vô nghiệm vì nhiều ẩn hơn phương trình"
+      ],
+      "why": [
+        "r = m = 3 nên C(A) = R³ (mọi b đều giải được); dim N(A) = 5 − 3 = 2 nên nghiệm không duy nhất.",
+        "Duy nhất cần N(A) = 0, tức r = n = 5; ở đây r = 3.",
+        "Vô nghiệm chỉ xảy ra khi r nhỏ hơn m; ở đây r = m.",
+        "Nhiều ẩn hơn phương trình làm nghiệm nhiều hơn, không làm mất nghiệm."
+      ],
+      "explain": "Hạng đủ theo hàng (r = m) ⇒ luôn có nghiệm; r nhỏ hơn n ⇒ có biến tự do ⇒ vô số nghiệm. Nghiệm tổng quát = x riêng + mặt phẳng 2 chiều N(A) trong R⁵."
+    },
+    "en": {
+      "q": "A is a 3 × 5 matrix with rank r = 3. What about the equation Ax = b?",
+      "options": [
+        "Always infinitely many solutions, for every b",
+        "Always exactly one solution",
+        "Some b give none, others give infinitely many",
+        "Never solvable, since there are more unknowns than equations"
+      ],
+      "why": [
+        "r = m = 3 so C(A) = R³ (every b is reachable); dim N(A) = 5 − 3 = 2, so the solution is not unique.",
+        "Uniqueness needs N(A) = 0, i.e. r = n = 5; here r = 3.",
+        "No solution can only happen when r is less than m; here r = m.",
+        "More unknowns than equations gives more solutions, not fewer."
+      ],
+      "explain": "Full row rank (r = m) ⇒ always solvable; r less than n ⇒ free variables ⇒ infinitely many solutions. Complete solution = particular x + the 2-dimensional N(A) in R⁵."
+    },
+    "check": {
+      "type": "dims",
+      "A": [
+        [
+          1,
+          0,
+          0,
+          1,
+          2
+        ],
+        [
+          0,
+          1,
+          0,
+          3,
+          4
+        ],
+        [
+          0,
+          0,
+          1,
+          5,
+          6
+        ]
+      ],
+      "rank": 3,
+      "nullDim": 2
+    },
+    "source": "MIT OCW 18.06 Spring 2010, Quiz 1 (có lời giải), bài 3 — CC BY-NC-SA, tự diễn đạt"
+  },
+  {
+    "id": "la3-mnr",
+    "chapter": "ch3",
+    "section": "3.4",
+    "type": "why",
+    "answer": 0,
+    "vi": {
+      "q": "A là m × n. Ax = (1, 1, 1) vô nghiệm, còn Ax = (0, 1, 0) có đúng một nghiệm. Kết luận gì về m, n, hạng r?",
+      "options": [
+        "m = 3, r = n = 1 hoặc 2",
+        "m = n = r = 3",
+        "m = 3, r = 3, còn n tuỳ ý",
+        "m = 3 và r nhỏ hơn n"
+      ],
+      "why": [
+        "Đúng một nghiệm ⇒ N(A) = 0 ⇒ r = n. Có b vô nghiệm ⇒ C(A) ≠ R³ ⇒ r nhỏ hơn m = 3.",
+        "r = 3 = m thì mọi b đều giải được, mâu thuẫn với (1, 1, 1).",
+        "r = 3 = m cũng mâu thuẫn như trên.",
+        "r nhỏ hơn n thì có biến tự do, không thể có đúng một nghiệm."
+      ],
+      "explain": "m = 3 vì Ax nằm trong R³. Duy nhất ⇒ r = n; có vế phải vô nghiệm ⇒ r nhỏ hơn 3. Vậy (m, r = n) là (3, 1) hoặc (3, 2); nghiệm duy nhất của Ax = 0 là x = 0."
+    },
+    "en": {
+      "q": "A is m × n. Ax = (1, 1, 1) has no solution, while Ax = (0, 1, 0) has exactly one. What follows about m, n and the rank r?",
+      "options": [
+        "m = 3, r = n = 1 or 2",
+        "m = n = r = 3",
+        "m = 3, r = 3, and n is arbitrary",
+        "m = 3 and r is less than n"
+      ],
+      "why": [
+        "Exactly one solution ⇒ N(A) = 0 ⇒ r = n. Some b unsolvable ⇒ C(A) ≠ R³ ⇒ r less than m = 3.",
+        "r = 3 = m would make every b solvable, contradicting (1, 1, 1).",
+        "r = 3 = m gives the same contradiction.",
+        "r less than n means free variables, so never exactly one solution."
+      ],
+      "explain": "m = 3 because Ax lies in R³. Unique ⇒ r = n; an unsolvable right side ⇒ r less than 3. So (m, r = n) is (3, 1) or (3, 2); the only solution of Ax = 0 is x = 0."
+    },
+    "check": {
+      "type": "system",
+      "A": [
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "b": [
+        1,
+        1,
+        1
+      ],
+      "kind": "none"
+    },
+    "source": "MIT OCW 18.06SC Fall 2011, Unit 1 Exam (có lời giải), bài 1 — CC BY-NC-SA, tự diễn đạt"
+  },
+  {
+    "id": "la3-rref-cols",
+    "chapter": "ch3",
+    "section": "3.5",
+    "type": "trap",
+    "answer": 0,
+    "vi": {
+      "q": "A là 3 × 5 và rref(A) có hàng (1, 4, 0, 0, 0), (0, 0, 0, 1, 0), (0, 0, 0, 0, 1). Biết gì về các cột của A?",
+      "options": [
+        "Cột 1, 4, 5 của A là cơ sở của C(A)",
+        "Cột 1, 4, 5 của R là cơ sở của C(A)",
+        "Cột 1, 2, 3 của A là cơ sở của C(A)",
+        "Không biết gì, vì phép hàng làm đổi các cột"
+      ],
+      "why": [
+        "Phép hàng giữ nguyên quan hệ tuyến tính giữa các cột: trụ ở cột 1, 4, 5; R cho cột 2 = 4·cột 1, cột 3 = 0.",
+        "C(R) khác C(A) nói chung; cơ sở phải lấy từ cột của A.",
+        "Cột 2 là bội của cột 1 và cột 3 bằng 0, nên không độc lập.",
+        "Phép hàng đổi cột nhưng giữ nguyên các quan hệ giữa chúng — đủ để suy ra nhiều điều."
+      ],
+      "explain": "Ax = 0 và Rx = 0 cùng nghiệm, nên cột nào của R là tổ hợp của cột nào thì cột của A cũng vậy. Hạng 3 = m ⇒ C(A) = R³."
+    },
+    "en": {
+      "q": "A is 3 × 5 and rref(A) has rows (1, 4, 0, 0, 0), (0, 0, 0, 1, 0), (0, 0, 0, 0, 1). What do we know about the columns of A?",
+      "options": [
+        "Columns 1, 4, 5 of A are a basis of C(A)",
+        "Columns 1, 4, 5 of R are a basis of C(A)",
+        "Columns 1, 2, 3 of A are a basis of C(A)",
+        "Nothing, since row operations change the columns"
+      ],
+      "why": [
+        "Row operations keep the linear relations among columns: pivots in columns 1, 4, 5; R shows col 2 = 4·col 1, col 3 = 0.",
+        "C(R) differs from C(A) in general; the basis must come from the columns of A.",
+        "Column 2 is a multiple of column 1 and column 3 is zero, so they are not independent.",
+        "Row operations change columns but keep their relations — enough to conclude a lot."
+      ],
+      "explain": "Ax = 0 and Rx = 0 have the same solutions, so whatever combination relates columns of R also relates columns of A. Rank 3 = m ⇒ C(A) = R³."
+    },
+    "check": {
+      "type": "dims",
+      "A": [
+        [
+          1,
+          4,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "rank": 3,
+      "nullDim": 2
+    },
+    "source": "MIT OCW 18.06SC Fall 2011, Unit 1 Exam (có lời giải), bài 4a–b — CC BY-NC-SA, tự diễn đạt"
+  },
+  {
+    "id": "la3-four-dims",
+    "chapter": "ch3",
+    "section": "3.6",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "A (3 × 4) có hàng (0, 1, 2, 2), (0, 3, 8, 7), (0, 0, 4, 2), hạng 2. Số chiều của C(A), N(A), C(Aᵀ), N(Aᵀ)?",
+      "options": [
+        "2, 2, 2, 1",
+        "2, 2, 2, 2",
+        "3, 1, 3, 0",
+        "2, 2, 1, 2"
+      ],
+      "why": [
+        "dim C(A) = dim C(Aᵀ) = r = 2; dim N(A) = n − r = 2; dim N(Aᵀ) = m − r = 1.",
+        "N(Aᵀ) nằm trong R³ (m = 3), nên số chiều là 3 − 2 = 1.",
+        "Nhầm hạng là 3; khử xong chỉ còn 2 hàng khác 0.",
+        "Không gian hàng và không gian cột luôn cùng số chiều r."
+      ],
+      "explain": "Định lý cơ bản: C(A), C(Aᵀ) cùng chiều r; N(A) ⊂ Rⁿ có chiều n − r; N(Aᵀ) ⊂ Rᵐ có chiều m − r. Ở đây n = 4, m = 3, r = 2."
+    },
+    "en": {
+      "q": "A (3 × 4) has rows (0, 1, 2, 2), (0, 3, 8, 7), (0, 0, 4, 2) and rank 2. Dimensions of C(A), N(A), C(Aᵀ), N(Aᵀ)?",
+      "options": [
+        "2, 2, 2, 1",
+        "2, 2, 2, 2",
+        "3, 1, 3, 0",
+        "2, 2, 1, 2"
+      ],
+      "why": [
+        "dim C(A) = dim C(Aᵀ) = r = 2; dim N(A) = n − r = 2; dim N(Aᵀ) = m − r = 1.",
+        "N(Aᵀ) lives in R³ (m = 3), so its dimension is 3 − 2 = 1.",
+        "This takes the rank as 3; after elimination only 2 rows are nonzero.",
+        "The row space and column space always share the dimension r."
+      ],
+      "explain": "Fundamental theorem: C(A), C(Aᵀ) both have dimension r; N(A) ⊂ Rⁿ has n − r; N(Aᵀ) ⊂ Rᵐ has m − r. Here n = 4, m = 3, r = 2."
+    },
+    "check": {
+      "type": "dims",
+      "A": [
+        [
+          0,
+          1,
+          2,
+          2
+        ],
+        [
+          0,
+          3,
+          8,
+          7
+        ],
+        [
+          0,
+          0,
+          4,
+          2
+        ]
+      ],
+      "rank": 2,
+      "nullDim": 2,
+      "leftNullDim": 1
+    },
+    "source": "Phỏng theo MIT OCW 18.06 Spring 2010, Quiz 1, bài 2 (cùng ma trận) + Strang §3.6 — tự diễn đạt"
+  },
+  {
+    "id": "la3-null-rows",
+    "chapter": "ch3",
+    "section": "3.6",
+    "type": "why",
+    "answer": 0,
+    "vi": {
+      "q": "Ax = 0. Vectơ x quan hệ thế nào với các hàng của A?",
+      "options": [
+        "x vuông góc với mọi hàng, nên với cả không gian hàng",
+        "x song song với ít nhất một hàng của A",
+        "x vuông góc với mọi cột của A",
+        "x là một tổ hợp của các hàng của A"
+      ],
+      "why": [
+        "Mỗi thành phần của Ax là tích vô hướng (hàng i)·x = 0; vuông góc với từng hàng thì vuông góc với mọi tổ hợp của chúng.",
+        "Tích vô hướng bằng 0 nghĩa là vuông góc, không phải song song.",
+        "Ax là tổ hợp các cột, không phải tích vô hướng với cột; x còn có thể khác số thành phần với cột.",
+        "Ngược lại: x vuông góc với không gian hàng, nên chỉ x = 0 vừa thuộc vừa vuông góc."
+      ],
+      "explain": "N(A) ⊥ C(Aᵀ): hai không gian con này trực giao trong Rⁿ. Ví dụ A có hàng (1, 2, 3), (3, 5, 6), (4, 7, 9): x = (3, −3, 1) vuông góc cả ba hàng."
+    },
+    "en": {
+      "q": "Ax = 0. How is the vector x related to the rows of A?",
+      "options": [
+        "x is perpendicular to every row, so to the whole row space",
+        "x is parallel to at least one row of A",
+        "x is perpendicular to every column of A",
+        "x is a combination of the rows of A"
+      ],
+      "why": [
+        "Each component of Ax is the dot product (row i)·x = 0; perpendicular to each row means perpendicular to all their combinations.",
+        "A zero dot product means perpendicular, not parallel.",
+        "Ax combines the columns, it is not a dot product with columns; x may not even have as many components as a column.",
+        "The opposite: x is perpendicular to the row space, so only x = 0 lies in it and is perpendicular."
+      ],
+      "explain": "N(A) ⊥ C(Aᵀ): these two subspaces are orthogonal in Rⁿ. Example: A with rows (1, 2, 3), (3, 5, 6), (4, 7, 9) has x = (3, −3, 1) perpendicular to all three rows."
+    },
+    "check": {
+      "type": "solves",
+      "A": [
+        [
+          1,
+          2,
+          3
+        ],
+        [
+          3,
+          5,
+          6
+        ],
+        [
+          4,
+          7,
+          9
+        ]
+      ],
+      "x": [
+        3,
+        -3,
+        1
+      ]
+    },
+    "source": "Strang, Introduction to Linear Algebra 6th ed., Problem Set 1.3 #23 (lời giải của tác giả) — tự diễn đạt"
+  }
+]
