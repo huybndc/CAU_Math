@@ -109,7 +109,7 @@ describe('bài tập tổng hợp: phủ định lượng từ lồng trên pred
       .toBe(`What is the negation of ${source} (with ¬ pushed inside)?`);
 
     const formula = parseQ(source), negation = parseQ(expected);
-    for (let mask = 0; mask < 1024; mask++) {
+    for (let mask = 0; mask < 4096; mask++) {
       const table = (start, x, y) => !!(mask >> (start + 2 * x + y) & 1);
       const interp = {
         D: [0, 1],
