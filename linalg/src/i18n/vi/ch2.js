@@ -66,5 +66,16 @@ export const ch2 = {
   'c2.hintSuggest': 'Bước tiếp nên là: {formula}',
   'c2.hintDone': 'Đã ở dạng bậc thang rồi — không cần bước nào nữa.',
   'c2.badFactor': 'Hệ số k phải là số khác 0.',
+  'c2.mulToolTitle': 'Nhân ma trận theo hàng và cột',
+  'c2.mulToolNote': 'Chọn kích thước A (m×k) và B (k×n), rồi sửa từng ô. AB và cách tính mỗi ô cập nhật ngay.',
+  'c2.mulRows': 'Số hàng A (m)',
+  'c2.mulInner': 'Kích thước trong (k)',
+  'c2.mulCols': 'Số cột B (n)',
+  'c2.mulReset': 'Khôi phục ví dụ',
+  'c2.mulA': 'Ma trận A',
+  'c2.mulB': 'Ma trận B',
+  'c2.mulResult': 'Tích AB',
+  'c2.mulSteps': 'Từng ô: hàng của A · cột của B',
+  'c2.mulError': 'Mỗi ô phải là một số hữu hạn.',
 
 };

@@ -66,5 +66,16 @@ export const ch2 = {
   'c2.hintSuggest': 'The next step should be: {formula}',
   'c2.hintDone': 'Already in echelon form — no further step is needed.',
   'c2.badFactor': 'The factor k must be a nonzero number.',
+  'c2.mulToolTitle': 'Multiply matrices by rows and columns',
+  'c2.mulToolNote': 'Choose the sizes of A (m×k) and B (k×n), then edit any entry. AB and each cell calculation update immediately.',
+  'c2.mulRows': 'Rows of A (m)',
+  'c2.mulInner': 'Inner dimension (k)',
+  'c2.mulCols': 'Columns of B (n)',
+  'c2.mulReset': 'Restore example',
+  'c2.mulA': 'Matrix A',
+  'c2.mulB': 'Matrix B',
+  'c2.mulResult': 'Product AB',
+  'c2.mulSteps': 'Each entry: row of A · column of B',
+  'c2.mulError': 'Every entry must be a finite number.',
 
 };

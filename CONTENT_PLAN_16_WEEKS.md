@@ -20,7 +20,7 @@ Giáo trình nền hiện ghi trong mã: Logic — *Digital Design* (Mano, 6th e
 | 1 | Định hướng, chẩn đoán đầu vào; xác nhận lịch thực dạy | Định hướng, chẩn đoán đầu vào | Định hướng, chẩn đoán đầu vào | Chưa có nội dung tuần trong syllabus; không tự thêm kiến thức mới |
 | 2 | Ch1 hệ đếm/mã; mở đầu Ch2 Boolean | 1.1–1.3 vector | Mệnh đề và chứng minh | Có lesson/bank nền; rà đủ theo syllabus |
 | 3 | Ch2 đại số Boolean và cổng | 2.1–2.3 khử Gauss | Lượng từ, chứng minh; tập hợp và hàm | Có lesson/bank nền; rà đủ theo syllabus |
-| 4 | Ch3 rút gọn cấp cổng | 2.4–2.7 phép toán ma trận, nghịch đảo, LU | Quy nạp | Có nội dung Ch3/Ch2/D4; đối chiếu mức sâu tuần học |
+| 4 | Ch3 rút gọn cấp cổng | 2.4–2.7 phép toán ma trận, nghịch đảo, LU, chuyển vị | Quy nạp | LinAlg có thẻ nháp VI/EN, bank/check và tool nhân ma trận; chờ đối chiếu tài liệu lớp |
 | 5 | Ch3 rút gọn cấp cổng | 3.1–3.2 không gian con, N(A) | Bất biến và quy nạp mạnh | Có nội dung nền |
 | 6 | Ch4 mạch tổ hợp, phần 1 | 3.3–3.4 hạng, nghiệm đầy đủ | Chia hết và gcd | Có Ch4 và D6; đang bổ sung kiểm tra underflow theo tài liệu lớp |
 | 7 | Ch4 mạch tổ hợp, phần 2 | 3.5–3.6 cơ sở, bốn không gian con | Số học và RSA | Có nội dung nền |
@@ -41,7 +41,7 @@ Giáo trình nền hiện ghi trong mã: Logic — *Digital Design* (Mano, 6th e
 - Logic Ch1–4 và Linear Ch1–3 đã có lesson, bank và test nền; rà từng mục syllabus để đánh dấu đủ/thiếu theory, examples, bank, checker/oracle, tools. Không coi “đã có chương” là đã phủ đủ đề cương.
 - Discrete D1–D8 đã có nội dung nền. Rà đối chiếu D1–D7 với tuần 2–7 và D8 với tuần 9; giữ blueprint giữa kỳ riêng.
 - Ưu tiên Ch4 Logic theo tài liệu lớp đang có. Phần bổ sung đầu tiên là unsigned underflow, kèm câu hỏi, chấm đáp án, lời giải và oracle.
-- Xác minh Linear tuần 4 (Strang 2.4–2.7) đã được dạy đủ trong Ch2; bổ sung bank/check cụ thể nếu còn khoảng trống.
+- Linear tuần 4: đã bổ sung thẻ nháp cho phép nhân ma trận, nghịch đảo, LU và chuyển vị; bank/check/oracle đã có, thêm tool thử AB theo kích thước và từng ô. Đối chiếu lại với tài liệu lớp trước khi chuyển sang `ready`.
 - Lập đề cương đề giữa kỳ cho cả ba môn từ đúng các tuần đã học; chưa sinh đề cố định nếu chưa kiểm tra phân bố/chủ đề thực dạy.
 
 ### P1 — Xây phần sau giữa kỳ (tuần 9–14)

@@ -1,5 +1,7 @@
 # Chương 2 — Giải hệ phương trình tuyến tính (Ax = b)
 
+*Bản nháp tuần 4 theo Strang, 4th ed., §§2.4–2.7; cần đối chiếu tài liệu lớp.*
+
 Chương 1 hỏi *"b có nằm trong span của các vector không?"*. Chương này trả lời
 câu hỏi đó bằng một quy trình máy móc, làm được bằng tay và luôn kết thúc:
 **phép khử Gauss**.
@@ -155,6 +157,52 @@ khớp với cách nhìn theo hàng ở trên.
 
 Cấu trúc "một nghiệm riêng cộng toàn bộ nghiệm của hệ thuần nhất" sẽ quay lại ở
 Chương 3 dưới tên **null space**.
+
+## Phép nhân ma trận
+
+Nếu `A` cỡ `m×n`, `B` cỡ `n×p`, tích `AB` cỡ `m×p`; phần tử `(AB)ᵢⱼ` là tích vô hướng giữa hàng `i` của `A` và cột `j` của `B`.
+
+```
+[1  2] [0  1]   [4  3]
+[3  4] [2  1] = [8  7]
+```
+
+Hai ma trận phải **khớp kích thước trong**. Thứ tự quan trọng: cùng ví dụ trên, `BA = [[3, 4], [5, 8]]`, khác `AB`.
+
+<div data-check="c2q:matmul"></div>
+
+## Ma trận nghịch đảo
+
+Ma trận vuông `A` khả nghịch khi có `A⁻¹` sao cho `AA⁻¹ = A⁻¹A = I`. Với `A = [[a, b], [c, d]]`, nếu `ad − bc ≠ 0`:
+
+```
+A⁻¹ = 1/(ad − bc) · [[ d, −b], [−c, a]]
+```
+
+Ví dụ `[[1, 2], [3, 5]]⁻¹ = [[−5, 2], [3, −1]]`; nhân lại cho ma trận đơn vị. Tổng quát, khử `[A | I]` thành `[I | A⁻¹]`. Nếu vế trái không thể thành `I`, `A` không có nghịch đảo.
+
+<div data-check="c2q:inverse" data-needs="c2q:matmul"></div>
+
+## Phân tích LU
+
+Khử Gauss có thể tách `A = LU`: `U` là ma trận tam giác trên sau khử; các hệ số khử `ℓᵢⱼ` được ghi vào ma trận tam giác dưới `L`, đường chéo của `L` bằng 1.
+
+```
+A = [[2, 1], [4, 3]]
+R₂ ← R₂ − 2R₁  ⇒  U = [[2, 1], [0, 1]],  L = [[1, 0], [2, 1]]
+```
+
+Do đó giải `Ax = b` thành hai hệ tam giác: `Ly = b` (thế xuôi), rồi `Ux = y` (thế ngược). Ví dụ luyện ở đây không cần đổi hàng; khi phải pivot, dạng tổng quát có thêm ma trận hoán vị.
+
+<div data-check="c2q:lu" data-needs="c2q:solve3"></div>
+
+## Chuyển vị và xᵀAy
+
+Chuyển vị `Aᵀ` đổi hàng thành cột; thứ tự tích đảo lại: `(AB)ᵀ = BᵀAᵀ`. Biểu thức `xᵀAy` là một **số**: tính `Ay` trước, rồi lấy tích vô hướng với `x`.
+
+Ví dụ `x = [1, 0]`, `A = [[2, 1], [0, 3]]`, `y = [2, 1]`: `Ay = [5, 3]`, nên `xᵀAy = 5`.
+
+<div data-check="c2q:xtay" data-needs="c2q:matmul c2q:entry"></div>
 
 ## Những chỗ hay sai
 

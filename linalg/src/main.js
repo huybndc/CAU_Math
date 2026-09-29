@@ -13,6 +13,7 @@ import { setupCh1InteractivePage } from './ui/ch1-interactive-page.js';
 import { setupCh2ExamplePage } from './ui/ch2-example-page.js';
 import { setupCh2LinesPage } from './ui/ch2-lines-page.js';
 import { setupCh2InteractivePage } from './ui/ch2-interactive-page.js';
+import { setupCh2MatrixTool } from './ui/ch2-matrix-tool.js';
 import { setupCh3ExamplePage } from './ui/ch3-example-page.js';
 import { setupCh3SpacesPage } from './ui/ch3-spaces-page.js';
 import { setupCh3InteractivePage } from './ui/ch3-interactive-page.js';
@@ -43,6 +44,7 @@ window.addEventListener('DOMContentLoaded', () => {
   setupCh2ExamplePage();
   setupCh2LinesPage();
   setupCh2InteractivePage();
+  setupCh2MatrixTool();
   setupCh3ExamplePage();
   setupCh3SpacesPage();
   setupCh3InteractivePage();

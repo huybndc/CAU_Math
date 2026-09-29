@@ -1,5 +1,7 @@
 # Chapter 2 — Solving linear systems (Ax = b)
 
+*Week 4 draft based on Strang, 4th ed., §§2.4–2.7; pending cross-check with class materials.*
+
 Chapter 1 asked *"is b in the span of these vectors?"*. This chapter answers that
 question with a mechanical procedure you can run by hand and that always
 terminates: **Gaussian elimination**.
@@ -163,6 +165,52 @@ line in the plane, matching the row picture above.
 
 This structure, "one particular solution plus all solutions of the homogeneous
 system", comes back in Chapter 3 under the name **null space**.
+
+## Matrix multiplication
+
+If `A` is `m×n` and `B` is `n×p`, then `AB` is `m×p`; entry `(AB)ᵢⱼ` is the dot product of row `i` of `A` and column `j` of `B`.
+
+```
+[1  2] [0  1]   [4  3]
+[3  4] [2  1] = [8  7]
+```
+
+The **inner dimensions** must match. Order matters: with the same matrices, `BA = [[3, 4], [5, 8]]`, which differs from `AB`.
+
+<div data-check="c2q:matmul"></div>
+
+## Inverse matrices
+
+A square matrix `A` is invertible when `A⁻¹` satisfies `AA⁻¹ = A⁻¹A = I`. For `A = [[a, b], [c, d]]`, if `ad − bc ≠ 0`:
+
+```
+A⁻¹ = 1/(ad − bc) · [[ d, −b], [−c, a]]
+```
+
+For example, `[[1, 2], [3, 5]]⁻¹ = [[−5, 2], [3, −1]]`; multiplication gives the identity. In general, reduce `[A | I]` to `[I | A⁻¹]`. If the left side cannot become `I`, `A` has no inverse.
+
+<div data-check="c2q:inverse" data-needs="c2q:matmul"></div>
+
+## LU factorization
+
+Gaussian elimination can factor `A = LU`: `U` is the upper-triangular matrix after elimination; the elimination multipliers `ℓᵢⱼ` are stored in the lower-triangular matrix `L`, whose diagonal entries are 1.
+
+```
+A = [[2, 1], [4, 3]]
+R₂ ← R₂ − 2R₁  ⇒  U = [[2, 1], [0, 1]],  L = [[1, 0], [2, 1]]
+```
+
+Solve `Ax = b` with two triangular systems: `Ly = b` (forward substitution), then `Ux = y` (back substitution). The examples here need no row swaps; pivoting gives the more general form with a permutation matrix.
+
+<div data-check="c2q:lu" data-needs="c2q:solve3"></div>
+
+## Transposes and xᵀAy
+
+The transpose `Aᵀ` swaps rows and columns; product order reverses: `(AB)ᵀ = BᵀAᵀ`. The expression `xᵀAy` is a **scalar**: compute `Ay` first, then take its dot product with `x`.
+
+For `x = [1, 0]`, `A = [[2, 1], [0, 3]]`, and `y = [2, 1]`, `Ay = [5, 3]`, so `xᵀAy = 5`.
+
+<div data-check="c2q:xtay" data-needs="c2q:matmul c2q:entry"></div>
 
 ## Common mistakes
 

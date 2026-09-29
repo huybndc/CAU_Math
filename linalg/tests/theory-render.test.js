@@ -3,6 +3,7 @@ import { readFileSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { marked } from 'marked';
 import { buildGraph, findCycle, danglingNeeds } from '@shared/logic/prereq.js';
+import { KINDS as CH2_KINDS } from '../src/logic/ch2-quiz.js';
 
 const dir = fileURLToPath(new URL('../src/content/', import.meta.url));
 const load = name => readFileSync(dir + name, 'utf-8');
@@ -38,6 +39,14 @@ describe('nội dung lý thuyết', () => {
     for (const n of CHAPTERS) {
       const count = lang => (load(`theory-ch${n}.${lang}.md`).match(/^## /gm) || []).length;
       expect(count('en'), `ch${n} lệch số mục`).toBe(count('vi'));
+    }
+  });
+
+  it('mọi dạng câu Ch2 có điểm kiến thức trong cả VI và EN', () => {
+    for (const lang of ['vi', 'en']) {
+      const kinds = [...load(`theory-ch2.${lang}.md`).matchAll(/data-check="c2q:([^":]+)/g)]
+        .map((match) => match[1]);
+      expect([...new Set(kinds)].sort(), `Ch2.${lang}`).toEqual([...CH2_KINDS].sort());
     }
   });
 

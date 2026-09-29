@@ -17,6 +17,8 @@
 - Current math content gaps are tracked in per-app PLAN/PROGRESS files.
 - A 16-week cross-course content plan is in `CONTENT_PLAN_16_WEEKS.md`; class lecture materials are the primary content source.
 - Started Logic Ch4 class-material audit: added unsigned-underflow lesson, question kind, answer check, worked steps, and independent oracle.
+- Drafted Linear Algebra Ch2 week-4 cards for matrix products, inverses, LU, and transposes; all nine Ch2 quiz kinds now have VI/EN lesson checkpoints. Waiting for class-material cross-check.
+- Added an interactive Ch2 matrix product tool with editable rectangular A and B, per-entry derivations, invalid-input handling, and sample reset.
 
 ## In progress
 
@@ -26,7 +28,7 @@
 
 ## Current next work
 
-1. Continue the week 2–8 syllabus audit using class materials; verify Linear Algebra week 4 coverage.
+1. Continue the week 2–8 syllabus audit against available class materials; keep the Linear Algebra week-4 cards in draft until cross-checked.
 2. Complete Logic Ch4 gaps from the in-class handout, then draft the post-midterm Logic Ch5–7 modules.
 3. Plan Linear Algebra Ch4–6 and Discrete post-D8 modules in syllabus order; label unverified topics as draft.
 4. Keep each computational question type tied to an independent oracle test; update this file after each milestone.

@@ -95,5 +95,37 @@
       <h3 data-i18n="c2.history"></h3>
       <div class="steps" id="i2-history"></div>
     </div>
+
+    <div class="card">
+      <h2 data-i18n="c2.mulToolTitle"></h2>
+      <p class="hint" data-i18n="c2.mulToolNote"></p>
+      <div class="row">
+        <label class="inline"><span data-i18n="c2.mulRows"></span>
+          <select id="i2-mul-m"><option>2</option><option>3</option></select>
+        </label>
+        <label class="inline"><span data-i18n="c2.mulInner"></span>
+          <select id="i2-mul-k"><option>2</option><option>3</option></select>
+        </label>
+        <label class="inline"><span data-i18n="c2.mulCols"></span>
+          <select id="i2-mul-n"><option>2</option><option>3</option></select>
+        </label>
+        <button class="btn" id="i2-mul-reset" data-i18n="c2.mulReset"></button>
+      </div>
+      <div class="boardrow" style="margin-top:12px">
+        <div class="side"><h3 data-i18n="c2.mulA"></h3><div id="i2-mul-a"></div></div>
+        <div class="side"><h3 data-i18n="c2.mulB"></h3><div id="i2-mul-b"></div></div>
+      </div>
+      <p id="i2-mul-error" class="small bad" role="status"></p>
+      <div class="boardrow" style="margin-top:12px">
+        <div class="side">
+          <h3><span data-i18n="c2.mulResult"></span> <span id="i2-mul-size" class="mono"></span></h3>
+          <div id="i2-mul-result"></div>
+        </div>
+        <div class="side">
+          <h3 data-i18n="c2.mulSteps"></h3>
+          <div id="i2-mul-steps" class="steps" aria-live="polite"></div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
