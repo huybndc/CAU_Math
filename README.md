@@ -1,113 +1,90 @@
-# CAU Math
+# CAU Math App
 
-Bộ ba app ôn tập cho các môn toán – máy tính năm nhất đại học:
-**Logic Circuit · Linear Algebra · Discrete Math**. Học theo đúng syllabus từng tuần, luyện bằng
-thao tác trực quan thay vì gõ chữ, và làm bài full 60–90 phút như thi thật.
+CAU Math App là repo source of truth cho 3 môn toán của học kỳ hiện tại:
 
-*A self-study companion for three first-year CAU courses — lessons as short cards, auto-generated
-practice graded on the spot, and timed mock exams. Runs locally; no account, no tracking.*
+- Logic Circuit
+- Linear Algebra
+- Discrete Math
 
-| Môn | Giáo trình | Trạng thái |
-|---|---|---|
-| Logic Circuit | Mano & Ciletti, *Digital Design* (6th ed.) | Ch.1–3 · 28 dạng câu tự sinh |
-| Linear Algebra | Strang, *Introduction to Linear Algebra* (4th ed.) | Ch.1–3 · bài luyện tự chấm |
-| Discrete Math | Lehman–Leighton–Meyer, *Mathematics for Computer Science* (MIT 6.042J, 2017) | đang xây dựng |
+Repo này tập trung vào nội dung và công cụ học toán. Study_Hub là repo khác, giữ vai trò khung quản lý học tập.
 
-## Tính năng
+## Ranh giới với Study_Hub
 
-- **Menu theo việc:** Tổng quan · Học · Luyện tập · Thi thử — mỗi màn một việc chính, chọn chương bằng thanh chương.
-- **Tổng quan:** dải 16 tuần của học kỳ + số ngày tới giữa kỳ, gợi ý "hôm nay làm gì" kèm lý do, số liệu 7 ngày.
-- **Bài học dạng thẻ:** mỗi thẻ một ý (≤ 120 chữ), câu thử nhanh ngay trong thẻ.
-- **Luyện tập theo dạng:** 10 câu tự sinh, chấm ngay, có gợi ý và lời giải. Mỗi dạng ghi trước thời
-  gian và % đúng 7 ngày qua, đánh dấu dạng **cần luyện nhất**.
-- **Bài full 60–90 phút:** chọn chương + thời lượng; *Thi thử* (tính giờ, nộp mới chấm, hết giờ tự nộp) hoặc
-  *Bài tập dài* (chấm từng câu). F5 không mất bài; kết quả theo chương, dạng còn sai, xem lại từng câu.
-- **Trả lời bằng thao tác:** bấm bit, điền bảng chân trị, **khoanh nhóm trực tiếp trên K-map**,
-  chọn ký hiệu cổng, đọc mạch AND–OR.
-- **Tự luận hoặc trắc nghiệm** (Luyện tập): trắc nghiệm có nhiễu là lỗi thật, không phải đáp án bừa — khó ngang tự luận.
-- **Chấm theo giá trị, không so chuỗi:** biểu thức tương đương đều đúng; câu rút gọn chấm thêm độ
-  tối giản (so với Quine–McCluskey).
-- **Nháp** tích hợp, song ngữ **VI / EN**, sáng / tối. Thiết kế cho máy tính (chạy localhost).
+CAU_Math_App sở hữu:
+- syllabus và nội dung 3 môn;
+- concepts, lessons, question generators;
+- answer checkers và solution oracles;
+- math-specific UI, tools và exam/practice flow;
+- lịch sử/progress của câu toán và bridge event khi integration hoàn chỉnh.
 
-## Chạy thử
+Study_Hub sở hữu:
+- Today / queue / stats tổng hợp;
+- Notes / Obsidian / vault;
+- Auth, Supabase/RLS và Hub sync;
+- course registry và integration adapters.
 
-Yêu cầu: Node.js 20+.
+Không thêm Hub logic vào CAU_Math_App. Không sửa thuật toán/content toán trong Study_Hub.
 
-```bash
-git clone https://github.com/huybndc/CAU_Math.git
-cd CAU_Math
-npm install
-npm run dev          # mở http://localhost:5180
-```
-
-Trên Mac có thể tạo app mở nhanh: `npm run launcher` (⌘ Space → "On tap").
-
-| Địa chỉ | Nội dung |
-|---|---|
-| `localhost:5180/` | Tổng quan cả ba môn: tuần học, giữa kỳ, tiến độ |
-| `localhost:5180/logic/` | Logic Circuit |
-| `localhost:5180/linalg/` | Linear Algebra |
-| `localhost:5180/discrete/` | Discrete Math (D1–D7) |
-
-Luôn dùng cổng **5180**: tiến độ lưu trong trình duyệt theo địa chỉ, đổi cổng sẽ thấy trống.
-
-### Học trên 2 máy (tự đồng bộ, D37)
-Hướng dẫn từng bước (GitHub cho code, iCloud cho tiến độ + ghi chú + PDF, cách đỡ tốn dung lượng): [`docs/huong-dan-dam-may.md`](docs/huong-dan-dam-may.md).
-
-Máy chủ tự tìm iCloud Drive / Google Drive / OneDrive / Dropbox và lưu tiến độ vào thư mục `CAU_Math-sync/` trong đó.
-Mở app trên máy kia là tự nhận phần đã học. Nút mây cạnh nút sáng/tối có chấm xanh là đang đồng bộ; rê chuột để xem thư mục.
-Hai máy cần dùng **cùng một** dịch vụ đám mây. Muốn chọn thư mục khác thì đặt `STUDY_SYNC_DIR=/đường/dẫn` trong `.env`
-(`off` để tắt).
-
-## Kiểm thử
-
-```bash
-npm test             # ~800 test: mọi dạng câu × 200 hạt giống, i18n VI/EN, định tuyến, nhật ký
-npm run check        # không file nào vượt 450 dòng
-```
-
-Mỗi dạng câu tự sinh có **test tính chất**: đáp án của chính câu được chấm đúng, đáp án bị sửa bị
-chấm sai, mọi chuỗi hiển thị có đủ ở cả hai ngôn ngữ.
-
-## Soạn câu khái niệm bằng Gemini (tuỳ chọn)
-
-Câu "vì sao / chỗ hay sai" do Gemini soạn theo lô; máy kiểm lại phép tính, bạn duyệt từng câu rồi mới vào app (D27).
-App chạy không cần khoá — chỉ bước soạn mới cần.
-
-```bash
-cp .env.example .env                               # điền GEMINI_API_KEY (file .env không được commit)
-npm run gen -- --subject logic --dry               # xem prompt, chưa gọi API
-npm run gen -- --subject logic --chapter ch3 --calls 2
-npm run gen:review -- --subject logic              # [g] giữ · [b] bỏ · [e] xem EN
-```
+Chi tiết: REPO_BOUNDARY.md.
 
 ## Cấu trúc
 
-```
-CAU_Math/
-├── index.html · home/        trang Tổng quan chung
-├── shared/                   khung giao diện, bộ chạy luyện tập, widget, i18n, nhật ký, lịch học kỳ
-│   ├── logic/                hàm thuần (định tuyến, chấm điểm, tiến độ, syllabus) — có test
-│   ├── ui/                   màn hình, bộ chạy, widget trả lời, nháp
-│   └── style/                token màu/chữ, khung, thành phần
-├── logic/  linalg/           mỗi thư mục là một app: index.html + src/{logic,ui,pages,content,i18n} + tests/
-└── scripts/                  kiểm tra độ dài file, tạo app khởi động nhanh
-```
+    CAU_Math_App/
+    ├── logic/       Logic Circuit
+    ├── linalg/      Linear Algebra
+    ├── discrete/    Discrete Math
+    ├── shared/      framework dùng chung cho 3 app toán
+    ├── home/        tổng quan riêng của bộ 3 môn
+    └── scripts/     tooling / content generation
 
-JavaScript thuần + Vite, không framework. `src/logic/` luôn là hàm thuần (không đụng DOM, không biết
-ngôn ngữ) để test được; `src/ui/` lo phần hiển thị.
+Mỗi app có logic thuần, UI, content, i18n và tests. shared chỉ chứa code thật sự dùng chung cho từ hai app trở lên.
 
-## Tài liệu dự án
+## Chạy
 
-| File | Nội dung |
-|---|---|
-| [`PLAN.md`](PLAN.md) | Lộ trình theo syllabus và các phase |
-| [`DECISIONS.md`](DECISIONS.md) | Quyết định thiết kế kèm lý do |
-| [`RESEARCH.md`](RESEARCH.md) | Khảo sát UX: toeic-app, Khan Academy, Math Academy, Brilliant, Bluebook |
-| [`PROGRESS.md`](PROGRESS.md) | Trạng thái bàn giao giữa các phiên làm việc |
-| [`CLAUDE.md`](CLAUDE.md) | Quy tắc làm việc trong repo |
+Yêu cầu Node.js 20+.
 
-## Nguồn
+    git clone https://github.com/huybndc/CAU_Math_App.git
+    cd CAU_Math_App
+    npm install
+    npm run dev
 
-Nội dung học tập được diễn đạt lại và ghi nguồn theo từng giáo trình ở trên. Repo không chứa slide,
-PDF, syllabus hay đề thi của môn học.
+Mặc định: http://localhost:5180.
+
+    npm test
+    npm run check
+
+## Kết hợp với Study_Hub
+
+Hai repo không import source trực tiếp.
+
+Luồng mục tiêu:
+
+    CAU_Math_App
+        ↓
+    math events / course data
+        ↓
+    Study_Hub
+        ↓
+    Today / Progress / Stats
+
+Event lịch sử câu toán chuẩn là math.answer:
+
+    subject, prefix, kind, ok, mode, optional tag
+
+Study_Hub đọc/aggregate. CAU_Math_App quyết định câu hỏi, đáp án và UI.
+
+Trạng thái hiện tại:
+- 3 app toán đang phát triển độc lập trong repo này.
+- Study_Hub đã có phía đọc math.answer.
+- Bridge ghi math.answer từ CAU_Math_App là phần đang tách khỏi Study_Hub.
+- Sau bridge, các bản copy math trong Study_Hub sẽ được loại bỏ.
+
+## Tài liệu cho AI
+
+1. REPO_BOUNDARY.md
+2. CLAUDE.md
+3. PROGRESS.md
+4. PLAN.md
+5. DECISIONS.md — lịch sử thiết kế, có thể chứa mô tả cũ về việc gộp repo.
+
+Không commit PDF/slide/syllabus riêng của lớp, secret hoặc dữ liệu cá nhân.
