@@ -94,6 +94,19 @@ describe('Logic Ch4: đáp án tính lại từ đề/hình, dò từng dòng l�
     expect([Number(x), op, Number(y), Number(rhs)]).toEqual([signed4(a), sub ? '-' : '+', signed4(b), exact]);
   });
 
+  each('underflow', q => {
+    const a = parseInt(q.textParams.a, 2), b = parseInt(q.textParams.b, 2);
+    const underflow = a < b ? 1 : 0;
+    const carry = add4(a, b ^ 0b1111, 1).c[4];
+    expect(q.answer).toBe(underflow);
+    expect(underflow).toBe(1 - carry);
+    expect(q.choices[q.answer]).toBe(underflow ? 'c4q.yesUnderflow' : 'c4q.noUnderflow');
+    expect(ch4.checkAnswer(q, underflow).ok).toBe(true);
+    expect(ch4.checkAnswer(q, 1 - underflow).ok).toBe(false);
+    const wrapped = (a - b + 16) % 16;
+    expect(textOf(q.work.at(-1))).toBe(`A − B = ${bitsOf(a)} − ${bitsOf(b)} = ${a - b}; S = ${bitsOf(wrapped)}`);
+  });
+
   each('bcdadd', q => {
     const a = parseInt(q.textParams.a, 2), b = parseInt(q.textParams.b, 2), { cin } = q.textParams, s = a + b + cin;
     expect(a <= 9 && b <= 9).toBe(true);

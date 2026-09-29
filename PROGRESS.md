@@ -15,6 +15,8 @@
 - Logic Circuit Ch1–4, LinAlg Ch1–3 workstreams, Discrete D1–D8 workstreams, lessons, practice, exams, tools, bilingual UI, and independent solution-oracle tests.
 - D49: Added generated, checked Discrete practice for truth tables, nested quantifier negation, and weighted geometric sums. Added bilingual proof-method guidance; no handout content or fixed exam composition was added. Full suite (1111 tests), check, and build passed.
 - Current math content gaps are tracked in per-app PLAN/PROGRESS files.
+- A 16-week cross-course content plan is in `CONTENT_PLAN_16_WEEKS.md`; class lecture materials are the primary content source.
+- Started Logic Ch4 class-material audit: added unsigned-underflow lesson, question kind, answer check, worked steps, and independent oracle.
 
 ## In progress
 
@@ -24,10 +26,10 @@
 
 ## Current next work
 
-1. Finish math progress/event bridge.
-2. Validate midterm scope and concrete UX/content gaps for the three courses.
-3. Keep each computational question type tied to an independent oracle test.
-4. Update this file after each meaningful milestone.
+1. Continue the week 2–8 syllabus audit using class materials; verify Linear Algebra week 4 coverage.
+2. Complete Logic Ch4 gaps from the in-class handout, then draft the post-midterm Logic Ch5–7 modules.
+3. Plan Linear Algebra Ch4–6 and Discrete post-D8 modules in syllabus order; label unverified topics as draft.
+4. Keep each computational question type tied to an independent oracle test; update this file after each milestone.
 
 ## Guardrails
 

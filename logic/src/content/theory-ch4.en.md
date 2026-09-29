@@ -1,6 +1,6 @@
 # Chapter 4 — Combinational logic
 
-*Following Digital Design (Mano, 6th ed.), §4.1–4.11.*
+*Based primarily on the in-class Ch4. Combinational Logic (Part 1) material; cross-checked with Digital Design (Mano, 6th ed.), §4.1–4.11.*
 
 **After this chapter you can:**
 - Analyze a multilevel circuit into a truth table, and design a circuit from a word problem.
@@ -96,6 +96,19 @@ V = 1 ⇔ the carry **into** the sign bit differs from the carry **out**. It hap
 For **unsigned** numbers, the carry out Cₙ is the sign of trouble.
 
 <div data-check="c4q:overflow" data-needs="c4q:addsub c1q:signed"></div>
+
+## Unsigned underflow
+
+Subtracting unsigned values still uses `A − B = A + B′ + 1`. The carry-out distinguishes two cases:
+
+- `C₄ = 1`: `A ≥ B`, no borrow; the 4-bit `S` is the difference.
+- `C₄ = 0`: `A < B`, a borrow occurred (**underflow**); `S` wraps modulo 16 and is not the exact unsigned difference.
+
+For `0011 − 0101`: `0011 + 1010 + 1 = 1110`, `C₄ = 0`. The exact result is −2; `1110` is its two's-complement representation, not the unsigned value 14 for this subtraction.
+
+Do not confuse this unsigned underflow with signed overflow `V = C₄ ⊕ C₃`: they are different questions about the same circuit.
+
+<div data-check="c4q:underflow" data-needs="c4q:addsub c4q:overflow"></div>
 
 ## Carry lookahead
 

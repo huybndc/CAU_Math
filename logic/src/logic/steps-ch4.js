@@ -49,6 +49,13 @@ export function stepsOf(q) {
       return [...head, L('s4.vRule', {}, `V = C₄ ⊕ C₃ = ${r.carries[4]} ⊕ ${r.carries[3]} = ${r.v}`),
         L('s4.vCheck', {}, `${signed(sa)} ${m.m ? '−' : '+'} ${signed(sb)} = ${exact < 0 ? '−' + -exact : exact}`)];
     }
+    case 'underflow': {
+      const r = addSub(m.a, m.b, 1);
+      const bx = parseInt(r.bx, 2);
+      return [L('s4.subMode', {}, `B ⊕ M = ${r.bx},  C₀ = 1`), ...adderRows(m.a, bx, r),
+        L('s4.borrowRule', { carry: r.cout, borrow: 1 - r.cout }, `C₄ = ${r.cout} ⇒ borrow = ${1 - r.cout}`),
+        L('s4.borrowCheck', {}, `A − B = ${b4(m.a)} − ${b4(m.b)} = ${m.a - m.b}; S = ${r.sum}`)];
+    }
     case 'bcdadd': {
       const r = bcdAdd(m.a, m.b, m.cin);
       return [

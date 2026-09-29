@@ -14,16 +14,16 @@ import { fail } from '@shared/logic/app-error.js';
 import { pick, int } from '@shared/logic/shuffle.js';
 import { parseIntSet, sameSet, setNote } from '@shared/logic/answer-format.js';
 
-export const KINDS = ['analyze', 'ripple', 'addsub', 'overflow', 'bcdadd', 'compare', 'decoder', 'encoder', 'mux', 'muxRead'];
+export const KINDS = ['analyze', 'ripple', 'addsub', 'overflow', 'underflow', 'bcdadd', 'compare', 'decoder', 'encoder', 'mux', 'muxRead'];
 
 /** Nhóm dạng liền chủ đề (D30); nhãn: T(`c4q.${id}`). 'analyze' đứng riêng. */
 export const GROUPS = [
-  { id: 'g-adder', kinds: ['ripple', 'addsub', 'overflow', 'bcdadd'] },
+  { id: 'g-adder', kinds: ['ripple', 'addsub', 'overflow', 'underflow', 'bcdadd'] },
   { id: 'g-msi', kinds: ['compare', 'decoder', 'encoder', 'mux', 'muxRead'] },
 ];
 
 export const SECONDS = {
-  analyze: 150, ripple: 60, addsub: 90, overflow: 60, bcdadd: 75,
+  analyze: 150, ripple: 60, addsub: 90, overflow: 60, underflow: 60, bcdadd: 75,
   compare: 45, decoder: 60, encoder: 30, mux: 120, muxRead: 60,
 };
 
@@ -105,6 +105,25 @@ function makeOverflow(rnd) {
       hintKey: 'c4q.hOverflow',
       explainKey: 'c4q.xOverflow', explainParams: { c4: r.carries[4], c3: r.carries[3], v: r.v, exact },
       meta: { a, b, m },
+    };
+  }
+}
+
+/** Underflow khi trừ số không dấu (§4.5): A < B khi C₄ = 0 trong A + B′ + 1. */
+function makeUnderflow(rnd) {
+  for (;;) {
+    const want = rnd() < 0.5 ? 1 : 0;
+    const a = int(0, 15, rnd), b = int(0, 15, rnd);
+    const r = addSub(a, b, 1);
+    const borrow = 1 - r.cout;
+    if (borrow !== want) continue;
+    return {
+      kind: 'underflow', format: 'choice',
+      textKey: 'c4q.qUnderflow', textParams: { a: b4(a), b: b4(b) },
+      choices: ['c4q.noUnderflow', 'c4q.yesUnderflow'], answer: borrow,
+      hintKey: 'c4q.hUnderflow',
+      explainKey: 'c4q.xUnderflow', explainParams: { carry: r.cout, borrow, exact: a - b, result: r.sum },
+      meta: { a, b },
     };
   }
 }
@@ -216,7 +235,7 @@ function makeMuxRead(rnd) {
 }
 
 const MAKERS = {
-  analyze: makeAnalyze, ripple: makeRipple, addsub: makeAddSub, overflow: makeOverflow, bcdadd: makeBcdAdd,
+  analyze: makeAnalyze, ripple: makeRipple, addsub: makeAddSub, overflow: makeOverflow, underflow: makeUnderflow, bcdadd: makeBcdAdd,
   compare: makeCompare, decoder: makeDecoder, encoder: makeEncoder, mux: makeMux, muxRead: makeMuxRead,
 };
 

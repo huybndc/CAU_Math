@@ -1,6 +1,6 @@
 # Chương 4 — Mạch tổ hợp
 
-*Theo Digital Design (Mano, 6th ed.), §4.1–4.11.*
+*Bám theo giáo trình trên lớp, Ch4. Combinational Logic (Part 1); đối chiếu thêm Digital Design (Mano, 6th ed.), §4.1–4.11.*
 
 **Sau chương này bạn làm được:**
 - Phân tích một mạch nhiều mức ra bảng chân trị, và thiết kế mạch từ đề bằng lời.
@@ -96,6 +96,19 @@ V = 1 ⇔ carry **vào** bit dấu khác carry **ra**. Chỉ xảy ra khi cộng
 Với số **không dấu**, carry ra Cₙ mới là dấu hiệu vượt.
 
 <div data-check="c4q:overflow" data-needs="c4q:addsub c1q:signed"></div>
+
+## Underflow số không dấu
+
+Trừ hai số không dấu vẫn dùng `A − B = A + B′ + 1`. Carry ra phân biệt hai trường hợp:
+
+- `C₄ = 1`: `A ≥ B`, không mượn; 4 bit `S` là hiệu.
+- `C₄ = 0`: `A < B`, có mượn (**underflow**); `S` là kết quả quấn vòng modulo 16, không phải hiệu không dấu chính xác.
+
+Ví dụ `0011 − 0101`: `0011 + 1010 + 1 = 1110`, `C₄ = 0`. Giá trị thật là −2, còn `1110` là dạng bù 2 của −2; không được đọc nó thành 14 trong phép trừ không dấu.
+
+Đừng nhầm underflow này với tràn số có dấu `V = C₄ ⊕ C₃`: đó là hai câu hỏi khác nhau về cùng mạch.
+
+<div data-check="c4q:underflow" data-needs="c4q:addsub c4q:overflow"></div>
 
 ## Carry lookahead
 
