@@ -491,3 +491,9 @@ khác syllabus, lịch học bắt đầu từ 2026/09/01".)
   Quiz 1, 18.06SC F2011 Unit 1 Exam (CC BY-NC-SA) và lời giải Strang ILA 6th ed. ch1; thêm `concept-check.js` cho LinAlg
   (dims, system, solves, product, inverse). Thử đột biến 5 đáp án nguồn đều bị bắt. Gemini (scripts/gen/) chỉ còn để lấp chỗ
   không có nguồn.
+
+**D49. Bài luyện Discrete chỉ lấy cấu trúc kiến thức, không chép handout (2026-09-29).**
+- Thêm bài luyện về các phép nối theo MCS 2017 §3.1, phủ định lượng từ lồng theo §3.6, và tổng hình học có trọng số theo §5.1;
+  từng câu được đổi tên biến hoặc tham số hoá, tự chấm bằng bộ sinh hiện có và có oracle độc lập.
+- Các chủ đề chứng minh tương ứng chỉ được dẫn thành gợi ý trong thẻ học D2/D3, không thành câu trắc nghiệm tự chấm.
+- Không có giấy phép tái sử dụng trên handout; không lưu/chép handout hay thông tin nhận dạng vào repo. Phần set/đề cố định nếu cần thuộc Study Hub.

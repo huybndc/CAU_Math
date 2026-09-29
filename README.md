@@ -81,10 +81,9 @@ Trạng thái hiện tại:
 
 ## Tài liệu cho AI
 
-1. REPO_BOUNDARY.md
-2. CLAUDE.md
-3. PROGRESS.md
-4. PLAN.md
-5. DECISIONS.md — lịch sử thiết kế, có thể chứa mô tả cũ về việc gộp repo.
+1. `REPO_BOUNDARY.md` — phạm vi của repo.
+2. `AGENTS.md` — chỉ dẫn chung; quy tắc riêng ở từng môn nằm trong `logic/AGENTS.md`, `linalg/AGENTS.md`, `discrete/AGENTS.md`.
+3. `CLAUDE.md` — tệp tương thích, import chỉ dẫn từ `AGENTS.md`.
+4. `PROGRESS.md`, `PLAN.md`, `DECISIONS.md` — trạng thái, lộ trình và lịch sử quyết định.
 
 Không commit PDF/slide/syllabus riêng của lớp, secret hoặc dữ liệu cá nhân.

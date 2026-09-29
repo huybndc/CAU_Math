@@ -64,6 +64,12 @@ Suppose √2 = a/b in lowest terms. Then a² = 2b², so a is even, a = 2c; hence
 
 </details>
 
+## Proof practice
+
+- **Inference:** take a witness from an existential premise, then apply the universal premises to it.
+- **Contrapositive:** for a product of integers to be odd, consider what happens if either factor is even.
+- **Contradiction:** assume both related expressions are rational, then add them to contradict the irrational input.
+
 ## The well ordering principle
 
 **Every nonempty set of natural numbers has a smallest element.**

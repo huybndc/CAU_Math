@@ -56,7 +56,7 @@ npm install
 # Chưa có Node.js: tải bản LTS ở https://nodejs.org rồi cài.
 # Chưa có git: chạy "xcode-select --install" (macOS tự hỏi cài Command Line Tools).
 mkdir -p ~/Claude_projects
-git clone https://github.com/huybndc/CAU_Math.git ~/Claude_projects/CAU_Math
+git clone https://github.com/huybndc/CAU_Math_App.git ~/Claude_projects/CAU_Math
 cd ~/Claude_projects/CAU_Math
 npm install
 npm run launcher        # tạo app "Ôn tập" trong ~/Applications — mở bằng ⌘ Space

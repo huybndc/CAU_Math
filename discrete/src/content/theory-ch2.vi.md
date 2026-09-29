@@ -64,6 +64,12 @@ Giả sử √2 = a/b tối giản. Thì a² = 2b² nên a chẵn, a = 2c; suy r
 
 </details>
 
+## Gợi ý luyện chứng minh
+
+- **Quy tắc suy luận:** lấy nhân chứng từ mệnh đề tồn tại, rồi áp dụng các giả thiết phổ quát cho nhân chứng ấy.
+- **Phản đảo:** nếu tích hai số nguyên lẻ, hãy xét điều gì xảy ra khi một thừa số chẵn.
+- **Phản chứng:** giả sử cả hai biểu thức liên hệ đều hữu tỉ, rồi cộng chúng để tìm mâu thuẫn.
+
 ## Nguyên lý sắp thứ tự tốt
 
 **Mọi tập số tự nhiên khác rỗng đều có phần tử nhỏ nhất.**
