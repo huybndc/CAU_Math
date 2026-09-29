@@ -6,6 +6,7 @@
   "description": "Ba app ôn tập chạy localhost: Logic Circuit, Linear Algebra, Discrete Math",
   "scripts": {
     "dev": "vite --open",
+    "build": "vite build",
     "test": "vitest run",
     "test:watch": "vitest",
     "check": "bash scripts/check_file_sizes.sh .",
