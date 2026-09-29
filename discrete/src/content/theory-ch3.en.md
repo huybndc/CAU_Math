@@ -49,6 +49,11 @@ For finite sets: a bijection A → B exists ⇔ |A| = |B|. This is the basis of 
 
 <div data-check="c3q:func"></div>
 
+## Proof practice
+
+- **Power sets:** for any X, unpack X ∈ P(A ∩ B) as X ⊆ A and X ⊆ B; prove both directions.
+- **Functions:** from f(f(x)) = f(x), use injectivity to get f(x) = x; for surjectivity, write an arbitrary element as f(x).
+
 ## Common mistakes
 
 - Writing {1, 1, 2} and counting 3 elements — sets have no repeats.

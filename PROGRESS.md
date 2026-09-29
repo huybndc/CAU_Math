@@ -13,6 +13,7 @@
 
 - Shared Vite/JS framework for three math apps.
 - Logic Circuit Ch1–4, LinAlg Ch1–3 workstreams, Discrete D1–D8 workstreams, lessons, practice, exams, tools, bilingual UI, and independent solution-oracle tests.
+- D49: Added generated, checked Discrete practice for truth tables, nested quantifier negation, and weighted geometric sums. Added bilingual proof-method guidance; no handout content or fixed exam composition was added. Full suite (1111 tests), check, and build passed.
 - Current math content gaps are tracked in per-app PLAN/PROGRESS files.
 
 ## In progress

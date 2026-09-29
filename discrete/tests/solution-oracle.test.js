@@ -1,6 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import { seededRandom } from '@shared/logic/shuffle.js';
 import * as ch1 from '../src/logic/ch1-quiz.js';
+import { quiz as quizVi } from '../src/i18n/vi/quiz.js';
+import { quiz as quizEn } from '../src/i18n/en/quiz.js';
 
 /* ---------------------------------------------------------------
    KIỂM ĐỘC LẬP LỜI GIẢI D1 (người học, 2026-09-25: "đảm bảo solution luôn đúng, check kĩ trước khi ra đề").
@@ -109,6 +111,22 @@ describe('D1: bộ tính độc lập xác nhận đáp án và từng ô bảng
     [...ans].forEach((c, i) => { if (c === '(') d++; if (c === ')') d--; if (c === '→' && d === 0 && cut < 0) cut = i; });
     expect(cut, `${ans} phải là một phép kéo theo`).toBeGreaterThan(0);
     expect(same(ans.slice(0, cut), want[0]) && same(ans.slice(cut + 1), want[1]), `${q.meta.ask} của ${f}: ${ans}`).toBe(true);
+  });
+});
+
+describe('bài tập tổng hợp: bảng chân trị phép XOR và AND', () => {
+  it('tạo biến thể đổi tên biến, cho cột kết quả 1001 và prompt VI/EN đầy đủ', () => {
+    const q = Array.from({ length: 1000 }, (_, seed) => ch1.makeQuestion('table', seededRandom(seed)))
+      .find(item => /^\(([pqr]) ⊕ ([pqr])\) → \(\1 ∧ \2\)$/.test(item.textParams.f));
+
+    expect(q).toBeDefined();
+    expect(q.answer).toBe('1001');
+    expect(column(q.textParams.f, q.input.vars)).toBe('1001');
+    const table = q.work.find(w => w.table).table;
+    checkTable(table, q.input.vars);
+    expect(table.rows.map(row => row[table.outs[0]]).join('')).toBe('1001');
+    expect(quizVi['c1q.qTable'].replace('{f}', q.textParams.f)).toBe(`Lập bảng chân trị của ${q.textParams.f}.`);
+    expect(quizEn['c1q.qTable'].replace('{f}', q.textParams.f)).toBe(`Build the truth table of ${q.textParams.f}.`);
   });
 });
 

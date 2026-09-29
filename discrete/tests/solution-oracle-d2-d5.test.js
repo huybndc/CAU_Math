@@ -4,6 +4,8 @@ import * as ch2 from '../src/logic/ch2-quiz.js';
 import * as ch3 from '../src/logic/ch3-quiz.js';
 import * as ch4 from '../src/logic/ch4-quiz.js';
 import * as ch5 from '../src/logic/ch5-quiz.js';
+import { quiz as quizVi } from '../src/i18n/vi/quiz.js';
+import { quiz as quizEn } from '../src/i18n/en/quiz.js';
 
 /* ---------------------------------------------------------------
    KIỂM ĐỘC LẬP LỜI GIẢI D2–D5 (D41, D46). Không import gì từ src/logic ngoài hàm sinh đề.
@@ -88,6 +90,35 @@ describe('D2 Lượng từ', () => {
     const f = parseQ(q.textParams.f), neg = (I, e) => !f(I, e);
     q.choices.forEach((c, k) => expect(sameQ(parseQ(c), neg), `${c} ${k === q.answer ? 'phải' : 'không được'} tương đương ¬(${q.textParams.f})`).toBe(k === q.answer));
     expect(textOf(q.work.at(-1))).toBe(q.choices[q.answer]);
+  });
+});
+
+describe('bài tập tổng hợp: phủ định lượng từ lồng trên predicate hai ngôi', () => {
+  it('đổi lượng từ và phủ định predicate, kiểm chính xác trên mọi diễn giải nhị phân', () => {
+    const source = '∀x ∃y ∀z (P(x, y) → (Q(y, z) ∧ R(x, z)))';
+    const expected = '∃x ∀y ∃z (P(x, y) ∧ (¬Q(y, z) ∨ ¬R(x, z)))';
+    const q = Array.from({ length: 1000 }, (_, seed) => ch2.makeQuestion('negate', seededRandom(seed)))
+      .find(item => item.textParams.f === source);
+
+    expect(q).toBeDefined();
+    expect(q.choices[q.answer]).toBe(expected);
+    expect(textOf(q.work.at(-1))).toBe(expected);
+    expect(quizVi['c2q.qNegate'].replace('{f}', source))
+      .toBe(`Phủ định của ${source} là gì (đã đẩy ¬ vào trong)?`);
+    expect(quizEn['c2q.qNegate'].replace('{f}', source))
+      .toBe(`What is the negation of ${source} (with ¬ pushed inside)?`);
+
+    const formula = parseQ(source), negation = parseQ(expected);
+    for (let mask = 0; mask < 1024; mask++) {
+      const table = (start, x, y) => !!(mask >> (start + 2 * x + y) & 1);
+      const interp = {
+        D: [0, 1],
+        P: (x, y) => table(0, x, y),
+        Q: (x, y) => table(4, x, y),
+        R: (x, y) => table(8, x, y),
+      };
+      expect(negation(interp, {}), `interpretation ${mask}`).toBe(!formula(interp, {}));
+    }
   });
 });
 
@@ -194,6 +225,24 @@ describe('D4 Quy nạp', () => {
       return ks.every(k => Math.abs(l(k) - r(k)) < 1e-9 && Math.abs(r(k) - S(k + 1)) < 1e-9 && Math.abs(l(k) - S(k) - term(k + 1)) < 1e-9);
     };
     q.choices.forEach((c, k) => expect(right(c), c).toBe(k === q.answer));
+  });
+
+  it('đưa tổng Σ k·2^(k−1) thành câu số và câu công thức đóng đúng, có đề VI/EN', () => {
+    const s = '1·2⁰ + 2·2¹ + … + n·2ⁿ⁻¹';
+    const closed = '(n − 1)2ⁿ + 1';
+    const sum = Array.from({ length: 1000 }, (_, seed) => ch4.makeQuestion('sum', seededRandom(seed)))
+      .find(q => q.textParams.s === s);
+    const formula = Array.from({ length: 1000 }, (_, seed) => ch4.makeQuestion('formula', seededRandom(seed)))
+      .find(q => q.textParams.s === s);
+
+    expect(sum).toBeDefined();
+    expect(formula).toBeDefined();
+    const { S } = series(s);
+    expect(sum.answer).toBe(S(sum.textParams.n));
+    expect(formula.choices[formula.answer]).toBe(closed);
+    for (let n = 1; n <= 20; n++) expect(poly(closed, 'n')(n)).toBe(S(n));
+    expect(quizVi['c4q.qFormula'].replace('{s}', s)).toBe(`Công thức đóng nào đúng với MỌI n ≥ 1 của ${s}?`);
+    expect(quizEn['c4q.qFormula'].replace('{s}', s)).toBe(`Which closed form is right for EVERY n ≥ 1 of ${s}?`);
   });
 });
 

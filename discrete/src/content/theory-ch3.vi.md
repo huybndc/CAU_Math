@@ -49,6 +49,11 @@ Tập hữu hạn: có song ánh A → B ⇔ |A| = |B|. Đây là nền của ph
 
 <div data-check="c3q:func"></div>
 
+## Gợi ý luyện chứng minh
+
+- **Tập luỹ thừa:** với X bất kỳ, đổi X ∈ P(A ∩ B) thành X ⊆ A và X ⊆ B; chứng minh hai chiều.
+- **Hàm:** từ f(f(x)) = f(x), dùng tính đơn ánh để suy ra f(x) = x; nếu toàn ánh, viết phần tử bất kỳ thành f(x).
+
 ## Những chỗ hay sai
 
 - Viết {1, 1, 2} rồi đếm 3 phần tử — tập không lặp.

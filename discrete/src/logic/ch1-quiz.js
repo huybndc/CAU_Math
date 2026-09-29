@@ -46,9 +46,14 @@ function tableOf(asts, vars, mark = []) {
 }
 
 function makeTable(rnd) {
-  const n = pick([2, 3, 3], rnd);
-  const ast = randomFormula(n, rnd);
-  const vars = ['p', 'q', 'r'].slice(0, n);
+  // Truth-table practice on MCS 2017 §3.1 connectives; vary names without copying exercise text.
+  const ast = rnd() < 0.1
+    ? (() => {
+      const [p, q] = shuffle(['p', 'q', 'r'], rnd);
+      return parseProp(`(${p} ⊕ ${q}) → (${p} ∧ ${q})`);
+    })()
+    : randomFormula(pick([2, 3, 3], rnd), rnd);
+  const vars = varsOf(ast);
   const f = formatProp(ast);
   return {
     kind: 'table', format: 'text',

@@ -45,9 +45,12 @@ function makeTruth(rnd) {
 }
 
 const P = atom('P', 'x'), Qx = atom('Q', 'x'), Qy = atom('Q', 'y'), R = atom('R', 'x', 'y'), Ryx = atom('R', 'y', 'x');
+const Pxy = atom('P', 'x', 'y'), Qyz = atom('Q', 'y', 'z'), Rxz = atom('R', 'x', 'z');
 /* Mẫu cần phủ định — đủ các kiểu Rosen / MCS hay hỏi: một lượng từ với ∧ ∨ → và ¬ bên trong, kéo theo có lượng từ,
    hai lượng từ lồng (kể cả y đứng ngoài), lượng từ lồng có thêm điều kiện, tính đối xứng của quan hệ. */
 const BASES = [
+  // MCS 2017 §3.6 quantifier-negation practice: three nested quantifiers and binary predicates.
+  all('x', ex('y', all('z', imp(Pxy, and(Qyz, Rxz))))),
   // một lượng từ
   all('x', imp(P, Qx)), ex('x', and(P, Qx)), all('x', or(P, Qx)), ex('x', imp(P, Qx)), ex('x', or(P, Qx)),
   all('x', and(P, Qx)), all('x', not(P)), ex('x', and(P, not(Qx))), all('x', imp(P, not(Qx))),
