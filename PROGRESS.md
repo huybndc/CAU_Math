@@ -35,3 +35,13 @@
 - Hub/account/vault/Today/stats → Study_Hub.
 - No direct source imports or copy cycles between repos.
 - Do not commit class-only PDFs, slides, private syllabus files, secrets, or personal data.
+
+## Tự soi
+- 2026-09-29 · C2 (kiến thức phải tìm lại mỗi phiên) · Phiên nào cũng phải tự phát hiện rằng hai bản toán đã lệch nhau:
+  nội dung Logic mới (29/09) chỉ nằm trong mirror ở Study_Hub, Discrete HW1 (PR #2) chỉ nằm ở đây; `AGENTS.md` ghi bản online
+  build theo `math.lock` nhưng file đó chưa tồn tại · Sửa dòng `AGENTS.md` cho đúng thực tế; ghi việc hợp nhất dưới đây.
+
+## Việc từ tự soi
+- [x] (Ngay) Sửa dòng `math.lock` trong `AGENTS.md` cho khớp thực tế.
+- [ ] (Ngay, chờ người học chọn hướng) Hợp nhất với mirror ở Study_Hub trước khi sửa tiếp nội dung Logic ở đây — kiểm:
+  `diff -rq` thư mục `logic/ linalg/ discrete/ shared/` giữa hai repo (bỏ `*.md`) không còn file code/nội dung khác.

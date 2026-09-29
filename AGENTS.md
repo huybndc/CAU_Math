@@ -3,7 +3,7 @@
 ## Bối cảnh
 - Trả lời người học bằng **tiếng Việt**.
 - Người học giao toàn quyền quyết định: tự cân nhắc, chọn cách làm, ghi lý do vào `DECISIONS.md`, không hỏi lại.
-- Ba app ôn tập chạy localhost:5180; bản online do **Study Hub** deploy từ commit repo này ghi trong `math.lock`. Giáo trình theo syllabus từng môn (`PLAN.md`).
+- Ba app ôn tập chạy localhost:5180; bản online do **Study Hub** deploy — hiện build từ bản mirror trong Study_Hub (`math.lock` ghim commit repo này mới là kế hoạch, chưa có; xem PROGRESS "Tự soi"). Giáo trình theo syllabus từng môn (`PLAN.md`).
 - Tài liệu gốc: `PLAN.md` (lộ trình), `DECISIONS.md` (quyết định + lý do), `PROGRESS.md` (bàn giao).
 - Repo `toeic-app` chỉ để tham khảo cách tổ chức/UX. Không import chéo, không commit vào đó.
 
