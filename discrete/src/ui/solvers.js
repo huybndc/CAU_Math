@@ -3,6 +3,7 @@ import { fail } from '@shared/logic/app-error.js';
 import { createSolver } from '@shared/ui/solver.js';
 import { fieldRow } from '@shared/ui/fields.js';
 import { truthReport, euclidReport, congruenceReport, diophantineReport, powReport } from '../logic/report-tools.js';
+import { setReport, sumReport, SUMS } from '../logic/report-sets.js';
 import { glossary } from './glossary.js';
 
 /* ---------------------------------------------------------------
@@ -85,5 +86,30 @@ export function mountPowSolver(host) {
     random: () => ({ a: rnd(2, 40), k: rnd(5, 200), n: rnd(7, 97) }),
     examples: [['7^45 mod 13', { a: 7, k: 45, n: 13 }], ['2^100 mod 7', { a: 2, k: 100, n: 7 }], ['3^202 mod 11', { a: 3, k: 202, n: 11 }]],
     report: g => (g('a') && g('k') && g('n') ? powReport(int(g('a')), int(g('k')), int(g('n'))) : null),
+  });
+}
+
+export function mountSetSolver(host) {
+  mount(host, {
+    key: 'sets',
+    practice: '#/practice/ch3',
+    specs: () => [{ id: 'a', label: T('ds.setA'), value: '1, 2, 3, 4', size: 18 }, { id: 'b', label: T('ds.setB'), value: '3, 4, 5', size: 18 }, { id: 'u', label: T('ds.setU'), value: '', size: 22 }],
+    random: () => { const pickN = n => [...Array(10).keys()].map(i => i + 1).sort(() => Math.random() - 0.5).slice(0, n).sort((x, y) => x - y).join(', '); return { a: pickN(rnd(3, 6)), b: pickN(rnd(3, 6)), u: '1, 2, 3, 4, 5, 6, 7, 8, 9, 10' }; },
+    examples: [['{1,2,3,4} · {3,4,5}', { a: '1, 2, 3, 4', b: '3, 4, 5', u: '' }], ['U = {1…8}', { a: '2, 4, 6, 8', b: '1, 2, 3, 4', u: '1, 2, 3, 4, 5, 6, 7, 8' }], ['{a,b,c} · {c,d}', { a: 'a, b, c', b: 'c, d', u: '' }]],
+    report: g => (g('a') && g('b') ? setReport(g('a'), g('b'), g('u')) : null),
+  });
+}
+
+export function mountSumSolver(host) {
+  mount(host, {
+    key: 'sums',
+    practice: '#/practice/ch4',
+    specs: () => [
+      { id: 'kind', label: T('ds.kind'), value: 'arith', options: SUMS.map(v => ({ v, t: T(`ds.k.${v}`) })) },
+      { id: 'n', label: T('ds.n'), value: '10', size: 6 }, { id: 'p1', label: T('ds.p1'), value: '3', size: 6 }, { id: 'p2', label: T('ds.p2'), value: '4', size: 6 },
+    ],
+    random: () => ({ kind: pick(SUMS), n: rnd(5, 20), p1: rnd(1, 6), p2: rnd(2, 4) }),
+    examples: [['1 + 2 + … + 10 (a=1, d=1)', { kind: 'arith', n: 10, p1: 1, p2: 1 }], ['1 + 2 + 4 + … (2ⁿ⁻¹)', { kind: 'geom', n: 10, p1: 1, p2: 2 }], ['1² + … + 10²', { kind: 'squares', n: 10 }]],
+    report: g => (g('n') ? sumReport(g('kind'), int(g('n')), int(g('p1') || '1'), int(g('p2') || '1')) : null),
   });
 }

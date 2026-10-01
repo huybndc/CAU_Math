@@ -42,6 +42,8 @@ Always point out **where the induction hypothesis is used** — it is the heart 
 
 <div data-check="c4q:step" data-needs="c2q:truth"></div>
 
+<div data-tool="ch4/0"></div>
+
 ## Sum formulas you will use
 
 ```
@@ -55,6 +57,8 @@ All four are proved by induction with the template above.
 
 <div data-check="c4q:sum"></div>
 
+<div data-tool="ch4/0"></div>
+
 ## Guess a formula, then prove it
 
 Compute a few values, guess the pattern, **then** prove it by induction.
@@ -64,6 +68,8 @@ Trying values **proves** nothing, but it can **refute**: a wrong formula breaks 
 <div data-check="c4q:formula" data-needs="c4q:sum"></div>
 
 <div data-check="c4q:closed" data-needs="c4q:formula"></div>
+
+<div data-tool="ch4/0"></div>
 
 ## Common mistakes
 

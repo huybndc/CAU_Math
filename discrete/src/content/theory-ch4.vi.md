@@ -42,6 +42,8 @@ Luôn chỉ rõ **chỗ nào dùng giả thiết quy nạp** — đó là trái 
 
 <div data-check="c4q:step" data-needs="c2q:truth"></div>
 
+<div data-tool="ch4/0"></div>
+
 ## Công thức tổng hay dùng
 
 ```
@@ -55,6 +57,8 @@ Cả bốn đều chứng minh bằng quy nạp đúng khuôn trên.
 
 <div data-check="c4q:sum"></div>
 
+<div data-tool="ch4/0"></div>
+
 ## Đoán công thức rồi chứng minh
 
 Tính vài giá trị đầu, đoán quy luật, **rồi mới** chứng minh bằng quy nạp.
@@ -64,6 +68,8 @@ Thử giá trị **không chứng minh** được gì, nhưng **bác bỏ** đư
 <div data-check="c4q:formula" data-needs="c4q:sum"></div>
 
 <div data-check="c4q:closed" data-needs="c4q:formula"></div>
+
+<div data-tool="ch4/0"></div>
 
 ## Những chỗ hay sai
 

@@ -29,6 +29,8 @@ Chúng khớp với phép nối logic: ∪ ↔ ∨, ∩ ↔ ∧, ᶜ ↔ ¬, ⊕
 
 <div data-check="c3q:setop" data-needs="c1q:value"></div>
 
+<div data-tool="ch3/0"></div>
+
 ## Đếm phần tử
 
 - **Tập luỹ thừa** P(A) = tập mọi tập con của A: |P(A)| = **2^|A|** (mỗi phần tử: chọn hoặc không).
@@ -36,6 +38,8 @@ Chúng khớp với phép nối logic: ∪ ↔ ∨, ∩ ↔ ∧, ᶜ ↔ ¬, ⊕
 - **Bao hàm – loại trừ:** |A ∪ B| = |A| + |B| − |A ∩ B| (phần chung bị đếm hai lần).
 
 <div data-check="c3q:count"></div>
+
+<div data-tool="ch3/0"></div>
 
 ## Hàm
 

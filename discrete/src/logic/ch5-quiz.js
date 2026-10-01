@@ -12,8 +12,8 @@ import { pick, int } from '@shared/logic/shuffle.js';
 import { parseNumber } from '@shared/logic/answer-format.js';
 import { line as L } from '@shared/logic/steps.js';
 
-export const KINDS = ['jugs', 'stamps'];
-export const SECONDS = { jugs: 90, stamps: 90 };
+export const KINDS = ['jugs', 'pours', 'stamps', 'minA'];
+export const SECONDS = { jugs: 90, pours: 120, stamps: 90, minA: 80 };
 
 /** Chuỗi trạng thái ngắn nhất từ (0, 0) tới khi một bình có đúng c; null nếu không thể. */
 export function pourPath(a, b, c) {
@@ -53,6 +53,22 @@ function makeJugs(rnd) {
   };
 }
 
+/** Tự luận (số): số bước đổ nước TỐI THIỂU để đong đúng c lít (chỉ ra đề đong được) — thay cho câu Được/Không. */
+function makePours(rnd) {
+  for (;;) {
+    let a, b;
+    do { a = int(3, 12, rnd); b = int(a + 1, 15, rnd); } while (b % a === 0);
+    const g = gcd(a, b), c = g * int(1, Math.floor(b / g), rnd);
+    const path = pourPath(a, b, c);
+    if (!path || path.length < 3) continue;                        // bỏ câu đong ngay một bước
+    return {
+      kind: 'pours', format: 'number', textKey: 'c5q.qPours', textParams: { a, b, c }, answer: path.length - 1,
+      hintKey: 'c5q.hJugs', meta: { a, b, c },
+      work: [L('s5.invariant', { a, b, g }), L('s5.path', { n: path.length - 1 }, path.map(([x, y]) => `(${x}, ${y})`).join(' → '))],
+    };
+  }
+}
+
 const PAIRS = [[3, 5], [3, 7], [4, 5], [4, 7], [5, 7], [3, 8], [5, 8], [4, 9], [5, 6], [7, 9]];
 /** n = i·a + j·b với i, j ≥ 0 (ít tem a nhất), hoặc null. */
 export function payWith(a, b, n) {
@@ -80,7 +96,19 @@ function makeStamps(rnd) {
   };
 }
 
-const MAKERS = { jugs: makeJugs, stamps: makeStamps };
+/** Tự luận (số): trả đúng n xu bằng tem a và b — ít tem loại a nhất là bao nhiêu? (n luôn trả được) */
+function makeMinA(rnd) {
+  const [a, b] = pick(PAIRS, rnd);
+  let n, w;
+  do { n = int(a * b - a - b + 1, a * b + 15, rnd); w = payWith(a, b, n); } while (!w);
+  return {
+    kind: 'minA', format: 'number', textKey: 'c5q.qMinA', textParams: { a, b, n }, answer: w[0],
+    hintKey: 'c5q.hStamps', meta: { a, b, n, ask: 'minA' },
+    work: [L('s5.payWith', {}, `${n} = ${w[0]}·${a} + ${w[1]}·${b}`), L('s5.minA', { a, b, i: w[0] })],
+  };
+}
+
+const MAKERS = { jugs: makeJugs, pours: makePours, stamps: makeStamps, minA: makeMinA };
 
 export function makeQuestion(kind = 'mix', rnd = Math.random) {
   const k = kind === 'mix' ? pick(KINDS, rnd) : kind;
