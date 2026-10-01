@@ -65,3 +65,19 @@ describe('check tự kiểm', () => {
     expect(r.check('1, 2')).toBe(false);
   });
 });
+
+describe('check tự kiểm: vector, tổ hợp, không gian', () => {
+  it('nhận độ dài / tích vô hướng / góc; hệ số tổ hợp; hạng', async () => {
+    const { vectorReport, comboReport } = await import('../src/logic/report-vector.js');
+    const { spaceReport } = await import('../src/logic/report-space.js');
+    const r = vectorReport([3, 4], [4, 3]);
+    for (const ok of ['5', '24', '16.26']) expect(r.check(ok), ok).toBe(true);
+    expect(r.check('7')).toBe(false);
+    expect(vectorReport([1, 2, 2]).check('3')).toBe(true);
+    const c = comboReport([[1, 0, 1], [0, 1, 1]], [2, -1, 1]);
+    expect(c.check('2, -1')).toBe(true);
+    expect(c.check('1, 1')).toBe(false);
+    expect(comboReport([[1, 0], [0, 1]], [1, 1]).check('1 1')).toBe(true);
+    expect(spaceReport([[1, 2], [2, 4]]).check('1')).toBe(true);
+  });
+});

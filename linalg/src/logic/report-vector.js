@@ -1,5 +1,5 @@
 import * as V from './vector.js';
-import { fmt, fmtCol, fmtParen, clean, fmtDec } from './num-format.js';
+import { fmt, fmtCol, fmtParen, clean, fmtDec, parseNums, near } from './num-format.js';
 import { sqrtText, specialAngle } from './radical.js';
 import { solve, residual, equationString } from './linear-system.js';
 import { matrixFromColumns, isIndependent } from './subspace.js';
@@ -44,15 +44,19 @@ export function vectorReport(v, w = null) {
   const len = [...normLines('v', v), ...(w ? normLines('w', w) : [])];
   if (!V.isZero(v)) len.push(`v / |v| = (1/${rad(V.norm2(v))})·${fmtCol(v)}`, `= ${fmtCol(V.normalize(v))}`);
   steps.push({ group: 'sv.tabLen', why: { key: 'ww.norm' }, head: { key: 'sv.stNorm' }, lines: len });
-  if (!w) return { answer, steps };
+  const accept = [V.norm(v)];
+  const checkAny = () => t => { const x = parseNums(t)[0]; return Number.isFinite(x) && accept.some(a => near(x, a, 0.006)); };
+  if (!w) return { answer, steps, check: checkAny() };
 
   const d = V.dot(v, w);
   answer.push(`v·w = ${fmt(d)}`);
+  accept.push(V.norm(w), d);
   const ang = [dotLine(v, w)];
   if (!V.isZero(v) && !V.isZero(w)) {
     const nv = V.norm(v), nw = V.norm(w);
     const cos = Math.min(1, Math.max(-1, d / (nv * nw)));
     const deg = clean(Math.acos(cos) * 180 / Math.PI);
+    accept.push(deg);
     const sp = specialAngle(deg);
     answer.push(`θ = ${sp ? `${fmt(Math.round(deg))}° = ${sp}` : `${fmtDec(Number(deg.toFixed(2)))}°`}`);
     ang.push(`cos θ = ${fmt(d)}/(${rad(V.norm2(v))}·${rad(V.norm2(w))})`, `= ${r4(cos)}`,
@@ -73,7 +77,7 @@ export function vectorReport(v, w = null) {
   } else {
     steps.push({ group: 'sv.tabAngle', why: { key: 'ww.angle' }, head: { key: 'sv.stAngle' }, lines: ang });
   }
-  return { answer, steps };
+  return { answer, steps, check: checkAny() };
 }
 
 /** w có phải tổ hợp tuyến tính của các vector không? Nếu có thì hệ số là gì. */
@@ -107,5 +111,6 @@ export function comboReport(vectors, w) {
   }
   tail.push({ key: isIndependent(vectors) ? 'sv.indep' : 'sv.dep' });
   steps.push({ head: { key: 'sv.stCheck' }, lines: tail });
-  return { answer, steps };
+  const check = r.type === 'none' ? undefined : t => { const x = parseNums(t); return x.length === vectors.length && residual(A, x, w) < 1e-6; };
+  return { answer, steps, ...(check ? { check } : {}) };
 }

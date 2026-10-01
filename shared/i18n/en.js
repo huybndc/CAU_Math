@@ -60,6 +60,8 @@ export const en = {
   'solver.wrong': '✗ Not yet',
   'solver.copy': 'Copy solution',
   'solver.copied': 'Copied',
+  'solver.hint': 'Hint',
+  'solver.hintMore': 'Next hint',
   'solver.try': 'Try:',
   'terms.openLesson': 'Open lesson: {title} →',
   'solver.random': 'Random',
