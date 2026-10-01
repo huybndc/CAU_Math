@@ -77,6 +77,9 @@ function renderSetup(cfg) {
         onClick: () => { S.chapters = S.chapters.includes(c.id) ? S.chapters.filter(x => x !== c.id) : [...S.chapters, c.id].sort(); draw(); },
       }, [el('b', { text: chNo(c.id) }), T('nav.' + c.id)]))), T('exam.scopeNote')),
       field(T('exam.length'), seg(EXAM_MINUTES, m => m === S.minutes, m => { S.minutes = m; }, m => T('exam.minutes', { m }))),
+      field(T('exam.layout'), el('div', { class: 'exam-modes' }, ['part', 'random'].map(o => el('button', {
+        type: 'button', class: 'exam-mode', 'aria-pressed': String(S.order === o), onClick: () => { S.order = o; draw(); },
+      }, [el('b', { text: T('exam.layout.' + o) }), el('small', { text: T('exam.layout.' + o + 'Note') })]))), T('exam.mix')),
       field(T('exam.how'), el('div', { class: 'exam-modes' }, ['exam', 'long'].map(m => el('button', {
         type: 'button', class: 'exam-mode', 'aria-pressed': String(S.mode === m), onClick: () => { S.mode = m; draw(); },
       }, [el('b', { text: T(m === 'exam' ? 'exam.modeExam' : 'exam.modeLong') }), el('small', { text: T(m === 'exam' ? 'exam.modeExamNote' : 'exam.modeLongNote') })])))),
