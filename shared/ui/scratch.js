@@ -21,6 +21,7 @@ import { mountCalcList } from './scratch-calc.js';
    --------------------------------------------------------------- */
 
 const BASES = [2, 8, 10, 16];
+const LIST_CALC = ['linalg', 'calculus'];             // môn dùng máy tính dạng danh sách; Logic / Discrete cần đổi cơ số
 const SYMBOLS = ['Σm(', 'ΠM(', '′', '⊕', '·', '→', '≠'];
 const TABS = { logic: ['notes', 'calc', 'table', 'kmap'], discrete: ['notes', 'calc', 'table'], linalg: ['notes', 'calc', 'matrix'] };
 const SUGGEST = {
@@ -52,11 +53,11 @@ export function setupScratch() {
     ['b', '.link', '.scratch-x', 'textarea', '.calc .calc-bases', '.calc-in', '.calc-err', '.calc-out', '.scratch-syms'].map(s => pane.querySelector(s));
   // Đại số tuyến tính: ngăn Máy tính là danh sách biểu thức kiểu Desmos (thay máy tính đổi cơ số)
   let calcList = null;
-  if (subject === 'linalg') {
+  if (LIST_CALC.includes(subject)) {
     const sec = pane.querySelector('.sp.calc');
     sec.className = 'sp cl-wrap';
     sec.replaceChildren();
-    calcList = mountCalcList(sec, accountStorageKey('calc-list:' + subject));
+    calcList = mountCalcList(sec, accountStorageKey('calc-list:' + subject), { angleDefault: subject === 'calculus' ? 'rad' : 'deg' });
   }
   const tabs = TABS[subject] ?? ['notes', 'calc'];
   const panel = tab => pane.querySelector(`.sp[data-tab="${tab}"]`);

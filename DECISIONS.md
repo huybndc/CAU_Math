@@ -518,3 +518,8 @@ khác syllabus, lịch học bắt đầu từ 2026/09/01".)
 - Tỉ lệ 80/20 tính trong từng Part (hoặc cả đề khi trộn): dạng vốn là trắc nghiệm bị giới hạn ≤ 20%, thiếu thì đổi bớt câu tự luận sang bản trắc nghiệm (choiceBank). Quy tắc này áp dụng cho môn thêm về sau (ngân hàng mới phải có choiceBank và đủ dạng tự luận).
 - Đề đang dở / cũ (order 'mixed' hoặc không có) vẫn dựng bằng cách cũ để đáp án đã lưu khớp.
 - Còn nợ: Discrete có nhiều dạng vốn trắc nghiệm (Ch2 toàn bộ) nên đề Discrete ~50% trắc nghiệm; cần thêm dạng tự luận.
+
+**D54. Máy tính kiểu Desmos scientific; không xây thêm "Công cụ" (2026-10-01).**
+- Người học dùng Nháp + máy tính rất nhiều, "Công cụ" gần như không dùng (trừ K-map): từ nay ưu tiên máy tính / Nháp; công cụ mới chỉ khi hữu ích thật như K-map.
+- Máy tính dạng danh sách (Linear Algebra, và Calculus khi có môn): nhiều dòng, biến/hàm `a = 3`, `f(x) = x^2`, bàn phím ảo ⌨ (√ π ∫ Σ, trig, ln…), đổi độ/radian, đạo hàm `diff(f, x0)`, tích phân `int(f, a, b)`, tổng `sum(f, k, a, b)` bằng số (đạo hàm 5 điểm, Simpson thích nghi).
+- Logic / Discrete giữ máy tính đổi cơ số (cần BIN/OCT/HEX).

@@ -19,7 +19,11 @@ export const vi = {
   'calc.undef': 'Chưa định nghĩa “{name}”.',
   'calc.argc': 'Hàm {name} nhận số đối số khác.',
   'calc.reserved': '“{name}” là tên có sẵn, chọn tên khác.',
-  'calc.listTip': 'Mỗi dòng một biểu thức. Định nghĩa: a = 3, f(x) = x^2 + 1 — dòng sau dùng được. sqrt, π, sin/cos/tan (độ). Enter: dòng mới.',
+  'calc.deg': 'Độ',
+  'calc.rad': 'Rad',
+  'calc.angleTip': 'Đơn vị góc cho sin, cos, tan…: độ hoặc radian (giải tích dùng radian)',
+  'calc.kbd': 'Bàn phím ký hiệu',
+  'calc.listTip': 'Mỗi dòng một biểu thức. a = 3, f(x) = x^2 + 1 định nghĩa cho dòng sau; diff(f, x0) đạo hàm, int(f, a, b) tích phân, sum(f, k, a, b) tổng. Bấm ⌨ để chèn √ π ∫ Σ.',
   'shell.close': 'Đóng',
   /* đồng bộ giữa các máy (D37) — chữ trong tooltip nút mây */
   'sync.wait': 'Đang đồng bộ…',

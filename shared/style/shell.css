@@ -398,3 +398,14 @@ body.exam-focus .appnav{display:none}
 .cl-wrap{display:flex;flex-direction:column;max-height:42%;min-height:7rem;border-bottom:1px solid var(--line)}
 .cl-wrap{display:flex;flex-direction:column;flex:1;min-height:0}
 .cl-wrap[hidden]{display:none}
+
+/* bàn phím ảo + thanh công cụ của máy tính danh sách */
+.cl-bar{display:flex;align-items:center;gap:6px}
+.cl-grow{flex:1}
+.cl-keys{border-top:1px solid var(--line);padding-top:8px;display:grid;gap:6px}
+.cl-keytabs{display:flex;gap:6px}
+.cl-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:5px}
+.cl-key{padding:9px 2px;border:1px solid var(--line);border-radius:var(--r-sm);background:var(--panel2);color:var(--ink);font:500 var(--fs-sm) var(--math);cursor:pointer;touch-action:manipulation}
+.cl-key.num{background:var(--panel);font-weight:600}
+.cl-key:hover{border-color:var(--accent);color:var(--accent)}
+.cl-key:active{background:var(--accent-soft)}

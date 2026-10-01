@@ -4,22 +4,28 @@
    Hệ 2/8/16 tính số nguyên: 1F + 3*A, (777 - 70) / 7 — ÷ là chia NGUYÊN (lấy thương), đúng phép
    dùng khi đổi cơ số bằng chia liên tiếp. Kết quả nguyên hiện ở cả 2, 8, 10, 16.
    Riêng hệ 10 (dùng cho cả ô đáp án LinAlg): sqrt(x) hay √x, lũy thừa ^, π (pi), sin cos tan asin acos atan
-   tính theo ĐỘ (góc trong sách đều ra độ), và nhân ngầm: 2√3, 3sqrt(2), 2(1 + 3), 2π.
+   tính theo ĐỘ (mặc định; angle:'rad' cho giải tích), thêm ln, log, exp, abs, cbrt, hằng e, và nhân ngầm: 2√3, 3sqrt(2), 2(1 + 3), 2π.
    --------------------------------------------------------------- */
 
-const FUNCS = {
-  SQRT: x => (x < 0 ? null : Math.sqrt(x)),
-  SIN: x => Math.sin((x * Math.PI) / 180), COS: x => Math.cos((x * Math.PI) / 180), TAN: x => Math.tan((x * Math.PI) / 180),
-  ASIN: x => (Math.abs(x) > 1 ? null : (Math.asin(x) * 180) / Math.PI),
-  ACOS: x => (Math.abs(x) > 1 ? null : (Math.acos(x) * 180) / Math.PI),
-  ATAN: x => (Math.atan(x) * 180) / Math.PI,
+/** Hàm theo đơn vị góc: 'deg' (mặc định, sách LinAlg/Logic) hoặc 'rad' (giải tích). */
+const funcs = rad => {
+  const to = x => (rad ? x : (x * Math.PI) / 180), from = x => (rad ? x : (x * 180) / Math.PI);
+  return {
+    SQRT: x => (x < 0 ? null : Math.sqrt(x)), CBRT: Math.cbrt, ABS: Math.abs,
+    SIN: x => Math.sin(to(x)), COS: x => Math.cos(to(x)), TAN: x => Math.tan(to(x)),
+    ASIN: x => (Math.abs(x) > 1 ? null : from(Math.asin(x))),
+    ACOS: x => (Math.abs(x) > 1 ? null : from(Math.acos(x))),
+    ATAN: x => from(Math.atan(x)),
+    LN: x => (x <= 0 ? null : Math.log(x)), LOG: x => (x <= 0 ? null : Math.log10(x)), EXP: Math.exp,
+  };
 };
-const NAMES = Object.keys(FUNCS).sort((a, b) => b.length - a.length);   // ASIN trước SIN
+const NAMES = Object.keys(funcs(false)).sort((a, b) => b.length - a.length);   // ASIN trước SIN, EXP trước E
 
 const DIGITS = '0123456789ABCDEF';
 
 /** Tính biểu thức `text` ở cơ số `base`. Trả { value } hoặc { error: khoá lỗi, at: vị trí }. */
-export function evaluate(text, base) {
+export function evaluate(text, base, { angle = 'deg' } = {}) {
+  const FUNCS = funcs(angle === 'rad');
   const src = String(text).toUpperCase().replace(/×/g, '*').replace(/[÷:]/g, '/').replace(/[−–]/g, '-');
   let i = 0;
   const skip = () => { while (src[i] === ' ') i++; };
@@ -34,7 +40,7 @@ export function evaluate(text, base) {
       if (src[i] === '.' && base === 10 && !scale) { scale = 1; i++; continue; }
       const d = DIGITS.indexOf(src[i]);
       if (d < 0) break;
-      if (d >= base) err('calc.badDigit');
+      if (d >= base) { if (base === 10 && d > 9 && word() !== null) break; err('calc.badDigit'); }   // 2e, 3ln(2): nhân ngầm
       if (scale) v += d / 10 ** scale++;
       else v = v * base + d;
       i++;
@@ -44,7 +50,8 @@ export function evaluate(text, base) {
   }
   const dec = base === 10;
   /** Hàm / hằng ở vị trí i (chỉ hệ 10): trả tên hoặc null. */
-  const word = () => (dec ? (src[i] === '√' ? '√' : src[i] === 'Π' ? 'Π' : src.startsWith('PI', i) ? 'PI' : NAMES.find(n => src.startsWith(n, i)) ?? null) : null);
+  const word = () => (dec ? (src[i] === '√' ? '√' : src[i] === 'Π' ? 'Π' : src.startsWith('PI', i) ? 'PI'
+    : NAMES.find(n => src.startsWith(n, i)) ?? (src[i] === 'E' && !/[A-Z]/.test(src[i + 1] ?? '') ? 'E' : null)) : null);
   function atom() {
     skip();
     if (src[i] === '(') {
@@ -59,6 +66,7 @@ export function evaluate(text, base) {
     if (src[i] === '+') { i++; return power(); }
     const w = word();
     if (w === 'Π' || w === 'PI') { i += w.length; return Math.PI; }
+    if (w === 'E') { i += 1; return Math.E; }
     if (w) {
       i += w.length;
       const v = (w === '√' ? FUNCS.SQRT : FUNCS[w])(power());
