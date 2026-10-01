@@ -83,3 +83,12 @@ describe('fmt', () => {
     expect(signPart(3)).toEqual({ sign: '+', abs: 3 });
   });
 });
+
+import { withFractionMode } from '../src/logic/num-format.js';
+describe('chế độ phân số của máy giải', () => {
+  it('chỉ trong phạm vi withFractionMode: 0.4 → 2/5, 1.75 → 7/4; ngoài đó vẫn thập phân', () => {
+    expect(fmt(0.4)).toBe('0.4');
+    expect(withFractionMode(() => [fmt(0.4), fmt(1.75), fmt(-0.25), fmt(3), fmt(Math.PI)])).toEqual(['2/5', '7/4', '-1/4', '3', '3.142']);
+    expect(fmt(1.75)).toBe('1.75');
+  });
+});

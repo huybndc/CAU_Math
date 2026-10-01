@@ -47,6 +47,23 @@ export function pasteBlock(st, r, c, text) {
   };
 }
 
+/**
+ * Dời cả cột `from` tới vị trí `to` (như kéo cột trong Excel). Chỉ dời được cột BIỂU THỨC: cột biến (c < vars) đứng yên.
+ * Mọi hàng đều dời cùng nhau (hàng ngắn được đệm ô trống); không hợp lệ ⇒ trả nguyên bảng.
+ */
+export function moveColumn(st, from, to) {
+  const { vars = 0, cols, rows } = st;
+  if (from === to || from < vars || to < vars || from >= cols || to >= cols) return st;
+  const cells = st.cells.map((row, r) => {
+    if (r > rows) return row;
+    const next = Array.from({ length: cols }, (_, j) => row[j] ?? '');
+    const [x] = next.splice(from, 1);
+    next.splice(to, 0, x);
+    return next;
+  });
+  return { ...st, cells };
+}
+
 /** Đọc từ localStorage (chuỗi JSON hoặc null); hỏng/thiếu ⇒ bảng 3 biến đã điền sẵn tổ hợp. */
 export function loadTable(raw, subject) {
   try {

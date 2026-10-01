@@ -18,37 +18,17 @@ export const ch1 = {
   'c1.whyNeg': 'Hình chiếu của v ngược chiều w, nên tích vô hướng âm.',
 
   /* Tương tác — kéo vector */
-  'c1.dragTitle': 'Kéo vector, đọc số ngay',
-  'c1.dragNote': 'Kéo đầu mũi tên v (xanh) hoặc w (vàng). Toạ độ bắt theo lưới 0.25 để số dễ đọc.',
-  'c1.showSum': 'Hiện v + w',
-  'c1.showDiff': 'Hiện v − w',
-  'c1.showProj': 'Hiện hình chiếu của v lên w',
-  'c1.relPerp': 'v ⊥ w (vuông góc)',
-  'c1.relParallel': 'v ∥ w (cùng phương)',
-  'c1.relFree': 'v và w độc lập',
 
   /* Tương tác — tổ hợp tuyến tính */
-  'c1.comboTitle': 'Tổ hợp tuyến tính c₁v₁ + c₂v₂',
-  'c1.comboNote': 'Kéo hai vector nền và chỉnh hệ số. Chấm mờ là các điểm với tới được — chính là span của v₁ và v₂.',
-  'c1.spanPlane': 'span = toàn bộ mặt phẳng R²',
-  'c1.spanLine': 'span = một đường thẳng qua gốc',
-  'c1.spanPoint': 'span = một điểm (gốc toạ độ)',
-  'c1.spanWhyPlane': 'Hai vector không cùng phương nên mọi điểm của R² đều viết được thành c₁v₁ + c₂v₂.',
-  'c1.spanWhyLine': 'Hai vector cùng phương nên mọi tổ hợp đều rơi lên đúng một đường thẳng — phần lớn mặt phẳng không với tới được.',
-  'c1.spanWhyPoint': 'Cả hai đều là vector 0 nên mọi tổ hợp đều ra gốc toạ độ.',
 
   /* nhãn đọc số dùng chung trong chương */
   'c1.lblSum': 'v + w',
-  'c1.lblDiff': 'v − w',
   'c1.lblLenV': '‖v‖',
   'c1.lblLenW': '‖w‖',
   'c1.lblDot': 'v · w',
   'c1.lblAngle': 'Góc (v, w)',
   'c1.lblCos': 'cos θ',
   'c1.lblProj': 'Hình chiếu v lên w',
-  'c1.lblCombo': 'c₁v₁ + c₂v₂',
-  'c1.toCh2': 'Sang Chương 2: giải hệ Ax = b',
   'c1.errVec': 'Toạ độ phải là hai số, ví dụ 3, 1.',
-  'c1.undefinedZero': 'không xác định (vector 0)',
 
 };

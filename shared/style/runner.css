@@ -198,3 +198,8 @@ button.link:hover{color:var(--accent)}
 .w-formula-keys{display:flex;flex-wrap:wrap;gap:5px}
 .w-fkey{min-width:2.3rem;padding:6px 8px;font:500 1.05rem var(--math, var(--mono));border:1px solid var(--line-strong);border-radius:var(--r-sm);background:var(--panel);color:var(--ink);cursor:pointer}
 .w-fkey:hover:not(:disabled){border-color:var(--accent);color:var(--accent)}
+
+/* phân số xếp hai hàng trong dòng toán (shared/logic/fractions.js) */
+.frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 .12em;line-height:1.15;font-size:.92em}
+.frac > span:first-child{padding:0 .15em;border-bottom:1.5px solid currentColor}
+.frac > span:last-child{padding:0 .15em}

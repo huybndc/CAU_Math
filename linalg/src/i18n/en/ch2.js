@@ -29,10 +29,6 @@ export const ch2 = {
   'c2.rankLine': 'rank(A) = {rank}, unknowns = {n}, free variables = {free}.',
   'c2.rankLineNone': 'rank(A) = {rank} but rank([A | b]) = {rankAug} — the two ranks differ, so the system has no solution.',
   'c2.checkLine': 'Check: substituting back into the original system, the largest mismatch is {res}.',
-  'c2.lblRank': 'rank(A)',
-  'c2.lblRankAug': 'rank([A | b])',
-  'c2.lblVars': 'Unknowns',
-  'c2.lblFree': 'Free variables',
   'c2.lblType': 'Conclusion',
 
   /* Examples — the row picture */
@@ -47,24 +43,5 @@ export const ch2 = {
   'c2.lblCross': 'Intersection',
 
   /* Interactive — choose your own row operation */
-  'c2.opTitle': 'Pick your own row operations',
-  'c2.opNote': 'Choose an operation and apply it. Each step is checked, and you are told as soon as the matrix reaches echelon form.',
-  'c2.opKind': 'Operation:',
-  'c2.opAdd': 'Add a multiple of another row',
-  'c2.opSwap': 'Swap two rows',
-  'c2.opScale': 'Multiply a row by a number',
-  'c2.rowI': 'Row:',
-  'c2.rowJ': 'Taken from row:',
-  'c2.rowJSwap': 'Swap with row:',
-  'c2.apply': 'Apply',
-  'c2.undo': 'Undo one step',
-  'c2.hintNext': 'Hint for the next step',
-  'c2.history': 'Steps taken',
-  'c2.historyEmpty': 'No steps yet.',
-  'c2.echelonYes': 'Echelon form reached',
-  'c2.echelonNo': 'Not in echelon form yet',
-  'c2.hintSuggest': 'The next step should be: {formula}',
-  'c2.hintDone': 'Already in echelon form — no further step is needed.',
-  'c2.badFactor': 'The factor k must be a nonzero number.',
 
 };

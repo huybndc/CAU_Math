@@ -50,10 +50,21 @@ export function toFraction(x, maxDen = 64, eps = 1e-9) {
  *   thập phân ngắn → giữ thập phân (3.2, 1.25) vì đọc tự nhiên hơn 16/5
  *   còn lại → thử phân số mẫu nhỏ (2/3, -1/6), không được thì làm tròn (3.142)
  */
+let fractionMode = false;
+/**
+ * Chạy fn với chế độ "ưu tiên phân số": 0.4 → 2/5, 1.75 → 7/4 (máy giải hiển thị theo lối viết của sách; giao diện vẽ thành tử trên mẫu).
+ * Đồng bộ và có phạm vi hẹp nên không ảnh hưởng chỗ khác (câu luyện tập vẫn viết 0.4).
+ */
+export function withFractionMode(fn) {
+  const prev = fractionMode;
+  fractionMode = true;
+  try { return fn(); } finally { fractionMode = prev; }
+}
+
 export function fmt(x, digits = 3) {
   const c = clean(x);
   if (Number.isInteger(c)) return String(c);
-  if (Number(c.toFixed(2)) === c) return String(c);
+  if (!fractionMode && Number(c.toFixed(2)) === c) return String(c);
   // mẫu số tới 999: khử Gauss trên số nguyên hay ra 5/77, viết phân số vẫn đọc được
   const f = toFraction(c, 999);
   if (f && f.den !== 1 && f.den <= 999) return f.num + '/' + f.den;
@@ -76,6 +87,9 @@ export const fmtParen = x => {
 
 /** Vector → "(1, 2, 3)". */
 export const fmtVec = v => '(' + v.map(x => fmt(x)).join(', ') + ')';
+
+/** Vector CỘT dạng chuỗi ma trận một cột "[1; 2; 3]" — giao diện vẽ thành cột dọc có ngoặc (như trong sách). */
+export const fmtCol = v => '[' + v.map(x => fmt(x)).join('; ') + ']';
 
 /** Dấu + hoặc - đứng giữa hai hạng tử, kèm trị tuyệt đối của hệ số. */
 export function signPart(x) {
