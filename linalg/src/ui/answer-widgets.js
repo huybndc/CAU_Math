@@ -10,11 +10,10 @@ import { parseNumber } from '../logic/answer-check.js';
    --------------------------------------------------------------- */
 
 /** Tách chuỗi đáp án cũ ("1, 2" hoặc "[1 2; 3 4]") thành mảng ô theo thứ tự hàng. */
-function cellsOf(given, rows, cols) {
+export function cellsOf(given, rows, cols) {
   const s = String(given ?? '').replace(/[[\]()]/g, '').trim();
   if (!s) return [];
-  if (rows > 1) return s.split(';').flatMap(r => r.trim().split(/\s+/));
-  return s.split(/[,;\s]+/);
+  return s.split(/[,;\s]+/).filter(Boolean);       // cột "a, b, c" (rows>1) và ma trận "a b; c d" đều tách đúng, không để dấu phẩy dính vào ô
 }
 
 function grid({ rows, cols, labels, cls }, ctx, tol, getWant) {

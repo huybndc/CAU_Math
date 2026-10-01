@@ -66,6 +66,7 @@ const toHubEvent = (subject, e) => ({
 });
 
 async function pushRemote(subject, events) {
+  events = events.filter(e => !String(e.id).startsWith('snap|'));   // sự kiện lấy từ ảnh chụp Mac: đã ở máy chủ, không đẩy ngược
   if (!events.length) return;
   try {
     if (!(await currentUser())) return;
@@ -94,7 +95,9 @@ export async function hydrateProgress(subject = subjectOf()) {
   const normalized = withIds(subject, local0);
   const merged = new Map();
   for (const e of normalized.events) merged.set(e.id, e);
-  for (const e of remote) merged.set(e.id, e);
+  const sig = e => `${e.ts}|${e.prefix}|${e.kind}|${e.ok ? 1 : 0}|${e.mode}`;
+  const seen = new Set([...merged.values()].map(sig));
+  for (const e of remote) if (merged.has(e.id) || !seen.has(sig(e))) { merged.set(e.id, e); seen.add(sig(e)); }   // trùng chữ ký (cùng câu, id khác) chỉ tính một
   const events = [...merged.values()].sort((a, b) => (a.ts ?? 0) - (b.ts ?? 0));
   const changed = normalized.changed || events.length !== local0.length || events.some((e, i) => JSON.stringify(e) !== JSON.stringify(local0[i]));
   if (changed) save('progress', events, subject);

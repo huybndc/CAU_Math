@@ -176,7 +176,8 @@ export function setupScratch() {
   pane.addEventListener('keydown', e => { if (e.key === 'Escape') open(false); });
 
   const label = () => {
-    btn.textContent = title.textContent = T('shell.scratch');
+    btn.textContent = '✎ ' + (title.textContent = T('shell.scratch'));
+    btn.title = T('shell.scratchHint');
     clear.textContent = T('shell.scratchClear');
     close.setAttribute('aria-label', T('shell.close'));
     ta.placeholder = T('shell.scratchPh');

@@ -9,6 +9,7 @@
      currentUser()            { id } | null — id dùng làm namespace đồng bộ thư mục đám mây
      loadMathAnswerEvents()   sự kiện math.answer từ máy chủ (riêng: không có)
      pushHubEvents(list, deviceId)  đẩy sự kiện math.answer lên máy chủ (riêng: không làm gì)
+     hubHref                  địa chỉ trang chủ Hub để hiện nút quay về (riêng: null = không hiện)
    --------------------------------------------------------------- */
 
 export const accountStorageKey = key => key;
@@ -26,3 +27,4 @@ export const adoptAccount = () => false;
 export const currentUser = async () => ({ id: 'standalone' });
 export const loadMathAnswerEvents = async () => [];
 export const pushHubEvents = async () => {};
+export const hubHref = null;

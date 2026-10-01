@@ -46,8 +46,17 @@ export function bits(spec, ctx) {
     cells.push(b);
     box.append(b);
   }
+  // dán / gõ cả chuỗi "11000001": rải vào các ô từ ô đang chọn
+  box.addEventListener('paste', e => {
+    const s = (e.clipboardData?.getData('text') ?? '').replace(/[^01]/g, '');
+    if (!s) return;
+    e.preventDefault();
+    const from = Math.max(0, cells.indexOf(document.activeElement));
+    [...s].slice(0, n - from).forEach((c, k) => { val[from + k] = c; });
+    paint();
+  });
   paint();
-  return { el: box, get: () => (val.every(Boolean) ? val.join('') : ''), focus: () => cells[0].focus() };
+  return { el: box, get: () => (val.every(Boolean) ? val.join('') : ''), focus: () => (cells.find((_, i) => !val[i]) ?? cells[0]).focus() };
 }
 
 /**
