@@ -134,7 +134,11 @@ export function mountRunner(host, { bank, prefix, figures = {}, widgets = {}, si
     if (S.phase !== 'ask') {
       head.append(h('span', 'badge', label(q.kind)));
       const code = questionCode(subjectOf(), prefix, q, bank.mcq);
-      if (code) head.append(Object.assign(h('span', 'run-code', code), { title: T('run.code') }));
+      if (code) {                                  // chip ngắn "#abc123"; bấm để chép mã đầy đủ
+        const chip = Object.assign(h('button', 'run-code', '#' + code.split('-').pop()), { type: 'button', title: `${T('run.code')}: ${code}` });
+        chip.addEventListener('click', () => navigator.clipboard?.writeText(code).catch(() => {}));
+        head.append(chip);
+      }
     }
 
     const view = questionView(q, { figures, widgets, given: e.given, locked: S.phase !== 'ask', onSubmit: check, action: T('run.check') });

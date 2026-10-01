@@ -5,6 +5,7 @@ import { startRouter, currentRoute } from './router.js';
 import { showRoute } from './screens.js';
 import { startSync } from './sync.js';
 import { hydrateProgress, syncProgress } from './store.js';
+import { hubHref } from '@host';
 
 /* ---------------------------------------------------------------
    KHUNG CHUNG của mỗi app: menu theo việc (Tổng quan · Học · Luyện tập ·
@@ -73,6 +74,19 @@ function labelHints() {
   });
 }
 
+/** Chạy dưới Study Hub: thêm tab "Study Hub" để quay về trang chủ Hub (app chạy riêng thì không có). */
+function addHubLink() {
+  const tabs = document.querySelector('.appnav .tabs');
+  if (!hubHref || !tabs || tabs.querySelector('.hub-back')) return;
+  const a = document.createElement('a');
+  a.className = 'tab hub-back';
+  a.href = hubHref;
+  a.dataset.nav = 'hub';
+  a.dataset.i18n = 'shell.hub';
+  a.textContent = T('shell.hub');
+  tabs.append(a);
+}
+
 /**
  * @param {{ chapters: {id:string, bank?:object, prefix?:string}[], figures?:object,
  *           widgets?:object, lesson?:(chId:string)=>string }} cfg
@@ -82,6 +96,7 @@ export async function setupShell(cfg) {
   setupTheme();
   upgradeHints();
   setupScratch();
+  addHubLink();
   try {
     await hydrateProgress();
   } catch (e) {

@@ -539,3 +539,11 @@ khác syllabus, lịch học bắt đầu từ 2026/09/01".)
 - Phần chứng minh (suy diễn, phản chứng, tập lũy thừa…) vẫn không tự chấm được — giữ làm gợi ý trong thẻ học (D49).
 
 **D56b. Nháp là cửa sổ nổi, không đẩy nội dung (2026-10-01).** Bỏ `--scratch-push` / `margin-right` của #app: kéo Nháp thì trang bên dưới đứng yên (bản trước làm nội dung nhảy sang phải khi khung thả nổi). Cần xem được nội dung bị che thì kéo / thu nhỏ khung.
+
+## D58 — Sửa theo đợt review người dùng (2026-10-01)
+- **Số liệu lệch Hub ↔ app:** Hub đếm cả ảnh chụp do Desktop đẩy lên, app môn chỉ nạp nhật ký sự kiện. Adapter `@host` nay trả cả hai; `hydrateProgress` bỏ trùng theo chữ ký (ts, prefix, kind, ok, mode) và không đẩy ngược sự kiện lấy từ ảnh chụp.
+- **Vector cột bị tô đỏ dù đúng:** `cellsOf` tách "a, b, c" theo kiểu ma trận nên dấu phẩy dính vào ô. Tách theo `[,;\s]+`.
+- **Nháp trên điện thoại dọc:** nút nằm trên thanh tab, ngăn mở nửa dưới, bỏ toạ độ kéo thả đã lưu.
+- **Nút về Hub:** `hubHref` trong hợp đồng `@host` (mặc định null); có thì thêm tab "Study Hub".
+- Chữ: mã câu thành chip ngắn bấm để chép; rút dòng "chỉ có n câu"; "Nên ôn lại"; "Chia theo phần (Part)"; ô bit nhận dán cả chuỗi.
+- Công cụ Discrete chỉ liệt kê chương có công cụ tương tác (1, 6, 7, 8): có chủ đích, không sửa.

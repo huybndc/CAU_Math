@@ -21,9 +21,11 @@ export function mountFrame(pane, handle) {
     g.x = Math.min(Math.max(g.x, 0), innerWidth - g.w);
     g.y = Math.min(Math.max(g.y, 0), innerHeight - g.h);
   };
+  // điện thoại dọc: Nháp là ngăn nửa dưới do CSS lo — bỏ qua toạ độ đã lưu
+  const phone = () => matchMedia('(max-width: 760px) and (orientation: portrait)').matches;
   function apply() {
     const s = pane.style;
-    if (!g) {
+    if (!g || phone()) {
       ['left', 'top', 'right', 'bottom', 'width', 'height'].forEach(k => s.removeProperty(k));
       return;
     }
