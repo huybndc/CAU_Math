@@ -26,6 +26,7 @@ export function createSolver(host, { practice = null, examples = [] } = {}) {
   let last = null;               // { result } | { error } | null
   let revealed = false;          // đã bấm "Hiện" trong lúc đang che
   const openSteps = new Set();   // chỉ số bước đang mở — giữ qua lần tính lại / đổi ngôn ngữ
+  let tab = null;                // ngăn đang xem (khoá nhóm) — giữ khi gõ tiếp
 
   const drawExamples = () => exRow.replaceChildren(...(examples.length ? [
     el('span', { class: 'sv-ex-l', text: T('solver.try') }),
@@ -40,25 +41,34 @@ export function createSolver(host, { practice = null, examples = [] } = {}) {
     const hide = load(HIDE_KEY, false);
     const masked = hide && !revealed;
 
+    // các bước chia NGĂN theo `group` (mặc định "Cách làm"): mỗi lúc chỉ một ngăn ⇒ không phải cuộn dài
+    const groups = [...new Set(steps.map(st => st.group ?? 'solver.tabSteps'))];
+    if (!groups.includes(tab)) tab = groups[0] ?? null;
+    const inTab = steps.map((st, i) => ({ st, i })).filter(x => (x.st.group ?? 'solver.tabSteps') === tab);
+
     const tools = el('div', { class: 'sv-tools' }, [
       el('label', { class: 'sv-hide' }, [
         el('input', { type: 'checkbox', checked: hide ? '' : null, onChange: e => { save(HIDE_KEY, e.target.checked); revealed = false; draw(); } }),
         T('solver.hide'),
       ]),
-      !masked && steps.length > 1 && el('button', { type: 'button', class: 'sv-link', text: T(openSteps.size ? 'solver.closeAll' : 'solver.openAll'),
-        onClick: () => { if (openSteps.size) openSteps.clear(); else steps.forEach((_, i) => openSteps.add(i)); draw(); } }),
       practice && el('a', { class: 'sv-link', href: practice, text: T('solver.similar') }),
     ]);
     if (masked) {
       out.replaceChildren(el('button', { type: 'button', class: 'btn sv-reveal', text: T('solver.reveal'), onClick: () => { revealed = true; draw(); } }), tools);
       return;
     }
+    const allOpen = inTab.length > 0 && inTab.every(x => openSteps.has(x.i));
     out.replaceChildren(
       el('div', { class: 'sv-answer' }, answer.map(stepLine)),
-      el('div', { class: 'sv-steps' }, steps.map((s, i) => {
+      steps.length > 0 && el('div', { class: 'sv-tabs', role: 'tablist' }, [
+        ...groups.map(g => el('button', { type: 'button', role: 'tab', 'aria-selected': String(g === tab), text: T(g), onClick: () => { tab = g; draw(); } })),
+        inTab.length > 1 && el('button', { type: 'button', class: 'sv-link sv-all', text: T(allOpen ? 'solver.closeAll' : 'solver.openAll'),
+          onClick: () => { inTab.forEach(x => (allOpen ? openSteps.delete(x.i) : openSteps.add(x.i))); draw(); } }),
+      ]),
+      el('div', { class: 'sv-steps', role: 'tabpanel' }, inTab.map(({ st, i }, k) => {
         const d = el('details', { class: 'sv-step', open: openSteps.has(i) ? '' : null }, [
-          el('summary', {}, [el('span', { class: 'sv-n', text: CIRCLED[i] ?? String(i + 1) }), T(s.head.key, s.head.params)]),
-          el('div', { class: 'run-lines sv-body' }, s.lines.map(stepLine)),
+          el('summary', {}, [el('span', { class: 'sv-n', text: CIRCLED[k] ?? String(k + 1) }), T(st.head.key, st.head.params)]),
+          el('div', { class: 'run-lines sv-body' }, st.lines.map(stepLine)),
         ]);
         d.addEventListener('toggle', () => { if (d.open) openSteps.add(i); else openSteps.delete(i); });
         return d;

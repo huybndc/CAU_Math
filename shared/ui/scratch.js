@@ -116,8 +116,10 @@ export function setupScratch() {
     f.focus();
     f.dispatchEvent(new Event('input', { bubbles: true }));   // để ô tự lưu như khi gõ
   };
+  const symBtns = [];
   SYMBOLS.forEach(s => {
     const b = document.createElement('button');
+    symBtns.push(b);
     b.type = 'button';
     b.textContent = s;
     b.addEventListener('click', () => insert(s));
@@ -186,6 +188,7 @@ export function setupScratch() {
     calcList?.label();
     draw.redraw();
     syms.title = T('calc.syms');
+    symBtns.forEach((b, i) => { b.title = T('scratch.sym' + i); });
     nav.replaceChildren(...tabs.map(t => {
       const b = document.createElement('button');
       b.type = 'button';

@@ -60,6 +60,7 @@ export function systemReport(A, b) {
   const e = eliminationE(A);
   if (e.steps.length) {
     steps.push({
+      group: 'ss.tabELU',
       head: { key: 'ss.stE' },
       lines: [
         { key: 'ss.eNote' },
@@ -72,6 +73,7 @@ export function systemReport(A, b) {
   const f = ldu(A);
   const hasSwap = f.swaps.length > 0;
   steps.push({
+    group: 'ss.tabELU',
     head: { key: hasSwap ? 'ss.stPLU' : 'ss.stLU' },
     lines: [
       { key: 'ss.luNote' },
@@ -85,6 +87,7 @@ export function systemReport(A, b) {
   if (m === n && f.invertible) {
     const s = solveLdu(f, b);
     steps.push({
+      group: 'ss.tabELU',
       head: { key: 'ss.stSolveLU' },
       lines: [`${hasSwap ? 'P·b' : 'b'} = ${fmtVec(s.pb)}`, { key: 'ss.fwdSub', m: `c = ${fmtVec(s.c)}` }, { key: 'ss.scaleD', m: `y = ${fmtVec(s.y)}` }, { key: 'ss.backSub', m: `x = ${fmtVec(s.x)}` }],
     });
@@ -93,11 +96,12 @@ export function systemReport(A, b) {
     const inv = inverseSteps(A);
     if (inv.invertible) {
       steps.push({
+        group: 'ss.tabInv',
         head: { key: 'ss.stInverse' },
         lines: [`[A | I] = ${fmtMat(inv.start)}`, ...[...inv.forwardSteps, ...inv.backwardSteps].filter(s => s.formula).map(s => `${arrow(s.formula)}:   ${fmtMat(s.matrix)}`),
           `A⁻¹ = ${fmtMat(inv.inverse)}`],
       });
-    } else steps.push({ head: { key: 'ss.stInverse' }, lines: [{ key: 'ss.notInv', params: { r: inv.rank, n } }] });
+    } else steps.push({ group: 'ss.tabInv', head: { key: 'ss.stInverse' }, lines: [{ key: 'ss.notInv', params: { r: inv.rank, n } }] });
   }
   return { answer, steps };
 }

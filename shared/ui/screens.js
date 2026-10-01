@@ -155,12 +155,17 @@ function renderPane(r, cfg, c) {
   $('#page-' + c.id).querySelectorAll(':scope > .pane').forEach(p => p.classList.toggle('active', p.id === `pane-${c.id}-${sub}`));
   // canvas trong khung vừa hiện cần đo lại kích thước
   window.dispatchEvent(new Event('resize'));
-  // mở từ màn Công cụ: cuộn tới đúng công cụ
-  const target = r.at != null && $(`#pane-${c.id}-${sub}`)?.querySelectorAll(CARD_TITLES)[r.at];
-  if (target) {
-    const card = target.closest('.card');
-    if (card.tagName === 'DETAILS') card.open = true;          // thẻ gập: mở đúng công cụ vừa chọn
-    requestAnimationFrame(() => card.scrollIntoView({ block: 'start' }));
+  // Công cụ: MỖI LÚC MỘT công cụ (thanh tab chọn) — không xếp chồng nhiều thẻ dài trên một trang
+  if (sub === 'interactive') {
+    const pane = $(`#pane-${c.id}-interactive`);
+    const cards = [...pane.querySelectorAll(':scope > .card')];
+    const at = Math.min(Math.max(r.at ?? 0, 0), cards.length - 1);
+    cards.forEach((card, i) => { card.hidden = i !== at; });
+    if (cards.length > 1) {
+      $('#pane-head').append(el('nav', { class: 'tool-tabs', 'aria-label': T('nav.tools') }, cards.map((card, i) => el('a', {
+        href: `#/learn/${c.id}/interactive/${i}`, 'aria-current': i === at ? 'page' : null, text: titleOf(card.querySelector(':scope > h2')).split(/[:(]/)[0].trim(),   // tên ngắn: bỏ phần giải thích sau ':' hoặc '('
+      }))));
+    }
   }
   return `${T('nav.' + c.id)} · ${label}`;
 }

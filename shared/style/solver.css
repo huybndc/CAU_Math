@@ -14,7 +14,7 @@
 .sv-empty{margin:0;color:var(--ink-dim);font-size:var(--fs-sm)}
 .sv-err{margin:0;padding:10px 13px;border-radius:var(--r-md);background:var(--bad-bg);color:var(--bad);font-size:var(--fs-sm)}
 .sv-answer{padding:14px 16px;border:1px solid color-mix(in srgb,var(--accent) 40%,var(--line));border-left:4px solid var(--accent);border-radius:var(--r-md);background:var(--accent-soft);display:grid;gap:4px}
-.sv-answer .step{font-size:1.12rem;line-height:1.5}
+.sv .sv-answer .step{font-size:1.12rem;line-height:1.5}
 .sv-reveal{justify-self:start}
 .sv-steps{display:grid;gap:6px}
 .sv-step{border:1px solid var(--line);border-radius:var(--r-md);background:var(--panel)}
@@ -30,3 +30,22 @@
 .sv-link{font:inherit;font-size:var(--fs-sm);padding:0;border:0;background:none;color:var(--accent);cursor:pointer;text-decoration:underline}
 .sv-lab{font-size:var(--fs-sm);font-weight:600;color:var(--ink-dim)}
 .sv-ops{flex-wrap:wrap;justify-self:start}
+
+/* ---------- tooltip tức thì (shared/ui/tip.js) ---------- */
+.tip{position:fixed;z-index:1000;max-width:min(300px,calc(100vw - 16px));padding:6px 10px;border-radius:var(--r-md);background:var(--ink);color:var(--panel);
+  font-size:var(--fs-sm);line-height:1.4;pointer-events:none;box-shadow:0 6px 18px -6px rgb(0 0 0 / .4)}
+.tip[hidden]{display:none}
+
+/* ---------- ngăn (tab) kết quả + bố cục hai cột trên màn rộng ---------- */
+.sv-tabs{display:flex;flex-wrap:wrap;align-items:center;gap:4px;border-bottom:1px solid var(--line)}
+.sv-tabs [role=tab]{font:inherit;font-size:var(--fs-sm);font-weight:600;padding:7px 12px;border:0;border-bottom:2px solid transparent;margin-bottom:-1px;background:none;color:var(--ink-dim);cursor:pointer}
+.sv-tabs [role=tab]:hover{color:var(--ink)}
+.sv-tabs [role=tab][aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
+.sv-all{margin-left:auto;padding:0 4px}
+@media (min-width:1000px){
+  .sv{grid-template-columns:minmax(15rem,22rem) minmax(0,1fr);align-items:start;column-gap:22px}
+  .sv-ex{grid-column:1 / -1}
+  .sv-in{position:sticky;top:12px}
+}
+.sv .sv-answer .step,.sv .sv-body .step{background:none;border:0;border-radius:0;padding:1px 0;margin:0;box-shadow:none}
+.sv-answer{gap:2px;padding:12px 16px}

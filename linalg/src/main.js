@@ -37,7 +37,7 @@ window.addEventListener('DOMContentLoaded', () => {
   mountSpaceSolver(document.getElementById('tool-space'));
 
   // trang Ví dụ / Công cụ: các thẻ xếp dọc ⇒ gập, chỉ thẻ đầu mở
-  document.querySelectorAll('.pane[id$="-example"], .pane[id$="-interactive"]').forEach(foldCards);
+  document.querySelectorAll('.pane[id$="-example"]').forEach(foldCards);
 
   const mountAllTheory = () => {
     const d = THEORY[getLang()];

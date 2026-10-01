@@ -27,6 +27,7 @@ export const solver = {
   'sv.manyWays': 'Có vô số cách viết (các vector phụ thuộc).',
   'sv.indep': 'Các vector độc lập tuyến tính.', 'sv.dep': 'Các vector phụ thuộc tuyến tính.',
   // hệ phương trình
+  'ss.tabELU': 'E · P · LU', 'ss.tabInv': 'Nghịch đảo',
   'ss.rank': 'rank A = {a},  rank [A | b] = {b}',
   'ss.many': 'Vô số nghiệm ({k} biến tự do).', 'ss.none': 'Vô nghiệm.',
   'ss.stSetup': 'Hệ phương trình và ma trận mở rộng', 'ss.stCol': 'Cột {c}: chọn trụ, khử phần bên dưới',

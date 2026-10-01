@@ -24,6 +24,7 @@ export const solver = {
   'sv.notCombo': 'w is NOT a linear combination of the given vectors.', 'sv.isCombo': 'w is a linear combination of the given vectors:',
   'sv.manyWays': 'There are infinitely many ways (the vectors are dependent).',
   'sv.indep': 'The vectors are linearly independent.', 'sv.dep': 'The vectors are linearly dependent.',
+  'ss.tabELU': 'E · P · LU', 'ss.tabInv': 'Inverse',
   'ss.rank': 'rank A = {a},  rank [A | b] = {b}',
   'ss.many': 'Infinitely many solutions ({k} free variables).', 'ss.none': 'No solution.',
   'ss.stSetup': 'The system and its augmented matrix', 'ss.stCol': 'Column {c}: pick the pivot, eliminate below',

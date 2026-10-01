@@ -62,3 +62,9 @@
   .term-track li span{font-size:.68rem}
   .term-track li.now span{transform:translateX(-68%)}      /* "Tuần 5" không dính "Giữa kỳ" */
 }
+
+/* ---------- thanh chọn công cụ trong một chương (mỗi lúc một công cụ) ---------- */
+.tool-tabs{display:flex;flex-wrap:wrap;gap:6px;margin:.7rem 0 .2rem}
+.tool-tabs a{padding:6px 12px;border:1px solid var(--line-strong);border-radius:999px;color:var(--ink-dim);text-decoration:none;font-size:var(--fs-sm);background:var(--panel)}
+.tool-tabs a:hover{border-color:var(--accent);color:var(--accent)}
+.tool-tabs a[aria-current="page"]{background:var(--accent-soft);border-color:var(--accent);color:var(--ink);font-weight:600}
