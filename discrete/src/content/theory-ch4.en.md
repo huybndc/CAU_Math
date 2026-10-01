@@ -63,6 +63,8 @@ Trying values **proves** nothing, but it can **refute**: a wrong formula breaks 
 
 <div data-check="c4q:formula" data-needs="c4q:sum"></div>
 
+<div data-check="c4q:closed" data-needs="c4q:formula"></div>
+
 ## Common mistakes
 
 - Skipping the base case — a correct inductive step with a false base case proves nothing.

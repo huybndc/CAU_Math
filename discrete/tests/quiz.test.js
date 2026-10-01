@@ -29,6 +29,8 @@ function asTyped(q) {
 }
 function wrongOf(q) {
   if (q.format === 'choice') return String((q.answer + 1) % q.choices.length);
+  if (q.kind === 'negateW') return q.meta.f;                      // chính đề (chưa phủ định) — hợp lệ nhưng sai
+  if (q.kind === 'closed') return 'n^2 + n + 7';
   if (q.kind === 'table') return q.answer.replace(/^./, c => (c === '0' ? '1' : '0'));
   if (q.kind === 'bezout') return `${q.answer[0] + 1}, ${q.answer[1]}`;
   if (q.format === 'set') return [...q.answer, 99].join(', ');

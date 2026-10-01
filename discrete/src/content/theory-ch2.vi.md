@@ -47,6 +47,8 @@ Vd ¬∀x (P(x) → Q(x)) ≡ ∃x (P(x) ∧ ¬Q(x)): "không phải mọi P đ�
 
 <div data-check="c2q:negate" data-needs="c2q:truth c1q:equiv"></div>
 
+<div data-check="c2q:negateW" data-needs="c2q:negate"></div>
+
 ## Các phương pháp chứng minh
 
 Để chứng minh **p → q**:

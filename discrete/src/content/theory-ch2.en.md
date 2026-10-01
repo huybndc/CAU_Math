@@ -47,6 +47,8 @@ E.g. ¬∀x (P(x) → Q(x)) ≡ ∃x (P(x) ∧ ¬Q(x)): "not every P is a Q" mea
 
 <div data-check="c2q:negate" data-needs="c2q:truth c1q:equiv"></div>
 
+<div data-check="c2q:negateW" data-needs="c2q:negate"></div>
+
 ## Proof methods
 
 To prove **p → q**:

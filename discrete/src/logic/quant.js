@@ -78,3 +78,59 @@ export function sameOnSamples(f, g, rnd, preds = { P: 1, Q: 1 }, tries = 200) {
   }
   return true;
 }
+
+/* ---------- đọc công thức người học gõ ---------- */
+
+/** Chuẩn hoá cách gõ ASCII: forall/exists, ! ~, & /\, | \/, ->, [ ] → ký hiệu chuẩn. */
+const norm = t => String(t).replace(/[−–]/g, '-').replace(/\bfor ?all\b/gi, '∀').replace(/\bexists?\b/gi, '∃')
+  .replace(/\bnot\b|[!~]/gi, '¬').replace(/\/\\|&&?/g, '∧').replace(/\\\/|\|\|?/g, '∨')
+  .replace(/<?[-=]+>|⇒|⟹/g, '→').replace(/\[/g, '(').replace(/\]/g, ')');
+
+/**
+ * Đọc công thức lượng từ: ∀x ∃y (P(x, y) → (Q(y, z) ∧ R(x, z))). Lượng từ ràng buộc chặt (∀x P(x) → Q là (∀x P(x)) → Q),
+ * ¬ > ∧ > ∨ > →, → kết hợp phải. Vị từ viết hoa: P(x, y); biến chữ thường. Sai cú pháp thì ném Error.
+ * @returns {object} cây như ở đầu file
+ */
+export function parseQ(text) {
+  const toks = norm(text).match(/[∀∃¬∧∨→(),]|[A-Za-z][A-Za-z0-9_]*/g) ?? [];
+  const rest = norm(text).replace(/[∀∃¬∧∨→(),\s]|[A-Za-z][A-Za-z0-9_]*/g, '');
+  if (!toks.length || rest) throw new Error('quant: ký tự lạ');
+  let i = 0;
+  const peek = () => toks[i];
+  const eat = t => { if (toks[i] !== t) throw new Error('quant: thiếu ' + t); i++; };
+  const isPred = t => /^[A-Z]/.test(t ?? '');
+  function imply() { const a = disj(); if (peek() === '→') { i++; return imp(a, imply()); } return a; }
+  function disj() { let a = conj(); while (peek() === '∨') { i++; a = or(a, conj()); } return a; }
+  function conj() { let a = unary(); while (peek() === '∧') { i++; a = and(a, unary()); } return a; }
+  function unary() {
+    const t = peek();
+    if (t === '¬') { i++; return not(unary()); }
+    if (t === '∀' || t === '∃') {
+      i++;
+      const v = toks[i++];
+      if (!v || isPred(v) || !/^[a-z]/.test(v)) throw new Error('quant: thiếu biến');
+      return (t === '∀' ? all : ex)(v, unary());
+    }
+    if (t === '(') { i++; const f = imply(); eat(')'); return f; }
+    if (isPred(t)) {
+      i++;
+      const args = [];
+      eat('(');
+      do { const a = toks[i++]; if (!a || isPred(a) || !/^[a-z]/.test(a)) throw new Error('quant: đối số'); args.push(a); } while (peek() === ',' && ++i);
+      eat(')');
+      return atom(t, ...args);
+    }
+    throw new Error('quant: không đọc được');
+  }
+  const f = imply();
+  if (i < toks.length) throw new Error('quant: thừa ký tự');
+  return f;
+}
+
+/** Dấu ¬ chỉ đứng trước vị từ riêng lẻ (yêu cầu "đẩy phủ định vào trong")? */
+export function negationsOnAtoms(f) {
+  if (f.t === 'not') return f.a.t === 'atom';
+  if (f.t === 'atom') return true;
+  if (f.t === 'all' || f.t === 'ex') return negationsOnAtoms(f.body);
+  return negationsOnAtoms(f.a) && negationsOnAtoms(f.b);
+}
