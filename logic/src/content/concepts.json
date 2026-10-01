@@ -558,5 +558,1851 @@
       "explain": "An n → 2ⁿ decoder provides all 2ⁿ minterms, so one decoder can serve several functions — e.g. a full adder: S = Σm(1, 2, 4, 7), C = Σm(3, 5, 6, 7)."
     },
     "source": "Mano §4.9 (tự diễn đạt)"
+  },
+  {
+    "id": "l3-src-absorb",
+    "chapter": "ch3",
+    "section": "3.2",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "Rút gọn H = x′ + y′z′ + xyz′ về SOP tối giản.",
+      "options": [
+        "x′ + z′",
+        "x′ + y′z′ + yz′",
+        "x′ + y′z′",
+        "z′"
+      ],
+      "why": [
+        "Trên bìa K, x′ phủ cả nửa x = 0; y′z′ và xyz′ gộp với nó thành z′ ⇒ x′ + z′.",
+        "Chưa tối giản: y′z′ + yz′ = z′.",
+        "Thiếu ô xyz′ (x = 1, y = 1, z = 0).",
+        "Thiếu các ô x = 0, z = 1 như x′y′z."
+      ],
+      "explain": "Khi x = 1, H còn y′z′ + yz′ = z′; khi x = 0, H = 1. Vậy H = x′ + z′ — hai khối lớn nhất trên bìa 3 biến."
+    },
+    "en": {
+      "q": "Simplify H = x′ + y′z′ + xyz′ to a minimal SOP.",
+      "options": [
+        "x′ + z′",
+        "x′ + y′z′ + yz′",
+        "x′ + y′z′",
+        "z′"
+      ],
+      "why": [
+        "On the K-map, x′ covers the whole x = 0 half; y′z′ and xyz′ merge with it into z′ ⇒ x′ + z′.",
+        "Not minimal: y′z′ + yz′ = z′.",
+        "Misses the cell xyz′ (x = 1, y = 1, z = 0).",
+        "Misses the cells with x = 0, z = 1 such as x′y′z."
+      ],
+      "explain": "With x = 1, H is y′z′ + yz′ = z′; with x = 0, H = 1. So H = x′ + z′ — the two largest blocks on the 3-variable map."
+    },
+    "source": "MIT OCW 6.004 Spring 2017, Combinational Logic Worksheet (có đáp án), bài 6A — CC BY-NC-SA, tự diễn đạt",
+    "check": {
+      "type": "equiv",
+      "a": "x' + y'z' + xyz'",
+      "b": "x' + z'",
+      "same": true
+    }
+  },
+  {
+    "id": "l3-src-maxterms",
+    "chapter": "ch3",
+    "section": "3.2",
+    "type": "why",
+    "answer": 0,
+    "vi": {
+      "q": "Hàm 3 biến cần NHIỀU NHẤT bao nhiêu tích trong SOP tối giản?",
+      "options": [
+        "4, khi các ô 1 xếp kiểu bàn cờ",
+        "8, khi hàm bằng 1 ở mọi ô",
+        "3, vì hàm chỉ có 3 biến",
+        "6, khi hàm có 6 ô bằng 1"
+      ],
+      "why": [
+        "Bàn cờ (x ⊕ y ⊕ z) có 4 ô 1 không ô nào kề nhau; thêm ô thứ 5 thì chắc chắn kề một ô, gộp được.",
+        "Hàm bằng 1 mọi ô rút gọn thành F = 1, không cần tích nào.",
+        "Số tích không bị chặn bởi số biến; bàn cờ cần 4.",
+        "6 ô 1 luôn có các cặp kề nhau nên gộp còn ít tích hơn."
+      ],
+      "explain": "Bìa 3 biến có 8 ô; mỗi ô có 3 ô kề. Nhiều hơn 4 ô 1 thì hai ô phải kề nhau và dùng chung một khối. Nên tối đa 4 tích, đạt ở hàm lẻ x ⊕ y ⊕ z."
+    },
+    "en": {
+      "q": "At MOST how many product terms can a minimal SOP of a 3-variable function need?",
+      "options": [
+        "4, when the 1s form a checkerboard",
+        "8, when the function is 1 everywhere",
+        "3, because there are only 3 variables",
+        "6, when the function has six 1s"
+      ],
+      "why": [
+        "The checkerboard (x ⊕ y ⊕ z) has four 1s, none adjacent; a fifth 1 must touch one and can merge.",
+        "A function that is 1 everywhere simplifies to F = 1 with no product term.",
+        "The count is not bounded by the number of variables; the checkerboard needs 4.",
+        "Six 1s always contain adjacent pairs, so they merge into fewer terms."
+      ],
+      "explain": "The 3-variable map has 8 cells, each with 3 neighbours. More than four 1s force two to be adjacent and share a block. So at most 4 terms, reached by the odd function x ⊕ y ⊕ z."
+    },
+    "source": "MIT OCW 6.004 Spring 2017, Combinational Logic Worksheet (có đáp án), bài 6B, 10D — CC BY-NC-SA, tự diễn đạt",
+    "check": {
+      "type": "literals",
+      "minterms": [
+        1,
+        2,
+        4,
+        7
+      ],
+      "n": 3,
+      "form": "sop",
+      "count": 12
+    }
+  },
+  {
+    "id": "l2-src-minority",
+    "chapter": "ch2",
+    "section": "2.8",
+    "type": "why",
+    "answer": 0,
+    "vi": {
+      "q": "Cổng thiểu số (minority) cho 1 khi ít nhất hai ngõ vào bằng 0. Nó có vạn năng (universal) không?",
+      "options": [
+        "Có: minority(x, y, 1) là NOR(x, y)",
+        "Không: nó chỉ là hàm đối xứng của 3 biến",
+        "Không: thiếu cổng NOT thì không vạn năng",
+        "Có, nhưng chỉ khi dùng thêm cổng AND"
+      ],
+      "why": [
+        "minority(x, y, 1) = 1 khi cả x, y bằng 0 = (x + y)′ = NOR — mà NOR vạn năng.",
+        "Đối xứng không ngăn vạn năng; điều cần là tạo được NAND hoặc NOR.",
+        "NOT có sẵn: minority(x, x, 1) = x′.",
+        "Không cần thêm gì: NOR đã đủ dựng mọi hàm."
+      ],
+      "explain": "Cách chứng minh vạn năng: cố định vài ngõ vào bằng 0/1 để ra NAND hoặc NOR. SOP tối giản của cổng: x′y′ + x′z′ + y′z′."
+    },
+    "en": {
+      "q": "A minority gate outputs 1 when at least two inputs are 0. Is it universal?",
+      "options": [
+        "Yes: minority(x, y, 1) is NOR(x, y)",
+        "No: it is just a symmetric function of 3 inputs",
+        "No: without a NOT gate it cannot be universal",
+        "Yes, but only with extra AND gates"
+      ],
+      "why": [
+        "minority(x, y, 1) = 1 exactly when x, y are both 0 = (x + y)′ = NOR — and NOR is universal.",
+        "Symmetry does not prevent universality; what matters is building NAND or NOR.",
+        "NOT comes for free: minority(x, x, 1) = x′.",
+        "Nothing extra is needed: NOR alone builds every function."
+      ],
+      "explain": "To prove universality, fix some inputs to 0/1 to obtain NAND or NOR. The gate minimal SOP: x′y′ + x′z′ + y′z′."
+    },
+    "source": "MIT OCW 6.004 Spring 2017, Combinational Logic Worksheet (có đáp án), bài 7 — CC BY-NC-SA, tự diễn đạt",
+    "check": {
+      "type": "minterms",
+      "expr": "x'y' + x'z' + y'z'",
+      "list": [
+        0,
+        1,
+        2,
+        4
+      ]
+    }
+  },
+  {
+    "id": "l4-src-sub-mux",
+    "chapter": "ch4",
+    "section": "4.11",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "Bộ trừ đủ: B_out = x′B_in + yB_in + x′y. Dựng bằng MUX 4:1, chọn S₁ = x, S₀ = y. Bốn ngõ dữ liệu I₀…I₃ là gì?",
+      "options": [
+        "B_in, 1, 0, B_in",
+        "0, 1, 1, B_in",
+        "B_in, 0, 1, B_in",
+        "1, B_in, 0, B_in"
+      ],
+      "why": [
+        "xy = 00: B_in; 01: x′y = 1; 10: mọi hạng tử bằng 0; 11: B_in.",
+        "Ô 00 phụ thuộc B_in, không phải hằng 0.",
+        "Đảo I₁ và I₂: x = 0, y = 1 mới là trường hợp mượn chắc chắn.",
+        "Đảo I₀ và I₁."
+      ],
+      "explain": "Thay từng cặp (x, y) vào B_out, phần còn lại là hàm của B_in: 0, 1, B_in hoặc B_in′. Đó là cách dựng hàm n biến bằng MUX n − 1 ngõ chọn."
+    },
+    "en": {
+      "q": "Full subtractor: B_out = x′B_in + yB_in + x′y. Build it with a 4:1 MUX, selects S₁ = x, S₀ = y. What are data inputs I₀…I₃?",
+      "options": [
+        "B_in, 1, 0, B_in",
+        "0, 1, 1, B_in",
+        "B_in, 0, 1, B_in",
+        "1, B_in, 0, B_in"
+      ],
+      "why": [
+        "xy = 00: B_in; 01: x′y = 1; 10: every term is 0; 11: B_in.",
+        "Cell 00 depends on B_in, it is not the constant 0.",
+        "I₁ and I₂ are swapped: x = 0, y = 1 is the sure-borrow case.",
+        "I₀ and I₁ are swapped."
+      ],
+      "explain": "Substitute each (x, y) pair into B_out; what remains is a function of B_in: 0, 1, B_in or B_in′. That is how an n-variable function fits a MUX with n − 1 selects."
+    },
+    "source": "MIT OCW 6.004 Spring 2017, Combinational Logic Worksheet (có đáp án), bài 9A, 9C — CC BY-NC-SA, tự diễn đạt",
+    "check": {
+      "type": "minterms",
+      "expr": "x'z + yz + x'y",
+      "list": [
+        1,
+        2,
+        3,
+        7
+      ]
+    }
+  },
+  {
+    "id": "l3-src-consensus",
+    "chapter": "ch3",
+    "section": "3.3",
+    "type": "trap",
+    "answer": 0,
+    "vi": {
+      "q": "G = x′z′ + xy′ + y′z′. SOP tối giản của G là gì?",
+      "options": [
+        "x′z′ + xy′",
+        "x′z′ + xy′ + y′z′",
+        "y′z′",
+        "x′ + y′"
+      ],
+      "why": [
+        "y′z′ là hạng tử đồng thuận của x′z′ và xy′ nên thừa; G có đúng 4 ô 1.",
+        "Đúng giá trị nhưng chưa tối giản: bỏ y′z′ vẫn phủ đủ.",
+        "Thiếu ô x′yz′ và xy′z.",
+        "Phủ thừa ô x′yz (G = 0 ở đó)."
+      ],
+      "explain": "Định lý đồng thuận: xy + x′z + yz = xy + x′z. Ở đây cặp x′z′, xy′ sinh ra y′z′. Trên bìa K, hai khối x′z′ và xy′ đã phủ hết 4 ô 1."
+    },
+    "en": {
+      "q": "G = x′z′ + xy′ + y′z′. What is the minimal SOP of G?",
+      "options": [
+        "x′z′ + xy′",
+        "x′z′ + xy′ + y′z′",
+        "y′z′",
+        "x′ + y′"
+      ],
+      "why": [
+        "y′z′ is the consensus of x′z′ and xy′, so it is redundant; G has exactly four 1s.",
+        "Right function but not minimal: dropping y′z′ still covers everything.",
+        "Misses the cells x′yz′ and xy′z.",
+        "Covers the extra cell x′yz, where G = 0."
+      ],
+      "explain": "Consensus theorem: xy + x′z + yz = xy + x′z. Here x′z′ and xy′ generate y′z′. On the K-map the blocks x′z′ and xy′ already cover all four 1s."
+    },
+    "source": "MIT OCW 6.004 Spring 2017, Combinational Logic Worksheet (có đáp án), bài 10A–B — CC BY-NC-SA, tự diễn đạt",
+    "check": {
+      "type": "equiv",
+      "a": "x'z' + xy' + y'z'",
+      "b": "x'z' + xy'",
+      "same": true
+    }
+  },
+  {
+    "id": "l1-src-hex37",
+    "chapter": "ch1",
+    "section": "1.4",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "Số 37 (thập phân) ghi ở dạng hex 32 bit là gì?",
+      "options": [
+        "0x00000025",
+        "0x00000037",
+        "0x00000045",
+        "0x00000052"
+      ],
+      "why": [
+        "37 = 2·16 + 5 ⇒ 25₁₆; thêm số 0 cho đủ 8 chữ số hex (32 bit).",
+        "Chép nguyên chữ số thập phân: 37₁₆ = 55.",
+        "45 là dạng bát phân (45₈ = 37), không phải hex.",
+        "Đảo thứ tự hai chữ số hex: 52₁₆ = 82."
+      ],
+      "explain": "Chia liên tiếp cho 16: 37 = 2·16 + 5. Mỗi chữ số hex ứng 4 bit, nên 32 bit cần đúng 8 chữ số hex."
+    },
+    "en": {
+      "q": "What is decimal 37 as a 32-bit hex word?",
+      "options": [
+        "0x00000025",
+        "0x00000037",
+        "0x00000045",
+        "0x00000052"
+      ],
+      "why": [
+        "37 = 2·16 + 5 ⇒ 25 in hex; pad with zeros to 8 hex digits (32 bits).",
+        "Copies the decimal digits: hex 37 = 55.",
+        "45 is the octal form (octal 45 = 37), not hex.",
+        "Swaps the two hex digits: hex 52 = 82."
+      ],
+      "explain": "Divide by 16 repeatedly: 37 = 2·16 + 5. Each hex digit is 4 bits, so 32 bits need exactly 8 hex digits."
+    },
+    "source": "MIT OCW 6.004 Spring 2009, Tutorial 1 (có lời giải), bài 4 — CC BY-NC-SA, tự diễn đạt",
+    "check": {
+      "type": "convert",
+      "value": "37",
+      "from": 10,
+      "to": 16,
+      "result": "25"
+    }
+  },
+  {
+    "id": "l1-src-neg32768",
+    "chapter": "ch1",
+    "section": "1.6",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "−32768 ở dạng bù 2 32 bit, ghi bằng hex, là gì?",
+      "options": [
+        "0xFFFF8000",
+        "0x00008000",
+        "0xFFFF7FFF",
+        "0x80008000"
+      ],
+      "why": [
+        "32768 = 0x00008000; đảo mọi bit được 0xFFFF7FFF, cộng 1 thành 0xFFFF8000.",
+        "Đó là +32768: thiếu bước lấy bù 2.",
+        "Mới đảo bit (bù 1), quên cộng 1.",
+        "Chỉ bật bit dấu kiểu dấu-độ lớn, không phải bù 2."
+      ],
+      "explain": "−A = (đảo mọi bit của A) + 1. Số âm trong bù 2 có các bit cao đều bằng 1 (mở rộng dấu), nên 16 bit trên là FFFF."
+    },
+    "en": {
+      "q": "What is −32768 as a 32-bit two′s complement word, in hex?",
+      "options": [
+        "0xFFFF8000",
+        "0x00008000",
+        "0xFFFF7FFF",
+        "0x80008000"
+      ],
+      "why": [
+        "32768 = 0x00008000; inverting every bit gives 0xFFFF7FFF, adding 1 gives 0xFFFF8000.",
+        "That is +32768: the complement step is missing.",
+        "Only inverted the bits (one′s complement), forgot to add 1.",
+        "Only sets the sign bit, as in sign-magnitude, not two′s complement."
+      ],
+      "explain": "−A = (invert every bit of A) + 1. Negative two′s complement numbers have all high bits equal to 1 (sign extension), so the top 16 bits are FFFF."
+    },
+    "source": "MIT OCW 6.004 Spring 2009, Tutorial 1 (có lời giải), bài 4 — CC BY-NC-SA, tự diễn đạt",
+    "check": {
+      "type": "signed",
+      "bits": "11111111111111111000000000000000",
+      "format": "twos",
+      "value": -32768
+    }
+  },
+  {
+    "id": "l1-src-deadbeef",
+    "chapter": "ch1",
+    "section": "1.4",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "Đổi 1101 1110 1010 1101 1011 1110 1110 1111 (nhị phân) sang hex.",
+      "options": [
+        "DEADBEEF",
+        "B75BD77F",
+        "33653337357",
+        "3735928559"
+      ],
+      "why": [
+        "Mỗi nhóm 4 bit là một chữ số hex: 1101 = D, 1110 = E, 1010 = A, …",
+        "Đọc ngược từng nhóm 4 bit (1101 thành 1011 = B).",
+        "Đó là bát phân: nhóm 3 bit từ phải sang.",
+        "Đó là giá trị thập phân của cùng chuỗi bit."
+      ],
+      "explain": "Hex: nhóm 4 bit từ phải sang, mỗi nhóm đổi thành 0…F. Bát phân: nhóm 3 bit. Cả hai phép đổi không cần đi qua thập phân."
+    },
+    "en": {
+      "q": "Convert binary 1101 1110 1010 1101 1011 1110 1110 1111 to hex.",
+      "options": [
+        "DEADBEEF",
+        "B75BD77F",
+        "33653337357",
+        "3735928559"
+      ],
+      "why": [
+        "Each group of 4 bits is one hex digit: 1101 = D, 1110 = E, 1010 = A, …",
+        "Reads each 4-bit group backwards (1101 as 1011 = B).",
+        "That is octal: groups of 3 bits from the right.",
+        "That is the decimal value of the same bits."
+      ],
+      "explain": "Hex: group 4 bits from the right and map each group to 0…F. Octal: groups of 3 bits. Neither conversion needs to pass through decimal."
+    },
+    "source": "MIT OCW 6.004 Spring 2009, Tutorial 1 (có lời giải), bài 4 — CC BY-NC-SA, tự diễn đạt",
+    "check": {
+      "type": "convert",
+      "value": "11011110101011011011111011101111",
+      "from": 2,
+      "to": 16,
+      "result": "DEADBEEF"
+    }
+  },
+  {
+    "id": "l1-src-range32",
+    "chapter": "ch1",
+    "section": "1.6",
+    "type": "why",
+    "answer": 0,
+    "vi": {
+      "q": "Số nguyên có dấu dạng bù 2 dùng 32 bit biểu diễn được khoảng nào?",
+      "options": [
+        "−2³¹ đến 2³¹ − 1",
+        "−(2³¹ − 1) đến 2³¹ − 1",
+        "0 đến 2³² − 1",
+        "−2³² đến 2³² − 1"
+      ],
+      "why": [
+        "2³² mẫu bit chia đôi: nửa có bit dấu 1 là 2³¹ số âm; nửa kia là số 0 và 2³¹ − 1 số dương.",
+        "Đó là khoảng của dấu-độ lớn hoặc bù 1, vốn có hai số 0.",
+        "Đó là khoảng của số không dấu 32 bit.",
+        "Cần 33 bit mới có ngần ấy giá trị."
+      ],
+      "explain": "Bù 2 chỉ có một số 0, nên dư một mẫu cho phía âm: −2³¹ = 1000…0 không có số dương đối xứng."
+    },
+    "en": {
+      "q": "Which range do 32-bit two′s complement integers cover?",
+      "options": [
+        "−2³¹ to 2³¹ − 1",
+        "−(2³¹ − 1) to 2³¹ − 1",
+        "0 to 2³² − 1",
+        "−2³² to 2³² − 1"
+      ],
+      "why": [
+        "The 2³² bit patterns split in half: sign bit 1 gives 2³¹ negatives; the rest are 0 and 2³¹ − 1 positives.",
+        "That is the sign-magnitude or one′s complement range, which has two zeros.",
+        "That is the unsigned 32-bit range.",
+        "That many values would need 33 bits."
+      ],
+      "explain": "Two′s complement has a single zero, so one extra pattern goes to the negative side: −2³¹ = 1000…0 has no positive partner."
+    },
+    "source": "MIT OCW 6.004 Spring 2009, Tutorial 1 (có lời giải), bài 4 — CC BY-NC-SA, tự diễn đạt"
+  },
+  {
+    "id": "l1-src-overflow",
+    "chapter": "ch1",
+    "section": "1.6",
+    "type": "trap",
+    "answer": 0,
+    "vi": {
+      "q": "Cộng 31 + 12 bằng bù 2 6 bit, được 101011. Kết quả này là gì?",
+      "options": [
+        "−21: tràn vì 43 vượt quá 31",
+        "43: đúng như kết quả mong đợi",
+        "−11: nếu đọc theo dấu-độ lớn",
+        "−20: nếu đọc theo bù 1"
+      ],
+      "why": [
+        "6 bit bù 2 chỉ chứa −32…31; hai số dương cộng ra bit dấu 1 là dấu hiệu tràn.",
+        "101011 có bit dấu 1 nên là số âm trong bù 2.",
+        "Máy đang dùng bù 2; theo dấu-độ lớn 101011 mới là −11.",
+        "Theo bù 1 mới là −20; theo bù 2 là −(010101) = −21."
+      ],
+      "explain": "Tràn khi hai số cùng dấu cho tổng khác dấu. 101011: đảo bit được 010100, cộng 1 được 010101 = 21, nên đọc ra −21."
+    },
+    "en": {
+      "q": "Adding 31 + 12 in 6-bit two′s complement gives 101011. What is this result?",
+      "options": [
+        "−21: overflow, since 43 exceeds 31",
+        "43: as expected",
+        "−11: read as sign-magnitude",
+        "−20: read as one′s complement"
+      ],
+      "why": [
+        "6-bit two′s complement holds only −32…31; two positives giving sign bit 1 signal overflow.",
+        "101011 has sign bit 1, so it is negative in two′s complement.",
+        "The machine uses two′s complement; −11 is the sign-magnitude reading.",
+        "−20 is the one′s complement reading; two′s complement gives −(010101) = −21."
+      ],
+      "explain": "Overflow happens when two operands of the same sign give a sum of the other sign. 101011: invert to 010100, add 1 to get 010101 = 21, so it reads −21."
+    },
+    "source": "MIT OCW 6.004 Spring 2009, Tutorial 1 (có lời giải), bài 4 — CC BY-NC-SA, tự diễn đạt",
+    "check": {
+      "type": "signed",
+      "bits": "101011",
+      "format": "twos",
+      "value": -21
+    }
+  },
+  {
+    "id": "l1-src-sub",
+    "chapter": "ch1",
+    "section": "1.5",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "Tính 15 − 18 trên 6 bit bằng bù 2: lấy 001111 cộng với số nào?",
+      "options": [
+        "101110",
+        "101101",
+        "110010",
+        "010010"
+      ],
+      "why": [
+        "18 = 010010; đảo bit được 101101, cộng 1 thành 101110. Tổng 111101 = −3.",
+        "Đó là bù 1 của 18: quên cộng 1.",
+        "Chỉ đảo bit dấu của 18, kiểu dấu-độ lớn.",
+        "Cộng thẳng 18 là phép cộng, không phải phép trừ."
+      ],
+      "explain": "A − B = A + (bù 2 của B). 001111 + 101110 = 111101, không có số nhớ ra ngoài; 111101 là −3 trong bù 2."
+    },
+    "en": {
+      "q": "To compute 15 − 18 in 6-bit two′s complement, 001111 is added to which word?",
+      "options": [
+        "101110",
+        "101101",
+        "110010",
+        "010010"
+      ],
+      "why": [
+        "18 = 010010; inverting gives 101101, adding 1 gives 101110. The sum 111101 = −3.",
+        "That is the one′s complement of 18: the +1 is missing.",
+        "Only flips the sign bit of 18, as in sign-magnitude.",
+        "Adding 18 itself is addition, not subtraction."
+      ],
+      "explain": "A − B = A + (two′s complement of B). 001111 + 101110 = 111101 with no carry out; 111101 is −3 in two′s complement."
+    },
+    "source": "MIT OCW 6.004 Spring 2009, Tutorial 1 (có lời giải), bài 4 — CC BY-NC-SA, tự diễn đạt",
+    "check": {
+      "type": "complement",
+      "value": "010010",
+      "radix": 2,
+      "diminished": false,
+      "result": "101110"
+    }
+  },
+  {
+    "id": "l1-src-parity",
+    "chapter": "ch1",
+    "section": "1.7",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "Dùng parity chẵn (tổng số bit 1 phải chẵn). Nhận được 11101101111011011. Kết luận gì?",
+      "options": [
+        "Chắc chắn có lỗi: có 13 bit 1",
+        "Không có lỗi: số bit 1 chẵn",
+        "Có lỗi 1 bit và sửa được",
+        "Không kết luận được gì"
+      ],
+      "why": [
+        "Đếm được 13 bit 1, là số lẻ, trái quy ước parity chẵn ⇒ có ít nhất một bit sai.",
+        "Đếm lại: 13 là số lẻ.",
+        "Parity chỉ phát hiện, không biết bit nào sai nên không sửa được.",
+        "Số bit 1 lẻ là bằng chứng chắc chắn có lỗi."
+      ],
+      "explain": "Parity phát hiện mọi lỗi làm đổi một số LẺ bit. Lỗi 2 bit giữ nguyên tính chẵn lẻ nên lọt qua."
+    },
+    "en": {
+      "q": "Even parity is used (the number of 1 bits must be even). 11101101111011011 arrives. What can you conclude?",
+      "options": [
+        "Surely an error: it has 13 ones",
+        "No error: the count of 1s is even",
+        "A 1-bit error that can be corrected",
+        "Nothing can be concluded"
+      ],
+      "why": [
+        "There are 13 ones, an odd count, breaking even parity ⇒ at least one bit is wrong.",
+        "Recount: 13 is odd.",
+        "Parity only detects; it cannot tell which bit is wrong, so it cannot correct.",
+        "An odd count of 1s is certain evidence of an error."
+      ],
+      "explain": "Parity detects every error that flips an ODD number of bits. A 2-bit error keeps the parity and slips through."
+    },
+    "source": "MIT OCW 6.004 Spring 2009, Tutorial 1 (có lời giải), bài 5 — CC BY-NC-SA, tự diễn đạt"
+  },
+  {
+    "id": "l1-src-hamming",
+    "chapter": "ch1",
+    "section": "1.7",
+    "type": "why",
+    "answer": 0,
+    "vi": {
+      "q": "Mã cần khoảng cách Hamming tối thiểu bao nhiêu để SỬA được mọi lỗi 1 bit?",
+      "options": [
+        "3",
+        "2",
+        "1",
+        "4"
+      ],
+      "why": [
+        "Lỗi 1 bit đưa từ mã đi xa 1; với khoảng cách 3, từ nhận vẫn gần từ mã gốc nhất.",
+        "Khoảng cách 2 chỉ đủ phát hiện: từ nhận có thể cách đều hai từ mã.",
+        "Khoảng cách 1: lỗi 1 bit biến từ mã này thành từ mã khác, không phát hiện được.",
+        "4 đủ sửa 1 lỗi và phát hiện 2 lỗi, nhiều hơn mức tối thiểu."
+      ],
+      "explain": "Phát hiện e lỗi cần khoảng cách e + 1; sửa e lỗi cần 2e + 1. Parity có khoảng cách 2; mã Hamming có khoảng cách 3."
+    },
+    "en": {
+      "q": "What minimum Hamming distance lets a code CORRECT every 1-bit error?",
+      "options": [
+        "3",
+        "2",
+        "1",
+        "4"
+      ],
+      "why": [
+        "A 1-bit error moves a codeword by 1; with distance 3 the received word stays closest to the original.",
+        "Distance 2 only detects: the received word may be equally far from two codewords.",
+        "Distance 1: a 1-bit error turns one codeword into another, undetected.",
+        "4 corrects 1 error and detects 2, more than the minimum."
+      ],
+      "explain": "Detecting e errors needs distance e + 1; correcting e errors needs 2e + 1. Parity has distance 2; the Hamming code has distance 3."
+    },
+    "source": "MIT OCW 6.004 Spring 2009, Tutorial 1 (có lời giải), bài 6 — CC BY-NC-SA, tự diễn đạt"
+  },
+  {
+    "id": "l1-src-2of5",
+    "chapter": "ch1",
+    "section": "1.7",
+    "type": "compare",
+    "answer": 0,
+    "vi": {
+      "q": "So sánh mã 2-trong-5 (mỗi từ 5 bit có đúng hai bit 1) với mã 5 bit parity chẵn.",
+      "options": [
+        "Cùng khoảng cách 2; parity chẵn nhiều hơn 6 từ mã",
+        "2-trong-5 có khoảng cách 3 nên sửa được lỗi",
+        "Cả hai mã đều có đúng 10 từ mã",
+        "Mã parity chẵn có đủ 32 từ mã"
+      ],
+      "why": [
+        "C(5, 2) = 10; chuỗi 5 bit có số bit 1 chẵn là 2⁴ = 16. Đổi 1 bit phá cả hai quy tắc.",
+        "11000 và 10100 chỉ cách nhau 2.",
+        "Parity chẵn có 16 từ: bốn bit đầu tuỳ ý, bit cuối làm cho chẵn.",
+        "Chỉ một nửa trong 32 chuỗi 5 bit có số bit 1 chẵn."
+      ],
+      "explain": "Cả hai chỉ phát hiện được lỗi 1 bit. Cùng 5 bit mà parity chẵn chứa nhiều hơn 6 từ mã, nên hiệu quả hơn."
+    },
+    "en": {
+      "q": "Compare the 2-out-of-5 code (each 5-bit word has exactly two 1s) with the 5-bit even parity code.",
+      "options": [
+        "Both distance 2; even parity has 6 more codewords",
+        "2-out-of-5 has distance 3, so it corrects errors",
+        "Both codes have exactly 10 codewords",
+        "The even parity code has all 32 codewords"
+      ],
+      "why": [
+        "C(5, 2) = 10; 5-bit strings with an even count of 1s number 2⁴ = 16. Flipping 1 bit breaks both rules.",
+        "11000 and 10100 are only distance 2 apart.",
+        "Even parity has 16 words: four free bits, the last one makes the count even.",
+        "Only half of the 32 five-bit strings have an even count of 1s."
+      ],
+      "explain": "Both only detect 1-bit errors. With the same 5 bits, even parity holds 6 more codewords, so it is more efficient."
+    },
+    "source": "MIT OCW 6.004 Spring 2009, Tutorial 1 (có lời giải), bài 5 — CC BY-NC-SA, tự diễn đạt"
+  },
+  {
+    "id": "l2-src-5input",
+    "chapter": "ch2",
+    "section": "2.7",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "Có 16 hàm Boolean 2 biến. Có bao nhiêu hàm Boolean 5 biến?",
+      "options": [
+        "2³² (bằng 2 mũ 2⁵)",
+        "32 (bằng 2⁵)",
+        "80 (bằng 16·5)",
+        "2¹⁰"
+      ],
+      "why": [
+        "Bảng chân trị có 2⁵ = 32 dòng, mỗi dòng chọn 0 hoặc 1: 2³² cách.",
+        "32 là số DÒNG của bảng chân trị, không phải số hàm.",
+        "Số hàm không tăng tuyến tính theo số biến.",
+        "2¹⁰ ứng với bảng 10 dòng, nhưng 5 biến có 32 dòng."
+      ],
+      "explain": "n biến ⇒ 2ⁿ dòng ⇒ 2^(2ⁿ) hàm. Với n = 2: 2⁴ = 16, khớp với 16 hàm 2 biến."
+    },
+    "en": {
+      "q": "There are 16 Boolean functions of 2 variables. How many Boolean functions of 5 variables are there?",
+      "options": [
+        "2³² (2 to the 2⁵)",
+        "32 (that is 2⁵)",
+        "80 (that is 16·5)",
+        "2¹⁰"
+      ],
+      "why": [
+        "The truth table has 2⁵ = 32 rows, each set to 0 or 1: 2³² ways.",
+        "32 is the number of ROWS, not of functions.",
+        "The count does not grow linearly with the variables.",
+        "2¹⁰ would fit a 10-row table, but 5 variables give 32 rows."
+      ],
+      "explain": "n variables ⇒ 2ⁿ rows ⇒ 2^(2ⁿ) functions. For n = 2: 2⁴ = 16, matching the 16 two-variable functions."
+    },
+    "source": "MIT OCW 6.004 Spring 2009, tutorial “Gates and Boolean logic” (có lời giải), bài 2F — CC BY-NC-SA, tự diễn đạt"
+  },
+  {
+    "id": "l2-src-mux-xor",
+    "chapter": "ch2",
+    "section": "2.7",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "F = x′y′C₀ + xy′C₁ + x′yC₂ + xyC₃, mỗi Cᵢ là hằng 0 hoặc 1. Chọn C₀, C₁, C₂, C₃ thế nào để F = x ⊕ y?",
+      "options": [
+        "0, 1, 1, 0",
+        "1, 0, 0, 1",
+        "0, 1, 1, 1",
+        "1, 1, 1, 0"
+      ],
+      "why": [
+        "XOR bằng 1 đúng ở xy′ và x′y ⇒ bật C₁, C₂, tắt C₀, C₃.",
+        "Đó là XNOR: bằng 1 khi x = y.",
+        "Bật thêm C₃ thì được x + y (OR).",
+        "Đó là NAND: chỉ tắt ô xy."
+      ],
+      "explain": "Mỗi Cᵢ bật hoặc tắt một minterm, nên 4 hằng chọn được đủ 2⁴ = 16 hàm 2 biến. Mạch này chính là MUX 4:1 với x, y làm ngõ chọn."
+    },
+    "en": {
+      "q": "F = x′y′C₀ + xy′C₁ + x′yC₂ + xyC₃, each Cᵢ a constant 0 or 1. Which C₀, C₁, C₂, C₃ make F = x ⊕ y?",
+      "options": [
+        "0, 1, 1, 0",
+        "1, 0, 0, 1",
+        "0, 1, 1, 1",
+        "1, 1, 1, 0"
+      ],
+      "why": [
+        "XOR is 1 exactly at xy′ and x′y ⇒ turn on C₁, C₂, turn off C₀, C₃.",
+        "That is XNOR: 1 when x = y.",
+        "Turning on C₃ as well gives x + y (OR).",
+        "That is NAND: only the cell xy is off."
+      ],
+      "explain": "Each Cᵢ switches one minterm on or off, so the 4 constants pick any of the 2⁴ = 16 two-variable functions. The circuit is a 4:1 MUX with x, y as selects."
+    },
+    "source": "MIT OCW 6.004 Spring 2009, tutorial “Gates and Boolean logic” (có lời giải), bài 2B–C — CC BY-NC-SA, tự diễn đạt",
+    "check": {
+      "type": "equiv",
+      "a": "x'y'0 + xy'1 + x'y1 + xy0",
+      "b": "xy' + x'y",
+      "same": true
+    }
+  },
+  {
+    "id": "l2-src-majority",
+    "chapter": "ch2",
+    "section": "2.6",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "G(x, y, z) bằng 1 đúng ở các dòng 011, 101, 110, 111. Dạng SOP tối giản của G là gì?",
+      "options": [
+        "xy + xz + yz",
+        "x ⊕ y ⊕ z",
+        "xyz",
+        "xy + z"
+      ],
+      "why": [
+        "G = Σm(3, 5, 6, 7): bằng 1 khi ít nhất hai biến bằng 1 — hàm đa số.",
+        "XOR 3 biến bằng 1 ở 001, 010, 100, 111.",
+        "xyz chỉ phủ dòng 111.",
+        "z phủ thừa ô 001, nơi G = 0."
+      ],
+      "explain": "Dạng chuẩn: G = x′yz + xy′z + xyz′ + xyz. Mỗi minterm có một bit 0 gộp được với xyz: gộp ba cặp được xy + xz + yz."
+    },
+    "en": {
+      "q": "G(x, y, z) is 1 exactly on rows 011, 101, 110, 111. What is the minimal SOP of G?",
+      "options": [
+        "xy + xz + yz",
+        "x ⊕ y ⊕ z",
+        "xyz",
+        "xy + z"
+      ],
+      "why": [
+        "G = Σm(3, 5, 6, 7): 1 when at least two inputs are 1 — the majority function.",
+        "3-variable XOR is 1 on 001, 010, 100, 111.",
+        "xyz covers only row 111.",
+        "z also covers cell 001, where G = 0."
+      ],
+      "explain": "Canonical form: G = x′yz + xy′z + xyz′ + xyz. Each minterm with one 0 merges with xyz: three merges give xy + xz + yz."
+    },
+    "source": "MIT OCW 6.004 Spring 2009, tutorial “Gates and Boolean logic” (có lời giải), bài 2E — CC BY-NC-SA, tự diễn đạt",
+    "check": {
+      "type": "minterms",
+      "expr": "xy + xz + yz",
+      "list": [
+        3,
+        5,
+        6,
+        7
+      ]
+    }
+  },
+  {
+    "id": "l2-src-absorb",
+    "chapter": "ch2",
+    "section": "2.4",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "Rút gọn H = x + x′yz.",
+      "options": [
+        "x + yz",
+        "x + x′yz",
+        "yz",
+        "x"
+      ],
+      "why": [
+        "x + x′A = x + A: với x = 0 còn yz, với x = 1 là 1.",
+        "Đúng hàm nhưng chưa rút gọn.",
+        "Thiếu các dòng có x = 1.",
+        "Thiếu dòng 011 (x = 0, y = z = 1)."
+      ],
+      "explain": "Chứng minh: x + x′yz = (x + x′)(x + yz) = x + yz, theo luật phân phối của + đối với ·. Nguồn gặp biểu thức này khi đọc một mảng PLA."
+    },
+    "en": {
+      "q": "Simplify H = x + x′yz.",
+      "options": [
+        "x + yz",
+        "x + x′yz",
+        "yz",
+        "x"
+      ],
+      "why": [
+        "x + x′A = x + A: with x = 0 what remains is yz; with x = 1 it is 1.",
+        "Right function but not simplified.",
+        "Misses every row with x = 1.",
+        "Misses row 011 (x = 0, y = z = 1)."
+      ],
+      "explain": "Proof: x + x′yz = (x + x′)(x + yz) = x + yz, by distributing + over ·. The source meets this expression when reading a PLA."
+    },
+    "source": "MIT OCW 6.004 Spring 2009, tutorial “Synthesis of combinational logic” (có lời giải), bài 5 — CC BY-NC-SA, tự diễn đạt",
+    "check": {
+      "type": "equiv",
+      "a": "x + x'yz",
+      "b": "x + yz",
+      "same": true
+    }
+  },
+  {
+    "id": "l3-src-two-min",
+    "chapter": "ch3",
+    "section": "3.3",
+    "type": "trap",
+    "answer": 0,
+    "vi": {
+      "q": "F(x, y, z) = Σm(0, 3, 4, 5, 7). SOP tối giản của F có duy nhất không?",
+      "options": [
+        "Không: ô 5 phủ bằng xy′ hoặc xz đều được",
+        "Có: SOP tối giản luôn là duy nhất",
+        "Có, và đó là F = y′z′ + yz",
+        "Không: có bốn cách, mỗi nguyên tố một cách"
+      ],
+      "why": [
+        "y′z′ và yz là nguyên tố thiết yếu (ô 0 và ô 3). Ô 5 còn lại phủ bằng xy′ hoặc xz — cả hai cách đều 6 literal.",
+        "Khi còn nguyên tố không thiết yếu, có thể có nhiều cách phủ tối giản.",
+        "y′z′ + yz thiếu ô 5 (x = 1, y = 0, z = 1).",
+        "Hai nguyên tố thiết yếu bắt buộc có mặt; chỉ còn chọn một trong hai."
+      ],
+      "explain": "Cách làm: lấy hết nguyên tố thiết yếu, rồi phủ các ô còn lại bằng ít nguyên tố nhất. Lời giải nguồn chọn y′z′ + xy′ + yz."
+    },
+    "en": {
+      "q": "F(x, y, z) = Σm(0, 3, 4, 5, 7). Is the minimal SOP of F unique?",
+      "options": [
+        "No: cell 5 can be covered by xy′ or by xz",
+        "Yes: a minimal SOP is always unique",
+        "Yes, and it is F = y′z′ + yz",
+        "No: four ways, one per prime implicant"
+      ],
+      "why": [
+        "y′z′ and yz are essential (cells 0 and 3). Cell 5 is left and xy′ or xz covers it — both give 6 literals.",
+        "When non-essential primes remain, several minimal covers can exist.",
+        "y′z′ + yz misses cell 5 (x = 1, y = 0, z = 1).",
+        "Both essential primes must appear; only one choice remains."
+      ],
+      "explain": "Method: take every essential prime, then cover the remaining cells with as few primes as possible. The official solution picks y′z′ + xy′ + yz."
+    },
+    "source": "MIT OCW 6.004 Spring 2009, tutorial “Synthesis of combinational logic” (có lời giải), bài 1B — CC BY-NC-SA, tự diễn đạt",
+    "check": {
+      "type": "literals",
+      "minterms": [
+        0,
+        3,
+        4,
+        5,
+        7
+      ],
+      "n": 3,
+      "form": "sop",
+      "count": 6
+    }
+  },
+  {
+    "id": "l3-src-complement",
+    "chapter": "ch3",
+    "section": "3.2",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "F(x, y, z) = Σm(0, 3, 4, 5, 7). SOP tối giản của F′ là gì?",
+      "options": [
+        "yz′ + x′y′z",
+        "x′yz′ + xyz′ + x′y′z",
+        "y′z + yz′",
+        "x′ + yz′"
+      ],
+      "why": [
+        "F′ = Σm(1, 2, 6): ô 2 và 6 gộp thành yz′, ô 1 đứng riêng (x′y′z).",
+        "Đúng hàm nhưng là dạng chuẩn, chưa rút gọn.",
+        "y′z phủ thừa ô 5, nơi F′ = 0.",
+        "x′ phủ thừa ô 0 và ô 3."
+      ],
+      "explain": "Muốn F′ thì khoanh các ô 0 trên bìa K của F. Ô 1 (001) có ba ô kề 000, 011, 101 đều là ô 1 của F nên không gộp được."
+    },
+    "en": {
+      "q": "F(x, y, z) = Σm(0, 3, 4, 5, 7). What is the minimal SOP of F′?",
+      "options": [
+        "yz′ + x′y′z",
+        "x′yz′ + xyz′ + x′y′z",
+        "y′z + yz′",
+        "x′ + yz′"
+      ],
+      "why": [
+        "F′ = Σm(1, 2, 6): cells 2 and 6 merge into yz′, cell 1 stays alone (x′y′z).",
+        "Right function but canonical, not minimal.",
+        "y′z also covers cell 5, where F′ = 0.",
+        "x′ also covers cells 0 and 3."
+      ],
+      "explain": "For F′, circle the 0 cells on the K-map of F. Cell 1 (001) has neighbours 000, 011, 101, all 1s of F, so it cannot merge."
+    },
+    "source": "MIT OCW 6.004 Spring 2009, tutorial “Synthesis of combinational logic” (có lời giải), bài 1D — CC BY-NC-SA, tự diễn đạt",
+    "check": {
+      "type": "equiv",
+      "a": "yz' + x'y'z",
+      "b": "(y'z' + xy' + yz)'",
+      "same": true
+    }
+  },
+  {
+    "id": "l3-src-kmap-dim",
+    "chapter": "ch3",
+    "section": "3.3",
+    "type": "why",
+    "answer": 0,
+    "vi": {
+      "q": "Vì sao một cạnh của bìa K không xếp được quá 2 biến?",
+      "options": [
+        "Mỗi giá trị cần kề mọi giá trị khác nó một bit",
+        "Mã Gray không mở rộng được quá 2 bit",
+        "Vì số 3 không phải là lũy thừa của 2",
+        "Không có lý do gì, đây chỉ là quy ước"
+      ],
+      "why": [
+        "Với 3 biến, mỗi giá trị có 3 giá trị cách 1 bit, nhưng trên một đường thẳng mỗi ô chỉ có 2 ô kề.",
+        "Có mã Gray 3 bit, nhưng các từ cách 1 bit không nằm cạnh nhau hết được.",
+        "Lũy thừa của 2 không liên quan; vấn đề là số ô kề.",
+        "Có lý do hình học; bìa 5 biến phải dùng thêm một lớp bìa thứ hai."
+      ],
+      "explain": "Trên một cạnh, 2 biến xếp theo vòng 00, 01, 11, 10: mỗi giá trị kề đúng 2 giá trị khác nó một bit. Với 3 biến thì không xếp thẳng hàng được như vậy."
+    },
+    "en": {
+      "q": "Why can one side of a K-map not hold more than 2 variables?",
+      "options": [
+        "Each value must be adjacent to every value one bit away",
+        "Gray codes cannot go beyond 2 bits",
+        "Because 3 is not a power of two",
+        "No reason at all, it is only a convention"
+      ],
+      "why": [
+        "With 3 variables each value has 3 values one bit away, but along a line a cell has only 2 neighbours.",
+        "3-bit Gray codes exist, but not all words one bit apart can sit next to each other.",
+        "Powers of two are irrelevant; the issue is the number of neighbours.",
+        "There is a geometric reason; 5-variable maps need a second layer."
+      ],
+      "explain": "Along one side, 2 variables go round 00, 01, 11, 10: each value touches exactly the 2 values one bit away. With 3 variables no straight line can do this."
+    },
+    "source": "MIT OCW 6.004 Spring 2009, tutorial “Synthesis of combinational logic” (có lời giải), bài 2B — CC BY-NC-SA, tự diễn đạt"
+  },
+  {
+    "id": "l3-src-nand5",
+    "chapter": "ch3",
+    "section": "3.6",
+    "type": "why",
+    "answer": 0,
+    "vi": {
+      "q": "Kho chỉ còn 5 cổng NAND 2 ngõ vào. Có dựng được MỌI hàm 2 biến không?",
+      "options": [
+        "Được: 2 NAND làm cổng NOT, 3 NAND dựng SOP hai tích",
+        "Không: hàm XOR cần hơn 5 cổng NAND",
+        "Không: phải có thêm cổng NOT riêng",
+        "Được, nhưng chỉ với các hàm không có phủ định"
+      ],
+      "why": [
+        "SOP tối giản của hàm 2 biến có tối đa 2 tích; NAND–NAND hai tầng cần 3 cổng, 2 cổng còn lại tạo x′, y′.",
+        "XOR = NAND–NAND của xy′ và x′y: cách này dùng đúng 5 cổng.",
+        "NAND nối chung hai ngõ vào chính là cổng NOT.",
+        "Phủ định dựng được bằng NAND nên không bị giới hạn."
+      ],
+      "explain": "Bìa K 2 biến có 4 ô; kiểu bàn cờ (XOR) là tệ nhất, cần 2 tích. Mạch AND–OR hai tầng đổi thành NAND–NAND giữ nguyên số cổng."
+    },
+    "en": {
+      "q": "Only five 2-input NAND gates are left. Can EVERY 2-variable function be built?",
+      "options": [
+        "Yes: 2 NANDs as NOTs, 3 for a two-term SOP",
+        "No: XOR needs more than 5 NAND gates",
+        "No: a separate NOT gate is required",
+        "Yes, but only for functions without negation"
+      ],
+      "why": [
+        "A minimal SOP of a 2-variable function has at most 2 terms; two-level NAND–NAND takes 3 gates, the other 2 make x′, y′.",
+        "XOR = NAND–NAND of xy′ and x′y: this uses exactly 5 gates.",
+        "A NAND with both inputs tied together is a NOT.",
+        "Negation is built from NAND, so there is no restriction."
+      ],
+      "explain": "A 2-variable K-map has 4 cells; the checkerboard (XOR) is the worst case with 2 terms. Two-level AND–OR converts to NAND–NAND with the same gate count."
+    },
+    "source": "MIT OCW 6.004 Spring 2009, tutorial “Synthesis of combinational logic” (có lời giải), bài 2E — CC BY-NC-SA, tự diễn đạt"
+  },
+  {
+    "id": "l4-src-priority",
+    "chapter": "ch4",
+    "section": "4.10",
+    "type": "trap",
+    "answer": 0,
+    "vi": {
+      "q": "Bộ mã hoá ưu tiên 3 ngõ vào: x ưu tiên cao nhất (mã 11), rồi y (10), rồi z (01); không ngõ nào bằng 1 thì ra 00. Bit thấp P₀ = ?",
+      "options": [
+        "x + y′z",
+        "x + z",
+        "y′z",
+        "x + yz"
+      ],
+      "why": [
+        "P₀ = 1 khi x = 1, hoặc khi x = 0, y = 0, z = 1. Rút gọn Σm(1, 4, 5, 6, 7) được x + y′z.",
+        "Sai ở dòng 011: y ưu tiên hơn z nên ra 10, P₀ = 0.",
+        "Thiếu các dòng có x = 1 (mã 11 có P₀ = 1).",
+        "Sai ở dòng 011 và thiếu dòng 001."
+      ],
+      "explain": "Lập bảng chân trị theo thứ tự ưu tiên rồi rút gọn. Tương tự P₁ = x + y. Bộ mã hoá ưu tiên thường có thêm đầu ra V báo có ngõ vào bằng 1."
+    },
+    "en": {
+      "q": "A 3-input priority encoder: x has top priority (code 11), then y (10), then z (01); no input high gives 00. Low bit P₀ = ?",
+      "options": [
+        "x + y′z",
+        "x + z",
+        "y′z",
+        "x + yz"
+      ],
+      "why": [
+        "P₀ = 1 when x = 1, or when x = 0, y = 0, z = 1. Minimising Σm(1, 4, 5, 6, 7) gives x + y′z.",
+        "Wrong on row 011: y beats z, so the code is 10 and P₀ = 0.",
+        "Misses the rows with x = 1 (code 11 has P₀ = 1).",
+        "Wrong on row 011 and misses row 001."
+      ],
+      "explain": "Write the truth table in priority order, then minimise. Likewise P₁ = x + y. Priority encoders usually add an output V telling whether any input is 1."
+    },
+    "source": "MIT OCW 6.004 Spring 2009, tutorial “Gates and Boolean logic” (có lời giải), bài 3 — CC BY-NC-SA, tự diễn đạt",
+    "check": {
+      "type": "minterms",
+      "expr": "x + y'z",
+      "list": [
+        1,
+        4,
+        5,
+        6,
+        7
+      ]
+    }
+  },
+  {
+    "id": "l4-src-mux-f",
+    "chapter": "ch4",
+    "section": "4.11",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "Dựng F(x, y, z) = Σm(0, 3, 4, 5, 7) bằng MUX 4:1 với S₁ = x, S₀ = y. Bốn ngõ dữ liệu I₀, I₁, I₂, I₃ là gì?",
+      "options": [
+        "z′, z, 1, z",
+        "z, z′, 1, z",
+        "z′, z, 0, z",
+        "1, z, 1, z′"
+      ],
+      "why": [
+        "xy = 00: F = 1, 0 theo z ⇒ z′; 01: 0, 1 ⇒ z; 10: 1, 1 ⇒ 1; 11: 0, 1 ⇒ z.",
+        "Đảo I₀ và I₁: ô 000 có F = 1 nên I₀ = z′.",
+        "Ô 100 và 101 đều thuộc F nên I₂ = 1.",
+        "I₀ phụ thuộc z (F(000) = 1, F(001) = 0), không phải hằng."
+      ],
+      "explain": "Mỗi cặp (x, y) chọn một ngõ; ngõ đó là F theo z: 0, 1, z hoặc z′. Đổi các ngõ này thì dựng được mọi hàm 3 biến."
+    },
+    "en": {
+      "q": "Build F(x, y, z) = Σm(0, 3, 4, 5, 7) with a 4:1 MUX, S₁ = x, S₀ = y. What are data inputs I₀, I₁, I₂, I₃?",
+      "options": [
+        "z′, z, 1, z",
+        "z, z′, 1, z",
+        "z′, z, 0, z",
+        "1, z, 1, z′"
+      ],
+      "why": [
+        "xy = 00: F = 1, 0 over z ⇒ z′; 01: 0, 1 ⇒ z; 10: 1, 1 ⇒ 1; 11: 0, 1 ⇒ z.",
+        "I₀ and I₁ are swapped: cell 000 has F = 1, so I₀ = z′.",
+        "Cells 100 and 101 are both in F, so I₂ = 1.",
+        "I₀ depends on z (F(000) = 1, F(001) = 0); it is not a constant."
+      ],
+      "explain": "Each (x, y) pair selects one input, and that input is F as a function of z: 0, 1, z or z′. Changing these inputs builds any 3-variable function."
+    },
+    "source": "MIT OCW 6.004 Spring 2009, tutorial “Synthesis of combinational logic” (có lời giải), bài 1C — CC BY-NC-SA, tự diễn đạt",
+    "check": {
+      "type": "minterms",
+      "expr": "x'y'z' + x'yz + xy' + xyz",
+      "list": [
+        0,
+        3,
+        4,
+        5,
+        7
+      ]
+    }
+  },
+  {
+    "id": "l4-src-mux-g",
+    "chapter": "ch4",
+    "section": "4.11",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "MUX 4:1 có S₁ = x, S₀ = y và ngõ dữ liệu I₀, I₁, I₂, I₃ = 1, z′, 1, z. Hàm ra G là gì?",
+      "options": [
+        "y′ + x′z′ + xz",
+        "y′ + xz",
+        "x′z′ + xz",
+        "y + x′z′ + xz"
+      ],
+      "why": [
+        "I₀ = I₂ = 1 ⇒ mọi ô có y = 0 bằng 1 (y′); I₁ = z′ cho x′yz′; I₃ = z cho xyz.",
+        "Thiếu ô x′yz′ (xy = 01, z = 0).",
+        "Thiếu các ô x′y′z và xy′z′ mà y′ phủ.",
+        "y thay cho y′: sai ở ô 011 và ô 110."
+      ],
+      "explain": "G = Σm(0, 1, 2, 4, 5, 7). y′ phủ 0, 1, 4, 5; x′z′ phủ 0, 2; xz phủ 5, 7. Không bỏ được tích nào."
+    },
+    "en": {
+      "q": "A 4:1 MUX has S₁ = x, S₀ = y and data inputs I₀, I₁, I₂, I₃ = 1, z′, 1, z. What is the output G?",
+      "options": [
+        "y′ + x′z′ + xz",
+        "y′ + xz",
+        "x′z′ + xz",
+        "y + x′z′ + xz"
+      ],
+      "why": [
+        "I₀ = I₂ = 1 ⇒ every cell with y = 0 is 1 (y′); I₁ = z′ gives x′yz′; I₃ = z gives xyz.",
+        "Misses cell x′yz′ (xy = 01, z = 0).",
+        "Misses cells x′y′z and xy′z′, which y′ covers.",
+        "y instead of y′: wrong at cells 011 and 110."
+      ],
+      "explain": "G = Σm(0, 1, 2, 4, 5, 7). y′ covers 0, 1, 4, 5; x′z′ covers 0, 2; xz covers 5, 7. No term can be dropped."
+    },
+    "source": "MIT OCW 6.004 Spring 2009, tutorial “Synthesis of combinational logic” (có lời giải), bài 8A — CC BY-NC-SA, tự diễn đạt",
+    "check": {
+      "type": "minterms",
+      "expr": "y' + x'z' + xz",
+      "list": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        7
+      ]
+    }
+  },
+  {
+    "id": "l4-src-rom",
+    "chapter": "ch4",
+    "section": "4.9",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "Decoder 3 → 8 (ngõ vào x, y, z) nối các đầu ra m₂, m₃, m₅, m₆, m₇ vào một cổng OR. Hàm ra rút gọn là gì?",
+      "options": [
+        "y + xz",
+        "x + yz",
+        "y + xz′",
+        "xy + z"
+      ],
+      "why": [
+        "Σm(2, 3, 5, 6, 7): y phủ 2, 3, 6, 7; xz phủ 5, 7.",
+        "x + yz là Σm(3, 4, 5, 6, 7): thừa ô 4, thiếu ô 2.",
+        "xz′ phủ ô 4 (không có) và bỏ sót ô 5.",
+        "z phủ thừa ô 1."
+      ],
+      "explain": "Decoder sinh đủ 8 minterm và mỗi lúc đúng một đầu ra bằng 1; OR các minterm cần lấy chính là dạng chuẩn. ROM hoạt động đúng theo cách này."
+    },
+    "en": {
+      "q": "A 3-to-8 decoder (inputs x, y, z) feeds outputs m₂, m₃, m₅, m₆, m₇ into one OR gate. What is the simplified output?",
+      "options": [
+        "y + xz",
+        "x + yz",
+        "y + xz′",
+        "xy + z"
+      ],
+      "why": [
+        "Σm(2, 3, 5, 6, 7): y covers 2, 3, 6, 7; xz covers 5, 7.",
+        "x + yz is Σm(3, 4, 5, 6, 7): extra cell 4, missing cell 2.",
+        "xz′ covers cell 4 (not wanted) and misses cell 5.",
+        "z also covers cell 1."
+      ],
+      "explain": "The decoder produces all 8 minterms with exactly one output high at a time; ORing the needed minterms is the canonical form. A ROM works exactly this way."
+    },
+    "source": "MIT OCW 6.004 Spring 2009, tutorial “Synthesis of combinational logic” (có lời giải), bài 6 — CC BY-NC-SA, tự diễn đạt",
+    "check": {
+      "type": "minterms",
+      "expr": "y + xz",
+      "list": [
+        2,
+        3,
+        5,
+        6,
+        7
+      ]
+    }
+  },
+  {
+    "id": "l4-src-compare",
+    "chapter": "ch4",
+    "section": "4.8",
+    "type": "trap",
+    "answer": 0,
+    "vi": {
+      "q": "Bộ so sánh nối tầng từ bit cao: ô n nhận G, L từ các bit cao hơn (A lớn hơn / A nhỏ hơn) cùng hai bit Aₙ, Bₙ. Công thức đúng cho G ra?",
+      "options": [
+        "G + L′AₙBₙ′",
+        "G + AₙBₙ′",
+        "GAₙBₙ′",
+        "AₙBₙ′"
+      ],
+      "why": [
+        "Bit cao đã cho A lớn hơn thì giữ; nếu chưa cho A nhỏ hơn thì bit này quyết định.",
+        "Sai khi bit cao đã cho A nhỏ hơn (L = 1) mà Aₙ = 1, Bₙ = 0.",
+        "Chỉ bằng 1 khi cả bit cao lẫn bit này đều cho A lớn hơn.",
+        "Bỏ qua kết quả của các bit cao hơn."
+      ],
+      "explain": "Tương tự L ra = L + G′Aₙ′Bₙ. Ô cao nhất nhận G = L = 0 (coi như bằng nhau). Mỗi ô thêm trễ trên đường G, L nên nguồn gợi ý so 2 bit mỗi ô."
+    },
+    "en": {
+      "q": "A comparator chained from the top bit: cell n gets G, L from higher bits (A greater / A less) plus bits Aₙ, Bₙ. Which formula gives the G output?",
+      "options": [
+        "G + L′AₙBₙ′",
+        "G + AₙBₙ′",
+        "GAₙBₙ′",
+        "AₙBₙ′"
+      ],
+      "why": [
+        "If higher bits already say A is greater, keep it; if they do not say A is less, this bit decides.",
+        "Wrong when higher bits say A is less (L = 1) but Aₙ = 1, Bₙ = 0.",
+        "Only 1 when both the higher bits and this bit say A is greater.",
+        "Ignores the result of the higher bits."
+      ],
+      "explain": "Likewise the L output = L + G′Aₙ′Bₙ. The top cell gets G = L = 0 (equal so far). Each cell adds delay on the G, L path, so the source suggests comparing 2 bits per cell."
+    },
+    "source": "MIT OCW 6.004 Spring 2009, tutorial “Synthesis of combinational logic” (có lời giải), bài 9A — CC BY-NC-SA, tự diễn đạt"
+  },
+  {
+    "id": "l1-src-neg51",
+    "chapter": "ch1",
+    "section": "1.6",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "−51 ở dạng bù 2 8 bit, ghi bằng hex, là gì?",
+      "options": [
+        "0xCD",
+        "0xCC",
+        "0xB3",
+        "0x33"
+      ],
+      "why": [
+        "51 = 0011 0011; đảo bit được 1100 1100, cộng 1 thành 1100 1101 = 0xCD.",
+        "Đó là bù 1: quên cộng 1.",
+        "1011 0011 là dạng dấu-độ lớn (bật bit dấu của 51).",
+        "0x33 là +51."
+      ],
+      "explain": "Kiểm lại: 0xCD = −128 + 64 + 8 + 4 + 1 = −51. Bit cao nhất của bù 2 mang trọng số −2⁷."
+    },
+    "en": {
+      "q": "What is −51 as an 8-bit two′s complement number, in hex?",
+      "options": [
+        "0xCD",
+        "0xCC",
+        "0xB3",
+        "0x33"
+      ],
+      "why": [
+        "51 = 0011 0011; inverting gives 1100 1100, adding 1 gives 1100 1101 = 0xCD.",
+        "That is the one′s complement: the +1 is missing.",
+        "1011 0011 is sign-magnitude (51 with the sign bit set).",
+        "0x33 is +51."
+      ],
+      "explain": "Check: 0xCD = −128 + 64 + 8 + 4 + 1 = −51. The top bit of two′s complement has weight −2⁷."
+    },
+    "source": "MIT OCW 6.004 Spring 2017, Basics of Information Worksheet (có đáp án), bài 2B — CC BY-NC-SA, tự diễn đạt",
+    "check": {
+      "type": "signed",
+      "bits": "11001101",
+      "format": "twos",
+      "value": -51
+    }
+  },
+  {
+    "id": "l1-src-d6",
+    "chapter": "ch1",
+    "section": "1.6",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "0xD6 là một số bù 2 8 bit. Giá trị thập phân của nó là bao nhiêu?",
+      "options": [
+        "−42",
+        "214",
+        "−86",
+        "−41"
+      ],
+      "why": [
+        "0xD6 = 1101 0110 = −128 + 64 + 16 + 4 + 2 = −42.",
+        "214 là cách đọc KHÔNG dấu.",
+        "−86 là cách đọc dấu-độ lớn: −(101 0110).",
+        "−41 là cách đọc bù 1: đảo bit được 0010 1001 = 41."
+      ],
+      "explain": "Đọc nhanh bù 2: bit dấu mang trọng số −2ⁿ⁻¹, các bit còn lại cộng như thường."
+    },
+    "en": {
+      "q": "0xD6 is an 8-bit two′s complement number. What is its decimal value?",
+      "options": [
+        "−42",
+        "214",
+        "−86",
+        "−41"
+      ],
+      "why": [
+        "0xD6 = 1101 0110 = −128 + 64 + 16 + 4 + 2 = −42.",
+        "214 is the UNSIGNED reading.",
+        "−86 is the sign-magnitude reading: −(101 0110).",
+        "−41 is the one′s complement reading: inverting gives 0010 1001 = 41."
+      ],
+      "explain": "Quick two′s complement reading: the sign bit weighs −2ⁿ⁻¹ and the other bits add as usual."
+    },
+    "source": "MIT OCW 6.004 Spring 2017, Basics of Information Worksheet (có đáp án), bài 2C — CC BY-NC-SA, tự diễn đạt",
+    "check": {
+      "type": "signed",
+      "bits": "11010110",
+      "format": "twos",
+      "value": -42
+    }
+  },
+  {
+    "id": "l1-src-bits172",
+    "chapter": "ch1",
+    "section": "1.6",
+    "type": "why",
+    "answer": 0,
+    "vi": {
+      "q": "Cần lưu các số nguyên từ 0 đến 172 dưới dạng bù 2. Cần ít nhất bao nhiêu bit?",
+      "options": [
+        "9",
+        "8",
+        "7",
+        "10"
+      ],
+      "why": [
+        "8 bit bù 2 chỉ lên tới 127; 9 bit lên tới 2⁸ − 1 = 255, đủ chứa 172.",
+        "8 bit KHÔNG dấu chứa được 172, nhưng bù 2 mất một bit cho dấu.",
+        "7 bit bù 2 chỉ lên tới 63.",
+        "10 bit là dư: 9 bit đã đủ."
+      ],
+      "explain": "n bit bù 2 chứa số dương tới 2ⁿ⁻¹ − 1. Cần 2ⁿ⁻¹ − 1 ≥ 172 ⇒ n − 1 ≥ 8 ⇒ n = 9."
+    },
+    "en": {
+      "q": "Integers from 0 to 172 are stored in two′s complement. What is the fewest number of bits?",
+      "options": [
+        "9",
+        "8",
+        "7",
+        "10"
+      ],
+      "why": [
+        "8-bit two′s complement only reaches 127; 9 bits reach 2⁸ − 1 = 255, enough for 172.",
+        "8 UNSIGNED bits hold 172, but two′s complement spends a bit on the sign.",
+        "7-bit two′s complement only reaches 63.",
+        "10 bits is more than needed: 9 suffice."
+      ],
+      "explain": "n-bit two′s complement holds positives up to 2ⁿ⁻¹ − 1. We need 2ⁿ⁻¹ − 1 ≥ 172 ⇒ n − 1 ≥ 8 ⇒ n = 9."
+    },
+    "source": "MIT OCW 6.004 Spring 2017, Basics of Information Worksheet (có đáp án), bài 2D — CC BY-NC-SA, tự diễn đạt"
+  },
+  {
+    "id": "l1-src-b3b1",
+    "chapter": "ch1",
+    "section": "1.6",
+    "type": "trap",
+    "answer": 0,
+    "vi": {
+      "q": "Cộng 0xB3 + 0xB1 theo bù 2 8 bit, phần cứng ra 0x64 và số nhớ 1. Nhận định nào đúng?",
+      "options": [
+        "Tràn: −77 + (−79) = −156 nằm ngoài khoảng",
+        "Không tràn: bỏ số nhớ, kết quả là 0x64",
+        "Không tràn: 0x164 vẫn vừa 8 bit",
+        "Không tràn: hai số âm cộng không thể tràn"
+      ],
+      "why": [
+        "8 bit bù 2 chỉ chứa −128…127. Hai số âm cộng ra 0x64 = 100 dương — dấu hiệu tràn.",
+        "Bỏ số nhớ chỉ cho kết quả đúng khi không tràn.",
+        "0x164 cần tới 9 bit.",
+        "Hai số âm vẫn tràn được khi tổng nhỏ hơn −128."
+      ],
+      "explain": "Tràn bù 2 khi hai số cùng dấu cho tổng khác dấu. Số nhớ ra ngoài một mình không nói lên gì: 0xF0 + 0x34 = 0x24 có nhớ mà không tràn."
+    },
+    "en": {
+      "q": "Adding 0xB3 + 0xB1 in 8-bit two′s complement, the hardware gives 0x64 with carry 1. Which statement is right?",
+      "options": [
+        "Overflow: −77 + (−79) = −156 is out of range",
+        "No overflow: drop the carry, the result is 0x64",
+        "No overflow: 0x164 still fits in 8 bits",
+        "No overflow: two negatives cannot overflow"
+      ],
+      "why": [
+        "8-bit two′s complement holds only −128…127. Two negatives giving 0x64 = 100, a positive, signal overflow.",
+        "Dropping the carry gives the right result only without overflow.",
+        "0x164 needs 9 bits.",
+        "Two negatives do overflow when the sum is below −128."
+      ],
+      "explain": "Two′s complement overflow: two operands of the same sign give a sum of the other sign. A carry out alone says nothing: 0xF0 + 0x34 = 0x24 carries without overflow."
+    },
+    "source": "MIT OCW 6.004 Spring 2017, Basics of Information Worksheet (có đáp án), bài 2F — CC BY-NC-SA, tự diễn đạt",
+    "check": {
+      "type": "signed",
+      "bits": "01100100",
+      "format": "twos",
+      "value": 100
+    }
+  },
+  {
+    "id": "l1-src-bb8",
+    "chapter": "ch1",
+    "section": "1.5",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "Tính 0xBB − 8 bằng bù 2 8 bit. Kết quả thập phân là bao nhiêu?",
+      "options": [
+        "−77",
+        "179",
+        "−61",
+        "−69"
+      ],
+      "why": [
+        "0xBB = −69; −8 = 1111 1000; 1011 1011 + 1111 1000 = 1011 0011 (bỏ số nhớ) = −77.",
+        "179 = 187 − 8 là cách đọc KHÔNG dấu.",
+        "−61 = −69 + 8: cộng thay vì trừ.",
+        "−69 là giá trị của 0xBB, chưa trừ."
+      ],
+      "explain": "Trừ = cộng với bù 2 của số trừ. Hai số hạng đều âm và kết quả vẫn âm nên không tràn; số nhớ ra ngoài bị bỏ."
+    },
+    "en": {
+      "q": "Compute 0xBB − 8 in 8-bit two′s complement. What is the decimal result?",
+      "options": [
+        "−77",
+        "179",
+        "−61",
+        "−69"
+      ],
+      "why": [
+        "0xBB = −69; −8 = 1111 1000; 1011 1011 + 1111 1000 = 1011 0011 (carry dropped) = −77.",
+        "179 = 187 − 8 is the UNSIGNED reading.",
+        "−61 = −69 + 8: added instead of subtracted.",
+        "−69 is the value of 0xBB before subtracting."
+      ],
+      "explain": "Subtracting = adding the two′s complement of the subtrahend. Both terms are negative and so is the result, so no overflow; the carry out is dropped."
+    },
+    "source": "MIT OCW 6.004 Spring 2017, Basics of Information Worksheet (có đáp án), bài 2G — CC BY-NC-SA, tự diễn đạt",
+    "check": {
+      "type": "signed",
+      "bits": "10110011",
+      "format": "twos",
+      "value": -77
+    }
+  },
+  {
+    "id": "l1-src-hd4",
+    "chapter": "ch1",
+    "section": "1.7",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "Hai từ mã 010010 và 110101. Khoảng cách Hamming là bao nhiêu, và một mã có khoảng cách tối thiểu đó phát hiện, sửa được mấy lỗi?",
+      "options": [
+        "4; phát hiện 3, sửa 1",
+        "4; phát hiện 4, sửa 2",
+        "3; phát hiện 2, sửa 1",
+        "4; phát hiện 3, sửa 2"
+      ],
+      "why": [
+        "Khác nhau ở 4 vị trí. Phát hiện HD − 1 = 3 lỗi; sửa ⌊(HD − 1)/2⌋ = 1 lỗi.",
+        "Phát hiện được HD − 1 lỗi, không phải HD.",
+        "Đếm lại: hai từ khác nhau ở bit 1, 4, 5, 6.",
+        "Sửa 2 lỗi cần khoảng cách ít nhất 5."
+      ],
+      "explain": "Lỗi e bit bị phát hiện nếu không biến từ mã này thành từ mã khác: e ≤ HD − 1. Sửa được nếu từ nhận vẫn gần từ mã gốc nhất: 2e + 1 ≤ HD."
+    },
+    "en": {
+      "q": "Codewords 010010 and 110101. What is their Hamming distance, and how many errors can a code with that minimum distance detect and correct?",
+      "options": [
+        "4; detect 3, correct 1",
+        "4; detect 4, correct 2",
+        "3; detect 2, correct 1",
+        "4; detect 3, correct 2"
+      ],
+      "why": [
+        "They differ in 4 positions. Detect HD − 1 = 3 errors; correct ⌊(HD − 1)/2⌋ = 1.",
+        "Detection handles HD − 1 errors, not HD.",
+        "Recount: they differ in bits 1, 4, 5, 6.",
+        "Correcting 2 errors needs distance at least 5."
+      ],
+      "explain": "An e-bit error is detected if it cannot turn one codeword into another: e ≤ HD − 1. It is corrected if the received word stays closest to the original: 2e + 1 ≤ HD."
+    },
+    "source": "MIT OCW 6.004 Spring 2017, Basics of Information Worksheet (có đáp án), bài 4F — CC BY-NC-SA, tự diễn đạt"
+  },
+  {
+    "id": "l1-src-5copies",
+    "chapter": "ch1",
+    "section": "1.7",
+    "type": "why",
+    "answer": 0,
+    "vi": {
+      "q": "Mỗi thông điệp dùng mã độ dài cố định (khoảng cách tối thiểu 1) và được gửi lặp lại 5 lần. Bên nhận sửa được tối đa bao nhiêu lỗi bit?",
+      "options": [
+        "2",
+        "4",
+        "5",
+        "1"
+      ],
+      "why": [
+        "Lặp 5 lần làm khoảng cách tối thiểu thành 5; sửa ⌊(5 − 1)/2⌋ = 2 lỗi bằng cách lấy đa số.",
+        "4 là số lỗi PHÁT HIỆN được (5 − 1), không phải sửa.",
+        "5 lỗi có thể đổi cùng một bit ở cả 5 bản.",
+        "Lặp 3 lần mới chỉ sửa được 1 lỗi."
+      ],
+      "explain": "Hai từ mã khác nhau ít nhất 1 bit; lặp 5 lần thì khác nhau ít nhất 5 bit. Giải mã: mỗi vị trí lấy giá trị xuất hiện nhiều nhất trong 5 bản."
+    },
+    "en": {
+      "q": "Each message uses a fixed-length code (minimum distance 1) and is sent 5 times. At most how many bit errors can the receiver correct?",
+      "options": [
+        "2",
+        "4",
+        "5",
+        "1"
+      ],
+      "why": [
+        "Five copies make the minimum distance 5; majority voting corrects ⌊(5 − 1)/2⌋ = 2 errors.",
+        "4 is how many errors can be DETECTED (5 − 1), not corrected.",
+        "5 errors could flip the same bit in all 5 copies.",
+        "Three copies would correct only 1 error."
+      ],
+      "explain": "Two codewords differ in at least 1 bit; five copies differ in at least 5 bits. Decoding: for each position take the value seen most often among the 5 copies."
+    },
+    "source": "MIT OCW 6.004 Spring 2017, Basics of Information Worksheet (có đáp án), bài 4L — CC BY-NC-SA, tự diễn đạt"
+  },
+  {
+    "id": "l4-src-carry-overflow",
+    "chapter": "ch4",
+    "section": "4.5",
+    "type": "compare",
+    "answer": 0,
+    "vi": {
+      "q": "Bộ cộng 8 bit tính 0xF0 + 0x34 và 0xF0 + 0x80. Coi là số bù 2, phép nào bị tràn?",
+      "options": [
+        "Chỉ 0xF0 + 0x80 (ra 0x70)",
+        "Cả hai, vì đều có số nhớ ra ngoài",
+        "Chỉ 0xF0 + 0x34 (ra 0x24)",
+        "Không phép nào bị tràn"
+      ],
+      "why": [
+        "−16 + (−128) = −144 ngoài khoảng, và 0x70 dương dù hai số hạng âm. Còn −16 + 52 = 36 = 0x24 đúng.",
+        "Số nhớ ra ngoài không phải dấu hiệu tràn của số có dấu.",
+        "0x24 = 36 = −16 + 52: đúng, không tràn.",
+        "0xF0 + 0x80 ra số dương từ hai số âm là tràn."
+      ],
+      "explain": "Số KHÔNG dấu: số nhớ C₈ = 1 báo tràn. Số bù 2: tràn khi V = C₈ ⊕ C₇ = 1, tức số nhớ vào và ra khỏi bit dấu khác nhau."
+    },
+    "en": {
+      "q": "An 8-bit adder computes 0xF0 + 0x34 and 0xF0 + 0x80. As two′s complement numbers, which one overflows?",
+      "options": [
+        "Only 0xF0 + 0x80 (gives 0x70)",
+        "Both, since both carry out",
+        "Only 0xF0 + 0x34 (gives 0x24)",
+        "Neither overflows"
+      ],
+      "why": [
+        "−16 + (−128) = −144 is out of range, and 0x70 is positive though both terms are negative. −16 + 52 = 36 = 0x24 is right.",
+        "A carry out does not signal overflow for signed numbers.",
+        "0x24 = 36 = −16 + 52: correct, no overflow.",
+        "0xF0 + 0x80 turns two negatives into a positive: overflow."
+      ],
+      "explain": "UNSIGNED numbers: carry C₈ = 1 signals overflow. Two′s complement: overflow when V = C₈ ⊕ C₇ = 1, i.e. the carries into and out of the sign bit differ."
+    },
+    "source": "MIT OCW 6.004 Spring 2017, Basics of Information Worksheet (có đáp án), bài 2I — CC BY-NC-SA, tự diễn đạt"
+  },
+  {
+    "id": "l1-gap12",
+    "chapter": "ch1",
+    "section": "1.2",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "(101.1)₂ bằng số thập phân nào?",
+      "options": [
+        "5.5",
+        "5.25",
+        "6.5",
+        "5.1"
+      ],
+      "why": [
+        "1·2² + 0·2¹ + 1·2⁰ + 1·2⁻¹ = 5.5.",
+        "2⁻¹ = 0.5, không phải 0.25; đó là 2⁻².",
+        "Không có chữ số nào tạo ra 6 trong tổng trọng số này.",
+        "5.1 không phải giá trị từ các trọng số nhị phân trên."
+      ],
+      "explain": "Mỗi vị trí có trọng số là lũy thừa của 2. Phần .1 có trọng số 2⁻¹ = 0.5, nên 101.1₂ = 5.5."
+    },
+    "en": {
+      "q": "What is (101.1)₂ in decimal?",
+      "options": [
+        "5.5",
+        "5.25",
+        "6.5",
+        "5.1"
+      ],
+      "why": [
+        "1·2² + 0·2¹ + 1·2⁰ + 1·2⁻¹ = 5.5.",
+        "2⁻¹ = 0.5, not 0.25; 0.25 is 2⁻².",
+        "No bit in this value contributes enough to make 6.",
+        "5.1 does not follow from the binary positional weights."
+      ],
+      "explain": "Each position has a power-of-two weight. The .1 digit has weight 2⁻¹ = 0.5, so 101.1₂ = 5.5."
+    },
+    "check": {
+      "type": "convert",
+      "value": "101.1",
+      "from": 2,
+      "to": 10,
+      "result": "5.5"
+    },
+    "source": "Mano §1.2",
+    "approved": "2026-09-29"
+  },
+  {
+    "id": "l2-gap25",
+    "chapter": "ch2",
+    "section": "2.5",
+    "type": "compare",
+    "answer": 0,
+    "vi": {
+      "q": "F = xy + x′z + yz. Biểu thức nào tương đương và gọn hơn?",
+      "options": [
+        "xy + x′z",
+        "xy + yz",
+        "x′z + yz",
+        "xy + x′z + yz"
+      ],
+      "why": [
+        "yz là số hạng đồng thuận, bị hấp thụ bởi xy + x′z.",
+        "Bỏ x′z làm mất các trường hợp x = 0, y = 0, z = 1.",
+        "Bỏ xy làm mất các trường hợp x = 1, y = 1, z = 0.",
+        "Đúng nhưng chưa loại số hạng đồng thuận yz."
+      ],
+      "explain": "Định lý consensus cho xy + x′z + yz = xy + x′z. Số hạng yz không tạo thêm giá trị 1 nào ngoài hai số hạng kia."
+    },
+    "en": {
+      "q": "F = xy + x′z + yz. Which expression is equivalent and simpler?",
+      "options": [
+        "xy + x′z",
+        "xy + yz",
+        "x′z + yz",
+        "xy + x′z + yz"
+      ],
+      "why": [
+        "yz is the consensus term and is absorbed by xy + x′z.",
+        "Dropping x′z loses cases with x = 0, y = 0, z = 1.",
+        "Dropping xy loses cases with x = 1, y = 1, z = 0.",
+        "It is correct but has not removed the consensus term yz."
+      ],
+      "explain": "The consensus theorem gives xy + x′z + yz = xy + x′z. The yz term adds no new 1 outputs."
+    },
+    "check": {
+      "type": "equiv",
+      "a": "xy + x'z + yz",
+      "b": "xy + x'z",
+      "same": true
+    },
+    "source": "Mano §2.5",
+    "approved": "2026-09-29"
+  },
+  {
+    "id": "l3-gap34",
+    "chapter": "ch3",
+    "section": "3.4",
+    "type": "why",
+    "answer": 0,
+    "vi": {
+      "q": "Khi rút gọn dạng POS bằng K-map, bước nào đúng?",
+      "options": [
+        "Nhóm các ô 0 rồi đổi sang dạng POS của F",
+        "Nhóm các ô 1 rồi giữ nguyên thành POS",
+        "Nhóm các ô 0 rồi giữ nguyên thành SOP",
+        "Chỉ nhóm từng ô 0 riêng lẻ"
+      ],
+      "why": [
+        "Nhóm 0 tạo các tích cho F′; bù bằng DeMorgan cho ra các tổng của F.",
+        "Nhóm 1 trực tiếp tạo SOP, không phải POS.",
+        "Giữ nguyên nhóm 0 sẽ mô tả F′, chưa phải F.",
+        "Ô có thể nhóm thành khối lớn hơn nếu vẫn đúng quy tắc kề nhau."
+      ],
+      "explain": "POS có thể tìm bằng cách nhóm các ô 0 để tạo biểu thức của F′, sau đó bù bằng DeMorgan: phép tích thành tổng và mỗi literal được bù."
+    },
+    "en": {
+      "q": "When minimizing POS with a K-map, which step is correct?",
+      "options": [
+        "Group 0-cells, then convert to POS for F",
+        "Group 1-cells and keep the result as POS",
+        "Group 0-cells and keep the result as SOP",
+        "Use only single-cell 0 groups"
+      ],
+      "why": [
+        "Grouping 0s builds terms for F′; DeMorgan then gives the POS form of F.",
+        "Grouping 1s directly builds SOP, not POS.",
+        "Keeping the 0-group result describes F′, not F.",
+        "Larger valid groups should be used when they preserve the function."
+      ],
+      "explain": "For POS, group the 0-cells to form F′, then complement with DeMorgan: products become sums and literals are complemented."
+    },
+    "source": "Mano §3.4",
+    "approved": "2026-09-29"
+  },
+  {
+    "id": "l4-gap43",
+    "chapter": "ch4",
+    "section": "4.3",
+    "type": "why",
+    "answer": 0,
+    "vi": {
+      "q": "Khi phân tích mạch tổ hợp, vì sao nên đặt tên đầu ra trung gian?",
+      "options": [
+        "Tính từng cổng từ đầu vào ra",
+        "Để biến mạch tổ hợp thành mạch tuần tự",
+        "Để loại bỏ các cổng có bóng đảo",
+        "Để giảm số biến đầu vào của mạch"
+      ],
+      "why": [
+        "Tên T₁, T₂ giúp theo dõi từng nút và viết phương trình theo đúng thứ tự.",
+        "Đặt tên không thêm bộ nhớ hay trạng thái cho mạch.",
+        "Bóng đảo vẫn phải được giữ trong phương trình của cổng.",
+        "Số biến đầu vào của mạch không đổi khi chỉ đổi cách ghi."
+      ],
+      "explain": "Ghi nhãn đầu ra trung gian giúp đi từ đầu vào ra đầu cuối theo từng bước. Cách này giảm nhầm dấu đảo và phép thay thế biểu thức."
+    },
+    "en": {
+      "q": "Why label intermediate gate outputs when analyzing a combinational circuit?",
+      "options": [
+        "Compute each gate from inputs outward",
+        "To turn the circuit into a sequential circuit",
+        "To remove inversion bubbles from the circuit",
+        "To reduce the circuit's number of input variables"
+      ],
+      "why": [
+        "Labels such as T1 and T2 let you track each node and write equations in order.",
+        "Labels add no memory or state to a combinational circuit.",
+        "An inversion bubble still belongs in the gate's equation.",
+        "Renaming nodes does not change the number of inputs."
+      ],
+      "explain": "Intermediate labels let you work from inputs to the final output step by step, reducing mistakes with inversion and expression substitution."
+    },
+    "source": "Mano §4.3",
+    "approved": "2026-09-29"
+  },
+  {
+    "id": "l4-gap44",
+    "chapter": "ch4",
+    "section": "4.4",
+    "type": "trap",
+    "answer": 0,
+    "vi": {
+      "q": "Trong mạch BCD → Excess-3, vì sao các đầu vào 1010–1111 có thể là don't-care?",
+      "options": [
+        "Chúng không phải mã BCD hợp lệ",
+        "Chúng luôn xuất hiện sau số 9",
+        "Chúng làm mạch nhanh hơn bắt buộc",
+        "Chúng là mã của các chữ số 0–5"
+      ],
+      "why": [
+        "BCD chỉ dùng 0000 đến 1001 cho các chữ số 0 đến 9; 1010–1111 không xảy ra trong đầu vào hợp lệ.",
+        "Sau 9 không có chữ số BCD hai chữ số được mã bằng một nibble đơn như vậy.",
+        "Don't-care là thông tin về đầu vào không hợp lệ, không phải yêu cầu về tốc độ.",
+        "Các mã 0–5 là 0000 đến 0101."
+      ],
+      "explain": "Vì một nibble BCD chỉ biểu diễn 0–9, các mã 10–15 không xuất hiện trong dữ liệu hợp lệ. Ta có thể xem chúng là X khi tối giản mạch."
+    },
+    "en": {
+      "q": "In a BCD → Excess-3 circuit, why can inputs 1010–1111 be don't-cares?",
+      "options": [
+        "They are not valid BCD codes for decimal digits",
+        "They always appear after digit 9",
+        "They are required to make the circuit faster",
+        "They encode decimal digits 0–5"
+      ],
+      "why": [
+        "BCD uses 0000 through 1001 for decimal digits 0 through 9; 1010–1111 are invalid.",
+        "There is no valid single BCD digit after 9 encoded by these four-bit values.",
+        "Don't-care status comes from invalid inputs, not a speed requirement.",
+        "Digits 0–5 use 0000 through 0101."
+      ],
+      "explain": "A single BCD nibble represents only 0–9. Therefore 10–15 never occur as valid inputs and may be treated as X during minimization."
+    },
+    "source": "Mano §4.4",
+    "approved": "2026-09-29"
+  },
+  {
+    "id": "l4-gap46",
+    "chapter": "ch4",
+    "section": "4.6",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "Khi cộng hai chữ số BCD, khi nào cần cộng hiệu chỉnh 0110?",
+      "options": [
+        "Khi tổng nhị phân lớn hơn 9",
+        "Mỗi khi phép cộng có số nhớ",
+        "Chỉ khi cả hai chữ số đều lớn hơn 5",
+        "Chỉ khi tổng bằng đúng 10"
+      ],
+      "why": [
+        "Các mã BCD từ 1010 đến 1111 không hợp lệ, nên tổng lớn hơn 9 phải được hiệu chỉnh bằng 0110.",
+        "Số nhớ không phải điều kiện duy nhất; một tổng 10–15 cũng cần hiệu chỉnh.",
+        "Nhiều tổng hợp lệ vẫn xuất hiện khi một chữ số không lớn hơn 5.",
+        "Các tổng 11–19 cũng cần hiệu chỉnh."
+      ],
+      "explain": "Sau khi cộng nhị phân, nếu kết quả vượt 9 thì mã 4 bit không còn là BCD hợp lệ. Cộng 0110 đưa kết quả về mã BCD đúng và tạo carry thập phân."
+    },
+    "en": {
+      "q": "When adding two BCD digits, when should 0110 be added for correction?",
+      "options": [
+        "When the binary sum is greater than 9",
+        "Whenever the addition produces a carry",
+        "Only when both digits exceed 5",
+        "Only when the sum is exactly 10"
+      ],
+      "why": [
+        "BCD codes 1010–1111 are invalid, so every sum above 9 needs correction by 0110.",
+        "A carry is not the only condition; sums 10–15 also need correction.",
+        "Many valid sums occur with one digit at most 5.",
+        "Sums from 11 through 19 also need correction."
+      ],
+      "explain": "After binary addition, a result above 9 is not a valid BCD digit. Adding 0110 converts it to the proper BCD form and produces the decimal carry."
+    },
+    "source": "Mano §4.6",
+    "approved": "2026-09-29"
   }
 ]

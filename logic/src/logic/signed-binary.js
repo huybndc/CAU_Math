@@ -12,7 +12,7 @@ const pad = (v, w) => v.toString(2).padStart(w, '0');
 
 /** Khoảng biểu diễn được của mỗi dạng với w bit (kể cả bit dấu). */
 export function range(format, w) {
-  const half = 1 << (w - 1);
+  const half = 2 ** (w - 1);
   return format === 'twos'
     ? { min: -half, max: half - 1 }
     : { min: -(half - 1), max: half - 1 };
@@ -29,7 +29,7 @@ export function encode(value, format, w) {
   switch (format) {
     case 'magnitude': return '1' + pad(mag, w - 1);
     case 'ones': return [...pad(mag, w)].map(b => (b === '0' ? '1' : '0')).join('');
-    case 'twos': return pad((1 << w) + value, w);      // value âm ⇒ 2^w + value
+    case 'twos': return pad(2 ** w + value, w);      // value âm ⇒ 2^w + value
     default: return fail('err.badFormat', { format });
   }
 }
@@ -45,7 +45,7 @@ export function decode(bits, format) {
   switch (format) {
     case 'magnitude': return -parseInt(bits.slice(1) || '0', 2) || 0;
     case 'ones': return -parseInt([...bits].map(b => (b === '0' ? '1' : '0')).join(''), 2) || 0;
-    case 'twos': return parseInt(bits, 2) - (1 << w);
+    case 'twos': return parseInt(bits, 2) - 2 ** w;
     default: return fail('err.badFormat', { format });
   }
 }

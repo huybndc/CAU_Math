@@ -37,6 +37,16 @@ export function toDecimal(text, r) {
 }
 
 /**
+ * Khai triển theo vị trí (§1.2): chữ số a_k nhân r^k, k giảm dần từ phần nguyên sang phần lẻ.
+ * Ví dụ 1101.1 (r=2) → [{digit:'1',value:1,power:3}, …, {digit:'1',value:1,power:-1}].
+ */
+export function positionalTerms(text, r) {
+  const { intPart, fracPart } = splitNumber(text);
+  return [...intPart, ...fracPart].map((ch, i) =>
+    ({ digit: ch.toUpperCase(), value: digitValue(ch, r), power: intPart.length - 1 - i }));
+}
+
+/**
  * Các bước "chia lấy dư" khi đổi phần nguyên sang cơ số r (Example 1.1–1.2).
  * Trả về { digits, steps:[{ value, quotient, remainder, digit }] } — đọc dư
  * từ dưới lên sẽ ra kết quả.

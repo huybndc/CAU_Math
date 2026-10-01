@@ -126,7 +126,7 @@ export const quiz = {
   'c2q.xCircuit': 'The circuit is <span class="math">F = {expr}</span>; F = 1 at minterms {ones} ⇒ <span class="math">{answer}</span>.',
 
   'c2q.qIdentify': 'The truth table below belongs to a logic gate with {n} inputs. Which gate is it?',
-  'c2q.hIdentify': 'Read the F column from top to bottom: {bits}. Test each gate against its rule: {rule}',
+  'c2q.hIdentify': 'Read the F column from top to bottom: {bits}. AND is 1 only on the all-1 row, OR is 0 only on the all-0 row, XOR is 1 when an odd number of inputs are 1; NAND, NOR and XNOR are their complements.',
   'c2q.xIdentify': 'The F column is {bits}: that is the {gate} gate (<span class="math">{symbol}</span>). {rule}',
 
   'c2q.qColumn': 'Build the truth table of <span class="math">F = {expr}</span>: fill in F for every combination of x, y, z.',

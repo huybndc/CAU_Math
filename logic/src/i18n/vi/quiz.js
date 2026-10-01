@@ -126,7 +126,7 @@ export const quiz = {
   'c2q.xCircuit': 'Mạch là <span class="math">F = {expr}</span>; F = 1 tại minterm {ones} ⇒ <span class="math">{answer}</span>.',
 
   'c2q.qIdentify': 'Bảng chân trị dưới đây là của một cổng logic {n} ngõ vào. Đó là cổng nào?',
-  'c2q.hIdentify': 'Đọc cột F từ trên xuống: {bits}. Thử từng cổng theo luật: {rule}',
+  'c2q.hIdentify': 'Đọc cột F từ trên xuống: {bits}. AND chỉ bằng 1 ở dòng toàn 1, OR chỉ bằng 0 ở dòng toàn 0, XOR bằng 1 khi số ngõ vào bằng 1 là lẻ; NAND, NOR, XNOR là phần bù của ba cổng đó.',
   'c2q.xIdentify': 'Cột F là {bits}: đúng cổng {gate} (<span class="math">{symbol}</span>). {rule}',
 
   'c2q.qColumn': 'Lập bảng chân trị của <span class="math">F = {expr}</span>: điền giá trị F cho từng tổ hợp của x, y, z.',

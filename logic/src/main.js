@@ -4,13 +4,7 @@ import { truthFigure } from '@shared/ui/figures.js';
 import { kmapFigure } from './ui/kmap-figure.js';
 import { gateFigure, circuitFigure, netFigure } from './ui/gate-svg.js';
 import { kmapGroup, kmapPick } from './ui/kmap-widgets.js';
-import * as ch1Quiz from './logic/ch1-quiz.js';
-import * as ch2Quiz from './logic/ch2-quiz.js';
-import * as ch3Quiz from './logic/ch3-quiz.js';
-import * as ch4Quiz from './logic/ch4-quiz.js';
-import { CHOICE_BANKS } from './logic/mcq-banks.js';
-import { withConcepts } from '@shared/logic/concepts.js';
-import concepts from './content/concepts.json';
+import { CHAPTERS as chapters } from './logic/chapters.js';
 import { setupGrayPage } from './ui/gray-page.js';
 import { setupKmapPage } from './ui/kmap-page.js';
 import { mountLesson } from '@shared/ui/lesson.js';
@@ -37,14 +31,6 @@ const THEORY = {
 window.addEventListener('DOMContentLoaded', () => {
   const figures = { truth: truthFigure, kmap: kmapFigure, gate: gateFigure, circuit: circuitFigure, net: netFigure };
   const widgets = { kmapGroup, kmapPick };
-  // câu khái niệm đã duyệt (D27) thành thêm một dạng "Khái niệm" ở chương có câu
-  const withCq = (bank, id) => withConcepts(bank, concepts.filter(c => c.chapter === id));
-  const chapters = [
-    { id: 'ch1', bank: withCq(ch1Quiz, 'ch1'), prefix: 'c1q', choiceBank: withCq(CHOICE_BANKS.c1q, 'ch1') },
-    { id: 'ch2', bank: withCq(ch2Quiz, 'ch2'), prefix: 'c2q', choiceBank: withCq(CHOICE_BANKS.c2q, 'ch2') },
-    { id: 'ch3', bank: withCq(ch3Quiz, 'ch3'), prefix: 'c3q', choiceBank: withCq(CHOICE_BANKS.c3q, 'ch3') },
-    { id: 'ch4', bank: withCq(ch4Quiz, 'ch4'), prefix: 'c4q', choiceBank: withCq(CHOICE_BANKS.c4q, 'ch4') },
-  ];
   setupShell({ chapters, figures, widgets, lesson: ch => THEORY[getLang()][ch] });
   setupGrayPage();
   setupKmapPage();

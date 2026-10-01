@@ -1998,5 +1998,1147 @@
       "explain": "(Aᵏ)ᵢⱼ = the number of length-k walks from i to j. Walk ≠ path: e.g. entry (i, i) of A² is the degree of i, since i → neighbour → i is a walk."
     },
     "source": "MCS 2017 §12.10 (tự diễn đạt)"
+  },
+  {
+    "id": "d1-src-pq",
+    "chapter": "ch1",
+    "section": "1.2",
+    "type": "compare",
+    "answer": 0,
+    "vi": {
+      "q": "P: (A ∨ B) → C và Q: (¬C → ¬A) ∨ (¬C → ¬B). Quan hệ giữa P và Q?",
+      "options": [
+        "P ⇒ Q nhưng không tương đương",
+        "P và Q tương đương",
+        "Q ⇒ P nhưng không ngược lại",
+        "Không bên nào kéo theo bên nào"
+      ],
+      "why": [
+        "P ≡ (A → C) ∧ (B → C), Q ≡ (A → C) ∨ (B → C): “và” kéo theo “hoặc”, ngược lại thì không.",
+        "Dòng A = T, B = F, C = F: P sai, Q đúng.",
+        "Chính dòng đó cho Q đúng mà P sai, nên Q không kéo theo P.",
+        "Mọi dòng P đúng thì Q cũng đúng, nên P ⇒ Q."
+      ],
+      "explain": "Đổi phản đảo: ¬C → ¬A ≡ A → C. Vậy Q là “hoặc” của hai kéo theo, P là “và” của chúng. Kiểm bằng bảng chân trị 8 dòng: chỉ khác ở dòng P sai, Q đúng."
+    },
+    "en": {
+      "q": "P: (A ∨ B) → C and Q: (¬C → ¬A) ∨ (¬C → ¬B). How are P and Q related?",
+      "options": [
+        "P ⇒ Q but they are not equivalent",
+        "P and Q are equivalent",
+        "Q ⇒ P but not the other way",
+        "Neither implies the other"
+      ],
+      "why": [
+        "P ≡ (A → C) ∧ (B → C), Q ≡ (A → C) ∨ (B → C): “and” implies “or”, not conversely.",
+        "Row A = T, B = F, C = F: P is false, Q is true.",
+        "That same row makes Q true and P false, so Q does not imply P.",
+        "Every row where P is true also makes Q true, so P ⇒ Q."
+      ],
+      "explain": "Contrapositive: ¬C → ¬A ≡ A → C. So Q is the “or” of two implications and P is their “and”. An 8-row truth table confirms it: they differ only where P is false and Q true."
+    },
+    "source": "MIT OCW 6.042J Fall 2010, Midterm (có lời giải), bài 1 — CC BY-NC-SA, tự diễn đạt",
+    "check": {
+      "type": "prop",
+      "a": "(p ∨ q) → r",
+      "b": "(¬r → ¬p) ∨ (¬r → ¬q)",
+      "rel": "implies"
+    }
+  },
+  {
+    "id": "d5-src-bases",
+    "chapter": "ch5",
+    "section": "5.1",
+    "type": "why",
+    "answer": 0,
+    "vi": {
+      "q": "G₀ = 1, G₁ = 3, G₂ = 9, Gₙ = Gₙ₋₁ + 3Gₙ₋₂ + 3Gₙ₋₃ (n ≥ 3). Chứng minh Gₙ ≤ 3ⁿ bằng quy nạp mạnh cần mấy trường hợp cơ sở?",
+      "options": [
+        "Ba: n = 0, 1, 2",
+        "Một: n = 0",
+        "Hai: n = 0, 1",
+        "Không cần, vì quy nạp mạnh tự lo"
+      ],
+      "why": [
+        "Bước dùng Gₙ₋₁, Gₙ₋₂, Gₙ₋₃ nên chỉ chạy từ n = 3; n = 0, 1, 2 phải kiểm riêng.",
+        "n = 1, 2 không có đủ ba số hạng trước để áp công thức.",
+        "n = 2 vẫn chưa có Gₙ₋₃.",
+        "Quy nạp mạnh vẫn cần cơ sở cho mọi n mà bước không dùng được."
+      ],
+      "explain": "Bước: Gₙ ≤ 3ⁿ⁻¹ + 3·3ⁿ⁻² + 3·3ⁿ⁻³ = 7·3ⁿ⁻² nhỏ hơn 9·3ⁿ⁻² = 3ⁿ. Bước cần ba giá trị trước nên cần ba cơ sở."
+    },
+    "en": {
+      "q": "G₀ = 1, G₁ = 3, G₂ = 9, Gₙ = Gₙ₋₁ + 3Gₙ₋₂ + 3Gₙ₋₃ (n ≥ 3). Proving Gₙ ≤ 3ⁿ by strong induction needs how many base cases?",
+      "options": [
+        "Three: n = 0, 1, 2",
+        "One: n = 0",
+        "Two: n = 0, 1",
+        "None, strong induction handles it"
+      ],
+      "why": [
+        "The step uses Gₙ₋₁, Gₙ₋₂, Gₙ₋₃, so it only works from n = 3; n = 0, 1, 2 must be checked.",
+        "n = 1, 2 lack three earlier terms to apply the formula.",
+        "n = 2 still has no Gₙ₋₃.",
+        "Strong induction still needs base cases wherever the step cannot run."
+      ],
+      "explain": "Step: Gₙ ≤ 3ⁿ⁻¹ + 3·3ⁿ⁻² + 3·3ⁿ⁻³ = 7·3ⁿ⁻², less than 9·3ⁿ⁻² = 3ⁿ. The step needs three earlier values, hence three base cases."
+    },
+    "source": "MIT OCW 6.042J Fall 2010, Midterm (có lời giải), bài 2 — CC BY-NC-SA, tự diễn đạt"
+  },
+  {
+    "id": "d5-src-shapes",
+    "chapter": "ch5",
+    "section": "5.1",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "Trò chơi: mỗi lượt lấy 2 hình; hai hình giống nhau thay bằng một hình vuông, khác nhau thay bằng một hình tròn. Còn lại hình tròn thì thắng. Khi nào thắng?",
+      "options": [
+        "Khi số hình tròn ban đầu là lẻ",
+        "Khi số hình vuông ban đầu là lẻ",
+        "Khi tổng số hình ban đầu là lẻ",
+        "Tuỳ cách chọn ở từng lượt"
+      ],
+      "why": [
+        "Bất biến: tính chẵn lẻ của số hình tròn không đổi (mỗi lượt giảm 0 hoặc 2). Cuối còn 1 hình: tròn ⇔ lẻ.",
+        "Số hình vuông đổi chẵn lẻ tuỳ nước đi, không phải bất biến.",
+        "Tổng số hình chỉ cho biết số lượt (n − 1).",
+        "Kết quả đã định sẵn bởi bất biến, không phụ thuộc cách chơi."
+      ],
+      "explain": "Hai tròn → vuông: tròn giảm 2. Tròn + vuông → tròn: không đổi. Hai vuông → vuông: không đổi. Mỗi lượt bớt đúng 1 hình nên trò chơi dừng sau n − 1 lượt."
+    },
+    "en": {
+      "q": "Game: each move takes 2 shapes; two equal shapes become one square, two different become one circle. A final circle wins. When do you win?",
+      "options": [
+        "When the initial number of circles is odd",
+        "When the initial number of squares is odd",
+        "When the initial number of shapes is odd",
+        "It depends on the choices made"
+      ],
+      "why": [
+        "Invariant: the parity of the number of circles never changes (each move removes 0 or 2). One shape left: circle ⇔ odd.",
+        "The parity of squares changes with the moves; it is not invariant.",
+        "The total only tells the number of moves (n − 1).",
+        "The outcome is fixed by the invariant, whatever the play."
+      ],
+      "explain": "Two circles → square: circles drop by 2. Circle + square → circle: no change. Two squares → square: no change. Each move removes exactly one shape, so the game ends after n − 1 moves."
+    },
+    "source": "MIT OCW 6.042J Fall 2010, Midterm (có lời giải), bài 3 — CC BY-NC-SA, tự diễn đạt"
+  },
+  {
+    "id": "d7-src-inv113",
+    "chapter": "ch7",
+    "section": "7.1",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "Tìm x trong 0…112 với 11x ≡ 1 (mod 113).",
+      "options": [
+        "72",
+        "41",
+        "71",
+        "31"
+      ],
+      "why": [
+        "Pulverizer: 1 = 4·113 − 41·11 ⇒ 11⁻¹ ≡ −41 ≡ 72; kiểm 11·72 = 792 = 7·113 + 1.",
+        "41 thiếu dấu trừ: 11·41 = 451 ≡ −1.",
+        "Cộng nhầm khi đưa về 0…112: −41 + 113 = 72, không phải 71.",
+        "31 là hệ số ở bước giữa của Pulverizer, chưa xong."
+      ],
+      "explain": "Euclid: 113 = 10·11 + 3, 11 = 3·3 + 2, 3 = 2 + 1. Truy ngược được 1 = 4·113 − 41·11. Lời giải gốc có lỗi chép (31·18 thay cho 31·11), đáp số 72 vẫn đúng."
+    },
+    "en": {
+      "q": "Find x in 0…112 with 11x ≡ 1 (mod 113).",
+      "options": [
+        "72",
+        "41",
+        "71",
+        "31"
+      ],
+      "why": [
+        "Pulverizer: 1 = 4·113 − 41·11 ⇒ 11⁻¹ ≡ −41 ≡ 72; check 11·72 = 792 = 7·113 + 1.",
+        "41 drops the minus sign: 11·41 = 451 ≡ −1.",
+        "Arithmetic slip when reducing to 0…112: −41 + 113 = 72, not 71.",
+        "31 is a coefficient from a middle step of the Pulverizer."
+      ],
+      "explain": "Euclid: 113 = 10·11 + 3, 11 = 3·3 + 2, 3 = 2 + 1. Back-substitution gives 1 = 4·113 − 41·11. The official solution has a copying slip (31·18 for 31·11); the answer 72 is right."
+    },
+    "source": "MIT OCW 6.042J Fall 2010, Midterm (có lời giải), bài 4a — CC BY-NC-SA, tự diễn đạt"
+  },
+  {
+    "id": "d7-src-fermat",
+    "chapter": "ch7",
+    "section": "7.1",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "113 là số nguyên tố. 11^112111 mod 113 bằng bao nhiêu?",
+      "options": [
+        "72, bằng 11⁻¹ mod 113",
+        "1, theo định lý Fermat",
+        "11, vì 112111 lẻ",
+        "0, vì số mũ quá lớn"
+      ],
+      "why": [
+        "11¹¹² ≡ 1 nên chỉ còn 11^(112111 mod 112) = 11¹¹¹ = 11¹¹²·11⁻¹ ≡ 11⁻¹ ≡ 72.",
+        "Fermat cho 11¹¹² ≡ 1; số mũ 112111 không chia hết cho 112.",
+        "Lẻ không cho biết gì về lũy thừa mod 113.",
+        "11 và 113 nguyên tố cùng nhau nên lũy thừa không bao giờ ≡ 0."
+      ],
+      "explain": "112111 = 112·1000 + 111. Vậy 11^112111 ≡ (11¹¹²)¹⁰⁰⁰·11¹¹¹ ≡ 11¹¹¹. Mà 11·11¹¹¹ = 11¹¹² ≡ 1 nên 11¹¹¹ là nghịch đảo của 11: 72."
+    },
+    "en": {
+      "q": "113 is prime. What is 11^112111 mod 113?",
+      "options": [
+        "72, which is 11⁻¹ mod 113",
+        "1, by Fermat theorem",
+        "11, since 112111 is odd",
+        "0, since the exponent is huge"
+      ],
+      "why": [
+        "11¹¹² ≡ 1, leaving 11^(112111 mod 112) = 11¹¹¹ = 11¹¹²·11⁻¹ ≡ 11⁻¹ ≡ 72.",
+        "Fermat gives 11¹¹² ≡ 1; the exponent 112111 is not a multiple of 112.",
+        "Oddness says nothing about a power mod 113.",
+        "11 and 113 are coprime, so no power is ≡ 0."
+      ],
+      "explain": "112111 = 112·1000 + 111. So 11^112111 ≡ (11¹¹²)¹⁰⁰⁰·11¹¹¹ ≡ 11¹¹¹. Since 11·11¹¹¹ = 11¹¹² ≡ 1, 11¹¹¹ is the inverse of 11: 72."
+    },
+    "source": "MIT OCW 6.042J Fall 2010, Midterm (có lời giải), bài 4b — CC BY-NC-SA, tự diễn đạt"
+  },
+  {
+    "id": "d8-src-color",
+    "chapter": "ch8",
+    "section": "8.1",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "Đồ thị có cạnh AB, AF, BC, BD, CD, CE, EF. Số màu tối thiểu và có chu trình Euler không?",
+      "options": [
+        "3 màu; không có chu trình Euler",
+        "2 màu; không có chu trình Euler",
+        "3 màu; có chu trình Euler",
+        "2 màu; có chu trình Euler"
+      ],
+      "why": [
+        "Tam giác B, C, D buộc 3 màu (tô được: A, D, E đỏ; B, F xanh; C vàng). B và C bậc 3 (lẻ) nên không có chu trình Euler.",
+        "Chu trình lẻ B–C–D không tô 2 màu được.",
+        "Chu trình Euler cần mọi đỉnh bậc chẵn; B, C bậc lẻ.",
+        "Sai cả hai: có tam giác và có đỉnh bậc lẻ."
+      ],
+      "explain": "Bậc: A 2, B 3, C 3, D 2, E 2, F 2 (tổng 14 = 2·7 cạnh). Đúng hai đỉnh lẻ ⇒ có đường đi Euler từ B tới C nhưng không có chu trình. Có chu trình Hamilton A–F–E–C–D–B–A."
+    },
+    "en": {
+      "q": "A graph has edges AB, AF, BC, BD, CD, CE, EF. Minimum number of colours, and is there an Euler cycle?",
+      "options": [
+        "3 colours; no Euler cycle",
+        "2 colours; no Euler cycle",
+        "3 colours; has an Euler cycle",
+        "2 colours; has an Euler cycle"
+      ],
+      "why": [
+        "Triangle B, C, D forces 3 colours (e.g. A, D, E red; B, F green; C blue). B and C have degree 3 (odd), so no Euler cycle.",
+        "The odd cycle B–C–D cannot be 2-coloured.",
+        "An Euler cycle needs every degree even; B and C are odd.",
+        "Wrong twice: there is a triangle and there are odd vertices."
+      ],
+      "explain": "Degrees: A 2, B 3, C 3, D 2, E 2, F 2 (sum 14 = 2·7 edges). Exactly two odd vertices ⇒ an Euler walk from B to C but no cycle. There is a Hamiltonian cycle A–F–E–C–D–B–A."
+    },
+    "source": "MIT OCW 6.042J Fall 2010, Midterm (có lời giải), bài 5b–d — CC BY-NC-SA, tự diễn đạt",
+    "check": {
+      "type": "graph",
+      "edges": "ab, af, bc, bd, cd, ce, ef",
+      "bipartite": false,
+      "euler": "path"
+    }
+  },
+  {
+    "id": "d8-src-cycles",
+    "chapter": "ch8",
+    "section": "8.1",
+    "type": "why",
+    "answer": 0,
+    "vi": {
+      "q": "Đồ thị có m cạnh, n đỉnh, k thành phần liên thông. Vì sao nó có ít nhất m − n + k chu trình?",
+      "options": [
+        "Quy nạp theo số cạnh: bỏ một cạnh, xét hai trường hợp",
+        "Vì mỗi đỉnh bậc ≥ 2 sinh ra một chu trình",
+        "Vì rừng có đúng m − n + k chu trình",
+        "Vì m − n + k luôn bằng 0"
+      ],
+      "why": [
+        "Quy nạp theo m: bỏ cạnh e. Nếu e trên chu trình: k giữ nguyên, mất ≥ 1 chu trình. Nếu không: k tăng 1, số chu trình giữ nguyên. Cả hai giữ bất đẳng thức.",
+        "Bậc ≥ 2 không đếm chu trình; nhiều đỉnh chung một chu trình.",
+        "Rừng có m = n − k nên m − n + k = 0 và không có chu trình nào.",
+        "Chỉ bằng 0 với rừng; thêm cạnh thì tăng."
+      ],
+      "explain": "Cơ sở m = 0: k = n, 0 chu trình. Hệ quả: đồ thị liên thông n đỉnh có từ n cạnh trở lên thì chắc chắn có chu trình (cây có đúng n − 1 cạnh)."
+    },
+    "en": {
+      "q": "A graph has m edges, n vertices and k components. Why does it contain at least m − n + k cycles?",
+      "options": [
+        "Induction on edges: remove one edge, two cases",
+        "Because each vertex of degree ≥ 2 creates a cycle",
+        "Because a forest has exactly m − n + k cycles",
+        "Because m − n + k is always 0"
+      ],
+      "why": [
+        "Induction on m: remove edge e. If e is on a cycle, k stays and ≥ 1 cycle is lost. If not, k grows by 1 and cycles stay. Both keep the inequality.",
+        "Degree ≥ 2 does not count cycles; many vertices share one cycle.",
+        "A forest has m = n − k, so m − n + k = 0 and it has no cycle.",
+        "It is 0 only for forests; extra edges increase it."
+      ],
+      "explain": "Base m = 0: k = n, no cycles. Consequence: a connected graph with n vertices and at least n edges must contain a cycle (a tree has exactly n − 1 edges)."
+    },
+    "source": "MIT OCW 6.042J Fall 2010, Midterm (có lời giải), bài 6 — CC BY-NC-SA, tự diễn đạt"
+  },
+  {
+    "id": "d2-src-swap",
+    "chapter": "ch2",
+    "section": "2.1",
+    "type": "compare",
+    "answer": 0,
+    "vi": {
+      "q": "So sánh ∃a ∀b P(a, b) và ∀b ∃a P(a, b). Chiều kéo theo nào LUÔN đúng?",
+      "options": [
+        "Chỉ ∃a ∀b P ⇒ ∀b ∃a P",
+        "Hai mệnh đề tương đương",
+        "Chỉ ∀b ∃a P ⇒ ∃a ∀b P",
+        "Không chiều nào luôn đúng"
+      ],
+      "why": [
+        "Có một a dùng được cho mọi b thì với mỗi b cứ chọn chính a đó.",
+        "Trên ℤ với P(a, b) là “a lớn hơn b”: ∀b ∃a đúng, còn ∃a ∀b sai.",
+        "Chiều này sai: mỗi b một a riêng chưa cho một a chung.",
+        "Chiều ∃∀ ⇒ ∀∃ luôn đúng."
+      ],
+      "explain": "∃a ∀b: một a chung cho mọi b (mạnh hơn). ∀b ∃a: a được chọn sau khi biết b. Đổi chỗ hai lượng từ khác loại làm đổi nghĩa."
+    },
+    "en": {
+      "q": "Compare ∃a ∀b P(a, b) and ∀b ∃a P(a, b). Which implication ALWAYS holds?",
+      "options": [
+        "Only ∃a ∀b P ⇒ ∀b ∃a P",
+        "They are equivalent",
+        "Only ∀b ∃a P ⇒ ∃a ∀b P",
+        "Neither always holds"
+      ],
+      "why": [
+        "If one a works for every b, then for each b just pick that same a.",
+        "Over ℤ with P(a, b) meaning “a is greater than b”: ∀b ∃a is true, ∃a ∀b is false.",
+        "False: a separate a for each b does not give one common a.",
+        "The direction ∃∀ ⇒ ∀∃ always holds."
+      ],
+      "explain": "∃a ∀b: one a shared by all b (stronger). ∀b ∃a: a is chosen after b is known. Swapping quantifiers of different kinds changes the meaning."
+    },
+    "source": "MIT OCW 6.042J Fall 2010, Recitation 1 (có lời giải) — CC BY-NC-SA, tự diễn đạt"
+  },
+  {
+    "id": "d4-src-sum",
+    "chapter": "ch4",
+    "section": "4.1",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "Chứng minh 1·2 + 2·3 + … + n(n + 1) = n(n + 1)(n + 2)/3 bằng quy nạp. Bước quy nạp cộng thêm số hạng nào?",
+      "options": [
+        "(n + 1)(n + 2)",
+        "n(n + 1)",
+        "(n + 2)(n + 3)",
+        "(n + 1)²"
+      ],
+      "why": [
+        "Số hạng thứ k là k(k + 1); với k = n + 1 được (n + 1)(n + 2).",
+        "Đó là số hạng cuối của tổng CŨ, đã nằm trong giả thiết quy nạp.",
+        "Đó là số hạng thứ n + 2: cộng thừa một bước.",
+        "(n + 1)² không có dạng k(k + 1)."
+      ],
+      "explain": "n(n + 1)(n + 2)/3 + (n + 1)(n + 2) = (n + 1)(n + 2)(n + 3)/3, đúng công thức với n + 1. Cơ sở n = 1: 1·2 = 2 = 1·2·3/3."
+    },
+    "en": {
+      "q": "Prove 1·2 + 2·3 + … + n(n + 1) = n(n + 1)(n + 2)/3 by induction. Which term does the step add?",
+      "options": [
+        "(n + 1)(n + 2)",
+        "n(n + 1)",
+        "(n + 2)(n + 3)",
+        "(n + 1)²"
+      ],
+      "why": [
+        "Term k is k(k + 1); for k = n + 1 that is (n + 1)(n + 2).",
+        "That is the last term of the OLD sum, already in the hypothesis.",
+        "That is term n + 2: one step too far.",
+        "(n + 1)² does not have the form k(k + 1)."
+      ],
+      "explain": "n(n + 1)(n + 2)/3 + (n + 1)(n + 2) = (n + 1)(n + 2)(n + 3)/3, the formula for n + 1. Base n = 1: 1·2 = 2 = 1·2·3/3."
+    },
+    "source": "MIT OCW 6.042J Fall 2010, Recitation 2 (có lời giải) — CC BY-NC-SA, tự diễn đạt"
+  },
+  {
+    "id": "d4-src-geom",
+    "chapter": "ch4",
+    "section": "4.1",
+    "type": "trap",
+    "answer": 0,
+    "vi": {
+      "q": "Chứng minh 1 + r + r² + … + rⁿ = (1 − rⁿ⁺¹)/(1 − r) bằng quy nạp. Cần điều kiện gì cho r?",
+      "options": [
+        "r ≠ 1",
+        "|r| nhỏ hơn 1",
+        "r là số dương",
+        "r là số nguyên"
+      ],
+      "why": [
+        "Công thức chia cho 1 − r. Khi r = 1 tổng bằng n + 1.",
+        "|r| nhỏ hơn 1 cần cho tổng VÔ HẠN; tổng hữu hạn thì không.",
+        "r âm vẫn đúng: r = −1, n = 1 cho 1 − 1 = 0 = (1 − 1)/2.",
+        "Mọi số thực r khác 1 đều được."
+      ],
+      "explain": "Bước quy nạp: (1 − rⁿ⁺¹)/(1 − r) + rⁿ⁺¹ = (1 − rⁿ⁺²)/(1 − r). Lời giải nguồn chứng minh bằng cả quy nạp lẫn nguyên lý sắp thứ tự tốt."
+    },
+    "en": {
+      "q": "Prove 1 + r + r² + … + rⁿ = (1 − rⁿ⁺¹)/(1 − r) by induction. What condition on r is needed?",
+      "options": [
+        "r ≠ 1",
+        "|r| less than 1",
+        "r is positive",
+        "r is an integer"
+      ],
+      "why": [
+        "The formula divides by 1 − r. For r = 1 the sum is n + 1.",
+        "|r| less than 1 matters for the INFINITE sum, not a finite one.",
+        "Negative r works: r = −1, n = 1 gives 1 − 1 = 0 = (1 − 1)/2.",
+        "Any real r other than 1 works."
+      ],
+      "explain": "Induction step: (1 − rⁿ⁺¹)/(1 − r) + rⁿ⁺¹ = (1 − rⁿ⁺²)/(1 − r). The official solution proves it both by induction and by well ordering."
+    },
+    "source": "MIT OCW 6.042J Fall 2010, Recitation 2 (có lời giải) — CC BY-NC-SA, tự diễn đạt"
+  },
+  {
+    "id": "d4-src-eyes",
+    "chapter": "ch4",
+    "section": "4.1",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "Đảo có p ≥ 1 người mắt tím; ai cũng thấy mắt người khác nhưng không thấy mắt mình, và suy luận hoàn hảo. Có thông báo công khai: “có ít nhất một người mắt tím”. Mỗi đêm, ai biết chắc mình mắt tím phải rời đảo. Chuyện gì xảy ra?",
+      "options": [
+        "Cả p người rời đi vào đêm thứ p",
+        "Mỗi đêm một người rời đi",
+        "Họ đều rời đi ngay đêm đầu",
+        "Không ai rời đi vì ai cũng đã biết"
+      ],
+      "why": [
+        "Quy nạp theo p. p = 1: người đó không thấy ai mắt tím nên rời đêm 1. p người: nếu mình không mắt tím thì p − 1 người kia đã rời đêm p − 1; họ không rời nên mình mắt tím.",
+        "Mọi người mắt tím suy luận giống nhau nên cùng biết vào một đêm.",
+        "Khi p ≥ 2, đêm đầu mỗi người vẫn thấy người mắt tím khác, chưa biết gì về mình.",
+        "Khi p ≥ 2 ai cũng biết có người mắt tím, nhưng thông báo công khai cho biết thêm rằng MỌI NGƯỜI đều biết điều đó."
+      ],
+      "explain": "Mệnh đề quy nạp: nếu có đúng p người mắt tím thì cả p người rời đi vào đêm thứ p. Nguồn gọi là câu đố Surveyevor."
+    },
+    "en": {
+      "q": "An island has p ≥ 1 purple-eyed people; everyone sees the others but not themselves, and reasons perfectly. A public announcement says “at least one person has purple eyes”. Each night, anyone who knows they have purple eyes must leave. What happens?",
+      "options": [
+        "All p leave on night p",
+        "One person leaves each night",
+        "They all leave on the first night",
+        "Nobody leaves since everyone already knew"
+      ],
+      "why": [
+        "Induction on p. p = 1: that person sees no purple eyes and leaves on night 1. With p: if I were not purple, the other p − 1 would leave on night p − 1; they did not, so I am.",
+        "All purple-eyed people reason alike, so they learn it on the same night.",
+        "With p ≥ 2, on night one each still sees another purple-eyed person and learns nothing.",
+        "With p ≥ 2 everyone knew, but the public announcement adds that EVERYONE knows it."
+      ],
+      "explain": "Induction claim: with exactly p purple-eyed people, all p leave on night p. The source calls it the Surveyevor puzzle."
+    },
+    "source": "MIT OCW 6.042J Fall 2010, Recitation 2 (có lời giải) — CC BY-NC-SA, tự diễn đạt"
+  },
+  {
+    "id": "d5-src-choc",
+    "chapter": "ch5",
+    "section": "5.1",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "Thanh sô-cô-la m × n ô. Mỗi lần bẻ một miếng dọc một đường kẻ thành hai miếng. Cần bao nhiêu lần bẻ để tách hết thành từng ô?",
+      "options": [
+        "mn − 1 lần",
+        "m + n − 2 lần",
+        "(m − 1)(n − 1) lần",
+        "Tuỳ thứ tự bẻ"
+      ],
+      "why": [
+        "Bất biến: số miếng = số lần bẻ + 1. Cuối cùng có mn miếng.",
+        "m + n − 2 chỉ là số đường kẻ; mỗi đường cắt qua nhiều miếng nên phải bẻ nhiều lần.",
+        "Thiếu m + n − 2 lần; ví dụ thanh 1 × 2 cần 1 lần, công thức cho 0.",
+        "Mỗi lần bẻ luôn thêm đúng một miếng nên thứ tự không quan trọng."
+      ],
+      "explain": "Chứng minh bằng quy nạp mạnh theo số ô, hoặc gọn hơn bằng bất biến: mỗi lần bẻ tăng số miếng đúng 1, từ 1 lên mn."
+    },
+    "en": {
+      "q": "An m × n chocolate bar. Each break splits one piece along a grid line into two. How many breaks separate all the squares?",
+      "options": [
+        "mn − 1 breaks",
+        "m + n − 2 breaks",
+        "(m − 1)(n − 1) breaks",
+        "It depends on the order"
+      ],
+      "why": [
+        "Invariant: pieces = breaks + 1. At the end there are mn pieces.",
+        "m + n − 2 counts grid lines; a line crossing many pieces needs many breaks.",
+        "Short by m + n − 2; a 1 × 2 bar needs 1 break but this gives 0.",
+        "Every break adds exactly one piece, so the order does not matter."
+      ],
+      "explain": "Prove it by strong induction on the number of squares, or faster with the invariant: each break raises the piece count by exactly 1, from 1 to mn."
+    },
+    "source": "MIT OCW 6.042J Fall 2010, Recitation 3 (có lời giải) — CC BY-NC-SA, tự diễn đạt"
+  },
+  {
+    "id": "d5-src-temple",
+    "chapter": "ch5",
+    "section": "5.1",
+    "type": "why",
+    "answer": 0,
+    "vi": {
+      "q": "Máy trạng thái có trạng thái (r, g) và bất biến được bảo toàn: r − g chia 5 dư 2 hoặc 3. Bắt đầu ở (15, 12). Có đến được (5, 5) không?",
+      "options": [
+        "Không: 5 − 5 chia 5 dư 0",
+        "Có, nếu đi đủ nhiều bước",
+        "Chưa biết nếu chưa liệt kê hết trạng thái",
+        "Có, vì r và g đều giảm dần"
+      ],
+      "why": [
+        "15 − 12 = 3 thoả bất biến và mọi bước giữ nó; (5, 5) có hiệu dư 0 nên không bao giờ tới được.",
+        "Số bước nhiều đến đâu cũng không phá được bất biến.",
+        "Bất biến chính là cách để khỏi phải liệt kê.",
+        "Hướng thay đổi không quan trọng khi bất biến đã loại trạng thái đích."
+      ],
+      "explain": "Mẫu lập luận: (1) trạng thái đầu thoả P, (2) mỗi bước giữ P, (3) trạng thái đích không thoả P ⇒ không đến được. Nguồn còn chặn số trạng thái nhờ r + g ≤ 27."
+    },
+    "en": {
+      "q": "A state machine has states (r, g) and a preserved invariant: r − g leaves remainder 2 or 3 mod 5. It starts at (15, 12). Can it reach (5, 5)?",
+      "options": [
+        "No: 5 − 5 leaves remainder 0",
+        "Yes, after enough steps",
+        "Unknown without listing every state",
+        "Yes, since r and g keep decreasing"
+      ],
+      "why": [
+        "15 − 12 = 3 satisfies the invariant and every step keeps it; (5, 5) has remainder 0, so it is never reached.",
+        "No number of steps can break the invariant.",
+        "The invariant is exactly what saves us from listing states.",
+        "The direction of change is irrelevant once the invariant rules out the target."
+      ],
+      "explain": "Pattern: (1) the start satisfies P, (2) every step keeps P, (3) the target fails P ⇒ unreachable. The source also bounds the states using r + g ≤ 27."
+    },
+    "source": "MIT OCW 6.042J Fall 2010, Recitation 3 (có lời giải) — CC BY-NC-SA, tự diễn đạt"
+  },
+  {
+    "id": "d3-src-divides",
+    "chapter": "ch3",
+    "section": "3.1",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "Quan hệ “a chia hết b” (a | b) trên các số nguyên dương là loại quan hệ gì?",
+      "options": [
+        "Thứ tự bộ phận, không đối xứng",
+        "Quan hệ tương đương",
+        "Thứ tự toàn phần",
+        "Không có tính bắc cầu"
+      ],
+      "why": [
+        "a | a; a | b và b | a thì a = b; a | b, b | c thì a | c. Nhưng 2 | 4 mà 4 không chia hết 2.",
+        "Không đối xứng: 2 | 4 nhưng 4 không chia hết 2.",
+        "Không toàn phần: 2 và 3 không chia hết nhau.",
+        "a | b, b | c: b = ka, c = lb = (kl)a nên a | c."
+      ],
+      "explain": "Phép kéo theo giữa các mệnh đề cũng không đối xứng. Một quan hệ tương đương thật sự: x ≡ y (mod 3), chia ℤ thành 3 lớp theo số dư 0, 1, 2."
+    },
+    "en": {
+      "q": "What kind of relation is “a divides b” (a | b) on the positive integers?",
+      "options": [
+        "A partial order, not symmetric",
+        "An equivalence relation",
+        "A total order",
+        "It is not transitive"
+      ],
+      "why": [
+        "a | a; a | b and b | a give a = b; a | b, b | c give a | c. But 2 | 4 while 4 does not divide 2.",
+        "Not symmetric: 2 | 4 but 4 does not divide 2.",
+        "Not total: 2 and 3 do not divide each other.",
+        "a | b, b | c: b = ka, c = lb = (kl)a, so a | c."
+      ],
+      "explain": "Implication between propositions is not symmetric either. A genuine equivalence: x ≡ y (mod 3), splitting ℤ into 3 classes by remainder 0, 1, 2."
+    },
+    "source": "MIT OCW 6.042J Fall 2010, Recitation 11 (có lời giải) — CC BY-NC-SA, tự diễn đạt"
+  },
+  {
+    "id": "d3-src-terms",
+    "chapter": "ch3",
+    "section": "3.1",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "15 môn học; theo quan hệ tiên quyết, chuỗi dài nhất có 6 môn. Mỗi kỳ học tối đa 2 môn. Cần ít nhất bao nhiêu kỳ?",
+      "options": [
+        "8",
+        "6",
+        "15",
+        "3"
+      ],
+      "why": [
+        "Hai cận dưới: chuỗi 6 môn cần 6 kỳ; 15 môn với 2 môn mỗi kỳ cần ⌈15/2⌉ = 8. Lấy số lớn hơn: 8.",
+        "6 chỉ đủ khi mỗi kỳ học không giới hạn số môn.",
+        "15 là học mỗi kỳ một môn.",
+        "3 = 15/5 là nhầm với cỡ phản chuỗi lớn nhất."
+      ],
+      "explain": "Chuỗi: các môn phải học nối tiếp nhau; phản chuỗi: các môn học cùng kỳ được. Lời giải nguồn xếp được lịch 8 kỳ, nên 8 là đáp số."
+    },
+    "en": {
+      "q": "15 courses; under the prerequisite relation the longest chain has 6 courses. At most 2 courses per term. What is the minimum number of terms?",
+      "options": [
+        "8",
+        "6",
+        "15",
+        "3"
+      ],
+      "why": [
+        "Two lower bounds: the 6-chain needs 6 terms; 15 courses at 2 per term need ⌈15/2⌉ = 8. Take the larger: 8.",
+        "6 only suffices with unlimited courses per term.",
+        "15 means one course per term.",
+        "3 = 15/5 confuses it with the largest antichain size."
+      ],
+      "explain": "Chain: courses that must be taken one after another; antichain: courses that can share a term. The official solution finds an 8-term schedule, so 8 is the answer."
+    },
+    "source": "MIT OCW 6.042J Fall 2010, Recitation 11 (có lời giải) — CC BY-NC-SA, tự diễn đạt"
+  },
+  {
+    "id": "d6-src-259",
+    "chapter": "ch6",
+    "section": "6.1",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "Dùng Pulverizer cho 259 và 70. Kết quả gcd và cặp s, t với s·259 + t·70 = gcd là gì?",
+      "options": [
+        "7 = 3·259 − 11·70",
+        "7 = 11·259 − 3·70",
+        "14 = 3·259 − 11·70",
+        "7, nhưng không có s, t nguyên"
+      ],
+      "why": [
+        "259 = 3·70 + 49, 70 = 49 + 21, 49 = 2·21 + 7, 21 = 3·7. Truy ngược: 7 = 3·259 − 11·70.",
+        "Đảo vai trò s và t: 11·259 − 3·70 = 2639.",
+        "3·259 − 11·70 = 777 − 770 = 7, không phải 14.",
+        "Pulverizer luôn cho s, t nguyên (định lý Bézout)."
+      ],
+      "explain": "gcd(a, b) là tổ hợp tuyến tính nguyên dương NHỎ NHẤT của a và b. Kiểm: 3·259 = 777, 11·70 = 770, hiệu bằng 7."
+    },
+    "en": {
+      "q": "Run the Pulverizer on 259 and 70. What is the gcd and a pair s, t with s·259 + t·70 = gcd?",
+      "options": [
+        "7 = 3·259 − 11·70",
+        "7 = 11·259 − 3·70",
+        "14 = 3·259 − 11·70",
+        "7, but no integer s, t exist"
+      ],
+      "why": [
+        "259 = 3·70 + 49, 70 = 49 + 21, 49 = 2·21 + 7, 21 = 3·7. Back-substitute: 7 = 3·259 − 11·70.",
+        "Swaps s and t: 11·259 − 3·70 = 2639.",
+        "3·259 − 11·70 = 777 − 770 = 7, not 14.",
+        "The Pulverizer always yields integer s, t (Bezout)."
+      ],
+      "explain": "gcd(a, b) is the SMALLEST positive integer linear combination of a and b. Check: 3·259 = 777, 11·70 = 770, difference 7."
+    },
+    "source": "MIT OCW 6.042J Fall 2010, Recitation 4 (có lời giải) — CC BY-NC-SA, tự diễn đạt",
+    "check": {
+      "type": "gcd",
+      "a": 259,
+      "b": 70,
+      "gcd": 7,
+      "s": 3,
+      "t": -11
+    }
+  },
+  {
+    "id": "d6-src-frog",
+    "chapter": "ch6",
+    "section": "6.1",
+    "type": "trap",
+    "answer": 0,
+    "vi": {
+      "q": "Ếch nhảy trên vòng tròn 50 ô, mỗi lần tiến 21 ô theo cùng một chiều. Ít nhất bao nhiêu lần nhảy thì ếch đứng trước chỗ xuất phát đúng 1 ô?",
+      "options": [
+        "31",
+        "931",
+        "19",
+        "8"
+      ],
+      "why": [
+        "Cần 21x ≡ 1 (mod 50). Pulverizer: 1 = 8·50 − 19·21 ⇒ x ≡ −19 ≡ 31. Kiểm: 21·31 = 651 = 13·50 + 1.",
+        "931 ≡ 31 (mod 50) cũng đúng nhưng chưa ít nhất; lời giải nguồn dừng ở số này.",
+        "Thiếu dấu trừ: 21·19 = 399 ≡ −1, ếch lùi 1 ô.",
+        "8 là hệ số của 50, không phải số lần nhảy."
+      ],
+      "explain": "Nghịch đảo modulo 50 lấy trong 0…49. Mọi nghiệm có dạng 31 + 50k; nghiệm dương nhỏ nhất là 31."
+    },
+    "en": {
+      "q": "A frog hops on a circle of 50 spots, 21 spots per hop, always the same way. What is the fewest hops that leave it exactly 1 spot ahead of the start?",
+      "options": [
+        "31",
+        "931",
+        "19",
+        "8"
+      ],
+      "why": [
+        "Need 21x ≡ 1 (mod 50). Pulverizer: 1 = 8·50 − 19·21 ⇒ x ≡ −19 ≡ 31. Check: 21·31 = 651 = 13·50 + 1.",
+        "931 ≡ 31 (mod 50) also works but is not the fewest; the official solution stops there.",
+        "Missing minus sign: 21·19 = 399 ≡ −1, one spot behind.",
+        "8 is the coefficient of 50, not a hop count."
+      ],
+      "explain": "Take the inverse mod 50 in 0…49. Every solution is 31 + 50k; the smallest positive one is 31."
+    },
+    "source": "MIT OCW 6.042J Fall 2010, Recitation 4 (có lời giải) — CC BY-NC-SA, tự diễn đạt (nguồn ghi 931 lần — đúng nhưng chưa ít nhất; ít nhất là 31)",
+    "check": {
+      "type": "inverse",
+      "a": 21,
+      "n": 50,
+      "inv": 31
+    }
+  },
+  {
+    "id": "d6-src-fib",
+    "chapter": "ch6",
+    "section": "6.1",
+    "type": "why",
+    "answer": 0,
+    "vi": {
+      "q": "Vì sao hai số Fibonacci liên tiếp Fₙ, Fₙ₊₁ luôn nguyên tố cùng nhau?",
+      "options": [
+        "Vì gcd(Fₙ₊₁, Fₙ) = gcd(Fₙ, Fₙ₋₁) = … = 1",
+        "Vì mọi số Fibonacci đều nguyên tố",
+        "Vì luôn một số chẵn, một số lẻ",
+        "Vì Fₙ₊₁ − Fₙ luôn bằng 1"
+      ],
+      "why": [
+        "Fₙ₊₁ = Fₙ + Fₙ₋₁ nên gcd(Fₙ₊₁, Fₙ) = gcd(Fₙ, Fₙ₋₁); lùi dần tới gcd(F₂, F₁) = gcd(1, 1) = 1.",
+        "F₆ = 8 không phải số nguyên tố.",
+        "F₄ = 3 và F₅ = 5 đều lẻ.",
+        "Fₙ₊₁ − Fₙ = Fₙ₋₁, thường khác 1."
+      ],
+      "explain": "Đây chính là thuật toán Euclid chạy ngược dãy Fibonacci; cặp Fibonacci liên tiếp cũng là đầu vào làm Euclid chạy nhiều bước nhất."
+    },
+    "en": {
+      "q": "Why are consecutive Fibonacci numbers Fₙ, Fₙ₊₁ always coprime?",
+      "options": [
+        "By Euclid, gcd(Fₙ₊₁, Fₙ) = gcd(Fₙ, Fₙ₋₁)",
+        "Since every Fibonacci number is prime",
+        "Since one is always even, one odd",
+        "Since Fₙ₊₁ − Fₙ is always 1"
+      ],
+      "why": [
+        "Fₙ₊₁ = Fₙ + Fₙ₋₁, so gcd(Fₙ₊₁, Fₙ) = gcd(Fₙ, Fₙ₋₁); step down to gcd(F₂, F₁) = gcd(1, 1) = 1.",
+        "F₆ = 8 is not prime.",
+        "F₄ = 3 and F₅ = 5 are both odd.",
+        "Fₙ₊₁ − Fₙ = Fₙ₋₁, usually not 1."
+      ],
+      "explain": "This is Euclid run backwards along the Fibonacci sequence; consecutive Fibonacci pairs are also the inputs that make Euclid take the most steps."
+    },
+    "source": "MIT OCW 6.042J Fall 2010, Recitation 4 (có lời giải) — CC BY-NC-SA, tự diễn đạt",
+    "check": {
+      "type": "gcd",
+      "a": 89,
+      "b": 55,
+      "gcd": 1
+    }
+  },
+  {
+    "id": "d7-src-pow",
+    "chapter": "ch7",
+    "section": "7.1",
+    "type": "trap",
+    "answer": 0,
+    "vi": {
+      "q": "Tính 5¹⁴⁹ mod 17.",
+      "options": [
+        "14",
+        "3",
+        "1",
+        "5"
+      ],
+      "why": [
+        "Fermat: 5¹⁶ ≡ 1. 149 = 9·16 + 5 ⇒ 5¹⁴⁹ ≡ 5⁵ = 3125 = 183·17 + 14.",
+        "Rút số mũ theo mod 17 (149 ≡ 13) là sai: số mũ rút theo p − 1 = 16.",
+        "5¹⁴⁹ ≡ 1 chỉ khi 16 chia hết 149.",
+        "Lấy 149 mod 16 = 5 rồi dừng, quên tính 5⁵."
+      ],
+      "explain": "Theo Fermat, số mũ được rút gọn modulo p − 1, không phải modulo p. Lời giải nguồn ghi nhầm “mod 13” ở một bước; đáp số 14 vẫn đúng."
+    },
+    "en": {
+      "q": "Compute 5¹⁴⁹ mod 17.",
+      "options": [
+        "14",
+        "3",
+        "1",
+        "5"
+      ],
+      "why": [
+        "Fermat: 5¹⁶ ≡ 1. 149 = 9·16 + 5 ⇒ 5¹⁴⁹ ≡ 5⁵ = 3125 = 183·17 + 14.",
+        "Reducing the exponent mod 17 (149 ≡ 13) is wrong: exponents reduce mod p − 1 = 16.",
+        "5¹⁴⁹ ≡ 1 only if 16 divides 149.",
+        "Takes 149 mod 16 = 5 and stops, forgetting to compute 5⁵."
+      ],
+      "explain": "By Fermat, exponents reduce modulo p − 1, not modulo p. The official solution writes “mod 13” by mistake in one step; the answer 14 is right."
+    },
+    "source": "MIT OCW 6.042J Fall 2010, Recitation 5 (có lời giải) — CC BY-NC-SA, tự diễn đạt (nguồn ghi “mod 13” ở một bước — lỗi chép, đúng là mod 17)",
+    "check": {
+      "type": "power",
+      "a": 5,
+      "k": 149,
+      "n": 17,
+      "value": 14
+    }
+  },
+  {
+    "id": "d7-src-rsa",
+    "chapter": "ch7",
+    "section": "7.1",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "RSA với p = 7, q = 11, e = 13. Khoá bí mật d (lấy trong 1 … φ(n) − 1) là bao nhiêu?",
+      "options": [
+        "37",
+        "−23",
+        "6",
+        "13"
+      ],
+      "why": [
+        "φ(n) = 6·10 = 60; d = 13⁻¹ mod 60. Kiểm: 13·37 = 481 = 8·60 + 1.",
+        "Pulverizer cho −23 ≡ 37 (mod 60); cần đưa về khoảng 0…59.",
+        "6 = 13⁻¹ mod 77: nhầm n với φ(n).",
+        "d = e chỉ khi e² ≡ 1 (mod 60), mà 169 ≡ 49."
+      ],
+      "explain": "Khoá công khai (13, 77). Mã hoá m = 5: 5¹³ mod 77 = 26; giải mã 26³⁷ mod 77 = 5, lấy lại đúng tin ban đầu."
+    },
+    "en": {
+      "q": "RSA with p = 7, q = 11, e = 13. What is the private key d (taken in 1 … φ(n) − 1)?",
+      "options": [
+        "37",
+        "−23",
+        "6",
+        "13"
+      ],
+      "why": [
+        "φ(n) = 6·10 = 60; d = 13⁻¹ mod 60. Check: 13·37 = 481 = 8·60 + 1.",
+        "The Pulverizer gives −23 ≡ 37 (mod 60); it must be moved into 0…59.",
+        "6 = 13⁻¹ mod 77: confuses n with φ(n).",
+        "d = e only if e² ≡ 1 (mod 60), but 169 ≡ 49."
+      ],
+      "explain": "Public key (13, 77). Encrypt m = 5: 5¹³ mod 77 = 26; decrypt 26³⁷ mod 77 = 5, recovering the original message."
+    },
+    "source": "MIT OCW 6.042J Fall 2010, Recitation 5 (có lời giải) — CC BY-NC-SA, tự diễn đạt",
+    "check": {
+      "type": "inverse",
+      "a": 13,
+      "n": 60,
+      "inv": 37
+    }
+  },
+  {
+    "id": "d7-src-phi60",
+    "chapter": "ch7",
+    "section": "7.1",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "φ(60) bằng bao nhiêu?",
+      "options": [
+        "16",
+        "8",
+        "59",
+        "30"
+      ],
+      "why": [
+        "60 = 2²·3·5 ⇒ φ = 60·(1/2)·(2/3)·(4/5) = 16.",
+        "(2 − 1)(3 − 1)(5 − 1) = 8 bỏ quên lũy thừa 2²: φ(4) = 2 chứ không phải 1.",
+        "59 = n − 1 chỉ đúng khi n nguyên tố.",
+        "30 mới bỏ các số chẵn, chưa bỏ bội của 3 và 5."
+      ],
+      "explain": "φ(n) đếm các số trong 1…n nguyên tố cùng nhau với n. Với p, q nguyên tố khác nhau: φ(pq) = (p − 1)(q − 1), như φ(77) = 60 trong RSA."
+    },
+    "en": {
+      "q": "What is φ(60)?",
+      "options": [
+        "16",
+        "8",
+        "59",
+        "30"
+      ],
+      "why": [
+        "60 = 2²·3·5 ⇒ φ = 60·(1/2)·(2/3)·(4/5) = 16.",
+        "(2 − 1)(3 − 1)(5 − 1) = 8 ignores the power 2²: φ(4) = 2, not 1.",
+        "59 = n − 1 holds only for prime n.",
+        "30 only removes the even numbers, not multiples of 3 and 5."
+      ],
+      "explain": "φ(n) counts the numbers in 1…n coprime to n. For distinct primes p, q: φ(pq) = (p − 1)(q − 1), like φ(77) = 60 in RSA."
+    },
+    "source": "MIT OCW 6.042J Fall 2010, Recitation 5 (có lời giải) — CC BY-NC-SA, tự diễn đạt",
+    "check": {
+      "type": "phi",
+      "n": 60,
+      "value": 16
+    }
+  },
+  {
+    "id": "d8-src-width",
+    "chapter": "ch8",
+    "section": "8.1",
+    "type": "why",
+    "answer": 0,
+    "vi": {
+      "q": "Các đỉnh của G xếp được thành dãy sao cho mỗi đỉnh có tối đa w láng giềng đứng trước nó. Vì sao G tô được bằng w + 1 màu?",
+      "options": [
+        "Tô tham lam theo dãy luôn còn màu trống",
+        "Vì G không có chu trình lẻ",
+        "Vì mọi đỉnh của G có bậc ≤ w",
+        "Vì G có ít hơn w + 1 đỉnh"
+      ],
+      "why": [
+        "Khi tô đỉnh v, chỉ các láng giềng ĐỨNG TRƯỚC đã có màu, tối đa w cái, nên w + 1 màu luôn dư ít nhất một.",
+        "Không cần hai phía: tam giác có w = 2 và cần đủ 3 màu.",
+        "Bậc có thể lớn: láng giềng đứng SAU không tính vào w.",
+        "Số đỉnh có thể lớn tuỳ ý."
+      ],
+      "explain": "Đây là thuật toán tô tham lam. Cây có w = 1 (xếp theo BFS từ gốc: mỗi đỉnh chỉ có cha đứng trước) nên tô được 2 màu. Nguồn gọi w là độ rộng của đồ thị."
+    },
+    "en": {
+      "q": "The vertices of G can be listed so that each has at most w neighbours earlier in the list. Why is G colourable with w + 1 colours?",
+      "options": [
+        "Greedy colouring in that order always has a free colour",
+        "Because G has no odd cycle",
+        "Because every vertex of G has degree ≤ w",
+        "Because G has fewer than w + 1 vertices"
+      ],
+      "why": [
+        "When colouring v, only its EARLIER neighbours have colours, at most w of them, so w + 1 colours always leave one free.",
+        "No bipartiteness needed: a triangle has w = 2 and needs 3 colours.",
+        "Degrees can be large: LATER neighbours do not count toward w.",
+        "The number of vertices can be arbitrarily large."
+      ],
+      "explain": "This is greedy colouring. A tree has w = 1 (list it by BFS from the root: only the parent comes earlier), so 2 colours suffice. The source calls w the width of the graph."
+    },
+    "source": "MIT OCW 6.042J Fall 2010, Recitation 6 (có lời giải) — CC BY-NC-SA, tự diễn đạt"
+  },
+  {
+    "id": "d8-src-planar",
+    "chapter": "ch8",
+    "section": "8.1",
+    "type": "trap",
+    "answer": 0,
+    "vi": {
+      "q": "Đồ thị phẳng luôn có ít nhất một đỉnh bậc ≤ 5. Vì sao điều đó cho thấy mọi đồ thị phẳng tô được bằng 6 màu?",
+      "options": [
+        "Quy nạp: bỏ đỉnh đó, tô phần còn lại, rồi thêm nó lại",
+        "Vì mọi đỉnh của đồ thị phẳng có bậc ≤ 5",
+        "Vì đồ thị phẳng không có chu trình lẻ",
+        "Vì đồ thị phẳng có tối đa 6 đỉnh"
+      ],
+      "why": [
+        "Đồ thị con của đồ thị phẳng vẫn phẳng nên áp được giả thiết quy nạp; đỉnh bỏ ra có ≤ 5 láng giềng nên còn 1 trong 6 màu.",
+        "Chỉ đảm bảo CÓ MỘT đỉnh bậc ≤ 5; các đỉnh khác có thể bậc lớn.",
+        "Tam giác là đồ thị phẳng và có chu trình lẻ.",
+        "Đồ thị phẳng có thể có bao nhiêu đỉnh cũng được."
+      ],
+      "explain": "Đỉnh bậc ≤ 5 tồn tại vì đồ thị phẳng có m ≤ 3n − 6 cạnh, nên bậc trung bình 2m/n nhỏ hơn 6. Định lý bốn màu mạnh hơn nhiều nhưng rất khó chứng minh."
+    },
+    "en": {
+      "q": "Every planar graph has a vertex of degree ≤ 5. Why does that show every planar graph is 6-colourable?",
+      "options": [
+        "Induction: remove that vertex, colour the rest, add it back",
+        "Because every vertex of a planar graph has degree ≤ 5",
+        "Because planar graphs have no odd cycles",
+        "Because planar graphs have at most 6 vertices"
+      ],
+      "why": [
+        "A subgraph of a planar graph is planar, so the hypothesis applies; the removed vertex has ≤ 5 neighbours, leaving 1 of 6 colours.",
+        "Only ONE vertex of degree ≤ 5 is guaranteed; others may have large degree.",
+        "A triangle is planar and is an odd cycle.",
+        "Planar graphs can have any number of vertices."
+      ],
+      "explain": "A vertex of degree ≤ 5 exists because planar graphs have m ≤ 3n − 6 edges, so the average degree 2m/n is below 6. The four colour theorem is much stronger but very hard to prove."
+    },
+    "source": "MIT OCW 6.042J Fall 2010, Recitation 6 (có lời giải) — CC BY-NC-SA, tự diễn đạt"
+  },
+  {
+    "id": "d1-src-translate",
+    "chapter": "ch1",
+    "section": "1.1",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "L: tập tin bị khoá; N: hệ thống chạy bình thường. Dịch câu: “Nếu tập tin không bị khoá thì hệ thống chạy bình thường, và ngược lại.”",
+      "options": [
+        "¬L ↔ N",
+        "Chỉ ¬L → N",
+        "Chỉ N → ¬L",
+        "(¬L → N) ∨ (N → ¬L)"
+      ],
+      "why": [
+        "“Và ngược lại” thêm chiều N → ¬L; hai chiều gộp thành ↔.",
+        "Thiếu chiều ngược lại N → ¬L.",
+        "Chỉ có chiều ngược lại, thiếu chiều đầu.",
+        "“Và ngược lại” là “và”, không phải “hoặc”; công thức này luôn đúng."
+      ],
+      "explain": "(¬L → N) ∧ (N → ¬L) ≡ ¬L ↔ N. Câu “nếu A thì B” chỉ cho A → B; muốn hai chiều phải có “và ngược lại” hoặc “khi và chỉ khi”."
+    },
+    "en": {
+      "q": "L: the file system is locked; N: the system runs normally. Translate: “If the file system is not locked, the system runs normally, and conversely.”",
+      "options": [
+        "¬L ↔ N",
+        "Only ¬L → N",
+        "Only N → ¬L",
+        "(¬L → N) ∨ (N → ¬L)"
+      ],
+      "why": [
+        "“And conversely” adds N → ¬L; both directions together give ↔.",
+        "Misses the converse N → ¬L.",
+        "Only the converse, the first direction is missing.",
+        "“And conversely” means “and”, not “or”; this formula is always true."
+      ],
+      "explain": "(¬L → N) ∧ (N → ¬L) ≡ ¬L ↔ N. “If A then B” gives only A → B; both directions need “and conversely” or “if and only if”."
+    },
+    "source": "MIT OCW 6.042J Fall 2005, Solutions to In-Class Problems Week 2 Mon, bài 2a — CC BY-NC-SA, tự diễn đạt",
+    "check": {
+      "type": "prop",
+      "a": "(¬p → q) ∧ (q → ¬p)",
+      "b": "¬p ↔ q",
+      "rel": "equiv"
+    }
+  },
+  {
+    "id": "d1-src-consistent",
+    "chapter": "ch1",
+    "section": "1.2",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "Năm mệnh đề: ¬L → Q, ¬L → B, ¬L ↔ N, ¬Q → B và ¬B. Chúng có cùng đúng được không?",
+      "options": [
+        "Được, duy nhất khi L, Q đúng; N, B sai",
+        "Không: hệ này mâu thuẫn",
+        "Được, với mọi giá trị L khi B sai",
+        "Được, khi L sai còn Q, N đúng"
+      ],
+      "why": [
+        "¬B buộc B sai; khi đó ¬Q → B buộc Q đúng, ¬L → B buộc L đúng, rồi ¬L ↔ N buộc N sai.",
+        "Phép gán L, Q đúng; N, B sai làm cả năm mệnh đề đúng.",
+        "L sai thì ¬L → B đòi B đúng, trái với ¬B.",
+        "L sai làm ¬L → B sai vì B sai."
+      ],
+      "explain": "Nhất quán (consistent) nghĩa là khả thỏa: có một phép gán làm mọi mệnh đề đúng. Xét trường hợp theo B nhanh hơn lập bảng chân trị 16 dòng."
+    },
+    "en": {
+      "q": "Five propositions: ¬L → Q, ¬L → B, ¬L ↔ N, ¬Q → B and ¬B. Can they all be true together?",
+      "options": [
+        "Yes, only with L, Q true; N, B false",
+        "No: the set is inconsistent",
+        "Yes, for any L as long as B is false",
+        "Yes, with L false and Q, N true"
+      ],
+      "why": [
+        "¬B forces B false; then ¬Q → B forces Q true, ¬L → B forces L true, and ¬L ↔ N forces N false.",
+        "The assignment L, Q true; N, B false makes all five true.",
+        "L false makes ¬L → B require B true, contradicting ¬B.",
+        "L false makes ¬L → B false, since B is false."
+      ],
+      "explain": "Consistent means satisfiable: one assignment makes every proposition true. Reasoning by cases on B is faster than a 16-row truth table."
+    },
+    "source": "MIT OCW 6.042J Fall 2005, Solutions to In-Class Problems Week 2 Mon, bài 2b–c — CC BY-NC-SA, tự diễn đạt",
+    "check": {
+      "type": "prop",
+      "a": "(¬p → q) ∧ (¬p → r) ∧ (¬p ↔ s) ∧ (¬q → r) ∧ ¬r",
+      "b": "p ∧ q ∧ ¬r ∧ ¬s",
+      "rel": "equiv"
+    }
+  },
+  {
+    "id": "d2-src-cuberoot",
+    "chapter": "ch2",
+    "section": "2.2",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "Chứng minh ∛2 vô tỉ bằng phản chứng: giả sử ∛2 = a/b tối giản, được 2b³ = a³, nên a chẵn, a = 2c. Bước tiếp theo là gì?",
+      "options": [
+        "b³ = 4c³ nên b chẵn: trái với tối giản",
+        "b³ = 8c³ nên b chia hết cho 8",
+        "a³ chia hết cho 8 nên a = 8",
+        "Đã mâu thuẫn ngay vì a chẵn"
+      ],
+      "why": [
+        "2b³ = (2c)³ = 8c³ ⇒ b³ = 4c³ chẵn ⇒ b chẵn. a, b cùng chẵn trái với giả thiết tối giản.",
+        "2b³ = 8c³ cho b³ = 4c³, không phải 8c³.",
+        "a³ chia hết cho 8 chỉ cho biết a chẵn.",
+        "a chẵn một mình chưa mâu thuẫn; cần thêm b chẵn."
+      ],
+      "explain": "Mấu chốt: nếu aⁿ chẵn thì a chẵn, vì tích các số lẻ luôn lẻ. Cùng cách này chứng minh được ⁿ√2 vô tỉ với mọi n ≥ 2."
+    },
+    "en": {
+      "q": "Prove ∛2 is irrational by contradiction: assume ∛2 = a/b in lowest terms, so 2b³ = a³, so a is even, a = 2c. What comes next?",
+      "options": [
+        "b³ = 4c³, so b is even: not lowest terms",
+        "b³ = 8c³, so 8 divides b",
+        "8 divides a³, so a = 8",
+        "It is already a contradiction since a is even"
+      ],
+      "why": [
+        "2b³ = (2c)³ = 8c³ ⇒ b³ = 4c³ is even ⇒ b is even. Both even contradicts lowest terms.",
+        "2b³ = 8c³ gives b³ = 4c³, not 8c³.",
+        "8 dividing a³ only says a is even.",
+        "a even alone is no contradiction; b must be even too."
+      ],
+      "explain": "Key fact: if aⁿ is even then a is even, since a product of odd numbers is odd. The same argument shows ⁿ√2 is irrational for every n ≥ 2."
+    },
+    "source": "MIT OCW 6.042J Fall 2005, Solutions to In-Class Problems Week 2 Mon, bài 1 — CC BY-NC-SA, tự diễn đạt"
+  },
+  {
+    "id": "d2-src-irr-power",
+    "chapter": "ch2",
+    "section": "2.2",
+    "type": "why",
+    "answer": 0,
+    "vi": {
+      "q": "Chứng minh có hai số vô tỉ a, b mà aᵇ hữu tỉ bằng cách xét x = √2^√2. Lập luận nào đúng?",
+      "options": [
+        "Chia hai trường hợp theo x; trường hợp nào cũng xong",
+        "Phải tính x trước để biết x có hữu tỉ không",
+        "x vô tỉ vì cơ số và số mũ đều vô tỉ",
+        "Không chứng minh được khi chưa biết x"
+      ],
+      "why": [
+        "x hữu tỉ: lấy a = b = √2. x vô tỉ: lấy a = x, b = √2, được aᵇ = √2² = 2.",
+        "Chứng minh theo trường hợp không cần biết trường hợp nào xảy ra.",
+        "Vô tỉ mũ vô tỉ vẫn có thể hữu tỉ — chính điều đang chứng minh.",
+        "Chia trường hợp chứng minh được mà không cần biết x."
+      ],
+      "explain": "Đây là chứng minh KHÔNG kiến thiết: biết cặp a, b tồn tại nhưng không chỉ ra cặp nào. (Thực ra √2^√2 vô tỉ, nhưng chứng minh điều đó khó hơn nhiều.)"
+    },
+    "en": {
+      "q": "Show there are irrational a, b with aᵇ rational by considering x = √2^√2. Which argument works?",
+      "options": [
+        "Split into two cases on x; each case finishes",
+        "First compute x to see whether it is rational",
+        "x is irrational since base and exponent are",
+        "It cannot be proved without knowing x"
+      ],
+      "why": [
+        "x rational: take a = b = √2. x irrational: take a = x, b = √2, giving aᵇ = √2² = 2.",
+        "A proof by cases need not know which case holds.",
+        "Irrational to an irrational power can be rational — exactly what is being proved.",
+        "Cases prove it without knowing x."
+      ],
+      "explain": "This is a NON-constructive proof: the pair a, b exists but we do not say which one. (In fact √2^√2 is irrational, but proving that is much harder.)"
+    },
+    "source": "MIT OCW 6.042J Fall 2005, Solutions to In-Class Problems Week 2 Mon, bài 3 — CC BY-NC-SA, tự diễn đạt"
   }
 ]

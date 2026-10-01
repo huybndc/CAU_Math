@@ -1478,5 +1478,1114 @@
       ]
     },
     "source": "Strang, Introduction to Linear Algebra 6th ed., Problem Set 1.3 #23 (lời giải của tác giả) — tự diễn đạt"
+  },
+  {
+    "id": "la2-src-a-perm",
+    "chapter": "ch2",
+    "section": "2.2",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "Hệ ax + 3y = −3, 4x + 6y = 6. Với a nào phép khử thất bại HẲN (đổi hàng cũng không cứu được)?",
+      "options": [
+        "a = 2: hệ vô nghiệm",
+        "a = 0: cần đổi hàng",
+        "a = 2: hệ có vô số nghiệm",
+        "a = 4: hai hàng tỉ lệ"
+      ],
+      "why": [
+        "a = 2: hàng 2 − 2·hàng 1 cho 0 = 12 ⇒ vô nghiệm, không còn pivot thứ hai.",
+        "a = 0 chỉ thất bại tạm: đổi hàng được 4x + 6y = 6, 3y = −3 ⇒ x = 3, y = −1.",
+        "Vế phải −3 và 6 không theo tỉ lệ 1 : 2 nên hai đường không trùng nhau.",
+        "a = 4: hai hàng (4, 3) và (4, 6) không tỉ lệ."
+      ],
+      "explain": "Thất bại hẳn khi ma trận hệ số suy biến: det = 6a − 12 = 0 ⇔ a = 2. Pivot bằng 0 ở vị trí đầu (a = 0) chỉ cần đổi hàng."
+    },
+    "en": {
+      "q": "System ax + 3y = −3, 4x + 6y = 6. For which a does elimination fail PERMANENTLY (no row exchange helps)?",
+      "options": [
+        "a = 2: no solution",
+        "a = 0: needs a row exchange",
+        "a = 2: infinitely many solutions",
+        "a = 4: the rows are proportional"
+      ],
+      "why": [
+        "a = 2: row 2 − 2·row 1 gives 0 = 12 ⇒ no solution and no second pivot.",
+        "a = 0 fails only temporarily: exchange rows to get 4x + 6y = 6, 3y = −3 ⇒ x = 3, y = −1.",
+        "The right sides −3 and 6 do not follow the ratio 1 : 2, so the lines differ.",
+        "a = 4: rows (4, 3) and (4, 6) are not proportional."
+      ],
+      "explain": "Permanent failure means a singular coefficient matrix: det = 6a − 12 = 0 ⇔ a = 2. A zero in the first pivot spot (a = 0) only needs a row exchange."
+    },
+    "source": "Strang, Introduction to Linear Algebra 6th ed., lời giải của tác giả (math.mit.edu/linearalgebra), Problem Set 2.1 #7 — tự diễn đạt",
+    "check": {
+      "type": "system",
+      "A": [
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          6
+        ]
+      ],
+      "b": [
+        -3,
+        6
+      ],
+      "kind": "none"
+    }
+  },
+  {
+    "id": "la2-src-b20",
+    "chapter": "ch2",
+    "section": "2.2",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "Hệ 3x + 2y = 10, 6x + 4y = b. Với b nào hệ có nghiệm, và có bao nhiêu nghiệm?",
+      "options": [
+        "b = 20; vô số nghiệm",
+        "b = 20; đúng một nghiệm",
+        "Mọi b; đúng một nghiệm",
+        "Không có b nào"
+      ],
+      "why": [
+        "Hàng 2 − 2·hàng 1: 0 = b − 20. Khi b = 20 chỉ còn một phương trình cho hai ẩn: cả một đường thẳng nghiệm.",
+        "Chỉ có một pivot nên có một ẩn tự do.",
+        "Hai hàng vế trái tỉ lệ nên ma trận suy biến.",
+        "b = 20 làm hai phương trình trùng nhau."
+      ],
+      "explain": "Khử xong còn 0x + 0y = b − 20. Ví dụ nghiệm khi b = 20: (4, −1) và (0, 5). Hình học: hai đường song song (b ≠ 20) hoặc trùng nhau (b = 20)."
+    },
+    "en": {
+      "q": "System 3x + 2y = 10, 6x + 4y = b. For which b is it solvable, and how many solutions?",
+      "options": [
+        "b = 20; infinitely many",
+        "b = 20; exactly one",
+        "Every b; exactly one",
+        "No value of b"
+      ],
+      "why": [
+        "Row 2 − 2·row 1: 0 = b − 20. With b = 20 one equation remains for two unknowns: a whole line of solutions.",
+        "There is only one pivot, so one variable is free.",
+        "The left sides are proportional, so the matrix is singular.",
+        "b = 20 makes the two equations the same."
+      ],
+      "explain": "After elimination 0x + 0y = b − 20 remains. Solutions for b = 20 include (4, −1) and (0, 5). Geometrically: parallel lines (b ≠ 20) or the same line (b = 20)."
+    },
+    "source": "Strang, Introduction to Linear Algebra 6th ed., lời giải của tác giả (math.mit.edu/linearalgebra), Problem Set 2.1 #5 — tự diễn đạt",
+    "check": {
+      "type": "system",
+      "A": [
+        [
+          3,
+          2
+        ],
+        [
+          6,
+          4
+        ]
+      ],
+      "b": [
+        10,
+        20
+      ],
+      "kind": "infinite"
+    }
+  },
+  {
+    "id": "la2-src-a-fail",
+    "chapter": "ch2",
+    "section": "2.2",
+    "type": "trap",
+    "answer": 0,
+    "vi": {
+      "q": "Ma trận có hàng (a, 2) và (a, a). Với a nào phép khử thất bại?",
+      "options": [
+        "a = 0 hoặc a = 2",
+        "Chỉ khi a = 0",
+        "Chỉ khi a = 2",
+        "Không có giá trị a nào"
+      ],
+      "why": [
+        "a = 0: cột đầu toàn 0, không có pivot. a = 2: hàng 2 − hàng 1 = (0, 0), mất pivot thứ hai.",
+        "Còn a = 2: pivot thứ hai là a − 2.",
+        "Còn a = 0: đổi hàng không cứu được vì cả cột đầu bằng 0.",
+        "Pivot đầu là a và pivot thứ hai là a − 2, đều có thể bằng 0."
+      ],
+      "explain": "Khử: hàng 2 − hàng 1 được (0, a − 2). Hai pivot là a và a − 2; det = a(a − 2). Cả hai giá trị làm det = 0 đều làm phép khử thất bại."
+    },
+    "en": {
+      "q": "A matrix has rows (a, 2) and (a, a). For which a does elimination fail?",
+      "options": [
+        "a = 0 or a = 2",
+        "Only when a = 0",
+        "Only when a = 2",
+        "No value of a at all"
+      ],
+      "why": [
+        "a = 0: the first column is all zero, no pivot. a = 2: row 2 − row 1 = (0, 0), the second pivot is lost.",
+        "Also a = 2: the second pivot is a − 2.",
+        "Also a = 0: no exchange helps since the whole first column is 0.",
+        "The pivots are a and a − 2, and either can be 0."
+      ],
+      "explain": "Elimination: row 2 − row 1 gives (0, a − 2). The pivots are a and a − 2; det = a(a − 2). Both values that make det = 0 break elimination."
+    },
+    "source": "Strang, Introduction to Linear Algebra 6th ed., lời giải của tác giả (math.mit.edu/linearalgebra), Problem Set 2.1 #19 — tự diễn đạt",
+    "check": {
+      "type": "dims",
+      "A": [
+        [
+          2,
+          2
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "rank": 1
+    }
+  },
+  {
+    "id": "la2-src-e32e21",
+    "chapter": "ch2",
+    "section": "2.3",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "E₂₁ trừ 5·hàng 1 khỏi hàng 2; E₃₂ cộng 7·hàng 2 vào hàng 3. Hàng 3 của E = E₃₂E₂₁ là gì?",
+      "options": [
+        "(−35, 7, 1)",
+        "(0, 7, 1)",
+        "(−5, 7, 1)",
+        "(−12, 7, 1)"
+      ],
+      "why": [
+        "Hàng 3 mới = hàng 3 + 7·(hàng 2 − 5·hàng 1): hệ số của hàng 1 là 7·(−5) = −35.",
+        "Đó là hàng 3 của E₂₁E₃₂: nhân sai thứ tự.",
+        "Chép số nhân của hàng 2 xuống, quên nhân với 7.",
+        "Lấy −5 − 7 thay vì 7·(−5)."
+      ],
+      "explain": "E₂₁ làm trước nên đứng bên phải. Với b = (1, 0, 0): E₃₂E₂₁b = (1, −5, −35), còn E₂₁E₃₂b = (1, −5, 0)."
+    },
+    "en": {
+      "q": "E₂₁ subtracts 5·row 1 from row 2; E₃₂ adds 7·row 2 to row 3. What is row 3 of E = E₃₂E₂₁?",
+      "options": [
+        "(−35, 7, 1)",
+        "(0, 7, 1)",
+        "(−5, 7, 1)",
+        "(−12, 7, 1)"
+      ],
+      "why": [
+        "New row 3 = row 3 + 7·(row 2 − 5·row 1): the row 1 coefficient is 7·(−5) = −35.",
+        "That is row 3 of E₂₁E₃₂: the order is wrong.",
+        "Copies the row 2 multiplier down, forgetting the factor 7.",
+        "Uses −5 − 7 instead of 7·(−5)."
+      ],
+      "explain": "E₂₁ acts first, so it sits on the right. With b = (1, 0, 0): E₃₂E₂₁b = (1, −5, −35) but E₂₁E₃₂b = (1, −5, 0)."
+    },
+    "source": "Strang, Introduction to Linear Algebra 6th ed., lời giải của tác giả (math.mit.edu/linearalgebra), Problem Set 2.2 #1–2 — tự diễn đạt",
+    "check": {
+      "type": "product",
+      "A": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          7,
+          1
+        ]
+      ],
+      "B": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          -5,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "C": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          -5,
+          1,
+          0
+        ],
+        [
+          -35,
+          7,
+          1
+        ]
+      ]
+    }
+  },
+  {
+    "id": "la2-src-l31",
+    "chapter": "ch2",
+    "section": "2.6",
+    "type": "trap",
+    "answer": 0,
+    "vi": {
+      "q": "E = E₃₂E₃₁E₂₁ có hàng (1, 0, 0), (−4, 1, 0), (10, −2, 1). Trong L = E⁻¹, số nhân ℓ₃₁ bằng bao nhiêu?",
+      "options": [
+        "−2",
+        "−10",
+        "8",
+        "4"
+      ],
+      "why": [
+        "L có hàng (1, 0, 0), (4, 1, 0), (−2, 2, 1); kiểm E·L = I.",
+        "Đổi dấu các ô của E đúng cho ℓ₂₁, ℓ₃₂ nhưng sai ở góc (3, 1).",
+        "8 = 4·2 là phần E tự sinh ra khi nhân các ma trận khử, không phải số nhân.",
+        "4 là ℓ₂₁, không phải ℓ₃₁."
+      ],
+      "explain": "Hàng 3 của E = hàng 3 − 2·(hàng 2 − 4·hàng 1) − ℓ₃₁·hàng 1, nên 10 = 8 − ℓ₃₁ ⇒ ℓ₃₁ = −2. Trong L các số nhân nằm nguyên chỗ, không trộn lẫn."
+    },
+    "en": {
+      "q": "E = E₃₂E₃₁E₂₁ has rows (1, 0, 0), (−4, 1, 0), (10, −2, 1). In L = E⁻¹, what is the multiplier ℓ₃₁?",
+      "options": [
+        "−2",
+        "−10",
+        "8",
+        "4"
+      ],
+      "why": [
+        "L has rows (1, 0, 0), (4, 1, 0), (−2, 2, 1); check E·L = I.",
+        "Flipping the signs of E works for ℓ₂₁, ℓ₃₂ but fails at the (3, 1) corner.",
+        "8 = 4·2 is what E picks up when the elimination matrices multiply, not a multiplier.",
+        "4 is ℓ₂₁, not ℓ₃₁."
+      ],
+      "explain": "Row 3 of E = row 3 − 2·(row 2 − 4·row 1) − ℓ₃₁·row 1, so 10 = 8 − ℓ₃₁ ⇒ ℓ₃₁ = −2. In L the multipliers sit in place without mixing."
+    },
+    "source": "Strang, Introduction to Linear Algebra 6th ed., lời giải của tác giả (math.mit.edu/linearalgebra), Problem Set 2.2 #3 — tự diễn đạt",
+    "check": {
+      "type": "inverse",
+      "A": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          -4,
+          1,
+          0
+        ],
+        [
+          10,
+          -2,
+          1
+        ]
+      ],
+      "inv": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          4,
+          1,
+          0
+        ],
+        [
+          -2,
+          2,
+          1
+        ]
+      ]
+    }
+  },
+  {
+    "id": "la2-src-ab-ac",
+    "chapter": "ch2",
+    "section": "2.4",
+    "type": "trap",
+    "answer": 0,
+    "vi": {
+      "q": "A có hai hàng (1, 1) và (1, 1). Biết AB = AC. Suy ra được gì?",
+      "options": [
+        "Chưa chắc B = C",
+        "B = C, giản ước A ở hai vế",
+        "A phải là ma trận 0",
+        "B và C đều phải khả nghịch"
+      ],
+      "why": [
+        "A(B − C) = 0 chỉ cần mỗi cột của B − C có dạng (x, −x). Ví dụ B có hàng (1, 2), (−1, −2) và C = 0.",
+        "A suy biến nên không có A⁻¹ để giản ước.",
+        "A khác 0 mà AB = AC vẫn xảy ra với B ≠ C.",
+        "Không có điều kiện nào buộc B, C khả nghịch."
+      ],
+      "explain": "Giản ước được khi A khả nghịch: nhân A⁻¹ bên trái. Ở đây A có hai cột bằng nhau nên suy biến, và A đưa mọi vectơ (x, −x) về 0."
+    },
+    "en": {
+      "q": "A has rows (1, 1) and (1, 1), and AB = AC. What follows?",
+      "options": [
+        "Not necessarily B = C",
+        "B = C, cancel A on both sides",
+        "A must be the zero matrix",
+        "B and C must both be invertible"
+      ],
+      "why": [
+        "A(B − C) = 0 only needs every column of B − C to look like (x, −x). Example: B with rows (1, 2), (−1, −2) and C = 0.",
+        "A is singular, so there is no A⁻¹ to cancel with.",
+        "A is nonzero, yet AB = AC happens with B ≠ C.",
+        "Nothing forces B or C to be invertible."
+      ],
+      "explain": "Cancelling works when A is invertible: multiply by A⁻¹ on the left. Here A has equal columns, so it is singular and sends every (x, −x) to 0."
+    },
+    "source": "Strang, Introduction to Linear Algebra 6th ed., lời giải của tác giả (math.mit.edu/linearalgebra), Problem Set 2.2 #15 — tự diễn đạt",
+    "check": {
+      "type": "product",
+      "A": [
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "B": [
+        [
+          1,
+          2
+        ],
+        [
+          -1,
+          -2
+        ]
+      ],
+      "C": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ]
+    }
+  },
+  {
+    "id": "la2-src-sum-inv",
+    "chapter": "ch2",
+    "section": "2.5",
+    "type": "trap",
+    "answer": 0,
+    "vi": {
+      "q": "A và B đều khả nghịch, cùng cỡ. Còn A + B thì sao?",
+      "options": [
+        "Có thể suy biến, ví dụ B = −A",
+        "Luôn khả nghịch",
+        "Khả nghịch, và (A + B)⁻¹ = A⁻¹ + B⁻¹",
+        "Luôn suy biến"
+      ],
+      "why": [
+        "A + (−A) = 0 suy biến dù A, −A đều khả nghịch. Ngược lại, hai ma trận suy biến vẫn có thể cộng ra I.",
+        "Phản ví dụ B = −A.",
+        "Nghịch đảo không phân phối với phép cộng: A = B = I cho (2I)⁻¹ = I/2, không phải 2I.",
+        "A = B = I cho A + B = 2I khả nghịch."
+      ],
+      "explain": "Tính khả nghịch được giữ qua phép NHÂN: (AB)⁻¹ = B⁻¹A⁻¹. Phép cộng không có quy tắc như vậy. Ví dụ suy biến cộng ra I: diag(1, 0) + diag(0, 1)."
+    },
+    "en": {
+      "q": "A and B are invertible and of the same size. What about A + B?",
+      "options": [
+        "It can be singular, e.g. B = −A",
+        "It is always invertible",
+        "It is invertible with (A + B)⁻¹ = A⁻¹ + B⁻¹",
+        "It is always singular"
+      ],
+      "why": [
+        "A + (−A) = 0 is singular though A and −A are invertible. Conversely, two singular matrices can add up to I.",
+        "Counterexample B = −A.",
+        "Inverses do not distribute over sums: A = B = I gives (2I)⁻¹ = I/2, not 2I.",
+        "A = B = I gives A + B = 2I, which is invertible."
+      ],
+      "explain": "Invertibility survives MULTIPLICATION: (AB)⁻¹ = B⁻¹A⁻¹. Addition has no such rule. Singular matrices adding to I: diag(1, 0) + diag(0, 1)."
+    },
+    "source": "Strang, Introduction to Linear Algebra 6th ed., lời giải của tác giả (math.mit.edu/linearalgebra), Problem Set 2.2 #19 — tự diễn đạt"
+  },
+  {
+    "id": "la2-src-a2b",
+    "chapter": "ch2",
+    "section": "2.5",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "A và B vuông, A²B = I. Nghịch đảo của A là gì?",
+      "options": [
+        "AB",
+        "B",
+        "B⁻¹",
+        "A²B²"
+      ],
+      "why": [
+        "A·(AB) = A²B = I, nên AB là nghịch đảo của A.",
+        "B là nghịch đảo của A², không phải của A.",
+        "B⁻¹ = A², không phải A⁻¹.",
+        "A²B² = A²·A⁻⁴ = A⁻², chưa phải A⁻¹."
+      ],
+      "explain": "Với ma trận vuông, nghịch đảo một phía cũng là nghịch đảo hai phía. Ví dụ A có hàng (2, 1), (1, 1): B có hàng (2, −3), (−3, 5) và AB có hàng (1, −1), (−1, 2) = A⁻¹."
+    },
+    "en": {
+      "q": "A and B are square with A²B = I. What is the inverse of A?",
+      "options": [
+        "AB",
+        "B",
+        "B⁻¹",
+        "A²B²"
+      ],
+      "why": [
+        "A·(AB) = A²B = I, so AB is the inverse of A.",
+        "B is the inverse of A², not of A.",
+        "B⁻¹ = A², not A⁻¹.",
+        "A²B² = A²·A⁻⁴ = A⁻², not A⁻¹."
+      ],
+      "explain": "For square matrices a one-sided inverse is two-sided. Example: A with rows (2, 1), (1, 1) gives B with rows (2, −3), (−3, 5) and AB with rows (1, −1), (−1, 2) = A⁻¹."
+    },
+    "source": "Strang, Introduction to Linear Algebra 6th ed., lời giải của tác giả (math.mit.edu/linearalgebra), Problem Set 2.2 #26 — tự diễn đạt",
+    "check": {
+      "type": "product",
+      "A": [
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "B": [
+        [
+          2,
+          -3
+        ],
+        [
+          -3,
+          5
+        ]
+      ],
+      "C": [
+        [
+          1,
+          -1
+        ],
+        [
+          -1,
+          2
+        ]
+      ]
+    }
+  },
+  {
+    "id": "la2-src-inv2",
+    "chapter": "ch2",
+    "section": "2.5",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "Nghịch đảo của ma trận có hàng (1, 3) và (2, 7) là gì?",
+      "options": [
+        "(7, −3), (−2, 1)",
+        "(7, −2), (−3, 1)",
+        "(1, −3), (−2, 7)",
+        "(1, 1/3), (1/2, 1/7)"
+      ],
+      "why": [
+        "det = 7 − 6 = 1. Đổi chỗ hai số trên đường chéo, đổi dấu hai số còn lại, chia cho det.",
+        "Đó là chuyển vị của đáp án đúng: đổi dấu đúng nhưng đặt sai chỗ.",
+        "Quên đổi chỗ 1 và 7 trên đường chéo.",
+        "Nghịch đảo ma trận không phải nghịch đảo từng phần tử."
+      ],
+      "explain": "Công thức 2 × 2: nghịch đảo của (a, b), (c, d) là (d, −b), (−c, a) chia cho ad − bc. Kiểm: hàng (1, 3) nhân cột (7, −2) được 1, nhân cột (−3, 1) được 0."
+    },
+    "en": {
+      "q": "What is the inverse of the matrix with rows (1, 3) and (2, 7)?",
+      "options": [
+        "(7, −3), (−2, 1)",
+        "(7, −2), (−3, 1)",
+        "(1, −3), (−2, 7)",
+        "(1, 1/3), (1/2, 1/7)"
+      ],
+      "why": [
+        "det = 7 − 6 = 1. Swap the two diagonal entries, negate the other two, divide by det.",
+        "That is the transpose of the right answer: signs right, places wrong.",
+        "Forgets to swap 1 and 7 on the diagonal.",
+        "A matrix inverse is not the entrywise reciprocal."
+      ],
+      "explain": "2 × 2 formula: the inverse of (a, b), (c, d) is (d, −b), (−c, a) divided by ad − bc. Check: row (1, 3) times column (7, −2) gives 1, times column (−3, 1) gives 0."
+    },
+    "source": "Strang, Introduction to Linear Algebra 6th ed., lời giải của tác giả (math.mit.edu/linearalgebra), Problem Set 2.2 #29 — tự diễn đạt",
+    "check": {
+      "type": "inverse",
+      "A": [
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          7
+        ]
+      ],
+      "inv": [
+        [
+          7,
+          -3
+        ],
+        [
+          -2,
+          1
+        ]
+      ]
+    }
+  },
+  {
+    "id": "la2-src-singular3",
+    "chapter": "ch2",
+    "section": "2.5",
+    "type": "why",
+    "answer": 0,
+    "vi": {
+      "q": "B cỡ 3 × 3 có đường chéo đều bằng 2, mọi ô còn lại bằng −1. B có khả nghịch không?",
+      "options": [
+        "Không: B(1, 1, 1) = 0",
+        "Có: đường chéo lớn hơn các ô khác",
+        "Có: mọi pivot đều bằng 2",
+        "Không: vì B có số âm"
+      ],
+      "why": [
+        "Mỗi hàng có tổng 2 − 1 − 1 = 0, nên x = (1, 1, 1) khác 0 mà Bx = 0 ⇒ B suy biến.",
+        "Trội đường chéo cần 2 LỚN HƠN HẲN 1 + 1; ở đây chỉ bằng nhau.",
+        "Khử xong các pivot là 2, 3/2 và 0.",
+        "Số âm không liên quan; đổi đường chéo thành 3 thì B khả nghịch."
+      ],
+      "explain": "Chỉ cần một x khác 0 với Bx = 0 là đủ kết luận suy biến. Còn A có đường chéo 2, ô khác 1 thì khả nghịch: A⁻¹ bằng ¼ nhân ma trận có đường chéo 3, ô khác −1."
+    },
+    "en": {
+      "q": "B is 3 × 3 with every diagonal entry 2 and every other entry −1. Is B invertible?",
+      "options": [
+        "No: B(1, 1, 1) = 0",
+        "Yes: the diagonal beats the other entries",
+        "Yes: every pivot equals 2",
+        "No: because B has negative entries"
+      ],
+      "why": [
+        "Each row sums to 2 − 1 − 1 = 0, so the nonzero x = (1, 1, 1) has Bx = 0 ⇒ B is singular.",
+        "Diagonal dominance needs 2 STRICTLY above 1 + 1; here they are equal.",
+        "Elimination gives pivots 2, 3/2 and 0.",
+        "Signs are irrelevant; with diagonal 3 the matrix becomes invertible."
+      ],
+      "explain": "One nonzero x with Bx = 0 is enough to prove singularity. By contrast, A with diagonal 2 and other entries 1 is invertible: A⁻¹ is ¼ times the matrix with diagonal 3, other entries −1."
+    },
+    "source": "Strang, Introduction to Linear Algebra 6th ed., lời giải của tác giả (math.mit.edu/linearalgebra), Problem Set 2.2 #31 — tự diễn đạt",
+    "check": {
+      "type": "solves",
+      "A": [
+        [
+          2,
+          -1,
+          -1
+        ],
+        [
+          -1,
+          2,
+          -1
+        ],
+        [
+          -1,
+          -1,
+          2
+        ]
+      ],
+      "x": [
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  {
+    "id": "la2-src-lu3",
+    "chapter": "ch2",
+    "section": "2.6",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "A có hàng (2, 1, 0), (0, 4, 2), (6, 3, 5). Khi phân tích A = LU, ba số nhân ℓ₂₁, ℓ₃₁, ℓ₃₂ là gì?",
+      "options": [
+        "0, 3, 0",
+        "0, 3, 3/4",
+        "3, 0, 0",
+        "0, 6, 0"
+      ],
+      "why": [
+        "Hàng 2 đã có 0 ở đầu ⇒ ℓ₂₁ = 0. Hàng 3 − 3·hàng 1 = (0, 0, 5) ⇒ ℓ₃₁ = 3, ℓ₃₂ = 0.",
+        "Lấy 3/4 từ ô (3, 2) BAN ĐẦU; sau bước đầu ô đó đã thành 0.",
+        "Đặt số nhân sai hàng.",
+        "6 là ô của A; số nhân là 6/2 = 3."
+      ],
+      "explain": "U có hàng (2, 1, 0), (0, 4, 2), (0, 0, 5); L có hàng (1, 0, 0), (0, 1, 0), (3, 0, 1). Số 0 trong A thường cho số 0 trong L, nên khử ít bước hơn."
+    },
+    "en": {
+      "q": "A has rows (2, 1, 0), (0, 4, 2), (6, 3, 5). In the factorization A = LU, what are ℓ₂₁, ℓ₃₁, ℓ₃₂?",
+      "options": [
+        "0, 3, 0",
+        "0, 3, 3/4",
+        "3, 0, 0",
+        "0, 6, 0"
+      ],
+      "why": [
+        "Row 2 already starts with 0 ⇒ ℓ₂₁ = 0. Row 3 − 3·row 1 = (0, 0, 5) ⇒ ℓ₃₁ = 3, ℓ₃₂ = 0.",
+        "Takes 3/4 from the ORIGINAL (3, 2) entry; after step one that entry is 0.",
+        "Puts the multiplier in the wrong row.",
+        "6 is an entry of A; the multiplier is 6/2 = 3."
+      ],
+      "explain": "U has rows (2, 1, 0), (0, 4, 2), (0, 0, 5); L has rows (1, 0, 0), (0, 1, 0), (3, 0, 1). Zeros in A tend to give zeros in L, so elimination is shorter."
+    },
+    "source": "Strang, Introduction to Linear Algebra 6th ed., lời giải của tác giả (math.mit.edu/linearalgebra), Problem Set 2.3 #3 — tự diễn đạt",
+    "check": {
+      "type": "product",
+      "A": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          3,
+          0,
+          1
+        ]
+      ],
+      "B": [
+        [
+          2,
+          1,
+          0
+        ],
+        [
+          0,
+          4,
+          2
+        ],
+        [
+          0,
+          0,
+          5
+        ]
+      ],
+      "C": [
+        [
+          2,
+          1,
+          0
+        ],
+        [
+          0,
+          4,
+          2
+        ],
+        [
+          6,
+          3,
+          5
+        ]
+      ]
+    }
+  },
+  {
+    "id": "la2-src-lu-solve",
+    "chapter": "ch2",
+    "section": "2.6",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "A = LU với L có hàng (1, 0), (4, 1) và U có hàng (2, 4), (0, 1). Giải Ax = b với b = (2, 11).",
+      "options": [
+        "x = (−5, 3)",
+        "x = (2, 3)",
+        "x = (−21, 11)",
+        "x = (−37, 19)"
+      ],
+      "why": [
+        "Lc = b: c = (2, 11 − 8) = (2, 3). Ux = c: x₂ = 3, 2x₁ + 12 = 2 ⇒ x₁ = −5.",
+        "Dừng ở c, quên bước Ux = c.",
+        "Bỏ bước Lc = b, giải thẳng Ux = b.",
+        "Sai dấu ở Lc = b: lấy 11 + 8 = 19."
+      ],
+      "explain": "Hai bước tam giác: tiến (Lc = b) rồi lùi (Ux = c). Kiểm: A = LU có hàng (2, 4), (8, 17); 2·(−5) + 4·3 = 2 và 8·(−5) + 17·3 = 11."
+    },
+    "en": {
+      "q": "A = LU with L rows (1, 0), (4, 1) and U rows (2, 4), (0, 1). Solve Ax = b for b = (2, 11).",
+      "options": [
+        "x = (−5, 3)",
+        "x = (2, 3)",
+        "x = (−21, 11)",
+        "x = (−37, 19)"
+      ],
+      "why": [
+        "Lc = b: c = (2, 11 − 8) = (2, 3). Ux = c: x₂ = 3, 2x₁ + 12 = 2 ⇒ x₁ = −5.",
+        "Stops at c and skips Ux = c.",
+        "Skips Lc = b and solves Ux = b directly.",
+        "Sign slip in Lc = b: uses 11 + 8 = 19."
+      ],
+      "explain": "Two triangular solves: forward (Lc = b) then back (Ux = c). Check: A = LU has rows (2, 4), (8, 17); 2·(−5) + 4·3 = 2 and 8·(−5) + 17·3 = 11."
+    },
+    "source": "Strang, Introduction to Linear Algebra 6th ed., lời giải của tác giả (math.mit.edu/linearalgebra), Problem Set 2.3 #9 — tự diễn đạt",
+    "check": {
+      "type": "solves",
+      "A": [
+        [
+          2,
+          4
+        ],
+        [
+          8,
+          17
+        ]
+      ],
+      "b": [
+        2,
+        11
+      ],
+      "x": [
+        -5,
+        3
+      ]
+    }
+  },
+  {
+    "id": "la2-src-transpose",
+    "chapter": "ch2",
+    "section": "2.7",
+    "type": "trap",
+    "answer": 0,
+    "vi": {
+      "q": "A có hàng (1, 0), (2, 1); B có hàng (1, 3), (0, 1). (AB)ᵀ bằng gì?",
+      "options": [
+        "BᵀAᵀ, có hàng (1, 2), (3, 7)",
+        "AᵀBᵀ, có hàng (7, 2), (3, 1)",
+        "AB, có hàng (1, 3), (2, 7)",
+        "BA, có hàng (7, 3), (2, 1)"
+      ],
+      "why": [
+        "AB có hàng (1, 3), (2, 7); chuyển vị được (1, 2), (3, 7), đúng bằng BᵀAᵀ.",
+        "Chuyển vị đảo thứ tự; AᵀBᵀ ở đây ra ma trận khác.",
+        "Đó là AB, chưa chuyển vị.",
+        "BA là một ma trận khác, không liên quan chuyển vị."
+      ],
+      "explain": "(AB)ᵀ = BᵀAᵀ, giống (AB)⁻¹ = B⁻¹A⁻¹: đảo thứ tự. Lý do: hàng i của AB trở thành cột i của (AB)ᵀ."
+    },
+    "en": {
+      "q": "A has rows (1, 0), (2, 1); B has rows (1, 3), (0, 1). What is (AB)ᵀ?",
+      "options": [
+        "BᵀAᵀ, with rows (1, 2), (3, 7)",
+        "AᵀBᵀ, with rows (7, 2), (3, 1)",
+        "AB, with rows (1, 3), (2, 7)",
+        "BA, with rows (7, 3), (2, 1)"
+      ],
+      "why": [
+        "AB has rows (1, 3), (2, 7); its transpose is (1, 2), (3, 7), exactly BᵀAᵀ.",
+        "Transposing reverses the order; AᵀBᵀ is a different matrix here.",
+        "That is AB itself, not transposed.",
+        "BA is another matrix, unrelated to the transpose."
+      ],
+      "explain": "(AB)ᵀ = BᵀAᵀ, like (AB)⁻¹ = B⁻¹A⁻¹: the order reverses. Reason: row i of AB becomes column i of (AB)ᵀ."
+    },
+    "source": "Strang, Introduction to Linear Algebra 6th ed., lời giải của tác giả (math.mit.edu/linearalgebra), Problem Set 2.4 #2 — tự diễn đạt",
+    "check": {
+      "type": "product",
+      "A": [
+        [
+          1,
+          0
+        ],
+        [
+          3,
+          1
+        ]
+      ],
+      "B": [
+        [
+          1,
+          2
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "C": [
+        [
+          1,
+          2
+        ],
+        [
+          3,
+          7
+        ]
+      ]
+    }
+  },
+  {
+    "id": "la2-src-sym-prod",
+    "chapter": "ch2",
+    "section": "2.7",
+    "type": "trap",
+    "answer": 0,
+    "vi": {
+      "q": "A, B đều đối xứng. Tích AB có đối xứng không?",
+      "options": [
+        "Chỉ khi AB = BA",
+        "Luôn luôn đối xứng",
+        "Không bao giờ đối xứng",
+        "Chỉ khi A, B khả nghịch"
+      ],
+      "why": [
+        "(AB)ᵀ = BᵀAᵀ = BA, nên AB đối xứng ⇔ AB = BA.",
+        "Phản ví dụ: (1, 1), (1, 0) nhân (0, 1), (1, 1) ra (1, 2), (0, 1).",
+        "A = B = I cho AB = I đối xứng.",
+        "Phản ví dụ ở trên có cả hai ma trận khả nghịch."
+      ],
+      "explain": "Luôn đúng: AᵀA và AAᵀ đối xứng với MỌI A, vì (AᵀA)ᵀ = AᵀAᵀᵀ = AᵀA."
+    },
+    "en": {
+      "q": "A and B are symmetric. Is AB symmetric?",
+      "options": [
+        "Only when AB = BA",
+        "Always symmetric",
+        "Never symmetric",
+        "Only when A, B are invertible"
+      ],
+      "why": [
+        "(AB)ᵀ = BᵀAᵀ = BA, so AB is symmetric ⇔ AB = BA.",
+        "Counterexample: (1, 1), (1, 0) times (0, 1), (1, 1) gives (1, 2), (0, 1).",
+        "A = B = I gives AB = I, symmetric.",
+        "The counterexample above uses two invertible matrices."
+      ],
+      "explain": "Always true: AᵀA and AAᵀ are symmetric for EVERY A, since (AᵀA)ᵀ = AᵀAᵀᵀ = AᵀA."
+    },
+    "source": "Strang, Introduction to Linear Algebra 6th ed., lời giải của tác giả (math.mit.edu/linearalgebra), Problem Set 2.4 #7 — tự diễn đạt",
+    "check": {
+      "type": "product",
+      "A": [
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "B": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "C": [
+        [
+          1,
+          2
+        ],
+        [
+          0,
+          1
+        ]
+      ]
+    }
+  },
+  {
+    "id": "la2-src-perm",
+    "chapter": "ch2",
+    "section": "2.7",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "Có bao nhiêu ma trận hoán vị cỡ 4 × 4?",
+      "options": [
+        "24",
+        "16",
+        "6",
+        "4"
+      ],
+      "why": [
+        "Mỗi ma trận hoán vị là một cách sắp lại 4 hàng của I: 4! = 24.",
+        "16 = 4² = 2⁴, không đếm cách sắp thứ tự.",
+        "6 chỉ là số phép đổi chỗ đúng hai hàng.",
+        "4 chỉ đếm vị trí, không đếm thứ tự."
+      ],
+      "explain": "Cỡ n × n có n! ma trận hoán vị; tích hai ma trận hoán vị vẫn là hoán vị và P⁻¹ = Pᵀ. Thường P₁P₂ ≠ P₂P₁; hoán vị vòng 3 × 3 có P³ = I."
+    },
+    "en": {
+      "q": "How many 4 × 4 permutation matrices are there?",
+      "options": [
+        "24",
+        "16",
+        "6",
+        "4"
+      ],
+      "why": [
+        "Each permutation matrix reorders the 4 rows of I: 4! = 24.",
+        "16 = 4² = 2⁴ does not count orderings.",
+        "6 only counts exchanges of exactly two rows.",
+        "4 counts positions, not orderings."
+      ],
+      "explain": "n × n has n! permutation matrices; products of them are permutations and P⁻¹ = Pᵀ. Usually P₁P₂ ≠ P₂P₁; a 3 × 3 cyclic P has P³ = I."
+    },
+    "source": "Strang, Introduction to Linear Algebra 6th ed., lời giải của tác giả (math.mit.edu/linearalgebra), Problem Set 2.4 #8–9, #14 — tự diễn đạt"
+  },
+  {
+    "id": "la2-src-ata",
+    "chapter": "ch2",
+    "section": "2.7",
+    "type": "compare",
+    "answer": 0,
+    "vi": {
+      "q": "So sánh hai điều kiện A² = 0 và AᵀA = 0. Điều kiện nào buộc A = 0?",
+      "options": [
+        "Chỉ AᵀA = 0",
+        "Cả hai điều kiện",
+        "Chỉ A² = 0",
+        "Không điều kiện nào"
+      ],
+      "why": [
+        "Ô (j, j) của AᵀA là ‖cột j‖²; bằng 0 hết thì mọi cột bằng 0. Còn A có hàng (0, 1), (0, 0) có A² = 0.",
+        "A có hàng (0, 1), (0, 0) khác 0 mà A² = 0.",
+        "Ngược lại: A² = 0 chưa đủ, AᵀA = 0 thì đủ.",
+        "AᵀA = 0 buộc mọi cột có độ dài 0."
+      ],
+      "explain": "Đường chéo của AᵀA là bình phương độ dài các cột, và tổng bình phương chỉ bằng 0 khi mọi số bằng 0. A² không có tính chất đó."
+    },
+    "en": {
+      "q": "Compare the conditions A² = 0 and AᵀA = 0. Which one forces A = 0?",
+      "options": [
+        "Only AᵀA = 0",
+        "Both conditions",
+        "Only A² = 0",
+        "Neither condition"
+      ],
+      "why": [
+        "Entry (j, j) of AᵀA is ‖column j‖²; all zero means every column is 0. But A with rows (0, 1), (0, 0) has A² = 0.",
+        "A with rows (0, 1), (0, 0) is nonzero yet A² = 0.",
+        "The other way round: A² = 0 is not enough, AᵀA = 0 is.",
+        "AᵀA = 0 forces every column to have length 0."
+      ],
+      "explain": "The diagonal of AᵀA holds the squared column lengths, and a sum of squares is 0 only when every number is 0. A² has no such property."
+    },
+    "source": "Strang, Introduction to Linear Algebra 6th ed., lời giải của tác giả (math.mit.edu/linearalgebra), Problem Set 2.4 #4 — tự diễn đạt",
+    "check": {
+      "type": "product",
+      "A": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "B": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "C": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ]
+    }
+  },
+  {
+    "id": "la2-src-sym15",
+    "chapter": "ch2",
+    "section": "2.7",
+    "type": "apply",
+    "answer": 0,
+    "vi": {
+      "q": "Ma trận đối xứng 5 × 5 có bao nhiêu ô được chọn tự do?",
+      "options": [
+        "15",
+        "25",
+        "10",
+        "5"
+      ],
+      "why": [
+        "Chọn đường chéo (5 ô) và phần trên đường chéo (10 ô); phần dưới lặp lại: 15 = 5·6/2.",
+        "25 là tổng số ô, nhưng ô (i, j) phải bằng ô (j, i).",
+        "10 chỉ là phần trên đường chéo, tức số ô tự do của ma trận phản đối xứng.",
+        "5 chỉ là đường chéo."
+      ],
+      "explain": "Tổng quát: n(n + 1)/2 ô tự do cho ma trận đối xứng, n(n − 1)/2 cho phản đối xứng (Aᵀ = −A, đường chéo bằng 0)."
+    },
+    "en": {
+      "q": "How many entries of a 5 × 5 symmetric matrix can be chosen freely?",
+      "options": [
+        "15",
+        "25",
+        "10",
+        "5"
+      ],
+      "why": [
+        "Choose the diagonal (5) and the part above it (10); the part below repeats: 15 = 5·6/2.",
+        "25 is the total, but entry (i, j) must equal entry (j, i).",
+        "10 is only the part above the diagonal, the free count of a skew-symmetric matrix.",
+        "5 is only the diagonal."
+      ],
+      "explain": "In general: n(n + 1)/2 free entries for a symmetric matrix, n(n − 1)/2 for a skew-symmetric one (Aᵀ = −A, zero diagonal)."
+    },
+    "source": "Strang, Introduction to Linear Algebra 6th ed., lời giải của tác giả (math.mit.edu/linearalgebra), Problem Set 2.4 #17 — tự diễn đạt"
   }
 ]

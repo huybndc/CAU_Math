@@ -1,12 +1,13 @@
 import { $, el } from './dom-helpers.js';
-import { toDecimal, convertBase, intToBaseSteps, fracToBaseSteps, splitNumber } from '../logic/number-systems.js';
+import { toDecimal, convertBase, fracToBaseSteps, positionalTerms } from '../logic/number-systems.js';
 import { diminishedComplement, radixComplement, subtractByComplement, subtractValue, complementResultValue } from '../logic/complements.js';
 import { FORMATS, range, encode, decode, addTwos, subTwos, compareFormats } from '../logic/signed-binary.js';
 import { t as T, tError, onLangChange } from '../i18n/index.js';
 
-/* Chương 1 — Tương tác: bộ chuyển đổi cơ số, complement & trừ bằng
-   complement, số nhị phân có dấu + phát hiện tràn số. */
+/* Chương 1 — Tương tác: bộ chuyển đổi cơ số (4 cơ số + khai triển theo vị trí), complement
+   (từng bước N → (r−1)'s → r's) & trừ bằng complement, số nhị phân có dấu (tô bit dấu) + tràn số. */
 
+const BASE_KEY = { 2: 'c1.base2', 8: 'c1.base8', 10: 'c1.base10', 16: 'c1.base16' };
 const FORMAT_KEY = { magnitude: 'c1.fmtMagnitude', ones: 'c1.fmtOnes', twos: 'c1.fmtTwos' };
 
 const line = (host, label, value, cls) => {
@@ -15,38 +16,44 @@ const line = (host, label, value, cls) => {
   host.appendChild(d);
 };
 
-/* ---------------- 1. Bộ chuyển đổi cơ số ---------------- */
+/* ---------------- 1. Bộ chuyển đổi cơ số ----------------
+   Một số ⇒ cả 4 cơ số cùng lúc + khai triển theo vị trí Σ aₖ·rᵏ (chiều cơ số r → thập phân).
+   Chiều ngược (chia lấy dư / nhân phần lẻ) đã có bảng từng bước ở tab Ví dụ nên không lặp lại ở đây. */
 function renderConverter() {
   const raw = $('#i1-in').value.trim();
-  const from = +$('#i1-from').value, to = +$('#i1-to').value;
-  const out = $('#i1-out'), all = $('#i1-all');
-  out.innerHTML = ''; all.innerHTML = '';
+  const from = +$('#i1-from').value;
+  const out = $('#i1-out'), pos = $('#i1-pos');
+  out.innerHTML = ''; pos.innerHTML = '';
   if (!raw) { $('#i1-err').textContent = T('c1.convErr'); return; }
 
-  let res, dec;
+  let dec, terms;
   try {
     dec = toDecimal(raw, from);
-    res = convertBase(raw, from, to);
+    terms = positionalTerms(raw, from);
   } catch (e) {
     $('#i1-err').textContent = T('err.prefix') + tError(e);
     return;
   }
   $('#i1-err').textContent = '';
 
-  [...res].forEach(ch => out.appendChild(el('span', ch === '.' ? null : 'act', ch)));
+  const tb = el('tbody');
+  [2, 8, 10, 16].forEach(r => {
+    const tr = el('tr', r === from ? 'src' : null);
+    tr.appendChild(el('th', null, T(BASE_KEY[r])));
+    const exact = fracToBaseSteps(dec % 1, r).exact;
+    tr.appendChild(el('td', null, (r === from ? raw.toUpperCase() : convertBase(raw, from, r)) + (exact ? '' : '…')));
+    tb.appendChild(tr);
+  });
+  out.appendChild(tb);
 
-  line(all, T('c1.decValue'), String(dec));
-  const { fracPart } = splitNumber(raw);
-  const i = Math.floor(dec);
-  line(all, T('c1.intSteps', { n: i, r: to }),
-    intToBaseSteps(i, to).steps.map(s => s.remainder).reverse().join(' ') + '  ' + T('c1.readBottomUp'));
-  if (fracPart || dec % 1) {
-    const f = fracToBaseSteps(dec - i, to);
-    line(all, T('c1.fracSteps', { r: to }), (f.digits || '—') + (f.exact ? '' : T('c1.fracCutShort')));
-  }
-  const others = [2, 8, 10, 16].filter(r => r !== to);
-  line(all, T('c1.otherBases'),
-    others.map(r => r + ': ' + convertBase(raw, from, r)).join('   ·   '), 'muted');
+  terms.forEach((t, i) => {
+    if (i) pos.append(' + ');
+    const term = el('span', 'term');
+    term.innerHTML = '<b>' + t.value + '</b>×' + from + '<sup>' + t.power + '</sup>';
+    pos.appendChild(term);
+  });
+  pos.append(' = ');
+  pos.appendChild(el('b', 'hl', String(dec)));
 }
 
 /* ---------------- 2. Complement & trừ bằng complement ---------------- */
@@ -68,9 +75,23 @@ function renderComplement() {
   }
   $('#i2-err').textContent = '';
 
-  $('#i2-comp').textContent = T('c1.complHead', { r1: r - 1, dim: dim.digits, r, rad: rad.digits });
+  // N → (r−1)'s (mỗi chữ số lấy r−1 trừ) → +1 → r's; tô chữ số bị phép +1 làm đổi
+  const comp = $('#i2-comp');
+  comp.innerHTML = '';
+  const row = (label, digits, mark) => {
+    const tr = el('tr');
+    tr.appendChild(el('th', null, label));
+    [...digits].forEach((d, k) => tr.appendChild(el('td', mark?.(k) ? 'bitchg' : null, d)));
+    comp.appendChild(tr);
+  };
+  const n = N.toUpperCase();
+  row('N', n);
+  row(T('c1.complDim', { r1: r - 1 }), dim.digits);
+  row('+1', '1'.padStart(n.length, '\u00a0'));
+  row(T('c1.complRad', { r }), rad.digits, k => rad.digits[k] !== dim.digits[k]);
 
-  sub.steps.forEach(s => line(steps, T(s.labelKey) + ':', s.value));
+  sub.steps.filter(s => s.labelKey !== 'sub.compN')          // r's complement của N đã có ở bảng trên
+    .forEach(s => line(steps, T(s.labelKey) + ':', s.value));
 
   const got = complementResultValue(sub, r);
   const want = subtractValue(M, N, r);
@@ -103,7 +124,9 @@ function renderSigned() {
     const { min, max } = range(format, w);
     const tr = el('tr');
     tr.appendChild(el('td', null, T(FORMAT_KEY[format])));
-    tr.appendChild(el('td', bits ? 'val-1' : 'bad', bits || T('c1.cantRepresent')));
+    const td = el('td', bits ? 'val-1' : 'bad', bits ? null : T('c1.cantRepresent'));
+    if (bits) td.append(el('span', 'signbit', bits[0]), bits.slice(1));     // MSB = bit dấu
+    tr.appendChild(td);
     tr.appendChild(el('td', 'muted', min + ' … ' + max));
     tb.appendChild(tr);
   });
@@ -147,7 +170,7 @@ function renderSignedAdd() {
 }
 
 export function setupCh1InteractivePage() {
-  ['#i1-in', '#i1-from', '#i1-to'].forEach(s => {
+  ['#i1-in', '#i1-from'].forEach(s => {
     $(s).addEventListener('input', renderConverter);
     $(s).addEventListener('change', renderConverter);
   });
