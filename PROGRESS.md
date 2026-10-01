@@ -37,6 +37,7 @@
   D63: Discrete D2 thêm dạng tự luận "Đếm giá trị thoả" (có test đếm lại độc lập) — bớt trắc nghiệm cho đề thi thử.
   D64: máy giải gắn sau `shellReady` (shared/ui/shell.js) — dưới Hub, tài khoản chỉ gắn trong hydrateProgress nên đọc ô nhập đã nhớ lúc mount (khoá "khách") không thấy gì; e2e ở Study_Hub (tests/e2e/tools.spec.js) canh lỗi này.
   D65: thẻ bài học có nút "Mở máy giải: …" (<div data-tool="ch6/1"></div> trong markdown; 42 thẻ cả 3 app, vi + en).
+  D66: Sổ câu sai — câu sai ở luyện tập được nhớ (dạng + hạt giống, tối đa 60/chương, shared/logic/mistakes.js); màn Luyện tập có "Ôn lại câu đã sai (N)" làm lại đúng các câu đó, đúng thì gỡ khỏi sổ; không ghi thêm vào thống kê.
   Không làm: ghi sự kiện máy giải sang Hub — đổi contract math.answer cần yêu cầu contract riêng (AGENTS.md).
 
 ## In progress

@@ -3,6 +3,7 @@ import { questionView, explainBlock, answerHtml, tp } from './question.js';
 import { record, subjectOf, load, save, drop } from './store.js';
 import { freshQuestion, poolSize, seededQuestion, newSeed, questionCode, signature } from '../logic/question-pool.js';
 import { streakOf } from '../logic/knowledge.js';
+import { addMistake, dropMistake } from '../logic/mistakes.js';
 import { h } from './dom.js';
 
 /* ---------------------------------------------------------------
@@ -30,12 +31,20 @@ import { h } from './dom.js';
 export const rootState = acc => (acc == null ? T('run.rootNew') : acc < 0.5 ? T('run.rootShaky') : T('run.rootAcc', { p: Math.round(acc * 100) }));   // <50%: "chưa vững" thay vì "đúng 0%" nghe như chê
 
 export function mountRunner(host, { bank, prefix, figures = {}, widgets = {}, size = 10, kinds, chips = true, autofocus = true, mode = 'practice', review,
-  goal = 0, make, onPass, onExample, passLabel, onResult }) {
+  goal = 0, make, onPass, onExample, passLabel, onResult, queue = null }) {
   // seen: chữ ký các câu trong lượt này (không lặp); recent: các câu ở lượt trước (tránh nếu còn cách)
   const S = { kinds: [...(kinds || bank.KINDS)], size, round: [], phase: 'ask', hint: false, last: null, seen: new Set(), recent: new Set(), redo: null };
   // Lượt luyện tập chính (không nhúng trong thẻ học, không chuỗi, không hàm sinh riêng) được nhớ: tải lại trang thì tiếp tục đúng câu đang làm.
   // Mỗi câu lưu bằng (dạng, hạt giống) rồi sinh lại — cùng hạt giống luôn ra đúng câu đó.
   const SESSION = `run-session-${prefix}-${(kinds || []).join('+') || 'all'}${bank.mcq ? '-tn' : ''}`, resumable = autofocus && !goal && !make && mode === 'practice';
+  // Sổ câu sai: câu sai ở luyện tập chính được nhớ (dạng, hạt giống); làm lại đúng (ở "Ôn lại câu đã sai" hoặc "Làm lại câu sai") thì gỡ.
+  const MISTAKES = `mistakes-${prefix}`;
+  const trackMistake = e => {
+    if (!resumable || e.q.seed == null) return;
+    const m = { kind: e.q.kind, seed: e.q.seed, ...(bank.mcq && { tn: true }) };
+    const list = load(MISTAKES, []);
+    if (S.redo) { if (e.ok) save(MISTAKES, dropMistake(list, m)); } else if (!e.ok) save(MISTAKES, addMistake(list, m));
+  };
   const persist = () => {
     if (!resumable) return;
     if (S.phase === 'done' || S.redo || !S.round.length || S.round.some(e => e.q.seed == null)) { drop(SESSION); return; }
@@ -268,6 +277,7 @@ export function mountRunner(host, { bank, prefix, figures = {}, widgets = {}, si
     e.detail = r.detailKey ? T(r.detailKey, tp(r.detailParams)) : '';
     S.phase = 'answered';
     if (!S.redo) record({ prefix, kind: e.q.kind, ok: e.ok, mode, ...(e.q.review && { tag: e.q.review }) });
+    trackMistake(e);
     onResult?.(e.ok);
     persist();
     draw();
@@ -280,6 +290,7 @@ export function mountRunner(host, { bank, prefix, figures = {}, widgets = {}, si
     e.revealed = true;
     S.phase = 'answered';
     if (!S.redo) record({ prefix, kind: e.q.kind, ok: false, mode, ...(e.q.review && { tag: e.q.review }) });
+    trackMistake(e);
     onResult?.(false);
     persist();
     draw();
@@ -349,7 +360,10 @@ export function mountRunner(host, { bank, prefix, figures = {}, widgets = {}, si
   document.addEventListener('keydown', onKey);
   onLangChange(onLang);
 
-  if (resume()) { drawKinds(); draw(); } else restart();
+  if (queue?.length) {                           // "Ôn lại câu đã sai": đúng các câu trong sổ, sinh lại từ hạt giống
+    redoWrong(queue.map(m => seededQuestion(bank, m.kind, m.seed)));
+    drawKinds();
+  } else if (resume()) { drawKinds(); draw(); } else restart();
   return {
     dispose() {
       document.removeEventListener('keydown', onKey);
