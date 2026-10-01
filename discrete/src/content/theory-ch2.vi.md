@@ -19,6 +19,7 @@
 Chứng minh ∀ sai: một **phản ví dụ** là đủ. Chứng minh ∃ đúng: chỉ ra một **phần tử**.
 
 <div data-check="c2q:truth"></div>
+<div data-check="c2q:inner" data-needs="c2q:truth"></div>
 
 ## Lượng từ lồng nhau: thứ tự là nghĩa
 

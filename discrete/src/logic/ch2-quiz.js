@@ -11,8 +11,8 @@ import { fail } from '@shared/logic/app-error.js';
 import { pick, shuffle } from '@shared/logic/shuffle.js';
 import { line as L } from '@shared/logic/steps.js';
 
-export const KINDS = ['truth', 'negate', 'negateW'];
-export const SECONDS = { truth: 90, negate: 60, negateW: 100 };
+export const KINDS = ['truth', 'inner', 'negate', 'negateW'];
+export const SECONDS = { truth: 90, inner: 80, negate: 60, negateW: 100 };
 
 /* Quan hệ hai biến trên miền số — chữ hiện đúng như viết tay. */
 const REL = [
@@ -26,22 +26,41 @@ const ORDERS = [['all', 'x', 'ex', 'y'], ['ex', 'y', 'all', 'x'], ['ex', 'x', 'a
 const Q = { all: '∀', ex: '∃' };
 const set = d => `{${d.join(', ')}}`;
 
+/** Lời giải một giá trị của biến ngoài: bên trong đúng/sai vì phần tử nào (dùng chung cho truth và inner). */
+const whyOf = (qi, vo, vi, D, holds) => o => {
+  if (qi === 'ex') { const w = D.find(i => holds(o, i)); return w === undefined ? L('s2.noWitness', { o: `${vo} = ${o}`, v: vi }) : `${vo} = ${o}: ${vi} = ${w} ✓`; }
+  const c = D.find(i => !holds(o, i)); return c === undefined ? `${vo} = ${o}: ∀${vi} ✓` : L('s2.counter', { o: `${vo} = ${o}`, c: `${vi} = ${c}` });
+};
+
 function makeTruth(rnd) {
   const rel = pick(REL, rnd), D = pick(DOMAINS, rnd), [qo, vo, qi, vi] = pick(ORDERS, rnd);
   const holds = (o, i) => (vo === 'x' ? rel.f(o, i) : rel.f(i, o));      // o = giá trị biến ngoài
   const inner = o => (qi === 'all' ? D.every(i => holds(o, i)) : D.some(i => holds(o, i)));
   const value = qo === 'all' ? D.every(inner) : D.some(inner);
-  // lời giải: với từng giá trị biến ngoài, bên trong đúng/sai vì phần tử nào
-  const why = o => {
-    if (qi === 'ex') { const w = D.find(i => holds(o, i)); return w === undefined ? L('s2.noWitness', { o: `${vo} = ${o}`, v: vi }) : `${vo} = ${o}: ${vi} = ${w} ✓`; }
-    const c = D.find(i => !holds(o, i)); return c === undefined ? `${vo} = ${o}: ∀${vi} ✓` : L('s2.counter', { o: `${vo} = ${o}`, c: `${vi} = ${c}` });
-  };
+  const why = whyOf(qi, vo, vi, D, holds);
   const text = `${Q[qo]}${vo} ${Q[qi]}${vi} (${rel.s})`;
   return {
     kind: 'truth', format: 'choice', textKey: 'c2q.qTruth', textParams: { f: text, d: set(D) },
     choices: ['c2q.true', 'c2q.false'], answer: value ? 0 : 1, hintKey: 'c2q.hTruth',
     meta: { f: text, d: D },
     work: [L(qo === 'all' ? 's2.outerAll' : 's2.outerEx', { v: vo }), ...D.map(why), L(value ? 's2.isTrue' : 's2.isFalse')],
+  };
+}
+
+/** Tự luận (số): có bao nhiêu giá trị của biến ngoài làm vế trong (một lượng từ) đúng — thay cho câu đúng/sai. */
+function makeInner(rnd) {
+  let rel, D, qi, vo, vi, holds, hit;
+  for (let t = 0; t < 40; t++) {
+    rel = pick(REL, rnd); D = pick(DOMAINS, rnd); qi = pick(['all', 'ex'], rnd); [vo, vi] = pick([['x', 'y'], ['y', 'x']], rnd);
+    holds = (o, i) => (vo === 'x' ? rel.f(o, i) : rel.f(i, o));
+    hit = D.filter(o => (qi === 'all' ? D.every(i => holds(o, i)) : D.some(i => holds(o, i))));
+    if (hit.length > 0 && hit.length < D.length) break;
+  }
+  const f = `${Q[qi]}${vi} (${rel.s})`;
+  return {
+    kind: 'inner', format: 'number', textKey: 'c2q.qInner', textParams: { d: set(D), v: vo, f }, answer: hit.length,
+    hintKey: 'c2q.hTruth', meta: { f, d: D, vo },
+    work: [...D.map(whyOf(qi, vo, vi, D, holds)), L('s2.countAns', { v: vo, n: hit.length })],
   };
 }
 
@@ -106,7 +125,7 @@ function makeNegateW(rnd) {
   };
 }
 
-const MAKERS = { truth: makeTruth, negate: makeNegate, negateW: makeNegateW };
+const MAKERS = { truth: makeTruth, inner: makeInner, negate: makeNegate, negateW: makeNegateW };
 
 export function makeQuestion(kind = 'mix', rnd = Math.random) {
   const k = kind === 'mix' ? pick(KINDS, rnd) : kind;
@@ -117,7 +136,7 @@ export function makeQuestion(kind = 'mix', rnd = Math.random) {
 }
 
 export function checkAnswer(q, given) {
-  if (q.kind !== 'negateW') return { ok: Number(given) === q.answer };
+  if (q.kind !== 'negateW') return { ok: Number(given) === q.answer };      // choice và number đều so số
   let g;
   try { g = parseQ(given); } catch { return { retry: true, detailKey: 'c2q.needFormula' }; }
   const want = parseQ(q.answer);
