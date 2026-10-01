@@ -253,3 +253,19 @@ body.exam-focus .appnav{display:none}
 .sync-btn[data-state="ok"]::after{background:var(--ok)}
 .sync-btn[data-state="err"]::after{background:var(--bad)}
 .sync-btn[data-state="off"]{opacity:.55}
+
+/* lưới ma trận trong Nháp (shared/ui/scratch-matrix.js) */
+.scratch-mat{border-bottom:1px solid var(--line);max-height:46%;overflow-y:auto}
+.scratch-mat > summary{padding:8px 16px;cursor:pointer;font-weight:600;font-size:var(--fs-sm)}
+.mp-host{display:grid;gap:12px;padding:4px 14px 14px;justify-items:start}
+.mp{display:grid;gap:6px;max-width:100%;overflow-x:auto}
+.mp-bar{display:flex;align-items:center;gap:4px}
+.mp-dim{font:var(--fs-xs) var(--mono);color:var(--ink-dim);margin-right:4px}
+.mp-btn{min-width:1.8rem;padding:2px 7px;font:600 var(--fs-xs) var(--mono);border:1px solid var(--line);border-radius:var(--r-sm);background:var(--panel);color:var(--ink);cursor:pointer}
+.mp-btn:hover:not(:disabled){border-color:var(--accent);color:var(--accent)}
+.mp-btn:disabled{opacity:.35;cursor:default}
+.mp-btn[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent)}
+.mp-grid{display:grid;gap:3px}
+.mp-cell{width:100%;min-width:0;padding:4px 2px;text-align:center;font:var(--fs-sm) var(--mono);border:1px solid var(--line);border-radius:5px;background:var(--panel);color:var(--ink)}
+.mp-cell.bar{margin-left:6px;border-left:2px solid var(--ink-dim);border-radius:0 5px 5px 0}
+.mp .matbox .brk{width:8px}
