@@ -202,6 +202,8 @@ Excess-3 = BCD + 3. Ở 2421 và Excess-3, mã của `d` và `9 − d` là bù 1
 
 <div data-check="c1q:bcd" data-needs="c1q:convert:fromDec"></div>
 
+<div data-tool="ch1/3"></div>
+
 ## Cộng BCD: hiệu chỉnh +6
 
 Cộng từng chữ số như nhị phân. Tổng **lớn hơn 9** thì **cộng thêm 0110** và nhớ 1 sang chữ số kế.
@@ -214,6 +216,8 @@ Cộng từng chữ số như nhị phân. Tổng **lớn hơn 9** thì **cộng
 ```
 
 Vì sao +6? 4 bit đếm được 16 giá trị, thập phân chỉ dùng 10: cộng 6 để bỏ qua 6 tổ hợp không dùng.
+
+<div data-tool="ch1/3"></div>
 
 ## Gray code
 
@@ -229,6 +233,8 @@ Gray code là nền của K-map ở Chương 3.
 
 <div data-check="c1q:gray" data-needs="c1q:convert:toDec"></div>
 
+<div data-tool="ch1/3"></div>
+
 ## ASCII và bit parity
 
 **ASCII** mã hoá ký tự bằng 7 bit: `'A' = 1000001`, `'a' = 1100001`, `'0' = 0110000`.
@@ -242,6 +248,8 @@ Gray code là nền của K-map ở Chương 3.
 Parity chỉ **phát hiện** lỗi ở **số lẻ bit**; lỗi 2 bit thì lọt, và không sửa được lỗi.
 
 <div data-check="c1q:parity"></div>
+
+<div data-tool="ch1/3"></div>
 
 ## Thanh ghi: bit không tự mang nghĩa
 

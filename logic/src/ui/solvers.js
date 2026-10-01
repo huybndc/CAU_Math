@@ -4,6 +4,7 @@ import { createSolver } from '@shared/ui/solver.js';
 import { fieldRow } from '@shared/ui/fields.js';
 import { baseReport, complementReport, signedReport } from '../logic/report-number.js';
 import { exprReport, autoVars } from '../logic/report-expr.js';
+import { codesReport, CODE_OPS } from '../logic/report-codes.js';
 import { randomValues } from '../logic/random-function.js';
 import { formatSpec } from '../logic/expr-parser.js';
 import { glossary } from './glossary.js';
@@ -87,5 +88,25 @@ export function mountExprSolver(host) {
     random: () => { const n = pick([3, 4]); return { f: formatSpec(randomValues(n, true)), n }; },
     examples: [["x'y + xy'", { f: "x'y + xy'", n: 'a' }], ['Σm(1,3,5,7)', { f: 'Σm(1,3,5,7)', n: 'a' }], ["w'x + yz'", { f: "w'x + yz'", n: 'a' }]],
     report: g => (g('f') ? exprReport(g('f'), g('n') === 'a' ? autoVars(g('f')) : +g('n')) : null),
+  });
+}
+
+export function mountCodesSolver(host) {
+  mount(host, {
+    key: 'codes',
+    practice: '#/practice/ch1',
+    specs: () => [
+      { id: 'op', label: T('ln.opLabel'), value: 'bcdAdd', options: CODE_OPS.map(v => ({ v, t: T(`cd.op.${v}`) })) },
+      { id: 'x', label: T('cd.input'), value: '478', size: 14 },
+      { id: 'y', label: T('cd.second'), value: '395', size: 12 },
+      { id: 'kind', label: T('cd.kind'), value: 'even', options: [{ v: 'even', t: T('cd.kindEven') }, { v: 'odd', t: T('cd.kindOdd') }] },
+    ],
+    random: () => {
+      const op = pick(CODE_OPS);
+      const bits = n => Array.from({ length: n }, () => rnd(0, 1)).join('');
+      return { op, x: op === 'dec' || op === 'bcdAdd' ? String(rnd(10, 999)) : bits(rnd(4, 8)), y: String(rnd(10, 999)), kind: pick(['even', 'odd']) };
+    },
+    examples: [['478 + 395 (BCD)', { op: 'bcdAdd', x: '478', y: '395' }], ['2025 → mã', { op: 'dec', x: '2025' }], ['1011 → Gray', { op: 'bin2gray', x: '1011' }], ['1110 → nhị phân', { op: 'gray2bin', x: '1110' }]],
+    report: g => (g('x') ? codesReport(g('op'), g('x'), g('y'), g('kind')) : null),
   });
 }
