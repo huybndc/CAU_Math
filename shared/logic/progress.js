@@ -79,3 +79,20 @@ export function studiedChapters(chapters, events) {
   }
   return [...last].sort((a, b) => b[1] - a[1]).map(([id]) => id);
 }
+
+/**
+ * Gộp nhật ký ở máy (local) với sự kiện nhập từ máy chủ (remote), sắp theo thời gian.
+ * Cùng id = cùng sự kiện. Khác id nhưng cùng chữ ký (ts, dạng, kết quả, mode) = cùng một câu từ hai nguồn — nhưng tính theo SỐ LẦN:
+ * bài thi cũ ghi nhiều câu cùng một ts, nên 20 câu giống chữ ký vẫn là 20 câu thật; chỉ bỏ đúng số bản đã có ở máy.
+ */
+export function mergeEvents(local, remote) {
+  const sig = e => `${e.ts}|${e.prefix}|${e.kind}|${e.ok ? 1 : 0}|${e.mode}`;
+  const merged = new Map(local.map(e => [e.id, e]));
+  const have = new Map();
+  for (const e of merged.values()) have.set(sig(e), (have.get(sig(e)) ?? 0) + 1);
+  const take = e => { const c = have.get(sig(e)) ?? 0; if (c > 0) have.set(sig(e), c - 1); return c > 0; };
+  const fresh = [];
+  for (const e of remote) { if (merged.has(e.id)) { take(e); merged.set(e.id, e); } else fresh.push(e); }
+  for (const e of fresh) if (!take(e)) merged.set(e.id, e);
+  return [...merged.values()].sort((a, b) => (a.ts ?? 0) - (b.ts ?? 0));
+}
