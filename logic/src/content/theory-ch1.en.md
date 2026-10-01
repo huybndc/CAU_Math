@@ -202,6 +202,8 @@ Excess-3 = BCD + 3. In 2421 and Excess-3 the codes of `d` and `9 − d` are 1's 
 
 <div data-check="c1q:bcd" data-needs="c1q:convert:fromDec"></div>
 
+<div data-tool="ch1/3"></div>
+
 ## BCD addition: the +6 correction
 
 Add digit by digit as binary. If a sum is **greater than 9**, **add 0110** and carry 1 into the next digit.
@@ -214,6 +216,8 @@ Add digit by digit as binary. If a sum is **greater than 9**, **add 0110** and c
 ```
 
 Why +6? 4 bits count 16 values but decimal uses 10: adding 6 skips the 6 unused patterns.
+
+<div data-tool="ch1/3"></div>
 
 ## Gray code
 
@@ -229,6 +233,8 @@ Gray code is the backbone of the K-map in Chapter 3.
 
 <div data-check="c1q:gray" data-needs="c1q:convert:toDec"></div>
 
+<div data-tool="ch1/3"></div>
+
 ## ASCII and parity bits
 
 **ASCII** encodes characters in 7 bits: `'A' = 1000001`, `'a' = 1100001`, `'0' = 0110000`.
@@ -242,6 +248,8 @@ A **parity bit** makes the number of 1s always **even** or always **odd**. The r
 Parity only **detects** errors in an **odd number of bits**; 2-bit errors slip through, and nothing gets corrected.
 
 <div data-check="c1q:parity"></div>
+
+<div data-tool="ch1/3"></div>
 
 ## Registers: bits carry no meaning by themselves
 

@@ -14,7 +14,7 @@ const ENTRIES = [
   ['signbit', 'ch1', /nhị phân có dấu|signed/i], ['group', 'ch1', /bát phân|octal/i], ['carry'],
   ['minterm', 'ch2', /minterm/i], ['canon', 'ch2', /dạng chuẩn|canonical/i], ['demorgan', 'ch2', /demorgan/i], ['dual', 'ch2', /đối ngẫu|duality/i],
   ['pi', 'ch3', /prime implicant|prime and/i], ['epi', 'ch3', /prime implicant|prime and/i], ['dc', 'ch3', /không quan tâm|don't/i],
-  ['nand', 'ch3', /nand/i], ['sop', 'ch2', /sop, pos|SOP, POS/i],
+  ['nand', 'ch3', /nand/i], ['bcd', 'ch1', /BCD/i], ['gray', 'ch1', /gray code/i], ['parity', 'ch1', /parity/i], ['sop', 'ch2', /sop, pos|SOP, POS/i],
 ];
 
 export const glossary = makeGlossary(ENTRIES, THEORY);
