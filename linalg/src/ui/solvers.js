@@ -9,6 +9,7 @@ import { randMatrix, randInvertible, randSystem, randVectorPair, randCombo, rand
 import { matrixInput } from './matrix-input.js';
 import { withFractionMode } from '../logic/num-format.js';
 import { glossary } from './glossary.js';
+import { vectorFigure } from './vector-fig.js';
 import { load, save } from '@shared/ui/store.js';
 
 /* ---------------------------------------------------------------
@@ -46,7 +47,8 @@ export function mountVectorSolver(host) {
     const M = readGrid(mi, s);
     if (!M) return;
     const [v, w] = colsOf(M);
-    guard(s, () => vectorReport(v, mi.colEmpty(1) ? null : w));        // cột w trống ⇒ chỉ tính cho v
+    const w2 = mi.colEmpty(1) ? null : w;
+    guard(s, () => { const rep = vectorReport(v, w2); if (v.length === 2) rep.figure = () => vectorFigure(v, w2); return rep; });        // cột w trống ⇒ chỉ tính cho v; 2D ⇒ kèm hình
   }
   draw(); onLangChange(draw);
   run();

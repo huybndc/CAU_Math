@@ -50,6 +50,10 @@
 
   <div class="pane" id="pane-ch2-interactive">
   <div class="card">
+    <h2 data-i18n="tool.expr"></h2>
+    <div id="tool-expr"></div>
+  </div>
+  <div class="card">
     <h2 data-i18n="c2.gatesTitle"></h2>
     <p class="hint" data-i18n="c2.gatesNote"></p>
     <div class="row">
@@ -81,24 +85,6 @@
     </div>
     <div class="tblbox" style="margin-top:10px"><table class="grid" id="g-assoc-table"></table></div>
     <p class="small" id="g-assoc-note" style="margin:8px 0 0"></p>
-  </div>
-
-  <div class="card">
-    <h2 data-i18n="c2.nandTitle"></h2>
-    <div class="row">
-      <label class="inline" style="flex:1 1 260px">F =
-        <input type="text" id="g-sop" value="wx + yz" style="flex:1 1 auto;min-width:150px"
-               autocomplete="off" spellcheck="false">
-      </label>
-      <label class="inline"><span data-i18n="common.vars"></span>
-        <select id="g-sopn"><option>2</option><option>3</option><option selected>4</option></select>
-      </label>
-    </div>
-    <div id="g-soperr" class="small bad"></div>
-    <div class="steps-box" style="margin-top:10px">
-      <div class="conv-steps" id="g-sopsteps"></div>
-      <p class="small" id="g-sopcheck" style="margin:8px 0 0"></p>
-    </div>
   </div>
   </div>
 

@@ -52,3 +52,16 @@ describe('spaceReport', () => {
     expect(spaceReport(A).steps.at(-1).lines.at(-1).key).toBe('sp.isBasis');
   });
 });
+
+describe('check tự kiểm', () => {
+  it('det và hạng so theo giá trị', async () => {
+    const { matrixReport } = await import('../src/logic/report-matrix.js');
+    const { systemReport } = await import('../src/logic/report-system.js');
+    expect(matrixReport('det', [[1, 2], [3, 4]]).check('-2')).toBe(true);
+    expect(matrixReport('det', [[1, 2], [3, 4]]).check('2')).toBe(false);
+    expect(matrixReport('rank', [[1, 2], [2, 4]]).check('1')).toBe(true);
+    const r = systemReport([[1, 1], [1, -1]], [3, 1]);
+    expect(r.check('x = 2, y = 1')).toBe(true);
+    expect(r.check('1, 2')).toBe(false);
+  });
+});

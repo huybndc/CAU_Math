@@ -12,10 +12,9 @@ import { setupCh1ExamplePage } from './ui/ch1-example-page.js';
 import theoryCh1Vi from './content/theory-ch1.vi.md?raw';
 import theoryCh1En from './content/theory-ch1.en.md?raw';
 import { setupCh1CodesPage } from './ui/ch1-codes-page.js';
-import { setupCh1InteractivePage } from './ui/ch1-interactive-page.js';
 import { setupCh2ExamplePage } from './ui/ch2-example-page.js';
 import { setupCh2InteractivePage } from './ui/ch2-interactive-page.js';
-import { setupCh4Tools } from './ui/ch4-tools.js';
+import { mountBaseSolver, mountComplementSolver, mountSignedSolver, mountExprSolver } from './ui/solvers.js';
 import theoryCh2Vi from './content/theory-ch2.vi.md?raw';
 import theoryCh2En from './content/theory-ch2.en.md?raw';
 import theoryCh3Vi from './content/theory-ch3.vi.md?raw';
@@ -36,10 +35,12 @@ window.addEventListener('DOMContentLoaded', () => {
   setupKmapPage();
   setupCh1ExamplePage();
   setupCh1CodesPage();
-  setupCh1InteractivePage();
+  mountBaseSolver(document.getElementById('tool-base'));
+  mountComplementSolver(document.getElementById('tool-compl'));
+  mountSignedSolver(document.getElementById('tool-signed'));
   setupCh2ExamplePage();
   setupCh2InteractivePage();
-  setupCh4Tools();
+  mountExprSolver(document.getElementById('tool-expr'));
   const banks = Object.fromEntries(chapters.map(c => [c.prefix, c.bank]));
   const mountAllTheory = () => chapters.forEach(({ id }) =>
     mountLesson(document.querySelector(`#theory-${id}-body`), THEORY[getLang()][id], { chapter: id, banks, figures, widgets }));

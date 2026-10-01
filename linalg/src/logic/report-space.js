@@ -33,7 +33,7 @@ export function spaceReport(A) {
   const steps = [
     { head: { key: 'sp.stRef' }, lines: [`A = ${fmtMat(A)}`, `U = ${fmtMat(U)}`, { key: 'sp.pivotInfo', params: { p: pivotCols.map(c => c + 1).join(', '), f: freeCols.length ? freeCols.map(c => c + 1).join(', ') : '—' } }] },
     {
-      head: { key: 'sp.stBases' },
+      why: { key: 'ww.bases' }, head: { key: 'sp.stBases' },
       lines: [
         { key: 'sp.colRule' }, ...pivotCols.map(c => `a${sub(c + 1)} = ${fmtCol(cols[c])}`),
         ...(nullB.length ? [{ key: 'sp.nullRule' }, ...nullB.map((s, i) => `s${sub(i + 1)} = ${fmtCol(s)}   (x${sub(freeCols[i] + 1)} = 1)`)] : [{ key: 'sp.nullTrivial' }]),

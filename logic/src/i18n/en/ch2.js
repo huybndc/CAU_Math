@@ -32,7 +32,6 @@ export const ch2 = {
   'c2.duCompl': 'Complement each literal (x → x′) ⇒ the complement function.',
   'c2.complOk': 'Both ways give <span class="mono">F′ = {result}</span>, which is exactly NOT F.',
   'c2.complBad': 'The two ways disagree: DeMorgan = {dm}, dual = {du}.',
-
   /* Ch.2 interactive */
   'c2.gatesTitle': 'The 8 logic gates',
   'c2.gatesNote': 'Toggle the two inputs and watch all 8 gates respond at once.',
@@ -42,18 +41,12 @@ export const ch2 = {
   'c2.assocTitle': 'Multi-input gates',
   'c2.colSame': 'Equal?', 'c2.properNand': "proper (xyz)′", 'c2.properNor': "proper (x+y+z)′",
   'c2.assocNote': 'The two pairings differ on <b>{diff}/8</b> rows ⇒ {gate} is <b>not associative</b>. That is why 3-input {gate} is <b>redefined</b> (last column).',
-  'c2.nandTitle': 'AND-OR → all-NAND',
-  'c2.nandErr': 'Enter an SOP expression, e.g. wx + yz.',
-  'c2.nandOk': 'Needs <b>{l1}</b> NAND gates at level 1 and <b>1</b> at level 2; truth table matches F.',
-  'c2.nandBad': 'Truth table does NOT match.',
   'nand.step1': 'Original SOP (two-level AND-OR circuit).',
   'nand.step2': 'Name the output of each level-1 AND gate.',
   'nand.step3': 'Complement twice, then DeMorgan the OR level: t₁ + t₂ = (t₁′ · t₂′)′.',
   'nand.step4': 'Substitute each tᵢ′ — every tᵢ′ is a level-1 NAND, the outer bracket is the level-2 NAND.',
   'group.constant': 'Constant', 'group.unary': 'Unary', 'group.binary': 'Binary',
-
   /* Ch.2 practice */
-
   /* theorems & gates (keys used by logic/) */
   'law.identity': 'Identity element', 'law.complement': 'Complement',
   'law.idempotent': 'Idempotent', 'law.absorbing': 'Absorbing element',

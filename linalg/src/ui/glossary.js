@@ -1,6 +1,4 @@
-import { t as T, getLang } from '../i18n/index.js';
-import { splitCards } from '@shared/logic/cards.js';
-import { seekLesson } from '@shared/ui/lesson.js';
+import { makeGlossary } from '@shared/ui/glossary.js';
 import theoryCh1Vi from '../content/theory-ch1.vi.md?raw';
 import theoryCh1En from '../content/theory-ch1.en.md?raw';
 import theoryCh2Vi from '../content/theory-ch2.vi.md?raw';
@@ -23,14 +21,5 @@ const ENTRIES = [
   ['elem'], ['lu'], ['inv'], ['gj'], ['mult'], ['det'],
 ];
 
-function lessonLink(ch, titleRe) {
-  const md = THEORY[getLang()]?.[ch];
-  if (!md) return null;
-  const i = splitCards(md).cards.findIndex(c => titleRe.test(c.title));
-  return i < 0 ? null : { href: `#/learn/${ch}/theory`, title: splitCards(md).cards[i].title, open: () => seekLesson(ch, i) };
-}
-
-/** Các mục thuật ngữ theo ngôn ngữ hiện tại (gọi lại mỗi lần vẽ để đổi VI/EN đúng). */
-export const glossary = () => ENTRIES.map(([id, ch, re]) => ({
-  words: T('gl.' + id).split('|'), def: T(`gl.${id}.d`), link: ch ? lessonLink(ch, re) : null,
-}));
+/** Các mục thuật ngữ theo ngôn ngữ hiện tại. */
+export const glossary = makeGlossary(ENTRIES, THEORY);

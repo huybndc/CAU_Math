@@ -1,7 +1,6 @@
 /* Chapter 4 — Combinational logic: kind labels, stems, hints, explanations, diagnoses (c4q.*) and steps (s4.*). */
 export const ch4 = {
   'nav.ch4': 'Combinational logic',
-
   'c4q.g-adder': 'Adders, subtraction, overflow, BCD addition',
   'c4q.g-msi': 'Comparator, decoder, encoder, MUX',
   'c4q.analyze': 'Analyze a multilevel circuit',
@@ -15,7 +14,6 @@ export const ch4 = {
   'c4q.mux': 'Function with a MUX',
   'c4q.concept': 'Concepts (why?)',
   'c4q.muxRead': 'Read a MUX circuit',
-
   'c4q.qAnalyze': 'The circuit below has three inputs <span class="math">x, y, z</span>. Find the truth table of <span class="math">F</span>.',
   'c4q.qRipple': 'A 4-bit ripple-carry adder adds <span class="mono">A = {a}</span> and <span class="mono">B = {b}</span> with input carry <span class="math">C₀ = 0</span>. What are the carries <span class="math">C₄C₃C₂C₁</span>?',
   'c4q.qAddSub': 'A 4-bit adder–subtractor has <span class="mono">A = {a}</span>, <span class="mono">B = {b}</span>, <span class="math">M = {m}</span>. What is the output <span class="math">C₄ S₃S₂S₁S₀</span>?',
@@ -27,7 +25,6 @@ export const ch4 = {
   'c4q.qEncoder': 'A 4-input priority encoder (<span class="math">D₃</span> has the highest priority) gets <span class="math">D₃ = {d3}, D₂ = {d2}, D₁ = {d1}, D₀ = {d0}</span>. What is the output <span class="math">x y V</span>?',
   'c4q.qMux': 'Implement <span class="math">F({vars}) = Σm({spec})</span> with a {size} → 1 MUX: <span class="math">{sel}</span> on the select lines (most significant first). Is each data input <span class="math">I</span> tied to 0, 1, <span class="math">{last}</span> or <span class="math">{last}′</span>?',
   'c4q.qMuxRead': 'A 4 → 1 MUX has <span class="math">x, y</span> on the select lines (S₁ = x, S₀ = y) and <span class="math">{ins}</span>. For which minterms is the output <span class="math">F(x, y, z)</span> equal to 1?',
-
   'c4q.f_analyze': 'Answer: click each cell of column F (1 or 0).',
   'c4q.f_ripple': 'Answer: 4 bits, C₄ on the left.',
   'c4q.f_addsub': 'Answer: 5 bits — C₄ then S₃S₂S₁S₀.',
@@ -38,7 +35,6 @@ export const ch4 = {
   'c4q.f_encoder': 'Answer: 3 bits x y V. When V = 0, x and y do not matter.',
   'c4q.f_mux': 'Answer: type 0, 1, z or z′ in each box (z\' works too; with 4 variables the last one is z).',
   'c4q.f_muxRead': 'Answer: click the rows where F = 1.',
-
   'c4q.hAnalyze': 'Label each gate output (T₁, T₂), work out their columns first, then compute F from T₁ and T₂.',
   'c4q.hRipple': 'Add from bit 0 upward. The carry out of bit i is 1 when at least two of Aᵢ, Bᵢ, Cᵢ are 1.',
   'c4q.hAddSub': 'M = 1: every bit of B passes through an XOR with M, so it is inverted, and C₀ = M = 1 — that is A + B′ + 1.',
@@ -50,7 +46,6 @@ export const ch4 = {
   'c4q.hEncoder': 'Look only at the HIGHEST-numbered input that is 1; V = 1 when at least one input is 1.',
   'c4q.hMux': 'Split the truth table into pairs of adjacent rows (differing only in {last}). Each pair is one input Iₖ: compare F at {last} = 0 and {last} = 1.',
   'c4q.hMuxRead': 'Select xy = k picks Iₖ, which covers the two rows m = 2k (z = 0) and 2k + 1 (z = 1).',
-
   'c4q.xAnalyze': 'Result: <span class="math">F = {f}</span>, column F = <span class="mono">{answer}</span>.',
   'c4q.xRipple': 'Carries C₄C₃C₂C₁ = <span class="mono">{answer}</span>; sum S = <span class="mono">{sum}</span>.',
   'c4q.xAddSub': 'B after the XOR gates: <span class="mono">{bx}</span>. Output C₄ S = <span class="mono">{answer}</span>.',
@@ -63,12 +58,10 @@ export const ch4 = {
   'c4q.xEncoderNone': 'No input is 1 ⇒ V = 0, and x y are don’t-cares (meaningless).',
   'c4q.xMux': 'Data inputs: <span class="math">{answer}</span>.',
   'c4q.xMuxRead': 'F = Σm({list}).',
-
   'c4q.noOv': 'No overflow (V = 0)',
   'c4q.yesOv': 'Overflow (V = 1)',
   'c4q.I0': 'I₀', 'c4q.I1': 'I₁', 'c4q.I2': 'I₂', 'c4q.I3': 'I₃',
   'c4q.I4': 'I₄', 'c4q.I5': 'I₅', 'c4q.I6': 'I₆', 'c4q.I7': 'I₇',
-
   'c4q.dBubble': 'Everything is inverted: you probably missed the inversion bubble (NAND/NOR) on the output gate.',
   'c4q.dPartial': 'This is the column of an inner gate (T₁ or T₂), before the output gate F.',
   'c4q.dGenOnly': 'You only used AᵢBᵢ and forgot the carry rippling up: Cᵢ₊₁ = AᵢBᵢ + Cᵢ(Aᵢ ⊕ Bᵢ).',
@@ -89,7 +82,6 @@ export const ch4 = {
   'c4q.dOnlyZ1': 'You only looked at the z = 1 row of each pair; compare both rows, z = 0 and z = 1.',
   'c4q.needMux': 'Need {size} boxes, each 0, 1, {last} or {last}′.',
   'c4q.wrongI': 'Wrong at {list}.',
-
   's4.label': 'Label each gate output, then compute the column of each gate:',
   's4.table': 'Truth table — each gate column comes from the columns before it:',
   's4.readCol': 'Column F:',
@@ -119,29 +111,4 @@ export const ch4 = {
   's4.muxReadRule': 'Select xy = k routes Iₖ to F, on rows m = 2k (z = 0) and 2k + 1 (z = 1):',
   's4.readSet': 'Rows with F = 1:',
   /* tools (pages/ch4.html, ui/ch4-tools.js) */
-  't4a.title': 'Adder–subtractor, bit by bit',
-  't4a.next': 'Next bit',
-  't4a.all': 'Show all',
-  't4a.hint': 'Type A and B (1–8 bits). Each row is one full adder; the carry out of a row is the carry into the next row.',
-  't4a.errBits': 'A and B must be 1–8 digits 0/1.',
-  't4a.modeAdd': 'M = 0: B passes the XOR gates unchanged (<span class="mono">{bx}</span>), C₀ = 0.',
-  't4a.modeSub': 'M = 1: B is inverted by the XOR gates to <span class="mono">{bx}</span>, C₀ = 1 ⇒ A + B′ + 1.',
-  't4a.more': 'Click “Next bit” to compute bit {i}.',
-  't4a.result': 'Output: C{n} = {c}, S = <span class="mono">{s}</span>.',
-  't4a.v': 'V = C{n} ⊕ C{n1} = {cn} ⊕ {cn1} = <b>{v}</b>.',
-  't4a.unsigned': 'Unsigned: {a} {op} {b} = {exact} — {verdict}',
-  't4a.signed': 'Signed (2’s complement, range {lo}…{hi}): {a} {op} {b} = {exact}, the circuit gives {got} — {verdict}',
-  't4a.fits': 'C = 0, the sum fits in the bits.',
-  't4a.carryOut': 'C = 1: the sum needs one more bit (C is that bit).',
-  't4a.subOk': 'C = 1 means A ≥ B, and S is the difference.',
-  't4a.borrow': 'C = 0 means A < B: S is the 2’s complement of the negative difference.',
-  't4a.overflow': '<b>overflow</b> (V = 1).',
-  't4a.noOverflow': 'no overflow (V = 0).',
-  't4m.title': 'Implement a function with a MUX or a decoder',
-  't4m.vars': 'Variables',
-  't4m.hint': 'Type the minterms of F. Each pair of rows differing only in the last variable is one MUX data input.',
-  't4m.errList': 'Type numbers 0…{max}, separated by commas.',
-  't4m.input': 'Data input',
-  't4m.mux': '{size} → 1 MUX: {sel} on the select lines (most significant first), each Iₖ tied as in the last column; {last} feeds the data inputs.',
-  't4m.decoder': '{n} → {size} decoder: tie D({ones}) to an OR gate; or D({zeros}) to a NOR gate (collecting the minterms of F′).',
 };
