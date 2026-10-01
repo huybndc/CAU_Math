@@ -30,3 +30,24 @@ describe('máy tính dạng danh sách', () => {
     expect(asFraction(Math.SQRT2)).toBe(null);
   });
 });
+
+describe('giải tích (số): đạo hàm, tích phân, tổng; radian', () => {
+  const val = (lines, opt) => evalRows(lines, opt).map(r => r.value ?? r.error ?? r.kind);
+  it('đạo hàm tại điểm', () => {
+    expect(val(['diff(x^2, 3)', 'diff(sin(x), 0, x)', 'diff(ln(x), 1)'], { angle: 'rad' })).toEqual([6, 1, 1]);
+  });
+  it('tích phân xác định, cả khi dùng hàm đã định nghĩa', () => {
+    const r = val(['int(x^2, 0, 3)', 'int(sin(x), 0, pi)', 'f(x) = exp(x)', 'int(f, 0, 1)'], { angle: 'rad' });
+    expect(r[0]).toBeCloseTo(9, 8);
+    expect(r[1]).toBeCloseTo(2, 8);
+    expect(r[3]).toBeCloseTo(Math.E - 1, 8);
+  });
+  it('tổng Σ và biến đặt tên khác', () => {
+    expect(val(['sum(k^2, k, 1, 10)', 'sum(1/2^n, n, 0, 30)'])[0]).toBe(385);
+    expect(val(['int(t^2, 0, 3, t)'])[0]).toBeCloseTo(9, 8);
+  });
+  it('lượng giác theo radian khi chọn; thiếu đối số báo lỗi', () => {
+    expect(val(['sin(pi/2)'], { angle: 'rad' })).toEqual([1]);
+    expect(val(['int(x, 0)'])).toEqual(['calc.argc']);
+  });
+});

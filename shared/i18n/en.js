@@ -19,7 +19,11 @@ export const en = {
   'calc.undef': '“{name}” is not defined.',
   'calc.argc': 'Function {name} got the wrong number of arguments.',
   'calc.reserved': '“{name}” is built in — pick another name.',
-  'calc.listTip': 'One expression per line. Define a = 3 or f(x) = x^2 + 1 and use them below. sqrt, π, sin/cos/tan (degrees). Enter: new line.',
+  'calc.deg': 'Deg',
+  'calc.rad': 'Rad',
+  'calc.angleTip': 'Angle unit for sin, cos, tan…: degrees or radians (calculus uses radians)',
+  'calc.kbd': 'Symbol keyboard',
+  'calc.listTip': 'One expression per line. a = 3, f(x) = x^2 + 1 define for later lines; diff(f, x0) derivative, int(f, a, b) integral, sum(f, k, a, b) sum. Tap ⌨ to insert √ π ∫ Σ.',
   'shell.close': 'Close',
   /* sync between machines (D37) — cloud button tooltip */
   'sync.wait': 'Syncing…',

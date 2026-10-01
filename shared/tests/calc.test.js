@@ -63,3 +63,24 @@ describe('máy tính đổi cơ số', () => {
     expect(show(2.5, 2)).toBe('—');
   });
 });
+
+describe('DEC: radian, ln/log/exp/abs, hằng e', () => {
+  const v = (t, angle) => evaluate(t, 10, { angle }).value;
+  it('góc theo radian khi chọn rad, mặc định vẫn là độ', () => {
+    expect(v('sin(30)')).toBeCloseTo(0.5, 9);
+    expect(v('sin(pi/6)', 'rad')).toBeCloseTo(0.5, 9);
+    expect(v('acos(0)', 'rad')).toBeCloseTo(Math.PI / 2, 9);
+  });
+  it('ln, log, exp, abs, cbrt, e', () => {
+    expect(v('ln(e)')).toBeCloseTo(1, 12);
+    expect(v('log(1000)')).toBeCloseTo(3, 12);
+    expect(v('exp(1)')).toBeCloseTo(Math.E, 12);
+    expect(v('abs(-3)')).toBe(3);
+    expect(v('cbrt(27)')).toBeCloseTo(3, 12);
+    expect(v('2e')).toBeCloseTo(2 * Math.E, 12);
+    expect(evaluate('ln(0)', 10).error).toBe('calc.domain');
+  });
+  it('hệ 16 vẫn đọc E là chữ số', () => {
+    expect(evaluate('1E', 16).value).toBe(30);
+  });
+});
