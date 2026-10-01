@@ -21,6 +21,9 @@ export function save(key, value, subject = subjectOf()) {
   try { localStorage.setItem(accountStorageKey(`${key}:${subject}`), JSON.stringify(value)); } catch { /* riêng tư / đầy */ }
 }
 
+/** Sổ câu sai của một chương theo chế độ (tự luận / trắc nghiệm) — shared/logic/mistakes.js. */
+export const loadMistakes = (prefix, tn = false) => load(`mistakes-${prefix}`, []).filter(m => !!m.tn === !!tn);
+
 export function drop(key, subject = subjectOf()) {
   try { localStorage.removeItem(accountStorageKey(`${key}:${subject}`)); } catch { /* riêng tư */ }
 }

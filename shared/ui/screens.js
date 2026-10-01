@@ -9,6 +9,7 @@ import { renderHome } from './home-screen.js';
 import { renderLearn } from './learn-screen.js';
 import { renderExam } from './exam-screen.js';
 import { groupsOf, kindsFor } from '../logic/groups.js';
+import { loadMistakes } from './store.js';
 
 /* ---------------------------------------------------------------
    CÁC MÀN CỦA MỘT APP (menu theo việc — RESEARCH U-R1..U-R3):
@@ -52,6 +53,9 @@ function renderTools(r, cfg) {
 }
 
 /* ---------------- Luyện tập: một chương một lúc ---------------- */
+/** Số câu trong sổ câu sai của chương (đúng chế độ tự luận / trắc nghiệm đang chọn). */
+const wrongN = c => loadMistakes(c.prefix, !!c.choiceBank && answerMode() === 'choice').length;
+
 function renderPractice(r, cfg) {
   const events = loadEvents();
   const now = Date.now();
@@ -78,6 +82,7 @@ function renderPractice(r, cfg) {
         note: `${T('practice.meta', { n: ROUND, m: roundMinutes(c.bank, KINDS) })} · ${accNote(recentStats(events, { prefix: c.prefix }, now))}`,
         href: `#/practice/${c.id}`, cta: T('practice.start'),
       }),
+      ...(wrongN(c) ? [leadCard({ title: T('practice.wrong'), note: T('practice.wrongNote', { n: wrongN(c) }), href: `#/practice/${c.id}/wrong`, cta: T('practice.wrongCta') })] : []),
       el('div', { class: 'list mods' }, [
         el('div', { class: 'list-head' }, [
           el('span', { text: T('practice.kinds') }), el('span', { class: 'row-num', text: T('practice.time') }),
@@ -108,9 +113,10 @@ let runKey = '';
 const stopRunner = () => { runner?.dispose(); runner = null; runKey = ''; };
 
 function renderRun(r, cfg, c) {
-  const pick = kindsFor(c.bank, r.kind);            // nhóm, một dạng, hoặc null = cả chương
+  const wrong = r.kind === 'wrong';                  // "Ôn lại câu đã sai": đúng các câu trong sổ
+  const pick = wrong ? null : kindsFor(c.bank, r.kind);            // nhóm, một dạng, hoặc null = cả chương
   const kind = pick?.kinds.length === 1 ? pick.kinds[0] : null;
-  const title = !pick ? T('practice.mix') : kind ? T(`${c.prefix}.${kind}`) : T(`${c.prefix}.${pick.group.id}`);
+  const title = wrong ? T('practice.wrong') : !pick ? T('practice.mix') : kind ? T(`${c.prefix}.${kind}`) : T(`${c.prefix}.${pick.group.id}`);
   $('#run-head').replaceChildren(
     el('a', { class: 'back', href: '#/practice', 'data-icon': 'prev', text: T('nav.practice') }),
     el('p', { class: 'crumb', text: chapterTitle(c.id) + (kind && pick.group ? ` · ${T(`${c.prefix}.${pick.group.id}`)}` : '') }),
@@ -136,6 +142,7 @@ function renderRun(r, cfg, c) {
     runner = mountRunner($('#run-host'), {
       bank: choice ? c.choiceBank : c.bank, prefix: c.prefix, figures: cfg.figures, widgets: cfg.widgets,
       kinds: pick?.kinds, chips: false, review: (k, tag) => reviewOf(cfg, c.prefix, k, tag),
+      queue: wrong ? loadMistakes(c.prefix, choice) : null,
     });
   }
   return title;
