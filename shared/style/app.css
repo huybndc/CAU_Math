@@ -2,6 +2,7 @@
 @import './tokens.css';
 @import './base.css';
 @import './shell.css';
+@import './palette.css';
 @import './runner.css';
 @import './lesson.css';
 @import './exam.css';

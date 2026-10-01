@@ -33,6 +33,7 @@
   D59: máy giải nhớ ô nhập theo trình duyệt (fieldRow key); khi che đáp án có nút Gợi ý (mở dần câu "vì sao" từng bước); thêm ô "Đáp án của bạn" cho vector (độ dài/góc/tích vô hướng), tổ hợp (hệ số), không gian (hạng).
   D60: luyện tập tải lại thì tiếp tục đúng câu (runner lưu (dạng, hạt giống) mỗi câu, 12 giờ); thi thử đếm "đã làm" cập nhật ngay khi gõ; đổi cơ số → nhị phân hiện đáp án đủ 8 bit + dòng đệm 0 trong lời giải; Discrete D1 thêm dạng tự luận "Đếm dòng đúng" (bớt trắc nghiệm).
   D61: CAU_Math có CI (.github/workflows/ci.yml: test + check + build); Discrete thêm máy giải ax + by = c (nghiệm tổng quát + nghiệm không âm cho bài tem / bình nước).
+  D62: Tìm nhanh Ctrl/⌘ K hoặc "/" (shared/ui/palette.js): bỏ dấu tiếng Việt, tìm trong thẻ bài học (cả nội dung), công cụ và luyện tập từng chương; nhảy thẳng tới thẻ.
   Không làm: ghi sự kiện máy giải sang Hub — đổi contract math.answer cần yêu cầu contract riêng (AGENTS.md).
 
 ## In progress
