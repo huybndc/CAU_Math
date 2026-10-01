@@ -17,7 +17,7 @@ import { splitMatrices } from '../logic/steps.js';
 /** Tham số: khoá từ điển thì dịch; chuỗi còn lại là biểu thức → x' hiện thành x′ như sách. */
 export const prime = s => String(s).replace(/'/g, '′');
 export const tp = params => Object.fromEntries(Object.entries(params || {})
-  .map(([k, v]) => [k, typeof v !== 'string' ? v : /^[\w-]+\.[\w-]+$/.test(v) && T(v) !== v ? T(v) : prime(v)]));
+  .map(([k, v]) => [k, typeof v !== 'string' ? v : /^[a-z][\w-]*(\.[\w-]+)+$/i.test(v) && T(v) !== v ? T(v) : prime(v)]));
 const tr = s => (typeof s === 'string' && T(s) !== s ? T(s) : s);
 
 export function answerText(q) {

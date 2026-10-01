@@ -4,18 +4,15 @@ import { join, isAbsolute } from 'node:path';
 import { SYNC_APP } from './logic/sync.js';
 
 /* ---------------------------------------------------------------
-   ĐỒNG BỘ QUA THƯ MỤC ĐÁM MÂY (D37) — không deploy, không tài khoản.
-   Máy chủ Vite (localhost) đọc/ghi <gốc đám mây>/CAU_Math-sync/<máy>.json;
-   iCloud Drive / Google Drive / OneDrive / Dropbox tự chép file sang máy kia.
-     GET /__sync         → { dir, label, snapshots: [...] }  (dir null = chưa có chỗ đồng bộ)
-     PUT /__sync         ← { device, entries }  ghi file của máy này
-   Mỗi máy một file ⇒ hai máy không bao giờ ghi đè file của nhau (không sinh "bản xung đột").
-   Chọn thư mục: STUDY_SYNC_DIR trong .env (đường dẫn tuyệt đối, hoặc "off" để tắt)
-   → gốc đám mây nào đã có CAU_Math-sync → gốc đám mây đầu tiên tìm thấy.
+   ĐỒNG BỘ QUA THƯ MỤC ĐÁM MÂY (D37) — không deploy.
+   Máy chủ Vite ghi/đọc CAU_Math-sync/<tài khoản Supabase>/<máy>.json.
+   Mỗi tài khoản một namespace nên dùng chung thư mục đám mây vẫn không tự trộn progress.
+   GET /__sync?scope=<user-id> và PUT /__sync?scope=<user-id>.
    --------------------------------------------------------------- */
 
 export const SYNC_FOLDER = 'CAU_Math-sync';
 const DEVICE_RE = /^[\w-]{4,64}$/;
+const SCOPE_RE = /^[A-Za-z0-9_-]{4,128}$/;
 const MAX_BODY = 8 << 20;
 
 /** Các gốc đám mây có thể có trên máy, theo thứ tự ưu tiên. */
@@ -51,13 +48,15 @@ export function findSyncDir({ env = process.env, home = os.homedir(), platform =
 }
 
 /** Đọc bản chụp của mọi máy trong thư mục; file hỏng (đám mây đang tải dở) thì bỏ qua. */
-export function readSnapshots(dir, fsx = fs) {
+export function readSnapshots(dir, scope, fsx = fs) {
+  if (!SCOPE_RE.test(scope || '')) return [];
+  const scoped = join(dir, scope);
   let names = [];
-  try { names = fsx.readdirSync(dir).filter(n => n.endsWith('.json')); } catch { return []; }
+  try { names = fsx.readdirSync(scoped).filter(n => n.endsWith('.json')); } catch { return []; }
   const out = [];
   for (const n of names) {
     try {
-      const s = JSON.parse(fsx.readFileSync(join(dir, n), 'utf-8'));
+      const s = JSON.parse(fsx.readFileSync(join(scoped, n), 'utf-8'));
       if (s?.app === SYNC_APP) out.push(s);
     } catch { /* file dở dang */ }
   }
@@ -65,10 +64,11 @@ export function readSnapshots(dir, fsx = fs) {
 }
 
 /** Ghi file của một máy: ghi file tạm rồi đổi tên ⇒ app đồng bộ không bao giờ chép nửa file. */
-export function writeSnapshot(dir, { device, entries }, fsx = fs, now = Date.now()) {
-  if (!DEVICE_RE.test(device || '') || !entries || typeof entries !== 'object') throw new Error('bad snapshot');
-  fsx.mkdirSync(dir, { recursive: true });
-  const file = join(dir, device + '.json');
+export function writeSnapshot(dir, scope, { device, entries }, fsx = fs, now = Date.now()) {
+  if (!SCOPE_RE.test(scope || '') || !DEVICE_RE.test(device || '') || !entries || typeof entries !== 'object') throw new Error('bad snapshot');
+  const scoped = join(dir, scope);
+  fsx.mkdirSync(scoped, { recursive: true });
+  const file = join(scoped, device + '.json');
   const body = JSON.stringify({ app: SYNC_APP, version: 1, device, host: os.hostname(), savedAt: now, entries });
   fsx.writeFileSync(file + '.tmp', body);
   fsx.renameSync(file + '.tmp', file);
@@ -98,10 +98,12 @@ export function syncPlugin(env = process.env) {
     // tìm lại mỗi lần: cài Google Drive / tạo thư mục xong là dùng được, khỏi khởi động lại máy chủ
     const { dir, label } = findSyncDir({ env });
     try {
-      if (req.method === 'GET') return send(200, { dir, label, snapshots: dir ? readSnapshots(dir) : [] });
+      const scope = new URL(req.url, 'http://localhost').searchParams.get('scope');
+      if (!SCOPE_RE.test(scope || '')) return send(200, { dir: null, label: null, snapshots: [] });
+      if (req.method === 'GET') return send(200, { dir, label, snapshots: dir ? readSnapshots(dir, scope) : [] });
       if (req.method === 'PUT') {
         if (!dir) return send(200, { dir: null });
-        writeSnapshot(dir, JSON.parse(await readBody(req)));
+        writeSnapshot(dir, scope, JSON.parse(await readBody(req)));
         return send(200, { dir, label });
       }
       send(405, { error: 'method' });

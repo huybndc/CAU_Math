@@ -8,6 +8,8 @@
    Thuần, không đụng DOM.
    --------------------------------------------------------------- */
 
+import { seededRandom } from './shuffle.js';
+
 export const signature = q => JSON.stringify([q.kind, q.meta
   ?? (q.textParams || q.figure ? [q.textKey ?? null, q.textParams ?? null, q.figure ?? null] : q.answer)]);
 
@@ -39,4 +41,26 @@ export function poolSize(make, need, probes = 80) {
   const seen = new Set();
   for (let i = 0; i < probes && seen.size < need; i++) seen.add(signature(make()));
   return seen.size;
+}
+
+/* ---------- mã câu (hub D33): tái hiện đúng câu người học báo sai ---------- */
+
+export const newSeed = () => Math.floor(Math.random() * 2 ** 31);
+
+/** Sinh câu từ một hạt giống và ghi hạt giống vào câu — cùng (ngân hàng, dạng, hạt giống) luôn ra đúng câu đó. */
+export function seededQuestion(bank, kind, seed) {
+  const q = bank.makeQuestion(kind, seededRandom(seed));
+  q.seed = seed;
+  return q;
+}
+
+/** "discrete-c8q-iso-1k2j3h" (+ "-tn" nếu là bản trắc nghiệm); câu không có hạt giống (thẻ học) thì null. */
+export const questionCode = (subject, prefix, q, mcq = false) =>
+  (q.seed == null ? null : [subject, prefix, q.kind, q.seed.toString(36), ...(mcq ? ['tn'] : [])].join('-'));
+
+/** Đọc ngược mã câu; sai dạng thì null. */
+export function parseCode(code) {
+  const [subject, prefix, kind, seed, tn, extra] = String(code).trim().split('-');
+  if (!kind || !/^[0-9a-z]+$/.test(seed ?? '') || extra !== undefined || (tn !== undefined && tn !== 'tn')) return null;
+  return { subject, prefix, kind, seed: parseInt(seed, 36), mcq: tn === 'tn' };
 }

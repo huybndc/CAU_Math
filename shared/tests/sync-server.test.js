@@ -39,22 +39,29 @@ describe('tìm thư mục đồng bộ', () => {
 describe('đọc / ghi file của từng máy', () => {
   it('ghi rồi đọc lại; bỏ file hỏng và file lạ', () => {
     const dir = join(home, 'sync');
-    writeSnapshot(dir, { device: 'mac-a1b2', entries: { k: { v: '1', t: 1 } } });
-    writeSnapshot(dir, { device: 'mac-c3d4', entries: {} });
-    fs.writeFileSync(join(dir, 'broken.json'), '{"app":"cau-ma');
-    fs.writeFileSync(join(dir, 'other.json'), '{"app":"khac"}');
-    const snaps = readSnapshots(dir);
-    expect(snaps.map(s => s.device).sort()).toEqual(['mac-a1b2', 'mac-c3d4']);
-    expect(snaps.find(s => s.device === 'mac-a1b2').entries).toEqual({ k: { v: '1', t: 1 } });
-    expect(fs.readdirSync(dir).some(n => n.endsWith('.tmp'))).toBe(false);
+    const a = '11111111-1111-1111-1111-111111111111';
+    const b = '22222222-2222-2222-2222-222222222222';
+    writeSnapshot(dir, a, { device: 'mac-a1b2', entries: { k: { v: '1', t: 1 } } });
+    writeSnapshot(dir, a, { device: 'mac-c3d4', entries: {} });
+    writeSnapshot(dir, b, { device: 'mac-b9e8', entries: { k: { v: 'other', t: 2 } } });
+    fs.writeFileSync(join(dir, a, 'broken.json'), '{"app":"cau-ma');
+    fs.writeFileSync(join(dir, a, 'other.json'), '{"app":"khac"}');
+    const snapsA = readSnapshots(dir, a);
+    expect(snapsA.map(s => s.device).sort()).toEqual(['mac-a1b2', 'mac-c3d4']);
+    expect(snapsA.find(s => s.device === 'mac-a1b2').entries).toEqual({ k: { v: '1', t: 1 } });
+    expect(readSnapshots(dir, b).map(s => s.device)).toEqual(['mac-b9e8']);
+    expect(readSnapshots(dir)).toEqual([]);
+    expect(fs.readdirSync(join(dir, a)).some(n => n.endsWith('.tmp'))).toBe(false);
   });
 
   it('từ chối tên máy lạ (không cho ghi ra ngoài thư mục)', () => {
-    expect(() => writeSnapshot(home, { device: '../../x', entries: {} })).toThrow();
-    expect(() => writeSnapshot(home, { device: 'ok-device' })).toThrow();
+    const scope = '33333333-3333-3333-3333-333333333333';
+    expect(() => writeSnapshot(home, '../../x', { device: 'ok-device', entries: {} })).toThrow();
+    expect(() => writeSnapshot(home, scope, { device: '../../x', entries: {} })).toThrow();
+    expect(readSnapshots(home, '../../x')).toEqual([]);
   });
 
   it('thư mục chưa có ⇒ chưa máy nào', () => {
-    expect(readSnapshots(join(home, 'nope'))).toEqual([]);
+    expect(readSnapshots(join(home, 'nope'), '44444444-4444-4444-4444-444444444444')).toEqual([]);
   });
 });

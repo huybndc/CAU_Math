@@ -1,7 +1,7 @@
 import { t as T, onLangChange, offLangChange } from '../i18n/index.js';
 import { questionView, explainBlock, answerHtml, tp } from './question.js';
-import { record } from './store.js';
-import { freshQuestion, poolSize } from '../logic/question-pool.js';
+import { record, subjectOf } from './store.js';
+import { freshQuestion, poolSize, seededQuestion, newSeed, questionCode } from '../logic/question-pool.js';
 import { streakOf } from '../logic/knowledge.js';
 import { h } from './dom.js';
 
@@ -21,6 +21,8 @@ import { h } from './dom.js';
    (không có số câu cố định, không có màn tổng kết); `make(rnd)` thay cách sinh câu (câu mang nhãn);
    qua thì gọi `onPass()`, sai thì mời `onExample()` (xem thêm một ví dụ mẫu).
    Mỗi câu chấm xong ghi một sự kiện vào nhật ký (store.record) — Tổng quan/Luyện tập đọc lại.
+   Mỗi câu sinh từ một hạt giống riêng ⇒ trả lời xong hiện MÃ CÂU (hub D33): gửi mã khi báo lỗi là tái hiện đúng câu.
+   Hết lượt có "Làm lại câu sai": đúng những câu vừa sai, không ghi nhật ký (vừa xem lời giải, làm lại không phải bằng chứng đã nắm).
    Trả về { dispose } để gỡ listener khi phần tử bị thay (thẻ học đổi trang).
    --------------------------------------------------------------- */
 
@@ -30,7 +32,7 @@ export const rootState = acc => (acc == null ? T('run.rootNew') : T('run.rootAcc
 export function mountRunner(host, { bank, prefix, figures = {}, widgets = {}, size = 10, kinds, chips = true, autofocus = true, mode = 'practice', review,
   goal = 0, make, onPass, onExample, passLabel, onResult }) {
   // seen: chữ ký các câu trong lượt này (không lặp); recent: các câu ở lượt trước (tránh nếu còn cách)
-  const S = { kinds: [...(kinds || bank.KINDS)], size, round: [], phase: 'ask', hint: false, last: null, seen: new Set(), recent: new Set() };
+  const S = { kinds: [...(kinds || bank.KINDS)], size, round: [], phase: 'ask', hint: false, last: null, seen: new Set(), recent: new Set(), redo: null };
   // nhúng trong thẻ học thì chưa giành con trỏ cho tới khi người học bấm vào (← → vẫn lật thẻ)
   let touched = autofocus;
   host.classList.add('runner');
@@ -65,7 +67,7 @@ export function mountRunner(host, { bank, prefix, figures = {}, widgets = {}, si
     return pool[Math.floor(Math.random() * pool.length)];
   }
 
-  const genOf = kind => (make ? () => make(Math.random) : () => bank.makeQuestion(kind, Math.random));
+  const genOf = kind => (make ? () => make(Math.random) : () => seededQuestion(bank, kind, newSeed()));
 
   /** Lượt không dài hơn số câu khác nhau mà các dạng đang chọn sinh được (ra câu lặp cho đủ 10 thì vô ích). */
   function roundSize() {
@@ -76,12 +78,19 @@ export function mountRunner(host, { bank, prefix, figures = {}, widgets = {}, si
   }
 
   function restart() {
-    S.recent = S.seen; S.seen = new Set(); S.round = [];
+    S.recent = S.seen; S.seen = new Set(); S.round = []; S.redo = null;
     S.size = roundSize();
     drawKinds(); ask();
   }
 
+  /** Làm lại đúng các câu vừa sai (giữ nguyên đề, phương án). */
+  function redoWrong(list) {
+    S.redo = list; S.round = []; S.size = list.length;
+    ask();
+  }
+
   function ask() {
+    if (S.redo) { S.round.push({ q: S.redo[S.round.length], given: null, ok: null }); S.phase = 'ask'; S.hint = false; S.warn = null; return draw(); }
     // dạng được chọn trước, còn lại xếp ngẫu nhiên: dạng nào hết câu mới thì thử dạng khác
     const first = nextKind();
     const order = [first, ...S.kinds.filter(k => k !== first).sort(() => Math.random() - 0.5)];
@@ -122,12 +131,16 @@ export function mountRunner(host, { bank, prefix, figures = {}, widgets = {}, si
     const head = h('div', 'run-head');
     head.append(progress(), h('span', 'run-count', goal ? T('run.streak', { k: streak(), n: goal }) : T('run.qOf', { i: S.round.length, n: S.size })));
     // dạng bài giấu tới khi trả lời xong: biết trước dạng là lộ một nửa lời giải
-    if (S.phase !== 'ask') head.append(h('span', 'badge', label(q.kind)));
+    if (S.phase !== 'ask') {
+      head.append(h('span', 'badge', label(q.kind)));
+      const code = questionCode(subjectOf(), prefix, q, bank.mcq);
+      if (code) head.append(Object.assign(h('span', 'run-code', code), { title: T('run.code') }));
+    }
 
     const view = questionView(q, { figures, widgets, given: e.given, locked: S.phase !== 'ask', onSubmit: check, action: T('run.check') });
     const body = [head, ...view.nodes];
     // lượt bị rút ngắn vì dạng này chỉ có ít câu khác nhau: nói rõ để người học không tưởng là lỗi
-    if (!goal && S.size < size && S.round.length === 1) body.splice(1, 0, h('p', 'run-note', T('run.shortRound', { n: S.size })));
+    if (!goal && !S.redo && S.size < size && S.round.length === 1) body.splice(1, 0, h('p', 'run-note', T('run.shortRound', { n: S.size })));
 
     const fb = h('div', 'run-feedback');
     if (S.phase === 'ask') {
@@ -220,7 +233,7 @@ export function mountRunner(host, { bank, prefix, figures = {}, widgets = {}, si
     e.ok = !!r.ok;
     e.detail = r.detailKey ? T(r.detailKey, tp(r.detailParams)) : '';
     S.phase = 'answered';
-    record({ prefix, kind: e.q.kind, ok: e.ok, mode, ...(e.q.review && { tag: e.q.review }) });
+    if (!S.redo) record({ prefix, kind: e.q.kind, ok: e.ok, mode, ...(e.q.review && { tag: e.q.review }) });
     onResult?.(e.ok);
     draw();
   }
@@ -231,7 +244,7 @@ export function mountRunner(host, { bank, prefix, figures = {}, widgets = {}, si
     e.ok = false;
     e.revealed = true;
     S.phase = 'answered';
-    record({ prefix, kind: e.q.kind, ok: false, mode, ...(e.q.review && { tag: e.q.review }) });
+    if (!S.redo) record({ prefix, kind: e.q.kind, ok: false, mode, ...(e.q.review && { tag: e.q.review }) });
     onResult?.(false);
     draw();
   }
@@ -267,7 +280,13 @@ export function mountRunner(host, { bank, prefix, figures = {}, widgets = {}, si
     const again = h('button', 'btn primary', T('run.again'));
     again.addEventListener('click', restart);
     const actions = h('div', 'row');
-    if (wrongKinds.length) {
+    const wrong = S.round.filter(e => !e.ok).map(e => e.q);
+    if (wrong.length) {
+      const redo = h('button', 'btn', T('run.redoWrong', { n: wrong.length }));
+      redo.addEventListener('click', () => redoWrong(wrong));
+      actions.append(redo);
+    }
+    if (wrongKinds.length && !S.redo) {
       const retry = h('button', 'btn', T('run.retryWrong'));
       retry.addEventListener('click', () => { S.kinds = wrongKinds; restart(); });
       actions.append(retry);

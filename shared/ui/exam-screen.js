@@ -2,7 +2,8 @@ import { $, el } from './dom.js';
 import { t as T, getLang } from '../i18n/index.js';
 import { EXAM_MINUTES, planExam, gradeItem, tally, secondsLeft, clock, isBlank } from '../logic/exam.js';
 import { seededRandom } from '../logic/shuffle.js';
-import { load, save, drop, loadEvents } from './store.js';
+import { load, save, drop, loadEvents, subjectOf } from './store.js';
+import { questionCode } from '../logic/question-pool.js';
 import { go } from './router.js';
 import { chNo, chapterTitle, accCell, row, leadCard, practiceTabs, studied } from './choices.js';
 import { questionView } from './question.js';
@@ -133,6 +134,7 @@ function renderResult(cfg) {
       el('b', { class: 'mono', text: String(i + 1) }),
       el('span', { text: `${T(kindKey(it))} · ${T('shell.chapter', { n: chNo(it.ch) })}` }),
       el('span', { class: r.blank ? 'tag now' : 'tag bad', text: T(r.blank ? 'exam.blankOne' : 'exam.wrongOne') }),
+      el('span', { class: 'run-code', title: T('run.code'), text: questionCode(subjectOf(), it.prefix, it.q) ?? '' }),   // hub D33
     ]));
     // vẽ khi mở ra: widget khoá, tô ô đúng/sai ngay trên hình như lúc làm
     d.addEventListener('toggle', () => {

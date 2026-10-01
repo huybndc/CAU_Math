@@ -17,7 +17,7 @@ import { progressSink } from './shared/vite-plugin-progress.js';
 const page = p => fileURLToPath(new URL(p, import.meta.url));
 export default defineConfig(({ mode }) => ({
   plugins: [htmlInclude(), syncPlugin({ ...process.env, ...loadEnv(mode, process.cwd(), 'STUDY_') }), progressSink()],
-  resolve: { alias: { '@shared': fileURLToPath(new URL('./shared', import.meta.url)) } },
+  resolve: { alias: { '@shared': fileURLToPath(new URL('./shared', import.meta.url)), '@host': fileURLToPath(new URL('./shared/host.js', import.meta.url)) } },
   server: { port: 5180, strictPort: true },
   build: { rollupOptions: { input: { home: page('index.html'), logic: page('logic/index.html'), linalg: page('linalg/index.html'), discrete: page('discrete/index.html') } } },
   test: { include: ['{shared,home,logic,linalg,discrete}/tests/**/*.test.js'] },

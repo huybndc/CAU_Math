@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { planExam, buildExam, gradeItem, tally, secondsLeft, clock, examKinds, FILL } from '../logic/exam.js';
+import { planExam, buildExam, gradeItem, tally, secondsLeft, clock, examKinds, maxPerKind, FILL } from '../logic/exam.js';
 import { seededRandom } from '../logic/shuffle.js';
 
 /* ngân hàng giả: câu "cộng hai số", thời gian chuẩn theo dạng */
@@ -15,12 +15,24 @@ const CH = [
 const cost = slots => slots.reduce((s, x) => s + CH[x.ci].bank.SECONDS[x.kind], 0);
 
 describe('dựng đề', () => {
-  it('lấp gần đủ thời gian nhưng không vượt', () => {
+  it('đủ dạng thì lấp gần đủ thời gian nhưng không vượt', () => {
+    const many = n => Array.from({ length: n }, (_, i) => `k${i}`);
+    const BIG = [{ id: 'x', bank: bank(many(20), Object.fromEntries(many(20).map(k => [k, 120]))) }];
     for (const m of [60, 75, 90]) {
-      const slots = planExam(CH, m, seededRandom(m));
-      expect(cost(slots)).toBeLessThanOrEqual(m * 60 * FILL);
-      expect(cost(slots)).toBeGreaterThan(m * 60 * FILL - 180);   // dạng dài nhất
+      const slots = planExam(BIG, m, seededRandom(m));
+      const c = slots.length * 120;
+      expect(c).toBeLessThanOrEqual(m * 60 * FILL);
+      expect(c).toBeGreaterThan(m * 60 * FILL - 120);
     }
+  });
+
+  it('một dạng không quá maxPerKind câu: hết dạng thì đề ngắn lại, không lặp khuôn', () => {
+    const slots = planExam(CH, 90, seededRandom(5));
+    const counts = {};
+    slots.forEach(s => { counts[s.kind] = (counts[s.kind] ?? 0) + 1; });
+    for (const [k, n] of Object.entries(counts)) expect(n, k).toBeLessThanOrEqual(maxPerKind(k));
+    expect(cost(slots)).toBeLessThanOrEqual(90 * 60 * FILL);
+    expect(maxPerKind('concept')).toBeGreaterThan(maxPerKind('sum'));
   });
 
   it('chia đều thời gian các chương, đi hết mọi dạng trước khi lặp', () => {

@@ -505,3 +505,9 @@ khác syllabus, lịch học bắt đầu từ 2026/09/01".)
 - Thi thử: danh sách câu gập mặc định; màn kết quả gập theo mục, xem lại câu sai theo từng chương (mẫu Toeic: tab theo Part, mỗi câu gập sẵn).
 - Bài học: ma trận viết `[1 2; 3 4]` (khối ```math hoặc code inline) vẽ thành lưới. Trang Ví dụ / Công cụ: thẻ gập, chỉ thẻ đầu mở.
 - Nháp (Đại số tuyến tính): thêm lưới ma trận (≤ 6 cái, nhân bản xuống làm bước kế); chỉ làm hộ phần chép, không tự tính phép biến đổi (D45).
+
+**D52. `shared/` thuần, nối với nơi chứa app qua `@host`; Nháp theo ngăn là bản chuẩn (2026-10-01).**
+- Bản mirror ở Study_Hub là bản MỚI HƠN cho gần hết `shared/` (kiểm bằng lịch sử git: bản CAU là tổ tiên của bản mirror). Đã đưa nguyên sang đây: mã câu (D33), làm lại câu sai, sinh câu theo hạt giống, trần số câu/dạng, đồng bộ theo tài khoản, Nháp chia ngăn (bảng chân trị, bìa K) cùng test.
+- Mọi chỗ cần tài khoản / đám mây của Hub import từ `'@host'`; mặc định `shared/host.js` (app chạy riêng: khoá nguyên, không tài khoản, namespace đồng bộ `standalone`). Study_Hub đặt alias `@host` sang adapter của nó. Repo này không import mã Hub.
+- Bản "Nháp có chế độ ghi chú / bảng chân trị" (D50, chưa commit) bị thay bằng bản ngăn: cùng tính năng bảng chân trị, thêm bìa K, ma trận, máy tính danh sách. Việc chép lại bản D50 chưa commit là thừa.
+- Đã ẩn tên người học khỏi comment/test khi chuyển.
