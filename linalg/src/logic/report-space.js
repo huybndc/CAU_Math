@@ -3,7 +3,7 @@ import { solve } from './linear-system.js';
 import { columnSpaceBasis, nullSpaceBasis, rowSpaceBasis, dimensions, isIndependent, matrixFromColumns } from './subspace.js';
 import { columns, checkMatrix, shape, multiply } from './matrix.js';
 import { fmtMat } from './quiz-kit.js';
-import { fmt, fmtVec, fmtParen } from './num-format.js';
+import { fmt, fmtCol, fmtParen } from './num-format.js';
 import { sub } from './report-vector.js';
 
 /* ---------------------------------------------------------------
@@ -11,7 +11,8 @@ import { sub } from './report-vector.js';
    Cùng định dạng với report-vector.js. Thuần: không đụng DOM.
    --------------------------------------------------------------- */
 
-const list = vs => (vs.length ? vs.map(fmtVec).join(',  ') : '{0}');
+const list = vs => (vs.length ? vs.map(fmtCol).join('   ') : '{0}');
+const fmtRow = v => `(${v.map(x => fmt(x)).join(', ')})`;
 
 export function spaceReport(A) {
   checkMatrix(A);
@@ -28,18 +29,20 @@ export function spaceReport(A) {
     { key: 'sp.basisNull', m: list(nullB) },
     { key: 'sp.basisRow', m: list(rowB) },
   ];
+  const cols = columns(A);
   const steps = [
     { head: { key: 'sp.stRef' }, lines: [`A = ${fmtMat(A)}`, `U = ${fmtMat(U)}`, { key: 'sp.pivotInfo', params: { p: pivotCols.map(c => c + 1).join(', '), f: freeCols.length ? freeCols.map(c => c + 1).join(', ') : '—' } }] },
-    { head: { key: 'sp.stCol' }, lines: [{ key: 'sp.colRule' }, ...pivotCols.map(c => `a${sub(c + 1)} = ${fmtVec(columns(A)[c])}`)] },
-    { head: { key: 'sp.stNull' }, lines: nullB.length
-      ? [{ key: 'sp.nullRule' }, ...nullB.map((s, i) => `s${sub(i + 1)} = ${fmtVec(s)}   (x${sub(freeCols[i] + 1)} = 1)`)]
-      : [{ key: 'sp.nullTrivial' }] },
-    { head: { key: 'sp.stRow' }, lines: [{ key: 'sp.rowRule' }, ...rowB.map(fmtVec)] },
-    { head: { key: 'sp.stRank' }, lines: [`rank + dim N(A) = ${d.rank} + ${d.nullDim} = ${n}  ✓`, ...nullB.map((s, i) => `A·s${sub(i + 1)} = ${fmtVec(multiply(A, s.map(v => [v])).map(r => r[0]))}`)] },
+    {
+      head: { key: 'sp.stBases' },
+      lines: [
+        { key: 'sp.colRule' }, ...pivotCols.map(c => `a${sub(c + 1)} = ${fmtCol(cols[c])}`),
+        ...(nullB.length ? [{ key: 'sp.nullRule' }, ...nullB.map((s, i) => `s${sub(i + 1)} = ${fmtCol(s)}   (x${sub(freeCols[i] + 1)} = 1)`)] : [{ key: 'sp.nullTrivial' }]),
+        { key: 'sp.rowRule' }, ...rowB.map(fmtRow),
+      ],
+    },
   ];
-  // các cột có độc lập không? phụ thuộc thì chỉ ra cột nào bằng tổ hợp của cột nào (đọc từ RREF)
-  const cols = columns(A);
-  const lines = [];
+  // kiểm: rank + nullity, A·s = 0, các cột có độc lập không (phụ thuộc thì chỉ ra cột nào = tổ hợp của cột nào, đọc từ RREF)
+  const lines = [`rank + dim N(A) = ${d.rank} + ${d.nullDim} = ${n}  ✓`, ...nullB.map((s, i) => `A·s${sub(i + 1)} = ${fmtCol(multiply(A, s.map(v => [v])).map(r => r[0]))}`)];
   if (isIndependent(cols)) lines.push({ key: 'sp.indep' });
   else {
     lines.push({ key: 'sp.dep' });
@@ -51,6 +54,6 @@ export function spaceReport(A) {
     });
   }
   lines.push({ key: m === n && d.rank === n ? 'sp.isBasis' : 'sp.notBasis', params: { m } });
-  steps.push({ head: { key: 'sp.stIndep' }, lines });
+  steps.push({ head: { key: 'sp.stCheck' }, lines });
   return { answer, steps };
 }

@@ -20,8 +20,9 @@ export function createSolver(host, { practice = null, examples = [] } = {}) {
   const exRow = el('div', { class: 'sv-ex' });
   const inputs = el('div', { class: 'sv-in' });
   const out = el('div', { class: 'sv-out', 'aria-live': 'polite' });
+  const toolsEl = el('div', { class: 'sv-tools' });         // Che đáp án + Bài tương tự: nằm dưới ô nhập (cột trái trên màn rộng)
   host.classList.add('sv');
-  host.replaceChildren(exRow, inputs, out);
+  host.replaceChildren(exRow, inputs, out, toolsEl);
 
   let last = null;               // { result } | { error } | null
   let revealed = false;          // đã bấm "Hiện" trong lúc đang che
@@ -35,6 +36,7 @@ export function createSolver(host, { practice = null, examples = [] } = {}) {
 
   function draw() {
     drawExamples();
+    toolsEl.replaceChildren();
     if (!last) { out.replaceChildren(el('p', { class: 'sv-empty', text: T('solver.empty') })); return; }
     if (last.error) { out.replaceChildren(el('p', { class: 'sv-err', role: 'alert', text: last.error })); return; }
     const { answer, steps } = last.result;
@@ -46,15 +48,15 @@ export function createSolver(host, { practice = null, examples = [] } = {}) {
     if (!groups.includes(tab)) tab = groups[0] ?? null;
     const inTab = steps.map((st, i) => ({ st, i })).filter(x => (x.st.group ?? 'solver.tabSteps') === tab);
 
-    const tools = el('div', { class: 'sv-tools' }, [
+    toolsEl.replaceChildren(
       el('label', { class: 'sv-hide' }, [
         el('input', { type: 'checkbox', checked: hide ? '' : null, onChange: e => { save(HIDE_KEY, e.target.checked); revealed = false; draw(); } }),
         T('solver.hide'),
       ]),
       practice && el('a', { class: 'sv-link', href: practice, text: T('solver.similar') }),
-    ]);
+    );
     if (masked) {
-      out.replaceChildren(el('button', { type: 'button', class: 'btn sv-reveal', text: T('solver.reveal'), onClick: () => { revealed = true; draw(); } }), tools);
+      out.replaceChildren(el('button', { type: 'button', class: 'btn sv-reveal', text: T('solver.reveal'), onClick: () => { revealed = true; draw(); } }));
       return;
     }
     const allOpen = inTab.length > 0 && inTab.every(x => openSteps.has(x.i));
@@ -65,7 +67,9 @@ export function createSolver(host, { practice = null, examples = [] } = {}) {
         inTab.length > 1 && el('button', { type: 'button', class: 'sv-link sv-all', text: T(allOpen ? 'solver.closeAll' : 'solver.openAll'),
           onClick: () => { inTab.forEach(x => (allOpen ? openSteps.delete(x.i) : openSteps.add(x.i))); draw(); } }),
       ]),
-      el('div', { class: 'sv-steps', role: 'tabpanel' }, inTab.map(({ st, i }, k) => {
+      el('div', { class: 'sv-steps', role: 'tabpanel' }, inTab.length === 1
+        ? el('div', { class: 'run-lines sv-body sv-solo' }, inTab[0].st.lines.map(stepLine))
+        : inTab.map(({ st, i }, k) => {
         const d = el('details', { class: 'sv-step', open: openSteps.has(i) ? '' : null }, [
           el('summary', {}, [el('span', { class: 'sv-n', text: CIRCLED[k] ?? String(k + 1) }), T(st.head.key, st.head.params)]),
           el('div', { class: 'run-lines sv-body' }, st.lines.map(stepLine)),
@@ -73,7 +77,6 @@ export function createSolver(host, { practice = null, examples = [] } = {}) {
         d.addEventListener('toggle', () => { if (d.open) openSteps.add(i); else openSteps.delete(i); });
         return d;
       })),
-      tools,
     );
   }
   onLangChange(draw);

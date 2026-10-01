@@ -1,14 +1,15 @@
 import * as V from './vector.js';
-import { fmt, fmtVec, fmtParen, near, clean } from './num-format.js';
+import { fmt, fmtCol, fmtParen, clean } from './num-format.js';
 import { sqrtText, specialAngle } from './radical.js';
-import { solve, generalSolutionString, residual, systemStrings } from './linear-system.js';
+import { solve, residual, systemStrings } from './linear-system.js';
 import { matrixFromColumns, isIndependent } from './subspace.js';
 import { fmtAug } from './quiz-kit.js';
 import { fail } from '@shared/logic/app-error.js';
 
 /* ---------------------------------------------------------------
-   MÁY GIẢI VECTOR: độ dài, góc, chiếu… kèm lời giải gập từng bước.
-   Trả { answer: dòng[], steps: { head: {key, params}, lines: dòng[] }[] };
+   MÁY GIẢI VECTOR: độ dài, góc, chiếu… Mỗi ngăn (tab) là MỘT khối dòng, không gập thêm một tầng nữa.
+   Vector viết dạng CỘT (fmtCol) như trong sách.
+   Trả { answer: dòng[], steps: { group?, head: {key, params}, lines: dòng[] }[] };
    dòng = chuỗi toán thuần | { key, params, m } (xem shared/ui/question.js stepLine). Thuần: không đụng DOM.
    --------------------------------------------------------------- */
 
@@ -16,70 +17,61 @@ const SUB = '₀₁₂₃₄₅₆₇₈₉';
 export const sub = i => String(i).split('').map(d => SUB[d]).join('');
 const sq = x => fmtParen(x) + '²';
 const rad = x => sqrtText(x);
+const r4 = x => fmt(Number(x.toFixed(4)));
 
 /** "|v| = √(1² + 2² + 2²) = √9 = 3" */
-function normLine(name, v) {
-  const n2 = V.norm2(v);
-  const inside = v.map(sq).join(' + ');
-  const r = rad(n2);
-  return `|${name}| = √(${inside}) = √${fmt(n2)} = ${r}`;
-}
+const normLine = (name, v) => `|${name}| = √(${v.map(sq).join(' + ')}) = √${fmt(V.norm2(v))} = ${rad(V.norm2(v))}`;
 
-const dotLine = (a, b, an, bn) => {
-  const terms = a.map((x, i) => `${fmtParen(x)}·${fmtParen(b[i])}`).join(' + ');
-  return `${an}·${bn} = ${terms} = ${fmt(V.dot(a, b))}`;
-};
+const dotLine = (a, b) => `v·w = ${a.map((x, i) => `${fmtParen(x)}·${fmtParen(b[i])}`).join(' + ')} = ${fmt(V.dot(a, b))}`;
+
+/** "2·[..] − 1·[..]" — hệ số đứng trước từng vector cột. */
+export function lincomb(coefs, vectors) {
+  return coefs.map((c, i) => {
+    const neg = c < 0 && i > 0;
+    const k = fmt(neg ? -c : c);
+    return `${i === 0 ? '' : neg ? ' − ' : ' + '}${i === 0 && c < 0 ? `(${k})` : k}·${fmtCol(vectors[i])}`;
+  }).join('');
+}
 
 /** v một vector, hoặc cả v và w. */
 export function vectorReport(v, w = null) {
   V.checkVector(v);
+  if (w) { V.checkVector(w); V.sameDim(v, w); }
   const steps = [];
   const answer = [`|v| = ${rad(V.norm2(v))}`];
-  steps.push({ head: { key: 'sv.stNorm' }, lines: [normLine('v', v), ...(w ? [normLine('w', w)] : [])] });
-  if (w) V.sameDim(v, w);
-  if (w) V.checkVector(w);
   if (w) answer.push(`|w| = ${rad(V.norm2(w))}`);
 
-  if (!V.isZero(v)) {
-    const u = V.normalize(v), n = V.norm(v);
-    steps.push({ head: { key: 'sv.stUnit' }, lines: [`v / |v| = (1/${rad(V.norm2(v))})·${fmtVec(v)} ≈ ${fmtVec(u.map(x => Number(x.toFixed(4))))}`] });
-  }
+  const len = [normLine('v', v), ...(w ? [normLine('w', w)] : [])];
+  if (!V.isZero(v)) len.push(`v / |v| = (1/${rad(V.norm2(v))})·${fmtCol(v)} ≈ ${fmtCol(V.normalize(v).map(x => Number(x.toFixed(4))))}`);
+  steps.push({ group: 'sv.tabLen', head: { key: 'sv.stNorm' }, lines: len });
   if (!w) return { answer, steps };
 
   const d = V.dot(v, w);
   answer.push(`v·w = ${fmt(d)}`);
-  steps.push({ head: { key: 'sv.stDot' }, lines: [dotLine(v, w, 'v', 'w')] });
-
+  const ang = [dotLine(v, w)];
   if (!V.isZero(v) && !V.isZero(w)) {
     const nv = V.norm(v), nw = V.norm(w);
     const cos = Math.min(1, Math.max(-1, d / (nv * nw)));
     const deg = clean(Math.acos(cos) * 180 / Math.PI);
     const sp = specialAngle(deg);
     answer.push(`θ = ${sp ? `${fmt(Math.round(deg))}° = ${sp}` : `${fmt(Number(deg.toFixed(2)))}°`}`);
-    steps.push({
-      head: { key: 'sv.stAngle' },
-      lines: [
-        `cos θ = v·w / (|v|·|w|) = ${fmt(d)} / (${rad(V.norm2(v))}·${rad(V.norm2(w))}) ≈ ${fmt(Number(cos.toFixed(4)))}`,
-        `θ = arccos(${fmt(Number(cos.toFixed(4)))}) ≈ ${fmt(Number(deg.toFixed(2)))}° ≈ ${fmt(Number((deg * Math.PI / 180).toFixed(4)))} rad${sp ? ` = ${sp}` : ''}`,
-      ],
-    });
-    const k = d / V.norm2(w);
-    const p = V.projection(v, w);
-    steps.push({
-      head: { key: 'sv.stProj' },
-      lines: [
-        `proj_w v = (v·w / w·w)·w = (${fmt(d)}/${fmt(V.norm2(w))})·${fmtVec(w)} = ${fmtVec(p)}`,
-        `v − proj_w v = ${fmtVec(V.perpendicular(v, w))}  (${'⟂ w'})`,
-        { key: 'sv.scalarProj', params: { n: fmt(Number(V.scalarProjection(v, w).toFixed(4))) } },
-      ],
-    });
-    const rel = [];
-    rel.push({ key: V.isOrthogonal(v, w) ? 'sv.orth' : 'sv.notOrth' });
-    rel.push({ key: V.isParallel(v, w) ? 'sv.par' : 'sv.notPar' });
-    rel.push(`|v·w| = ${fmt(Math.abs(d))} ≤ |v|·|w| = ${fmt(Number((nv * nw).toFixed(4)))}  (Cauchy–Schwarz)`);
-    steps.push({ head: { key: 'sv.stRel' }, lines: rel });
+    ang.push(`cos θ = v·w / (|v|·|w|) = ${fmt(d)} / (${rad(V.norm2(v))}·${rad(V.norm2(w))}) ≈ ${r4(cos)}`);
+    ang.push(`θ = arccos(${r4(cos)}) ≈ ${fmt(Number(deg.toFixed(2)))}° ≈ ${r4(deg * Math.PI / 180)} rad${sp ? ` = ${sp}` : ''}`);
+    ang.push({ key: V.isOrthogonal(v, w) ? 'sv.orth' : 'sv.notOrth' }, { key: V.isParallel(v, w) ? 'sv.par' : 'sv.notPar' });
+    ang.push(`|v·w| = ${fmt(Math.abs(d))} ≤ |v|·|w| = ${r4(nv * nw)}  (Cauchy–Schwarz)`);
     if (V.isOrthogonal(v, w)) answer.push({ key: 'sv.orth' });
     else if (V.isParallel(v, w)) answer.push({ key: 'sv.par' });
+    steps.push({ group: 'sv.tabAngle', head: { key: 'sv.stAngle' }, lines: ang });
+    steps.push({
+      group: 'sv.tabProj', head: { key: 'sv.stProj' },
+      lines: [
+        `proj_w v = (v·w / w·w)·w = (${fmt(d)}/${fmt(V.norm2(w))})·${fmtCol(w)} = ${fmtCol(V.projection(v, w))}`,
+        `v − proj_w v = ${fmtCol(V.perpendicular(v, w))}   (⟂ w)`,
+        { key: 'sv.scalarProj', params: { n: r4(V.scalarProjection(v, w)) } },
+      ],
+    });
+  } else {
+    steps.push({ group: 'sv.tabAngle', head: { key: 'sv.stAngle' }, lines: ang });
   }
   return { answer, steps };
 }
@@ -94,25 +86,26 @@ export function comboReport(vectors, w) {
   const r = solve(A, w);
   const names = vectors.map((_, i) => `c${sub(i + 1)}`);
   const steps = [
-    { head: { key: 'sv.stCombo' }, lines: [`${names.map((n, i) => `${n}·v${sub(i + 1)}`).join(' + ')} = w`, ...systemStrings(A, w)] },
-    { head: { key: 'sv.stGauss' }, lines: [fmtAug(r.start), ...[...r.forwardSteps, ...r.backwardSteps].filter(s => s.formula)
-      .map(s => `${s.formula.replace('<->', '↔').replace('<-', '←')}:   ${fmtAug(s.matrix)}`)] },
+    {
+      head: { key: 'sv.stSolve' },
+      lines: [
+        `${names.map((n, i) => `${n}·v${sub(i + 1)}`).join(' + ')} = w`, ...systemStrings(A, w), fmtAug(r.start),
+        ...[...r.forwardSteps, ...r.backwardSteps].filter(s => s.formula).map(s => `${s.formula.replace('<->', '↔').replace('<-', '←')}:   ${fmtAug(s.matrix)}`),
+      ],
+    },
   ];
   const answer = [];
+  const tail = [];
   if (r.type === 'none') {
     answer.push({ key: 'sv.notCombo' });
   } else {
     const c = r.type === 'unique' ? r.solution : r.particular;
-    const term = (x, i) => `${fmtParen(x)}·v${sub(i + 1)}`;
     answer.push({ key: 'sv.isCombo' });
-    answer.push(`w = ${c.map(term).join(' + ')}`);
+    answer.push(`w = ${lincomb(c, vectors)}`);
     if (r.type === 'infinite') answer.push({ key: 'sv.manyWays' });
-    steps.push({
-      head: { key: 'sv.stCheck' },
-      lines: [`${c.map(term).join(' + ')} = ${fmtVec(V.combine(c, vectors))}`, `w = ${fmtVec(w)}  ${residual(A, c, w) < 1e-9 ? '✓' : '✗'}`,
-        ...(r.type === 'infinite' ? [`${generalSolutionString(r)}`] : [])],
-    });
+    tail.push(`${lincomb(c, vectors)} = ${fmtCol(V.combine(c, vectors))}`, `w = ${fmtCol(w)}  ${residual(A, c, w) < 1e-9 ? '✓' : '✗'}`);
   }
-  steps.push({ head: { key: 'sv.stIndep' }, lines: [{ key: isIndependent(vectors) ? 'sv.indep' : 'sv.dep' }] });
+  tail.push({ key: isIndependent(vectors) ? 'sv.indep' : 'sv.dep' });
+  steps.push({ head: { key: 'sv.stCheck' }, lines: tail });
   return { answer, steps };
 }

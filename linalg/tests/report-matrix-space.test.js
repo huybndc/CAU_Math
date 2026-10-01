@@ -9,8 +9,8 @@ describe('matrixReport', () => {
   it('A·B: có một bước cho mỗi hàng, từng ô là tổng tích', () => {
     const r = matrixReport('mul', [[1, 2], [3, 4]], [[5, 6], [7, 8]]);
     expect(r.answer[0]).toBe('A·B = [19 22; 43 50]');
-    expect(r.steps.filter(s => s.head.key === 'sm.stRow')).toHaveLength(2);
-    expect(r.steps[1].lines[0]).toBe('c₁₁ = 1·5 + 2·7 = 19');
+    expect(r.steps.map(s => s.head.key)).toEqual(['sm.stEntries']);
+    expect(r.steps[0].lines).toContain('c₁₁ = 1·5 + 2·7 = 19');
   });
   it('khác cỡ ⇒ lỗi', () => {
     expect(() => matrixReport('mul', [[1, 2]], [[1, 2]])).toThrow();
@@ -38,14 +38,14 @@ describe('spaceReport', () => {
     const M = [[1, 2, 1], [2, 4, 3]];
     const r = spaceReport(M);
     expect(r.answer[0].params).toEqual({ r: 2, nul: 1, n: 3 });
-    const nul = r.steps.find(s => s.head.key === 'sp.stNull').lines.find(l => typeof l === 'string');
-    expect(nul).toContain('s₁ = (-2, 1, 0)');
+    const nul = r.steps.find(s => s.head.key === 'sp.stBases').lines.find(l => typeof l === 'string' && l.startsWith('s₁'));
+    expect(nul).toContain('s₁ = [-2; 1; 0]');
     expect(multiply(M, [[-2], [1], [0]])).toEqual([[0], [0]]);
   });
   it('cột phụ thuộc: chỉ ra cột nào bằng tổ hợp cột nào', () => {
     const r = spaceReport([[1, 2, 3], [1, 2, 3]]);
     const ind = r.steps.at(-1).lines;
-    expect(ind[0].key).toBe('sp.dep');
+    expect(ind.some(l => l.key === 'sp.dep')).toBe(true);
     expect(ind.some(l => typeof l === 'string' && l.startsWith('a₂ = 2·a₁'))).toBe(true);
   });
   it('ma trận khả nghịch: các cột là cơ sở của Rᵐ', () => {

@@ -20,14 +20,11 @@ const rowStr = r => r.map(x => fmt(x)).join(' ');
 
 function mulSteps(A, B, C) {
   const a = M.shape(A), b = M.shape(B);
-  const steps = [{ head: { key: 'sm.stSize' }, lines: [`(${a.rows}×${a.cols})·(${b.rows}×${b.cols}) = ${a.rows}×${b.cols}`, { key: 'sm.mulRule' }] }];
+  const lines = [`(${a.rows}×${a.cols})·(${b.rows}×${b.cols}) = ${a.rows}×${b.cols}`, { key: 'sm.mulRule' }];
   for (let i = 0; i < a.rows; i++) {
-    steps.push({
-      head: { key: 'sm.stRow', params: { i: i + 1 } },
-      lines: C[i].map((v, j) => `c${sub(i + 1)}${sub(j + 1)} = ${A[i].map((x, k) => `${fmtParen(x)}·${fmtParen(B[k][j])}`).join(' + ')} = ${fmt(v)}`),
-    });
+    C[i].forEach((v, j) => lines.push(`c${sub(i + 1)}${sub(j + 1)} = ${A[i].map((x, k) => `${fmtParen(x)}·${fmtParen(B[k][j])}`).join(' + ')} = ${fmt(v)}`));
   }
-  return steps;
+  return [{ head: { key: 'sm.stEntries' }, lines }];
 }
 
 function detSteps(A) {

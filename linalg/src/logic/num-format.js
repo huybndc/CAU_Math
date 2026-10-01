@@ -77,6 +77,9 @@ export const fmtParen = x => {
 /** Vector → "(1, 2, 3)". */
 export const fmtVec = v => '(' + v.map(x => fmt(x)).join(', ') + ')';
 
+/** Vector CỘT dạng chuỗi ma trận một cột "[1; 2; 3]" — giao diện vẽ thành cột dọc có ngoặc (như trong sách). */
+export const fmtCol = v => '[' + v.map(x => fmt(x)).join('; ') + ']';
+
 /** Dấu + hoặc - đứng giữa hai hạng tử, kèm trị tuyệt đối của hệ số. */
 export function signPart(x) {
   const c = clean(x);

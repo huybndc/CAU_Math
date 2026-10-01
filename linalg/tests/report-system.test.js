@@ -8,7 +8,7 @@ describe('systemReport', () => {
   it('2×2 nghiệm duy nhất, đủ bước E / LU / nghịch đảo', () => {
     const r = systemReport([[1, 1], [1, -1]], [3, 1]);
     expect(r.answer.slice(0, 2)).toEqual(['x = 2', 'y = 1']);
-    expect(keys(r)).toEqual(expect.arrayContaining(['ss.stSetup', 'ss.stCol', 'ss.stE', 'ss.stLU', 'ss.stSolveLU', 'ss.stInverse']));
+    expect(keys(r)).toEqual(expect.arrayContaining(['ss.stForward', 'ss.stBack', 'ss.stCheck', 'ss.stE', 'ss.stLU', 'ss.stSolveLU', 'ss.stInverse']));
     expect(strs(r.steps.find(s => s.head.key === 'ss.stLU').lines).at(-1)).toMatch(/✓/);
   });
   it('3×3 Strang 2.2: ba phép, tích E ra đúng U và L ghép từ ℓ', () => {
