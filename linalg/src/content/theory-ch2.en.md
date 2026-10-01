@@ -16,17 +16,15 @@ A system of two equations in two unknowns:
 splits into three parts: the coefficient table `A`, the column of unknowns `x`,
 and the right-hand side `b`.
 
-```
-A = [ 1  2 ]     x = [ x ]     b = [ 5 ]
-    [ 3  4 ]         [ y ]         [ 6 ]
+```math
+A = [1 2; 3 4]     x = [x; y]     b = [5; 6]
 ```
 
 Written compactly, that is `Ax = b`. When solving by hand we glue `A` and `b`
 into the **augmented matrix** `[A | b]` so we stop rewriting the variable names:
 
-```
-[ 1  2 | 5 ]
-[ 3  4 | 6 ]
+```math
+[1 2 | 5; 3 4 | 6]
 ```
 
 From here on, everything is just operations on this table of numbers.
@@ -45,9 +43,8 @@ possibilities are exactly the three solution cases below.
 
 **The column picture.** Rewrite `Ax = b` as
 
-```
-x·[ 1 ] + y·[ 2 ] = [ 5 ]
-  [ 3 ]     [ 4 ]   [ 6 ]
+```math
+x·[1; 3] + y·[2; 4] = [5; 6]
 ```
 
 Now the question becomes: *which linear combination of the columns produces
@@ -76,14 +73,9 @@ into `0 = 0`, destroys information, and cannot be undone.
 The idea: use the third operation to create zeros below the diagonal, working
 left to right.
 
-```
-[ 1  2  3 | 6 ]                      [ 1   2   3 |  6 ]
-[ 2  5  2 | 4 ]  R2 <- R2 - 2R1  ->  [ 0   1  -4 | -8 ]
-[ 6 -3  1 | 2 ]  R3 <- R3 - 6R1      [ 0 -15 -17 |-34 ]
-
-                 R3 <- R3 + 15R2 ->  [ 1   2   3 |  6 ]
-                                     [ 0   1  -4 | -8 ]
-                                     [ 0   0 -77 |-154 ]
+```math
+[1 2 3 | 6; 2 5 2 | 4; 6 -3 1 | 2]    R2 ← R2 − 2R1,  R3 ← R3 − 6R1    →    [1 2 3 | 6; 0 1 -4 | -8; 0 -15 -17 | -34]
+R3 ← R3 + 15R2    →    [1 2 3 | 6; 0 1 -4 | -8; 0 0 -77 | -154]
 ```
 
 The first nonzero entry of each row is called a **pivot**. The shape we reach —

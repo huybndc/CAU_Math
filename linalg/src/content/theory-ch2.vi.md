@@ -15,17 +15,15 @@ Một hệ hai phương trình hai ẩn:
 
 tách được thành ba phần: bảng hệ số `A`, cột ẩn `x`, cột vế phải `b`.
 
-```
-A = [ 1  2 ]     x = [ x ]     b = [ 5 ]
-    [ 3  4 ]         [ y ]         [ 6 ]
+```math
+A = [1 2; 3 4]     x = [x; y]     b = [5; 6]
 ```
 
 Viết gọn lại là `Ax = b`. Khi giải bằng tay, ta gộp `A` và `b` thành **ma trận
 mở rộng** `[A | b]` để khỏi phải chép đi chép lại tên ẩn:
 
-```
-[ 1  2 | 5 ]
-[ 3  4 | 6 ]
+```math
+[1 2 | 5; 3 4 | 6]
 ```
 
 Mọi thao tác từ đây trở đi chỉ là biến đổi trên bảng số này.
@@ -44,9 +42,8 @@ là ba trường hợp nghiệm sẽ gặp ở dưới.
 
 **Cách nhìn theo cột.** Viết lại `Ax = b` thành
 
-```
-x·[ 1 ] + y·[ 2 ] = [ 5 ]
-  [ 3 ]     [ 4 ]   [ 6 ]
+```math
+x·[1; 3] + y·[2; 4] = [5; 6]
 ```
 
 Bây giờ câu hỏi thành: *tổ hợp tuyến tính nào của các cột cho ra `b`?* Đúng là
@@ -73,14 +70,9 @@ phương trình thành `0 = 0`, làm mất thông tin và không đảo ngược
 
 Ý tưởng: dùng phép thứ ba để tạo số 0 dưới đường chéo, từ trái sang phải.
 
-```
-[ 1  2  3 | 6 ]                      [ 1   2   3 |  6 ]
-[ 2  5  2 | 4 ]  R2 <- R2 - 2R1  ->  [ 0   1  -4 | -8 ]
-[ 6 -3  1 | 2 ]  R3 <- R3 - 6R1      [ 0 -15 -17 |-34 ]
-
-                 R3 <- R3 + 15R2 ->  [ 1   2   3 |  6 ]
-                                     [ 0   1  -4 | -8 ]
-                                     [ 0   0 -77 |-154 ]
+```math
+[1 2 3 | 6; 2 5 2 | 4; 6 -3 1 | 2]    R2 ← R2 − 2R1,  R3 ← R3 − 6R1    →    [1 2 3 | 6; 0 1 -4 | -8; 0 -15 -17 | -34]
+R3 ← R3 + 15R2    →    [1 2 3 | 6; 0 1 -4 | -8; 0 0 -77 | -154]
 ```
 
 Số đầu tiên khác 0 của mỗi hàng gọi là **trụ** (pivot). Dạng thu được — mỗi trụ

@@ -7,6 +7,7 @@ import { pointKeys, isPassed, cardPassed } from '../logic/knowledge.js';
 import { buildGraph, weakestPrereq } from '../logic/prereq.js';
 import { getLang } from '../i18n/index.js';
 import { h } from './dom.js';
+import { mathSpan } from './question.js';
 
 /* ---------------------------------------------------------------
    TAB "HỌC": bài lý thuyết Markdown hiện thành THẺ, mỗi thẻ một ý.
@@ -80,9 +81,28 @@ function mountChecks(root, st, { banks, figures, widgets }, { onPass, passLabel,
   });
 }
 
+const MAT = /\[[^[\]]*;[^[\]]*\]/;
+/**
+ * Markdown → nút DOM. Ma trận viết `[1 2; 3 4]` (cột: `[2; 1]`, mở rộng: `[1 2 | 5; 3 4 | 6]`) hiện thành lưới có ngoặc:
+ * trong code inline, hoặc mỗi dòng của khối ```math. Ngoài ra là Markdown thường.
+ */
+export function mdNodes(md) {
+  const box = h('div');
+  box.innerHTML = marked.parse(md, { async: false });
+  box.querySelectorAll('pre > code.language-math').forEach(c => {
+    const blk = h('div', 'math-block');
+    c.textContent.trimEnd().split('\n').forEach(line => { const d = h('div', 'math-line'); d.append(mathSpan(line)); blk.append(d); });
+    c.parentElement.replaceWith(blk);
+  });
+  box.querySelectorAll('code').forEach(c => { if (MAT.test(c.textContent)) c.replaceWith(mathSpan(c.textContent)); });
+  return [...box.childNodes];
+}
+
 function cardEl(card) {
   const a = h('article', 'lesson-card card');
-  a.append(h('h2', null, card.title), h('div', 'lesson-body', marked.parse(card.body, { async: false })));
+  const body = h('div', 'lesson-body');
+  body.append(...mdNodes(card.body));
+  a.append(h('h2', null, card.title), body);
   return a;
 }
 
@@ -110,7 +130,8 @@ export function mountLesson(host, md, opts = {}) {
 
     const top = h('div', 'lesson-top');
     // phần mở đầu (nguồn + "Sau chương này bạn làm được") chỉ hiện ở thẻ đầu — các thẻ sau gọn
-    const introEl = intro && (st.i === 0 || st.all) && h('div', 'lesson-intro', marked.parse(intro, { async: false }));
+    const introEl = intro && (st.i === 0 || st.all) && h('div', 'lesson-intro');
+    introEl && introEl.append(...mdNodes(intro));
     const steps = h('ol', 'lesson-steps');
     const events = loadEvents();
     cards.forEach((c, k) => {

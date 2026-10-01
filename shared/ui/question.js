@@ -110,7 +110,7 @@ export function questionView(q, { figures = {}, widgets = {}, given = null, lock
 }
 
 /** Dòng toán: có biến chữ ⇒ phông biểu thức như sách (x′y); chỉ số / bit ⇒ phông mono cho thẳng cột. */
-function mathSpan(s) {
+export function mathSpan(s) {
   const e = h('span', /[a-zA-Z]/.test(s.replace(/[ABCDEF]/g, '')) ? 'step-math' : 'mono');
   // ma trận '[1 2; 3 4]' (LinAlg) vẽ thành lưới có ngoặc, cột sau '|' có vạch ngăn
   for (const part of splitMatrices(s)) {
