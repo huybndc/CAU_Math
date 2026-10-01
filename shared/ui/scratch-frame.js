@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------
    KHUNG NHÁP KÉO THẢ + ĐỔI KÍCH THƯỚC (iPad / chuột): kéo tiêu đề để dời, kéo mép / góc để đổi cỡ,
    bấm đúp tiêu đề để về vị trí mặc định. Toạ độ lưu `scratch-geom` (chung mọi môn, theo trình duyệt).
-   Dính mép phải thì trang chính chừa chỗ (biến --scratch-push), thả nổi giữa màn hình thì không chừa.
+   Khung NỔI trên trang (không đẩy nội dung bên dưới), như cửa sổ nổi trên điện thoại.
    Dùng pointer events: chuột, bút, ngón tay đều chạy.
    --------------------------------------------------------------- */
 
@@ -25,13 +25,10 @@ export function mountFrame(pane, handle) {
     const s = pane.style;
     if (!g) {
       ['left', 'top', 'right', 'bottom', 'width', 'height'].forEach(k => s.removeProperty(k));
-      document.body.style.removeProperty('--scratch-push');
       return;
     }
     clamp();
     Object.assign(s, { left: g.x + 'px', top: g.y + 'px', right: 'auto', bottom: 'auto', width: g.w + 'px', height: g.h + 'px' });
-    const docked = g.x + g.w >= innerWidth - 24;
-    document.body.style.setProperty('--scratch-push', docked ? Math.min(g.w + 24, innerWidth * 0.6) + 'px' : '0px');
   }
   const own = () => { if (!g) { const r = pane.getBoundingClientRect(); g = { x: r.left, y: r.top, w: r.width, h: r.height }; } };
 

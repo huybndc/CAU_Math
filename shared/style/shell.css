@@ -229,7 +229,7 @@ body.exam-focus .appnav{display:none}
 .kmap-pens button{width:22px;height:22px;border-radius:50%;border:2px solid var(--panel);background:var(--c);cursor:pointer;box-shadow:0 0 0 1px var(--line-strong)}
 .kmap-pens button[aria-pressed="true"]{box-shadow:0 0 0 2px var(--ink)}
 /* màn rộng: chừa chỗ để nháp không che đề */
-@media (min-width:80rem){ body:has(.scratch:not([hidden])) #app{margin-right:var(--scratch-push,400px)} }
+/* Nháp nổi trên trang như cửa sổ nổi trên điện thoại: không đẩy / dời nội dung bên dưới (D56) */
 
 /* màn Công cụ */
 .tool-ch{padding:1.1rem 0 1.2rem;border-bottom:1px solid var(--line)}
