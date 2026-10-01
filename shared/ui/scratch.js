@@ -4,6 +4,8 @@ import { evaluate, show } from '../logic/calc.js';
 import { mountTable, mountKmap } from './scratch-grid.js';
 import { mountMatrixPad } from './scratch-matrix.js';
 import { mountCalcList } from './scratch-calc.js';
+import { mountFrame } from './scratch-frame.js';
+import { mountDraw } from './scratch-draw.js';
 
 /* ---------------------------------------------------------------
    NHÁP: ngăn kéo bên phải để tính tay khi giải bài, chia NGĂN (D45) — mỗi lúc chỉ hiện một công cụ,
@@ -64,12 +66,18 @@ export function setupScratch() {
   }
   const extra = Object.entries(EXTRA[subject] ?? {});
   for (const [name] of extra) { const sp = document.createElement('section'); sp.className = 'sp'; sp.dataset.tab = name; pane.append(sp); }
-  const tabs = [...(TABS[subject] ?? ['notes', 'calc']), ...extra.map(([name]) => name)];
+  const drawSp = document.createElement('section');          // ngăn Vẽ: mọi môn (iPad + bút)
+  drawSp.className = 'sp';
+  drawSp.dataset.tab = 'draw';
+  pane.append(drawSp);
+  const tabs = [...(TABS[subject] ?? ['notes', 'calc']), ...extra.map(([name]) => name), 'draw'];
   const panel = tab => pane.querySelector(`.sp[data-tab="${tab}"]`);
   pane.querySelectorAll('.sp').forEach(sp => { if (!tabs.includes(sp.dataset.tab)) sp.remove(); });
   if (tabs.includes('table')) mountTable(panel('table'), subject);
   if (tabs.includes('kmap')) mountKmap(panel('kmap'), subject);
   for (const [name, mount] of extra) mount(panel(name));
+  const draw = mountDraw(drawSp, accountStorageKey('scratch-draw:' + subject));
+  mountFrame(pane, pane.querySelector('header'));            // kéo thả + đổi cỡ khung
   if (tabs.includes('matrix')) mountMatrixPad(panel('matrix'), accountStorageKey('scratch-mat:' + subject));
 
   /* ---------- ngăn ---------- */
@@ -173,6 +181,7 @@ export function setupScratch() {
     close.setAttribute('aria-label', T('shell.close'));
     ta.placeholder = T('shell.scratchPh');
     calcList?.label();
+    draw.redraw();
     syms.title = T('calc.syms');
     nav.replaceChildren(...tabs.map(t => {
       const b = document.createElement('button');
