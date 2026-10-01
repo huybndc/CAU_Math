@@ -29,17 +29,6 @@ export const ch3 = {
   'c3.errMatrix': 'Entries must be numbers, for example 2 or -1.5.',
 
   /* Interactive */
-  'c3.dragTitle': 'Drag vectors in R³ and watch the span change',
-  'c3.dragNote': 'Drag an arrow tip to change a vector, drag empty space to rotate the view. The vector b (green) is there to test whether it lies in the span.',
-  'c3.dragHint3d': 'Drag a tip · drag the background to rotate · scroll to zoom',
-  'c3.vecCount': 'Vectors:',
-  'c3.showB': 'Show vector b',
-  'c3.showPatch': 'Shade the span',
-  'c3.inSpanYes': 'b is in the span',
-  'c3.inSpanNo': 'b is not in the span',
-  'c3.whyInSpan': 'c₁v₁ + … = b is solvable, with coefficients {coefs}.',
-  'c3.whyNotInSpan': 'The system c₁v₁ + … = b has no solution — b sticks out of this subspace.',
-  'c3.lblSpanKind': 'span',
   'c3.lblDim': 'Dimension',
   'c3.lblIndep': 'Linearly independent',
   'c3.yes': 'yes',

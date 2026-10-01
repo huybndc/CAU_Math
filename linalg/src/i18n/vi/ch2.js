@@ -29,10 +29,6 @@ export const ch2 = {
   'c2.rankLine': 'rank(A) = {rank}, số ẩn = {n}, số biến tự do = {free}.',
   'c2.rankLineNone': 'rank(A) = {rank} nhưng rank([A | b]) = {rankAug} — hai hạng khác nhau nên hệ vô nghiệm.',
   'c2.checkLine': 'Thử lại: thay nghiệm vào hệ ban đầu, sai lệch lớn nhất = {res}.',
-  'c2.lblRank': 'rank(A)',
-  'c2.lblRankAug': 'rank([A | b])',
-  'c2.lblVars': 'Số ẩn',
-  'c2.lblFree': 'Biến tự do',
   'c2.lblType': 'Kết luận',
 
   /* Ví dụ — hình hai đường thẳng */
@@ -47,24 +43,5 @@ export const ch2 = {
   'c2.lblCross': 'Giao điểm',
 
   /* Tương tác — tự chọn phép biến đổi */
-  'c2.opTitle': 'Tự chọn phép biến đổi hàng',
-  'c2.opNote': 'Chọn phép rồi bấm áp dụng. Hệ thống kiểm tra từng bước và báo khi ma trận đã về dạng bậc thang.',
-  'c2.opKind': 'Phép biến đổi:',
-  'c2.opAdd': 'Cộng bội của hàng khác',
-  'c2.opSwap': 'Đổi chỗ hai hàng',
-  'c2.opScale': 'Nhân hàng với một số',
-  'c2.rowI': 'Hàng:',
-  'c2.rowJ': 'Lấy từ hàng:',
-  'c2.rowJSwap': 'Đổi với hàng:',
-  'c2.apply': 'Áp dụng',
-  'c2.undo': 'Lùi một bước',
-  'c2.hintNext': 'Gợi ý bước tiếp',
-  'c2.history': 'Các bước đã làm',
-  'c2.historyEmpty': 'Chưa có bước nào.',
-  'c2.echelonYes': 'Đã ở dạng bậc thang',
-  'c2.echelonNo': 'Chưa ở dạng bậc thang',
-  'c2.hintSuggest': 'Bước tiếp nên là: {formula}',
-  'c2.hintDone': 'Đã ở dạng bậc thang rồi — không cần bước nào nữa.',
-  'c2.badFactor': 'Hệ số k phải là số khác 0.',
 
 };

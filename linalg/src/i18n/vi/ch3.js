@@ -29,17 +29,6 @@ export const ch3 = {
   'c3.errMatrix': 'Hệ số phải là số, ví dụ 2 hoặc -1.5.',
 
   /* Tương tác */
-  'c3.dragTitle': 'Kéo vector trong R³, xem span đổi hình',
-  'c3.dragNote': 'Kéo đầu mũi tên để đổi vector, kéo nền trống để xoay góc nhìn. Vector b (xanh lá) dùng để thử xem nó có nằm trong span hay không.',
-  'c3.dragHint3d': 'Kéo đầu mũi tên · kéo nền để xoay · lăn để phóng to',
-  'c3.vecCount': 'Số vector:',
-  'c3.showB': 'Hiện vector b',
-  'c3.showPatch': 'Tô mặt phẳng / đường thẳng span',
-  'c3.inSpanYes': 'b nằm trong span',
-  'c3.inSpanNo': 'b không nằm trong span',
-  'c3.whyInSpan': 'Giải được c₁v₁ + … = b, hệ số: {coefs}.',
-  'c3.whyNotInSpan': 'Hệ c₁v₁ + … = b vô nghiệm — b nhô ra khỏi không gian con này.',
-  'c3.lblSpanKind': 'span',
   'c3.lblDim': 'Số chiều',
   'c3.lblIndep': 'Độc lập tuyến tính',
   'c3.yes': 'có',

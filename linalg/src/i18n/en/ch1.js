@@ -18,37 +18,17 @@ export const ch1 = {
   'c1.whyNeg': 'The projection of v points opposite to w, so the dot product is negative.',
 
   /* Interactive — dragging */
-  'c1.dragTitle': 'Drag the vectors, read the numbers live',
-  'c1.dragNote': 'Drag the tip of v (blue) or w (amber). Coordinates snap to a 0.25 grid so the numbers stay readable.',
-  'c1.showSum': 'Show v + w',
-  'c1.showDiff': 'Show v − w',
-  'c1.showProj': 'Show the projection of v onto w',
-  'c1.relPerp': 'v ⊥ w (perpendicular)',
-  'c1.relParallel': 'v ∥ w (same line)',
-  'c1.relFree': 'v and w are independent',
 
   /* Interactive — linear combinations */
-  'c1.comboTitle': 'Linear combinations c₁v₁ + c₂v₂',
-  'c1.comboNote': 'Drag the two base vectors and move the sliders. The faint dots are the reachable points — that is the span of v₁ and v₂.',
-  'c1.spanPlane': 'span = the whole plane R²',
-  'c1.spanLine': 'span = a line through the origin',
-  'c1.spanPoint': 'span = a single point (the origin)',
-  'c1.spanWhyPlane': 'The two vectors are not on the same line, so every point of R² can be written as c₁v₁ + c₂v₂.',
-  'c1.spanWhyLine': 'The two vectors lie on the same line, so every combination lands on that one line — most of the plane is out of reach.',
-  'c1.spanWhyPoint': 'Both vectors are zero, so every combination lands on the origin.',
 
   /* shared readout labels */
   'c1.lblSum': 'v + w',
-  'c1.lblDiff': 'v − w',
   'c1.lblLenV': '‖v‖',
   'c1.lblLenW': '‖w‖',
   'c1.lblDot': 'v · w',
   'c1.lblAngle': 'Angle (v, w)',
   'c1.lblCos': 'cos θ',
   'c1.lblProj': 'Projection of v onto w',
-  'c1.lblCombo': 'c₁v₁ + c₂v₂',
-  'c1.toCh2': 'On to Chapter 2: solving Ax = b',
   'c1.errVec': 'Coordinates must be two numbers, for example 3, 1.',
-  'c1.undefinedZero': 'undefined (zero vector)',
 
 };

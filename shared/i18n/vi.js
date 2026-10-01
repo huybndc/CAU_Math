@@ -46,6 +46,13 @@ export const vi = {
   'sync.err': 'Đồng bộ lỗi ({msg}). Tiến độ vẫn lưu trên máy này — bấm để thử lại.',
   /* menu theo việc */
   'shell.menu': 'Mục chính',
+  'solver.try': 'Thử:',
+  'solver.empty': 'Nhập dữ liệu ở trên, kết quả hiện ngay đây.',
+  'solver.hide': 'Che đáp án (tự làm trước)',
+  'solver.reveal': 'Hiện đáp án',
+  'solver.openAll': 'Mở hết các bước',
+  'solver.closeAll': 'Thu hết',
+  'solver.similar': 'Làm bài tương tự →',
   'shell.navClose': 'Thu gọn menu',
   'shell.navOpen': 'Mở rộng menu',
   'nav.home': 'Tổng quan',

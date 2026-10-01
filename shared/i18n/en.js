@@ -47,6 +47,13 @@ export const en = {
   /* bộ chạy luyện tập */
   /* task-based menu */
   'shell.menu': 'Main menu',
+  'solver.try': 'Try:',
+  'solver.empty': 'Enter the data above — the result appears right here.',
+  'solver.hide': 'Hide answer (try it first)',
+  'solver.reveal': 'Show answer',
+  'solver.openAll': 'Open all steps',
+  'solver.closeAll': 'Collapse all',
+  'solver.similar': 'Practise a similar one →',
   'shell.navClose': 'Collapse menu',
   'shell.navOpen': 'Expand menu',
   'nav.home': 'Overview',

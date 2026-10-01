@@ -1,0 +1,32 @@
+/* ===================== Máy giải (shared/ui/solver.js) ===================== */
+.sv{display:grid;gap:12px}
+.sv-ex{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.sv-ex:empty{display:none}
+.sv-ex-l{font-size:var(--fs-sm);color:var(--ink-dim);margin-right:2px}
+.sv-chip{font:inherit;font-size:var(--fs-sm);padding:5px 12px;border:1px solid var(--line-strong);border-radius:999px;background:var(--panel);color:var(--ink);cursor:pointer}
+.sv-chip:hover{border-color:var(--accent);color:var(--accent)}
+.sv-in{display:grid;gap:10px}
+.sv-in label{display:grid;gap:4px;font-size:var(--fs-sm);color:var(--ink-dim)}
+.sv-in label > input[type=text],.sv-in label > textarea{width:100%;font:500 1rem var(--mono);padding:9px 11px;border:1px solid var(--line-strong);border-radius:var(--r-md);background:var(--panel);color:var(--ink)}
+.sv-in textarea{resize:vertical;min-height:4.2em}
+.sv-in label > input:focus-visible,.sv-in label > textarea:focus-visible{outline:2px solid var(--accent);outline-offset:0;border-color:transparent}
+.sv-out{display:grid;gap:10px;align-content:start}
+.sv-empty{margin:0;color:var(--ink-dim);font-size:var(--fs-sm)}
+.sv-err{margin:0;padding:10px 13px;border-radius:var(--r-md);background:var(--bad-bg);color:var(--bad);font-size:var(--fs-sm)}
+.sv-answer{padding:14px 16px;border:1px solid color-mix(in srgb,var(--accent) 40%,var(--line));border-left:4px solid var(--accent);border-radius:var(--r-md);background:var(--accent-soft);display:grid;gap:4px}
+.sv-answer .step{font-size:1.12rem;line-height:1.5}
+.sv-reveal{justify-self:start}
+.sv-steps{display:grid;gap:6px}
+.sv-step{border:1px solid var(--line);border-radius:var(--r-md);background:var(--panel)}
+.sv-step > summary{display:flex;align-items:center;gap:10px;padding:9px 13px;cursor:pointer;list-style:none;font-weight:550;font-size:var(--fs-sm)}
+.sv-step > summary::-webkit-details-marker{display:none}
+.sv-step > summary::after{content:"";margin-left:auto;width:7px;height:7px;border-right:2px solid var(--ink-dim);border-bottom:2px solid var(--ink-dim);transform:rotate(45deg);transition:transform .15s}
+.sv-step[open] > summary::after{transform:rotate(-135deg)}
+.sv-step > summary:hover{background:var(--panel2);border-radius:var(--r-md)}
+.sv-n{color:var(--accent);font-size:1.05rem}
+.sv-body{padding:2px 14px 12px 40px;display:grid;gap:5px;overflow-x:auto}
+.sv-tools{display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;font-size:var(--fs-sm);color:var(--ink-dim)}
+.sv-hide{display:inline-flex!important;grid-auto-flow:column;align-items:center;gap:6px!important;cursor:pointer}
+.sv-link{font:inherit;font-size:var(--fs-sm);padding:0;border:0;background:none;color:var(--accent);cursor:pointer;text-decoration:underline}
+.sv-lab{font-size:var(--fs-sm);font-weight:600;color:var(--ink-dim)}
+.sv-ops{flex-wrap:wrap;justify-self:start}
