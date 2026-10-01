@@ -61,6 +61,7 @@ Mỗi biến có 2 giá trị ⇒ n biến có **2ⁿ dòng**. Cách làm không
 Ưu tiên: ¬ trước ∧, ∧ trước ∨, rồi → , cuối cùng ↔. Không chắc thì thêm ngoặc.
 
 <div data-check="c1q:table" data-needs="c1q:value"></div>
+<div data-check="c1q:count" data-needs="c1q:table"></div>
 
 ## Hằng đúng, hằng sai, khả thỏa
 

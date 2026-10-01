@@ -21,6 +21,12 @@ const minus = s => String(s).replace(/-/g, '−');
 
 /** Đổi cơ số: gộp nhóm bit khi đi giữa 2, 8, 16 (cách nhanh của Mano); còn lại đi qua thập phân. */
 function convert(q) {
+  const lines = convertCore(q);
+  if (q.meta.to === 2 && q.answer.length < 8) lines.push(L('s1.pad8', {}, q.answer.padStart(8, '0')));      // ô trả lời có 8 bit
+  return lines;
+}
+
+function convertCore(q) {
   const { src, from, to } = q.meta;
   const k = { 8: 3, 16: 4 };
   if (from !== 10 && to !== 10) {

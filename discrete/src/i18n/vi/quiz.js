@@ -3,6 +3,10 @@ export const quiz = {
   /* ---------- D1 Mệnh đề ---------- */
   'c1q.g-table': 'Bảng chân trị & giá trị',
   'c1q.g-laws': 'Tương đương, hằng đúng, phản đảo',
+  'c1q.count': 'Đếm dòng đúng',
+  'c1q.qCount': 'Bảng chân trị của {f} có bao nhiêu dòng cho kết quả đúng (T)?',
+  'c1q.f_count': 'Trả lời: một số nguyên (0 … số dòng).',
+  's1.countRows': 'Các dòng tô màu là dòng F đúng: {n} dòng.',
   'c1q.table': 'Lập bảng chân trị',
   'c1q.value': 'Giá trị của công thức',
   'c1q.classify': 'Hằng đúng / hằng sai?',

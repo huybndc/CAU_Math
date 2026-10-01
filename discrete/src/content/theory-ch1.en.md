@@ -61,6 +61,7 @@ Each variable has 2 values ⇒ n variables give **2ⁿ rows**. A method that nev
 Precedence: ¬ before ∧, ∧ before ∨, then →, and ↔ last. When unsure, add brackets.
 
 <div data-check="c1q:table" data-needs="c1q:value"></div>
+<div data-check="c1q:count" data-needs="c1q:table"></div>
 
 ## Tautology, contradiction, contingent
 

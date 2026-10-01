@@ -64,6 +64,14 @@ const SEEDS = 300;
 const each = (kind, fn) => it(kind, () => { for (let s = 1; s <= SEEDS; s++) fn(ch1.makeQuestion(kind, seededRandom(s)), s); });
 
 describe('D1: bộ tính độc lập xác nhận đáp án và từng ô bảng chân trị trong lời giải', () => {
+  each('count', q => {
+    const vars = q.meta.vars;
+    expect(q.answer).toBe([...column(q.textParams.f, vars)].filter(b => b === '1').length);
+    const t = q.work.find(w => w.table).table;
+    expect(t.mark.length).toBe(q.answer);
+    expect(q.answer).toBeGreaterThan(0);
+    expect(q.answer).toBeLessThan(1 << vars.length);
+  });
   each('table', q => {
     const vars = q.meta.vars;
     expect(q.answer).toBe(column(q.textParams.f, vars));

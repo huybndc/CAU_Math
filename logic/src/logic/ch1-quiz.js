@@ -45,7 +45,8 @@ function makeConvert(rnd) {
   return {
     kind: 'convert', format: 'text',
     textKey: 'c1q.qConvert', textParams: { src, from: 'base.' + from, to: 'base.' + to },
-    answer, input: to === 2 ? { type: 'bits', length: 8 } : undefined,
+    answer, answerText: to === 2 ? answer.padStart(8, '0') : undefined,      // ô 8 bit ⇒ đáp án hiện đủ 8 bit
+    input: to === 2 ? { type: 'bits', length: 8 } : undefined,
     formatKey: to === 2 ? 'c1q.f_convertBits' : 'c1q.f_convert',     // bit-box hint only when the question has bit boxes
     hintKey: from === 10 ? 'c1q.hConvert' : to === 10 ? 'c1q.hConvertToDec' : 'c1q.hConvertGroup', hintParams: { to, from },   // hint matches the conversion direction
     explainKey: 'c1q.xConvert', explainParams: { src, from, to, dec: v, answer: to === 2 ? answer.padStart(8, '0') : answer },
