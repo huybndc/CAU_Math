@@ -124,14 +124,12 @@
       <label class="inline"><span data-i18n="c1.atBase"></span>
         <select id="i1-from"><option>2</option><option>8</option><option selected>10</option><option>16</option></select>
       </label>
-      <label class="inline"><span data-i18n="c1.arrowBase"></span>
-        <select id="i1-to"><option selected>2</option><option>8</option><option>10</option><option>16</option></select>
-      </label>
     </div>
     <div id="i1-err" class="small bad"></div>
+    <div class="tblbox" style="margin-top:8px"><table class="grid" id="i1-out"></table></div>
     <div class="steps-box" style="margin-top:10px">
-      <div class="bitbar" id="i1-out"></div>
-      <div class="conv-steps" id="i1-all" style="margin-top:9px"></div>
+      <p class="hint" data-i18n-html="c1.posNote"></p>
+      <div class="pos-terms" id="i1-pos"></div>
     </div>
   </div>
 
@@ -150,7 +148,8 @@
     </div>
     <div id="i2-err" class="small bad"></div>
     <div class="steps-box" style="margin-top:10px">
-      <h4 class="mono" id="i2-comp"></h4>
+      <div class="tblbox"><table class="grid digits" id="i2-comp"></table></div>
+      <p class="hint" data-i18n-html="c1.complTip"></p>
       <div class="conv-steps" id="i2-steps"></div>
       <p class="small" id="i2-check" style="margin:8px 0 0"></p>
     </div>

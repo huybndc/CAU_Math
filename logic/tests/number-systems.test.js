@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import {
   digitValue, splitNumber, toDecimal, intToBaseSteps, fracToBaseSteps,
-  fromDecimal, convertBase, binaryToGrouped, groupedToBinary,
+  fromDecimal, convertBase, binaryToGrouped, groupedToBinary, positionalTerms,
 } from '../src/logic/number-systems.js';
 
 describe('digitValue / splitNumber', () => {
@@ -166,5 +166,17 @@ describe('binaryToGrouped / groupedToBinary (§1.4)', () => {
     expect(() => binaryToGrouped('101', 5)).toThrow();
     expect(() => binaryToGrouped('102', 4)).toThrow();
     expect(() => groupedToBinary('8', 3)).toThrow();   // 8 không hợp lệ ở octal
+  });
+});
+
+describe('positionalTerms (§1.2)', () => {
+  it('số mũ giảm dần qua dấu chấm, tổng a·r^k bằng toDecimal', () => {
+    const terms = positionalTerms('1A.8', 16);
+    expect(terms.map(t => t.power)).toEqual([1, 0, -1]);
+    expect(terms.map(t => t.value)).toEqual([1, 10, 8]);
+    for (const [s, r] of [['1101.1', 2], ['4021.2', 5], ['7.75', 10], ['B65F', 16]]) {
+      const sum = positionalTerms(s, r).reduce((a, t) => a + t.value * r ** t.power, 0);
+      expect(sum).toBe(toDecimal(s, r));
+    }
   });
 });

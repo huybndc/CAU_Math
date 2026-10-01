@@ -14,6 +14,11 @@ describe('range', () => {
 });
 
 describe('encode / decode', () => {
+  it('32 bit không tràn phép dịch bit (1 << 32 = 1 trong JS)', () => {
+    expect(decode('1'.repeat(17) + '0'.repeat(15), 'twos')).toBe(-32768);
+    expect(encode(-(2 ** 31), 'twos', 32)).toBe('1' + '0'.repeat(31));
+    expect(range('twos', 32)).toEqual({ min: -(2 ** 31), max: 2 ** 31 - 1 });
+  });
   it('−9 trên 8 bit theo cả ba dạng (ví dụ trong sách)', () => {
     expect(encode(-9, 'magnitude', 8)).toBe('10001001');
     expect(encode(-9, 'ones', 8)).toBe('11110110');

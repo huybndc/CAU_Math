@@ -72,7 +72,7 @@ function makeIdentify(rnd) {
     textKey: 'c2q.qIdentify', textParams: { n },
     choices, answer: order.indexOf(name),
     figure: { type: 'truth', vars: varNames(n), out: 'F', rows: [...bits].map((f, m) => [...m.toString(2).padStart(n, '0'), f]) },
-    hintKey: 'c2q.hIdentify', hintParams: { rule: 'c2q.rule' + name },
+    hintKey: 'c2q.hIdentify', hintParams: { bits },            // luật chung của cả 6 cổng — luật riêng của đáp án là lộ bài
     explainKey: 'c2q.xIdentify', explainParams: { gate: name, rule: 'c2q.rule' + name, bits, symbol: gateSymbol(name, n) },
     meta: { gate: name, n, bits },
   };

@@ -191,3 +191,11 @@ table.grid tr.rowbad td{background:color-mix(in srgb,var(--bad) 16%,transparent)
 .kt-tt summary{cursor:pointer;font-size:var(--fs-sm);font-weight:600;color:var(--accent)}
 .kt-tt .tblbox{max-height:360px;overflow-y:auto;margin-top:8px}
 @media (max-width:900px){.kt-body{grid-template-columns:1fr}.kt-left{position:static}}
+
+/* ===================== Ch.1 tương tác: 4 cơ số, khai triển vị trí, bit dấu ===================== */
+table.grid tr.src td{color:var(--accent);font-weight:700}
+.pos-terms{font-family:var(--mono);font-size:.9rem;line-height:2.1}
+.pos-terms .term{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:2px 6px;white-space:nowrap}
+.pos-terms .term b,.pos-terms .hl{color:var(--accent)}
+table.grid.digits td{min-width:1.6em;text-align:center}
+.signbit{color:var(--bad);font-weight:700}
