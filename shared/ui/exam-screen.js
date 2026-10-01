@@ -1,7 +1,6 @@
 import { $, el } from './dom.js';
 import { t as T, getLang } from '../i18n/index.js';
-import { EXAM_MINUTES, planExam, gradeItem, tally, secondsLeft, clock, isBlank } from '../logic/exam.js';
-import { seededRandom } from '../logic/shuffle.js';
+import { EXAM_MINUTES, examSize, gradeItem, tally, secondsLeft, clock, isBlank } from '../logic/exam.js';
 import { load, save, drop, loadEvents, subjectOf } from './store.js';
 import { questionCode } from '../logic/question-pool.js';
 import { go } from './router.js';
