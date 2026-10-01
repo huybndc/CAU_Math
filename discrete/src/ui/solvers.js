@@ -2,7 +2,7 @@ import { t as T, tError, onLangChange } from '../i18n/index.js';
 import { fail } from '@shared/logic/app-error.js';
 import { createSolver } from '@shared/ui/solver.js';
 import { fieldRow } from '@shared/ui/fields.js';
-import { truthReport, euclidReport, congruenceReport, powReport } from '../logic/report-tools.js';
+import { truthReport, euclidReport, congruenceReport, diophantineReport, powReport } from '../logic/report-tools.js';
 import { glossary } from './glossary.js';
 
 /* ---------------------------------------------------------------
@@ -63,6 +63,17 @@ export function mountCongruenceSolver(host) {
     random: () => { const n = rnd(5, 60); return { a: rnd(2, n - 1), b: rnd(1, n - 1), n }; },
     examples: [['7x ≡ 3 (mod 15)', { a: 7, b: 3, n: 15 }], ['6x ≡ 4 (mod 10)', { a: 6, b: 4, n: 10 }], ['6x ≡ 3 (mod 10)', { a: 6, b: 3, n: 10 }]],
     report: g => (g('a') && g('b') && g('n') ? congruenceReport(int(g('a')), int(g('b')), int(g('n'))) : null),
+  });
+}
+
+export function mountDiophantineSolver(host) {
+  mount(host, {
+    key: 'dioph',
+    practice: '#/practice/ch5',
+    specs: () => [{ id: 'a', label: 'a', value: '7', size: 6 }, { id: 'b', label: 'b', value: '5', size: 6 }, { id: 'c', label: 'c', value: '53', size: 6 }],
+    random: () => ({ a: rnd(3, 15), b: rnd(3, 15), c: rnd(20, 120) }),
+    examples: [['7x + 5y = 53', { a: 7, b: 5, c: 53 }], ['6x + 9y = 21', { a: 6, b: 9, c: 21 }], ['6x + 9y = 20', { a: 6, b: 9, c: 20 }]],
+    report: g => (g('a') && g('b') && g('c') ? diophantineReport(int(g('a')), int(g('b')), int(g('c'))) : null),
   });
 }
 

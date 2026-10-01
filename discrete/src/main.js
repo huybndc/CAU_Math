@@ -2,7 +2,7 @@ import { onLangChange, getLang } from './i18n/index.js';
 import { setupShell } from '@shared/ui/shell.js';
 import { mountLesson } from '@shared/ui/lesson.js';
 import { truthFigure } from '@shared/ui/figures.js';
-import { mountTruthSolver, mountEuclidSolver, mountCongruenceSolver, mountPowSolver } from './ui/solvers.js';
+import { mountTruthSolver, mountEuclidSolver, mountCongruenceSolver, mountDiophantineSolver, mountPowSolver } from './ui/solvers.js';
 import { graphFigure } from './ui/graph-figure.js';
 import { CHAPTERS } from './logic/chapters.js';
 import theoryCh1Vi from './content/theory-ch1.vi.md?raw';
@@ -40,6 +40,7 @@ window.addEventListener('DOMContentLoaded', () => {
   mountTruthSolver(document.getElementById('tool-truth'));
   mountEuclidSolver(document.getElementById('tool-euclid'));
   mountCongruenceSolver(document.getElementById('tool-congr'));
+  mountDiophantineSolver(document.getElementById('tool-dioph'));
   mountPowSolver(document.getElementById('tool-pow'));
   onLangChange(mountAllTheory);
   console.log('%cÔn tập Toán rời rạc', 'font-weight:bold');

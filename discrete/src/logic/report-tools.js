@@ -79,6 +79,27 @@ export function congruenceReport(a, b, n) {
   };
 }
 
+/** ax + by = c (a, b ≥ 1): có nghiệm nguyên ⇔ gcd | c; nghiệm riêng từ Pulverizer, nghiệm tổng quát, và các nghiệm không âm (tem / bình nước). */
+export function diophantineReport(a, b, c) {
+  if (a <= 0 || b <= 0) fail('err.needPositive');
+  const P = pulverize(a, b), g = P.gcd;
+  const intro = { head: { key: 'dr.stGcdDiv2' }, why: { key: 'dr.whyDio' }, lines: [`gcd(${a}, ${b}) = ${g} = ${par(P.s)}·${a} + ${par(P.t)}·${b}`, c % g === 0 ? { key: 'dr.divides', m: `${g} | ${c}` } : { key: 'dr.notDivides', m: `${g} ∤ ${c}` }] };
+  if (c % g !== 0) return { answer: [{ key: 'dr.noSol2' }], steps: [intro], check: s => /∅|none|\bno\b|vo\s*nghiem/i.test(s) };
+  const m = c / g, x0 = P.s * m, y0 = P.t * m, db = b / g, da = a / g;
+  const ks = [];
+  for (let k = Math.ceil(-x0 / db); k <= Math.floor(y0 / da) && ks.length < 12; k++) ks.push(k);
+  const sols = ks.map(k => [x0 + k * db, y0 - k * da]);
+  return {
+    answer: [{ key: 'dr.diGen', m: `x = ${num(x0)} + ${db}k,  y = ${num(y0)} − ${da}k` }, sols.length ? { key: 'dr.diNonNeg', m: sols.map(([x, y]) => `(${x}, ${y})`).join('  ') } : { key: 'dr.diNoNonNeg' }],
+    steps: [intro,
+      { head: { key: 'dr.stScale' }, why: { key: 'dr.whyScale', params: { m } }, lines: [`${num(x0)}·${a} + ${num(y0)}·${b} = ${c}   (x₀ = ${par(P.s)}·${m}, y₀ = ${par(P.t)}·${m})`] },
+      { head: { key: 'dr.stGeneral' }, why: { key: 'dr.whyGeneral' }, lines: [`x = ${num(x0)} + ${db}k`, `y = ${num(y0)} − ${da}k`, `k ∈ ℤ`] },
+      { head: { key: 'dr.stNonNeg' }, why: { key: 'dr.whyNonNeg' }, lines: [`x ≥ 0, y ≥ 0  ⇒  ${num(-x0)}/${db} ≤ k ≤ ${num(y0)}/${da}`, ...(sols.length ? sols.map(([x, y], i) => `k = ${ks[i]}:  (${x}, ${y})`) : [{ key: 'dr.diNoNonNeg' }])] },
+    ],
+    check: s => { const v = String(s).replace('−', '-').match(/-?\d+/g)?.map(Number) ?? []; return v.length === 2 && a * v[0] + b * v[1] === c; },
+  };
+}
+
 export function powReport(a, k, n) {
   const P = modPow(a, k, n), used = new Set(P.used);
   const terms = P.used.map(i => P.squares[i].v);
