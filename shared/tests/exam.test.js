@@ -113,3 +113,62 @@ describe('đồng hồ', () => {
     expect(clock(5400)).toBe('90:00');
   });
 });
+
+/* ---------- đề kiểu TOPIK (D53): số câu cố định, part dễ → khó, 80/20 ---------- */
+import { partSizes, examSize, planFixed, EXAM_COUNTS, MCQ_SHARE } from '../logic/exam.js';
+
+const many = (p, n) => Array.from({ length: n }, (_, i) => `${p}${i}`);
+const sec = (ks, f) => Object.fromEntries(ks.map((k, i) => [k, f(i)]));
+const choiceOf = b => ({ ...b, makeQuestion: (k, rnd) => ({ ...b.makeQuestion(k, rnd), format: 'choice', choices: ['a', 'b', 'c', 'd'], answer: 0 }) });
+const mk = (id, n, weight) => {
+  const ks = many(id, n), b = bank(ks, sec(ks, i => 40 + 15 * i));
+  return { id, prefix: id, weight, bank: b, choiceBank: choiceOf(b) };
+};
+const FIX = [mk('p', 10, 2), mk('q', 10, 3), mk('r', 10, 3)];
+
+describe('đề kiểu TOPIK', () => {
+  it('số câu cố định theo thời lượng, chia part theo trọng số', () => {
+    for (const m of [60, 75, 90]) {
+      const sizes = partSizes(FIX, EXAM_COUNTS[m]);
+      expect(sizes.reduce((a, b) => a + b, 0)).toBe(EXAM_COUNTS[m]);
+      expect(sizes[0]).toBeLessThan(sizes[1]);
+      expect(examSize(FIX, m)).toBe(EXAM_COUNTS[m]);
+    }
+  });
+  it('chương nhỏ hơn sức chứa thì dồn phần thừa sang chương khác', () => {
+    const small = { ...mk('s', 2, 5) };            // 2 dạng × 3 = 6 câu tối đa
+    const sizes = partSizes([small, mk('t', 10, 1)], 30);
+    expect(sizes[0]).toBeLessThanOrEqual(6);
+    expect(sizes[0] + sizes[1]).toBe(30);
+  });
+  it('part: mỗi part đúng số câu, theo thứ tự chương, trong part dạng nhanh trước', () => {
+    const slots = planFixed(FIX, 60, seededRandom(3), 'part');
+    const sizes = partSizes(FIX, EXAM_COUNTS[60]);
+    FIX.forEach((c, i) => {
+      const mine = slots.filter(s => s.part === i);
+      expect(mine.length).toBe(sizes[i]);
+      const t = mine.map(s => c.bank.SECONDS[s.kind]);
+      expect(t).toEqual([...t].sort((a, b) => a - b));
+    });
+    expect(slots.map(s => s.part)).toEqual([...slots.map(s => s.part)].sort((a, b) => a - b));
+  });
+  it('random: cùng số câu, không có part', () => {
+    const slots = planFixed(FIX, 60, seededRandom(3), 'random');
+    expect(slots.length).toBe(30);
+    expect(new Set(slots.map(s => s.ci)).size).toBe(3);        // trộn đủ cả ba chương
+  });
+  it('80% tự luận / 20% trắc nghiệm trong từng part; dựng lại cùng hạt giống ra đúng đề', () => {
+    const items = buildExam(FIX, { seed: 7, minutes: 90, order: 'part' });
+    expect(items.length).toBe(45);
+    for (let p = 0; p < 3; p++) {
+      const part = items.filter(it => it.part === p);
+      const mcq = part.filter(it => it.q.format === 'choice').length;
+      expect(mcq).toBe(Math.round(part.length * MCQ_SHARE));
+    }
+    const again = buildExam(FIX, { seed: 7, minutes: 90, order: 'part' });
+    expect(again.map(it => it.q.kind + it.q.a)).toEqual(items.map(it => it.q.kind + it.q.a));
+    const rnd = buildExam(FIX, { seed: 7, minutes: 90, order: 'random' });
+    expect(rnd.filter(it => it.q.format === 'choice').length).toBe(Math.round(45 * MCQ_SHARE));
+    expect(rnd.some(it => it.part !== undefined)).toBe(false);
+  });
+});

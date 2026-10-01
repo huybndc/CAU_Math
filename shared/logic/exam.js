@@ -81,11 +81,131 @@ export function spreadKinds(slots) {
   return out;
 }
 
+/* ---------------------------------------------------------------
+   ĐỀ THEO KIỂU TOPIK (D53) — SỐ CÂU CỐ ĐỊNH, 80% tự luận · 20% trắc nghiệm (mọi môn).
+   order 'part':   mỗi chương là một PART có số câu cố định (chia theo số tuần học), trong part xếp DỄ → KHÓ
+                   (dạng nhanh trước); part theo thứ tự giáo trình.
+   order 'random': cùng số câu, trộn hết, không hiện tên chương khi làm bài.
+   Đề cũ lưu order 'mixed' / không có order vẫn dựng bằng planExam ở trên (đáp án đã lưu khớp đúng câu).
+   --------------------------------------------------------------- */
+
+export const EXAM_COUNTS = { 60: 30, 75: 38, 90: 45 };
+export const MCQ_SHARE = 0.2;
+export const MIN_PART = 3;
+export const isFixedOrder = order => order === 'part' || order === 'random';
+export const examTotal = minutes => EXAM_COUNTS[minutes] ?? EXAM_COUNTS[90];
+
+/** Sức chứa của một chương: số câu khác dạng tối đa (mỗi dạng ≤ maxPerKind). */
+const capacity = ch => examKinds(ch.bank).reduce((s, k) => s + maxPerKind(k), 0);
+
+/**
+ * Chia `total` câu cho các chương theo trọng số (phần dư chia theo phần thập phân lớn nhất), tối thiểu MIN_PART,
+ * không vượt sức chứa; phần thừa dồn sang chương còn chỗ. Trả mảng số câu cùng thứ tự `chapters`.
+ */
+export function partSizes(chapters, total) {
+  const w = chapters.map(c => c.weight ?? 1);
+  const cap = chapters.map(capacity);
+  const sumW = w.reduce((a, b) => a + b, 0);
+  const ideal = w.map(x => (total * x) / sumW);
+  const size = ideal.map((x, i) => Math.min(cap[i], Math.max(MIN_PART, Math.floor(x))));
+  const order = ideal.map((x, i) => [x - Math.floor(x), i]).sort((a, b) => b[0] - a[0]).map(x => x[1]);
+  for (let guard = 0; guard < 10000; guard++) {
+    const diff = total - size.reduce((a, b) => a + b, 0);
+    if (diff === 0) break;
+    const room = diff > 0 ? order.filter(i => size[i] < cap[i]) : [...order].reverse().filter(i => size[i] > Math.min(MIN_PART, cap[i]));
+    if (!room.length) break;                                    // đủ chỗ cũng không: đề ngắn hơn số cố định
+    size[room[0]] += diff > 0 ? 1 : -1;
+  }
+  return size;
+}
+
+/** Số câu thật của đề (có thể < total khi các chương chọn quá ít dạng). */
+export const examSize = (chapters, minutes) => partSizes(chapters, examTotal(minutes)).reduce((a, b) => a + b, 0);
+
+const choiceMemo = new WeakMap();
+/** Dạng này vốn là câu trắc nghiệm (phân loại nghiệm, khái niệm…)? Đo bằng một câu mẫu, nhớ theo ngân hàng. */
+function isChoiceKind(bank, kind) {
+  const m = choiceMemo.get(bank) ?? choiceMemo.set(bank, {}).get(bank);
+  return (m[kind] ??= bank.makeQuestion(kind, seededRandom(1)).format === 'choice');
+}
+
+/**
+ * n dạng cho một chương: đi vòng qua các dạng đã xáo, mỗi dạng ≤ maxPerKind. Dạng vốn trắc nghiệm chỉ chiếm tối đa
+ * MCQ_SHARE (nếu để tự do thì chương có nhiều dạng khái niệm / phân loại vượt quá 20%); thiếu dạng tự luận mới nới ra.
+ */
+function pickKinds(ch, n, rnd) {
+  const all = shuffle(examKinds(ch.bank), rnd);
+  const choiceK = all.filter(k => isChoiceKind(ch.bank, k)), typedK = all.filter(k => !choiceK.includes(k));
+  const room = ks => ks.reduce((t, k) => t + maxPerKind(k), 0);
+  const take = (ks, m) => {
+    const count = {}, out = [];
+    while (out.length < m) {
+      const open = ks.filter(k => (count[k] ?? 0) < maxPerKind(k));
+      if (!open.length) break;
+      for (const k of open) { if (out.length === m) break; count[k] = (count[k] ?? 0) + 1; out.push(k); }
+    }
+    return out;
+  };
+  const c = Math.min(Math.round(n * MCQ_SHARE), room(choiceK));
+  const typed = take(typedK, n - c);
+  const rest = take(choiceK, n - typed.length);              // thiếu tự luận ⇒ bù bằng dạng trắc nghiệm
+  return shuffle([...typed, ...rest], rnd);
+}
+
+/** Độ khó ≈ thời gian chuẩn của dạng (càng ngắn càng dễ). */
+const hardness = (ch, kind) => ch.bank.SECONDS?.[kind] ?? 60;
+
+/** @returns {{ci:number, kind:string, part?:number}[]} */
+export function planFixed(chapters, minutes, rnd, order) {
+  const sizes = partSizes(chapters, examTotal(minutes));
+  const parts = chapters.map((ch, ci) => {
+    const kinds = pickKinds(ch, sizes[ci], rnd);                 // đã xáo ⇒ cùng độ khó thì thứ tự ngẫu nhiên (sort ổn định)
+    return kinds.sort((a, b) => hardness(ch, a) - hardness(ch, b)).map(kind => ({ ci, kind, part: ci }));
+  });
+  if (order === 'part') return parts.flat();
+  return spreadKinds(shuffle(parts.flat(), rnd));
+}
+
+/** Đổi bớt câu tự luận thành trắc nghiệm cho đủ MCQ_SHARE trong phạm vi `scope` (mảng item); câu vốn là trắc nghiệm được tính. */
+function mixChoice(scope, chaptersById, rnd) {
+  const want = Math.round(scope.length * MCQ_SHARE);
+  let have = scope.filter(it => it.q.format === 'choice').length;
+  for (const it of shuffle(scope.filter(it => it.q.format !== 'choice' && chaptersById[it.ch].choiceBank), rnd)) {
+    if (have >= want) break;
+    const c = chaptersById[it.ch];
+    const q = seededQuestion(c.choiceBank, it.q.kind, it.q.seed);
+    if (q.format !== 'choice') continue;                         // dạng này không làm trắc nghiệm được
+    Object.assign(it, { bank: c.choiceBank, q });
+    have++;
+  }
+}
+
+function buildFixed(chapters, { seed, minutes, order }) {
+  const slots = planFixed(chapters, minutes, seededRandom(seed), order);
+  const seen = new Set();
+  const items = slots.map((s, i) => {
+    const c = chapters[s.ci];
+    let q;
+    for (let j = 0; j < 40; j++) {
+      q = seededQuestion(c.bank, s.kind, seed + 7919 * (i + 1) + 104729 * j);
+      if (!seen.has(signature(q))) break;
+    }
+    seen.add(signature(q));
+    return { ch: c.id, prefix: c.prefix, bank: c.bank, q, part: order === 'part' ? s.part : undefined };
+  });
+  const byId = Object.fromEntries(chapters.map(c => [c.id, c]));
+  const rnd = seededRandom(seed + 1);
+  if (order === 'part') for (const ci of new Set(slots.map(s => s.part))) mixChoice(items.filter(it => it.part === ci), byId, rnd);
+  else mixChoice(items, byId, rnd);
+  return items;
+}
+
 /**
  * Dựng đề: mỗi câu một hạt giống con (câu i không phụ thuộc số câu trước nó về dạng), và không có
  * hai câu trùng chữ ký (question-pool.js) — trùng thì thử hạt giống kế tiếp, vẫn xác định nên F5 ra đúng đề cũ.
  */
 export function buildExam(chapters, { seed, minutes, order }) {
+  if (isFixedOrder(order)) return buildFixed(chapters, { seed, minutes, order });
   const seen = new Set();
   return planExam(chapters, minutes, seededRandom(seed), order === 'mixed').map((s, i) => {
     const c = chapters[s.ci];

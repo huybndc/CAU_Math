@@ -59,7 +59,7 @@ function renderSetup(cfg) {
     mode: pref.mode === 'long' ? 'long' : 'exam',
     order: pref.order === 'random' ? 'random' : 'part',          // mặc định: chia theo Part (dễ → khó, như đề thi thật)
   };
-  if (!S.chapters.length) S.chapters = midScope(cfg);
+  if (!S.chapters.length) S.chapters = banked(cfg).map(c => c.id);
   seed ||= Math.floor(Math.random() * 2 ** 31);
 
   const form = el('div', { class: 'exam-setup' });
