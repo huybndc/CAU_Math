@@ -1,5 +1,7 @@
 import { onLangChange, getLang } from './i18n/index.js';
 import { setupShell } from '@shared/ui/shell.js';
+import { addScratchTab } from '@shared/ui/scratch.js';
+import { mountAxSolver } from './ui/ax-solver.js';
 import { mountLesson } from '@shared/ui/lesson.js';
 import { foldCards } from '@shared/ui/fold-cards.js';
 import { CHAPTERS } from './logic/chapters.js';
@@ -26,6 +28,7 @@ const THEORY = {
 const banks = Object.fromEntries(CHAPTERS.map(c => [c.prefix, c.bank]));
 
 window.addEventListener('DOMContentLoaded', () => {
+  addScratchTab('linalg', 'solve', host => mountAxSolver(host));
   setupShell({ chapters: CHAPTERS, figures: FIGURES, widgets: WIDGETS, lesson: ch => THEORY[getLang()][ch] });
   setupCh1ExamplePage();
   setupCh1InteractivePage();

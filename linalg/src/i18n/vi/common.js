@@ -7,6 +7,23 @@ export const common = {
   'nav.ch3': 'Không gian vector',
   'sub.practice': 'Luyện tập',
 
+  'scratch.solve': 'Giải Ax=b',
+  'ax.rows': 'Hàng',
+  'ax.cols': 'Ẩn',
+  'ax.clear': 'Xoá',
+  'ax.bad': 'Có ô chưa đọc được — viết số, phân số (1/2) hoặc căn (√5).',
+  'ax.tip': 'Điền A và b (cột sau vạch). Ra nghiệm, khử Gauss từng bước và phân tích PA = LDU để đối chiếu bài làm tay.',
+  'ax.unique': 'Nghiệm duy nhất',
+  'ax.none': 'Vô nghiệm',
+  'ax.noneWhy': 'Hàng {row} thành 0 = số khác 0 sau khi khử.',
+  'ax.infinite': 'Vô số nghiệm ({k} biến tự do)',
+  'ax.check': 'Thế lại: sai lệch tối đa {e}',
+  'ax.gauss': 'Khử Gauss từng bước ({n} phép)',
+  'ax.ldu': 'Phân tích A = LDU',
+  'ax.swaps': 'Đổi hàng khi trụ bằng 0: {list}',
+  'ax.sub': 'Thế xuôi rồi thế ngược:',
+  'ax.noD': 'Không có D: ma trận suy biến hoặc không vuông (hạng {rank}); chỉ có PA = LU với U bậc thang.',
+
   /* lỗi từ logic/ và geometry/ */
   'err.noVectors': 'Cần ít nhất một vector.',
   'err.notVector': 'Chưa phải một vector (cần mảng số khác rỗng).',

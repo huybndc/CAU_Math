@@ -21,6 +21,9 @@ import { mountCalcList } from './scratch-calc.js';
    --------------------------------------------------------------- */
 
 const BASES = [2, 8, 10, 16];
+/** Ngăn riêng của từng môn (đăng ký từ app, vd linalg: Giải Ax = b): addScratchTab(môn, tên, host => …). Nhãn: T('scratch.<tên>'). */
+const EXTRA = {};
+export const addScratchTab = (subject, name, mount) => { (EXTRA[subject] ??= {})[name] = mount; };
 const LIST_CALC = ['linalg', 'calculus'];             // môn dùng máy tính dạng danh sách; Logic / Discrete cần đổi cơ số
 const SYMBOLS = ['Σm(', 'ΠM(', '′', '⊕', '·', '→', '≠'];
 const TABS = { logic: ['notes', 'calc', 'table', 'kmap'], discrete: ['notes', 'calc', 'table'], linalg: ['notes', 'calc', 'matrix'] };
@@ -59,11 +62,14 @@ export function setupScratch() {
     sec.replaceChildren();
     calcList = mountCalcList(sec, accountStorageKey('calc-list:' + subject), { angleDefault: subject === 'calculus' ? 'rad' : 'deg' });
   }
-  const tabs = TABS[subject] ?? ['notes', 'calc'];
+  const extra = Object.entries(EXTRA[subject] ?? {});
+  for (const [name] of extra) { const sp = document.createElement('section'); sp.className = 'sp'; sp.dataset.tab = name; pane.append(sp); }
+  const tabs = [...(TABS[subject] ?? ['notes', 'calc']), ...extra.map(([name]) => name)];
   const panel = tab => pane.querySelector(`.sp[data-tab="${tab}"]`);
   pane.querySelectorAll('.sp').forEach(sp => { if (!tabs.includes(sp.dataset.tab)) sp.remove(); });
   if (tabs.includes('table')) mountTable(panel('table'), subject);
   if (tabs.includes('kmap')) mountKmap(panel('kmap'), subject);
+  for (const [name, mount] of extra) mount(panel(name));
   if (tabs.includes('matrix')) mountMatrixPad(panel('matrix'), accountStorageKey('scratch-mat:' + subject));
 
   /* ---------- ngăn ---------- */
