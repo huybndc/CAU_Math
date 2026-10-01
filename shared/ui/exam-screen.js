@@ -94,9 +94,9 @@ function renderSetup(cfg) {
   return T('nav.exam');
 }
 
-function start({ chapters, minutes, mode }) {
-  save('exam-pref', { chapters, minutes, mode });
-  save('exam', { seed, minutes, order: 'mixed', mode, chapters, startedAt: Date.now(), at: 0, given: [], flags: [], checked: [], hideClock: false, submittedAt: null });
+function start({ chapters, minutes, mode, order }) {
+  save('exam-pref', { chapters, minutes, mode, order });
+  save('exam', { seed, minutes, order, mode, chapters, startedAt: Date.now(), at: 0, given: [], flags: [], checked: [], hideClock: false, submittedAt: null });
   seed = 0;
   go({ view: 'exam', step: 'run' });
 }
