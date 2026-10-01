@@ -19,6 +19,7 @@ The **domain** matters: ∃x (x² = 2) is true over the reals, false over the in
 To show a ∀ is false, one **counterexample** is enough. To show a ∃ is true, exhibit one **witness**.
 
 <div data-check="c2q:truth"></div>
+<div data-check="c2q:inner" data-needs="c2q:truth"></div>
 
 ## Nested quantifiers: order is meaning
 

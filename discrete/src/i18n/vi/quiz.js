@@ -117,6 +117,10 @@ export const quiz = {
   's7.rsaEnc': 'Mã hoá:',
 
   /* ---------- D2–D5 ---------- */
+  'c2q.inner': 'Đếm giá trị thoả',
+  'c2q.qInner': 'Với x, y lấy trong {d}: có bao nhiêu giá trị {v} làm mệnh đề {f} đúng?',
+  'c2q.f_inner': 'Trả lời: một số nguyên (0 … số phần tử của miền).',
+  's2.countAns': 'Số giá trị {v} làm mệnh đề đúng: {n}.',
   'c2q.truth': 'Đúng/sai với ∀, ∃',
   'c2q.negate': 'Phủ định có lượng từ',
   'c2q.qTruth': 'Với x, y lấy trong {d}, mệnh đề {f} đúng hay sai?',

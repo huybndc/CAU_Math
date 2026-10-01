@@ -117,6 +117,10 @@ export const quiz = {
   's7.rsaEnc': 'Encrypt:',
 
   /* ---------- D2–D5 ---------- */
+  'c2q.inner': 'Count satisfying values',
+  'c2q.qInner': 'With x, y ranging over {d}: how many values of {v} make {f} true?',
+  'c2q.f_inner': 'Answer: an integer (0 … size of the domain).',
+  's2.countAns': 'Number of values of {v} that make it true: {n}.',
   'c2q.truth': 'True or false with ∀, ∃',
   'c2q.negate': 'Negating quantifiers',
   'c2q.qTruth': 'With x, y ranging over {d}, is {f} true or false?',
