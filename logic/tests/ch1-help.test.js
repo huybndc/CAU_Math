@@ -28,7 +28,7 @@ describe('chỉ ra đáp án sai ở đâu', () => {
       }
       const one = flip(q.answer);
       const r = ch1.checkAnswer(q, one);
-      if (to <= 10 || /^[0-9]+$/.test(one)) expect(['c1q.dPos', 'c1q.dStep', 'c1q.dWrongBase', 'c1q.dValue']).toContain(r.detailKey);
+      if (to <= 10 || /^[0-9]+$/.test(one)) expect(['c1q.dPos', 'c1q.dStep', 'c1q.dWrongBase', 'c1q.dValue', 'c1q.dValueDec']).toContain(r.detailKey);
     }, 120);
     expect(wrongBase).toBeGreaterThan(3);
   });

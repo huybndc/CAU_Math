@@ -547,3 +547,11 @@ khác syllabus, lịch học bắt đầu từ 2026/09/01".)
 - **Nút về Hub:** `hubHref` trong hợp đồng `@host` (mặc định null); có thì thêm tab "Study Hub".
 - Chữ: mã câu thành chip ngắn bấm để chép; rút dòng "chỉ có n câu"; "Nên ôn lại"; "Chia theo phần (Part)"; ô bit nhận dán cả chuỗi.
 - Công cụ Discrete chỉ liệt kê chương có công cụ tương tác (1, 6, 7, 8): có chủ đích, không sửa.
+
+**D59. Sửa theo review lần 2 (2026-10-01).**
+- **Tràn ngang trên điện thoại:** cột lưới của bộ thẻ bài học bị ví dụ mẫu nới ra (`grid auto`) ⇒ trang rộng hơn màn hình, nút lệch. Cột `minmax(0,1fr)`, thẻ `min-width:0`, công thức có bóng mờ báo kéo ngang được.
+- **Đếm 7 ngày:** app dùng cùng cửa sổ với Hub (7 ngày lịch gồm hôm nay, `weekSince`) + dòng chú thích nguồn số liệu. "Học tiếp … chưa làm câu nào" là đúng khi lượt trộn không ra dạng đó.
+- **Ô bit / cột F:** có ô gõ nguyên chuỗi 0/1; bấm Kiểm tra khi thiếu ô chỉ nhắc, không xoá ô đã điền (luyện tập và phòng thi).
+- **Nháp trên điện thoại:** nút thành ✎ tròn; trong phòng thi có chừa chỗ để không đè "Câu sau".
+- **Phòng thi:** Enter như phần Luyện tập; bài tập dài không ghi "90 phút". "Xem đáp án" có tooltip nói rõ tính là sai.
+- **Chữ:** gợi ý đổi cơ số theo đúng chiều; dòng "bấm từng ô" chỉ ở câu có ô bit; "Sai ở dòng" đếm từ 1; nhãn gửi Hub luôn tiếng Việt (`tIn`); trạng thái gốc lỗi "chưa vững"; chú thích nút đồng bộ khi chạy dưới Hub.

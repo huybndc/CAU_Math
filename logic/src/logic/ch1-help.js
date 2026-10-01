@@ -47,7 +47,8 @@ export function diagnose(q, given) {
       const bad = [...g].find(c => c !== '.' && !(val(c) < m.to));
       if (bad) return note('c1q.dBadDigit', { ch: bad, to: m.to, top: (m.to - 1).toString(16).toUpperCase() });
       // đích là thập phân (hoặc khác độ dài): chữ số không tương ứng vị trí ⇒ so giá trị
-      if (m.to === 10 || g.length !== want.length) return note('c1q.dValue', { given: g, to: m.to, got: attempt(() => toDecimal(g, m.to)), want: v });
+      if (m.to === 10) return note('c1q.dValueDec', { given: g, want: v });          // decimal target: only state the correct value
+      if (g.length !== want.length) return note('c1q.dValue', { given: g, to: m.to, got: attempt(() => toDecimal(g, m.to)), want: v });
       // chữ số phải nhất là số dư của phép chia THỨ NHẤT, kế tiếp đi dần sang trái:
       // chữ số sai phải nhất chính là phép chia đầu tiên bị tính sai
       const k = [...want].reverse().findIndex((c, i) => c !== g[g.length - 1 - i]);

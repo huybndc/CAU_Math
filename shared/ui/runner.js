@@ -27,7 +27,7 @@ import { h } from './dom.js';
    --------------------------------------------------------------- */
 
 /** "đúng 40%" / "chưa làm câu nào" — trạng thái của điểm tiên quyết bị nghi là gốc lỗi. */
-export const rootState = acc => (acc == null ? T('run.rootNew') : T('run.rootAcc', { p: Math.round(acc * 100) }));
+export const rootState = acc => (acc == null ? T('run.rootNew') : acc < 0.5 ? T('run.rootShaky') : T('run.rootAcc', { p: Math.round(acc * 100) }));   // <50%: "chưa vững" thay vì "đúng 0%" nghe như chê
 
 export function mountRunner(host, { bank, prefix, figures = {}, widgets = {}, size = 10, kinds, chips = true, autofocus = true, mode = 'practice', review,
   goal = 0, make, onPass, onExample, passLabel, onResult }) {
@@ -157,6 +157,7 @@ export function mountRunner(host, { bank, prefix, figures = {}, widgets = {}, si
       }
       const rb = h('button', 'link', T('run.reveal'));
       rb.type = 'button';
+      rb.title = T('run.revealNote');
       rb.addEventListener('click', reveal);
       tools.append(rb);
       body.push(tools);
@@ -228,7 +229,13 @@ export function mountRunner(host, { bank, prefix, figures = {}, widgets = {}, si
     if (S.phase !== 'ask') return;
     touched = true;
     S.warn = null;
-    if (!String(given).trim()) { S.warn = T('run.empty'); draw(); return; }
+    if (!String(given).trim()) {                       // chưa đủ: chỉ nhắc, KHÔNG vẽ lại (vẽ lại xoá hết ô đã điền)
+      S.warn = T('run.empty');
+      const fb = card.querySelector('.run-feedback');
+      fb?.querySelector('.warn')?.remove();
+      fb?.append(h('div', 'msg warn', `<span>${S.warn}</span>`));
+      return;
+    }
     const e = cur();
     const r = bank.checkAnswer(e.q, given);
     // không đọc được đáp án (sai cú pháp…) thì báo để sửa, CHƯA tính là sai

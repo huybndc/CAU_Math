@@ -15,12 +15,25 @@ import { ht as h } from './dom.js';
  * Dãy bit bấm được. Bấm: trống → 1 → 0 → 1…; gõ 0/1 khi đang chọn ô cũng được,
  * Backspace lùi. spec = { length, group? } — group = số bit mỗi nhóm (vd 4 cho BCD).
  */
+/** Ô gõ nguyên chuỗi 0/1 (nhanh hơn chạm từng ô); `val` là mảng bit dùng chung với dãy ô, `paint` vẽ lại dãy ô. */
+function typedRow(n, val, paint, ctx) {
+  const inp = h('input', 'w-typed');
+  inp.type = 'text'; inp.inputMode = 'numeric'; inp.autocomplete = 'off'; inp.spellcheck = false; inp.maxLength = n + 8;
+  inp.placeholder = inp.title = T('wid.typed', { n });
+  inp.setAttribute('aria-label', T('wid.typed', { n }));
+  inp.addEventListener('input', () => { const s = inp.value.replace(/[^01]/g, ''); for (let i = 0; i < n; i++) val[i] = s[i] ?? ''; paint(); });
+  inp.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); ctx.onSubmit(); } });
+  return inp;
+}
+const syncTyped = (inp, val) => { if (inp && document.activeElement !== inp) inp.value = val.join(''); };
+
 export function bits(spec, ctx) {
   const n = spec.length;
   const val = Array.from({ length: n }, (_, i) => (ctx.given ? ctx.given.replace(/\s+/g, '')[i] ?? '' : ''));
   const box = h('div', 'w-bits');
   const cells = [];
-  const paint = () => cells.forEach((b, i) => {
+  let typed = null;
+  const paint = () => { syncTyped(typed, val); cells.forEach((b, i) => {
     b.textContent = val[i] || '·';
     b.dataset.v = val[i];
     if (ctx.locked && ctx.answer != null) {
@@ -28,7 +41,7 @@ export function bits(spec, ctx) {
       b.classList.toggle('good', val[i] === want);
       b.classList.toggle('bad', val[i] !== want);
     }
-  });
+  }); };
   for (let i = 0; i < n; i++) {
     if (spec.group && i && i % spec.group === 0) box.append(h('span', 'w-gap'));
     const b = h('button', 'w-bit');
@@ -55,8 +68,11 @@ export function bits(spec, ctx) {
     [...s].slice(0, n - from).forEach((c, k) => { val[from + k] = c; });
     paint();
   });
+  const wrap = h('div', 'w-bitsbox');
+  wrap.append(box);
+  if (!ctx.locked) wrap.append(typed = typedRow(n, val, paint, ctx));
   paint();
-  return { el: box, get: () => (val.every(Boolean) ? val.join('') : ''), focus: () => (cells.find((_, i) => !val[i]) ?? cells[0]).focus() };
+  return { el: wrap, get: () => (val.every(Boolean) ? val.join('') : ''), focus: () => (cells.find((_, i) => !val[i]) ?? cells[0]).focus() };
 }
 
 /**
@@ -75,6 +91,7 @@ export function truth(spec, ctx) {
 
   const given = ctx.given ?? '';
   const col = Array.from({ length: rows }, (_, m) => (spec.mode === 'column' ? given.replace(/\s+/g, '')[m] ?? '' : ''));
+  let typed = null;
   const picked = new Set(spec.mode === 'rows' ? (given.match(/\d+/g) || []).map(Number) : []);
   const want = ctx.locked && ctx.answer != null ? ctx.answer : null;
 
@@ -102,6 +119,7 @@ export function truth(spec, ctx) {
     }
   }
   function paint() {
+    if (spec.mode === 'column') syncTyped(typed, col);
     trs.forEach(({ tr, out }, m) => {
       if (spec.mode === 'column') {
         out.textContent = col[m] || '·';
@@ -121,6 +139,7 @@ export function truth(spec, ctx) {
   const wrap = h('div', 'w-truth-wrap');
   if (spec.mode === 'rows') wrap.append(h('p', 'w-tip', T(spec.target === 0 ? 'wid.pickRows0' : 'wid.pickRows1')));
   wrap.append(t);
+  if (spec.mode === 'column' && !ctx.locked) { typed = typedRow(rows, col, paint, ctx); wrap.append(typed); syncTyped(typed, col); }
   return {
     el: wrap,
     get: () => (spec.mode === 'column'

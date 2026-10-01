@@ -48,6 +48,9 @@ export function t(key, params) {
   return s.replace(/\{(\w+)\}/g, (_, k) => (k in params ? String(params[k]) : '{' + k + '}'));
 }
 
+/** Tra theo ngôn ngữ chỉ định (nhãn gửi sang Hub luôn tiếng Việt, không phụ thuộc ngôn ngữ đang chọn trong app). */
+export const tIn = (lng, key) => DICTS[lng]?.[key] ?? DICTS.vi[key] ?? key;
+
 /** Dịch một lỗi: AppError thì tra theo mã, lỗi thường thì giữ nguyên message. */
 export function tError(e) {
   return e && e.key ? t(e.key, e.params) : (e && e.message) || String(e);

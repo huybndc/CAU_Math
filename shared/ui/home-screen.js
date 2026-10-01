@@ -1,6 +1,6 @@
 import { $, el } from './dom.js';
 import { t as T } from '../i18n/index.js';
-import { statsOf, minutesSince, recentStats, DAY } from '../logic/progress.js';
+import { statsOf, minutesSince, recentStats, weekSince } from '../logic/progress.js';
 import { weekOf, WEEKS, EXAM_WEEKS, daysToMidterm } from '../logic/syllabus.js';
 import { loadEvents, save } from './store.js';
 import { chapterTitle, roundMinutes, rankedKinds, accCell, row, leadCard, studied } from './choices.js';
@@ -68,7 +68,7 @@ function today(cfg, events, now) {
 export function renderHome(r, cfg) {
   const events = loadEvents();
   const now = Date.now();
-  const since = now - 7 * DAY;
+  const since = weekSince(now);
   const seconds = Object.fromEntries(cfg.chapters.filter(c => c.bank).map(c => [c.prefix, c.bank.SECONDS]));
   const recent = statsOf(events, { since });
   const stat = (v, label) => el('span', {}, [el('b', { text: v }), label]);
@@ -95,6 +95,7 @@ export function renderHome(r, cfg) {
       stat(recent.accuracy === null ? '—' : `${Math.round(recent.accuracy * 100)}%`, T('home.statAcc')),
       stat(String(recent.attempts), T('home.statQ')),
     ]),
+    el('p', { class: 'muted small', text: T('home.statNote') }),
     ...(chapters.length ? [el('h2', { class: 'section-label', text: T('home.byChapter') }), el('div', { class: 'list' }, chapters)] : []),
   );
   return T('nav.home');

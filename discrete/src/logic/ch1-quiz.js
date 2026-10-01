@@ -172,5 +172,5 @@ export function checkAnswer(q, given) {
   const bits = String(given).replace(/\s+/g, '');
   if (bits.length !== q.answer.length || !/^[01]+$/.test(bits)) return { retry: true, detailKey: 'c1q.needBits', detailParams: { n: q.answer.length } };
   const wrong = [...bits].flatMap((b, i) => (b !== q.answer[i] ? [i] : []));
-  return wrong.length ? { ok: false, detailKey: 'c1q.wrongRows', detailParams: { rows: wrong.join(', ') } } : { ok: true };
+  return wrong.length ? { ok: false, detailKey: 'c1q.wrongRows', detailParams: { rows: wrong.map(i => i + 1).join(', ') } } : { ok: true };
 }

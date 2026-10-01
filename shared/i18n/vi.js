@@ -41,6 +41,7 @@ export const vi = {
   /* đồng bộ giữa các máy (D37) — chữ trong tooltip nút mây */
   'sync.wait': 'Đang đồng bộ…',
   'sync.ok': 'Đồng bộ qua {label} lúc {time} · {n} máy. Bấm để đồng bộ ngay. Thư mục: {dir}',
+  'sync.hub': 'Bản online: tiến độ lưu trên tài khoản Study Hub của bạn và hiện ở Thống kê. Đồng bộ thư mục (iCloud/Drive) chỉ chạy khi mở app trên máy tính.',
   'sync.off': 'Chưa đồng bộ giữa các máy: kiểm tra iCloud Drive / Google Drive / OneDrive / Dropbox, hoặc đặt STUDY_SYNC_DIR trong .env (nếu có tài khoản thì cần đăng nhập).',
   'sync.err': 'Đồng bộ lỗi ({msg}). Tiến độ vẫn lưu trên máy này — bấm để thử lại.',
   /* menu theo việc */
@@ -117,7 +118,10 @@ export const vi = {
   'run.solution': 'Lời giải',
   'run.next': 'Câu tiếp',
   'run.finish': 'Xem kết quả',
-  'run.empty': 'Nhập đáp án trước đã.',
+  'wid.typed': 'Hoặc gõ cả chuỗi {n} bit, vd 0101…',
+  'home.statNote': 'Tính trong 7 ngày gần nhất (gồm hôm nay), cả bài làm trên máy khác — cùng số với Thống kê của Study Hub.',
+  'run.revealNote': 'Xem đáp án được tính là chưa làm đúng câu này',
+  'run.empty': 'Điền đủ các ô trước đã (các ô bạn điền vẫn được giữ).',
   'run.review': 'Ôn lại: {title}',
   'run.dMissing': 'Còn thiếu: <b class="mono">{missing}</b>.',
   'run.dExtra': 'Bạn ghi thừa: <b class="mono">{extra}</b>.',
@@ -155,6 +159,7 @@ export const vi = {
   'run.anotherExample': 'Xem thêm một ví dụ',
   'cq.whyWrong': 'Phương án {opt} sai: {why}',
   'run.root': 'Nên ôn lại: {title} ({state})',
+  'run.rootShaky': 'chưa vững',
   'run.rootNew': 'chưa làm câu nào',
   'run.rootAcc': 'đúng {p}%',
   'run.rootFirst': 'Ôn gốc trước: {root}, rồi {title}',

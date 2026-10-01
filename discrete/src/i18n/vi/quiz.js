@@ -30,7 +30,7 @@ export const quiz = {
   'c1q.form.converse': 'đảo (converse)',
   'c1q.form.inverse': 'nghịch đảo (inverse)',
   'c1q.needBits': 'Cột F cần đủ {n} ô 0/1.',
-  'c1q.wrongRows': 'Sai ở dòng {rows} (đếm từ 0).',
+  'c1q.wrongRows': 'Sai ở dòng {rows} (đếm từ 1, dòng đầu là 1).',
   's1.cols': 'Bảng chân trị: mỗi công thức con một cột; các dòng theo thứ tự biến {vars}, bắt đầu từ mọi biến = 0:',
   's1.readCol': 'Đọc cột kết quả từ trên xuống:',
   's1.inside': 'Tính từ trong ra ngoài:',
