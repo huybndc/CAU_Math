@@ -16,6 +16,8 @@
 - D49: Added generated, checked Discrete practice for truth tables, nested quantifier negation, and weighted geometric sums. Added bilingual proof-method guidance; no handout content or fixed exam composition was added. Full suite (1111 tests), check, and build passed.
 - Current math content gaps are tracked in per-app PLAN/PROGRESS files.
 
+- D51: LinAlg UX — ô vector/ma trận, chính sách sai số + góc độ/radian, thi thử gập, bài học vẽ ma trận, thẻ gập, lưới ma trận ở Nháp. Chưa đưa sang bản mirror Study_Hub.
+
 ## In progress
 
 - [ ] Repo split bridge: move the math.answer writer/integration adapter from Study_Hub into CAU_Math_App.

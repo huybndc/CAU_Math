@@ -497,3 +497,11 @@ khác syllabus, lịch học bắt đầu từ 2026/09/01".)
   từng câu được đổi tên biến hoặc tham số hoá, tự chấm bằng bộ sinh hiện có và có oracle độc lập.
 - Các chủ đề chứng minh tương ứng chỉ được dẫn thành gợi ý trong thẻ học D2/D3, không thành câu trắc nghiệm tự chấm.
 - Không có giấy phép tái sử dụng trên handout; không lưu/chép handout hay thông tin nhận dạng vào repo. Phần set/đề cố định nếu cần thuộc Study Hub.
+
+**D51. Giao diện làm bài LinAlg bớt cuộn, ô trả lời đúng dạng toán (2026-10-01).**
+- Đáp án vector nhập bằng ô `vec` (cột có ngoặc; hàng có nhãn x, y, z / c, d / trụ), ma trận bằng lưới `matrix`; chuỗi trả về giữ nguyên định dạng cũ nên phần chấm không đổi.
+- Sai số: đáp án toàn số nguyên ⇒ chặt (1e-6); có số lẻ ⇒ nhận thập phân lệch ≤ 0.01 mỗi số (hoặc dạng chính xác 1/3, √5). Mỗi câu hiện một dòng nói rõ điều đó (`noteKey`).
+- Góc: mặc định ĐỘ; viết kèm π / pi / rad thì hiểu là radian và đổi sang độ (`q.angle`).
+- Thi thử: danh sách câu gập mặc định; màn kết quả gập theo mục, xem lại câu sai theo từng chương (mẫu Toeic: tab theo Part, mỗi câu gập sẵn).
+- Bài học: ma trận viết `[1 2; 3 4]` (khối ```math hoặc code inline) vẽ thành lưới. Trang Ví dụ / Công cụ: thẻ gập, chỉ thẻ đầu mở.
+- Nháp (Đại số tuyến tính): thêm lưới ma trận (≤ 6 cái, nhân bản xuống làm bước kế); chỉ làm hộ phần chép, không tự tính phép biến đổi (D45).
