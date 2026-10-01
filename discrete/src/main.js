@@ -1,5 +1,5 @@
 import { onLangChange, getLang } from './i18n/index.js';
-import { setupShell } from '@shared/ui/shell.js';
+import { setupShell, shellReady } from '@shared/ui/shell.js';
 import { mountLesson } from '@shared/ui/lesson.js';
 import { truthFigure } from '@shared/ui/figures.js';
 import { mountTruthSolver, mountEuclidSolver, mountCongruenceSolver, mountDiophantineSolver, mountPowSolver } from './ui/solvers.js';
@@ -37,11 +37,13 @@ window.addEventListener('DOMContentLoaded', () => {
     Object.keys(d).forEach(ch => mountLesson(document.querySelector(`#theory-${ch}-body`), d[ch], { chapter: ch, banks, figures: FIGURES }));
   };
   mountAllTheory();
-  mountTruthSolver(document.getElementById('tool-truth'));
-  mountEuclidSolver(document.getElementById('tool-euclid'));
-  mountCongruenceSolver(document.getElementById('tool-congr'));
-  mountDiophantineSolver(document.getElementById('tool-dioph'));
-  mountPowSolver(document.getElementById('tool-pow'));
+  shellReady.then(() => {                      // sau khi tài khoản gắn xong (đọc được ô nhập đã nhớ)
+    mountTruthSolver(document.getElementById('tool-truth'));
+    mountEuclidSolver(document.getElementById('tool-euclid'));
+    mountCongruenceSolver(document.getElementById('tool-congr'));
+    mountDiophantineSolver(document.getElementById('tool-dioph'));
+    mountPowSolver(document.getElementById('tool-pow'));
+  });
   onLangChange(mountAllTheory);
   console.log('%cÔn tập Toán rời rạc', 'font-weight:bold');
 });

@@ -1,5 +1,5 @@
 import { onLangChange, getLang } from './i18n/index.js';
-import { setupShell } from '@shared/ui/shell.js';
+import { setupShell, shellReady } from '@shared/ui/shell.js';
 import { mountVectorSolver, mountComboSolver, mountSystemSolver, mountMatrixSolver, mountSpaceSolver } from './ui/solvers.js';
 import { mountLesson } from '@shared/ui/lesson.js';
 import { foldCards } from '@shared/ui/fold-cards.js';
@@ -26,15 +26,17 @@ const banks = Object.fromEntries(CHAPTERS.map(c => [c.prefix, c.bank]));
 window.addEventListener('DOMContentLoaded', () => {
   setupShell({ chapters: CHAPTERS, figures: FIGURES, widgets: WIDGETS, lesson: ch => THEORY[getLang()][ch] });
   setupCh1ExamplePage();
-  mountVectorSolver(document.getElementById('tool-vec'));
-  mountComboSolver(document.getElementById('tool-combo'));
+  shellReady.then(() => {                      // sau khi tài khoản gắn xong (đọc được ô nhập đã nhớ)
+    mountVectorSolver(document.getElementById('tool-vec'));
+    mountComboSolver(document.getElementById('tool-combo'));
+    mountSystemSolver(document.getElementById('tool-system'));
+    mountMatrixSolver(document.getElementById('tool-matrix'));
+    mountSpaceSolver(document.getElementById('tool-space'));
+  });
   setupCh2ExamplePage();
   setupCh2LinesPage();
-  mountSystemSolver(document.getElementById('tool-system'));
-  mountMatrixSolver(document.getElementById('tool-matrix'));
   setupCh3ExamplePage();
   setupCh3SpacesPage();
-  mountSpaceSolver(document.getElementById('tool-space'));
 
   // trang Ví dụ / Công cụ: các thẻ xếp dọc ⇒ gập, chỉ thẻ đầu mở
   document.querySelectorAll('.pane[id$="-example"]').forEach(foldCards);
