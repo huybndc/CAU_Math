@@ -19,8 +19,8 @@ const sq = x => fmtParen(x) + '²';
 const rad = x => sqrtText(x);
 const r4 = x => fmtDec(Number(x.toFixed(4)));
 
-/** "|v| = √(1² + 2² + 2²) = √9 = 3" */
-const normLine = (name, v) => `|${name}| = √(${v.map(sq).join(' + ')}) = √${fmt(V.norm2(v))} = ${rad(V.norm2(v))}`;
+/** "|v| = √(1² + 2² + 2²)" rồi "= √9" rồi "= 3" — mỗi vế một dòng. */
+const normLines = (name, v) => [`|${name}| = √(${v.map(sq).join(' + ')})`, `= √${fmt(V.norm2(v))}`, ...(rad(V.norm2(v)) === `√${fmt(V.norm2(v))}` ? [] : [`= ${rad(V.norm2(v))}`])];
 
 const dotLine = (a, b) => `v·w = ${a.map((x, i) => `${fmtParen(x)}·${fmtParen(b[i])}`).join(' + ')} = ${fmt(V.dot(a, b))}`;
 
@@ -41,8 +41,8 @@ export function vectorReport(v, w = null) {
   const answer = [`|v| = ${rad(V.norm2(v))}`];
   if (w) answer.push(`|w| = ${rad(V.norm2(w))}`);
 
-  const len = [normLine('v', v), ...(w ? [normLine('w', w)] : [])];
-  if (!V.isZero(v)) len.push(`v / |v| = (1/${rad(V.norm2(v))})·${fmtCol(v)} = ${fmtCol(V.normalize(v))}`);
+  const len = [...normLines('v', v), ...(w ? normLines('w', w) : [])];
+  if (!V.isZero(v)) len.push(`v / |v| = (1/${rad(V.norm2(v))})·${fmtCol(v)}`, `= ${fmtCol(V.normalize(v))}`);
   steps.push({ group: 'sv.tabLen', why: { key: 'ww.norm' }, head: { key: 'sv.stNorm' }, lines: len });
   if (!w) return { answer, steps };
 
@@ -55,7 +55,8 @@ export function vectorReport(v, w = null) {
     const deg = clean(Math.acos(cos) * 180 / Math.PI);
     const sp = specialAngle(deg);
     answer.push(`θ = ${sp ? `${fmt(Math.round(deg))}° = ${sp}` : `${fmtDec(Number(deg.toFixed(2)))}°`}`);
-    ang.push(`cos θ = v·w / (|v|·|w|) = ${fmt(d)} / (${rad(V.norm2(v))}·${rad(V.norm2(w))}) ≈ ${r4(cos)}   ⇒   θ ≈ ${fmtDec(Number(deg.toFixed(2)))}° ≈ ${r4(deg * Math.PI / 180)} rad${sp ? ` = ${sp}` : ''}`);
+    ang.push(`cos θ = ${fmt(d)}/(${rad(V.norm2(v))}·${rad(V.norm2(w))})`, `= ${r4(cos)}`,
+      `θ = arccos(${r4(cos)}) ≈ ${fmtDec(Number(deg.toFixed(2)))}°`, `≈ ${r4(deg * Math.PI / 180)} rad${sp ? ` = ${sp}` : ''}`);
     if (V.isOrthogonal(v, w)) ang.push({ key: 'sv.orth' });
     else if (V.isParallel(v, w)) ang.push({ key: 'sv.par' });
     if (V.isOrthogonal(v, w)) answer.push({ key: 'sv.orth' });
@@ -64,7 +65,8 @@ export function vectorReport(v, w = null) {
     steps.push({
       group: 'sv.tabProj', why: { key: 'ww.proj' }, head: { key: 'sv.stProj' },
       lines: [
-        `proj_w v = (v·w / w·w)·w = (${fmt(d)}/${fmt(V.norm2(w))})·${fmtCol(w)} = ${fmtCol(V.projection(v, w))}`,
+        `proj_w v = (v·w / w·w)·w = (${fmt(d)}/${fmt(V.norm2(w))})·${fmtCol(w)}`,
+        `= ${fmtCol(V.projection(v, w))}`,
         `v − proj_w v = ${fmtCol(V.perpendicular(v, w))}   (⟂ w)`,
       ],
     });

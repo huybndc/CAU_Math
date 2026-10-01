@@ -29,6 +29,7 @@
   Discrete — Bảng chân trị & tương đương, Euclid + Pulverizer, đồng dư ax ≡ b (mod n), lũy thừa mod. Bỏ: MUX/decoder, bộ cộng–trừ từng bit, sân chơi RSA, sân chơi đồ thị.
   Khung dùng chung thêm: `why` mỗi bước (câu "vì sao"), "Đáp án của bạn" khi đang che (expect/check — chấm theo giá trị, không theo cách viết), "Sao chép lời giải" (chữ thuần, dán vào ghi chú), `figure` (hình 2D cho vector),
   shared/ui/fields.js (ô nhập chữ), shared/ui/glossary.js (từ điển thuật ngữ + link bài học cho cả 3 app).
+  Dòng toán gọn: mỗi vế một dòng (|v|, góc, chiếu); phân số có căn/π/ngoặc cũng xếp hai hàng (shared/logic/fractions.js).
   Không làm: ghi sự kiện máy giải sang Hub — đổi contract math.answer cần yêu cầu contract riêng (AGENTS.md).
 
 ## In progress
