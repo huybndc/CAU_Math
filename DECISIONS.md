@@ -528,3 +528,7 @@ khác syllabus, lịch học bắt đầu từ 2026/09/01".)
 - Công cụ giải hệ đặt trong Nháp (nơi người học dùng nhiều) thay vì trang Công cụ: điền A | b, ra nghiệm (duy nhất / vô số / vô nghiệm), khử Gauss từng bước và PA = L·D·U (đổi hàng chỉ khi trụ = 0), thế xuôi `Lc = Pb`, `Dy = c`, `Ux = y`. Phần dài gập sẵn. Suy biến / chữ nhật chỉ có PA = LU.
 - Môn thêm ngăn Nháp riêng bằng `addScratchTab(môn, tên, mount)` (shared/ui/scratch.js).
 - Máy tính dạng danh sách (D54) áp dụng cho MỌI môn toán thêm về sau (Calculus…); chỉ Logic / Discrete giữ máy tính đổi cơ số vì tính boolean.
+
+**D56. Nháp kéo thả / đổi cỡ + ngăn Vẽ (2026-10-01).**
+- Khung Nháp tự do: kéo tiêu đề để dời, kéo mép / góc để đổi cỡ (chuột, bút, ngón tay), bấm đúp tiêu đề để về mặc định; lưu `scratch-geom`. Dính mép phải thì trang chính chừa chỗ, thả nổi thì không. Bỏ các max-height cố định gây chừa trắng; ngăn nào cũng co giãn theo khung.
+- Ngăn Vẽ cho mọi môn: bút áp lực (Apple Pencil), tẩy nét, 4 màu, 2 cỡ, giấy kẻ ô, hoàn tác / làm lại; đã dùng bút thì bỏ qua cảm ứng ngón tay (chống chạm nhầm). Lưu nét theo môn.

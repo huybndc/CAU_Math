@@ -193,8 +193,8 @@ body.exam-focus .appnav{display:none}
 .scratch-tabs{margin:8px 14px 0;width:auto!important;flex-wrap:wrap}
 .scratch .sp{flex:1;min-height:0;display:flex;flex-direction:column;overflow:auto}
 .scratch .sp[hidden]{display:none}
-.scratch .sp.calc:not([hidden]){flex:0 0 auto;display:grid}
-.scratch:is([data-tab="calc"],[data-tab="kmap"],[data-tab="matrix"],[data-tab="solve"]) .scratch-syms{display:none}
+.scratch .sp.calc:not([hidden]){flex:1;display:grid;align-content:start}
+.scratch:is([data-tab="calc"],[data-tab="kmap"],[data-tab="matrix"],[data-tab="solve"],[data-tab="draw"]) .scratch-syms{display:none}
 .scratch:not([data-tab="notes"]) header .link{visibility:hidden}
 .grid-bar{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;padding:10px 14px;border-bottom:1px solid var(--line)}
 .grid-num{display:inline-flex;align-items:center;gap:6px;font-size:var(--fs-xs);color:var(--ink-dim)}
@@ -229,7 +229,7 @@ body.exam-focus .appnav{display:none}
 .kmap-pens button{width:22px;height:22px;border-radius:50%;border:2px solid var(--panel);background:var(--c);cursor:pointer;box-shadow:0 0 0 1px var(--line-strong)}
 .kmap-pens button[aria-pressed="true"]{box-shadow:0 0 0 2px var(--ink)}
 /* màn rộng: chừa chỗ để nháp không che đề */
-@media (min-width:80rem){ body:has(.scratch:not([hidden])) #app{margin-right:400px} }
+@media (min-width:80rem){ body:has(.scratch:not([hidden])) #app{margin-right:var(--scratch-push,400px)} }
 
 /* màn Công cụ */
 .tool-ch{padding:1.1rem 0 1.2rem;border-bottom:1px solid var(--line)}
@@ -370,8 +370,6 @@ body.exam-focus .appnav{display:none}
 }
 
 /* lưới ma trận trong Nháp (shared/ui/scratch-matrix.js) */
-.scratch-mat{border-bottom:1px solid var(--line);max-height:46%;overflow-y:auto}
-.scratch-mat > summary{padding:8px 16px;cursor:pointer;font-weight:600;font-size:var(--fs-sm)}
 .mp-host{display:grid;gap:12px;padding:4px 14px 14px;justify-items:start}
 .mp{display:grid;gap:6px;max-width:100%;overflow-x:auto}
 .mp-bar{display:flex;align-items:center;gap:4px}
@@ -395,7 +393,6 @@ body.exam-focus .appnav{display:none}
 .cl-out.error{color:var(--bad);font-family:var(--font)}
 .cl-out.var,.cl-out.fn{color:var(--ink-dim)}
 .cl-tip{font-size:var(--fs-xs);color:var(--ink-dim);margin:6px 0 0}
-.cl-wrap{display:flex;flex-direction:column;max-height:42%;min-height:7rem;border-bottom:1px solid var(--line)}
 .cl-wrap{display:flex;flex-direction:column;flex:1;min-height:0}
 .cl-wrap[hidden]{display:none}
 
@@ -409,3 +406,22 @@ body.exam-focus .appnav{display:none}
 .cl-key.num{background:var(--panel);font-weight:600}
 .cl-key:hover{border-color:var(--accent);color:var(--accent)}
 .cl-key:active{background:var(--accent-soft)}
+
+/* khung Nháp kéo thả / đổi cỡ (shared/ui/scratch-frame.js) */
+.scratch{min-width:300px;min-height:260px}
+.scratch header{user-select:none;touch-action:none}
+.scratch-rs{position:absolute;z-index:5;touch-action:none}
+.scratch-rs.n,.scratch-rs.s{left:10px;right:10px;height:8px;cursor:ns-resize}
+.scratch-rs.e,.scratch-rs.w{top:10px;bottom:10px;width:8px;cursor:ew-resize}
+.scratch-rs.n{top:0}.scratch-rs.s{bottom:0}.scratch-rs.e{right:0}.scratch-rs.w{left:0}
+.scratch-rs.ne,.scratch-rs.nw,.scratch-rs.se,.scratch-rs.sw{width:16px;height:16px}
+.scratch-rs.ne{top:0;right:0;cursor:nesw-resize}.scratch-rs.sw{bottom:0;left:0;cursor:nesw-resize}
+.scratch-rs.nw{top:0;left:0;cursor:nwse-resize}.scratch-rs.se{bottom:0;right:0;cursor:nwse-resize}
+.scratch-rs.se::after{content:"";position:absolute;right:5px;bottom:5px;width:8px;height:8px;border-right:2px solid var(--ink-dim);border-bottom:2px solid var(--ink-dim);opacity:.6}
+/* ngăn Vẽ (shared/ui/scratch-draw.js) */
+.dr{display:flex;flex-direction:column;flex:1;min-height:0;overflow:hidden!important}
+.dr-bar{display:flex;align-items:center;gap:4px;padding:8px 10px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.dr-wrap{position:relative;flex:1;min-height:0;background:var(--panel)}
+.dr-cv{position:absolute;inset:0;width:100%;height:100%;cursor:crosshair}
+.dr-dot{width:1.5rem;height:1.5rem;min-width:0!important;padding:0!important;border-radius:50%!important;background:var(--c)!important}
+.dr-dot[aria-pressed="true"]{outline:2px solid var(--accent);outline-offset:2px}
