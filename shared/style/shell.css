@@ -194,7 +194,7 @@ body.exam-focus .appnav{display:none}
 .scratch .sp{flex:1;min-height:0;display:flex;flex-direction:column;overflow:auto}
 .scratch .sp[hidden]{display:none}
 .scratch .sp.calc:not([hidden]){flex:0 0 auto;display:grid}
-.scratch:is([data-tab="calc"],[data-tab="kmap"]) .scratch-syms{display:none}
+.scratch:not([data-tab="notes"]) .scratch-syms{display:none}
 .scratch:not([data-tab="notes"]) header .link{visibility:hidden}
 .grid-bar{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;padding:10px 14px;border-bottom:1px solid var(--line)}
 .grid-num{display:inline-flex;align-items:center;gap:6px;font-size:var(--fs-xs);color:var(--ink-dim)}

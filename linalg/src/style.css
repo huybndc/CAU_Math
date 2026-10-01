@@ -102,3 +102,18 @@
 .w-vec input.good{border-color:var(--ok);background:var(--ok-bg)}
 .w-vec input.bad{border-color:var(--bad);background:var(--bad-bg)}
 .w-matrix-grid input{text-align:center}
+
+/* Nháp → Giải Ax = b */
+.ax{display:flex;flex-direction:column;gap:10px;padding:10px 14px;overflow-y:auto;flex:1;min-height:0}
+.ax-bar{display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+.ax-grid{display:grid;gap:3px;justify-content:start}
+.ax-out{display:grid;gap:8px}
+.ax-result{padding:10px 12px;border-radius:var(--r-md);background:var(--panel2);border-left:3px solid var(--ok)}
+.ax-result.none{border-left-color:var(--bad)} .ax-result.infinite{border-left-color:var(--warn)}
+.ax-result p{margin:.3rem 0 0}
+.ax-fold{border:1px solid var(--line);border-radius:var(--r-md);padding:0 10px}
+.ax-fold > summary{padding:8px 0;cursor:pointer;font-weight:600;font-size:var(--fs-sm)}
+.ax-steps{display:grid;gap:6px;padding:0 0 10px;overflow-x:auto}
+.ax-line{white-space:nowrap}
+.ax-op{font:var(--fs-xs) var(--mono);color:var(--ink-dim);margin-right:.8em}
+.ax-err{color:var(--bad);font-size:var(--fs-sm)} .ax-tip{color:var(--ink-dim);font-size:var(--fs-xs)}

@@ -523,3 +523,8 @@ khác syllabus, lịch học bắt đầu từ 2026/09/01".)
 - Người học dùng Nháp + máy tính rất nhiều, "Công cụ" gần như không dùng (trừ K-map): từ nay ưu tiên máy tính / Nháp; công cụ mới chỉ khi hữu ích thật như K-map.
 - Máy tính dạng danh sách (Linear Algebra, và Calculus khi có môn): nhiều dòng, biến/hàm `a = 3`, `f(x) = x^2`, bàn phím ảo ⌨ (√ π ∫ Σ, trig, ln…), đổi độ/radian, đạo hàm `diff(f, x0)`, tích phân `int(f, a, b)`, tổng `sum(f, k, a, b)` bằng số (đạo hàm 5 điểm, Simpson thích nghi).
 - Logic / Discrete giữ máy tính đổi cơ số (cần BIN/OCT/HEX).
+
+**D55. Nháp → "Giải Ax = b" (Gauss + PA = LDU); máy tính cho mọi môn toán về sau (2026-10-01).**
+- Công cụ giải hệ đặt trong Nháp (nơi người học dùng nhiều) thay vì trang Công cụ: điền A | b, ra nghiệm (duy nhất / vô số / vô nghiệm), khử Gauss từng bước và PA = L·D·U (đổi hàng chỉ khi trụ = 0), thế xuôi `Lc = Pb`, `Dy = c`, `Ux = y`. Phần dài gập sẵn. Suy biến / chữ nhật chỉ có PA = LU.
+- Môn thêm ngăn Nháp riêng bằng `addScratchTab(môn, tên, mount)` (shared/ui/scratch.js).
+- Máy tính dạng danh sách (D54) áp dụng cho MỌI môn toán thêm về sau (Calculus…); chỉ Logic / Discrete giữ máy tính đổi cơ số vì tính boolean.
