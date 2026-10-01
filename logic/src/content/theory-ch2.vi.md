@@ -96,6 +96,8 @@ Khi `yz = 1` thì y = z = 1. Nếu x = 1 thì `xy = 1`; nếu x = 0 thì `x′z 
 
 <div data-check="c2q:simplify" data-needs="c2q:column"></div>
 
+<div data-tool="ch2/0"></div>
+
 ## Hàm bù bằng DeMorgan
 
 **Đổi `+ ↔ ·` và bù từng literal.** Nói cách khác: lấy dual rồi bù từng biến.
@@ -112,6 +114,8 @@ Chỗ hay sai là **mất ngoặc**. `y′z′` là một tích, nên bù của 
 
 <div data-check="c2q:complement" data-needs="c2q:dual"></div>
 
+<div data-tool="ch2/0"></div>
+
 ## Minterm và maxterm
 
 Với n biến:
@@ -124,6 +128,8 @@ i = 5 = 101:   m₅ = xy′z        M₅ = x′ + y + z′        Mᵢ = (mᵢ)�
 ```
 
 <div data-check="c2q:minterms" data-needs="c2q:column"></div>
+
+<div data-tool="ch2/0"></div>
 
 ## Dạng chuẩn: Σm và ΠM
 
@@ -140,6 +146,8 @@ Dạng chuẩn **duy nhất** nhưng thường **chưa tối giản**; Chương 
 
 <div data-check="c2q:canon" data-needs="c2q:minterms"></div>
 
+<div data-tool="ch2/0"></div>
+
 ## SOP, POS và mạch hai mức
 
 **Dạng chuẩn tắc** (standard form) không cần đủ biến trong mỗi term:
@@ -152,6 +160,8 @@ POS:  F = x(y′ + z)(x′ + y + z′)   → một tầng OR rồi một cổng 
 Cả hai là **mạch hai mức**: tín hiệu đi qua tối đa hai tầng cổng, nên trễ ngắn.
 
 <div data-check="c2q:maxterms" data-needs="c2q:canon" data-also="c2q:circuit"></div>
+
+<div data-tool="ch2/0"></div>
 
 ## 16 hàm hai biến
 
@@ -192,6 +202,8 @@ Mạch AND–OR hai mức thành **NAND–NAND** với đúng số cổng như c
 [Chuyển thử một biểu thức](#/learn/ch2/interactive)
 
 <div data-check="c2q:nand" data-needs="c2q:complement"></div>
+
+<div data-tool="ch2/0"></div>
 
 ## Những chỗ hay sai
 

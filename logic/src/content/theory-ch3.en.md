@@ -86,6 +86,8 @@ Procedure: list every PI → take all EPIs → cover the remaining 1 cells with 
 
 <div data-check="c3q:epis" data-needs="c3q:cell:n4" data-also="c3q:pis"></div>
 
+<div data-tool="ch3/0"></div>
+
 ## SOP minimisation step by step
 
 1. Put the 1s (and Xs) on the map.
@@ -98,6 +100,8 @@ The Interactive tab runs exactly this procedure and highlights each group step b
 [See the step-by-step explanation](#/learn/ch3/interactive)
 
 <div data-check="c3q:sop" data-needs="c3q:epis c2q:simplify"></div>
+
+<div data-tool="ch3/0"></div>
 
 ## POS minimisation
 
@@ -113,6 +117,8 @@ SOP and POS are always equivalent but may need different numbers of literals; pi
 
 <div data-check="c3q:pos" data-needs="c3q:sop c2q:maxterms"></div>
 
+<div data-tool="ch3/0"></div>
+
 ## Don't-care conditions
 
 Some input combinations **never happen**, so F may be anything there. Mark them **X** and write `d(…)`.
@@ -124,6 +130,8 @@ F = Σm(1, 3, 7, 11, 15) + d(0, 2, 5)   →   F = yz + w′x′
 ```
 
 <div data-check="c3q:dontcare" data-needs="c3q:sop"></div>
+
+<div data-tool="ch3/0"></div>
 
 ## NAND and NOR circuits
 

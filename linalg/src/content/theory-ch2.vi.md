@@ -92,6 +92,8 @@ nghiệm hiện thẳng ở cột cuối, không cần thế ngược.
 
 <div data-check="c2q:solve3" data-needs="c2q:solve2" data-also="c2q:lu"></div>
 
+<div data-tool="ch2/0"></div>
+
 ## Trụ, hạng và biến tự do
 
 **Hạng** (rank) của `A` là **số trụ** — cũng là số hàng khác 0 sau khi khử. Đây
@@ -109,6 +111,8 @@ Biến tự do đúng như tên gọi: muốn gán giá trị nào cũng đượ
 điều chỉnh theo. Mỗi biến tự do là một "chiều tự do" của tập nghiệm.
 
 <div data-check="c2q:pivots" data-needs="c2q:solve3"></div>
+
+<div data-tool="ch2/0"></div>
 
 ## Ba trường hợp nghiệm
 
@@ -129,6 +133,8 @@ phương trình khác.
 
 <div data-check="c2q:classify" data-needs="c2q:pivots"></div>
 
+<div data-tool="ch2/0"></div>
+
 ## Nghiệm tổng quát = nghiệm riêng + nghiệm thuần nhất
 
 Khi hệ có vô số nghiệm, viết tập nghiệm thành hai phần:
@@ -147,6 +153,8 @@ khớp với cách nhìn theo hàng ở trên.
 
 Cấu trúc "một nghiệm riêng cộng toàn bộ nghiệm của hệ thuần nhất" sẽ quay lại ở
 Chương 3 dưới tên **null space**.
+
+<div data-tool="ch2/0"></div>
 
 ## Những chỗ hay sai
 

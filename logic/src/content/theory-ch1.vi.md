@@ -46,6 +46,8 @@ Nhân từng chữ số với trọng số của nó rồi cộng lại.
 
 <div data-check="c1q:convert:toDec" data-also="c1q:convert"></div>
 
+<div data-tool="ch1/0"></div>
+
 ## Thập phân → cơ số r: phần nguyên
 
 **Chia liên tiếp cho r, lấy số dư. Đọc số dư từ dưới lên.**
@@ -69,6 +71,8 @@ Nhân từng chữ số với trọng số của nó rồi cộng lại.
 
 <div data-check="c1q:convert:fromDec" data-needs="c1q:convert:toDec"></div>
 
+<div data-tool="ch1/0"></div>
+
 ## Thập phân → cơ số r: phần lẻ
 
 **Nhân liên tiếp với r, lấy phần nguyên. Đọc từ trên xuống.**
@@ -88,6 +92,8 @@ Phần nguyên và phần lẻ dùng **hai phép ngược nhau**: chia với ph�
 
 </details>
 
+<div data-tool="ch1/0"></div>
+
 ## Nhị phân ↔ bát phân, thập lục phân
 
 Vì `8 = 2³` và `16 = 2⁴`: **gộp 3 bit** thành một chữ số octal, **gộp 4 bit** thành một chữ số hex, tính từ dấu chấm ra hai phía. Không cần đi qua thập phân.
@@ -101,6 +107,8 @@ Vì `8 = 2³` và `16 = 2⁴`: **gộp 3 bit** thành một chữ số octal, **
 Thiếu bit thì đệm 0: phần nguyên đệm bên **trái**, phần lẻ đệm bên **phải**.
 
 <div data-check="c1q:convert:group" data-needs="c1q:convert:toDec"></div>
+
+<div data-tool="ch1/0"></div>
 
 ## Số bù: (r − 1) và r
 
@@ -118,6 +126,8 @@ Mẹo bù 2: giữ nguyên các bit từ phải sang tới bit 1 đầu tiên, �
 
 <div data-check="c1q:complement" data-needs="c1q:convert:toDec" data-also="c1q:dimcomplement"></div>
 
+<div data-tool="ch1/1"></div>
+
 ## Trừ bằng số bù
 
 Máy tính không trừ trực tiếp: **M − N = M + (bù r của N)**.
@@ -134,6 +144,8 @@ Máy tính không trừ trực tiếp: **M − N = M + (bù r của N)**.
 
 <div data-check="c1q:subtract" data-needs="c1q:complement"></div>
 
+<div data-tool="ch1/1"></div>
+
 ## Số nhị phân có dấu
 
 Bit trái nhất là **bit dấu** (0 = dương, 1 = âm). Số dương giống nhau ở cả ba cách; số âm thì khác:
@@ -148,6 +160,8 @@ Máy tính dùng **bù 2**: chỉ có một số 0, và phép cộng không cầ
 
 <div data-check="c1q:signed" data-needs="c1q:complement"></div>
 
+<div data-tool="ch1/2"></div>
+
 ## Bù 2: khoảng biểu diễn và tràn số
 
 n bit bù 2 biểu diễn từ **−2ⁿ⁻¹ đến 2ⁿ⁻¹ − 1** (8 bit: −128 … 127). Bit dấu mang trọng số **−2ⁿ⁻¹**:
@@ -159,6 +173,8 @@ n bit bù 2 biểu diễn từ **−2ⁿ⁻¹ đến 2ⁿ⁻¹ − 1** (8 bit: �
 **Tràn số (overflow):** cộng hai số **cùng dấu** mà kết quả **khác dấu** ⇒ kết quả sai, vượt khoảng biểu diễn.
 
 <div data-check="c1q:decode" data-needs="c1q:signed" data-also="c1q:range"></div>
+
+<div data-tool="ch1/2"></div>
 
 ## Mã BCD
 

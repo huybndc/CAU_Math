@@ -25,6 +25,8 @@ Conversely, every multiple of the gcd up to the big jug can be measured. E.g. ju
 
 <div data-check="c5q:jugs" data-needs="c6q:gcd"></div>
 
+<div data-tool="ch6/2"></div>
+
 ## Strong induction
 
 Like ordinary induction, but in the inductive step you may assume **P(0), P(1), …, P(k) all hold** (not just P(k)) to prove P(k + 1).
@@ -41,6 +43,8 @@ With only 3-cent and 5-cent stamps you can pay every amount **from 8 cents on**.
 In general, for relatively prime a and b the largest amount that **cannot** be paid is **a·b − a − b**.
 
 <div data-check="c5q:stamps" data-needs="c4q:step"></div>
+
+<div data-tool="ch6/2"></div>
 
 ## Common mistakes
 

@@ -48,6 +48,8 @@ The last nonzero remainder is the gcd. It takes very few steps (about 2·log₂ 
 
 <div data-check="c6q:gcd"></div>
 
+<div data-tool="ch6/0"></div>
+
 ## The Pulverizer: gcd = s·a + t·b
 
 gcd(a, b) can always be written as **s·a + t·b** (s, t integers — the *Bezout coefficients*). The Pulverizer runs Euclid but writes **each remainder as s·a + t·b**:
@@ -63,6 +65,8 @@ Check: 3·259 − 11·70 = 777 − 770 = 7. ✓
 
 <div data-check="c6q:bezout" data-needs="c6q:gcd"></div>
 
+<div data-tool="ch6/0"></div>
+
 ## The gcd is the smallest positive combination
 
 **Theorem (MCS 9.2.2):** gcd(a, b) is the **smallest positive** number of the form s·a + t·b.
@@ -73,6 +77,8 @@ Consequences you will use:
 - Every common divisor of a and b divides gcd(a, b).
 
 The next chapter uses exactly this to find **modular inverses**.
+
+<div data-tool="ch6/0"></div>
 
 ## Primes & lcm
 

@@ -86,6 +86,8 @@ Cách làm: liệt kê mọi PI → lấy hết EPI → phủ các ô 1 còn l�
 
 <div data-check="c3q:epis" data-needs="c3q:cell:n4" data-also="c3q:pis"></div>
 
+<div data-tool="ch3/0"></div>
+
 ## Rút gọn SOP từng bước
 
 1. Điền 1 (và X) lên bản đồ.
@@ -98,6 +100,8 @@ Tab Tương tác chạy đúng quy trình này và tô từng nhóm theo từng 
 [Xem giải thích từng bước](#/learn/ch3/interactive)
 
 <div data-check="c3q:sop" data-needs="c3q:epis c2q:simplify"></div>
+
+<div data-tool="ch3/0"></div>
 
 ## Rút gọn POS
 
@@ -113,6 +117,8 @@ SOP và POS luôn tương đương nhưng số literal có thể khác; chọn c
 
 <div data-check="c3q:pos" data-needs="c3q:sop c2q:maxterms"></div>
 
+<div data-tool="ch3/0"></div>
+
 ## Điều kiện không quan tâm (don't care)
 
 Có những tổ hợp đầu vào **không bao giờ xảy ra**, nên F ở đó bằng gì cũng được. Ghi là **X**, viết `d(…)`.
@@ -124,6 +130,8 @@ F = Σm(1, 3, 7, 11, 15) + d(0, 2, 5)   →   F = yz + w′x′
 ```
 
 <div data-check="c3q:dontcare" data-needs="c3q:sop"></div>
+
+<div data-tool="ch3/0"></div>
 
 ## Mạch NAND và NOR
 

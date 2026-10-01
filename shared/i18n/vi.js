@@ -67,6 +67,7 @@ export const vi = {
   'palette.lesson': 'Bài học',
   'palette.tool': 'Công cụ',
   'palette.practice': 'Luyện tập',
+  'lesson.openTool': 'Mở máy giải: {title} →',
   'solver.try': 'Thử:',
   'terms.openLesson': 'Xem bài: {title} →',
   'solver.random': 'Ngẫu nhiên',

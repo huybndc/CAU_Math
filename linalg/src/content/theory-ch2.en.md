@@ -96,6 +96,8 @@ with no back substitution at all.
 
 <div data-check="c2q:solve3" data-needs="c2q:solve2" data-also="c2q:lu"></div>
 
+<div data-tool="ch2/0"></div>
+
 ## Pivots, rank and free variables
 
 The **rank** of `A` is the **number of pivots** — equivalently, the number of
@@ -116,6 +118,8 @@ freedom" in the solution set.
 
 <div data-check="c2q:pivots" data-needs="c2q:solve3"></div>
 
+<div data-tool="ch2/0"></div>
+
 ## The three solution cases
 
 Compare `rank(A)` with `rank([A | b])` and with the number of unknowns `n`:
@@ -134,6 +138,8 @@ equation repeated information already present in the others.
 > **not** mean infinitely many. Only the rank decides.
 
 <div data-check="c2q:classify" data-needs="c2q:pivots"></div>
+
+<div data-tool="ch2/0"></div>
 
 ## General solution = particular + homogeneous
 
@@ -155,6 +161,8 @@ line in the plane, matching the row picture above.
 
 This structure, "one particular solution plus all solutions of the homogeneous
 system", comes back in Chapter 3 under the name **null space**.
+
+<div data-tool="ch2/0"></div>
 
 ## Common mistakes
 

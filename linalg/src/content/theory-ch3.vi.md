@@ -56,6 +56,8 @@ cột nào là trụ; bản thân phép khử có làm đổi column space.
 
 <div data-check="c3q:inspan" data-needs="c2q:solve3 c1q:coefs" data-also="c3q:spankind"></div>
 
+<div data-tool="ch3/0"></div>
+
 ## Null space: nghiệm của Ax = 0
 
 **Null space** `N(A)` là tập mọi `x` thoả `Ax = 0`. Đây luôn là một không gian
@@ -77,6 +79,8 @@ Lưu ý hai không gian này sống ở hai nơi khác nhau: với `A` cỡ `m×
 `C(A) ⊆ Rᵐ` (số hàng), còn `N(A) ⊆ Rⁿ` (số cột).
 
 <div data-check="c3q:special" data-needs="c2q:pivots" data-also="c3q:particular"></div>
+
+<div data-tool="ch3/0"></div>
 
 ## Độc lập tuyến tính
 
@@ -104,6 +108,8 @@ Vài sự thật đọc thẳng ra từ đó:
 
 <div data-check="c3q:independent" data-needs="c3q:special"></div>
 
+<div data-tool="ch3/0"></div>
+
 ## Cơ sở và số chiều
 
 **Cơ sở** của một không gian con là một bộ vector vừa **độc lập**, vừa **span**
@@ -123,6 +129,8 @@ span không đổi.
 
 <div data-check="c3q:rank" data-needs="c3q:independent c2q:pivots"></div>
 
+<div data-tool="ch3/0"></div>
+
 ## Định lý hạng
 
 Gom mọi thứ lại thành một đẳng thức duy nhất, đúng cho mọi ma trận `A` cỡ `m×n`:
@@ -141,6 +149,8 @@ giống nhau. Cả hai đều bằng `rank(A)` — đó là lý do hạng là co
 nhất của một ma trận.
 
 <div data-check="c3q:nulldim" data-needs="c3q:rank" data-also="c3q:dims"></div>
+
+<div data-tool="ch3/0"></div>
 
 ## Những chỗ hay sai
 

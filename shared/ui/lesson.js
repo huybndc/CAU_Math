@@ -81,6 +81,17 @@ function mountChecks(root, st, { banks, figures, widgets }, { onPass, passLabel,
   });
 }
 
+/** <div data-tool="ch6/1"></div> trong thẻ ⇒ nút mở đúng máy giải của chương đó (tên lấy từ tiêu đề thẻ công cụ trong trang). */
+function mountToolLinks(root) {
+  root.querySelectorAll('[data-tool]').forEach(d => {
+    const [ch, i] = d.dataset.tool.split('/');
+    const head = document.querySelectorAll(`#pane-${ch}-interactive .card > h2`)[Number(i)];
+    if (!head) return;
+    const title = [...head.childNodes].filter(n => n.nodeType === 3).map(n => n.textContent).join('').trim();
+    d.replaceChildren(Object.assign(h('a', 'btn tool-link', T('lesson.openTool', { title })), { href: `#/learn/${ch}/interactive/${i}` }));
+  });
+}
+
 const MAT = /\[[^[\]]*;[^[\]]*\]/;
 /**
  * Markdown → nút DOM. Ma trận viết `[1 2; 3 4]` (cột: `[2; 1]`, mở rộng: `[1 2 | 5; 3 4 | 6]`) hiện thành lưới có ngoặc:
@@ -184,6 +195,7 @@ export function mountLesson(host, md, opts = {}) {
       const dot = steps.children[st.i]?.firstChild;
       if (dot && cardPassed(loadEvents(), cards[st.i].body)) dot.classList.add('passed');
     };
+    mountToolLinks(body);
     mountChecks(body, st, ctx, st.all ? {} : {
       onPass: toNext, passLabel: next ? T('kp.nextCard', { title: next.title }) : T('lesson.toPractice'), onResult,
     });

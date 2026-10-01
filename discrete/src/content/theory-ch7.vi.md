@@ -19,6 +19,8 @@ Vd 17 ≡ 2 (mod 5), −3 ≡ 7 (mod 10).
 
 <div data-check="c7q:mod"></div>
 
+<div data-tool="ch6/1"></div>
+
 ## Nghịch đảo modulo
 
 x là **nghịch đảo** của a theo mod n khi a·x ≡ 1 (mod n).
@@ -36,6 +38,8 @@ Kiểm: 7·15 = 105 = 4·26 + 1. ✓ Có nghịch đảo thì **chia** được 
 
 <div data-check="c7q:inverse" data-needs="c7q:mod c6q:bezout"></div>
 
+<div data-tool="ch6/1"></div>
+
 ## Lũy thừa mod: bình phương liên tiếp
 
 Tính 3¹³ mod 7 mà không tính 3¹³:
@@ -49,6 +53,8 @@ Tính 3¹³ mod 7 mà không tính 3¹³:
 Chỉ cần khoảng 2·log₂k phép nhân — cách RSA mã hoá số hàng trăm chữ số.
 
 <div data-check="c7q:power" data-needs="c7q:mod"></div>
+
+<div data-tool="ch7/0"></div>
 
 ## Hàm φ, định lý Euler và Fermat
 
