@@ -6,6 +6,8 @@ export const solver = {
   'tool.system': 'Giải hệ Ax = b (khử Gauss, E, LU)',
   'tool.matrix': 'Máy tính ma trận: nhân, det, nghịch đảo',
   'tool.space': 'Cơ sở các không gian con: C(A), N(A), hạng',
+  'tool.vecGrid': 'Các vector là CỘT: điền từng toạ độ. Bỏ trống cột w nếu chỉ cần độ dài', 'tool.comboGrid': 'Mỗi CỘT là một vector v₁, v₂… (thêm cột để thêm vector); cột cuối là w',
+  'solver.notCombo': 'w không là tổ hợp', 'solver.many': 'vô số nghiệm', 'solver.none': 'vô nghiệm',
   'tool.vecV': 'Vector v', 'tool.vecW': 'Vector w (bỏ trống nếu chỉ cần độ dài)',
   'tool.vecPh': 'vd 1, 2, 2',
   'tool.comboVs': 'Các vector (mỗi dòng một vector)', 'tool.comboW': 'Vector w',

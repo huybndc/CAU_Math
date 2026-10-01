@@ -16,7 +16,7 @@ import { load, save } from './store.js';
 const HIDE_KEY = 'solver-hide';
 const CIRCLED = '①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳';
 
-export function createSolver(host, { practice = null, examples = [] } = {}) {
+export function createSolver(host, { practice = null, examples = [], random = null } = {}) {
   const exRow = el('div', { class: 'sv-ex' });
   const inputs = el('div', { class: 'sv-in' });
   const out = el('div', { class: 'sv-out', 'aria-live': 'polite' });
@@ -29,8 +29,9 @@ export function createSolver(host, { practice = null, examples = [] } = {}) {
   const openSteps = new Set();   // chỉ số bước đang mở — giữ qua lần tính lại / đổi ngôn ngữ
   let tab = null;                // ngăn đang xem (khoá nhóm) — giữ khi gõ tiếp
 
-  const drawExamples = () => exRow.replaceChildren(...(examples.length ? [
+  const drawExamples = () => exRow.replaceChildren(...(examples.length || random ? [
     el('span', { class: 'sv-ex-l', text: T('solver.try') }),
+    random && el('button', { type: 'button', class: 'sv-chip sv-rand', text: '🎲 ' + T('solver.random'), onClick: () => random() }),
     ...examples.map(x => el('button', { type: 'button', class: 'sv-chip', text: typeof x.label === 'function' ? x.label() : x.label, onClick: () => x.apply() })),
   ] : []));
 

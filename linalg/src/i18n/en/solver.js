@@ -5,6 +5,8 @@ export const solver = {
   'tool.system': 'Solve Ax = b (Gauss, E, LU)',
   'tool.matrix': 'Matrix calculator: product, det, inverse',
   'tool.space': 'Subspace bases: C(A), N(A), rank',
+  'tool.vecGrid': 'Vectors are COLUMNS: fill in each coordinate. Leave column w empty for length only', 'tool.comboGrid': 'Each COLUMN is a vector v₁, v₂… (add columns for more vectors); the last column is w',
+  'solver.notCombo': 'w is not a combination', 'solver.many': 'infinitely many', 'solver.none': 'no solution',
   'tool.vecV': 'Vector v', 'tool.vecW': 'Vector w (leave empty for length only)',
   'tool.vecPh': 'e.g. 1, 2, 2',
   'tool.comboVs': 'The vectors (one per line)', 'tool.comboW': 'Vector w',

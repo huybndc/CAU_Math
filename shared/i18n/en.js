@@ -55,6 +55,7 @@ export const en = {
   'scratch.sym5': 'Implies →',
   'scratch.sym6': 'Not equal ≠',
   'solver.try': 'Try:',
+  'solver.random': 'Random',
   'solver.empty': 'Enter the data above — the result appears right here.',
   'solver.hide': 'Hide answer (try it first)',
   'solver.reveal': 'Show answer',

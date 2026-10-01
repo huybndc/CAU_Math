@@ -1,7 +1,7 @@
 import * as V from './vector.js';
 import { fmt, fmtCol, fmtParen, clean } from './num-format.js';
 import { sqrtText, specialAngle } from './radical.js';
-import { solve, residual, systemStrings } from './linear-system.js';
+import { solve, residual, equationString } from './linear-system.js';
 import { matrixFromColumns, isIndependent } from './subspace.js';
 import { fmtAug } from './quiz-kit.js';
 import { fail } from '@shared/logic/app-error.js';
@@ -42,7 +42,7 @@ export function vectorReport(v, w = null) {
   if (w) answer.push(`|w| = ${rad(V.norm2(w))}`);
 
   const len = [normLine('v', v), ...(w ? [normLine('w', w)] : [])];
-  if (!V.isZero(v)) len.push(`v / |v| = (1/${rad(V.norm2(v))})·${fmtCol(v)} ≈ ${fmtCol(V.normalize(v).map(x => Number(x.toFixed(4))))}`);
+  if (!V.isZero(v)) len.push(`v / |v| = (1/${rad(V.norm2(v))})·${fmtCol(v)} = ${fmtCol(V.normalize(v))}`);
   steps.push({ group: 'sv.tabLen', head: { key: 'sv.stNorm' }, lines: len });
   if (!w) return { answer, steps };
 
@@ -89,7 +89,7 @@ export function comboReport(vectors, w) {
     {
       head: { key: 'sv.stSolve' },
       lines: [
-        `${names.map((n, i) => `${n}·v${sub(i + 1)}`).join(' + ')} = w`, ...systemStrings(A, w), fmtAug(r.start),
+        `${names.map((n, i) => `${n}·v${sub(i + 1)}`).join(' + ')} = w`, ...A.map((row, i) => equationString(row, w[i], names)), fmtAug(r.start),
         ...[...r.forwardSteps, ...r.backwardSteps].filter(s => s.formula).map(s => `${s.formula.replace('<->', '↔').replace('<-', '←')}:   ${fmtAug(s.matrix)}`),
       ],
     },

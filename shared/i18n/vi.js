@@ -54,6 +54,7 @@ export const vi = {
   'scratch.sym5': 'Kéo theo →',
   'scratch.sym6': 'Khác ≠',
   'solver.try': 'Thử:',
+  'solver.random': 'Ngẫu nhiên',
   'solver.empty': 'Nhập dữ liệu ở trên, kết quả hiện ngay đây.',
   'solver.hide': 'Che đáp án (tự làm trước)',
   'solver.reveal': 'Hiện đáp án',

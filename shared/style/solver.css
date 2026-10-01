@@ -58,3 +58,7 @@
 .sv .sv-body .mat,.sv .sv-solo .mat{font-size:1.04em;margin-inline:.2em}
 .sv-body{padding:6px 14px 14px 40px}
 .sv-step > summary{font-size:var(--fs-md)}
+.sv-rand{border-color:color-mix(in srgb,var(--accent) 50%,var(--line-strong));font-weight:600}
+.sv .sv-body,.sv .sv-solo{gap:6px}
+.mi-lab{text-align:center;font:600 var(--fs-sm) var(--font);color:var(--ink-dim);padding-bottom:2px}
+.mi-lab.bar{border-left:2px solid transparent}

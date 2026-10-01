@@ -13,11 +13,12 @@ const blank = (r, c) => Array.from({ length: r }, () => Array(c).fill(''));
 
 /**
  * @param {HTMLElement} host
- * @param {{ key: string, rows?: number, cols?: number, augmented?: boolean, initial?: number[][], onChange: () => void }} cfg
+ * @param {{ key: string, rows?: number, cols?: number, augmented?: boolean, initial?: number[][], colLabels?: string[]|((j:number, isB:boolean)=>string),
+ *   fixedCols?: boolean, onChange: () => void }} cfg   colLabels: nhãn đầu cột (vd v, w / v₁ v₂ | w); fixedCols: ẩn nút thêm/bớt cột (vd cặp vector v, w)
  *   cols = số cột của A (không tính cột b).
  * @returns {{ read(): { M?: number[][], empty?: boolean, error?: string }, set(M: (number|string)[][]): void }}
  */
-export function matrixInput(host, { key, rows = 3, cols = 3, augmented = false, initial = null, onChange }) {
+export function matrixInput(host, { key, rows = 3, cols = 3, augmented = false, initial = null, colLabels = null, fixedCols = false, onChange }) {
   const store = `mi-${key}`;
   let st = load(store, null);
   const width = c => c + (augmented ? 1 : 0);
@@ -44,13 +45,17 @@ export function matrixInput(host, { key, rows = 3, cols = 3, augmented = false, 
   function drawBar() {
     bar.replaceChildren(
       el('span', { class: 'mp-dim', text: T('tool.rows') }), btn('−', T('tool.rows') + ' −', () => resize(st.r - 1, st.c), st.r <= 1), btn('+', T('tool.rows') + ' +', () => resize(st.r + 1, st.c), st.r >= MAX),
-      el('span', { class: 'mp-dim', text: T('tool.cols') }), btn('−', T('tool.cols') + ' −', () => resize(st.r, st.c - 1), st.c <= 1), btn('+', T('tool.cols') + ' +', () => resize(st.r, st.c + 1), st.c >= MAX),
+      ...(fixedCols ? [] : [el('span', { class: 'mp-dim', text: T('tool.cols') }), btn('−', T('tool.cols') + ' −', () => resize(st.r, st.c - 1), st.c <= 1), btn('+', T('tool.cols') + ' +', () => resize(st.r, st.c + 1), st.c >= MAX)]),
       btn(T('tool.clear'), T('tool.clear'), () => { st.cells = blank(st.r, width(st.c)); persist(); drawGrid(); onChange(); }),
     );
   }
   function drawGrid() {
     grid.style.gridTemplateColumns = `repeat(${width(st.c)}, 3.6em)`;
     const inputs = [];
+    const heads = !colLabels ? [] : Array.from({ length: width(st.c) }, (_, j) => {
+      const isB = augmented && j === st.c;
+      return el('div', { class: 'mi-lab' + (isB ? ' bar' : ''), text: Array.isArray(colLabels) ? (colLabels[j] ?? '') : colLabels(j, isB) });
+    });
     for (let i = 0; i < st.r; i++) {
       for (let j = 0; j < width(st.c); j++) {
         const inp = el('input', {
@@ -67,7 +72,7 @@ export function matrixInput(host, { key, rows = 3, cols = 3, augmented = false, 
         inputs.push(inp);
       }
     }
-    grid.replaceChildren(...inputs);
+    grid.replaceChildren(...heads, ...inputs);
   }
   drawBar(); drawGrid();
   onLangChange(drawBar);
@@ -88,6 +93,8 @@ export function matrixInput(host, { key, rows = 3, cols = 3, augmented = false, 
       }
       return { M };
     },
+    /** Cột j (0-based) hoàn toàn trống? */
+    colEmpty: j => st.cells.every(row => String(row[j] ?? '').trim() === ''),
     set(M) {
       const r = M.length, c = M[0].length - (augmented ? 1 : 0);
       st = { r, c, cells: M.map(row => row.map(String)) };
