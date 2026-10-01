@@ -18,6 +18,11 @@
 
 - D51: LinAlg UX — ô vector/ma trận, chính sách sai số + góc độ/radian, thi thử gập, bài học vẽ ma trận, thẻ gập, lưới ma trận ở Nháp. Chưa đưa sang bản mirror Study_Hub.
 
+- D57 (2026-10-02): Công cụ = "Máy giải" có lời giải gập (shared/ui/solver.js: đáp án lớn, bước gập, Che đáp án, Bài tương tự).
+  Bước 1 xong cho LinAlg: Vector, Tổ hợp tuyến tính, Giải hệ (E/P/L, nghịch đảo), Ma trận, Cơ sở không gian — thay kéo vector/span 3D/form biến đổi hàng;
+  bỏ tab Giải Ax=b khỏi Nháp (Nháp để tự làm). Bảng chân trị Nháp: kéo / Alt+←→ đổi chỗ cột biểu thức.
+  Bước 2 (chưa làm): Logic (máy tính cơ số, K-map tự khoanh nhóm, máy giải biểu thức) + Discrete (bảng chân trị, Euclid + đồng dư, lũy thừa mod) chuyển sang khung này; bỏ MUX/decoder, bộ cộng–trừ, RSA, đồ thị.
+
 ## In progress
 
 - [ ] Repo split bridge: move the math.answer writer/integration adapter from Study_Hub into CAU_Math_App.

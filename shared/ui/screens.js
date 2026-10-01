@@ -24,12 +24,14 @@ import { groupsOf, kindsFor } from '../logic/groups.js';
 
 /* ---------------- Công cụ: gom công cụ của mọi chương lên một màn ---------------- */
 /** Tiêu đề một công cụ = chữ của thẻ h2 (bỏ nút ⓘ đi kèm). */
+/** Tiêu đề thẻ: h2 trực tiếp, hoặc h2 trong summary khi thẻ đã được gập (fold-cards.js). */
+const CARD_TITLES = '.card > h2, .card > summary > h2';
 const titleOf = h => [...h.childNodes].filter(n => n.nodeType === 3).map(n => n.textContent).join('').trim();
 
 function renderTools(r, cfg) {
   // mỗi chương MỘT dòng: các công cụ bấm thử (tên ngắn) + một link gom ví dụ giải sẵn — không liệt kê từng ví dụ
   const groups = cfg.chapters.map(c => {
-    const heads = sub => [...($(`#pane-${c.id}-${sub}`)?.querySelectorAll('.card > h2') ?? [])];
+    const heads = sub => [...($(`#pane-${c.id}-${sub}`)?.querySelectorAll(CARD_TITLES) ?? [])];
     const tools = heads('interactive');
     const examples = heads('example');
     if (!tools.length && !examples.length) return null;
@@ -154,8 +156,12 @@ function renderPane(r, cfg, c) {
   // canvas trong khung vừa hiện cần đo lại kích thước
   window.dispatchEvent(new Event('resize'));
   // mở từ màn Công cụ: cuộn tới đúng công cụ
-  const target = r.at != null && $(`#pane-${c.id}-${sub}`)?.querySelectorAll('.card > h2')[r.at];
-  if (target) requestAnimationFrame(() => target.closest('.card').scrollIntoView({ block: 'start' }));
+  const target = r.at != null && $(`#pane-${c.id}-${sub}`)?.querySelectorAll(CARD_TITLES)[r.at];
+  if (target) {
+    const card = target.closest('.card');
+    if (card.tagName === 'DETAILS') card.open = true;          // thẻ gập: mở đúng công cụ vừa chọn
+    requestAnimationFrame(() => card.scrollIntoView({ block: 'start' }));
+  }
   return `${T('nav.' + c.id)} · ${label}`;
 }
 

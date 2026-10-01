@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { setVars, pasteBlock, loadTable } from '../logic/scratch-table.js';
+import { setVars, pasteBlock, loadTable, moveColumn } from '../logic/scratch-table.js';
 
 describe('Nháp — bảng chân trị', () => {
   it('chọn số biến: 2^n hàng, biến đầu là bit cao; cột F/trung gian giữ chữ và dời theo', () => {
@@ -26,5 +26,18 @@ describe('Nháp — bảng chân trị', () => {
   it('bảng lưu cũ (chưa có số biến) đoán số biến theo số hàng', () => {
     expect(loadTable(JSON.stringify({ rows: 16, cols: 5, cells: [] }), 'logic').vars).toBe(4);
     expect(loadTable(null, 'logic')).toMatchObject({ rows: 8, vars: 3 });
+  });
+
+  it('kéo cột biểu thức: dời cả cột, cột biến đứng yên, vị trí không hợp lệ thì bỏ qua', () => {
+    const t = setVars({ cols: 4, cells: [] }, 2, 'logic');          // x y | F
+    t.cols = 5; t.cells[0][3] = 'G'; t.cells[0][4] = 'H';
+    t.cells[1][2] = 'f1'; t.cells[1][3] = 'g1'; t.cells[1][4] = 'h1';
+    const m = moveColumn(t, 4, 2);                                   // H lên đầu nhóm biểu thức
+    expect(m.cells[0]).toEqual(['x', 'y', 'H', 'F', 'G']);
+    expect(m.cells[1].slice(2)).toEqual(['h1', 'f1', 'g1']);
+    expect(m.cells[0].slice(0, 2)).toEqual(['x', 'y']);
+    expect(moveColumn(t, 0, 3)).toBe(t);                             // cột biến không dời
+    expect(moveColumn(t, 3, 1)).toBe(t);                             // không chèn vào giữa cột biến
+    expect(moveColumn(t, 3, 3)).toBe(t);
   });
 });

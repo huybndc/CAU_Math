@@ -221,6 +221,10 @@ body.exam-focus .appnav{display:none}
 .grid-vars{align-items:center}
 .grid-vars button{min-width:1.9rem}
 @supports not (field-sizing:content){ .grid-table input{inline-size:3ch} }
+.grid-grip{display:inline-block;padding:0 2px;color:var(--ink-dim);cursor:grab;touch-action:none;user-select:none;font-size:11px;letter-spacing:-2px;vertical-align:middle}
+.grid-grip:hover{color:var(--accent)}
+.grid-table th{white-space:nowrap}
+.grid-table .drop{box-shadow:inset 0 0 0 2px var(--accent)}
 .grid-idx{color:var(--ink-dim);font-size:var(--fs-xs);padding:0 6px!important;text-align:right}
 /* bìa K: ô là nút; bút nhóm tô viền trong theo màu */
 .scratch{--pen0:#d9480f;--pen1:#1971c2;--pen2:#2f9e44;--pen3:#ae3ec9}

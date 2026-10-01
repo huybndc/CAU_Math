@@ -267,6 +267,7 @@ export const en = {
   'scratch.table': 'Truth table',
   'scratch.kmap': 'K-map',
   'grid.rows': 'Rows',
+  'grid.drag': 'Drag to move the column (or Alt + ← / →). Variable columns stay put.',
   'grid.cols': 'Cols',
   'grid.fillTip': 'Pick the number of variables: the table becomes 2ⁿ rows with the variable columns pre-filled (first variable = most significant bit, row m = m in binary). Column F and helper columns are kept for you to work out. Click again to refill.',
   'grid.varsLabel': 'Variables',

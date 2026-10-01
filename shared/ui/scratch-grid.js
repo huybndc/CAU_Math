@@ -1,6 +1,6 @@
 import { onLangChange, t as T } from '../i18n/index.js';
 import { accountStorageKey } from '@host';
-import { LIMITS, VARS, clamp, setVars, pasteBlock, loadTable, kmapLayout, loadKmap, clickCell } from '../logic/scratch-table.js';
+import { LIMITS, VARS, clamp, setVars, pasteBlock, loadTable, moveColumn, kmapLayout, loadKmap, clickCell } from '../logic/scratch-table.js';
 
 /* ---------------------------------------------------------------
    NGĂN "BẢNG" VÀ "BÌA K" CỦA NHÁP (D45). Nguyên tắc: làm hộ phần CHÉP TAY, không làm hộ bước đang bị kiểm tra.
@@ -66,6 +66,30 @@ export function mountTable(host, subject) {
     for (let r = Math.min(anchor.r, head.r); r <= Math.max(anchor.r, head.r); r++) fn(r);
   };
 
+  /** Kéo tay nắm ở tiêu đề cột: cột dưới con trỏ sáng lên, thả ra thì dời cột tới đó. */
+  function dragColumn(ev, from) {
+    ev.preventDefault();
+    const heads = () => [...table.rows[0].cells].slice(1);            // bỏ ô số thứ tự
+    let over = from;
+    const mark = j => table.querySelectorAll('.drop').forEach(x => x.classList.remove('drop'));
+    const colAt = x => {
+      const hs = heads();
+      for (let j = st.vars; j < hs.length; j++) { const b = hs[j].getBoundingClientRect(); if (x < b.right) return j; }
+      return hs.length - 1;
+    };
+    const move = e => {
+      over = colAt(e.clientX);
+      mark();
+      if (over !== from) [...table.rows].forEach(r => r.cells[over + 1]?.classList.add('drop'));
+    };
+    const up = () => {
+      removeEventListener('pointermove', move); removeEventListener('pointerup', up); removeEventListener('pointercancel', up);
+      mark();
+      if (over !== from) { st = moveColumn(st, from, over); save(); drawTable(); }
+    };
+    addEventListener('pointermove', move); addEventListener('pointerup', up); addEventListener('pointercancel', up);
+  }
+
   const drawTable = () => {
     table = el('table', 'grid-table');
     for (let i = 0; i <= st.rows; i++) {
@@ -80,11 +104,26 @@ export function mountTable(host, subject) {
         input.spellcheck = false;
         input.autocomplete = 'off';
         input.setAttribute('aria-label', i ? T('grid.cell', { r: i - 1, c: j + 1 }) : T('grid.head', { c: j + 1 }));
+        if (!i && j >= st.vars) {                                    // cột biểu thức: có tay nắm để kéo đổi chỗ (cột biến cố định)
+          const grip = el('span', 'grid-grip', '⋮⋮');
+          grip.title = T('grid.drag');
+          grip.dataset.c = j;
+          grip.addEventListener('pointerdown', e => dragColumn(e, j));
+          cell.append(grip);
+        }
         cell.append(input);
         tr.append(cell);
       }
       table.append(tr);
     }
+    table.addEventListener('keydown', e => {                          // bàn phím: Alt+←/→ dời cột đang đứng
+      if (!e.altKey || (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight')) return;
+      const { r, c } = pos(e.target), to = c + (e.key === 'ArrowLeft' ? -1 : 1);
+      if (c < st.vars || to < st.vars || to >= st.cols) return;
+      e.preventDefault();
+      st = moveColumn(st, c, to);
+      save(); drawTable(); at(r, to)?.focus();
+    }, true);
     table.addEventListener('input', e => { const { r, c } = pos(e.target); setCell(r, c, e.target.value); save(); });
     table.addEventListener('mousedown', e => {
       if (!e.target.matches('input')) return;

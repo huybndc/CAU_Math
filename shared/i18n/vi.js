@@ -267,6 +267,7 @@ export const vi = {
   'scratch.table': 'Bảng chân trị',
   'scratch.kmap': 'Bìa K',
   'grid.rows': 'Hàng',
+  'grid.drag': 'Kéo để đổi chỗ cột (hoặc Alt + ← / →). Cột biến đứng yên.',
   'grid.cols': 'Cột',
   'grid.fillTip': 'Chọn số biến: bảng đổi thành 2ⁿ hàng, cột biến điền sẵn tổ hợp 0/1 (biến đầu là bit cao, dòng m = m viết nhị phân). Cột F và cột trung gian giữ nguyên để bạn tự tính. Bấm lại để điền lại.',
   'grid.varsLabel': 'Số biến',
