@@ -206,6 +206,20 @@ export function renderExamRun(cfg) {
       ]),
     ]);
 
+    // đếm "đã làm" cập nhật ngay khi gõ / chọn (không đợi sang câu khác): ô câu hiện tại, tổng, và số trong Part
+    const doneNow = j => !isBlank(j === i ? qv.get() : st.given[j]);
+    const live = () => {
+      pal.querySelector('.pal[aria-current]')?.classList.toggle('done', doneNow(i));
+      if (parted) {
+        const idx = items.map((x, j) => [x.part, j]).filter(([pt]) => pt === it.part).map(([, j]) => j);
+        pal.querySelectorAll('.part-tab small')[it.part].textContent = `${idx.filter(doneNow).length}/${idx.length}`;
+      } else {
+        const sm = pal.querySelector('summary small');
+        if (sm) sm.textContent = [T('exam.answered', { a: items.filter((_, j) => doneNow(j)).length, n }), flags && T('exam.flags', { f: flags })].filter(Boolean).join(' · ');
+      }
+    };
+    main.addEventListener('input', live);
+    main.addEventListener('click', () => setTimeout(live));
     $('#screen-exam').replaceChildren(bar, el('div', { class: 'exam-body' }, [pal, main]), dlg);
     tick();
     const focus = main.querySelector('input:not(:disabled), .choice:not(:disabled), .w-bit:not(:disabled), .w-num:not(:disabled)');

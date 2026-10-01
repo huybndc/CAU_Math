@@ -1,7 +1,7 @@
 import { t as T, onLangChange, offLangChange } from '../i18n/index.js';
 import { questionView, explainBlock, answerHtml, tp } from './question.js';
-import { record, subjectOf } from './store.js';
-import { freshQuestion, poolSize, seededQuestion, newSeed, questionCode } from '../logic/question-pool.js';
+import { record, subjectOf, load, save, drop } from './store.js';
+import { freshQuestion, poolSize, seededQuestion, newSeed, questionCode, signature } from '../logic/question-pool.js';
 import { streakOf } from '../logic/knowledge.js';
 import { h } from './dom.js';
 
@@ -33,6 +33,28 @@ export function mountRunner(host, { bank, prefix, figures = {}, widgets = {}, si
   goal = 0, make, onPass, onExample, passLabel, onResult }) {
   // seen: chữ ký các câu trong lượt này (không lặp); recent: các câu ở lượt trước (tránh nếu còn cách)
   const S = { kinds: [...(kinds || bank.KINDS)], size, round: [], phase: 'ask', hint: false, last: null, seen: new Set(), recent: new Set(), redo: null };
+  // Lượt luyện tập chính (không nhúng trong thẻ học, không chuỗi, không hàm sinh riêng) được nhớ: tải lại trang thì tiếp tục đúng câu đang làm.
+  // Mỗi câu lưu bằng (dạng, hạt giống) rồi sinh lại — cùng hạt giống luôn ra đúng câu đó.
+  const SESSION = `run-session-${prefix}-${(kinds || []).join('+') || 'all'}${bank.mcq ? '-tn' : ''}`, resumable = autofocus && !goal && !make && mode === 'practice';
+  const persist = () => {
+    if (!resumable) return;
+    if (S.phase === 'done' || S.redo || !S.round.length || S.round.some(e => e.q.seed == null)) { drop(SESSION); return; }
+    save(SESSION, { ts: Date.now(), kinds: S.kinds, size: S.size, last: S.last,
+      round: S.round.map(e => ({ kind: e.q.kind, seed: e.q.seed, given: e.given, ok: e.ok, revealed: e.revealed, detail: e.detail })) });
+  };
+  function resume() {
+    const v = resumable && load(SESSION, null);
+    if (!v || Date.now() - v.ts > 12 * 3600e3 || !Array.isArray(v.round) || !v.round.length) return false;
+    try {
+      S.kinds = v.kinds.filter(k => bank.KINDS.includes(k));
+      if (!S.kinds.length) return false;
+      S.size = v.size; S.last = v.last;
+      S.round = v.round.map(r => ({ q: seededQuestion(bank, r.kind, r.seed), given: r.given, ok: r.ok, revealed: r.revealed, detail: r.detail }));
+      S.seen = new Set(S.round.map(e => signature(e.q)));
+      S.phase = cur().ok === null ? 'ask' : 'answered';
+      return true;
+    } catch { return false; }
+  }
   // nhúng trong thẻ học thì chưa giành con trỏ cho tới khi người học bấm vào (← → vẫn lật thẻ)
   let touched = autofocus;
   host.classList.add('runner');
@@ -103,6 +125,7 @@ export function mountRunner(host, { bank, prefix, figures = {}, widgets = {}, si
     S.phase = 'ask';
     S.hint = false;
     S.warn = null;
+    persist();
     draw();
   }
 
@@ -246,6 +269,7 @@ export function mountRunner(host, { bank, prefix, figures = {}, widgets = {}, si
     S.phase = 'answered';
     if (!S.redo) record({ prefix, kind: e.q.kind, ok: e.ok, mode, ...(e.q.review && { tag: e.q.review }) });
     onResult?.(e.ok);
+    persist();
     draw();
   }
 
@@ -257,11 +281,12 @@ export function mountRunner(host, { bank, prefix, figures = {}, widgets = {}, si
     S.phase = 'answered';
     if (!S.redo) record({ prefix, kind: e.q.kind, ok: false, mode, ...(e.q.review && { tag: e.q.review }) });
     onResult?.(false);
+    persist();
     draw();
   }
 
   /* ---------- hết lượt ---------- */
-  function finish() { S.phase = 'done'; draw(); }
+  function finish() { S.phase = 'done'; persist(); draw(); }
 
   function drawDone() {
     const right = S.round.filter(e => e.ok).length;
@@ -324,7 +349,7 @@ export function mountRunner(host, { bank, prefix, figures = {}, widgets = {}, si
   document.addEventListener('keydown', onKey);
   onLangChange(onLang);
 
-  restart();
+  if (resume()) { drawKinds(); draw(); } else restart();
   return {
     dispose() {
       document.removeEventListener('keydown', onKey);

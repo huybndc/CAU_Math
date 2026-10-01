@@ -9,12 +9,12 @@ import { fail } from '@shared/logic/app-error.js';
 import { pick, int, shuffle } from '@shared/logic/shuffle.js';
 import { line as L, tableLine } from '@shared/logic/steps.js';
 
-export const KINDS = ['table', 'value', 'classify', 'equiv', 'contra'];
+export const KINDS = ['table', 'count', 'value', 'classify', 'equiv', 'contra'];
 export const GROUPS = [
-  { id: 'g-table', kinds: ['table', 'value'] },
+  { id: 'g-table', kinds: ['table', 'count', 'value'] },
   { id: 'g-laws', kinds: ['classify', 'equiv', 'contra'] },
 ];
-export const SECONDS = { table: 120, value: 60, classify: 90, equiv: 90, contra: 45 };
+export const SECONDS = { table: 120, count: 90, value: 60, classify: 90, equiv: 90, contra: 45 };
 
 const OPS = ['∧', '∨', '→', '↔', '⊕'];
 const TF = b => (b ? 'T' : 'F');
@@ -63,6 +63,21 @@ function makeTable(rnd) {
     hintKey: 'c1q.hTable',
     meta: { f, vars },
     work: [tableOf([ast], vars), L('s1.readCol', {}, `${f}: ${truthColumn(ast, vars)}`)],
+  };
+}
+
+/** Đếm số dòng F đúng — dạng tự luận (số) thay cho trắc nghiệm đúng/sai; đáp án đếm từ bảng chân trị. */
+function makeCount(rnd) {
+  const ast = randomFormula(pick([2, 3, 3], rnd), rnd);
+  const vars = varsOf(ast);
+  const f = formatProp(ast);
+  const col = truthColumn(ast, vars);
+  const rows = [...col].flatMap((b, i) => (b === '1' ? [i] : []));
+  return {
+    kind: 'count', format: 'number',
+    textKey: 'c1q.qCount', textParams: { f }, answer: rows.length,
+    hintKey: 'c1q.hTable', meta: { f, vars },
+    work: [tableOf([ast], vars, rows), L('s1.countRows', { n: rows.length })],
   };
 }
 
@@ -157,7 +172,7 @@ function makeContra(rnd) {
   };
 }
 
-const MAKERS = { table: makeTable, value: makeValue, classify: makeClassify, equiv: makeEquiv, contra: makeContra };
+const MAKERS = { table: makeTable, count: makeCount, value: makeValue, classify: makeClassify, equiv: makeEquiv, contra: makeContra };
 
 export function makeQuestion(kind = 'mix', rnd = Math.random) {
   const k = kind === 'mix' ? pick(KINDS, rnd) : kind;
@@ -168,7 +183,7 @@ export function makeQuestion(kind = 'mix', rnd = Math.random) {
 }
 
 export function checkAnswer(q, given) {
-  if (q.format === 'choice') return { ok: Number(given) === q.answer };
+  if (q.format === 'choice' || q.format === 'number') return { ok: Number(given) === q.answer };
   const bits = String(given).replace(/\s+/g, '');
   if (bits.length !== q.answer.length || !/^[01]+$/.test(bits)) return { retry: true, detailKey: 'c1q.needBits', detailParams: { n: q.answer.length } };
   const wrong = [...bits].flatMap((b, i) => (b !== q.answer[i] ? [i] : []));

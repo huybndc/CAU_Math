@@ -64,6 +64,7 @@ export const ch1 = {
   'bcd.needFix': 'Sum > 9 ⇒ add 0110 (+6)',
   'bcd.noFix': 'Sum ≤ 9 ⇒ no correction',
   'bcd.result': 'Result',
+  's1.pad8': 'The answer boxes take 8 bits — pad with 0s on the left:',
   'sub.m': 'M',
   'sub.compN': "r's complement of N",
   'sub.sum': 'M + comp(N)',

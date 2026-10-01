@@ -3,6 +3,10 @@ export const quiz = {
   /* ---------- D1 Propositions ---------- */
   'c1q.g-table': 'Truth tables & values',
   'c1q.g-laws': 'Equivalence, tautologies, contrapositive',
+  'c1q.count': 'Count true rows',
+  'c1q.qCount': 'How many rows of the truth table of {f} give true (T)?',
+  'c1q.f_count': 'Answer: an integer (0 … number of rows).',
+  's1.countRows': 'The highlighted rows are those where F is true: {n} rows.',
   'c1q.table': 'Build a truth table',
   'c1q.value': 'Value of a formula',
   'c1q.classify': 'Tautology or contradiction?',

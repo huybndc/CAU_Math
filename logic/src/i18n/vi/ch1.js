@@ -64,6 +64,7 @@ export const ch1 = {
   'bcd.needFix': 'Tổng > 9 ⇒ cộng 0110 (+6)',
   'bcd.noFix': 'Tổng ≤ 9 ⇒ không cần hiệu chỉnh',
   'bcd.result': 'Kết quả',
+  's1.pad8': 'Ô trả lời có 8 bit — thêm 0 bên trái cho đủ:',
   'sub.m': 'M',
   'sub.compN': "r's complement của N",
   'sub.sum': 'M + comp(N)',
