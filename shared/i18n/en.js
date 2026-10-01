@@ -47,6 +47,8 @@ export const en = {
   /* bộ chạy luyện tập */
   /* task-based menu */
   'shell.menu': 'Main menu',
+  'shell.navClose': 'Collapse menu',
+  'shell.navOpen': 'Expand menu',
   'nav.home': 'Overview',
   'nav.learn': 'Learn',
   'nav.tools': 'Tools',

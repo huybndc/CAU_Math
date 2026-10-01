@@ -27,6 +27,36 @@ export function setupTheme() {
   });
 }
 
+/**
+ * Thu gọn menu trái thành cột icon (≥761px). Nhớ theo trình duyệt, chung khoá `study-nav` với Hub (cùng origin).
+ * Nút nằm trong .appnav-foot; CSS ở shell.css.
+ */
+export function setupNavCollapse() {
+  const foot = $('.appnav-foot');
+  if (!foot) return;
+  const btn = Object.assign(document.createElement('button'), { type: 'button', className: 'nav-collapse' });
+  const set = min => {
+    document.documentElement.dataset.nav = min ? 'min' : '';
+    btn.setAttribute('aria-pressed', String(min));
+    btn.title = btn.ariaLabel = T(min ? 'shell.navOpen' : 'shell.navClose');
+  };
+  let min = false;
+  try { min = localStorage.getItem('study-nav') === 'min'; } catch { /* riêng tư */ }
+  set(min);
+  btn.addEventListener('click', () => {
+    min = !min;
+    set(min);
+    try { localStorage.setItem('study-nav', min ? 'min' : ''); } catch { /* riêng tư */ }
+  });
+  onLangChange(() => set(min));
+  // cột icon: tên mục hiện khi rê chuột
+  $('.appnav').addEventListener('pointerover', e => {
+    const a = e.target.closest('.tab');
+    if (a) a.title = document.documentElement.dataset.nav === 'min' ? a.textContent.trim() : '';
+  });
+  foot.append(btn);
+}
+
 /* ---------------- gợi ý: đoạn .hint → nút ⓘ mở popover ---------------- */
 
 let hintSeq = 0;
@@ -94,6 +124,7 @@ function addHubLink() {
 export async function setupShell(cfg) {
   setupLangSwitch();
   setupTheme();
+  setupNavCollapse();
   upgradeHints();
   setupScratch();
   addHubLink();

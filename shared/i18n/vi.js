@@ -46,6 +46,8 @@ export const vi = {
   'sync.err': 'Đồng bộ lỗi ({msg}). Tiến độ vẫn lưu trên máy này — bấm để thử lại.',
   /* menu theo việc */
   'shell.menu': 'Mục chính',
+  'shell.navClose': 'Thu gọn menu',
+  'shell.navOpen': 'Mở rộng menu',
   'nav.home': 'Tổng quan',
   'nav.learn': 'Học',
   'nav.tools': 'Công cụ',

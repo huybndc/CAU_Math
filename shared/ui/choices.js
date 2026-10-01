@@ -61,7 +61,10 @@ export const tag = (text, kind = 'hi') => el('span', { class: `tag ${kind}`, tex
  * Khối "việc chính": một dòng tiêu đề + ghi chú + nút màu nhấn; `alt` là lựa chọn thứ hai
  * viết thành một dòng chữ (không thêm hộp nữa).
  */
-export const leadCard = ({ title, note, href, cta, alt }) => el('div', { class: 'lead-card' }, [
+export const leadCard = ({ title, note, href, cta, alt }) => el('div', {
+  class: 'lead-card',
+  onClick: e => { if (!e.target.closest('a')) location.hash = href; },       // bấm chỗ nào trên khung cũng đi; link nhỏ bên trong vẫn bấm riêng
+}, [
   el('div', { class: 'lead-main' }, [el('b', { text: title }), el('small', { text: note }), alt]),
   el('a', { class: 'btn primary', href, 'data-icon': 'next' }, el('span', { text: cta })),
 ]);
