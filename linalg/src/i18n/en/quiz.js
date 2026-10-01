@@ -10,6 +10,8 @@ export const quiz = {
   'c3q.g-null': 'Solving Ax = 0 and Ax = b',
   'c3q.g-dim': 'Rank & dimension',
   /* ---------- shared ---------- */
+  'la.noteAngle': 'Angle in DEGREES: type 45 or 45°. For radians include π (e.g. π/4). Tolerance: {tol}°.',
+  'la.noteTol': 'Non-integer: write it exactly (1/3, √5) or as a decimal — each number may be off by at most {tol} (2 decimals is enough).',
   'la.needNums': 'No numbers found — write numbers, fractions (1/2) or roots (√5), separated by commas.',
   'la.needCount': 'The answer needs {n} numbers; you wrote {got}.',
   'la.dValue': 'You got {got} — not quite. See the step-by-step solution below.',
@@ -35,14 +37,14 @@ export const quiz = {
   'c1q.qMatVec': 'Compute Ax as a combination of the columns of A.',
   'c1q.qCoefs': 'Find c and d so that c·{v} + d·{w} = {b}.',
 
-  'c1q.f_combine': 'Answer: the resulting vector, e.g. 3, -2 (brackets optional).',
+  'c1q.f_combine': 'Fill in each component of the resulting vector (fractions as 1/2).',
   'c1q.f_dot': 'Answer: one number.',
   'c1q.f_length': 'Answer: one number — type sqrt(13) or √13, or a decimal with 2 places.',
-  'c1q.f_unit': 'Answer: the components of u, e.g. 3/5, 4/5.',
-  'c1q.f_angle': 'Answer: degrees, e.g. 45.',
+  'c1q.f_unit': 'Fill in each component of u (3/5 or 1/√2 both work).',
+  'c1q.f_angle': 'Answer: the angle θ in degrees (e.g. 45), or radians if you write π (e.g. π/4).',
   'c1q.f_perp': 'Answer: the value of c (write fractions as 3/2).',
-  'c1q.f_matvec': 'Answer: the vector Ax, e.g. 1, -4, 2.',
-  'c1q.f_coefs': 'Answer: c, d in that order, e.g. 2, -1.',
+  'c1q.f_matvec': 'Fill in each component of the vector Ax.',
+  'c1q.f_coefs': 'Fill in c and d.',
 
   'c1q.hCombine': 'Scale each vector by its coefficient, then add component by component.',
   'c1q.hDot': 'Multiply matching components and add — the result is ONE NUMBER.',
@@ -101,9 +103,9 @@ export const quiz = {
   'c2q.qInverse': 'Find A⁻¹.',
   'c2q.qXtAy': 'With x = {x} and y = {y}, compute the number xᵀAy.',
 
-  'c2q.f_solve2': 'Answer: the solution in the order {vars}, e.g. 2, -1.',
-  'c2q.f_solve3': 'Answer: the solution in the order {vars}, e.g. 2, -1, 0.',
-  'c2q.f_pivots': 'Answer: the three pivots from top to bottom, e.g. 2, -1, 3.',
+  'c2q.f_solve2': 'Fill in the solution {vars}.',
+  'c2q.f_solve3': 'Fill in the solution {vars}.',
+  'c2q.f_pivots': 'Fill in the three pivots from top to bottom.',
   'c2q.f_lu': 'Answer: fill in the three multipliers (fractions as 1/2).',
   'c2q.f_matmul': 'Answer: fill in each entry of AB.',
   'c2q.f_entry': 'Answer: one number.',
@@ -181,8 +183,8 @@ export const quiz = {
 
   'c3q.f_rank': 'Answer: one integer.',
   'c3q.f_nulldim': 'Answer: one integer.',
-  'c3q.f_special': 'Answer: the vector s in the order x₁, x₂, …, e.g. -2, 1, 0.',
-  'c3q.f_particular': 'Answer: the vector xₚ in the order x₁, x₂, … (remember {free} = 0).',
+  'c3q.f_special': 'Fill in each component of s (order x₁, x₂, …).',
+  'c3q.f_particular': 'Fill in each component of xₚ (remember {free} = 0).',
   'c3q.f_dims': 'Answer: fill in four numbers.',
 
   'c3q.hIndependent': 'Put the vectors in columns and eliminate: rank = number of vectors ⇔ independent.',

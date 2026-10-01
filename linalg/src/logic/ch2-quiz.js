@@ -108,7 +108,8 @@ function makeSolve(n) {
     const { A, b, x } = uniqueSystem(n, rnd);
     return {
       textKey: 'c2q.qSolve', textParams: { vars: n === 2 ? 'x, y' : 'x, y, z' },
-      figure: systemFig(A, b), answer: x, hintKey: 'c2q.hSolve', meta: { A, b },
+      figure: systemFig(A, b), answer: x, hintKey: 'c2q.hSolve',
+      input: { type: 'vec', n, orient: 'row', labels: n === 2 ? ['x', 'y'] : ['x', 'y', 'z'] }, meta: { A, b },
       work: [L('c2q.sAug'), ...elimLines(A, b), L('c2q.sRead', {}, `(${n === 2 ? 'x, y' : 'x, y, z'}) = ${fmtVec(x)}`)],
       mistakes: [x.some((v, i) => v !== x[n - 1 - i]) && mistake(x.slice().reverse(), 'c2q.dReverse')].filter(Boolean),
     };
@@ -135,7 +136,7 @@ function makePivots(rnd) {
   const diag = A.map((r, i) => r[i]);
   return {
     textKey: 'c2q.qPivots', textParams: {}, figure: { type: 'mats', items: [['A', A]] },
-    answer: piv, hintKey: 'c2q.hPivots', meta: { A },
+    answer: piv, hintKey: 'c2q.hPivots', input: { type: 'vec', n: piv.length, orient: 'row', labels: piv.map((_, i) => `p${'₁₂₃₄₅'[i]}`) }, meta: { A },
     work: [...luSteps(A).lines, L('c2q.sPivots', {}, fmtVec(piv))],
     mistakes: [diag.some((d, i) => d !== piv[i]) && mistake(diag, 'c2q.dDiag')].filter(Boolean),
   };

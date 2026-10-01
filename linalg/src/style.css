@@ -94,3 +94,11 @@
 .w-matrix .matgrid input{width:4.4em;font-size:1.05rem;padding:8px 4px}
 .w-matrix .matgrid input.good{border-color:var(--ok);background:var(--ok-bg)}
 .w-matrix .matgrid input.bad{border-color:var(--bad);background:var(--bad-bg)}
+
+/* ô trả lời vector: cột có ngoặc, hàng có nhãn */
+.w-vecbox{display:inline-block;max-width:100%}
+.w-vec input{width:5.2em;font-size:1.05rem;padding:8px 4px;text-align:center}
+.w-vec .matlab{align-self:center;text-align:right}
+.w-vec input.good{border-color:var(--ok);background:var(--ok-bg)}
+.w-vec input.bad{border-color:var(--bad);background:var(--bad-bg)}
+.w-matrix-grid input{text-align:center}

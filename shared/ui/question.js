@@ -104,7 +104,9 @@ export function questionView(q, { figures = {}, widgets = {}, given = null, lock
   work.append(box);
   // "Trả lời: …" — nói rõ phải nhập gì, theo định dạng nào (đề Mano luôn nêu rõ điều này)
   const fmt = q.formatKey && T(q.formatKey) !== q.formatKey ? h('p', 'run-format', T(q.formatKey, tp(q.formatParams ?? q.textParams))) : null;
-  return { nodes: [h('p', 'run-q', T(q.textKey, tp(q.textParams))), fmt, work].filter(Boolean), get: () => get() };
+  // dòng phụ: sai số / đơn vị được chấp nhận (vd góc theo độ hay radian)
+  const note = q.noteKey && T(q.noteKey) !== q.noteKey ? h('p', 'run-format', T(q.noteKey, tp(q.noteParams))) : null;
+  return { nodes: [h('p', 'run-q', T(q.textKey, tp(q.textParams))), fmt, note, work].filter(Boolean), get: () => get() };
 }
 
 /** Dòng toán: có biến chữ ⇒ phông biểu thức như sách (x′y); chỉ số / bit ⇒ phông mono cho thẳng cột. */
