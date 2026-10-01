@@ -16,6 +16,10 @@ export const vi = {
   'scratch.matBar': 'Vạch ngăn | (ma trận mở rộng)',
   'scratch.matCopy': 'Nhân bản xuống dưới (làm bước kế)',
   'scratch.matDel': 'Xoá ma trận',
+  'calc.undef': 'Chưa định nghĩa “{name}”.',
+  'calc.argc': 'Hàm {name} nhận số đối số khác.',
+  'calc.reserved': '“{name}” là tên có sẵn, chọn tên khác.',
+  'calc.listTip': 'Mỗi dòng một biểu thức. Định nghĩa: a = 3, f(x) = x^2 + 1 — dòng sau dùng được. sqrt, π, sin/cos/tan (độ). Enter: dòng mới.',
   'shell.close': 'Đóng',
   /* đồng bộ giữa các máy (D37) — chữ trong tooltip nút mây */
   'sync.wait': 'Đang đồng bộ…',

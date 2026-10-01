@@ -269,3 +269,15 @@ body.exam-focus .appnav{display:none}
 .mp-cell{width:100%;min-width:0;padding:4px 2px;text-align:center;font:var(--fs-sm) var(--mono);border:1px solid var(--line);border-radius:5px;background:var(--panel);color:var(--ink)}
 .mp-cell.bar{margin-left:6px;border-left:2px solid var(--ink-dim);border-radius:0 5px 5px 0}
 .mp .matbox .brk{width:8px}
+
+/* máy tính dạng danh sách (shared/ui/scratch-calc.js) */
+.cl{display:flex;flex-direction:column;gap:6px;padding:10px 14px;overflow-y:auto;flex:1;min-height:0}
+.cl-row{display:grid;grid-template-columns:1.4rem minmax(0,1fr);align-items:center;gap:0 6px;border-bottom:1px solid var(--line);padding:4px 0}
+.cl-n{font:var(--fs-xs) var(--mono);color:var(--ink-dim);text-align:right}
+.cl-in{border:0;background:transparent;font:1rem var(--mono);color:var(--ink);padding:6px 4px;outline:none;min-width:0}
+.cl-in:focus{background:var(--accent-soft);border-radius:var(--r-sm)}
+.cl-out{grid-column:2;text-align:right;font:var(--fs-sm) var(--mono);color:var(--ink);min-height:1.1em;padding:0 4px 2px}
+.cl-out.error{color:var(--bad);font-family:var(--font)}
+.cl-out.var,.cl-out.fn{color:var(--ink-dim)}
+.cl-tip{font-size:var(--fs-xs);color:var(--ink-dim);margin:6px 0 0}
+.cl-wrap{display:flex;flex-direction:column;max-height:42%;min-height:7rem;border-bottom:1px solid var(--line)}
