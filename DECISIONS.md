@@ -555,3 +555,5 @@ khác syllabus, lịch học bắt đầu từ 2026/09/01".)
 - **Nháp trên điện thoại:** nút thành ✎ tròn; trong phòng thi có chừa chỗ để không đè "Câu sau".
 - **Phòng thi:** Enter như phần Luyện tập; bài tập dài không ghi "90 phút". "Xem đáp án" có tooltip nói rõ tính là sai.
 - **Chữ:** gợi ý đổi cơ số theo đúng chiều; dòng "bấm từng ô" chỉ ở câu có ô bit; "Sai ở dòng" đếm từ 1; nhãn gửi Hub luôn tiếng Việt (`tIn`); trạng thái gốc lỗi "chưa vững"; chú thích nút đồng bộ khi chạy dưới Hub.
+
+**D60. Nhập lịch sử về đúng tài khoản (2026-10-01).** Kiểm trên bản đang chạy: `hydrateProgress` chạy trước `adoptAccount` nên sự kiện lấy từ máy chủ rơi vào vùng lưu "guest" còn màn Tổng quan đọc vùng của tài khoản ⇒ app đếm 12 câu, Hub 14. Nay gắn tài khoản trước khi đọc/ghi.
