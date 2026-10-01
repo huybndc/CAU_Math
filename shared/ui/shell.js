@@ -123,6 +123,11 @@ function addHubLink() {
  * @param {{ chapters: {id:string, bank?:object, prefix?:string}[], figures?:object,
  *           widgets?:object, lesson?:(chId:string)=>string }} cfg
  */
+let markReady;
+/** Xong khi tài khoản đã gắn và tiến độ đã nạp (cuối setupShell): các máy giải đọc ô nhập đã nhớ SAU mốc này —
+ *  trước đó khoá lưu còn là "khách" (Hub gắn tài khoản trong hydrateProgress), nên đọc sớm sẽ không thấy gì. */
+export const shellReady = new Promise(r => { markReady = r; });
+
 export async function setupShell(cfg) {
   setupLangSwitch();
   setupTheme();
@@ -141,6 +146,7 @@ export async function setupShell(cfg) {
   startRouter(cfg.chapters.map(c => c.id), r => showRoute(r, cfg));
   setupPalette(cfg);
   onLangChange(() => { showRoute(currentRoute(), cfg); labelHints(); });
+  markReady();
   window.addEventListener('scroll', () => {
     document.querySelectorAll('.hint:popover-open').forEach(h => h.hidePopover());
   }, { passive: true });

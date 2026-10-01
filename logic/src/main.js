@@ -1,5 +1,5 @@
 import { onLangChange, getLang } from './i18n/index.js';
-import { setupShell } from '@shared/ui/shell.js';
+import { setupShell, shellReady } from '@shared/ui/shell.js';
 import { truthFigure } from '@shared/ui/figures.js';
 import { kmapFigure } from './ui/kmap-figure.js';
 import { gateFigure, circuitFigure, netFigure } from './ui/gate-svg.js';
@@ -35,12 +35,14 @@ window.addEventListener('DOMContentLoaded', () => {
   setupKmapPage();
   setupCh1ExamplePage();
   setupCh1CodesPage();
-  mountBaseSolver(document.getElementById('tool-base'));
-  mountComplementSolver(document.getElementById('tool-compl'));
-  mountSignedSolver(document.getElementById('tool-signed'));
+  shellReady.then(() => {                      // sau khi tài khoản gắn xong (đọc được ô nhập đã nhớ)
+    mountBaseSolver(document.getElementById('tool-base'));
+    mountComplementSolver(document.getElementById('tool-compl'));
+    mountSignedSolver(document.getElementById('tool-signed'));
+    mountExprSolver(document.getElementById('tool-expr'));
+  });
   setupCh2ExamplePage();
   setupCh2InteractivePage();
-  mountExprSolver(document.getElementById('tool-expr'));
   const banks = Object.fromEntries(chapters.map(c => [c.prefix, c.bank]));
   const mountAllTheory = () => chapters.forEach(({ id }) =>
     mountLesson(document.querySelector(`#theory-${id}-body`), THEORY[getLang()][id], { chapter: id, banks, figures, widgets }));
