@@ -84,7 +84,7 @@ function renderSetup(cfg) {
         type: 'button', class: 'exam-mode', 'aria-pressed': String(S.mode === m), onClick: () => { S.mode = m; draw(); },
       }, [el('b', { text: T(m === 'exam' ? 'exam.modeExam' : 'exam.modeLong') }), el('small', { text: T(m === 'exam' ? 'exam.modeExamNote' : 'exam.modeLongNote') })])))),
       el('div', { class: 'exam-go' }, [
-        el('span', { text: chs.length ? T('exam.summary', { n: count, list: listOf(S.chapters), m: S.minutes }) : T('exam.pickOne') }),
+        el('span', { text: chs.length ? T(S.order === 'part' ? 'exam.summaryPart' : 'exam.summaryRandom', { n: count, p: chs.length, m: S.minutes }) : T('exam.pickOne') }),
         el('button', { type: 'button', class: 'btn primary', 'data-icon': 'next', disabled: !chs.length, onClick: () => start(S) }, el('span', { text: T('exam.start') })),
       ]),
     );
