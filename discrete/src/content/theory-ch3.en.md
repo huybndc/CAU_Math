@@ -29,6 +29,8 @@ They match the logical connectives: ∪ ↔ ∨, ∩ ↔ ∧, ᶜ ↔ ¬, ⊕ �
 
 <div data-check="c3q:setop" data-needs="c1q:value"></div>
 
+<div data-tool="ch3/0"></div>
+
 ## Counting elements
 
 - The **power set** P(A) = the set of all subsets of A: |P(A)| = **2^|A|** (each element: in or out).
@@ -36,6 +38,8 @@ They match the logical connectives: ∪ ↔ ∨, ∩ ↔ ∧, ᶜ ↔ ¬, ⊕ �
 - **Inclusion–exclusion:** |A ∪ B| = |A| + |B| − |A ∩ B| (the overlap was counted twice).
 
 <div data-check="c3q:count"></div>
+
+<div data-tool="ch3/0"></div>
 
 ## Functions
 

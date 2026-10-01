@@ -24,6 +24,7 @@ Hai bình a lít và b lít. Được: đổ đầy, đổ hết, rót bình nà
 Và ngược lại: mọi bội của gcd không quá bình lớn đều đong được. Vd bình 3 và 5 lít: gcd = 1 nên đong được 4 lít.
 
 <div data-check="c5q:jugs" data-needs="c6q:gcd"></div>
+<div data-check="c5q:pours" data-needs="c5q:jugs"></div>
 
 <div data-tool="ch6/2"></div>
 
@@ -43,6 +44,7 @@ Chỉ có tem 3 xu và 5 xu: trả được mọi số tiền **từ 8 xu trở 
 Tổng quát, tem a và b nguyên tố cùng nhau: số lớn nhất **không** trả được là **a·b − a − b**.
 
 <div data-check="c5q:stamps" data-needs="c4q:step"></div>
+<div data-check="c5q:minA" data-needs="c5q:stamps"></div>
 
 <div data-tool="ch6/2"></div>
 

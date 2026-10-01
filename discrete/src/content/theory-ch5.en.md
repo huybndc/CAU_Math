@@ -24,6 +24,7 @@ Two jugs of a and b litres. Allowed: fill one, empty one, pour one into the othe
 Conversely, every multiple of the gcd up to the big jug can be measured. E.g. jugs of 3 and 5: the gcd is 1, so 4 litres is possible.
 
 <div data-check="c5q:jugs" data-needs="c6q:gcd"></div>
+<div data-check="c5q:pours" data-needs="c5q:jugs"></div>
 
 <div data-tool="ch6/2"></div>
 
@@ -43,6 +44,7 @@ With only 3-cent and 5-cent stamps you can pay every amount **from 8 cents on**.
 In general, for relatively prime a and b the largest amount that **cannot** be paid is **a·b − a − b**.
 
 <div data-check="c5q:stamps" data-needs="c4q:step"></div>
+<div data-check="c5q:minA" data-needs="c5q:stamps"></div>
 
 <div data-tool="ch6/2"></div>
 
