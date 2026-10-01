@@ -62,3 +62,11 @@
 .sv .sv-body,.sv .sv-solo{gap:6px}
 .mi-lab{text-align:center;font:600 var(--fs-sm) var(--font);color:var(--ink-dim);padding-bottom:2px}
 .mi-lab.bar{border-left:2px solid transparent}
+
+/* ---------- thuật ngữ bấm được (shared/ui/terms.js) ---------- */
+.term{font:inherit;color:inherit;padding:0;border:0;background:none;cursor:help;border-bottom:1px dotted var(--accent)}
+.term:hover,.term:focus-visible{color:var(--accent);outline:none}
+.term-pop{position:fixed;z-index:1001;max-width:min(320px,calc(100vw - 16px));padding:10px 14px;border:1px solid var(--line-strong);border-radius:var(--r-md);
+  background:var(--panel);color:var(--ink);font-size:var(--fs-sm);line-height:1.5;box-shadow:0 10px 30px -10px rgb(0 0 0 / .5)}
+.term-pop p{margin:0 0 6px}
+.term-pop .sv-link{font-size:var(--fs-sm)}

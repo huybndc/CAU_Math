@@ -23,6 +23,7 @@
   bỏ tab Giải Ax=b khỏi Nháp (Nháp để tự làm). Bảng chân trị Nháp: kéo / Alt+←→ đổi chỗ cột biểu thức.
   Bố cục: kết quả chia ngăn (Cách làm | E·P·LU | Nghịch đảo…), hai cột nhập|kết quả ≥1000px, mỗi trang Công cụ chỉ một công cụ (thanh chọn); tooltip tức thì shared/ui/tip.js thay `title` (trễ 3–4 s).
   Ô nhập dạng lưới (vector là CỘT, nhãn v₁ v₂ | w), nút 🎲 Ngẫu nhiên cho mọi máy giải (logic/random-input.js, có test).
+  Thuật ngữ (rank, trụ, độc lập, …) trong kết quả là chữ bấm được: định nghĩa một câu + liên kết thẻ bài học (shared/ui/terms.js, linalg/src/ui/glossary.js).
   Bước 2 (chưa làm): Logic (máy tính cơ số, K-map tự khoanh nhóm, máy giải biểu thức) + Discrete (bảng chân trị, Euclid + đồng dư, lũy thừa mod) chuyển sang khung này; bỏ MUX/decoder, bộ cộng–trừ, RSA, đồ thị.
 
 ## In progress

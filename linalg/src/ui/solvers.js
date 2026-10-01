@@ -7,6 +7,7 @@ import { matrixReport, OPS, NEEDS_B } from '../logic/report-matrix.js';
 import { spaceReport } from '../logic/report-space.js';
 import { randMatrix, randInvertible, randSystem, randVectorPair, randCombo, randLowRank } from '../logic/random-input.js';
 import { matrixInput } from './matrix-input.js';
+import { glossary } from './glossary.js';
 import { load, save } from '@shared/ui/store.js';
 
 /* ---------------------------------------------------------------
@@ -30,6 +31,7 @@ const label = (host, text) => el('div', { class: 'sv-lab', text });
 export function mountVectorSolver(host) {
   const holder = el('div');
   const s = createSolver(host, {
+    terms: glossary,
     practice: '#/practice/ch1',
     random: () => mi.set(randVectorPair()),
     examples: [[[3, 4], [4, 3]], [[1, 2, 2], [2, -1, 0]], [[1, 0], [1, 1]], [[1, 2], [2, 4]]].map(([a, b]) => ({
@@ -52,6 +54,7 @@ export function mountVectorSolver(host) {
 export function mountComboSolver(host) {
   const holder = el('div');
   const s = createSolver(host, {
+    terms: glossary,
     practice: '#/practice/ch1',
     random: () => mi.set(randCombo()),
     examples: [
@@ -77,6 +80,7 @@ export function mountComboSolver(host) {
 export function mountSystemSolver(host) {
   const holder = el('div');
   const s = createSolver(host, {
+    terms: glossary,
     practice: '#/practice/ch2',
     random: () => mi.set(randSystem(3)),
     examples: [
@@ -112,6 +116,7 @@ export function mountMatrixSolver(host) {
     else A.set(randMatrix(m, n));
   }
   const s = createSolver(host, {
+    terms: glossary,
     practice: '#/practice/ch2',
     random: randomize,
     examples: [
@@ -143,6 +148,7 @@ export function mountMatrixSolver(host) {
 export function mountSpaceSolver(host) {
   const holder = el('div');
   const s = createSolver(host, {
+    terms: glossary,
     practice: '#/practice/ch3',
     random: () => mi.set(randLowRank(3, 4)),
     examples: [

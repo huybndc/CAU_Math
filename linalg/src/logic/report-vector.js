@@ -55,10 +55,9 @@ export function vectorReport(v, w = null) {
     const deg = clean(Math.acos(cos) * 180 / Math.PI);
     const sp = specialAngle(deg);
     answer.push(`θ = ${sp ? `${fmt(Math.round(deg))}° = ${sp}` : `${fmt(Number(deg.toFixed(2)))}°`}`);
-    ang.push(`cos θ = v·w / (|v|·|w|) = ${fmt(d)} / (${rad(V.norm2(v))}·${rad(V.norm2(w))}) ≈ ${r4(cos)}`);
-    ang.push(`θ = arccos(${r4(cos)}) ≈ ${fmt(Number(deg.toFixed(2)))}° ≈ ${r4(deg * Math.PI / 180)} rad${sp ? ` = ${sp}` : ''}`);
-    ang.push({ key: V.isOrthogonal(v, w) ? 'sv.orth' : 'sv.notOrth' }, { key: V.isParallel(v, w) ? 'sv.par' : 'sv.notPar' });
-    ang.push(`|v·w| = ${fmt(Math.abs(d))} ≤ |v|·|w| = ${r4(nv * nw)}  (Cauchy–Schwarz)`);
+    ang.push(`cos θ = v·w / (|v|·|w|) = ${fmt(d)} / (${rad(V.norm2(v))}·${rad(V.norm2(w))}) ≈ ${r4(cos)}   ⇒   θ ≈ ${fmt(Number(deg.toFixed(2)))}° ≈ ${r4(deg * Math.PI / 180)} rad${sp ? ` = ${sp}` : ''}`);
+    if (V.isOrthogonal(v, w)) ang.push({ key: 'sv.orth' });
+    else if (V.isParallel(v, w)) ang.push({ key: 'sv.par' });
     if (V.isOrthogonal(v, w)) answer.push({ key: 'sv.orth' });
     else if (V.isParallel(v, w)) answer.push({ key: 'sv.par' });
     steps.push({ group: 'sv.tabAngle', head: { key: 'sv.stAngle' }, lines: ang });
@@ -67,7 +66,6 @@ export function vectorReport(v, w = null) {
       lines: [
         `proj_w v = (v·w / w·w)·w = (${fmt(d)}/${fmt(V.norm2(w))})·${fmtCol(w)} = ${fmtCol(V.projection(v, w))}`,
         `v − proj_w v = ${fmtCol(V.perpendicular(v, w))}   (⟂ w)`,
-        { key: 'sv.scalarProj', params: { n: r4(V.scalarProjection(v, w)) } },
       ],
     });
   } else {

@@ -1,6 +1,7 @@
 import { el } from './dom.js';
 import { t as T, onLangChange } from '../i18n/index.js';
 import { stepLine } from './question.js';
+import { decorateTerms } from './terms.js';
 import { load, save } from './store.js';
 
 /* ---------------------------------------------------------------
@@ -16,7 +17,7 @@ import { load, save } from './store.js';
 const HIDE_KEY = 'solver-hide';
 const CIRCLED = '①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳';
 
-export function createSolver(host, { practice = null, examples = [], random = null } = {}) {
+export function createSolver(host, { practice = null, examples = [], random = null, terms = null } = {}) {
   const exRow = el('div', { class: 'sv-ex' });
   const inputs = el('div', { class: 'sv-in' });
   const out = el('div', { class: 'sv-out', 'aria-live': 'polite' });
@@ -35,7 +36,7 @@ export function createSolver(host, { practice = null, examples = [], random = nu
     ...examples.map(x => el('button', { type: 'button', class: 'sv-chip', text: typeof x.label === 'function' ? x.label() : x.label, onClick: () => x.apply() })),
   ] : []));
 
-  function draw() {
+  function paint() {
     drawExamples();
     toolsEl.replaceChildren();
     if (!last) { out.replaceChildren(el('p', { class: 'sv-empty', text: T('solver.empty') })); return; }
@@ -80,6 +81,7 @@ export function createSolver(host, { practice = null, examples = [], random = nu
       })),
     );
   }
+  const draw = () => { paint(); if (terms) decorateTerms(out, terms()); };   // thuật ngữ trong kết quả: bấm ⇒ định nghĩa + link bài học
   onLangChange(draw);
   draw();
   return {
