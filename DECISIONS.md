@@ -511,3 +511,10 @@ khác syllabus, lịch học bắt đầu từ 2026/09/01".)
 - Mọi chỗ cần tài khoản / đám mây của Hub import từ `'@host'`; mặc định `shared/host.js` (app chạy riêng: khoá nguyên, không tài khoản, namespace đồng bộ `standalone`). Study_Hub đặt alias `@host` sang adapter của nó. Repo này không import mã Hub.
 - Bản "Nháp có chế độ ghi chú / bảng chân trị" (D50, chưa commit) bị thay bằng bản ngăn: cùng tính năng bảng chân trị, thêm bìa K, ma trận, máy tính danh sách. Việc chép lại bản D50 chưa commit là thừa.
 - Đã ẩn tên người học khỏi comment/test khi chuyển.
+
+**D53. Đề thi thử kiểu TOPIK; 80% tự luận · 20% trắc nghiệm cho MỌI môn (2026-10-01).**
+- Bố cục "Part" (mặc định): mỗi chương một Part, số câu cố định theo thời lượng (60→30, 75→38, 90→45) chia theo số tuần học, trong Part xếp dễ → khó (thời gian chuẩn của dạng tăng dần). Thanh làm bài chỉ hiện tab Part + số câu của Part đang làm.
+- Bố cục "Trộn ngẫu nhiên": cùng số câu, trộn hết, không hiện tên chương khi làm bài.
+- Tỉ lệ 80/20 tính trong từng Part (hoặc cả đề khi trộn): dạng vốn là trắc nghiệm bị giới hạn ≤ 20%, thiếu thì đổi bớt câu tự luận sang bản trắc nghiệm (choiceBank). Quy tắc này áp dụng cho môn thêm về sau (ngân hàng mới phải có choiceBank và đủ dạng tự luận).
+- Đề đang dở / cũ (order 'mixed' hoặc không có) vẫn dựng bằng cách cũ để đáp án đã lưu khớp.
+- Còn nợ: Discrete có nhiều dạng vốn trắc nghiệm (Ch2 toàn bộ) nên đề Discrete ~50% trắc nghiệm; cần thêm dạng tự luận.

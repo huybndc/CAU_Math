@@ -55,7 +55,7 @@
 .exam-pal > summary small{font-weight:400;color:var(--ink-dim)}
 .exam-pal nav{padding:0 .9rem .9rem}
 .exam-pal nav small{display:block;margin:.7rem 0 .35rem;font-size:var(--fs-xs);color:var(--ink-dim)}
-.pal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(2.4rem,1fr));gap:4px}
+.pal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(2.4rem,2.4rem));gap:4px}
 .pal{
   position:relative;height:2.1rem;border-radius:var(--r-sm);cursor:pointer;
   font:500 var(--fs-xs) var(--mono);color:var(--ink-dim);
@@ -136,3 +136,11 @@
 .exam-fold > :not(summary){margin-bottom:1rem}
 .reviews-box .chapter-bar{margin:.2rem 0 .8rem}
 .review[hidden]{display:none}
+
+/* đề theo Part: hàng tab Part + hàng số câu của Part đang làm */
+.exam-pal.parts{padding:.6rem .8rem;border:1px solid var(--line);border-radius:var(--r-md);background:var(--panel);display:grid;gap:.6rem}
+.part-tabs{display:flex;gap:6px;flex-wrap:wrap}
+.part-tab{display:inline-flex;align-items:baseline;gap:.5rem;padding:.35rem .8rem;border:1px solid var(--line-strong);border-radius:var(--r-md);background:var(--panel);color:var(--ink-dim);cursor:pointer;font:inherit;font-size:var(--fs-sm)}
+.part-tab b{font-weight:600}
+.part-tab small{font:var(--fs-xs) var(--mono)}
+.part-tab[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);color:var(--ink)}

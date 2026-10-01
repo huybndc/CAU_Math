@@ -153,12 +153,30 @@ export function renderExamRun(cfg) {
         !timed && st.checked[j] === true && 'ok', !timed && st.checked[j] === false && 'bad'].filter(Boolean).join(' ');
       return el('button', { type: 'button', class: cls, 'aria-current': j === i ? 'true' : null, onClick: () => moveTo(j) }, String(j + 1));
     };
-    // danh sách câu: thu gọn mặc định (48 ô chiếm cả màn); mở ra khi cần nhảy câu, nhớ trạng thái qua các lần vẽ lại
-    const pal = el('details', { class: 'exam-pal', open: palOpen }, [
-      el('summary', {}, [T('exam.list'), el('small', { text: [T('exam.answered', { a: answered, n }), flags && T('exam.flags', { f: flags })].filter(Boolean).join(' · ') })]),
-      el('nav', { 'aria-label': T('exam.list') }, groups.map(g => [el('small', { text: T('shell.chapter', { n: chNo(g.ch) }) }), el('div', { class: 'pal-grid' }, g.idx.map(cell))])),
-    ]);
-    pal.addEventListener('toggle', () => { palOpen = pal.open; });
+    const parted = st.order === 'part';                    // đề kiểu TOPIK: mỗi chương một Part, số câu cố định (shared/logic/exam.js)
+    let pal;
+    if (parted) {
+      // chỉ hiện Part đang làm: một hàng tab Part + một hàng số câu của Part đó (≤ ~15 ô), không cuộn
+      const pg = items.reduce((m, x, j) => ((m[x.part] ??= []).push(j), m), []);
+      const cur = it.part;
+      pal = el('nav', { class: 'exam-pal parts', 'aria-label': T('exam.list') }, [
+        el('div', { class: 'part-tabs', role: 'group' }, pg.map((idx, k) => el('button', {
+          type: 'button', class: 'part-tab', 'aria-pressed': String(k === cur),
+          onClick: () => moveTo(idx.find(j => isBlank(st.given[j])) ?? idx[0]),
+        }, [el('b', { text: T('exam.part', { n: k + 1 }) }), el('small', { text: `${idx.filter(j => !isBlank(st.given[j])).length}/${idx.length}` })]))),
+        el('div', { class: 'pal-grid' }, pg[cur].map(cell)),
+      ]);
+    } else {
+      // danh sách câu: thu gọn mặc định (45 ô chiếm cả màn); mở ra khi cần nhảy câu, nhớ trạng thái qua các lần vẽ lại.
+      // Đề trộn ngẫu nhiên: một danh sách phẳng, không tên chương.
+      const random = st.order === 'random';
+      pal = el('details', { class: 'exam-pal', open: palOpen }, [
+        el('summary', {}, [T('exam.list'), el('small', { text: [T('exam.answered', { a: answered, n }), flags && T('exam.flags', { f: flags })].filter(Boolean).join(' · ') })]),
+        random ? el('nav', { 'aria-label': T('exam.list') }, el('div', { class: 'pal-grid' }, items.map((_, j) => cell(j))))
+          : el('nav', { 'aria-label': T('exam.list') }, groups.map(g => [el('small', { text: T('shell.chapter', { n: chNo(g.ch) }) }), el('div', { class: 'pal-grid' }, g.idx.map(cell))])),
+      ]);
+      pal.addEventListener('toggle', () => { palOpen = pal.open; });
+    }
 
     /* câu đang làm */
     const flagBtn = el('button', {
@@ -168,7 +186,7 @@ export function renderExamRun(cfg) {
     const main = el('article', { class: 'run-card card exam-q' }, [
       el('div', { class: 'run-head' }, [
         el('span', { class: 'run-count', text: T('run.qOf', { i: i + 1, n }) }),
-        el('span', { class: 'muted small', text: T('shell.chapter', { n: chNo(it.ch) }) }),
+        st.order !== 'random' && el('span', { class: 'muted small', text: [parted && T('exam.part', { n: it.part + 1 }), T('shell.chapter', { n: chNo(it.ch) })].filter(Boolean).join(' · ') }),
         el('span', { class: 'spacer' }), flagBtn,
       ]),
       ...qv.nodes,

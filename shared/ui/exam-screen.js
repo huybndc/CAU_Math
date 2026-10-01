@@ -1,7 +1,6 @@
 import { $, el } from './dom.js';
 import { t as T, getLang } from '../i18n/index.js';
-import { EXAM_MINUTES, planExam, gradeItem, tally, secondsLeft, clock, isBlank } from '../logic/exam.js';
-import { seededRandom } from '../logic/shuffle.js';
+import { EXAM_MINUTES, examSize, gradeItem, tally, secondsLeft, clock, isBlank } from '../logic/exam.js';
 import { load, save, drop, loadEvents, subjectOf } from './store.js';
 import { questionCode } from '../logic/question-pool.js';
 import { go } from './router.js';
@@ -58,14 +57,15 @@ function renderSetup(cfg) {
     chapters: (pref.chapters ?? studiedScope(cfg)).filter(id => banked(cfg).some(c => c.id === id)),
     minutes: EXAM_MINUTES.includes(pref.minutes) ? pref.minutes : 90,
     mode: pref.mode === 'long' ? 'long' : 'exam',
+    order: pref.order === 'random' ? 'random' : 'part',          // mặc định: chia theo Part (dễ → khó, như đề thi thật)
   };
-  if (!S.chapters.length) S.chapters = midScope(cfg);
+  if (!S.chapters.length) S.chapters = banked(cfg).map(c => c.id);
   seed ||= Math.floor(Math.random() * 2 ** 31);
 
   const form = el('div', { class: 'exam-setup' });
   const draw = () => {
     const chs = examChapters(cfg, S.chapters);
-    const count = chs.length ? planExam(chs, S.minutes, seededRandom(seed)).length : 0;
+    const count = chs.length ? examSize(chs, S.minutes) : 0;
     const seg = (items, on, act, label) => el('div', { class: 'chapter-bar', role: 'group' },
       items.map(x => el('button', { type: 'button', 'aria-pressed': String(on(x)), onClick: () => { act(x); draw(); } }, label(x))));
     const field = (label, control, note) => el('div', { class: 'exam-field' }, [el('span', { class: 'exam-label', text: label }), el('div', {}, [control, note && el('small', { text: note })])]);
@@ -76,11 +76,14 @@ function renderSetup(cfg) {
         onClick: () => { S.chapters = S.chapters.includes(c.id) ? S.chapters.filter(x => x !== c.id) : [...S.chapters, c.id].sort(); draw(); },
       }, [el('b', { text: chNo(c.id) }), T('nav.' + c.id)]))), T('exam.scopeNote')),
       field(T('exam.length'), seg(EXAM_MINUTES, m => m === S.minutes, m => { S.minutes = m; }, m => T('exam.minutes', { m }))),
+      field(T('exam.layout'), el('div', { class: 'exam-modes' }, ['part', 'random'].map(o => el('button', {
+        type: 'button', class: 'exam-mode', 'aria-pressed': String(S.order === o), onClick: () => { S.order = o; draw(); },
+      }, [el('b', { text: T('exam.layout.' + o) }), el('small', { text: T('exam.layout.' + o + 'Note') })]))), T('exam.mix')),
       field(T('exam.how'), el('div', { class: 'exam-modes' }, ['exam', 'long'].map(m => el('button', {
         type: 'button', class: 'exam-mode', 'aria-pressed': String(S.mode === m), onClick: () => { S.mode = m; draw(); },
       }, [el('b', { text: T(m === 'exam' ? 'exam.modeExam' : 'exam.modeLong') }), el('small', { text: T(m === 'exam' ? 'exam.modeExamNote' : 'exam.modeLongNote') })])))),
       el('div', { class: 'exam-go' }, [
-        el('span', { text: chs.length ? T('exam.summary', { n: count, list: listOf(S.chapters), m: S.minutes }) : T('exam.pickOne') }),
+        el('span', { text: chs.length ? T(S.order === 'part' ? 'exam.summaryPart' : 'exam.summaryRandom', { n: count, p: chs.length, m: S.minutes }) : T('exam.pickOne') }),
         el('button', { type: 'button', class: 'btn primary', 'data-icon': 'next', disabled: !chs.length, onClick: () => start(S) }, el('span', { text: T('exam.start') })),
       ]),
     );
@@ -90,9 +93,9 @@ function renderSetup(cfg) {
   return T('nav.exam');
 }
 
-function start({ chapters, minutes, mode }) {
-  save('exam-pref', { chapters, minutes, mode });
-  save('exam', { seed, minutes, order: 'mixed', mode, chapters, startedAt: Date.now(), at: 0, given: [], flags: [], checked: [], hideClock: false, submittedAt: null });
+function start({ chapters, minutes, mode, order }) {
+  save('exam-pref', { chapters, minutes, mode, order });
+  save('exam', { seed, minutes, order, mode, chapters, startedAt: Date.now(), at: 0, given: [], flags: [], checked: [], hideClock: false, submittedAt: null });
   seed = 0;
   go({ view: 'exam', step: 'run' });
 }

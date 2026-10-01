@@ -56,3 +56,6 @@ Quy tắc riêng của môn: `logic/AGENTS.md`, `linalg/AGENTS.md`, `discrete/AG
 - Tích hợp qua contract/event; sự kiện `math.answer` gồm `subject`, `prefix`, `kind`, `ok`, `mode`, có thể có `tag`. Không thay đổi phạm vi này nếu không có yêu cầu contract rõ ràng.
 - Đầu việc: đọc `REPO_BOUNDARY.md` và `PROGRESS.md`, xem status và commit gần nhất. Giữ thay đổi nhỏ, chạy test phần ảnh hưởng rồi `npm test` và `npm run check`; cập nhật `PROGRESS.md` sau thay đổi có ý nghĩa.
 - Không commit tài liệu môn học riêng, bí mật hoặc dữ liệu cá nhân.
+
+## Đề thi thử (D53)
+- Kiểu TOPIK: chia theo Part (mỗi chương một Part, số câu cố định, dễ → khó) hoặc trộn ngẫu nhiên không hiện tên chương; 80% tự luận · 20% trắc nghiệm, áp dụng cho mọi môn. Môn mới: ngân hàng phải có `choiceBank` và đủ dạng tự luận.
