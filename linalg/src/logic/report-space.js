@@ -3,7 +3,7 @@ import { solve } from './linear-system.js';
 import { columnSpaceBasis, nullSpaceBasis, rowSpaceBasis, dimensions, isIndependent, matrixFromColumns } from './subspace.js';
 import { columns, checkMatrix, shape, multiply } from './matrix.js';
 import { fmtMat } from './quiz-kit.js';
-import { fmt, fmtCol, fmtParen } from './num-format.js';
+import { fmt, fmtCol, fmtParen, parseNums } from './num-format.js';
 import { sub } from './report-vector.js';
 
 /* ---------------------------------------------------------------
@@ -55,5 +55,5 @@ export function spaceReport(A) {
   }
   lines.push({ key: m === n && d.rank === n ? 'sp.isBasis' : 'sp.notBasis', params: { m } });
   steps.push({ head: { key: 'sp.stCheck' }, lines });
-  return { answer, steps };
+  return { answer, steps, check: t => parseNums(t)[0] === d.rank };
 }

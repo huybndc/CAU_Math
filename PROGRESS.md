@@ -30,6 +30,7 @@
   Khung dùng chung thêm: `why` mỗi bước (câu "vì sao"), "Đáp án của bạn" khi đang che (expect/check — chấm theo giá trị, không theo cách viết), "Sao chép lời giải" (chữ thuần, dán vào ghi chú), `figure` (hình 2D cho vector),
   shared/ui/fields.js (ô nhập chữ), shared/ui/glossary.js (từ điển thuật ngữ + link bài học cho cả 3 app).
   Dòng toán gọn: mỗi vế một dòng (|v|, góc, chiếu); phân số có căn/π/ngoặc cũng xếp hai hàng (shared/logic/fractions.js).
+  D59: máy giải nhớ ô nhập theo trình duyệt (fieldRow key); khi che đáp án có nút Gợi ý (mở dần câu "vì sao" từng bước); thêm ô "Đáp án của bạn" cho vector (độ dài/góc/tích vô hướng), tổ hợp (hệ số), không gian (hạng).
   Không làm: ghi sự kiện máy giải sang Hub — đổi contract math.answer cần yêu cầu contract riêng (AGENTS.md).
 
 ## In progress

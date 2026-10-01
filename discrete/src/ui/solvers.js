@@ -14,7 +14,7 @@ const rnd = (lo, hi) => lo + Math.floor(Math.random() * (hi - lo + 1));
 const pick = a => a[rnd(0, a.length - 1)];
 const int = x => { const s = x.replace('−', '-'); if (!/^-?\d+$/.test(s)) fail('err.needInt'); return +s; };
 
-function mount(host, { specs, examples = [], random, report, practice }) {
+function mount(host, { key, specs, examples = [], random, report, practice }) {
   let fr;
   const s = createSolver(host, { terms: glossary, practice, random: random && (() => fr.set(random())), examples: examples.map(([label, vals]) => ({ label, apply: () => fr.set(vals) })) });
   const run = () => {
@@ -25,7 +25,7 @@ function mount(host, { specs, examples = [], random, report, practice }) {
   };
   const draw = () => {
     const old = fr ? Object.fromEntries(specs().map(sp => [sp.id, fr.get(sp.id)])) : {};
-    fr = fieldRow(specs().map(sp => ({ ...sp, value: old[sp.id] ?? sp.value })), run);
+    fr = fieldRow(specs().map(sp => ({ ...sp, value: old[sp.id] ?? sp.value })), run, 'tool-' + key);
     s.inputs.replaceChildren(fr.node);
   };
   draw(); onLangChange(draw);
@@ -35,6 +35,7 @@ function mount(host, { specs, examples = [], random, report, practice }) {
 export function mountTruthSolver(host) {
   const FORMS = ['p -> q', 'p & (q | r)', 'p xor q', '(p -> q) & (q -> r) -> (p -> r)'];
   mount(host, {
+    key: 'truth',
     practice: '#/practice/ch1',
     specs: () => [{ id: 'f', label: 'F =', value: FORMS[3], size: 30 }, { id: 'g', label: `G = (${T('tool.optional')})`, value: '', size: 24 }],
     random: () => ({ f: pick(FORMS), g: '' }),
@@ -45,6 +46,7 @@ export function mountTruthSolver(host) {
 
 export function mountEuclidSolver(host) {
   mount(host, {
+    key: 'euclid',
     practice: '#/practice/ch6',
     specs: () => [{ id: 'a', label: 'a', value: '259', size: 8 }, { id: 'b', label: 'b', value: '70', size: 8 }],
     random: () => ({ a: rnd(20, 999), b: rnd(10, 400) }),
@@ -55,6 +57,7 @@ export function mountEuclidSolver(host) {
 
 export function mountCongruenceSolver(host) {
   mount(host, {
+    key: 'congr',
     practice: '#/practice/ch7',
     specs: () => [{ id: 'a', label: 'a', value: '7', size: 6 }, { id: 'b', label: 'b', value: '3', size: 6 }, { id: 'n', label: 'n', value: '15', size: 6 }],
     random: () => { const n = rnd(5, 60); return { a: rnd(2, n - 1), b: rnd(1, n - 1), n }; },
@@ -65,6 +68,7 @@ export function mountCongruenceSolver(host) {
 
 export function mountPowSolver(host) {
   mount(host, {
+    key: 'pow',
     practice: '#/practice/ch7',
     specs: () => [{ id: 'a', label: 'a', value: '7', size: 6 }, { id: 'k', label: 'k', value: '45', size: 6 }, { id: 'n', label: 'n', value: '13', size: 8 }],
     random: () => ({ a: rnd(2, 40), k: rnd(5, 200), n: rnd(7, 97) }),

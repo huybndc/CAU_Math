@@ -59,6 +59,8 @@ export const vi = {
   'solver.wrong': '✗ Chưa đúng',
   'solver.copy': 'Sao chép lời giải',
   'solver.copied': 'Đã chép',
+  'solver.hint': 'Gợi ý',
+  'solver.hintMore': 'Gợi ý tiếp',
   'solver.try': 'Thử:',
   'terms.openLesson': 'Xem bài: {title} →',
   'solver.random': 'Ngẫu nhiên',

@@ -42,6 +42,7 @@ export function createSolver(host, { practice = null, examples = [], random = nu
   let tab = null;                // ngăn đang xem (khoá nhóm) — giữ khi gõ tiếp
   let mine = '', verdict = null; // đáp án người học tự nhập khi đang che + kết quả đối chiếu (true | false | null)
   let copied = false;
+  let hintN = 0;                 // số gợi ý (câu "vì sao" của các bước) đã mở khi đang che đáp án
 
   const drawExamples = () => exRow.replaceChildren(...(examples.length || random ? [
     el('span', { class: 'sv-ex-l', text: T('solver.try') }),
@@ -77,6 +78,7 @@ export function createSolver(host, { practice = null, examples = [], random = nu
     ].filter(Boolean));
     if (masked) {
       const { expect, check } = last.result;
+      const hints = steps.map(st => st.why).filter(Boolean);
       out.replaceChildren(...[
         (check || expect?.length) && el('form', { class: 'sv-check', onSubmit: e => {
           e.preventDefault();
@@ -88,6 +90,8 @@ export function createSolver(host, { practice = null, examples = [], random = nu
           el('button', { type: 'submit', class: 'btn', text: T('solver.check') }),
           verdict != null && el('span', { class: verdict ? 'sv-ok' : 'sv-no', role: 'status', text: T(verdict ? 'solver.right' : 'solver.wrong') }),
         ]),
+        hintN > 0 && el('ol', { class: 'sv-hints' }, hints.slice(0, hintN).map(h => el('li', { text: T(h.key, h.params) }))),
+        hintN < hints.length && el('button', { type: 'button', class: 'sv-link sv-hint', text: T(hintN ? 'solver.hintMore' : 'solver.hint'), onClick: () => { hintN++; draw(); } }),
         el('button', { type: 'button', class: 'btn sv-reveal', text: T('solver.reveal'), onClick: () => { revealed = true; draw(); } }),
       ].filter(Boolean));
       return;
@@ -118,7 +122,7 @@ export function createSolver(host, { practice = null, examples = [], random = nu
   draw();
   return {
     inputs,
-    show(result) { last = { result }; revealed = false; verdict = null; draw(); },
+    show(result) { last = { result }; revealed = false; verdict = null; hintN = 0; draw(); },
     error(message) { last = { error: message }; draw(); },
     clear() { last = null; draw(); },
   };
