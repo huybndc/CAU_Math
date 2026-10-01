@@ -1,5 +1,5 @@
 import { pushProgress } from './progress-push.js';
-import { currentUser, loadMathAnswerEvents, pushHubEvents, accountStorageKey } from '@host';
+import { currentUser, loadMathAnswerEvents, pushHubEvents, accountStorageKey, adoptAccount } from '@host';
 
 /* ---------------------------------------------------------------
    LƯU TRONG TRÌNH DUYỆT — 3 app chung một origin nên khoá luôn có tên môn
@@ -80,6 +80,7 @@ async function pushRemote(subject, events) {
 export async function hydrateProgress(subject = subjectOf()) {
   const user = await currentUser();
   if (!user?.id) return false;
+  adoptAccount(user.id);          // gắn đúng tài khoản TRƯỚC khi đọc/ghi: không thì sự kiện nhập về rơi vào vùng "guest" và màn Tổng quan không thấy
   const remote = (await loadMathAnswerEvents())
     .filter(e => e.payload?.subject === subject)
     .map(e => ({
