@@ -2,7 +2,7 @@ import { solve, residual, systemStrings } from './linear-system.js';
 import { eliminationE, inverseSteps } from './elementary.js';
 import { ldu, solveLdu, checkLdu } from './ldu.js';
 import { fmtAug, fmtMat } from './quiz-kit.js';
-import { fmt, fmtCol } from './num-format.js';
+import { fmt, fmtCol, parseNums, near } from './num-format.js';
 import { formatRowOp } from './elimination.js';
 import { multiply, checkMatrix, shape } from './matrix.js';
 import { sub } from './report-vector.js';
@@ -38,7 +38,7 @@ export function systemReport(A, b) {
   // 1) khử xuôi: hệ + ma trận mở rộng + từng phép (hàng của cột không có trụ được ghi chú)
   const fwd = [...systemStrings(A, b), fmtAug(r.start)];
   for (const s of r.forwardSteps) fwd.push(s.formula ? opLine(s) : { key: 'ss.freeCol', params: { c: s.freeCol + 1 } });
-  steps.push({ head: { key: 'ss.stForward', params: { k: r.forwardSteps.filter(s => s.formula).length } }, lines: fwd });
+  steps.push({ why: { key: 'ww.forward' }, head: { key: 'ss.stForward', params: { k: r.forwardSteps.filter(s => s.formula).length } }, lines: fwd });
   if (r.type === 'none') {
     steps.push({ head: { key: 'ss.stWhyNone' }, lines: [{ key: 'ss.whyNone', params: { r: r.badRow + 1 } }, fmtAug(r.ref)] });
     return { answer, steps };
@@ -49,7 +49,7 @@ export function systemReport(A, b) {
   back.push({ key: 'ss.pivots', params: { p: r.pivotCols.map(c => varName(c, n)).join(', ') } });
   if (r.freeCols.length) back.push({ key: 'ss.frees', params: { f: r.freeCols.map(c => varName(c, n)).join(', ') } });
   back.push(`x = ${r.type === 'unique' ? fmtCol(r.solution) : generalCols(r)}`);
-  steps.push({ head: { key: 'ss.stBack' }, lines: back });
+  steps.push({ why: { key: 'ww.back' }, head: { key: 'ss.stBack' }, lines: back });
 
   // 3) kiểm
   const x = r.solution ?? r.particular;
@@ -59,7 +59,7 @@ export function systemReport(A, b) {
   const e = eliminationE(A);
   if (e.steps.length) {
     steps.push({
-      group: TAB_ELU, head: { key: 'ss.stE' },
+      group: TAB_ELU, why: { key: 'ww.elu' }, head: { key: 'ss.stE' },
       lines: [
         { key: 'ss.eNote' },
         ...e.steps.map((s, i) => `E${sub(i + 1)} = ${fmtMat(s.E)}   (${arrow(formatRowOp(s.op))})`),
@@ -71,7 +71,7 @@ export function systemReport(A, b) {
   const f = ldu(A);
   const hasSwap = f.swaps.length > 0;
   steps.push({
-    group: TAB_ELU, head: { key: hasSwap ? 'ss.stPLU' : 'ss.stLU' },
+    group: TAB_ELU, why: { key: 'ww.lu' }, head: { key: hasSwap ? 'ss.stPLU' : 'ss.stLU' },
     lines: [
       { key: 'ss.luNote' },
       ...f.steps.map(s => `ℓ${sub(s.row + 1)}${sub(s.pivotRow + 1)} = ${fmt(s.k)}`),
@@ -84,7 +84,7 @@ export function systemReport(A, b) {
   if (m === n && f.invertible) {
     const s = solveLdu(f, b);
     steps.push({
-      group: TAB_ELU, head: { key: 'ss.stSolveLU' },
+      group: TAB_ELU, why: { key: 'ww.solveLU' }, head: { key: 'ss.stSolveLU' },
       lines: [`${hasSwap ? 'P·b' : 'b'} = ${fmtCol(s.pb)}`, { key: 'ss.fwdSub', m: `c = ${fmtCol(s.c)}` }, { key: 'ss.scaleD', m: `y = ${fmtCol(s.y)}` }, { key: 'ss.backSub', m: `x = ${fmtCol(s.x)}` }],
     });
   }
@@ -92,11 +92,11 @@ export function systemReport(A, b) {
   if (m === n) {
     const inv = inverseSteps(A);
     steps.push({
-      group: TAB_INV, head: { key: 'ss.stInverse' },
+      group: TAB_INV, why: { key: 'ww.inverse' }, head: { key: 'ss.stInverse' },
       lines: inv.invertible
         ? [`[A | I] = ${fmtMat(inv.start)}`, ...[...inv.forwardSteps, ...inv.backwardSteps].filter(s => s.formula).map(s => `${arrow(s.formula)}:   ${fmtMat(s.matrix)}`), `A⁻¹ = ${fmtMat(inv.inverse)}`]
         : [{ key: 'ss.notInv', params: { r: inv.rank, n } }],
     });
   }
-  return { answer, steps };
+  return { answer, steps, ...(r.type === 'unique' ? { check: t => { const v = parseNums(t); return v.length === n && v.every((c, i) => near(c, r.solution[i], 1e-6)); } } : {}) };
 }

@@ -25,7 +25,11 @@
   Ô nhập dạng lưới (vector là CỘT, nhãn v₁ v₂ | w), nút 🎲 Ngẫu nhiên cho mọi máy giải (logic/random-input.js, có test).
   Thuật ngữ (rank, trụ, độc lập, …) trong kết quả là chữ bấm được: định nghĩa một câu + liên kết thẻ bài học (shared/ui/terms.js, linalg/src/ui/glossary.js).
   Phân số viết hai hàng (tử trên mẫu) trong mọi dòng toán (shared/logic/fractions.js, mathSpan); máy giải luôn ưu tiên phân số thay thập phân (withFractionMode).
-  Bước 2 (chưa làm): Logic (máy tính cơ số, K-map tự khoanh nhóm, máy giải biểu thức) + Discrete (bảng chân trị, Euclid + đồng dư, lũy thừa mod) chuyển sang khung này; bỏ MUX/decoder, bộ cộng–trừ, RSA, đồ thị.
+  Bước 2 xong (D58): Logic — Đổi cơ số (gộp nhóm bit, chia/nhân liên tiếp), Trừ bằng số bù, Số có dấu (cộng/trừ + tràn), Biểu thức Boole (nhóm lớn nhất, SOP/POS, bù, dual, toàn NAND; K-map giữ nguyên);
+  Discrete — Bảng chân trị & tương đương, Euclid + Pulverizer, đồng dư ax ≡ b (mod n), lũy thừa mod. Bỏ: MUX/decoder, bộ cộng–trừ từng bit, sân chơi RSA, sân chơi đồ thị.
+  Khung dùng chung thêm: `why` mỗi bước (câu "vì sao"), "Đáp án của bạn" khi đang che (expect/check — chấm theo giá trị, không theo cách viết), "Sao chép lời giải" (chữ thuần, dán vào ghi chú), `figure` (hình 2D cho vector),
+  shared/ui/fields.js (ô nhập chữ), shared/ui/glossary.js (từ điển thuật ngữ + link bài học cho cả 3 app).
+  Không làm: ghi sự kiện máy giải sang Hub — đổi contract math.answer cần yêu cầu contract riêng (AGENTS.md).
 
 ## In progress
 

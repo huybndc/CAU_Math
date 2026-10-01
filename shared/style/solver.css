@@ -70,3 +70,22 @@
   background:var(--panel);color:var(--ink);font-size:var(--fs-sm);line-height:1.5;box-shadow:0 10px 30px -10px rgb(0 0 0 / .5)}
 .term-pop p{margin:0 0 6px}
 .term-pop .sv-link{font-size:var(--fs-sm)}
+
+/* Tự làm trước: ô đáp án + đối chiếu; câu "vì sao" của mỗi bước */
+.sv-check{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.sv-check input{flex:1 1 160px;min-width:0}
+.sv-ok{color:var(--ok);font-weight:600}.sv-no{color:var(--bad);font-weight:600}
+.sv-why{margin:0 0 6px;font-size:var(--fs-sm);color:var(--ink-dim);font-style:italic}
+
+/* Hàng ô nhập chữ (fieldRow) */
+.sv-fields{display:flex;flex-wrap:wrap;gap:10px 14px}
+.sv-f{display:grid;gap:3px;font-size:var(--fs-sm);color:var(--ink-dim)}
+.sv-f input,.sv-f select{font:inherit;color:var(--ink)}
+
+/* Hình minh hoạ vector 2D (linalg/src/ui/vector-fig.js) */
+.sv-fig{display:flex;justify-content:center}
+.vfig{width:min(300px,100%);height:auto;font:600 13px ui-monospace,monospace}
+.vfig .vf-axis{stroke:var(--ink-dim);opacity:.3;stroke-width:1}
+.vfig .vf-v{stroke:var(--accent);fill:var(--accent)}.vfig .vf-w{stroke:var(--warn);fill:var(--warn)}
+.vfig .vf-v line,.vfig .vf-w line{stroke:inherit}.vfig text{stroke:none}
+.vfig .vf-proj{stroke:var(--ink-dim)}.vfig .vf-arc{fill:none;stroke:var(--ink-dim);stroke-width:1.5}

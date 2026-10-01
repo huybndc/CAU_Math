@@ -61,6 +61,13 @@ export function withFractionMode(fn) {
   try { return fn(); } finally { fractionMode = prev; }
 }
 
+/** Như fmt nhưng luôn viết thập phân (góc độ không viết thành phân số). */
+export function fmtDec(x) {
+  const prev = fractionMode;
+  fractionMode = false;
+  try { return fmt(x); } finally { fractionMode = prev; }
+}
+
 export function fmt(x, digits = 3) {
   const c = clean(x);
   if (Number.isInteger(c)) return String(c);
@@ -96,3 +103,9 @@ export function signPart(x) {
   const c = clean(x);
   return { sign: c < 0 ? '-' : '+', abs: Math.abs(c) };
 }
+
+/** Mọi số trong một chuỗi người học gõ ("x = 1/2, y = −3") — dùng cho ô tự kiểm của máy giải. Chỉ chấm thập phân bằng dấu chấm. */
+export const parseNums = s => (String(s).replace(/−/g, '-').match(/-?\d+(?:\.\d+)?(?:\s*\/\s*\d+)?/g) ?? []).map(t => {
+  const [a, b] = t.split('/');
+  return b ? +a / +b : +a;
+});

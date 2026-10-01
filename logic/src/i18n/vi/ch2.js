@@ -32,7 +32,6 @@ export const ch2 = {
   'c2.duCompl': "Bù từng literal (x → x′) ⇒ được hàm bù.",
   'c2.complOk': 'Hai cách cho cùng <span class="mono">F′ = {result}</span>, đúng bằng phủ định của F.',
   'c2.complBad': 'Hai cách cho kết quả khác nhau: DeMorgan = {dm}, dual = {du}.',
-
   /* Ch.2 tương tác */
   'c2.gatesTitle': '8 cổng logic',
   'c2.gatesNote': 'Bấm để đổi hai ngõ vào, xem cả 8 cổng phản ứng cùng lúc.',
@@ -42,18 +41,12 @@ export const ch2 = {
   'c2.assocTitle': 'Cổng nhiều ngõ vào',
   'c2.colSame': 'Bằng nhau?', 'c2.properNand': "(xyz)′ đúng nghĩa", 'c2.properNor': "(x+y+z)′ đúng nghĩa",
   'c2.assocNote': 'Hai cách ghép đôi khác nhau ở <b>{diff}/8</b> dòng ⇒ {gate} <b>không kết hợp</b>. Vì vậy {gate} 3 ngõ vào được <b>định nghĩa lại</b> (cột cuối).',
-  'c2.nandTitle': 'AND-OR → toàn NAND',
-  'c2.nandErr': 'Nhập một biểu thức SOP, ví dụ wx + yz.',
-  'c2.nandOk': 'Cần <b>{l1}</b> NAND tầng 1 và <b>1</b> tầng 2; bảng chân trị khớp F.',
-  'c2.nandBad': 'Bảng chân trị KHÔNG khớp.',
   'nand.step1': 'Dạng SOP ban đầu (mạch AND-OR hai tầng).',
   'nand.step2': 'Đặt tên ngõ ra từng cổng AND ở tầng 1.',
   'nand.step3': 'Bù hai lần rồi DeMorgan cho tầng OR: t₁ + t₂ = (t₁′ · t₂′)′.',
   'nand.step4': 'Thay tᵢ′ bằng biểu thức của nó — mỗi tᵢ′ là một NAND tầng 1, ngoặc ngoài là NAND tầng 2.',
   'group.constant': 'Hằng', 'group.unary': 'Một biến', 'group.binary': 'Hai ngôi',
-
   /* Ch.2 luyện tập */
-
   /* định lý & cổng (khoá dùng bởi logic/) */
   'law.identity': 'Phần tử trung hoà', 'law.complement': 'Phần tử bù',
   'law.idempotent': 'Luỹ đẳng', 'law.absorbing': 'Phần tử nuốt',

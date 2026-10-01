@@ -92,3 +92,11 @@ describe('chế độ phân số của máy giải', () => {
     expect(fmt(1.75)).toBe('1.75');
   });
 });
+
+describe('parseNums', () => {
+  it('đọc số, phân số, dấu trừ Unicode', async () => {
+    const { parseNums } = await import('../src/logic/num-format.js');
+    expect(parseNums('x = 1/2, y = −3, z = 2.5')).toEqual([0.5, -3, 2.5]);
+    expect(parseNums('')).toEqual([]);
+  });
+});

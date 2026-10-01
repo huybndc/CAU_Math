@@ -1,7 +1,6 @@
 /* Chương 4 — Mạch tổ hợp: nhãn dạng câu, đề, gợi ý, lời giải, chẩn đoán (c4q.*) và các bước (s4.*). */
 export const ch4 = {
   'nav.ch4': 'Mạch tổ hợp',
-
   'c4q.g-adder': 'Bộ cộng, trừ, tràn số, cộng BCD',
   'c4q.g-msi': 'So sánh, decoder, encoder, MUX',
   'c4q.analyze': 'Phân tích mạch nhiều mức',
@@ -15,7 +14,6 @@ export const ch4 = {
   'c4q.mux': 'Hàm bằng MUX',
   'c4q.concept': 'Khái niệm (vì sao?)',
   'c4q.muxRead': 'Đọc mạch MUX',
-
   'c4q.qAnalyze': 'Mạch dưới đây có ba biến vào <span class="math">x, y, z</span>. Lập bảng chân trị của <span class="math">F</span>.',
   'c4q.qRipple': 'Bộ cộng nối tiếp 4 bit cộng <span class="mono">A = {a}</span> và <span class="mono">B = {b}</span>, carry vào <span class="math">C₀ = 0</span>. Các carry <span class="math">C₄C₃C₂C₁</span> là gì?',
   'c4q.qAddSub': 'Bộ cộng–trừ 4 bit có <span class="mono">A = {a}</span>, <span class="mono">B = {b}</span>, <span class="math">M = {m}</span>. Ngõ ra <span class="math">C₄ S₃S₂S₁S₀</span> là gì?',
@@ -27,7 +25,6 @@ export const ch4 = {
   'c4q.qEncoder': 'Bộ mã hoá ưu tiên 4 ngõ vào (<span class="math">D₃</span> ưu tiên cao nhất) nhận <span class="math">D₃ = {d3}, D₂ = {d2}, D₁ = {d1}, D₀ = {d0}</span>. Ngõ ra <span class="math">x y V</span> là gì?',
   'c4q.qMux': 'Thực hiện <span class="math">F({vars}) = Σm({spec})</span> bằng MUX {size} → 1: <span class="math">{sel}</span> vào ngõ chọn (bit cao trước). Mỗi ngõ dữ liệu <span class="math">I</span> nối vào 0, 1, <span class="math">{last}</span> hay <span class="math">{last}′</span>?',
   'c4q.qMuxRead': 'MUX 4 → 1 có <span class="math">x, y</span> ở ngõ chọn (S₁ = x, S₀ = y) và <span class="math">{ins}</span>. Ngõ ra <span class="math">F(x, y, z)</span> bằng 1 ở những minterm nào?',
-
   'c4q.f_analyze': 'Trả lời: bấm từng ô cột F (1 hoặc 0).',
   'c4q.f_ripple': 'Trả lời: 4 bit, C₄ bên trái.',
   'c4q.f_addsub': 'Trả lời: 5 bit — C₄ rồi S₃S₂S₁S₀.',
@@ -38,7 +35,6 @@ export const ch4 = {
   'c4q.f_encoder': 'Trả lời: 3 bit x y V. Khi V = 0 thì x, y tuỳ ý.',
   'c4q.f_mux': 'Trả lời: mỗi ô gõ 0, 1, z hoặc z′ (gõ z\' cũng được; 4 biến thì biến cuối là z).',
   'c4q.f_muxRead': 'Trả lời: bấm các dòng có F = 1.',
-
   'c4q.hAnalyze': 'Đặt tên đầu ra từng cổng (T₁, T₂), tính cột của chúng trước, rồi mới tính F từ T₁, T₂.',
   'c4q.hRipple': 'Cộng từ bit 0 lên. Carry ra bit i là 1 khi có ít nhất hai số 1 trong Aᵢ, Bᵢ, Cᵢ.',
   'c4q.hAddSub': 'M = 1: mọi bit B đi qua XOR với M nên bị đảo, và C₀ = M = 1 — tức A + B′ + 1.',
@@ -50,7 +46,6 @@ export const ch4 = {
   'c4q.hEncoder': 'Chỉ nhìn ngõ vào có chỉ số CAO NHẤT đang bằng 1; V = 1 khi có ít nhất một ngõ bằng 1.',
   'c4q.hMux': 'Chia bảng chân trị thành từng cặp dòng liền nhau (chỉ khác {last}). Mỗi cặp là một ngõ Iₖ: so F khi {last} = 0 và {last} = 1.',
   'c4q.hMuxRead': 'Ngõ chọn xy = k chọn Iₖ, ứng với hai dòng m = 2k (z = 0) và 2k + 1 (z = 1).',
-
   'c4q.xAnalyze': 'Ra: <span class="math">F = {f}</span>, cột F = <span class="mono">{answer}</span>.',
   'c4q.xRipple': 'Carry C₄C₃C₂C₁ = <span class="mono">{answer}</span>; tổng S = <span class="mono">{sum}</span>.',
   'c4q.xAddSub': 'B sau cổng XOR: <span class="mono">{bx}</span>. Ra C₄ S = <span class="mono">{answer}</span>.',
@@ -63,12 +58,10 @@ export const ch4 = {
   'c4q.xEncoderNone': 'Không ngõ nào bằng 1 ⇒ V = 0, x y tuỳ ý (không mang nghĩa).',
   'c4q.xMux': 'Các ngõ dữ liệu: <span class="math">{answer}</span>.',
   'c4q.xMuxRead': 'F = Σm({list}).',
-
   'c4q.noOv': 'Không tràn (V = 0)',
   'c4q.yesOv': 'Có tràn (V = 1)',
   'c4q.I0': 'I₀', 'c4q.I1': 'I₁', 'c4q.I2': 'I₂', 'c4q.I3': 'I₃',
   'c4q.I4': 'I₄', 'c4q.I5': 'I₅', 'c4q.I6': 'I₆', 'c4q.I7': 'I₇',
-
   'c4q.dBubble': 'Ngược hết: có vẻ bạn bỏ quên vòng tròn đảo (NAND/NOR) ở cổng ra.',
   'c4q.dPartial': 'Đây là cột của một cổng bên trong (T₁ hoặc T₂), chưa qua cổng ra F.',
   'c4q.dGenOnly': 'Bạn chỉ lấy AᵢBᵢ, quên carry lan từ bit dưới lên: Cᵢ₊₁ = AᵢBᵢ + Cᵢ(Aᵢ ⊕ Bᵢ).',
@@ -89,7 +82,6 @@ export const ch4 = {
   'c4q.dOnlyZ1': 'Bạn chỉ nhìn dòng z = 1 của mỗi cặp; phải so cả hai dòng z = 0 và z = 1.',
   'c4q.needMux': 'Cần {size} ô, mỗi ô là 0, 1, {last} hoặc {last}′.',
   'c4q.wrongI': 'Sai ở {list}.',
-
   's4.label': 'Đặt tên đầu ra từng cổng rồi tính cột của từng cổng:',
   's4.table': 'Bảng chân trị — mỗi cột cổng tính từ các cột đứng trước:',
   's4.readCol': 'Cột F:',
@@ -119,29 +111,4 @@ export const ch4 = {
   's4.muxReadRule': 'Ngõ chọn xy = k đưa Iₖ ra F, ở hai dòng m = 2k (z = 0) và 2k + 1 (z = 1):',
   's4.readSet': 'Các dòng F = 1:',
   /* công cụ (pages/ch4.html, ui/ch4-tools.js) */
-  't4a.title': 'Bộ cộng–trừ đi từng bit',
-  't4a.next': 'Bit tiếp',
-  't4a.all': 'Hiện hết',
-  't4a.hint': 'Gõ A, B (1–8 bit). Mỗi dòng là một bộ cộng toàn phần; carry ra của dòng này là carry vào của dòng dưới.',
-  't4a.errBits': 'A và B phải là 1–8 chữ số 0/1.',
-  't4a.modeAdd': 'M = 0: B đi qua XOR giữ nguyên (<span class="mono">{bx}</span>), C₀ = 0.',
-  't4a.modeSub': 'M = 1: B đi qua XOR bị đảo thành <span class="mono">{bx}</span>, C₀ = 1 ⇒ A + B′ + 1.',
-  't4a.more': 'Bấm “Bit tiếp” để tính bit {i}.',
-  't4a.result': 'Ra: C{n} = {c}, S = <span class="mono">{s}</span>.',
-  't4a.v': 'V = C{n} ⊕ C{n1} = {cn} ⊕ {cn1} = <b>{v}</b>.',
-  't4a.unsigned': 'Đọc không dấu: {a} {op} {b} = {exact} — {verdict}',
-  't4a.signed': 'Đọc có dấu (bù 2, khoảng {lo}…{hi}): {a} {op} {b} = {exact}, mạch ra {got} — {verdict}',
-  't4a.fits': 'C = 0, tổng vừa đủ số bit.',
-  't4a.carryOut': 'C = 1: tổng cần thêm một bit (C chính là bit đó).',
-  't4a.subOk': 'C = 1 nghĩa là A ≥ B, S là hiệu.',
-  't4a.borrow': 'C = 0 nghĩa là A < B: S là bù 2 của hiệu âm.',
-  't4a.overflow': '<b>tràn</b> (V = 1).',
-  't4a.noOverflow': 'không tràn (V = 0).',
-  't4m.title': 'Thực hiện hàm bằng MUX hoặc decoder',
-  't4m.vars': 'Số biến',
-  't4m.hint': 'Gõ các minterm của F. Mỗi cặp dòng chỉ khác biến cuối là một ngõ dữ liệu của MUX.',
-  't4m.errList': 'Gõ các số 0…{max}, cách nhau bằng dấu phẩy.',
-  't4m.input': 'Ngõ dữ liệu',
-  't4m.mux': 'MUX {size} → 1: nối {sel} vào ngõ chọn (bit cao trước), mỗi Iₖ nối như cột cuối; {last} vào ngõ dữ liệu.',
-  't4m.decoder': 'Decoder {n} → {size}: nối D({ones}) vào một cổng OR; hoặc D({zeros}) vào một cổng NOR (gom minterm của F′).',
 };

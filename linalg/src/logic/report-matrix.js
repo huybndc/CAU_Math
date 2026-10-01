@@ -2,7 +2,7 @@ import * as M from './matrix.js';
 import { inverseSteps, detByElimination } from './elementary.js';
 import { rankOf } from './subspace.js';
 import { fmtMat } from './quiz-kit.js';
-import { fmt, fmtParen } from './num-format.js';
+import { fmt, fmtParen, parseNums, near } from './num-format.js';
 import { formatRowOp } from './elimination.js';
 import { sub } from './report-vector.js';
 import { fail } from '@shared/logic/app-error.js';
@@ -40,7 +40,7 @@ function detSteps(A) {
   }
   const d = detByElimination(A);
   steps.push({
-    head: { key: 'sm.stElim' },
+    why: { key: 'ww.elim' }, head: { key: 'sm.stElim' },
     lines: [`U = ${fmtMat(d.U)}`, d.rank < n ? { key: 'sm.detZero' } : `det = ${d.swaps % 2 ? '(−1)^' + d.swaps + '·' : ''}${d.diag.map(fmtParen).join('·')} = ${fmt(d.det)}`],
   });
   return steps;
@@ -73,11 +73,11 @@ export function matrixReport(op, A, B = null) {
   }
   if (op === 'rank') {
     const r = rankOf(A);
-    return { answer: [{ key: 'sm.rankIs', params: { r } }], steps: [start, { head: { key: 'sm.stRankWhy' }, lines: [{ key: 'sm.rankRule', params: { r } }] }] };
+    return { check: t => parseNums(t)[0] === r, answer: [{ key: 'sm.rankIs', params: { r } }], steps: [start, { head: { key: 'sm.stRankWhy' }, lines: [{ key: 'sm.rankRule', params: { r } }] }] };
   }
   if (op === 'det') {
     const d = M.determinant(A);
-    return { answer: [`det A = ${fmt(d)}`, { key: d === 0 ? 'sm.singular' : 'sm.invertible' }], steps: detSteps(A) };
+    return { check: t => near(parseNums(t)[0], d, 1e-6), answer: [`det A = ${fmt(d)}`, { key: d === 0 ? 'sm.singular' : 'sm.invertible' }], steps: detSteps(A) };
   }
   // inv
   const inv = inverseSteps(A);
@@ -90,7 +90,7 @@ export function matrixReport(op, A, B = null) {
     steps.push({ head: { key: 'sm.stInv2' }, lines: [`A⁻¹ = (1/det)·[d −b; −c a] = (1/${fmt(d)})·${fmtMat([[A[1][1], -A[0][1]], [-A[1][0], A[0][0]]])}`] });
   }
   steps.push({
-    head: { key: 'sm.stGJ' },
+    why: { key: 'ww.gj' }, head: { key: 'sm.stGJ' },
     lines: [`[A | I] = ${fmtMat(inv.start)}`, ...[...inv.forwardSteps, ...inv.backwardSteps].filter(s => s.formula).map(s => `${arrow(s.formula)}:   ${fmtMat(s.matrix)}`), `[I | A⁻¹] = ${fmtMat(inv.final)}`],
   });
   steps.push({ head: { key: 'sm.stCheckInv' }, lines: [`A·A⁻¹ = ${fmtMat(M.multiply(A, inv.inverse))} = I  ✓`] });

@@ -3,12 +3,10 @@ import {
   GROUPS, allFunctions, evalAllGates, evalFunction,
   nandAssociativityTable, norAssociativityTable,
 } from '../logic/logic-gates.js';
-import { sopToNand } from '../logic/nand-conversion.js';
-import { exprTruthTable } from '../logic/expr-parser.js';
-import { t as T, tError, onLangChange } from '../i18n/index.js';
+import { t as T, onLangChange } from '../i18n/index.js';
 
 /* Chương 2 — Tương tác: 8 cổng chuẩn, bảng 16 hàm, tính không kết hợp của
-   NAND/NOR, và chuyển mạch AND-OR thành toàn NAND. */
+   NAND/NOR (chuyển SOP → toàn NAND nay nằm ở máy giải biểu thức). */
 
 const G = { x: 0, y: 0, assoc: 'nand' };
 
@@ -84,37 +82,6 @@ function renderAssoc() {
   n.innerHTML = T('c2.assocNote', { diff, gate: G.assoc.toUpperCase() });
 }
 
-/* ---------------- SOP → toàn NAND ---------------- */
-function renderNandForm() {
-  const expr = $('#g-sop').value.trim();
-  const n = +$('#g-sopn').value;
-  const host = $('#g-sopsteps');
-  host.innerHTML = ''; $('#g-sopcheck').textContent = '';
-  if (!expr) { $('#g-soperr').textContent = T('c2.nandErr'); return; }
-
-  let r;
-  try {
-    r = sopToNand(expr, n);
-  } catch (e) {
-    $('#g-soperr').textContent = T('err.prefix') + tError(e);
-    return;
-  }
-  $('#g-soperr').textContent = '';
-
-  r.steps.forEach((s, i) => {
-    const d = el('div');
-    d.style.margin = '6px 0';
-    d.appendChild(el('div', 'mono hl', (i + 1) + '. ' + s.expr));
-    d.appendChild(el('div', 'small muted', T(s.noteKey)));
-    host.appendChild(d);
-  });
-
-  const same = exprTruthTable(r.result, n).join('') === exprTruthTable(expr, n).join('');
-  const c = $('#g-sopcheck');
-  c.className = 'msg ' + (same ? 'ok' : 'bad');
-  c.innerHTML = same ? T('c2.nandOk', { l1: r.gateCount.level1 }) : T('c2.nandBad');
-}
-
 export function setupCh2InteractivePage() {
   const seg = (sel, apply) => document.querySelectorAll(sel + ' button').forEach(b => {
     b.addEventListener('click', () => {
@@ -126,12 +93,8 @@ export function setupCh2InteractivePage() {
   seg('#g-y', b => { G.y = +b.dataset.v; renderGates(); renderFunctionTable(); });
   seg('#g-assoc', b => { G.assoc = b.dataset.g; renderAssoc(); });
 
-  $('#g-sop').addEventListener('input', renderNandForm);
-  $('#g-sopn').addEventListener('change', renderNandForm);
-
-  onLangChange(() => { renderGates(); renderFunctionTable(); renderAssoc(); renderNandForm(); });
+  onLangChange(() => { renderGates(); renderFunctionTable(); renderAssoc(); });
   renderGates();
   renderFunctionTable();
   renderAssoc();
-  renderNandForm();
 }
