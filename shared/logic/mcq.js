@@ -79,7 +79,7 @@ export function toChoice(q, w, check, rnd, textKeys = {}) {
  */
 export function mcqBank(bank, { wrongOf, textKeys = {}, tries = 25 }) {
   return {
-    KINDS: bank.KINDS, SECONDS: bank.SECONDS,
+    KINDS: bank.KINDS, SECONDS: bank.SECONDS, mcq: true,     // mcq: mã câu thêm "-tn" (hub D33)
     makeQuestion(kind, rnd = Math.random) {
       let q;
       for (let i = 0; i < tries; i++) {

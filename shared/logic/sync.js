@@ -13,6 +13,13 @@
 export const SYNC_APP = 'cau-math';
 /** Khoá riêng của cơ chế đồng bộ — không bao giờ gửi đi. */
 export const isSyncKey = k => k.startsWith('sync:');
+/** Chỉ đồng bộ dữ liệu học; auth/session, marker tài khoản và dữ liệu Hub không được chạm tới. */
+const SYNCABLE_PREFIXES = [
+  'progress:', 'exam-history:', 'lesson-', 'learn-open', 'answer-mode', 'exam', 'practice-ch',
+  'scratch:', 'scratch-table:', 'scratch-kmap:', 'calc-base:', 'scratch-tab:',
+];
+export const isSyncableKey = k => typeof k === 'string' && !isSyncKey(k)
+  && SYNCABLE_PREFIXES.some(p => k === p || k.startsWith(p));
 
 const parseList = v => {
   try { const a = JSON.parse(v); return Array.isArray(a) ? a : []; } catch { return []; }
@@ -70,7 +77,7 @@ export function validEntries(snap) {
   if (!snap || snap.app !== SYNC_APP || typeof snap.entries !== 'object' || !snap.entries) return null;
   const out = {};
   for (const [k, e] of Object.entries(snap.entries)) {
-    if (isSyncKey(k) || !e || !Number.isFinite(e.t) || !(typeof e.v === 'string' || e.v === null)) continue;
+    if (!isSyncableKey(k) || !e || !Number.isFinite(e.t) || !(typeof e.v === 'string' || e.v === null)) continue;
     out[k] = { v: e.v, t: e.t };
   }
   return out;

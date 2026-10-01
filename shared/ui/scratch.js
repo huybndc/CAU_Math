@@ -1,26 +1,38 @@
 import { onLangChange, t as T } from '../i18n/index.js';
+import { accountStorageKey } from '@host';
 import { evaluate, show } from '../logic/calc.js';
+import { mountTable, mountKmap } from './scratch-grid.js';
 import { mountMatrixPad } from './scratch-matrix.js';
 import { mountCalcList } from './scratch-calc.js';
 
 /* ---------------------------------------------------------------
-   NHÁP: ngăn kéo bên phải để tính tay khi giải bài.
-   - Máy tính: DEC là máy tính thường (thập phân, chia thật); chọn 2/8/16 để gõ số ở cơ số đó,
-     (+ − × ÷ %, ngoặc) ⇒ kết quả hiện ngay ở cả 4 cơ số; bấm một kết quả để
-     chép nó xuống ô ghi chú.
-   - Ô ghi chú font đều (mono) để kẻ bảng chân trị / cộng cột bit thẳng hàng, kèm
-     hàng ký hiệu bàn phím không gõ được (Σ Π ′ ⊕ …).
+   NHÁP: ngăn kéo bên phải để tính tay khi giải bài, chia NGĂN (D45) — mỗi lúc chỉ hiện một công cụ,
+   môn nào có ngăn nấy (TABS). Sang chương khác ⇒ tự mở ngăn hợp với chương (SUGGEST), trừ khi ở
+   chương đó người học đã tự chọn ngăn khác (nhớ theo môn + chương).
+   Nguyên tắc (D45): làm hộ phần chép tay, KHÔNG làm hộ bước đang bị kiểm tra.
+   - Máy tính: DEC là máy tính thường (thập phân, chia thật); chọn 2/8/16 để tính TRONG cơ số đó
+     (+ − × ÷ %, ngoặc). Kết quả chỉ hiện ở cơ số đang gõ và đổi cơ số thì xoá ô — không tự đổi
+     cơ số, vì đổi cơ số là chính bài Logic ch1. Bấm kết quả để chép xuống ô đang gõ.
+   - Bảng chân trị + bìa K trống: shared/ui/scratch-grid.js.
+   - Ô ghi chú font đều (mono) để cộng cột bit thẳng hàng, kèm hàng ký hiệu bàn phím không gõ
+     được (Σ Π ′ ⊕ …) — chèn vào ô đang gõ (ghi chú hoặc ô bảng).
    Lưu theo từng môn trong localStorage — đóng, mở, F5 vẫn còn.
    ponytail: chỉ có chữ, chưa vẽ tay; thêm canvas khi dùng máy có bút.
    --------------------------------------------------------------- */
 
 const BASES = [2, 8, 10, 16];
 const SYMBOLS = ['Σm(', 'ΠM(', '′', '⊕', '·', '→', '≠'];
+const TABS = { logic: ['notes', 'calc', 'table', 'kmap'], discrete: ['notes', 'calc', 'table'], linalg: ['notes', 'calc', 'matrix'] };
+const SUGGEST = {
+  logic: { ch1: 'calc', ch2: 'table', ch3: 'kmap', ch4: 'table' },     // ch1 cơ số/bù 2 · ch2, ch4 bảng chân trị · ch3 bìa K
+  discrete: { ch1: 'table', ch6: 'calc', ch7: 'calc' },                // ch1 mệnh đề · ch6, ch7 số học modulo
+  linalg: { ch2: 'matrix' },                                           // ch2 khử Gauss / nhân ma trận
+};
 
 export function setupScratch() {
   const subject = document.documentElement.dataset.subject || 'home';
-  const key = 'scratch:' + subject;
-  const baseKey = 'calc-base:' + subject;
+  const key = accountStorageKey('scratch:' + subject);
+  const baseKey = accountStorageKey('calc-base:' + subject);
   const btn = document.createElement('button');
   btn.type = 'button';
   btn.className = 'scratch-btn';
@@ -30,38 +42,64 @@ export function setupScratch() {
   pane.hidden = true;
   pane.innerHTML = '<header><b></b><button type="button" class="link"></button>'
     + '<button type="button" class="scratch-x">×</button></header>'
-    + '<section class="calc"><div class="calc-bases" role="group"></div>'
+    + '<nav class="scratch-tabs calc-bases"></nav><div class="scratch-syms"></div>'
+    + '<section class="sp" data-tab="notes"><textarea spellcheck="false"></textarea></section>'
+    + '<section class="sp calc" data-tab="calc"><div class="calc-bases" role="group"></div>'
     + '<input type="text" class="calc-in" spellcheck="false" autocomplete="off">'
     + '<p class="calc-err" hidden></p><dl class="calc-out"></dl></section>'
-    + '<details class="scratch-mat" open><summary></summary><div class="mp-host"></div></details>'
-    + '<div class="scratch-syms"></div><textarea spellcheck="false"></textarea>';
+    + '<section class="sp" data-tab="table"></section><section class="sp" data-tab="kmap"></section><section class="sp mp-host" data-tab="matrix"></section>';
   const [title, clear, close, ta, bases, inp, errEl, out, syms] =
-    ['b', '.link', '.scratch-x', 'textarea', '.calc-bases', '.calc-in', '.calc-err', '.calc-out', '.scratch-syms'].map(s => pane.querySelector(s));
-
-  // Đại số tuyến tính: máy tính dạng danh sách (kiểu Desmos) thay máy tính đổi cơ số
+    ['b', '.link', '.scratch-x', 'textarea', '.calc .calc-bases', '.calc-in', '.calc-err', '.calc-out', '.scratch-syms'].map(s => pane.querySelector(s));
+  // Đại số tuyến tính: ngăn Máy tính là danh sách biểu thức kiểu Desmos (thay máy tính đổi cơ số)
   let calcList = null;
   if (subject === 'linalg') {
-    const sec = document.createElement('section');
-    sec.className = 'cl-wrap';
-    pane.querySelector('.calc').replaceWith(sec);
-    calcList = mountCalcList(sec, 'calc-list:' + subject);
+    const sec = pane.querySelector('.sp.calc');
+    sec.className = 'sp cl-wrap';
+    sec.replaceChildren();
+    calcList = mountCalcList(sec, accountStorageKey('calc-list:' + subject));
   }
+  const tabs = TABS[subject] ?? ['notes', 'calc'];
+  const panel = tab => pane.querySelector(`.sp[data-tab="${tab}"]`);
+  pane.querySelectorAll('.sp').forEach(sp => { if (!tabs.includes(sp.dataset.tab)) sp.remove(); });
+  if (tabs.includes('table')) mountTable(panel('table'), subject);
+  if (tabs.includes('kmap')) mountKmap(panel('kmap'), subject);
+  if (tabs.includes('matrix')) mountMatrixPad(panel('matrix'), accountStorageKey('scratch-mat:' + subject));
 
-  // lưới ma trận: chỉ môn Đại số tuyến tính
-  const matSec = pane.querySelector('.scratch-mat');
-  if (subject === 'linalg') mountMatrixPad(matSec.querySelector('.mp-host'), 'scratch-mat:' + subject); else matSec.remove();
+  /* ---------- ngăn ---------- */
+  const nav = pane.querySelector('.scratch-tabs');
+  const chapter = () => location.hash.match(/\/(ch\d+)/)?.[1] ?? '';
+  const tabKey = () => accountStorageKey(`scratch-tab:${subject}:${chapter()}`);
+  let tab = 'notes';
+  const openTab = (t, remember) => {
+    tab = t;
+    pane.dataset.tab = t;
+    pane.querySelectorAll('.sp').forEach(sp => { sp.hidden = sp.dataset.tab !== t; });
+    nav.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.tab === t)));
+    if (remember) try { localStorage.setItem(tabKey(), t); } catch { /* riêng tư */ }
+  };
+  const pick = () => {
+    let saved = null;
+    try { saved = localStorage.getItem(tabKey()); } catch { /* riêng tư */ }
+    openTab(tabs.includes(saved) ? saved : SUGGEST[subject]?.[chapter()] ?? 'notes');
+  };
+  let lastCh = chapter();
+  addEventListener('hashchange', () => { if (chapter() && chapter() !== lastCh) { lastCh = chapter(); pick(); } });
 
   try { ta.value = localStorage.getItem(key) || ''; } catch { /* chế độ riêng tư */ }
   const save = () => { try { localStorage.setItem(key, ta.value); } catch { /* đầy/riêng tư */ } };
   ta.addEventListener('input', save);
 
-  /** Chèn chữ vào ô ghi chú tại con trỏ. */
+  // ký hiệu / kết quả máy tính đi vào ô gõ gần nhất: ghi chú hoặc một ô của bảng
+  let target = ta;
+  pane.addEventListener('focusin', e => { if (e.target.matches('textarea, .grid-table input')) target = e.target; });
   const insert = text => {
-    const { selectionStart: a, selectionEnd: b, value } = ta;
-    ta.value = value.slice(0, a) + text + value.slice(b);
-    ta.selectionStart = ta.selectionEnd = a + text.length;
-    ta.focus();
-    save();
+    const f = target.isConnected ? target : ta;
+    openTab(f.closest('.sp').dataset.tab, true);                  // kết quả máy tính ⇒ mở lại ngăn đang gõ
+    const { selectionStart: a, selectionEnd: b, value } = f;
+    f.value = value.slice(0, a) + text + value.slice(b);
+    f.selectionStart = f.selectionEnd = a + text.length;
+    f.focus();
+    f.dispatchEvent(new Event('input', { bubbles: true }));   // để ô tự lưu như khi gõ
   };
   SYMBOLS.forEach(s => {
     const b = document.createElement('button');
@@ -81,11 +119,10 @@ export function setupScratch() {
       b.textContent = T('calc.base' + r);
       b.setAttribute('aria-pressed', String(r === base));
       b.addEventListener('click', () => {
-        // đổi cơ số gõ vào: đổi luôn số đang có sang cơ số mới để khỏi gõ lại
-        const cur = evaluate(inp.value, base);
+        // đổi cơ số ⇒ xoá ô, không đổi hộ số đang có (D45)
         base = r;
         try { localStorage.setItem(baseKey, String(r)); } catch { /* riêng tư */ }
-        if (Number.isInteger(cur.value)) inp.value = (cur.value < 0 ? '-' : '') + Math.abs(cur.value).toString(r).toUpperCase();
+        inp.value = '';
         drawBases();
         calc();
         inp.focus();
@@ -98,7 +135,7 @@ export function setupScratch() {
     const r = evaluate(inp.value, base);
     errEl.hidden = !r.error;
     if (r.error) errEl.textContent = T(r.error, { at: r.at, base });
-    out.replaceChildren(...BASES.flatMap(b => {
+    out.replaceChildren(...[base].flatMap(b => {
       const dt = document.createElement('dt');
       dt.textContent = T('calc.base' + b);
       const dd = document.createElement('dd');
@@ -107,7 +144,7 @@ export function setupScratch() {
         dd.title = T('calc.copy');
         dd.addEventListener('click', () => insert(`${dd.textContent}`));
       }
-      if (b === base) dt.classList.add('on');
+      dt.classList.add('on');
       return [dt, dd];
     }));
   };
@@ -116,7 +153,7 @@ export function setupScratch() {
   const open = on => {
     pane.hidden = !on;
     btn.setAttribute('aria-expanded', String(on));
-    if (on) (calcList ? pane.querySelector('.cl-in') : inp)?.focus(); else btn.focus();
+    if (on) panel(tab).querySelector('textarea, input, button')?.focus(); else btn.focus();
   };
   btn.addEventListener('click', () => open(pane.hidden));
   close.addEventListener('click', () => open(false));
@@ -129,11 +166,20 @@ export function setupScratch() {
     close.setAttribute('aria-label', T('shell.close'));
     ta.placeholder = T('shell.scratchPh');
     calcList?.label();
-    if (matSec.parentNode) matSec.querySelector('summary').textContent = T('scratch.matrix');
     syms.title = T('calc.syms');
+    nav.replaceChildren(...tabs.map(t => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.dataset.tab = t;
+      b.textContent = T('scratch.' + t);
+      b.addEventListener('click', () => { openTab(t, true); panel(t).querySelector('textarea, input, button')?.focus(); });
+      return b;
+    }));
+    openTab(tab);
     drawBases();
     calc();
   };
+  pick();
   label();
   onLangChange(label);
   document.body.append(btn, pane);

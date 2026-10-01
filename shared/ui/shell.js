@@ -4,7 +4,7 @@ import { setupScratch } from './scratch.js';
 import { startRouter, currentRoute } from './router.js';
 import { showRoute } from './screens.js';
 import { startSync } from './sync.js';
-import { syncProgress } from './store.js';
+import { hydrateProgress, syncProgress } from './store.js';
 
 /* ---------------------------------------------------------------
    KHUNG CHUNG của mỗi app: menu theo việc (Tổng quan · Học · Luyện tập ·
@@ -77,13 +77,18 @@ function labelHints() {
  * @param {{ chapters: {id:string, bank?:object, prefix?:string}[], figures?:object,
  *           widgets?:object, lesson?:(chId:string)=>string }} cfg
  */
-export function setupShell(cfg) {
+export async function setupShell(cfg) {
   setupLangSwitch();
   setupTheme();
   upgradeHints();
   setupScratch();
+  try {
+    await hydrateProgress();
+  } catch (e) {
+    console.warn('Math progress hydrate failed:', e?.message || e);
+  }
   startSync();
-  syncProgress();
+  await syncProgress();
   startRouter(cfg.chapters.map(c => c.id), r => showRoute(r, cfg));
   onLangChange(() => { showRoute(currentRoute(), cfg); labelHints(); });
   window.addEventListener('scroll', () => {

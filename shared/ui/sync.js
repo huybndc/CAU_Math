@@ -1,49 +1,46 @@
-import { reconcile, trackLocal, validEntries, isSyncKey } from '../logic/sync.js';
+import { currentUser, adoptAccount, accountStorageKey, accountDataEntries } from '@host';
+import { reconcile, trackLocal, validEntries, isSyncKey, isSyncableKey } from '../logic/sync.js';
 import { t as T, onLangChange } from '../i18n/index.js';
 
 /* ---------------------------------------------------------------
-   ĐỒNG BỘ TỰ ĐỘNG GIỮA CÁC MÁY (D37) — phía trình duyệt.
-   - Mở trang / quay lại tab: lấy bản của máy khác từ /__sync, gộp vào
-     localStorage; có gì mới thì tải lại trang một lần để mọi màn đọc dữ liệu mới.
-   - Mỗi 10 giây và lúc rời tab: có thay đổi thì gửi bản chụp của máy này lên.
-   - Nút mây cạnh nút sáng/tối: trạng thái; bấm = đồng bộ ngay.
-   Máy chủ không có /__sync (mở từ file build) ⇒ coi như tắt, app chạy như cũ.
+   ĐỒNG BỘ TỰ ĐỘNG GIỮA CÁC MÁY (D37).
+   Mỗi tài khoản Supabase có một namespace riêng: CAU_Math-sync/<user-id>/.
+   Vì vậy hai tài khoản dùng chung code không tự nhận progress của nhau.
    --------------------------------------------------------------- */
 
-const META = 'sync:meta';          // { device, base } — base: bản chụp lần trước (xem logic/sync.js)
-const RELOADED = 'sync:reloaded';  // sessionStorage: chống tải lại liên tục
+const META = 'sync:meta';
+const RELOADED = 'sync:reloaded';
 const PUSH_EVERY = 10000;
 
 let meta = null;
 let lastSent = '';
-let info = { state: 'wait' };      // wait | ok | off | err
+let info = { state: 'wait' };
 let btn = null;
 let busy = null;
+let accountId = null;
 
 function readLocal() {
-  const o = {};
-  for (let i = 0; i < localStorage.length; i++) {
-    const k = localStorage.key(i);
-    if (!isSyncKey(k)) o[k] = localStorage.getItem(k);
-  }
-  return o;
+  return Object.fromEntries(
+    Object.entries(accountDataEntries()).filter(([k]) => isSyncableKey(k) && !isSyncKey(k))
+  );
 }
 
 function loadMeta() {
   let m = null;
-  try { m = JSON.parse(localStorage.getItem(META)); } catch { /* hỏng thì làm lại */ }
+  try { m = JSON.parse(localStorage.getItem(accountStorageKey(META))); } catch { /* hỏng thì làm lại */ }
   if (!m?.device || typeof m.base !== 'object') {
     m = { device: 'b' + Math.random().toString(36).slice(2, 10) + Date.now().toString(36).slice(-4), base: {} };
   }
   return m;
 }
 
-const saveMeta = () => { try { localStorage.setItem(META, JSON.stringify(meta)); } catch { /* đầy */ } };
+const saveMeta = () => {
+  try { localStorage.setItem(accountStorageKey(META), JSON.stringify(meta)); } catch { /* đầy */ }
+};
 
-/** Đọc lại meta trước mỗi lượt: tab khác cùng máy có thể vừa đồng bộ (giữ bản cũ trong bộ nhớ sẽ đè mất). */
 function refreshMeta() {
   const m = loadMeta();
-  if (m.device === meta.device) meta = m;
+  if (!meta || m.device === meta.device) meta = m;
 }
 
 function setInfo(next) {
@@ -58,34 +55,61 @@ function setInfo(next) {
   btn.setAttribute('aria-label', text);
 }
 
-/** Gửi bản chụp của máy này (chỉ khi có đổi, trừ khi `force`). */
+/** Lấy UUID tài khoản hiện tại. Đổi tài khoản trên cùng trình duyệt thì chuyển sang namespace mới; không đọc dữ liệu của tài khoản cũ. */
+async function syncScope() {
+  const user = await currentUser();
+  if (!user?.id) {
+    accountId = null;
+    return null;
+  }
+  if (accountId !== user.id) {
+    adoptAccount(user.id);
+    accountId = user.id;
+    meta = loadMeta();
+    lastSent = '';
+  }
+  return user.id;
+}
+
+/** Gửi bản chụp của máy này (chỉ khi có đổi, trừ khi force). */
 async function push({ force = false, leaving = false } = {}) {
-  if (info.state !== 'ok' && info.state !== 'err') return;
+  const scope = await syncScope();
+  if (!scope) {
+    setInfo({ state: 'off' });
+    return false;
+  }
+  if (info.state !== 'ok' && info.state !== 'err') return false;
   refreshMeta();
   const tracked = trackLocal(meta.base, readLocal(), Date.now());
   meta.base = tracked.base;
   if (tracked.changed) saveMeta();
   const body = JSON.stringify({ device: meta.device, entries: meta.base });
-  if (!force && body === lastSent) return;
-  // keepalive giới hạn 64 KB — lúc đóng tab mà bản chụp lớn thì nhờ lần gửi 10 giây trước
-  const res = await fetch('/__sync', {
+  if (!force && body === lastSent) return true;
+  const res = await fetch('/__sync?scope=' + encodeURIComponent(scope), {
     method: 'PUT', body, headers: { 'Content-Type': 'application/json' }, keepalive: leaving && body.length < 60000,
   });
   if (!res.ok) throw new Error((await res.json().catch(() => ({}))).error || res.status);
   lastSent = body;
   setInfo({ state: 'ok', at: Date.now() });
+  return true;
 }
 
-/** Lấy bản các máy khác, gộp, gửi lại bản đã gộp. Trả về true nếu localStorage vừa đổi. */
+/** Lấy bản các máy khác, gộp, gửi lại bản đã gộp. */
 async function pull() {
-  const res = await fetch('/__sync', { cache: 'no-store' });
+  const scope = await syncScope();
+  if (!scope) {
+    setInfo({ state: 'off' });
+    return false;
+  }
+  const res = await fetch('/__sync?scope=' + encodeURIComponent(scope), { cache: 'no-store' });
   const data = res.ok ? await res.json().catch(() => null) : null;
   if (!data?.dir) { setInfo({ state: 'off' }); return false; }
   refreshMeta();
   const others = data.snapshots.filter(s => s.device !== meta.device).map(validEntries).filter(Boolean);
   const { base, writes } = reconcile(meta.base, readLocal(), others, Date.now());
   for (const [k, v] of Object.entries(writes)) {
-    try { if (v == null) localStorage.removeItem(k); else localStorage.setItem(k, v); } catch { /* đầy */ }
+    const storageKey = accountStorageKey(k);
+    try { if (v == null) localStorage.removeItem(storageKey); else localStorage.setItem(storageKey, v); } catch { /* đầy */ }
   }
   meta.base = base;
   saveMeta();
@@ -95,13 +119,12 @@ async function pull() {
   return Object.keys(writes).length > 0;
 }
 
-/** Một lượt đồng bộ; có dữ liệu mới thì tải lại trang (tối đa một lần mỗi 10 giây). */
 function syncNow() {
   busy ||= pull()
     .then(changed => {
       if (!changed) return;
       let last = 0;
-      try { last = Number(sessionStorage.getItem(RELOADED)) || 0; sessionStorage.setItem(RELOADED, String(Date.now())); } catch { /* riêng tư */ }
+      try { last = Number(sessionStorage.getItem(accountStorageKey(RELOADED))) || 0; sessionStorage.setItem(accountStorageKey(RELOADED), String(Date.now())); } catch { /* riêng tư */ }
       if (Date.now() - last > 10000) location.reload();
     })
     .catch(e => setInfo({ state: 'err', msg: String(e.message || e) }))
@@ -111,10 +134,8 @@ function syncNow() {
 
 const pushQuiet = opts => push(opts).catch(e => setInfo({ state: 'err', msg: String(e.message || e) }));
 
-/** Gọi một lần lúc mở trang (setupShell của app, home.js của trang tổng quan). */
 export function startSync() {
-  try { meta = loadMeta(); } catch { return; }       // chế độ riêng tư: không có localStorage
-  saveMeta();
+  try { meta = loadMeta(); } catch { return; }
   const anchor = document.getElementById('theme-toggle');
   if (anchor) {
     btn = document.createElement('button');

@@ -102,6 +102,31 @@
 .review-body{padding:.4rem .75rem 1.4rem 3.45rem}
 .review-body .run-q{font-size:1.05rem}
 
+/* ---------------- responsive exam ---------------- */
+@media (max-width: 1100px) and (min-width: 761px){
+  #app:has(> #screen-exam.active .exam-body){max-width:none}
+  .exam-body{grid-template-columns:10rem minmax(0,1fr);gap:1.25rem}
+}
+@media (max-width: 760px){
+  #app:has(> #screen-exam.active .exam-body){max-width:none}
+  .exam-bar{gap:.65rem;flex-wrap:wrap;padding-bottom:.8rem;margin-bottom:1rem}
+  .exam-name{flex:1 1 auto;min-width:0}
+  .exam-clock{order:3;min-width:0;width:auto;font-size:1.15rem}
+  .exam-nav{position:sticky;bottom:calc(4.25rem + env(safe-area-inset-bottom));z-index:4;margin-top:1rem;padding:10px 0;background:color-mix(in srgb,var(--panel) 94%,transparent);backdrop-filter:blur(10px)}
+  .exam-nav .btn{min-width:5.5rem}
+  .exam-modes{grid-template-columns:1fr}
+  .exam-field{grid-template-columns:1fr;gap:.45rem;padding:.85rem .2rem}
+  .exam-label{padding-top:0}
+  .exam-go{flex-direction:column;align-items:stretch;padding:1rem .2rem}
+  .exam-go .btn{width:100%;justify-content:center}
+  .exam-dialog{max-width:calc(100vw - 28px);margin:auto;padding:1.15rem}
+  .exam-dialog-actions{flex-direction:column-reverse}
+  .exam-dialog-actions .btn{width:100%;justify-content:center}
+  .exam-score{align-items:flex-start;gap:1rem}
+  .exam-score > b{font-size:2.7rem}
+  .review-body{padding:.35rem .65rem 1.2rem 2.7rem}
+}
+
 /* mục gập ở màn kết quả */
 .exam-fold{border-bottom:1px solid var(--line)}
 .exam-fold > summary{display:flex;align-items:center;gap:.7rem;padding:.8rem .2rem;cursor:pointer;list-style:none}

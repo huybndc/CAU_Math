@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { mergeEntry, trackLocal, reconcile, validEntries, SYNC_APP } from '../logic/sync.js';
+import { mergeEntry, trackLocal, reconcile, validEntries, SYNC_APP, isSyncableKey } from '../logic/sync.js';
 
 const ev = (ts, kind, ok = true) => ({ ts, prefix: 'c1q', kind, ok, mode: 'practice' });
 const J = x => JSON.stringify(x);
@@ -86,11 +86,25 @@ describe('một lượt đồng bộ giữa hai máy', () => {
   });
 });
 
+describe('phạm vi dữ liệu được đồng bộ', () => {
+  it('chỉ cho phép dữ liệu học, không cho auth/session/account/hub queue', () => {
+    expect(isSyncableKey('progress:logic')).toBe(true);
+    expect(isSyncableKey('exam-history:logic')).toBe(true);
+    expect(isSyncableKey('lesson-ch1')).toBe(true);
+    expect(isSyncableKey('scratch:logic')).toBe(true);
+    expect(isSyncableKey('study:account-id')).toBe(false);
+    expect(isSyncableKey('sb-demo-auth-token')).toBe(false);
+    expect(isSyncableKey('supabase.auth.token')).toBe(false);
+    expect(isSyncableKey('hub:outbox')).toBe(false);
+    expect(isSyncableKey('sync:meta')).toBe(false);
+  });
+});
+
 describe('đọc file bản chụp', () => {
   it('bỏ file của app khác / hỏng, bỏ mục sai kiểu và khoá sync:', () => {
     expect(validEntries(null)).toBeNull();
     expect(validEntries({ app: 'khac', entries: {} })).toBeNull();
-    const snap = { app: SYNC_APP, entries: { a: { v: '1', t: 1 }, b: { v: 2, t: 1 }, c: { v: 'x' }, 'sync:meta': { v: '', t: 1 }, d: { v: null, t: 3 } } };
-    expect(validEntries(snap)).toEqual({ a: { v: '1', t: 1 }, d: { v: null, t: 3 } });
+    const snap = { app: SYNC_APP, entries: { 'progress:logic': { v: '1', t: 1 }, b: { v: 2, t: 1 }, c: { v: 'x' }, 'sync:meta': { v: '', t: 1 }, 'sb-demo-auth-token': { v: 'secret', t: 9 }, 'hub:outbox': { v: '[]', t: 9 }, 'exam:logic': { v: null, t: 3 } } };
+    expect(validEntries(snap)).toEqual({ 'progress:logic': { v: '1', t: 1 }, 'exam:logic': { v: null, t: 3 } });
   });
 });

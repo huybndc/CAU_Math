@@ -189,6 +189,45 @@ body.exam-focus .appnav{display:none}
   background-image:linear-gradient(var(--line) 1px,transparent 1px);
   background-size:100% 24px;background-position:0 11px;background-attachment:local;
 }
+/* ngăn (D45): mỗi lúc một công cụ; ký hiệu chỉ hiện ở ngăn gõ chữ, "Xoá hết" chỉ cho ghi chú */
+.scratch-tabs{margin:8px 14px 0;width:auto!important;flex-wrap:wrap}
+.scratch .sp{flex:1;min-height:0;display:flex;flex-direction:column;overflow:auto}
+.scratch .sp[hidden]{display:none}
+.scratch .sp.calc:not([hidden]){flex:0 0 auto;display:grid}
+.scratch:is([data-tab="calc"],[data-tab="kmap"]) .scratch-syms{display:none}
+.scratch:not([data-tab="notes"]) header .link{visibility:hidden}
+.grid-bar{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;padding:10px 14px;border-bottom:1px solid var(--line)}
+.grid-num{display:inline-flex;align-items:center;gap:6px;font-size:var(--fs-xs);color:var(--ink-dim)}
+.grid-num input{width:4.2em;font:500 var(--fs-sm) var(--mono);padding:3px 6px;border:1px solid var(--line-strong);border-radius:var(--r-sm);background:var(--panel);color:var(--ink)}
+.grid-wrap{overflow:auto;padding:10px 14px}
+/* bảng chân trị: ô co giãn theo chữ (field-sizing, Baseline 2026) */
+.grid-table{border-collapse:collapse;font:15px/1.5 var(--mono)}
+.grid-table :is(th,td){border:1px solid var(--line);padding:0}
+.grid-table th{background:var(--panel2)}
+.grid-table input{
+  field-sizing:content;min-inline-size:2.4ch;max-inline-size:14ch;box-sizing:content-box;
+  border:0;margin:0;padding:3px 6px;font:inherit;text-align:center;background:transparent;color:var(--ink);
+}
+.grid-table th input{font-weight:600}
+.grid-table input:focus{outline:2px solid var(--accent);outline-offset:-2px}
+.grid-table input.sel{background:color-mix(in srgb,var(--accent) 16%,transparent)}
+.grid-vars{align-items:center}
+.grid-vars button{min-width:1.9rem}
+@supports not (field-sizing:content){ .grid-table input{inline-size:3ch} }
+.grid-idx{color:var(--ink-dim);font-size:var(--fs-xs);padding:0 6px!important;text-align:right}
+/* bìa K: ô là nút; bút nhóm tô viền trong theo màu */
+.scratch{--pen0:#d9480f;--pen1:#1971c2;--pen2:#2f9e44;--pen3:#ae3ec9}
+.kmap{border-collapse:collapse;font-family:var(--mono)}
+.kmap th{font-size:var(--fs-xs);color:var(--ink-dim);font-weight:600;padding:4px 8px}
+.kmap-corner{font-style:italic}
+.kmap td{border:1px solid var(--line-strong);padding:0}
+.kmap-cell{position:relative;width:52px;height:46px;border:0;background:var(--panel);cursor:pointer;color:var(--ink)}
+.kmap-cell:hover{background:var(--panel2)}
+.kmap-cell small{position:absolute;left:9px;top:7px;font-size:10px;line-height:1;color:var(--ink-dim)}
+.kmap-cell b{font-size:1.15rem}
+.kmap-pens{display:flex;gap:6px}
+.kmap-pens button{width:22px;height:22px;border-radius:50%;border:2px solid var(--panel);background:var(--c);cursor:pointer;box-shadow:0 0 0 1px var(--line-strong)}
+.kmap-pens button[aria-pressed="true"]{box-shadow:0 0 0 2px var(--ink)}
 /* màn rộng: chừa chỗ để nháp không che đề */
 @media (min-width:80rem){ body:has(.scratch:not([hidden])) #app{margin-right:400px} }
 
@@ -254,6 +293,82 @@ body.exam-focus .appnav{display:none}
 .sync-btn[data-state="err"]::after{background:var(--bad)}
 .sync-btn[data-state="off"]{opacity:.55}
 
+/* ================================================================
+   RESPONSIVE UI — phone + iPad
+   D38: touch-first layout, safe areas, no accidental horizontal overflow.
+   ================================================================ */
+@media (max-width: 1100px) and (min-width: 761px){
+  body{padding-left:0}
+  .appnav{width:190px}
+  #app{max-width:100%;padding:2rem 1.5rem 3.5rem;margin:0 0 0 190px}
+  #app:has(> .screen.wide.active){max-width:none}
+  .lead-card{gap:1rem}
+  .tool-chips{margin-left:0}
+  .ch-tree > summary{grid-template-columns:1rem 2.2rem minmax(0,1fr) 6rem}
+  .list-head,.entry{grid-template-columns:minmax(0,1fr) 4.5rem 6rem 1rem;gap:.65rem}
+}
+
+@media (max-width: 760px) and (orientation: portrait){
+  body{padding-left:0;overflow-x:hidden;overscroll-behavior-x:none}
+  .appnav{
+    position:fixed;inset:auto 0 0 0;width:100%;height:calc(4.25rem + env(safe-area-inset-bottom));
+    flex-direction:row;align-items:center;gap:0;padding:.25rem .35rem calc(.25rem + env(safe-area-inset-bottom));
+    border-right:0;border-top:1px solid var(--line);
+    background:color-mix(in srgb,var(--side) 94%,transparent);
+    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  }
+  .nav-brand,.appnav-foot{display:none}
+  .tabs{display:flex;flex:1;min-width:0;height:100%;flex-direction:row;align-items:stretch;justify-content:space-around;gap:2px}
+  .tab{
+    flex:1 1 0;min-width:0;min-height:48px;flex-direction:column;justify-content:center;gap:3px;
+    padding:.3rem .15rem;font-size:.68rem;line-height:1.1;text-align:center;
+  }
+  .tab::before{width:21px;height:21px}
+  .tab[aria-current="page"]{background:transparent;box-shadow:none;color:var(--accent)}
+  #app,#app:has(> #screen-run.active),#app:has(> .screen.wide.active){max-width:none;width:100%;box-sizing:border-box}
+  #app{padding:1.15rem .9rem calc(5.3rem + env(safe-area-inset-bottom))}
+  .page-head{margin-bottom:1rem}
+  .page-head h1{font-size:1.4rem;line-height:1.2}
+  .page-head p{line-height:1.5}
+  .lead-card{flex-direction:column;align-items:stretch;gap:.8rem}
+  .lead-card .btn,.lead-card .alt{align-self:stretch}
+  .chapter-bar,.practice-bars,.page-tabs,.run-kindbar{max-width:100%;overflow-x:auto;flex-wrap:nowrap;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .chapter-bar::-webkit-scrollbar,.page-tabs::-webkit-scrollbar,.run-kindbar::-webkit-scrollbar{display:none}
+  .chapter-bar button,.page-tabs a,.run-kindbar a{flex:0 0 auto;white-space:nowrap}
+  .tool-ch{padding:.9rem 0 1rem}
+  .tool-ch h2{font-size:1rem}
+  .tool-chips{margin-left:0;overflow-x:auto;flex-wrap:nowrap;scrollbar-width:none;padding-bottom:2px}
+  .tool-chips::-webkit-scrollbar{display:none}
+  .tool-chip{flex:0 0 auto;min-height:40px;display:inline-flex;align-items:center}
+  .ch-tree > summary{grid-template-columns:1rem 2rem minmax(0,1fr);gap:.65rem;padding:.85rem .25rem}
+  .ch-tree > summary > .ch-bar{display:none}
+  .tree-cards{margin-left:2.7rem;padding-left:.65rem}
+  .list-head{display:none}
+  .entry{display:flex;align-items:center;gap:.55rem;padding:.75rem .2rem;min-width:0}
+  .entry > *{min-width:0}
+  .entry > :nth-child(2),.entry > :nth-child(3){display:none}
+  .entry > :last-child{margin-left:auto}
+  .qrow{min-height:52px}
+  button,.btn,a.tab,.chip,.choice,.exam-mode{touch-action:manipulation}
+  .btn{min-height:42px}
+  .tab{min-height:48px;justify-content:center}
+  input,select,textarea{font-size:16px}
+}
+
+@media (max-width: 390px) and (orientation: portrait){
+  #app{padding-left:.72rem;padding-right:.72rem}
+  .tab{padding-inline:.15rem;font-size:.61rem}
+  .tab::before{width:20px;height:20px}
+}
+
+@media (orientation: landscape) and (max-height: 600px) and (hover:none){
+  body{padding-bottom:0}
+  .appnav{position:fixed;top:0;bottom:0;left:0;right:auto;width:4.3rem;flex-direction:column;padding:calc(.45rem + env(safe-area-inset-top)) .25rem calc(.45rem + env(safe-area-inset-bottom));}
+  .tabs{flex-direction:column;justify-content:flex-start}
+  .tab{min-width:0;width:100%;font-size:.6rem}
+  #app{margin-left:4.3rem;padding:1rem 1rem 2rem}
+}
+
 /* lưới ma trận trong Nháp (shared/ui/scratch-matrix.js) */
 .scratch-mat{border-bottom:1px solid var(--line);max-height:46%;overflow-y:auto}
 .scratch-mat > summary{padding:8px 16px;cursor:pointer;font-weight:600;font-size:var(--fs-sm)}
@@ -281,3 +396,5 @@ body.exam-focus .appnav{display:none}
 .cl-out.var,.cl-out.fn{color:var(--ink-dim)}
 .cl-tip{font-size:var(--fs-xs);color:var(--ink-dim);margin:6px 0 0}
 .cl-wrap{display:flex;flex-direction:column;max-height:42%;min-height:7rem;border-bottom:1px solid var(--line)}
+.cl-wrap{display:flex;flex-direction:column;flex:1;min-height:0}
+.cl-wrap[hidden]{display:none}

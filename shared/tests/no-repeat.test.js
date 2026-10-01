@@ -1,28 +1,18 @@
 import { describe, it, expect } from 'vitest';
 import { freshQuestion, poolSize } from '../logic/question-pool.js';
-import { withConcepts } from '../logic/concepts.js';
 import { seededRandom } from '../logic/shuffle.js';
-import logicConcepts from '../../logic/src/content/concepts.json';
-import discreteConcepts from '../../discrete/src/content/concepts.json';
-import { CHOICE_BANKS as LOGIC_MCQ } from '../../logic/src/logic/mcq-banks.js';
-import { CHOICE_BANKS as LINALG_MCQ } from '../../linalg/src/logic/mcq-banks.js';
+import { CHAPTERS as LOGIC } from '../../logic/src/logic/chapters.js';
+import { CHAPTERS as LINALG } from '../../linalg/src/logic/chapters.js';
+import { CHAPTERS as DISCRETE } from '../../discrete/src/logic/chapters.js';
 
 /* Một lượt luyện tập KHÔNG BAO GIỜ có hai câu cùng nội dung người học nhìn thấy (đề, tham số, hình,
    câu khái niệm nào) — xáo lại phương án cũng tính là lặp. Chạy trên mọi dạng của mọi ngân hàng cả 3 app,
    theo đúng cách bộ chạy rút câu (freshQuestion, hết câu mới thì dừng). */
 
-const L = import.meta.glob('../../logic/src/logic/ch*-quiz.js', { eager: true });
-const D = import.meta.glob('../../discrete/src/logic/ch*-quiz.js', { eager: true });
-const A = import.meta.glob('../../linalg/src/logic/ch*-quiz.js', { eager: true });
-const chOf = p => p.match(/ch\d+/)[0];
-
-const BANKS = {
-  ...Object.fromEntries(Object.entries(L).map(([p, m]) => [`logic.${chOf(p)}`, withConcepts(m, logicConcepts.filter(c => c.chapter === chOf(p)))])),
-  ...Object.fromEntries(Object.entries(LOGIC_MCQ).map(([p, m]) => [`logic-mcq.${p}`, m])),
-  ...Object.fromEntries(Object.entries(D).map(([p, m]) => [`discrete.${chOf(p)}`, withConcepts(m, discreteConcepts.filter(c => c.chapter === chOf(p)))])),
-  ...Object.fromEntries(Object.entries(A).map(([p, m]) => [`linalg.${chOf(p)}`, m])),
-  ...Object.fromEntries(Object.entries(LINALG_MCQ).map(([p, m]) => [`linalg-mcq.${p}`, m])),
-};
+// đúng các ngân hàng app dùng (bảng chương chung — hub D33), cả bản trắc nghiệm
+const BANKS = Object.fromEntries(Object.entries({ logic: LOGIC, linalg: LINALG, discrete: DISCRETE }).flatMap(([app, chs]) => chs.flatMap(c => [
+  [`${app}.${c.id}`, c.bank], ...(c.choiceBank ? [[`${app}-mcq.${c.id}`, c.choiceBank]] : []),
+])));
 
 const visible = q => JSON.stringify([q.kind, q.textKey, q.textParams ?? null, q.figure ?? null, q.meta?.id ?? null]);
 

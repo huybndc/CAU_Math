@@ -1,5 +1,5 @@
 import { seededRandom, shuffle } from './shuffle.js';
-import { signature } from './question-pool.js';
+import { signature, seededQuestion } from './question-pool.js';
 
 /* ---------------------------------------------------------------
    BÀI FULL 60–90 PHÚT (Phase 2) — hàm thuần, không đụng DOM.
@@ -14,6 +14,9 @@ export const EXAM_MINUTES = [60, 75, 90];
 export const FILL = 0.85;
 /** Dạng dưới 40 giây là câu nhận diện nhanh (khởi động) — đề thật không có, bài full bỏ qua. */
 export const MIN_SECONDS = 40;
+/** Trần số câu một dạng trong một đề: quá thì đề toàn câu cùng khuôn đổi số (người học thử đề Discrete 2026-09-26: 16/67 câu
+ *  là tổng dãy). Câu khái niệm mỗi câu một ý khác nhau nên trần cao hơn. Hết dạng thì đề ngắn hơn thời gian, không lặp. */
+export const maxPerKind = kind => (kind === 'concept' ? 6 : 3);
 
 /** Các dạng đưa vào bài full của một chương (chương chỉ có dạng ngắn thì lấy hết). */
 export function examKinds({ KINDS, SECONDS }) {
@@ -35,6 +38,7 @@ export function planExam(chapters, minutes, rnd, mixed = true) {
   const spent = chapters.map(() => 0);
   const full = chapters.map(() => false);
   const slots = [];
+  const count = {};
   let used = 0;
   for (;;) {
     let i = -1;
@@ -42,10 +46,13 @@ export function planExam(chapters, minutes, rnd, mixed = true) {
     spent.forEach((_, j) => { if (!full[j] && (i < 0 || load(j) < load(i))) i = j; });
     if (i < 0) break;
     const { SECONDS } = chapters[i].bank;
-    if (!queues[i].length) queues[i] = shuffle(examKinds(chapters[i].bank), rnd);
+    if (!queues[i].length) queues[i] = shuffle(examKinds(chapters[i].bank).filter(k => (count[`${i}:${k}`] ?? 0) < maxPerKind(k)), rnd);
+    if (!queues[i].length) { full[i] = true; continue; }
     const s = SECONDS?.[queues[i][0]] ?? 60;
     if (used + s > budget) { full[i] = true; continue; }
-    slots.push({ ci: i, kind: queues[i].shift() });
+    const kind = queues[i].shift();
+    count[`${i}:${kind}`] = (count[`${i}:${kind}`] ?? 0) + 1;
+    slots.push({ ci: i, kind });
     spent[i] += s;
     used += s;
   }
@@ -84,7 +91,7 @@ export function buildExam(chapters, { seed, minutes, order }) {
     const c = chapters[s.ci];
     let q;
     for (let j = 0; j < 40; j++) {
-      q = c.bank.makeQuestion(s.kind, seededRandom(seed + 7919 * (i + 1) + 104729 * j));
+      q = seededQuestion(c.bank, s.kind, seed + 7919 * (i + 1) + 104729 * j);     // hạt giống riêng từng câu ⇒ có mã câu
       if (!seen.has(signature(q))) break;
     }
     seen.add(signature(q));
