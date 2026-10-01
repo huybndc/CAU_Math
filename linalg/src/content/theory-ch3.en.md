@@ -59,6 +59,8 @@ space.
 
 <div data-check="c3q:inspan" data-needs="c2q:solve3 c1q:coefs" data-also="c3q:spankind"></div>
 
+<div data-tool="ch3/0"></div>
+
 ## Null space: the solutions of Ax = 0
 
 The **null space** `N(A)` is the set of all `x` with `Ax = 0`. It is always a
@@ -83,6 +85,8 @@ Note the two spaces live in different places: for `A` of size `m×n`,
 `C(A) ⊆ Rᵐ` (rows) while `N(A) ⊆ Rⁿ` (columns).
 
 <div data-check="c3q:special" data-needs="c2q:pivots" data-also="c3q:particular"></div>
+
+<div data-tool="ch3/0"></div>
 
 ## Linear independence
 
@@ -112,6 +116,8 @@ Several facts follow immediately:
 
 <div data-check="c3q:independent" data-needs="c3q:special"></div>
 
+<div data-tool="ch3/0"></div>
+
 ## Basis and dimension
 
 A **basis** for a subspace is a set of vectors that is both **independent** and
@@ -132,6 +138,8 @@ columns, so dropping them leaves the span unchanged.
 
 <div data-check="c3q:rank" data-needs="c3q:independent c2q:pivots"></div>
 
+<div data-tool="ch3/0"></div>
+
 ## The rank theorem
 
 Everything collects into a single identity, true for every `m×n` matrix `A`:
@@ -150,6 +158,8 @@ look nothing alike. Both equal `rank(A)` — which is why the rank is the single
 most important number attached to a matrix.
 
 <div data-check="c3q:nulldim" data-needs="c3q:rank" data-also="c3q:dims"></div>
+
+<div data-tool="ch3/0"></div>
 
 ## Common mistakes
 

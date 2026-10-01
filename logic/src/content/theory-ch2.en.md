@@ -96,6 +96,8 @@ When `yz = 1`, y = z = 1. If x = 1 then `xy = 1`; if x = 0 then `x′z = 1`. So 
 
 <div data-check="c2q:simplify" data-needs="c2q:column"></div>
 
+<div data-tool="ch2/0"></div>
+
 ## Complements with DeMorgan
 
 **Swap `+ ↔ ·` and complement each literal.** In other words: take the dual, then complement every variable.
@@ -112,6 +114,8 @@ The classic mistake is **losing parentheses**. `y′z′` is a product, so its c
 
 <div data-check="c2q:complement" data-needs="c2q:dual"></div>
 
+<div data-tool="ch2/0"></div>
+
 ## Minterms and maxterms
 
 With n variables:
@@ -124,6 +128,8 @@ i = 5 = 101:   m₅ = xy′z        M₅ = x′ + y + z′        Mᵢ = (mᵢ)�
 ```
 
 <div data-check="c2q:minterms" data-needs="c2q:column"></div>
+
+<div data-tool="ch2/0"></div>
 
 ## Canonical forms: Σm and ΠM
 
@@ -140,6 +146,8 @@ Canonical forms are **unique** but usually **not minimal**; Chapter 3 simplifies
 
 <div data-check="c2q:canon" data-needs="c2q:minterms"></div>
 
+<div data-tool="ch2/0"></div>
+
 ## SOP, POS and two-level circuits
 
 A **standard form** does not need every variable in each term:
@@ -152,6 +160,8 @@ POS:  F = x(y′ + z)(x′ + y + z′)   → one OR level, then one AND gate
 Both are **two-level circuits**: a signal passes through at most two gate levels, so the delay is short.
 
 <div data-check="c2q:maxterms" data-needs="c2q:canon" data-also="c2q:circuit"></div>
+
+<div data-tool="ch2/0"></div>
 
 ## The 16 two-variable functions
 
@@ -192,6 +202,8 @@ A two-level AND–OR circuit becomes **NAND–NAND** with the same number of gat
 [Convert an expression](#/learn/ch2/interactive)
 
 <div data-check="c2q:nand" data-needs="c2q:complement"></div>
+
+<div data-tool="ch2/0"></div>
 
 ## Common mistakes
 

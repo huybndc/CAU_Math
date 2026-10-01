@@ -81,6 +81,8 @@ quen tay sớm thì lợi.
 
 <div data-check="c1q:length" data-also="c1q:unit"></div>
 
+<div data-tool="ch1/0"></div>
+
 ## Tích vô hướng (dot product)
 
 Tích vô hướng nhân từng cặp thành phần rồi cộng lại. Kết quả là **một số**,
@@ -110,6 +112,8 @@ Trường hợp `v · w = 0` là trường hợp đáng nhớ nhất trong cả 
 và `(1, −1)` thì được `1 − 1 = 0`, và đúng là hai mũi tên đó vuông góc.
 
 <div data-check="c1q:dot" data-needs="c1q:combine" data-also="c1q:perp"></div>
+
+<div data-tool="ch1/0"></div>
 
 ## Góc giữa hai vector
 
@@ -141,6 +145,8 @@ bằng 0. Ý này chính là hạt giống của least squares ở Chương 4.
 
 <div data-check="c1q:angle" data-needs="c1q:dot c1q:length"></div>
 
+<div data-tool="ch1/0"></div>
+
 ## Tổ hợp tuyến tính và span
 
 Ghép hai phép toán của chương lại thì được khái niệm trung tâm của cả môn:
@@ -166,6 +172,8 @@ không?"** — và đó đúng là nội dung Chương 2. Hai chương này là 
 duy nhất nhìn từ hai phía: Chương 1 nhìn bằng hình, Chương 2 nhìn bằng số.
 
 <div data-check="c1q:coefs" data-needs="c1q:combine" data-also="c1q:matvec"></div>
+
+<div data-tool="ch1/1"></div>
 
 ## Những chỗ hay sai
 

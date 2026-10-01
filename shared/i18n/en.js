@@ -68,6 +68,7 @@ export const en = {
   'palette.lesson': 'Lesson',
   'palette.tool': 'Tool',
   'palette.practice': 'Practice',
+  'lesson.openTool': 'Open the solver: {title} →',
   'solver.try': 'Try:',
   'terms.openLesson': 'Open lesson: {title} →',
   'solver.random': 'Random',

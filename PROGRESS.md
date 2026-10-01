@@ -36,6 +36,7 @@
   D62: Tìm nhanh Ctrl/⌘ K hoặc "/" (shared/ui/palette.js): bỏ dấu tiếng Việt, tìm trong thẻ bài học (cả nội dung), công cụ và luyện tập từng chương; nhảy thẳng tới thẻ.
   D63: Discrete D2 thêm dạng tự luận "Đếm giá trị thoả" (có test đếm lại độc lập) — bớt trắc nghiệm cho đề thi thử.
   D64: máy giải gắn sau `shellReady` (shared/ui/shell.js) — dưới Hub, tài khoản chỉ gắn trong hydrateProgress nên đọc ô nhập đã nhớ lúc mount (khoá "khách") không thấy gì; e2e ở Study_Hub (tests/e2e/tools.spec.js) canh lỗi này.
+  D65: thẻ bài học có nút "Mở máy giải: …" (<div data-tool="ch6/1"></div> trong markdown; 42 thẻ cả 3 app, vi + en).
   Không làm: ghi sự kiện máy giải sang Hub — đổi contract math.answer cần yêu cầu contract riêng (AGENTS.md).
 
 ## In progress

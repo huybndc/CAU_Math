@@ -63,6 +63,8 @@ Mỗi biến có 2 giá trị ⇒ n biến có **2ⁿ dòng**. Cách làm không
 <div data-check="c1q:table" data-needs="c1q:value"></div>
 <div data-check="c1q:count" data-needs="c1q:table"></div>
 
+<div data-tool="ch1/0"></div>
+
 ## Hằng đúng, hằng sai, khả thỏa
 
 Nhìn vào cột cuối của bảng chân trị:
@@ -74,6 +76,8 @@ Nhìn vào cột cuối của bảng chân trị:
 Một công thức **khả thỏa** khi có ít nhất một dòng T. Hằng đúng thì khả thỏa; điều ngược lại không đúng.
 
 <div data-check="c1q:classify" data-needs="c1q:table"></div>
+
+<div data-tool="ch1/0"></div>
 
 ## Tương đương logic
 
@@ -90,6 +94,8 @@ p ∧ (q ∨ r)  ≡  (p ∧ q) ∨ (p ∧ r)
 ```
 
 <div data-check="c1q:equiv" data-needs="c1q:table"></div>
+
+<div data-tool="ch1/0"></div>
 
 ## Đảo, phản đảo, nghịch đảo
 

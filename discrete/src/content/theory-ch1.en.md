@@ -63,6 +63,8 @@ Precedence: ¬ before ∧, ∧ before ∨, then →, and ↔ last. When unsure, 
 <div data-check="c1q:table" data-needs="c1q:value"></div>
 <div data-check="c1q:count" data-needs="c1q:table"></div>
 
+<div data-tool="ch1/0"></div>
+
 ## Tautology, contradiction, contingent
 
 Look at the last column of the truth table:
@@ -74,6 +76,8 @@ Look at the last column of the truth table:
 A formula is **satisfiable** when at least one row is T. Every tautology is satisfiable; the converse fails.
 
 <div data-check="c1q:classify" data-needs="c1q:table"></div>
+
+<div data-tool="ch1/0"></div>
 
 ## Logical equivalence
 
@@ -90,6 +94,8 @@ p ∧ (q ∨ r)  ≡  (p ∧ q) ∨ (p ∧ r)
 ```
 
 <div data-check="c1q:equiv" data-needs="c1q:table"></div>
+
+<div data-tool="ch1/0"></div>
 
 ## Converse, contrapositive, inverse
 

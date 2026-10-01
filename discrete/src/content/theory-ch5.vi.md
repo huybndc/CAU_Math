@@ -25,6 +25,8 @@ Và ngược lại: mọi bội của gcd không quá bình lớn đều đong �
 
 <div data-check="c5q:jugs" data-needs="c6q:gcd"></div>
 
+<div data-tool="ch6/2"></div>
+
 ## Quy nạp mạnh
 
 Giống quy nạp thường, nhưng ở bước quy nạp được giả sử **P(0), P(1), …, P(k) đều đúng** (không chỉ P(k)) để chứng minh P(k + 1).
@@ -41,6 +43,8 @@ Chỉ có tem 3 xu và 5 xu: trả được mọi số tiền **từ 8 xu trở 
 Tổng quát, tem a và b nguyên tố cùng nhau: số lớn nhất **không** trả được là **a·b − a − b**.
 
 <div data-check="c5q:stamps" data-needs="c4q:step"></div>
+
+<div data-tool="ch6/2"></div>
 
 ## Những chỗ hay sai
 

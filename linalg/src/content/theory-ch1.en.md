@@ -87,6 +87,8 @@ so it pays to get comfortable with it early.
 
 <div data-check="c1q:length" data-also="c1q:unit"></div>
 
+<div data-tool="ch1/0"></div>
+
 ## The dot product
 
 The dot product multiplies matching components and adds them up. The result is
@@ -118,6 +120,8 @@ right angles.
 
 <div data-check="c1q:dot" data-needs="c1q:combine" data-also="c1q:perp"></div>
 
+<div data-tool="ch1/0"></div>
+
 ## The angle between two vectors
 
 The formula that connects the dot product to the angle:
@@ -148,6 +152,8 @@ and you get exactly 0. That idea is the seed of least squares in Chapter 4.
 
 <div data-check="c1q:angle" data-needs="c1q:dot c1q:length"></div>
 
+<div data-tool="ch1/0"></div>
+
 ## Linear combinations and span
 
 Put the chapter's two operations together and you get the central idea of the
@@ -175,6 +181,8 @@ seen from two sides: Chapter 1 looks at the picture, Chapter 2 looks at the
 numbers.
 
 <div data-check="c1q:coefs" data-needs="c1q:combine" data-also="c1q:matvec"></div>
+
+<div data-tool="ch1/1"></div>
 
 ## Common mistakes
 

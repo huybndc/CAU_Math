@@ -19,6 +19,8 @@ Congruence **respects addition and multiplication**: if a ≡ b and c ≡ d (mod
 
 <div data-check="c7q:mod"></div>
 
+<div data-tool="ch6/1"></div>
+
 ## Modular inverses
 
 x is an **inverse** of a modulo n when a·x ≡ 1 (mod n).
@@ -36,6 +38,8 @@ Check: 7·15 = 105 = 4·26 + 1. ✓ With an inverse you can **divide** modulo n.
 
 <div data-check="c7q:inverse" data-needs="c7q:mod c6q:bezout"></div>
 
+<div data-tool="ch6/1"></div>
+
 ## Modular powers: repeated squaring
 
 Compute 3¹³ mod 7 without computing 3¹³:
@@ -49,6 +53,8 @@ Compute 3¹³ mod 7 without computing 3¹³:
 About 2·log₂k multiplications — how RSA encrypts numbers with hundreds of digits.
 
 <div data-check="c7q:power" data-needs="c7q:mod"></div>
+
+<div data-tool="ch7/0"></div>
 
 ## φ, Euler's theorem and Fermat
 

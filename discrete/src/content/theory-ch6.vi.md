@@ -48,6 +48,8 @@ Số dư khác 0 cuối cùng là gcd. Số bước rất ít (khoảng 2·log�
 
 <div data-check="c6q:gcd"></div>
 
+<div data-tool="ch6/0"></div>
+
 ## Pulverizer: gcd = s·a + t·b
 
 gcd(a, b) luôn viết được thành **s·a + t·b** (s, t nguyên — *hệ số Bézout*). Pulverizer chạy Euclid, nhưng ghi **mỗi số dư dưới dạng s·a + t·b**:
@@ -63,6 +65,8 @@ Kiểm lại: 3·259 − 11·70 = 777 − 770 = 7. ✓
 
 <div data-check="c6q:bezout" data-needs="c6q:gcd"></div>
 
+<div data-tool="ch6/0"></div>
+
 ## gcd là tổ hợp dương nhỏ nhất
 
 **Định lý (MCS 9.2.2):** gcd(a, b) là số **dương nhỏ nhất** viết được dạng s·a + t·b.
@@ -73,6 +77,8 @@ Hệ quả hay dùng:
 - Mọi ước chung của a, b đều chia hết gcd(a, b).
 
 Chương sau dùng đúng điều này để tìm **nghịch đảo modulo**.
+
+<div data-tool="ch6/0"></div>
 
 ## Số nguyên tố & lcm
 

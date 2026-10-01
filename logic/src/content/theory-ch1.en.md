@@ -46,6 +46,8 @@ Multiply each digit by its weight and add.
 
 <div data-check="c1q:convert:toDec" data-also="c1q:convert"></div>
 
+<div data-tool="ch1/0"></div>
+
 ## Decimal → base r: integer part
 
 **Divide by r repeatedly and keep the remainders. Read them bottom-up.**
@@ -69,6 +71,8 @@ Multiply each digit by its weight and add.
 
 <div data-check="c1q:convert:fromDec" data-needs="c1q:convert:toDec"></div>
 
+<div data-tool="ch1/0"></div>
+
 ## Decimal → base r: fraction part
 
 **Multiply by r repeatedly and keep the integer parts. Read top-down.**
@@ -88,6 +92,8 @@ The integer and fraction parts use **opposite operations**: divide for the integ
 
 </details>
 
+<div data-tool="ch1/0"></div>
+
 ## Binary ↔ octal and hexadecimal
 
 Because `8 = 2³` and `16 = 2⁴`: **group 3 bits** into one octal digit, **group 4 bits** into one hex digit, starting from the point outward. No detour through decimal.
@@ -101,6 +107,8 @@ Because `8 = 2³` and `16 = 2⁴`: **group 3 bits** into one octal digit, **grou
 Pad missing bits with 0: on the **left** of the integer part, on the **right** of the fraction.
 
 <div data-check="c1q:convert:group" data-needs="c1q:convert:toDec"></div>
+
+<div data-tool="ch1/0"></div>
 
 ## Complements: (r − 1)'s and r's
 
@@ -118,6 +126,8 @@ Two's complement shortcut: keep the bits from the right up to the first 1, flip 
 
 <div data-check="c1q:complement" data-needs="c1q:convert:toDec" data-also="c1q:dimcomplement"></div>
 
+<div data-tool="ch1/1"></div>
+
 ## Subtraction with complements
 
 Computers do not subtract directly: **M − N = M + (r's complement of N)**.
@@ -134,6 +144,8 @@ Computers do not subtract directly: **M − N = M + (r's complement of N)**.
 
 <div data-check="c1q:subtract" data-needs="c1q:complement"></div>
 
+<div data-tool="ch1/1"></div>
+
 ## Signed binary numbers
 
 The leftmost bit is the **sign bit** (0 = positive, 1 = negative). Positive numbers look the same in all three systems; negative ones differ:
@@ -148,6 +160,8 @@ Computers use **2's complement**: it has a single zero, and addition needs no si
 
 <div data-check="c1q:signed" data-needs="c1q:complement"></div>
 
+<div data-tool="ch1/2"></div>
+
 ## Two's complement: range and overflow
 
 n bits of 2's complement cover **−2ⁿ⁻¹ to 2ⁿ⁻¹ − 1** (8 bits: −128 … 127). The sign bit weighs **−2ⁿ⁻¹**:
@@ -159,6 +173,8 @@ n bits of 2's complement cover **−2ⁿ⁻¹ to 2ⁿ⁻¹ − 1** (8 bits: −1
 **Overflow:** adding two numbers of the **same sign** gives a result of the **opposite sign** ⇒ the result is wrong, it left the range.
 
 <div data-check="c1q:decode" data-needs="c1q:signed" data-also="c1q:range"></div>
+
+<div data-tool="ch1/2"></div>
 
 ## BCD
 
