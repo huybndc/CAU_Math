@@ -55,8 +55,8 @@ function today(cfg, events, now) {
     const n = g.get(nx);
     alts.push(el('a', { href: `#/learn/${n.ch}/theory`, onClick: () => seekLesson(n.ch, n.card), text: T('learn.nextCard', { title: n.title }) }));
   }
-  if (second) alts.push(...(alts.length ? [' · '] : []), el('a', { href: `#/practice/${second.ch}/${second.kind}`, text: T(`${second.prefix}.${second.kind}`) }), ` (${why(second)})`);
-  if (days >= 0 && days <= 21) alts.push(' · ', el('a', { href: '#/exam', text: T('home.midExam') }));
+  if (second) alts.push(el('a', { href: `#/practice/${second.ch}/${second.kind}` }, [T(`${second.prefix}.${second.kind}`), el('small', { text: ` ${why(second)}` })]));
+  if (days >= 0 && days <= 21) alts.push(el('a', { href: '#/exam', text: T('home.midExam') }));
   return leadCard({
     title: T(`${first.prefix}.${first.kind}`),
     note: `${chapterTitle(first.ch)} · ${why(first)} · ~${roundMinutes(first.bank, [first.kind])} ${T('home.min')}`,
@@ -96,7 +96,7 @@ export function renderHome(r, cfg) {
       stat(String(recent.attempts), T('home.statQ')),
     ]),
     el('p', { class: 'muted small', text: T('home.statNote') }),
-    ...(chapters.length ? [el('h2', { class: 'section-label', text: T('home.byChapter') }), el('div', { class: 'list' }, chapters)] : []),
+    ...(chapters.length ? [el('h2', { class: 'section-label', text: T('home.byChapter') }), el('div', { class: 'list mods' }, chapters)] : []),
   );
   return T('nav.home');
 }

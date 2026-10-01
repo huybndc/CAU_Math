@@ -55,18 +55,18 @@ body{padding-left:var(--nav-width)}
 }
 
 /* ---------------- cột nội dung ---------------- */
-#app{max-width:50rem;margin:0 auto;padding:2.4rem 2rem 4rem}
-#app:has(> #screen-run.active){max-width:60rem}
+#app{max-width:58rem;margin:0 auto;padding:1.8rem 2rem 3rem}
+#app:has(> #screen-run.active){max-width:62rem}
 #app:has(> .screen.wide.active){max-width:74rem}
 .screen{display:none}
 .screen.active{display:block}
 .screen > h1,.screen > header h1{font-size:var(--fs-xl);font-weight:650;letter-spacing:-.02em;margin:0 0 .35rem}
 .screen > header{margin:0 0 1.4rem}
-.subtitle{color:var(--ink-dim);margin:0 0 1.8rem;font-size:var(--fs-md);max-width:62ch}
+.subtitle{color:var(--ink-dim);margin:0 0 1.2rem;font-size:var(--fs-md);max-width:62ch}
 .back{display:inline-flex;align-items:center;gap:6px;font-size:var(--fs-sm);color:var(--ink-dim);text-decoration:none;margin:0 0 .9rem}
 .back:hover{color:var(--ink)}
 .crumb{margin:0 0 .2rem;font-size:var(--fs-sm);color:var(--ink-dim)}
-.section-label{font-size:var(--fs-sm);font-weight:600;color:var(--ink-dim);margin:2rem 0 .6rem}
+.section-label{font-size:var(--fs-sm);font-weight:600;color:var(--ink-dim);margin:1.4rem 0 .6rem}
 
 /* các trang chương cũ (ví dụ, công cụ) nằm sẵn trong màn "pane"; router bật đúng một khung */
 .page,.pane{display:none}
@@ -93,15 +93,19 @@ a.entry:hover .row-go{background:var(--accent)}
 
 /* việc chính của màn: một khối duy nhất có nút màu nhấn */
 .lead-card{
-  display:flex;align-items:center;gap:1.2rem;padding:1.1rem 1.2rem;margin:0 0 1.6rem;
+  display:flex;align-items:center;gap:1.2rem;padding:1.1rem 1.2rem;margin:0 0 1.2rem;
   border:1px solid var(--line);border-radius:var(--r-lg);background:var(--panel);
 }
+.lead-card{cursor:pointer;transition:border-color .12s}
+.lead-card:hover{border-color:var(--accent)}
 .lead-card .lead-main{flex:1;min-width:0}
 .lead-card b{display:block;font-size:var(--fs-lg);font-weight:600}
 .lead-card small{display:block;font-size:var(--fs-sm);color:var(--ink-dim);margin-top:.15rem}
 .lead-card .alt{display:block;margin-top:.45rem;font-size:var(--fs-sm);color:var(--ink-dim)}
-.lead-card .alt a{color:var(--ink);text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--line-strong)}
-.lead-card .alt a:hover{text-decoration-color:var(--accent)}
+.lead-card .alt{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem .5rem}
+.lead-card .alt a{padding:.3rem .7rem;border:1px solid var(--line-strong);border-radius:999px;color:var(--ink);text-decoration:none;cursor:pointer}
+.lead-card .alt a small{color:var(--ink-dim)}
+.lead-card .alt a:hover{border-color:var(--accent);color:var(--accent)}
 
 /* thanh chọn chương (một chương một lúc) */
 .chapter-bar{display:flex;gap:4px;margin:0 0 1.4rem;padding:3px;background:var(--panel2);border-radius:var(--r-lg);width:max-content;max-width:100%;overflow-x:auto}
@@ -129,7 +133,7 @@ a.entry:hover .row-go{background:var(--accent)}
 .meter > i{display:block;height:100%;background:var(--accent);border-radius:3px}
 
 /* ---------------- Tổng quan: dải học kỳ là điểm nhấn duy nhất ---------------- */
-.semester{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:end;gap:2rem;margin:0 0 2.2rem}
+.semester{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:end;gap:2rem;margin:0 0 1.5rem}
 .term-count{line-height:1}
 .term-count b{display:block;font:600 3.4rem/1 var(--mono);letter-spacing:-.04em;color:var(--ink)}
 .term-count span{display:block;margin-top:.45rem;font-size:var(--fs-sm);color:var(--ink-dim)}
@@ -142,7 +146,7 @@ a.entry:hover .row-go{background:var(--accent)}
 .term-track li:last-child span{left:auto;right:0;transform:none}
 .term-track li.now span{color:var(--ink);font-weight:700}
 .term-track li.exam span{color:var(--hi);font-weight:700}
-.stats-line{display:flex;gap:2rem;margin:0 0 1.8rem;font-size:var(--fs-sm);color:var(--ink-dim)}
+.stats-line{display:flex;gap:2rem;margin:0 0 1rem;font-size:var(--fs-sm);color:var(--ink-dim)}
 .stats-line b{font:600 1.15rem var(--mono);color:var(--ink);margin-right:.35rem}
 
 /* chuyển màn: mờ rất ngắn (chỉ khi ĐỔI màn) */
@@ -234,21 +238,14 @@ body.exam-focus .appnav{display:none}
 /* màn rộng: chừa chỗ để nháp không che đề */
 /* Nháp nổi trên trang như cửa sổ nổi trên điện thoại: không đẩy / dời nội dung bên dưới (D56) */
 
-/* màn Công cụ */
-.tool-ch{padding:1.1rem 0 1.2rem;border-bottom:1px solid var(--line)}
-.tool-ch h2{display:flex;align-items:center;gap:.7rem;margin:0 0 .8rem;font-size:1.05rem}
-.tool-chips{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin-left:2.9rem}
-.tool-chip{padding:.45rem .8rem;border:1px solid var(--line-strong);border-radius:8px;color:var(--ink);text-decoration:none;font-size:var(--fs-sm);background:var(--panel)}
-.tool-chip.live{border-color:color-mix(in srgb,var(--accent) 45%,var(--line-strong))}
-.tool-chip:hover{border-color:var(--accent);color:var(--accent)}
-.tool-more{margin-left:.4rem;font-size:var(--fs-sm);color:var(--ink-dim);text-decoration:none}
-.tool-more:hover{color:var(--accent)}
+/* màn Công cụ: mỗi chương một module, mỗi công cụ một ô lớn bấm cả khung (khối mới ở cuối file) */
 
 
 /* ---------- Học: mục lục dạng cây thu gọn (learn-screen.js, D29) ---------- */
 .tree-next{margin:0 0 1rem}
-.tree{border-top:1px solid var(--line)}
-.ch-tree{border-bottom:1px solid var(--line)}
+.tree{display:grid;gap:.6rem}
+.ch-tree{border:1px solid var(--line);border-radius:var(--r-lg);background:var(--panel);overflow:hidden}
+.ch-tree[open] > summary{border-bottom:1px solid var(--line)}
 .ch-tree > summary{display:grid;grid-template-columns:1rem 2.2rem minmax(0,1fr) 7rem;align-items:center;gap:.9rem;padding:.9rem .5rem;cursor:pointer;list-style:none}
 .ch-tree > summary::-webkit-details-marker{display:none}
 .ch-tree > summary::before{content:"";width:.5rem;height:.5rem;border-right:2px solid var(--ink-dim);border-bottom:2px solid var(--ink-dim);transform:rotate(-45deg);transition:transform .15s;justify-self:center}
@@ -256,8 +253,8 @@ body.exam-focus .appnav{display:none}
 .ch-tree > summary:hover{background:var(--panel2)}
 .ch-bar{height:6px;border-radius:3px;background:var(--line);overflow:hidden}
 .ch-bar i{display:block;height:100%;background:var(--ok)}
-.tree-cards{list-style:none;margin:0 0 .6rem 4.1rem;padding:0 0 0 .9rem;border-left:1px solid var(--line)}
-.tree-cards a{display:flex;align-items:center;gap:.6rem;padding:.32rem .5rem;border-radius:6px;color:var(--ink);text-decoration:none;font-size:var(--fs-sm)}
+.tree-cards{list-style:none;margin:.3rem .6rem .7rem 3.6rem;padding:0 0 0 .9rem;border-left:1px solid var(--line)}
+.tree-cards a{display:flex;align-items:center;gap:.6rem;padding:.5rem .6rem;border-radius:6px;color:var(--ink);text-decoration:none;font-size:var(--fs-sm)}
 .tree-cards a:hover{background:var(--panel2);color:var(--accent)}
 .tree-cards .dot{flex:0 0 .7rem;height:.7rem;border-radius:50%;border:1.5px solid var(--line-strong)}
 .tree-cards li.seen .dot{background:var(--line-strong)}

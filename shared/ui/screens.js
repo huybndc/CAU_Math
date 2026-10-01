@@ -37,7 +37,7 @@ function renderTools(r, cfg) {
       el('h2', {}, [el('span', { class: 'ch-no', text: chNo(c.id) }), T('nav.' + c.id)]),
       el('div', { class: 'tool-chips' }, [
         ...tools.map((h, i) => el('a', { class: 'tool-chip live', href: `#/learn/${c.id}/interactive/${i}`, text: titleOf(h) })),
-        examples.length > 0 && el('a', { class: 'tool-more', href: `#/learn/${c.id}/example`, text: T('tools.examples', { n: examples.length }) }),
+        examples.length > 0 && el('a', { class: 'tool-chip more', href: `#/learn/${c.id}/example`, text: T('tools.examples', { n: examples.length }) }),
       ]),
     ]);
   }).filter(Boolean);
@@ -76,7 +76,7 @@ function renderPractice(r, cfg) {
         note: `${T('practice.meta', { n: ROUND, m: roundMinutes(c.bank, KINDS) })} · ${accNote(recentStats(events, { prefix: c.prefix }, now))}`,
         href: `#/practice/${c.id}`, cta: T('practice.start'),
       }),
-      el('div', { class: 'list' }, [
+      el('div', { class: 'list mods' }, [
         el('div', { class: 'list-head' }, [
           el('span', { text: T('practice.kinds') }), el('span', { class: 'row-num', text: T('practice.time') }),
           el('span', { text: T('practice.acc') }), el('span'),

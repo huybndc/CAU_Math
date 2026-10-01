@@ -32,6 +32,8 @@ export function accCell(stats) {
   return el('span', { class: 'row-acc', title: accNote(stats) }, [
     el('span', { class: 'meter' }, p !== null && el('i', { style: `width:${p}%` })),
     el('span', { text: p === null ? '—' : `${p}%` }),
+    // nói rõ số này tính trên 7 ngày hay mọi lần — Study Hub (Thống kê) tính mọi lần nên hai nơi dễ tưởng lệch
+    p !== null && stats.scope && el('small', { class: 'acc-scope', text: T(stats.scope === 'week' ? 'practice.scopeWeek' : 'practice.scopeAll') }),
   ]);
 }
 
@@ -61,7 +63,10 @@ export const tag = (text, kind = 'hi') => el('span', { class: `tag ${kind}`, tex
  * Khối "việc chính": một dòng tiêu đề + ghi chú + nút màu nhấn; `alt` là lựa chọn thứ hai
  * viết thành một dòng chữ (không thêm hộp nữa).
  */
-export const leadCard = ({ title, note, href, cta, alt }) => el('div', { class: 'lead-card' }, [
+export const leadCard = ({ title, note, href, cta, alt }) => el('div', {
+  class: 'lead-card',
+  onClick: e => { if (!e.target.closest('a')) location.hash = href; },       // bấm chỗ nào trên khung cũng đi; link nhỏ bên trong vẫn bấm riêng
+}, [
   el('div', { class: 'lead-main' }, [el('b', { text: title }), el('small', { text: note }), alt]),
   el('a', { class: 'btn primary', href, 'data-icon': 'next' }, el('span', { text: cta })),
 ]);
