@@ -5,13 +5,14 @@
              mọi nhiễu đều được máy kiểm là KHÔNG tương đương với đáp án (sameOnSamples).
    --------------------------------------------------------------- */
 
-import { all, ex, atom, not, and, or, imp, negate, formatQ, sameOnSamples } from './quant.js';
+import { all, ex, atom, not, and, or, imp, negate, formatQ, sameOnSamples, parseQ, negationsOnAtoms } from './quant.js';
+import { seededRandom } from '@shared/logic/shuffle.js';
 import { fail } from '@shared/logic/app-error.js';
 import { pick, shuffle } from '@shared/logic/shuffle.js';
 import { line as L } from '@shared/logic/steps.js';
 
-export const KINDS = ['truth', 'negate'];
-export const SECONDS = { truth: 90, negate: 60 };
+export const KINDS = ['truth', 'negate', 'negateW'];
+export const SECONDS = { truth: 90, negate: 60, negateW: 100 };
 
 /* Quan hệ hai biến trên miền số — chữ hiện đúng như viết tay. */
 const REL = [
@@ -93,7 +94,19 @@ function makeNegate(rnd) {
   };
 }
 
-const MAKERS = { truth: makeTruth, negate: makeNegate };
+/** Tự luận: tự VIẾT phủ định (đề kiểu bài tập: ¬ chỉ đứng trước từng vị từ). Chấm bằng bộ đọc công thức + so tương đương trên máy. */
+function makeNegateW(rnd) {
+  const f = pick(BASES, rnd);
+  const right = formatQ(negate(f));
+  return {
+    kind: 'negateW', format: 'text', textKey: 'c2q.qNegateW', textParams: { f: formatQ(f) },
+    answer: right, answerText: right, input: { type: 'formula', keys: ['∀', '∃', '¬', '∧', '∨', '→', '(', ')'] },
+    hintKey: 'c2q.hNegate', meta: { f: formatQ(f) },
+    work: [L('s2.negRules'), L('s2.negStart', {}, `¬(${formatQ(f)})`), L('s1.result', {}, right)],
+  };
+}
+
+const MAKERS = { truth: makeTruth, negate: makeNegate, negateW: makeNegateW };
 
 export function makeQuestion(kind = 'mix', rnd = Math.random) {
   const k = kind === 'mix' ? pick(KINDS, rnd) : kind;
@@ -104,5 +117,11 @@ export function makeQuestion(kind = 'mix', rnd = Math.random) {
 }
 
 export function checkAnswer(q, given) {
-  return { ok: Number(given) === q.answer };
+  if (q.kind !== 'negateW') return { ok: Number(given) === q.answer };
+  let g;
+  try { g = parseQ(given); } catch { return { retry: true, detailKey: 'c2q.needFormula' }; }
+  const want = parseQ(q.answer);
+  if (!sameOnSamples(g, want, seededRandom(7), { P: 1, Q: 1, R: 1 })) return { ok: false, detailKey: 'c2q.dNotNeg' };
+  if (!negationsOnAtoms(g)) return { ok: false, detailKey: 'c2q.dNotInside' };       // đúng nghĩa nhưng chưa đẩy ¬ vào trong
+  return { ok: true };
 }

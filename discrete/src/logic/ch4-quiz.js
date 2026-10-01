@@ -10,9 +10,10 @@ import { fail } from '@shared/logic/app-error.js';
 import { pick, int, shuffle } from '@shared/logic/shuffle.js';
 import { parseNumber } from '@shared/logic/answer-format.js';
 import { line as L } from '@shared/logic/steps.js';
+import { evalRows } from '@shared/logic/calc-list.js';
 
-export const KINDS = ['sum', 'formula', 'step'];
-export const SECONDS = { sum: 45, formula: 60, step: 60 };
+export const KINDS = ['sum', 'formula', 'step', 'closed'];
+export const SECONDS = { sum: 45, formula: 60, step: 60, closed: 120 };
 
 /* Tổng quen thuộc: term(i) để máy kiểm; chữ công thức viết sẵn tại n, k, k + 1, k + 2 (thay chuỗi dễ ra (k + 1)((k + 1) + 1)). */
 const SUMS = [
@@ -98,7 +99,21 @@ function makeStep(rnd) {
   };
 }
 
-const MAKERS = { sum: makeSum, formula: makeFormula, step: makeStep };
+/** Tự luận: tự TÌM công thức đóng của tổng (không còn dấu Σ). Chấm bằng cách thay n = 1 … 12 vào biểu thức đã gõ. */
+function makeClosed(rnd) {
+  const S = pick(SUMS, rnd);
+  return {
+    kind: 'closed', format: 'text', textKey: 'c4q.qClosed', textParams: { s: S.s },
+    answer: S.c[0], answerText: S.c[0], hintKey: 'c4q.hClosed', meta: { s: S.s },
+    work: [L('s4.values', {}, firstTerms(S, 5)), L('s4.closed', {}, `${S.s} = ${S.c[0]}`), L('s4.needProof', { f: S.c[0] })],
+  };
+}
+
+const SUP = { '⁰': '0', '¹': '1', '²': '2', '³': '3', '⁴': '4', '⁵': '5', '⁶': '6', '⁷': '7', '⁸': '8', '⁹': '9', 'ⁿ': 'n', '⁺': '+', '⁻': '-' };
+/** "2ⁿ⁺¹ − 1" → "2^(n+1) - 1"; · → *; chữ viết thường n là biến. */
+export const asExpr = t => String(t).replace(/[⁰¹²³⁴⁵⁶⁷⁸⁹ⁿ⁺⁻]+/g, m => `^(${[...m].map(c => SUP[c]).join('')})`).replace(/[·×]/g, '*').replace(/[−–]/g, '-').replace(/\)\s*(?=[0-9n])/g, ')*');   // (n-1)2^n ⇒ (n-1)*2^n
+
+const MAKERS = { sum: makeSum, formula: makeFormula, step: makeStep, closed: makeClosed };
 
 export function makeQuestion(kind = 'mix', rnd = Math.random) {
   const k = kind === 'mix' ? pick(KINDS, rnd) : kind;
@@ -109,6 +124,18 @@ export function makeQuestion(kind = 'mix', rnd = Math.random) {
 }
 
 export function checkAnswer(q, given) {
+  if (q.kind === 'closed') {
+    const S = SUMS.find(x => x.s === q.meta.s);
+    const expr = asExpr(given);
+    for (let n = 1; n <= 12; n++) {
+      const r = evalRows([`n = ${n}`, expr])[1];
+      if (r.kind !== 'value') return { retry: true, detailKey: 'c4q.needExpr' };
+      if (Math.abs(r.value - S.f(n)) > 1e-6 * Math.max(1, Math.abs(S.f(n)))) {
+        return { ok: false, detailKey: 'c4q.dClosed', detailParams: { n, got: String(r.value), want: String(S.f(n)) } };
+      }
+    }
+    return { ok: true };
+  }
   if (q.format === 'choice') return { ok: Number(given) === q.answer };
   const n = parseNumber(given);
   if (n === null) return { retry: true, detailKey: 'run.needNumber' };

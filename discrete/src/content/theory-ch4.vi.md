@@ -63,6 +63,8 @@ Thử giá trị **không chứng minh** được gì, nhưng **bác bỏ** đư
 
 <div data-check="c4q:formula" data-needs="c4q:sum"></div>
 
+<div data-check="c4q:closed" data-needs="c4q:formula"></div>
+
 ## Những chỗ hay sai
 
 - Bỏ bước cơ sở — bước quy nạp đúng mà cơ sở sai thì cả chứng minh sai.

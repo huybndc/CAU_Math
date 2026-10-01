@@ -168,4 +168,33 @@ export function numset(spec, ctx) {
   return { el: box, get: () => (picked.size ? [...picked].sort((a, b) => a - b).join(', ') : '') };
 }
 
-export const SHARED_WIDGETS = { bits, truth, fields, numset };
+/**
+ * Ô gõ công thức kèm hàng phím ký hiệu khó gõ (∀ ∃ ¬ ∧ ∨ →…). spec = { keys: [...] }. Bấm phím chèn tại con trỏ;
+ * gõ ASCII (forall, exists, !, &, |, ->) cũng được — bộ chấm của môn tự chuẩn hoá. Trả về chuỗi đã gõ.
+ */
+export function formula(spec, ctx) {
+  const box = h('div', 'w-formula');
+  const inp = h('input');
+  inp.type = 'text'; inp.autocomplete = 'off'; inp.spellcheck = false;
+  inp.value = ctx.given ?? '';
+  inp.disabled = !!ctx.locked;
+  inp.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); ctx.onSubmit(); } });
+  const keys = h('div', 'w-formula-keys');
+  for (const k of spec.keys ?? []) {
+    const b = h('button', 'w-fkey', k);
+    b.type = 'button';
+    b.disabled = !!ctx.locked;
+    b.addEventListener('mousedown', e => e.preventDefault());                // giữ con trỏ trong ô
+    b.addEventListener('click', () => {
+      const a = inp.selectionStart ?? inp.value.length, z = inp.selectionEnd ?? a;
+      inp.value = inp.value.slice(0, a) + k + inp.value.slice(z);
+      inp.focus();
+      inp.setSelectionRange(a + k.length, a + k.length);
+    });
+    keys.append(b);
+  }
+  box.append(keys, inp);
+  return { el: box, get: () => inp.value, focus: () => inp.focus() };
+}
+
+export const SHARED_WIDGETS = { bits, truth, fields, numset, formula };

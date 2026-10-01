@@ -532,3 +532,8 @@ khác syllabus, lịch học bắt đầu từ 2026/09/01".)
 **D56. Nháp kéo thả / đổi cỡ + ngăn Vẽ (2026-10-01).**
 - Khung Nháp tự do: kéo tiêu đề để dời, kéo mép / góc để đổi cỡ (chuột, bút, ngón tay), bấm đúp tiêu đề để về mặc định; lưu `scratch-geom`. Dính mép phải thì trang chính chừa chỗ, thả nổi thì không. Bỏ các max-height cố định gây chừa trắng; ngăn nào cũng co giãn theo khung.
 - Ngăn Vẽ cho mọi môn: bút áp lực (Apple Pencil), tẩy nét, 4 màu, 2 cỡ, giấy kẻ ô, hoàn tác / làm lại; đã dùng bút thì bỏ qua cảm ứng ngón tay (chống chạm nhầm). Lưu nét theo môn.
+
+**D57. Discrete: thêm dạng tự luận thật để tiến tới 80/20 (2026-10-01).**
+- `negateW` (D2): tự VIẾT phủ định công thức lượng từ, ¬ chỉ đứng trước vị từ (bài HW kiểu "negation applied only to predicates"). Bộ đọc `parseQ` nhận ký hiệu lẫn ASCII (forall, exists, !, &, |, ->, [ ]); chấm bằng tương đương trên diễn giải ngẫu nhiên + kiểm ¬ chỉ ở vị từ. Ô gõ `formula` có hàng phím ∀ ∃ ¬ ∧ ∨ → (shared/ui/widgets.js).
+- `closed` (D4): tự TÌM công thức đóng của tổng; chấm bằng thay n = 1 … 12 qua máy tính danh sách (calc-list), nhận ⁿ · − và nhân ngầm "(n−1)2ⁿ". Lỗi chỉ ra n đầu tiên lệch.
+- Phần chứng minh (suy diễn, phản chứng, tập lũy thừa…) vẫn không tự chấm được — giữ làm gợi ý trong thẻ học (D49).

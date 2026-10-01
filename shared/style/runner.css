@@ -189,3 +189,10 @@ button.link:hover{color:var(--accent)}
 .step-table th.sep,.step-table td.sep{border-left:1px solid var(--line-strong)}
 .step-table tr.mark td{background:color-mix(in srgb,var(--bad) 18%,transparent)}
 .step-table tr.pick td{background:color-mix(in srgb,var(--accent) 16%,transparent)}
+
+/* ô gõ công thức + phím ký hiệu (widgets.js formula) */
+.w-formula{display:grid;gap:8px;width:100%}
+.w-formula input{width:100%;font:600 1.1rem var(--math, var(--mono));padding:10px 12px}
+.w-formula-keys{display:flex;flex-wrap:wrap;gap:5px}
+.w-fkey{min-width:2.3rem;padding:6px 8px;font:500 1.05rem var(--math, var(--mono));border:1px solid var(--line-strong);border-radius:var(--r-sm);background:var(--panel);color:var(--ink);cursor:pointer}
+.w-fkey:hover:not(:disabled){border-color:var(--accent);color:var(--accent)}
