@@ -43,11 +43,11 @@ function renderSetup(cfg) {
   if (cur && !cur.submittedAt) {             // bài đang dở: một việc duy nhất là làm tiếp
     const n = itemsOf(cfg, cur).length;
     const done = cur.given.filter(g => !isBlank(g)).length;
-    const note = [T(cur.mode === 'exam' ? 'exam.modeExam' : 'exam.modeLong'), T('exam.minutes', { m: cur.minutes }),
+    const note = [T(cur.mode === 'exam' ? 'exam.modeExam' : 'exam.modeLong'), cur.mode === 'exam' && T('exam.minutes', { m: cur.minutes }),
       T('exam.done', { a: done, n }), cur.mode === 'exam' && T('exam.left', { t: clock(secondsLeft(cur, Date.now())) })].filter(Boolean).join(' · ');
     host.replaceChildren(...head, leadCard({
       title: T('exam.inProgress'), note, href: '#/exam/run', cta: T('exam.resume'),
-      alt: el('span', { class: 'alt' }, el('a', { href: '#/exam', onClick: e => { e.preventDefault(); drop('exam'); renderSetup(cfg); }, text: T('exam.discard') })),
+      alt: el('span', { class: 'alt' }, el('a', { href: '#/exam', onClick: e => { e.preventDefault(); if (confirm(T('exam.discardAsk'))) { drop('exam'); renderSetup(cfg); } }, text: T('exam.discard') })),
     }), ...pastList());
     return T('nav.exam');
   }
@@ -108,10 +108,10 @@ function pastList() {
   const last = loadExam()?.submittedAt;
   return [el('h2', { class: 'section-label', text: T('exam.history') }), el('div', { class: 'list' }, hist.map(h => row({
     href: h.ts === last ? '#/exam/result' : '#/exam',
-    title: `${T(h.mode === 'exam' ? 'exam.modeExam' : 'exam.modeLong')} · ${T('exam.minutes', { m: h.minutes })}`,
+    title: h.mode === 'exam' ? `${T('exam.modeExam')} · ${T('exam.minutes', { m: h.minutes })}` : T('exam.modeLong'),
     sub: `${date(h.ts)} · ${T('exam.chapters')} ${listOf(h.chapters)}`,
     num: `${h.right}/${h.n}`,
-    acc: accCell({ accuracy: h.n ? h.right / h.n : null, attempts: h.n, scope: 'all' }),
+    acc: accCell({ accuracy: h.n ? h.right / h.n : null, attempts: h.n }),
   })))];
 }
 

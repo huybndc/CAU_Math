@@ -32,6 +32,8 @@ export function accCell(stats) {
   return el('span', { class: 'row-acc', title: accNote(stats) }, [
     el('span', { class: 'meter' }, p !== null && el('i', { style: `width:${p}%` })),
     el('span', { text: p === null ? '—' : `${p}%` }),
+    // nói rõ số này tính trên 7 ngày hay mọi lần — Study Hub (Thống kê) tính mọi lần nên hai nơi dễ tưởng lệch
+    p !== null && stats.scope && el('small', { class: 'acc-scope', text: T(stats.scope === 'week' ? 'practice.scopeWeek' : 'practice.scopeAll') }),
   ]);
 }
 

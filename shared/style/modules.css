@@ -10,6 +10,7 @@
 .mods .entry > :nth-child(3){grid-area:acc}
 .mods .entry > :nth-child(4){grid-area:go}
 .mods .entry > :empty{display:none}
+.acc-scope{flex:none;font-weight:400;opacity:.75}
 
 /* ---------- Công cụ: mỗi chương một module, mỗi công cụ một ô lớn ---------- */
 .tool-ch{margin:0 0 .9rem;padding:1rem 1.1rem 1.1rem;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--panel)}
@@ -44,4 +45,20 @@
   :root[data-nav="min"] .nav-brand b{justify-content:center}
   :root[data-nav="min"] .nav-brand b::after,:root[data-nav="min"] .nav-brand small{display:none}
   :root[data-nav="min"] .tab{justify-content:center;gap:0;padding:.65rem 0}
+}
+
+/* ---------- điện thoại dọc: module vẫn là thẻ (đè luật `.entry` dạng dòng của shell.css), VI/EN + sáng/tối + đồng bộ nổi ở góc trên ---------- */
+@media (max-width:760px) and (orientation:portrait){
+  .list.mods{grid-template-columns:1fr}
+  .mods .entry{display:grid;padding:.85rem .9rem}
+  .mods .entry > :nth-child(2){display:block}
+  .mods .entry > :nth-child(3){display:flex}
+  .mods .entry > :last-child{margin-left:0}
+  .mods .entry > :empty{display:none}
+  .tool-chips{display:grid;overflow:visible}
+  .appnav{backdrop-filter:none;-webkit-backdrop-filter:none;background:var(--side)}   /* backdrop-filter làm con `fixed` dính theo thanh dưới */
+  .appnav-foot{display:flex;position:fixed;top:calc(8px + env(safe-area-inset-top));right:10px;z-index:15;gap:6px;padding:0}
+  #app{padding-top:2.9rem}
+  .term-track li span{font-size:.68rem}
+  .term-track li.now span{transform:translateX(-68%)}      /* "Tuần 5" không dính "Giữa kỳ" */
 }
