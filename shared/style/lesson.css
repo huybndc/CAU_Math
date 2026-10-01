@@ -72,3 +72,8 @@ a.btn{text-decoration:none}
   .lesson-body{font-size:1rem}
   .lesson-nav .btn span{max-width:14ch}
 }
+/* khối ```math: mỗi dòng một hàng, cuộn ngang trong khung nếu quá rộng */
+.math-block{margin:.9rem 0;padding:.7rem 1rem;background:var(--panel2);border-radius:var(--r-md);overflow-x:auto}
+.math-line{white-space:nowrap;line-height:1.9;font-size:var(--fs-base, 1rem)}
+.math-line .mat{font-size:1rem}
+.lesson-body p .mat{font-size:.95em}

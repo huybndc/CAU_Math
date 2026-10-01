@@ -1,6 +1,6 @@
 import { el } from './dom-helpers.js';
 import { renderMatrix } from './matrix-view.js';
-import { parseNumber } from '../logic/answer-check.js';
+import { vec, matrix } from './answer-widgets.js';
 
 /* ---------------------------------------------------------------
    HÌNH & Ô TRẢ LỜI cho câu tự sinh (shared/ui/question.js gọi theo q.figure.type / q.input.type).
@@ -27,41 +27,5 @@ export function system(spec) {
   return box;
 }
 
-export function matrix(spec, ctx) {
-  const old = String(ctx.given ?? '').replace(/[[\]]/g, '').split(';').map(r => r.trim().split(/\s+/));
-  const want = ctx.locked && Array.isArray(ctx.answer) ? ctx.answer : null;
-  const g = el('div', 'matgrid');
-  g.style.gridTemplateColumns = `repeat(${spec.cols}, auto)`;
-  const inputs = [];
-  for (let i = 0; i < spec.rows; i++) {
-    for (let j = 0; j < spec.cols; j++) {
-      const inp = el('input');
-      inp.type = 'text';
-      inp.autocomplete = 'off';
-      inp.inputMode = 'decimal';
-      inp.setAttribute('aria-label', `(${i + 1}, ${j + 1})`);
-      inp.value = old[i]?.[j] ?? '';
-      inp.disabled = !!ctx.locked;
-      if (want) {
-        const v = parseNumber(inp.value);
-        inp.classList.add(v !== null && Math.abs(v - want[i][j]) < 1e-6 ? 'good' : 'bad');
-      }
-      inp.addEventListener('keydown', e => {
-        if (e.key === 'Enter') { e.preventDefault(); ctx.onSubmit(); }
-      });
-      inputs.push(inp);
-      g.append(inp);
-    }
-  }
-  const box = el('div', 'matbox w-matrix');
-  box.append(el('div', 'brk'), g, el('div', 'brk r'));
-  return {
-    el: box,
-    get: () => (inputs.every(x => x.value.trim())
-      ? '[' + [...Array(spec.rows).keys()].map(i => inputs.slice(i * spec.cols, (i + 1) * spec.cols).map(x => x.value.trim()).join(' ')).join('; ') + ']'
-      : ''),
-  };
-}
-
 export const FIGURES = { mats, system };
-export const WIDGETS = { matrix };
+export const WIDGETS = { matrix, vec };

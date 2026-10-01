@@ -147,7 +147,7 @@ function makeAngle(rnd) {
   const S1 = sum(v.map(x => x * x)), S2 = sum(w.map(x => x * x));
   return {
     textKey: 'c1q.qAngle', textParams: { v: fmtVec(v), w: fmtVec(w) },
-    answer: deg, tol: 0.5, hintKey: 'c1q.hAngle', meta: { v, w },
+    answer: deg, tol: 0.5, angle: true, hintKey: 'c1q.hAngle', meta: { v, w },
     work: [
       `v·w = ${v.map((x, i) => `${P(x)}·${P(w[i])}`).join(' + ')} = ${d}`,
       `‖v‖ = ${root(S1)},  ‖w‖ = ${root(S2)}`,
@@ -216,7 +216,7 @@ function makeCoefs(rnd) {
   const b = v.map((x, i) => c * x + d * w[i]);
   return {
     textKey: 'c1q.qCoefs', textParams: { v: fmtVec(v), w: fmtVec(w), b: fmtVec(b) },
-    answer: [c, d], hintKey: 'c1q.hCoefs', meta: { v, w, b },
+    answer: [c, d], hintKey: 'c1q.hCoefs', input: { type: 'vec', n: 2, orient: 'row', labels: ['c', 'd'] }, meta: { v, w, b },
     work: [
       L('c1q.sCoefsSys', {}, `${fmt(v[0])}c + ${P(w[0])}d = ${b[0]},   ${fmt(v[1])}c + ${P(w[1])}d = ${b[1]}`),
       ...elimLines([[v[0], w[0]], [v[1], w[1]]], b),

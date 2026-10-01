@@ -11,6 +11,8 @@ export const quiz = {
   'c3q.g-null': 'Nghiệm Ax = 0 và Ax = b',
   'c3q.g-dim': 'Hạng & số chiều',
   /* ---------- chung ---------- */
+  'la.noteAngle': 'Góc tính bằng ĐỘ: gõ 45 hoặc 45°. Muốn dùng radian thì viết kèm π (vd π/4). Sai lệch tối đa {tol}°.',
+  'la.noteTol': 'Số không nguyên: viết dạng chính xác (1/3, √5) hoặc thập phân — sai lệch tối đa {tol} mỗi số (làm tròn 2 chữ số là đủ).',
   'la.needNums': 'Chưa đọc được số nào — viết số, phân số (1/2) hoặc căn (√5), cách nhau bằng dấu phẩy.',
   'la.needCount': 'Đáp án cần {n} số, bạn đang ghi {got} số.',
   'la.dValue': 'Bạn ra {got} — chưa đúng. Xem lời giải từng bước bên dưới.',
@@ -36,14 +38,14 @@ export const quiz = {
   'c1q.qMatVec': 'Tính Ax bằng cách xem Ax là tổ hợp các cột của A.',
   'c1q.qCoefs': 'Tìm c, d sao cho c·{v} + d·{w} = {b}.',
 
-  'c1q.f_combine': 'Trả lời: vector kết quả, vd 3, -2 (có ngoặc hay không đều được).',
+  'c1q.f_combine': 'Điền từng thành phần của vector kết quả (phân số viết 1/2).',
   'c1q.f_dot': 'Trả lời: một số.',
   'c1q.f_length': 'Trả lời: một số — gõ sqrt(13) hoặc √13, hoặc số thập phân 2 chữ số.',
-  'c1q.f_unit': 'Trả lời: các toạ độ của u, vd 3/5, 4/5.',
-  'c1q.f_angle': 'Trả lời: số độ, vd 45.',
+  'c1q.f_unit': 'Điền từng thành phần của u (viết 3/5 hoặc 1/√2 đều được).',
+  'c1q.f_angle': 'Trả lời: góc θ theo độ (vd 45), hoặc radian nếu viết π (vd π/4).',
   'c1q.f_perp': 'Trả lời: giá trị của c (phân số viết 3/2).',
-  'c1q.f_matvec': 'Trả lời: vector Ax, vd 1, -4, 2.',
-  'c1q.f_coefs': 'Trả lời: c, d theo đúng thứ tự, vd 2, -1.',
+  'c1q.f_matvec': 'Điền từng thành phần của vector Ax.',
+  'c1q.f_coefs': 'Điền c và d.',
 
   'c1q.hCombine': 'Nhân từng vector với hệ số của nó, rồi cộng theo từng toạ độ.',
   'c1q.hDot': 'Nhân các toạ độ cùng vị trí rồi cộng lại — kết quả là MỘT SỐ.',
@@ -102,9 +104,9 @@ export const quiz = {
   'c2q.qInverse': 'Tìm A⁻¹.',
   'c2q.qXtAy': 'Với x = {x} và y = {y}, tính số xᵀAy.',
 
-  'c2q.f_solve2': 'Trả lời: nghiệm theo thứ tự {vars}, vd 2, -1.',
-  'c2q.f_solve3': 'Trả lời: nghiệm theo thứ tự {vars}, vd 2, -1, 0.',
-  'c2q.f_pivots': 'Trả lời: ba trụ theo thứ tự từ trên xuống, vd 2, -1, 3.',
+  'c2q.f_solve2': 'Điền nghiệm {vars}.',
+  'c2q.f_solve3': 'Điền nghiệm {vars}.',
+  'c2q.f_pivots': 'Điền ba trụ theo thứ tự từ trên xuống.',
   'c2q.f_lu': 'Trả lời: điền ba hệ số nhân (phân số viết 1/2).',
   'c2q.f_matmul': 'Trả lời: điền từng ô của AB.',
   'c2q.f_entry': 'Trả lời: một số.',
@@ -182,8 +184,8 @@ export const quiz = {
 
   'c3q.f_rank': 'Trả lời: một số nguyên.',
   'c3q.f_nulldim': 'Trả lời: một số nguyên.',
-  'c3q.f_special': 'Trả lời: vector s theo thứ tự x₁, x₂, …, vd -2, 1, 0.',
-  'c3q.f_particular': 'Trả lời: vector xₚ theo thứ tự x₁, x₂, … (nhớ {free} = 0).',
+  'c3q.f_special': 'Điền từng thành phần của vector s (theo thứ tự x₁, x₂, …).',
+  'c3q.f_particular': 'Điền từng thành phần của xₚ (nhớ {free} = 0).',
   'c3q.f_dims': 'Trả lời: điền bốn số.',
 
   'c3q.hIndependent': 'Xếp các vector thành cột rồi khử: hạng = số vector ⇔ độc lập.',

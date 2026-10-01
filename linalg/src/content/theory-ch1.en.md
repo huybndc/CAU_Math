@@ -9,9 +9,8 @@ addition** and **multiplication by a number**.
 
 A vector in `R²` is an ordered pair of numbers, written as a column:
 
-```
-v = [ 2 ]      w = [ -1 ]
-    [ 1 ]          [  3 ]
+```math
+v = [2; 1]      w = [-1; 3]
 ```
 
 There are three ways to look at the same vector `v = (2, 1)`, and all three are
@@ -35,12 +34,9 @@ can no longer draw it, but not one letter of the algebra changes.
 
 Both operations work **componentwise**:
 
-```
-v + w = [ 2 ] + [ -1 ] = [ 2 + (-1) ] = [ 1 ]
-        [ 1 ]   [  3 ]   [ 1 +   3  ]   [ 4 ]
-
-2v    = 2·[ 2 ] = [ 4 ]        -v = [ -2 ]
-          [ 1 ]   [ 2 ]             [ -1 ]
+```math
+v + w = [2; 1] + [-1; 3] = [2+(-1); 1+3] = [1; 4]
+2v = 2·[2; 1] = [4; 2]        -v = [-2; -1]
 ```
 
 Geometrically, `v + w` is the diagonal of the parallelogram built from `v` and

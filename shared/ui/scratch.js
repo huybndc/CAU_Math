@@ -1,5 +1,6 @@
 import { onLangChange, t as T } from '../i18n/index.js';
 import { evaluate, show } from '../logic/calc.js';
+import { mountMatrixPad } from './scratch-matrix.js';
 
 /* ---------------------------------------------------------------
    NHÁP: ngăn kéo bên phải để tính tay khi giải bài.
@@ -31,9 +32,14 @@ export function setupScratch() {
     + '<section class="calc"><div class="calc-bases" role="group"></div>'
     + '<input type="text" class="calc-in" spellcheck="false" autocomplete="off">'
     + '<p class="calc-err" hidden></p><dl class="calc-out"></dl></section>'
+    + '<details class="scratch-mat" open><summary></summary><div class="mp-host"></div></details>'
     + '<div class="scratch-syms"></div><textarea spellcheck="false"></textarea>';
   const [title, clear, close, ta, bases, inp, errEl, out, syms] =
     ['b', '.link', '.scratch-x', 'textarea', '.calc-bases', '.calc-in', '.calc-err', '.calc-out', '.scratch-syms'].map(s => pane.querySelector(s));
+
+  // lưới ma trận: chỉ môn Đại số tuyến tính
+  const matSec = pane.querySelector('.scratch-mat');
+  if (subject === 'linalg') mountMatrixPad(matSec.querySelector('.mp-host'), 'scratch-mat:' + subject); else matSec.remove();
 
   try { ta.value = localStorage.getItem(key) || ''; } catch { /* chế độ riêng tư */ }
   const save = () => { try { localStorage.setItem(key, ta.value); } catch { /* đầy/riêng tư */ } };
@@ -112,6 +118,7 @@ export function setupScratch() {
     clear.textContent = T('shell.scratchClear');
     close.setAttribute('aria-label', T('shell.close'));
     ta.placeholder = T('shell.scratchPh');
+    if (matSec.parentNode) matSec.querySelector('summary').textContent = T('scratch.matrix');
     syms.title = T('calc.syms');
     drawBases();
     calc();

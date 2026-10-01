@@ -9,9 +9,8 @@ với một số**.
 
 Một vector trong `R²` là một cặp số có thứ tự, viết dọc thành cột:
 
-```
-v = [ 2 ]      w = [ -1 ]
-    [ 1 ]          [  3 ]
+```math
+v = [2; 1]      w = [-1; 3]
 ```
 
 Có ba cách nhìn cùng một vector `v = (2, 1)`, và cả ba đều đúng:
@@ -33,12 +32,9 @@ phần — không vẽ ra được nữa, nhưng phép toán thì không đổi 
 
 Cả hai phép toán đều làm **theo từng thành phần**:
 
-```
-v + w = [ 2 ] + [ -1 ] = [ 2 + (-1) ] = [ 1 ]
-        [ 1 ]   [  3 ]   [ 1 +   3  ]   [ 4 ]
-
-2v    = 2·[ 2 ] = [ 4 ]        -v = [ -2 ]
-          [ 1 ]   [ 2 ]             [ -1 ]
+```math
+v + w = [2; 1] + [-1; 3] = [2+(-1); 1+3] = [1; 4]
+2v = 2·[2; 1] = [4; 2]        -v = [-2; -1]
 ```
 
 Về hình học, `v + w` là đường chéo của hình bình hành dựng bởi `v` và `w`. Có

@@ -25,12 +25,24 @@ const same = (a, b, tol) => a.length === b.length && a.every((x, i) => Math.abs(
 export const mistake = (value, key, params = {}) => ({ value, key, params });
 
 /** Chấm câu tính toán: { ok } | { retry, detailKey } | sai kèm chẩn đoán. */
+/** Sai số mặc định: đáp án toàn số nguyên ⇒ chặt; có số lẻ (phân số, căn) ⇒ cho phép thập phân làm tròn 2 chữ số. */
+export const tolOf = q => q.tol ?? (flat(q.answer).every(Number.isInteger) ? 1e-6 : 0.01);
+
+/** Câu hỏi góc (q.angle): mặc định là độ; có π / pi / rad thì hiểu là radian và đổi sang độ. */
+const RAD = /π|pi|rad/i;
+export function toDegrees(given) {
+  const s = String(given ?? '');
+  if (!RAD.test(s)) return s;
+  const n = parseNumbers(s.replace(/rad(ians?)?/gi, '').replace(/\bpi\b/gi, 'π'));
+  return n && n.length === 1 ? String(n[0] * 180 / Math.PI) : s;
+}
+
 export function gradeValue(q, given) {
   const want = flat(q.answer);
-  const got = parseNumbers(given);
+  const got = parseNumbers(q.angle ? toDegrees(given) : given);
   if (!got) return { retry: true, detailKey: 'la.needNums' };
   if (got.length !== want.length) return { retry: true, detailKey: 'la.needCount', detailParams: { n: want.length, got: got.length } };
-  const tol = q.tol ?? 1e-6;
+  const tol = tolOf(q);
   if (same(got, want, tol)) return { ok: true };
   for (const m of q.mistakes || []) {
     if (same(got, flat(m.value), tol)) return { ok: false, detailKey: m.key, detailParams: m.params };
@@ -93,6 +105,13 @@ export function makeWith(MAKERS, KINDS, prefix) {
     const q = make(rnd);
     q.kind = k;
     q.format ??= Array.isArray(q.answer) ? 'vector' : 'number';
+    if (q.format === 'vector' && !isMat(q.answer)) q.input ??= { type: 'vec', n: q.answer.length };
+    if (q.input && (q.input.type === 'vec' || q.input.type === 'matrix')) q.input.tol ??= tolOf(q);
+    if (q.format !== 'choice') {                            // dòng nói rõ cách viết số lẻ / góc được chấp nhận
+      if (q.angle) q.noteKey = 'la.noteAngle';
+      else if (!flat(q.answer).every(Number.isInteger)) q.noteKey = 'la.noteTol';
+      q.noteParams = { tol: fmt(tolOf(q)) };
+    }
     q.formatKey ??= q.format === 'choice' ? 'run.fChoice' : `${prefix}.f_${k}`;
     if (q.format === 'choice') q.formatParams ??= { n: q.choices.length };
     if (q.format !== 'choice') q.answerText ??= show(q.answer);

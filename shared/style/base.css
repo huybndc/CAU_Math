@@ -149,3 +149,12 @@ table.grid tbody tr:hover td{background:var(--panel2)}
 
 /* tiêu đề một phần trong tab (ngoài panel) */
 .section-title{font-size:var(--fs-lg);font-weight:600;margin:34px 0 14px}
+
+/* thẻ gập (shared/ui/fold-cards.js) */
+.card.fold{padding:0}
+.card.fold > summary{display:flex;align-items:center;gap:.6rem;padding:1rem 1.25rem;cursor:pointer;list-style:none}
+.card.fold > summary::-webkit-details-marker{display:none}
+.card.fold > summary::after{content:"▾";margin-left:auto;color:var(--ink-dim)}
+.card.fold[open] > summary::after{content:"▴"}
+.card.fold > summary h2{margin:0}
+.card.fold > .fold-body{padding:0 1.25rem 1.25rem}

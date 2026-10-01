@@ -65,6 +65,7 @@ export function submitExam(cfg, st, timeout = false) {
   go({ view: 'exam', step: 'result' });
 }
 
+let palOpen = false;   // danh sách câu đang mở?
 let view = null;       // câu đang hiện: { seed, i, get, locked }
 let warn = null;
 let timer = 0;
@@ -152,10 +153,12 @@ export function renderExamRun(cfg) {
         !timed && st.checked[j] === true && 'ok', !timed && st.checked[j] === false && 'bad'].filter(Boolean).join(' ');
       return el('button', { type: 'button', class: cls, 'aria-current': j === i ? 'true' : null, onClick: () => moveTo(j) }, String(j + 1));
     };
-    const pal = el('nav', { class: 'exam-pal', 'aria-label': T('exam.answered', { a: answered, n }) }, [
-      ...groups.map(g => [el('small', { text: T('shell.chapter', { n: chNo(g.ch) }) }), el('div', { class: 'pal-grid' }, g.idx.map(cell))]),
-      el('p', { class: 'pal-note' }, [T('exam.answered', { a: answered, n }), flags ? ` · ${T('exam.flags', { f: flags })}` : '']),
+    // danh sách câu: thu gọn mặc định (48 ô chiếm cả màn); mở ra khi cần nhảy câu, nhớ trạng thái qua các lần vẽ lại
+    const pal = el('details', { class: 'exam-pal', open: palOpen }, [
+      el('summary', {}, [T('exam.list'), el('small', { text: [T('exam.answered', { a: answered, n }), flags && T('exam.flags', { f: flags })].filter(Boolean).join(' · ') })]),
+      el('nav', { 'aria-label': T('exam.list') }, groups.map(g => [el('small', { text: T('shell.chapter', { n: chNo(g.ch) }) }), el('div', { class: 'pal-grid' }, g.idx.map(cell))])),
     ]);
+    pal.addEventListener('toggle', () => { palOpen = pal.open; });
 
     /* câu đang làm */
     const flagBtn = el('button', {

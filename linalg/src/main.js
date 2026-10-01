@@ -1,6 +1,7 @@
 import { onLangChange, getLang } from './i18n/index.js';
 import { setupShell } from '@shared/ui/shell.js';
 import { mountLesson } from '@shared/ui/lesson.js';
+import { foldCards } from '@shared/ui/fold-cards.js';
 import * as ch1Quiz from './logic/ch1-quiz.js';
 import * as ch2Quiz from './logic/ch2-quiz.js';
 import * as ch3Quiz from './logic/ch3-quiz.js';
@@ -46,6 +47,9 @@ window.addEventListener('DOMContentLoaded', () => {
   setupCh3ExamplePage();
   setupCh3SpacesPage();
   setupCh3InteractivePage();
+
+  // trang Ví dụ / Công cụ: các thẻ xếp dọc ⇒ gập, chỉ thẻ đầu mở
+  document.querySelectorAll('.pane[id$="-example"], .pane[id$="-interactive"]').forEach(foldCards);
 
   const mountAllTheory = () => {
     const d = THEORY[getLang()];
