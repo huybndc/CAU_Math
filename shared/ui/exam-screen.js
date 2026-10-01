@@ -127,7 +127,8 @@ function renderResult(cfg) {
   const facts = [st.mode === 'exam' && (st.timeout ? T('exam.timeout') : T('exam.used', { m: Math.max(1, Math.round((st.submittedAt - st.startedAt) / 60000)) })),
     blank && T('exam.blank', { n: blank })].filter(Boolean).join(' · ');
 
-  const review = items.map((it, i) => ({ it, i, r: res[i] })).filter(x => !x.r.ok).map(({ it, i, r }) => {
+  const wrongs = items.map((it, i) => ({ it, i, r: res[i] })).filter(x => !x.r.ok);
+  const review = wrongs.map(({ it, i, r }) => {
     const d = el('details', { class: 'review' }, el('summary', {}, [
       el('b', { class: 'mono', text: String(i + 1) }),
       el('span', { text: `${T(kindKey(it))} · ${T('shell.chapter', { n: chNo(it.ch) })}` }),
@@ -140,8 +141,28 @@ function renderResult(cfg) {
       const typed = !r.blank && it.q.format !== 'choice' && !it.q.input;
       d.append(el('div', { class: 'review-body' }, [...qv.nodes, typed && el('p', { class: 'small muted', html: T('exam.yours', { given: escapeHtml(st.given[i]) }) }), verdict(it, st.given[i])]));
     });
+    d.dataset.ch = it.ch;
     return d;
   });
+  /** Mục gập: tiêu đề + số đếm, chỉ mở thứ đang cần xem. */
+  const fold = (title, count, body, open = false) => el('details', { class: 'exam-fold', open }, [
+    el('summary', {}, [el('b', { text: title }), count != null && el('span', { class: 'tag', text: String(count) })]), body]);
+  // xem lại câu sai: mỗi lần chỉ một chương (như thẻ Part bên Toeic), mỗi câu gập sẵn
+  const chIds = [...new Set(wrongs.map(x => x.it.ch))];
+  const reviewBox = () => {
+    let cur = chIds[0];
+    const box = el('div', { class: 'reviews-box' });
+    const draw = () => {
+      review.forEach(d => { d.hidden = d.dataset.ch !== cur; });
+      box.replaceChildren(
+        chIds.length > 1 && el('div', { class: 'chapter-bar', role: 'group' }, chIds.map(id => el('button', {
+          type: 'button', 'aria-pressed': String(id === cur), onClick: () => { cur = id; draw(); },
+        }, `${chapterTitle(id)} (${wrongs.filter(x => x.it.ch === id).length})`))),
+        el('div', { class: 'reviews' }, review));
+    };
+    draw();
+    return box;
+  };
 
   $('#screen-exam').replaceChildren(...[
     el('a', { class: 'back', href: '#/exam', 'data-icon': 'prev', text: T('nav.exam') }),
@@ -154,11 +175,10 @@ function renderResult(cfg) {
       weak[0] && el('a', { class: 'btn', href: `#/practice/${weak[0].item.ch}/${weak[0].item.q.kind}` }, T('exam.drill')),
       el('a', { class: 'btn primary', href: '#/exam' }, T('exam.again')),
     ]),
-    el('h2', { class: 'section-label', text: T('exam.byChapter') }),
-    el('div', { class: 'list' }, tally(items, res, it => it.ch).map(v => row({
+    fold(T('exam.byChapter'), null, el('div', { class: 'list' }, tally(items, res, it => it.ch).map(v => row({
       href: `#/practice/${v.key}`, title: chapterTitle(v.key), num: `${v.ok}/${v.n}`, acc: acc(v),
-    }))),
-    el('h2', { class: 'section-label', text: T('exam.weakKinds') }),
+    })))),
+    fold(T('exam.weakKinds'), weak.length || null,
     // dạng còn sai → mở đúng thẻ bài học để ôn (thẻ có câu thử của dạng đó); luyện riêng thì dùng nút phía trên
     weak.length ? el('div', { class: 'list' }, weak.map(v => {
       const rv = reviewOf(cfg, v.item.prefix, v.item.q.kind, v.item.q.review);
@@ -172,8 +192,8 @@ function renderResult(cfg) {
       });
       if (go) a.addEventListener('click', go.open);
       return a;
-    })) : el('p', { class: 'muted', text: T('exam.noWeak') }),
-    review.length ? [el('h2', { class: 'section-label', text: T('exam.review') }), el('div', { class: 'reviews' }, review)] : [],
+    })) : el('p', { class: 'muted', text: T('exam.noWeak') }), weak.length <= 5),
+    review.length ? fold(T('exam.review'), review.length, reviewBox()) : [],
   ].flat());
   return T('exam.result');
 }

@@ -162,6 +162,7 @@ export const en = {
   'exam.flagged': 'Flagged',
   'exam.prev': 'Previous',
   'exam.next': 'Next',
+  'exam.list': 'Question list',
   'exam.answered': '{a}/{n} answered',
   'exam.flags': '{f} flagged',
   'exam.clockShow': 'Show time',

@@ -162,6 +162,7 @@ export const vi = {
   'exam.flagged': 'Đã gắn cờ',
   'exam.prev': 'Câu trước',
   'exam.next': 'Câu sau',
+  'exam.list': 'Danh sách câu',
   'exam.answered': 'Đã làm {a}/{n}',
   'exam.flags': '{f} gắn cờ',
   'exam.clockShow': 'Hiện giờ',
