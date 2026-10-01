@@ -1,3 +1,4 @@
+import { splitFractions } from '../logic/fractions.js';
 import { t as T } from '../i18n/index.js';
 import { SHARED_WIDGETS } from './widgets.js';
 import { h, ht } from './dom.js';
@@ -109,15 +110,25 @@ export function questionView(q, { figures = {}, widgets = {}, given = null, lock
   return { nodes: [h('p', 'run-q', T(q.textKey, tp(q.textParams))), fmt, note, work].filter(Boolean), get: () => get() };
 }
 
+/** Chuỗi toán → các nút: chữ thường + phân số xếp hai hàng (tử trên mẫu) — shared/logic/fractions.js. */
+function fracNodes(text) {
+  return splitFractions(text.replace(/−(?=\d+\/\d)/g, '-')).map(p => {
+    if (typeof p === 'string') return p;
+    const f = h('span', 'frac');
+    f.append(ht('span', null, p.n), ht('span', null, p.d));
+    return f;
+  });
+}
+
 /** Dòng toán: có biến chữ ⇒ phông biểu thức như sách (x′y); chỉ số / bit ⇒ phông mono cho thẳng cột. */
 export function mathSpan(s) {
   const e = h('span', /[a-zA-Z]/.test(s.replace(/[ABCDEF]/g, '')) ? 'step-math' : 'mono');
   // ma trận '[1 2; 3 4]' (LinAlg) vẽ thành lưới có ngoặc, cột sau '|' có vạch ngăn
   for (const part of splitMatrices(s)) {
-    if (typeof part === 'string') { e.append(prime(part)); continue; }
+    if (typeof part === 'string') { e.append(...fracNodes(prime(part))); continue; }
     const g = h('span', 'mat');
     g.style.gridTemplateColumns = `repeat(${part.rows[0].length}, auto)`;
-    part.rows.forEach(r => r.forEach((x, j) => g.append(ht('span', j === part.bar ? 'bar' : null, x.replace('-', '−')))));
+    part.rows.forEach(r => r.forEach((x, j) => { const c = h('span', j === part.bar ? 'bar' : null); c.append(...fracNodes(x.replace('-', '−'))); g.append(c); }));
     e.append(g);
   }
   return e;

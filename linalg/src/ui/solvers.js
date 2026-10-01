@@ -7,6 +7,7 @@ import { matrixReport, OPS, NEEDS_B } from '../logic/report-matrix.js';
 import { spaceReport } from '../logic/report-space.js';
 import { randMatrix, randInvertible, randSystem, randVectorPair, randCombo, randLowRank } from '../logic/random-input.js';
 import { matrixInput } from './matrix-input.js';
+import { withFractionMode } from '../logic/num-format.js';
 import { glossary } from './glossary.js';
 import { load, save } from '@shared/ui/store.js';
 
@@ -18,7 +19,7 @@ import { load, save } from '@shared/ui/store.js';
 
 const colsOf = M => M[0].map((_, j) => M.map(row => row[j]));      // cột → vector
 /** Chạy tính toán; ngoại lệ có khoá từ điển ⇒ hiện thông báo thân thiện. */
-const guard = (s, fn) => { try { s.show(fn()); } catch (e) { s.error(tError(e)); } };
+const guard = (s, fn) => { try { s.show(withFractionMode(fn)); } catch (e) { s.error(tError(e)); } };      // phân số viết hai hàng, không thập phân
 /** Đọc lưới; trả null (và báo lỗi / xoá kết quả) nếu chưa dùng được. */
 function readGrid(mi, s) {
   const r = mi.read();
