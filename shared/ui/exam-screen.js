@@ -58,6 +58,7 @@ function renderSetup(cfg) {
     chapters: (pref.chapters ?? studiedScope(cfg)).filter(id => banked(cfg).some(c => c.id === id)),
     minutes: EXAM_MINUTES.includes(pref.minutes) ? pref.minutes : 90,
     mode: pref.mode === 'long' ? 'long' : 'exam',
+    order: pref.order === 'random' ? 'random' : 'part',          // mặc định: chia theo Part (dễ → khó, như đề thi thật)
   };
   if (!S.chapters.length) S.chapters = midScope(cfg);
   seed ||= Math.floor(Math.random() * 2 ** 31);
