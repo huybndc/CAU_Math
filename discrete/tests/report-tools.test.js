@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { truthReport, euclidReport, congruenceReport, powReport } from '../src/logic/report-tools.js';
+import { truthReport, euclidReport, congruenceReport, diophantineReport, powReport } from '../src/logic/report-tools.js';
 import { gcd } from '../src/logic/number-theory.js';
 
 describe('euclidReport', () => {
@@ -19,6 +19,22 @@ describe('congruenceReport', () => {
       const r = congruenceReport(a, b, n);
       if (!sols.length) { expect(r.answer[0].key).toBe('dr.noSol'); continue; }
       for (let x = -n; x < 2 * n; x++) expect(r.check(String(x)), `${a}x≡${b} (${n}) x=${x}`).toBe(((a * x - b) % n + n) % n === 0);
+    }
+  });
+});
+
+describe('diophantineReport', () => {
+  it('khớp vét cạn: nghiệm không âm và check', () => {
+    for (let a = 1; a <= 9; a++) for (let b = 1; b <= 9; b++) for (let c = 0; c <= 40; c += 3) {
+      const r = diophantineReport(a, b, c);
+      const brute = [];
+      for (let x = 0; x * a <= c; x++) if ((c - a * x) % b === 0) brute.push(`(${x}, ${(c - a * x) / b})`);
+      if (!brute.length && r.answer.length === 2) expect(r.answer[1].key, `${a},${b},${c}`).toBe('dr.diNoNonNeg');
+      if (r.answer[0].key === 'dr.noSol2') { expect(brute.length).toBe(0); continue; }
+      if (brute.length) { const got = r.answer[1].m.split('  '); expect(got).toEqual(brute.slice(0, Math.min(12, brute.length))); }
+      const x0 = brute.length ? +brute[0].match(/\d+/g)[0] : 0;
+      if (brute.length) expect(r.check(`${x0}, ${(c - a * x0) / b}`)).toBe(true);
+      expect(r.check('0, 0')).toBe(c === 0);
     }
   });
 });
@@ -50,7 +66,7 @@ describe('từ điển', () => {
     const slots = s => [...String(s).matchAll(/\{(\w+)\}/g)].map(m => m[1]).sort();
     for (const k of Object.keys(vi)) expect(slots(en[k]), k).toEqual(slots(vi[k]));
     const samples = [truthReport('p -> q', '~p | q'), truthReport('p & q', 'p | q'), euclidReport(259, 70), euclidReport(84, 36), congruenceReport(7, 3, 15),
-      congruenceReport(6, 4, 10), congruenceReport(6, 3, 10), powReport(7, 45, 13)];
+      congruenceReport(6, 4, 10), congruenceReport(6, 3, 10), powReport(7, 45, 13), diophantineReport(7, 5, 53), diophantineReport(6, 9, 20)];
     const need = [...new Set(samples.flatMap(keysOf))];
     expect(need.filter(k => !(k in vi)), 'thiếu ở vi').toEqual([]);
   });
