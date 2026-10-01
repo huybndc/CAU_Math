@@ -537,3 +537,5 @@ khác syllabus, lịch học bắt đầu từ 2026/09/01".)
 - `negateW` (D2): tự VIẾT phủ định công thức lượng từ, ¬ chỉ đứng trước vị từ (bài HW kiểu "negation applied only to predicates"). Bộ đọc `parseQ` nhận ký hiệu lẫn ASCII (forall, exists, !, &, |, ->, [ ]); chấm bằng tương đương trên diễn giải ngẫu nhiên + kiểm ¬ chỉ ở vị từ. Ô gõ `formula` có hàng phím ∀ ∃ ¬ ∧ ∨ → (shared/ui/widgets.js).
 - `closed` (D4): tự TÌM công thức đóng của tổng; chấm bằng thay n = 1 … 12 qua máy tính danh sách (calc-list), nhận ⁿ · − và nhân ngầm "(n−1)2ⁿ". Lỗi chỉ ra n đầu tiên lệch.
 - Phần chứng minh (suy diễn, phản chứng, tập lũy thừa…) vẫn không tự chấm được — giữ làm gợi ý trong thẻ học (D49).
+
+**D56b. Nháp là cửa sổ nổi, không đẩy nội dung (2026-10-01).** Bỏ `--scratch-push` / `margin-right` của #app: kéo Nháp thì trang bên dưới đứng yên (bản trước làm nội dung nhảy sang phải khi khung thả nổi). Cần xem được nội dung bị che thì kéo / thu nhỏ khung.
