@@ -25,6 +25,8 @@ export const quiz = {
   'c1q.parity': 'Bit parity',
 
   'c1q.qConvert': 'Đổi số <span class="mono">{src}</span> đang viết ở hệ {from} sang hệ {to}.',
+  'c1q.hConvertToDec': 'Nhân mỗi chữ số với lũy thừa của {from} (từ phải sang trái: 1, {from}, {from}², …) rồi cộng lại.',
+  'c1q.hConvertGroup': 'Đổi qua nhị phân: mỗi chữ số hệ 8 là 3 bit, hệ 16 là 4 bit; rồi gộp nhóm lại theo hệ cần đổi.',
   'c1q.hConvert': 'Chia liên tiếp cho {to}, đọc số dư từ dưới lên. Giữa 2, 8, 16 thì gộp nhóm 3 hoặc 4 bit cho nhanh.',
   'c1q.xConvert': 'Qua thập phân: <span class="mono">({src})<sub>{from}</sub> = {dec}</span>. Rồi đổi sang cơ số {to}: <span class="mono">({answer})<sub>{to}</sub></span>.',
 
@@ -88,6 +90,7 @@ export const quiz = {
   'c1q.dLen': 'Đáp án có {want} chữ số, bạn ghi {got}. Kiểm tra lại số chữ số hoặc số 0 đệm.',
   'c1q.dWrongBase': 'Dãy bạn ghi đúng là số này nhưng ở cơ số {b}. Đề hỏi cơ số {to}: bước cuối chưa đổi sang cơ số {to}.',
   'c1q.dBadDigit': 'Chữ số <b class="mono">{ch}</b> không có ở cơ số {to} (chỉ dùng 0 … {top}).',
+  'c1q.dValueDec': 'Bạn ghi <b class="mono">{given}</b>, còn giá trị đúng của số cần đổi là {want}. Đối chiếu với các bước tính bên dưới để tìm chỗ lệch.',
   'c1q.dValue': 'Dãy <b class="mono">{given}</b> ở cơ số {to} có giá trị {got} (thập phân), còn số cần đổi là {want}. Đối chiếu với các bước tính bên dưới để tìm chỗ lệch.',
   'c1q.dNoPlus1': 'Đây mới là bù {r1} (đảo từng chữ số). Bù r còn phải <b>cộng thêm 1</b>.',
   'c1q.dExtra1': 'Đây là bù r (đã cộng 1). Đề hỏi bù {r1}: chỉ đổi từng chữ số, <b>không cộng 1</b>.',
@@ -218,7 +221,8 @@ export const quiz = {
   'wid.remove': 'Bỏ nhóm',
   'wid.hasOne': 'chứa ô giá trị 1: {cells}',
   'wid.pickTip': 'Bấm để chọn ô, bấm lại để bỏ.',
-  'c1q.f_convert': 'Trả lời: chỉ ghi các chữ số ở hệ {to}, không cần ghi cơ số (hệ nhị phân: bấm từng ô để chọn 0/1).',
+  'c1q.f_convert': 'Trả lời: chỉ ghi các chữ số ở hệ {to}, không cần ghi cơ số.',
+  'c1q.f_convertBits': 'Trả lời: 8 bit, thêm số 0 ở đầu cho đủ. Gõ cả chuỗi vào ô bên dưới hoặc bấm từng ô để chọn 0/1.',
   'c1q.f_complement': 'Trả lời: đúng {width} chữ số. Cách làm: bù {r1} từng chữ số rồi cộng 1.',
   'c1q.f_dimcomplement': 'Trả lời: số có cùng độ dài với số đã cho (chưa cộng 1).',
   'c1q.f_subtract': 'Trả lời: {width} chữ số; thêm dấu − ở đầu nếu kết quả âm.',

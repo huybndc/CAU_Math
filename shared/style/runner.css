@@ -112,6 +112,7 @@ button.link:hover{color:var(--accent)}
 /* dãy bit: ô trống nét đứt, bit 1 "sáng đèn" màu môn */
 .w-bits{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
 .w-gap{width:10px}
+.w-typed{display:block;margin-top:10px;width:100%;max-width:18rem;font:500 1rem var(--mono)!important;letter-spacing:.12em}
 .w-bit{
   width:42px;height:52px;border-radius:8px;cursor:pointer;
   border:1.5px dashed var(--line-strong);background:var(--panel);

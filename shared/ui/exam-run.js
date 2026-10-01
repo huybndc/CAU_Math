@@ -99,7 +99,13 @@ export function renderExamRun(cfg) {
 
     const check = g => {                     // chỉ bài tập dài
       warn = null;
-      if (isBlank(g)) { warn = T('run.empty'); return draw(); }
+      if (isBlank(g)) {                               // chưa đủ: chỉ nhắc, giữ nguyên các ô đã điền (vẽ lại sẽ xoá)
+        warn = T('run.empty');
+        const fb = $('#screen-exam .run-feedback');
+        fb?.querySelector('.warn')?.remove();
+        fb?.prepend(el('div', { class: 'msg warn' }, el('span', { html: warn })));
+        return;
+      }
       st.given[i] = g;
       const r = it.bank.checkAnswer(it.q, g);
       if (r.retry) { warn = T(r.detailKey, tp(r.detailParams)); store(st); return draw(); }
@@ -139,7 +145,7 @@ export function renderExamRun(cfg) {
     };
     const bar = el('header', { class: 'exam-bar' }, [
       el('a', { class: 'back', href: '#/exam', 'data-icon': 'prev', title: timed ? T('exam.leaveNote') : null, text: T('exam.leave') }),
-      el('b', { class: 'exam-name', text: `${T(timed ? 'exam.modeExam' : 'exam.modeLong')} · ${T('exam.minutes', { m: st.minutes })}` }),
+      el('b', { class: 'exam-name', text: timed ? `${T('exam.modeExam')} · ${T('exam.minutes', { m: st.minutes })}` : T('exam.modeLong') }),   // bài tập dài không tính giờ: bỏ "90 phút"
       el('span', { class: 'spacer' }),
       clockBtn,
       el('button', { type: 'button', class: 'btn primary', onClick: askSubmit }, T(timed ? 'exam.submit' : 'exam.finish')),
@@ -209,6 +215,11 @@ export function renderExamRun(cfg) {
     onKey = ev => {
       if (ev.metaKey || ev.ctrlKey || ev.altKey || dlg.open) return;
       if (ev.target.closest?.('input, textarea, .run-widget')) return;
+      if (ev.key === 'Enter' && !ev.target.closest?.('button, a, summary')) {      // như phần Luyện tập: Enter = ghi / kiểm tra rồi sang câu sau
+        ev.preventDefault();
+        if (timed || locked) { if (i < n - 1) moveTo(i + 1); } else check(view.get());
+        return;
+      }
       if (ev.key === 'ArrowLeft' && i > 0) moveTo(i - 1);
       else if (ev.key === 'ArrowRight' && i < n - 1) moveTo(i + 1);
       else if (it.q.format === 'choice' && !locked) {

@@ -30,7 +30,7 @@ export const quiz = {
   'c1q.form.converse': 'converse',
   'c1q.form.inverse': 'inverse',
   'c1q.needBits': 'Column F needs all {n} cells as 0/1.',
-  'c1q.wrongRows': 'Wrong on row {rows} (counting from 0).',
+  'c1q.wrongRows': 'Wrong on row {rows} (first row is 1).',
   's1.cols': 'Truth table: one column per subformula; rows in the variable order {vars}, starting with every variable = 0:',
   's1.readCol': 'Read the result column top to bottom:',
   's1.inside': 'Evaluate from the inside out:',

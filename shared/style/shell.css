@@ -357,7 +357,10 @@ body.exam-focus .appnav{display:none}
   .tab{min-height:48px;justify-content:center}
   input,select,textarea{font-size:16px}
   /* Nháp: nút nằm TRÊN thanh tab (không đè chữ), mở ra thành ngăn nửa dưới để còn thấy câu hỏi */
-  .scratch-btn{right:12px;bottom:calc(4.25rem + env(safe-area-inset-bottom) + 10px);padding:8px 14px}
+  .scratch-btn{right:12px;bottom:calc(4.25rem + env(safe-area-inset-bottom) + 10px);width:44px;height:44px;padding:0;display:grid;place-items:center;font-size:1.15rem;opacity:.94}
+  .scratch-btn .sb-t{display:none}
+  body.exam-focus .scratch-btn{bottom:calc(12px + env(safe-area-inset-bottom))}
+  body.exam-focus #app{padding-bottom:calc(4.6rem + env(safe-area-inset-bottom))}     /* hàng Câu trước / Câu sau nằm trên nút Nháp, không bị đè */
   .scratch{top:auto;left:8px;right:8px;width:auto;bottom:calc(4.25rem + env(safe-area-inset-bottom) + 8px);height:min(48vh,26rem)}
   .scratch-rs{display:none}
   .scratch-btn[aria-expanded="true"]{display:none}          /* ngăn đang mở: nút Nháp không đè lên ngăn, đóng bằng ×. */

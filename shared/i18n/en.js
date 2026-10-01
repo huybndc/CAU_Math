@@ -41,6 +41,7 @@ export const en = {
   /* sync between machines (D37) — cloud button tooltip */
   'sync.wait': 'Syncing…',
   'sync.ok': 'Synced via {label} at {time} · {n} machines. Click to sync now. Folder: {dir}',
+  'sync.hub': 'Online version: progress is saved to your Study Hub account and shows in Stats. Folder sync (iCloud/Drive) only runs when the app is opened on a computer.',
   'sync.off': 'Not syncing between machines: check iCloud Drive / Google Drive / OneDrive / Dropbox, or set STUDY_SYNC_DIR in .env (sign in first if an account is used).',
   'sync.err': 'Sync failed ({msg}). Progress is still saved on this machine — click to retry.',
   /* bộ chạy luyện tập */
@@ -117,7 +118,10 @@ export const en = {
   'run.solution': 'Solution',
   'run.next': 'Next question',
   'run.finish': 'See results',
-  'run.empty': 'Type an answer first.',
+  'wid.typed': 'Or type all {n} bits, e.g. 0101…',
+  'home.statNote': 'Counted over the last 7 days (today included), across devices — the same figures as Study Hub Stats.',
+  'run.revealNote': 'Showing the answer counts this question as missed',
+  'run.empty': 'Fill in every box first (what you entered is kept).',
   'run.review': 'Review: {title}',
   'run.dMissing': 'Missing: <b class="mono">{missing}</b>.',
   'run.dExtra': 'Extra in your answer: <b class="mono">{extra}</b>.',
@@ -155,6 +159,7 @@ export const en = {
   'run.anotherExample': 'See another example',
   'cq.whyWrong': 'Option {opt} is wrong: {why}',
   'run.root': 'Worth reviewing: {title} ({state})',
+  'run.rootShaky': 'still shaky',
   'run.rootNew': 'not tried yet',
   'run.rootAcc': '{p}% right',
   'run.rootFirst': 'Review the root first: {root}, then {title}',

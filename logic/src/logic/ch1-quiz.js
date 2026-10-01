@@ -46,8 +46,9 @@ function makeConvert(rnd) {
     kind: 'convert', format: 'text',
     textKey: 'c1q.qConvert', textParams: { src, from: 'base.' + from, to: 'base.' + to },
     answer, input: to === 2 ? { type: 'bits', length: 8 } : undefined,
-    hintKey: 'c1q.hConvert', hintParams: { to },
-    explainKey: 'c1q.xConvert', explainParams: { src, from, to, dec: v, answer },
+    formatKey: to === 2 ? 'c1q.f_convertBits' : 'c1q.f_convert',     // bit-box hint only when the question has bit boxes
+    hintKey: from === 10 ? 'c1q.hConvert' : to === 10 ? 'c1q.hConvertToDec' : 'c1q.hConvertGroup', hintParams: { to, from },   // hint matches the conversion direction
+    explainKey: 'c1q.xConvert', explainParams: { src, from, to, dec: v, answer: to === 2 ? answer.padStart(8, '0') : answer },
     meta: { src, from, to },
     // thẻ bài học riêng cho từng kiểu đổi (xem data-also trong theory-ch1.*.md)
     review: from === 10 ? 'fromDec' : to === 10 ? 'toDec' : 'group',

@@ -176,8 +176,10 @@ export function setupScratch() {
   pane.addEventListener('keydown', e => { if (e.key === 'Escape') open(false); });
 
   const label = () => {
-    btn.textContent = '✎ ' + (title.textContent = T('shell.scratch'));
+    const name = title.textContent = T('shell.scratch');
+    btn.replaceChildren('✎', Object.assign(document.createElement('span'), { className: 'sb-t', textContent: ' ' + name }));   // điện thoại: chỉ hiện ✎
     btn.title = T('shell.scratchHint');
+    btn.setAttribute('aria-label', name);
     clear.textContent = T('shell.scratchClear');
     close.setAttribute('aria-label', T('shell.close'));
     ta.placeholder = T('shell.scratchPh');

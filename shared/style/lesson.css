@@ -16,8 +16,9 @@
 .lesson-steps button.on{background:var(--accent)}
 .lesson-count{font:600 var(--fs-xs) var(--mono);color:var(--ink-dim)}
 
-.lesson-deck{display:grid;gap:16px}
-.lesson-card{padding:30px 34px;max-width:820px}
+.lesson-deck{display:grid;grid-template-columns:minmax(0,1fr);gap:16px}      /* minmax(0,…): ví dụ mẫu rộng không nới cột ra ngoài màn hình điện thoại */
+.lesson-card{padding:30px 34px;max-width:820px;min-width:0}
+.kp-steps li,.kp-example{min-width:0;overflow-x:auto}
 .lesson-card > h2{font-size:1.5rem;font-weight:700;letter-spacing:-.02em;margin:0 0 16px}
 .lesson-body{font-size:1.04rem;line-height:1.7;max-width:66ch}
 .lesson-body > :first-child{margin-top:0}
@@ -73,7 +74,10 @@ a.btn{text-decoration:none}
   .lesson-nav .btn span{max-width:14ch}
 }
 /* khối ```math: mỗi dòng một hàng, cuộn ngang trong khung nếu quá rộng */
-.math-block{margin:.9rem 0;padding:.7rem 1rem;background:var(--panel2);border-radius:var(--r-md);overflow-x:auto}
+.math-block{margin:.9rem 0;padding:.7rem 1rem;border-radius:var(--r-md);overflow-x:auto;
+  /* bóng mờ ở mép khi công thức còn dài hơn khung: biết là kéo ngang được */
+  background:linear-gradient(90deg,var(--panel2) 30%,transparent) left/36px 100% no-repeat local,linear-gradient(270deg,var(--panel2) 30%,transparent) right/36px 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%,rgb(0 0 0/.2),transparent) left/10px 100% no-repeat scroll,radial-gradient(farthest-side at 100% 50%,rgb(0 0 0/.2),transparent) right/10px 100% no-repeat scroll,var(--panel2)}
 .math-line{white-space:nowrap;line-height:1.9;font-size:var(--fs-base, 1rem)}
 .math-line .mat{font-size:1rem}
 .lesson-body p .mat{font-size:.95em}

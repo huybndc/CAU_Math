@@ -85,7 +85,7 @@ const drawTruth = guarded('#t1-err', () => { $('#t1-table').replaceChildren(); $
   say(host, `F: ${T('c1q.cls.' + classify(f))}`, 'small');
   if (g) say(host, `G: ${T('c1q.cls.' + classify(g))}`, 'small');
   if (g) msg(host, !diff.length, diff.length
-    ? `${T('c1q.noEquiv')} — ${T('c1q.wrongRows', { rows: diff.join(', ') })}`
+    ? `${T('c1q.noEquiv')} — ${T('c1q.wrongRows', { rows: diff.map(i => i + 1).join(', ') })}`
     : `${T('c1q.yesEquiv')}: ${T('s1.sameCol')}`);
 });
 

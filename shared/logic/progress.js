@@ -18,9 +18,15 @@ export function statsOf(events, { prefix, kind, kinds, since = 0 } = {}) {
   return { attempts, correct, accuracy: attempts ? correct / attempts : null };
 }
 
+/** Đầu ngày của 6 ngày trước = 7 ngày lịch gồm cả hôm nay — cùng cách tính với Thống kê của Study Hub. */
+export function weekSince(now) {
+  const d = new Date(now);
+  return new Date(d.getFullYear(), d.getMonth(), d.getDate() - 6).getTime();
+}
+
 /** 7 ngày qua nếu có làm, không thì tổng cộng — như dòng "đúng 78% (…, 7 ngày qua)" của toeic. */
 export function recentStats(events, filter, now) {
-  const week = statsOf(events, { ...filter, since: now - 7 * DAY });
+  const week = statsOf(events, { ...filter, since: weekSince(now) });
   return week.attempts ? { ...week, scope: 'week' } : { ...statsOf(events, filter), scope: 'all' };
 }
 

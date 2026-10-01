@@ -25,6 +25,8 @@ export const quiz = {
   'c1q.parity': 'Parity bit',
 
   'c1q.qConvert': 'Convert <span class="mono">{src}</span>, written in {from}, to {to}.',
+  'c1q.hConvertToDec': 'Multiply each digit by a power of {from} (right to left: 1, {from}, {from}², …) and add them up.',
+  'c1q.hConvertGroup': 'Go through binary: each octal digit is 3 bits, each hex digit 4 bits; then regroup for the target base.',
   'c1q.hConvert': 'Divide repeatedly by {to} and read the remainders bottom-up. Between 2, 8 and 16, group 3 or 4 bits instead.',
   'c1q.xConvert': 'Via decimal: <span class="mono">({src})<sub>{from}</sub> = {dec}</span>. Then to base {to}: <span class="mono">({answer})<sub>{to}</sub></span>.',
 
@@ -88,6 +90,7 @@ export const quiz = {
   'c1q.dLen': 'The answer has {want} digits, you wrote {got}. Check the digit count or the padding zeros.',
   'c1q.dWrongBase': 'What you wrote is this number, but in base {b}. The question asks for base {to}: the last step did not convert to base {to}.',
   'c1q.dBadDigit': 'The digit <b class="mono">{ch}</b> does not exist in base {to} (use 0 … {top}).',
+  'c1q.dValueDec': 'You wrote <b class="mono">{given}</b>, but the value of the number to convert is {want}. Compare with the worked steps below to find where it went off.',
   'c1q.dValue': '<b class="mono">{given}</b> in base {to} is worth {got} (decimal), while the number to convert is {want}. Compare with the worked steps below to find where it went off.',
   'c1q.dNoPlus1': 'That is only the {r1}\'s complement (flip each digit). The r\'s complement also needs <b>+1</b>.',
   'c1q.dExtra1': 'That is the r\'s complement (+1 already added). The question asks for the {r1}\'s complement: just flip each digit, <b>no +1</b>.',
@@ -218,7 +221,8 @@ export const quiz = {
   'wid.remove': 'Remove group',
   'wid.hasOne': 'contains a 1-cell: {cells}',
   'wid.pickTip': 'Click to pick a cell, click again to unpick.',
-  'c1q.f_convert': 'Answer: just the digits in {to}, no need to write the base (binary: click each box to set 0/1).',
+  'c1q.f_convert': 'Answer: just the digits in {to}, no need to write the base.',
+  'c1q.f_convertBits': 'Answer: 8 bits, padded with leading zeros. Type the whole string in the box below or click each bit to set 0/1.',
   'c1q.f_complement': 'Answer: exactly {width} digits. Method: take the {r1}’s complement digit by digit, then add 1.',
   'c1q.f_dimcomplement': 'Answer: a number of the same length as the one given (do not add 1).',
   'c1q.f_subtract': 'Answer: {width} digits; add a leading − if the result is negative.',
