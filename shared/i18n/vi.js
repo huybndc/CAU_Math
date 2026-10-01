@@ -71,6 +71,7 @@ export const vi = {
   'practice.wrong': 'Ôn lại câu đã sai',
   'practice.wrongNote': '{n} câu bạn từng làm sai — làm lại đúng đề đó; đúng rồi thì gỡ khỏi danh sách.',
   'practice.wrongCta': 'Ôn lại',
+  'exam.inNotebook': 'Các câu sai đã vào Sổ câu sai — làm lại đúng đề đó ở',
   'solver.try': 'Thử:',
   'terms.openLesson': 'Xem bài: {title} →',
   'solver.random': 'Ngẫu nhiên',

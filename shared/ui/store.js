@@ -1,5 +1,6 @@
 import { pushProgress } from './progress-push.js';
 import { mergeEvents } from '../logic/progress.js';
+import { addMistake, dropMistake } from '../logic/mistakes.js';
 import { currentUser, loadMathAnswerEvents, pushHubEvents, accountStorageKey, adoptAccount } from '@host';
 
 /* ---------------------------------------------------------------
@@ -23,6 +24,14 @@ export function save(key, value, subject = subjectOf()) {
 
 /** Sổ câu sai của một chương theo chế độ (tự luận / trắc nghiệm) — shared/logic/mistakes.js. */
 export const loadMistakes = (prefix, tn = false) => load(`mistakes-${prefix}`, []).filter(m => !!m.tn === !!tn);
+
+/** Ghi kết quả một câu vào sổ câu sai: sai ⇒ thêm; đúng ⇒ gỡ (nếu câu đó đang trong sổ). Câu không có hạt giống (thẻ học) bỏ qua. */
+export function markMistake(prefix, q, ok, tn = false) {
+  if (q.seed == null) return;
+  const m = { kind: q.kind, seed: q.seed, ...(tn && { tn: true }) };
+  const list = load(`mistakes-${prefix}`, []);
+  save(`mistakes-${prefix}`, ok ? dropMistake(list, m) : addMistake(list, m));
+}
 
 export function drop(key, subject = subjectOf()) {
   try { localStorage.removeItem(accountStorageKey(`${key}:${subject}`)); } catch { /* riêng tư */ }
