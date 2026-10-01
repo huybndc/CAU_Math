@@ -16,6 +16,10 @@ export const en = {
   'scratch.matBar': 'Divider | (augmented matrix)',
   'scratch.matCopy': 'Duplicate below (next step)',
   'scratch.matDel': 'Delete matrix',
+  'calc.undef': '“{name}” is not defined.',
+  'calc.argc': 'Function {name} got the wrong number of arguments.',
+  'calc.reserved': '“{name}” is built in — pick another name.',
+  'calc.listTip': 'One expression per line. Define a = 3 or f(x) = x^2 + 1 and use them below. sqrt, π, sin/cos/tan (degrees). Enter: new line.',
   'shell.close': 'Close',
   /* sync between machines (D37) — cloud button tooltip */
   'sync.wait': 'Syncing…',

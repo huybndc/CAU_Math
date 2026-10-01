@@ -1,6 +1,7 @@
 import { onLangChange, t as T } from '../i18n/index.js';
 import { evaluate, show } from '../logic/calc.js';
 import { mountMatrixPad } from './scratch-matrix.js';
+import { mountCalcList } from './scratch-calc.js';
 
 /* ---------------------------------------------------------------
    NHÁP: ngăn kéo bên phải để tính tay khi giải bài.
@@ -36,6 +37,15 @@ export function setupScratch() {
     + '<div class="scratch-syms"></div><textarea spellcheck="false"></textarea>';
   const [title, clear, close, ta, bases, inp, errEl, out, syms] =
     ['b', '.link', '.scratch-x', 'textarea', '.calc-bases', '.calc-in', '.calc-err', '.calc-out', '.scratch-syms'].map(s => pane.querySelector(s));
+
+  // Đại số tuyến tính: máy tính dạng danh sách (kiểu Desmos) thay máy tính đổi cơ số
+  let calcList = null;
+  if (subject === 'linalg') {
+    const sec = document.createElement('section');
+    sec.className = 'cl-wrap';
+    pane.querySelector('.calc').replaceWith(sec);
+    calcList = mountCalcList(sec, 'calc-list:' + subject);
+  }
 
   // lưới ma trận: chỉ môn Đại số tuyến tính
   const matSec = pane.querySelector('.scratch-mat');
@@ -106,7 +116,7 @@ export function setupScratch() {
   const open = on => {
     pane.hidden = !on;
     btn.setAttribute('aria-expanded', String(on));
-    if (on) inp.focus(); else btn.focus();
+    if (on) (calcList ? pane.querySelector('.cl-in') : inp)?.focus(); else btn.focus();
   };
   btn.addEventListener('click', () => open(pane.hidden));
   close.addEventListener('click', () => open(false));
@@ -118,6 +128,7 @@ export function setupScratch() {
     clear.textContent = T('shell.scratchClear');
     close.setAttribute('aria-label', T('shell.close'));
     ta.placeholder = T('shell.scratchPh');
+    calcList?.label();
     if (matSec.parentNode) matSec.querySelector('summary').textContent = T('scratch.matrix');
     syms.title = T('calc.syms');
     drawBases();
