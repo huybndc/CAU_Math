@@ -72,6 +72,7 @@ export const en = {
   'practice.wrong': 'Redo missed questions',
   'practice.wrongNote': '{n} questions you got wrong — redo exactly those; get one right and it leaves the list.',
   'practice.wrongCta': 'Redo',
+  'exam.inNotebook': 'Your wrong answers are in the missed-questions list — redo exactly those in',
   'solver.try': 'Try:',
   'terms.openLesson': 'Open lesson: {title} →',
   'solver.random': 'Random',

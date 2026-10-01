@@ -1,9 +1,8 @@
 import { t as T, onLangChange, offLangChange } from '../i18n/index.js';
 import { questionView, explainBlock, answerHtml, tp } from './question.js';
-import { record, subjectOf, load, save, drop } from './store.js';
+import { record, subjectOf, load, save, drop, markMistake } from './store.js';
 import { freshQuestion, poolSize, seededQuestion, newSeed, questionCode, signature } from '../logic/question-pool.js';
 import { streakOf } from '../logic/knowledge.js';
-import { addMistake, dropMistake } from '../logic/mistakes.js';
 import { h } from './dom.js';
 
 /* ---------------------------------------------------------------
@@ -38,13 +37,7 @@ export function mountRunner(host, { bank, prefix, figures = {}, widgets = {}, si
   // Mỗi câu lưu bằng (dạng, hạt giống) rồi sinh lại — cùng hạt giống luôn ra đúng câu đó.
   const SESSION = `run-session-${prefix}-${(kinds || []).join('+') || 'all'}${bank.mcq ? '-tn' : ''}`, resumable = autofocus && !goal && !make && mode === 'practice';
   // Sổ câu sai: câu sai ở luyện tập chính được nhớ (dạng, hạt giống); làm lại đúng (ở "Ôn lại câu đã sai" hoặc "Làm lại câu sai") thì gỡ.
-  const MISTAKES = `mistakes-${prefix}`;
-  const trackMistake = e => {
-    if (!resumable || e.q.seed == null) return;
-    const m = { kind: e.q.kind, seed: e.q.seed, ...(bank.mcq && { tn: true }) };
-    const list = load(MISTAKES, []);
-    if (S.redo) { if (e.ok) save(MISTAKES, dropMistake(list, m)); } else if (!e.ok) save(MISTAKES, addMistake(list, m));
-  };
+  const trackMistake = e => { if (resumable) markMistake(prefix, e.q, !!e.ok, !!bank.mcq); };
   const persist = () => {
     if (!resumable) return;
     if (S.phase === 'done' || S.redo || !S.round.length || S.round.some(e => e.q.seed == null)) { drop(SESSION); return; }

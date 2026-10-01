@@ -2,7 +2,7 @@ import { $, el } from './dom.js';
 import { t as T } from '../i18n/index.js';
 import { buildExam, gradeItem, isBlank, secondsLeft, clock } from '../logic/exam.js';
 import { chapterWeeks } from '../logic/syllabus.js';
-import { load, save, record, subjectOf } from './store.js';
+import { load, save, record, subjectOf, markMistake } from './store.js';
 import { go } from './router.js';
 import { questionView, explainBlock, answerHtml, tp } from './question.js';
 import { chNo } from './choices.js';
@@ -57,6 +57,7 @@ export function submitExam(cfg, st, timeout = false) {
   const res = items.map((it, i) => gradeItem(it, st.given[i]));
   // bài dài đã ghi từng câu lúc Kiểm tra; câu bỏ trống không ghi (không biết là chưa học hay hết giờ)
   if (st.mode === 'exam') record(items.flatMap((it, i) => (res[i].blank ? [] : [{ prefix: it.prefix, kind: it.q.kind, ok: res[i].ok, mode: 'exam' }])));
+  items.forEach((it, i) => { if (!res[i].blank) markMistake(it.prefix, it.q, res[i].ok, !!it.bank?.mcq); });      // câu sai vào Sổ câu sai (ôn lại ở Luyện tập)
   st.submittedAt = Date.now();
   st.timeout = timeout;
   store(st);
@@ -111,6 +112,7 @@ export function renderExamRun(cfg) {
       if (r.retry) { warn = T(r.detailKey, tp(r.detailParams)); store(st); return draw(); }
       st.checked[i] = !!r.ok;
       record({ prefix: it.prefix, kind: it.q.kind, ok: !!r.ok, mode: 'long' });
+      markMistake(it.prefix, it.q, !!r.ok, !!it.bank?.mcq);
       store(st);
       draw();
     };

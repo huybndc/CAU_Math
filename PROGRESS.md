@@ -39,6 +39,7 @@
   D65: thẻ bài học có nút "Mở máy giải: …" (<div data-tool="ch6/1"></div> trong markdown; 42 thẻ cả 3 app, vi + en).
   D66: Sổ câu sai — câu sai ở luyện tập được nhớ (dạng + hạt giống, tối đa 60/chương, shared/logic/mistakes.js); màn Luyện tập có "Ôn lại câu đã sai (N)" làm lại đúng các câu đó, đúng thì gỡ khỏi sổ; không ghi thêm vào thống kê.
   D67: Logic thêm máy giải "Mã nhị phân" (số thập phân → BCD/2421/Excess-3, cộng BCD +6 từng cột, nhị phân ↔ Gray từng bit, bit parity chẵn/lẻ) + nút máy giải ở 4 thẻ bài học Ch1; test đối chiếu độc lập (cộng thập phân, b ^ (b >> 1)).
+  D68: câu sai ở thi thử / bài tập dài cũng vào Sổ câu sai (store.markMistake dùng chung với runner); màn kết quả nhắc.
   Không làm: ghi sự kiện máy giải sang Hub — đổi contract math.answer cần yêu cầu contract riêng (AGENTS.md).
 
 ## In progress

@@ -180,6 +180,7 @@ function renderResult(cfg) {
       weak[0] && el('a', { class: 'btn', href: `#/practice/${weak[0].item.ch}/${weak[0].item.q.kind}` }, T('exam.drill')),
       el('a', { class: 'btn primary', href: '#/exam' }, T('exam.again')),
     ]),
+    wrongs.some(x => !x.r.blank) && el('p', { class: 'muted small' }, [T('exam.inNotebook'), ' ', el('a', { href: '#/practice' }, T('nav.practice') + ' →')]),
     fold(T('exam.byChapter'), null, el('div', { class: 'list' }, tally(items, res, it => it.ch).map(v => row({
       href: `#/practice/${v.key}`, title: chapterTitle(v.key), num: `${v.ok}/${v.n}`, acc: acc(v),
     })))),
