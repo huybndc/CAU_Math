@@ -66,7 +66,7 @@ function renderSetup(cfg) {
   const form = el('div', { class: 'exam-setup' });
   const draw = () => {
     const chs = examChapters(cfg, S.chapters);
-    const count = chs.length ? planExam(chs, S.minutes, seededRandom(seed)).length : 0;
+    const count = chs.length ? examSize(chs, S.minutes) : 0;
     const seg = (items, on, act, label) => el('div', { class: 'chapter-bar', role: 'group' },
       items.map(x => el('button', { type: 'button', 'aria-pressed': String(on(x)), onClick: () => { act(x); draw(); } }, label(x))));
     const field = (label, control, note) => el('div', { class: 'exam-field' }, [el('span', { class: 'exam-label', text: label }), el('div', {}, [control, note && el('small', { text: note })])]);
