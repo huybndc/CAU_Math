@@ -77,6 +77,7 @@ export const vi = {
   'solver.random': 'Ngẫu nhiên',
   'solver.empty': 'Nhập dữ liệu ở trên, kết quả hiện ngay đây.',
   'solver.hide': 'Che đáp án (tự làm trước)',
+  'solver.why': 'Vì sao?',
   'solver.reveal': 'Hiện đáp án',
   'solver.openAll': 'Mở hết các bước',
   'solver.closeAll': 'Thu hết',
