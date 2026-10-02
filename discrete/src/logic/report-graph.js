@@ -47,7 +47,7 @@ export function graphReport(text) {
   const eulerOK = E.length > 0 && V.filter(v => deg[v]).every(v => comp[v] === comp[V.find(u => deg[u])]);
   const euler = !eulerOK ? 'none' : oddV.length === 0 ? 'circuit' : oddV.length === 2 ? 'trail' : 'none';
   const sum = V.map(v => deg[v]).reduce((s, x) => s + x, 0);
-  const T = b => (b ? 'T' : 'F');
+  const T = b => (b ? '✓' : '✗');
   return {
     answer: [
       { key: 'dg.size', m: `|V| = ${n}, |E| = ${m}${loops ? ` (+${loops})` : ''}` },
@@ -63,5 +63,6 @@ export function graphReport(text) {
         lines: bip ? [`L = {${V.filter(v => color[v] === 0).join(', ')}},  R = {${V.filter(v => color[v] === 1).join(', ')}}`] : [{ key: 'dg.oddEdge', m: `${odd[0]} — ${odd[1]}` }] },
     ],
     check: () => true,
+    graph: { V, E, deg, color: bip ? color : null, odd: oddV },   // cho hình vẽ
   };
 }
