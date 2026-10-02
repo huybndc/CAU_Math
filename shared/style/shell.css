@@ -150,7 +150,6 @@ a.entry:hover .row-go{background:var(--accent)}
 .stats-line b{font:600 1.15rem var(--mono);color:var(--ink);margin-right:.35rem}
 
 /* chuyển màn: mờ rất ngắn (chỉ khi ĐỔI màn) */
-::view-transition-old(root),::view-transition-new(root){animation-duration:160ms}
 
 /* phòng thi: ẩn menu — bấm nhầm menu là rời bài */
 body.exam-focus{padding-left:0}
