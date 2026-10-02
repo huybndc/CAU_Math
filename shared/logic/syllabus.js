@@ -32,11 +32,11 @@ export const SUBJECTS = [
     id: 'linalg', name: 'Linear Algebra', book: 'Introduction to Linear Algebra (Strang, 4th ed.)',
     chapters: ['ch1', 'ch2', 'ch3'],
     weeks: {
-      2: ['1.1–1.3 Vector', 'ch1'], 3: ['2.1–2.3 Khử Gauss', 'ch2'], 4: ['2.4–2.7 Phép toán ma trận, nghịch đảo, A = LU'],
-      5: ['3.1–3.2 Không gian con, N(A)', 'ch3'], 6: ['3.3–3.4 Hạng, nghiệm đầy đủ', 'ch3'],
-      7: ['3.5–3.6 Cơ sở, bốn không gian con', 'ch3'], 9: ['4.1–4.2 Trực giao, hình chiếu'],
-      10: ['4.3–4.4 Bình phương tối thiểu, Gram–Schmidt'], 11: ['5.1–5.3 Định thức'],
-      12: ['6.1–6.2 Trị riêng, chéo hoá'], 13: ['6.3–6.4 Phương trình vi phân, ma trận đối xứng'], 14: ['6.5–6.6 Ma trận xác định dương, đồng dạng'], 15: ['6.7 SVD'],
+      1: ['1.1 Vector & tổ hợp tuyến tính'], 2: ['1.2–1.3 Độ dài, tích vô hướng, ma trận', 'ch1'], 3: ['2.1–2.3 Hệ phương trình, khử Gauss', 'ch2'],
+      4: ['2.4–2.5 Phép toán ma trận, nghịch đảo', 'ch2'], 5: ['2.6–2.7 A = LU, chuyển vị & hoán vị', 'ch2'],
+      6: ['3.1–3.2 Không gian con, N(A)', 'ch3'], 7: ['3.3–3.4 Hạng, nghiệm đầy đủ', 'ch3'],
+      9: ['3.5–3.6 Cơ sở, bốn không gian con', 'ch3'], 10: ['4.1–4.2 Trực giao, hình chiếu'], 11: ['4.3 Bình phương tối thiểu'],
+      12: ['4.4 Cơ sở trực chuẩn, Gram–Schmidt'], 13: ['5.1–5.2 Định thức'], 14: ['5.3 Cramer, nghịch đảo, thể tích'], 15: ['6.1 Trị riêng'],
     },
   },
   {

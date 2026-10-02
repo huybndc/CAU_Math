@@ -88,7 +88,11 @@ export function mountRunner(host, { bank, prefix, figures = {}, widgets = {}, si
 
   function nextKind() {
     const pool = S.kinds.length > 1 ? S.kinds.filter(k => k !== S.last) : S.kinds;
-    return pool[Math.floor(Math.random() * pool.length)];
+    // trộn thật: ưu tiên dạng đã ra ÍT NHẤT trong lượt này (không để 4/10 câu cùng một dạng)
+    const used = k => S.round.filter(r => r.q.kind === k).length;
+    const least = Math.min(...pool.map(used));
+    const cand = pool.filter(k => used(k) === least);
+    return cand[Math.floor(Math.random() * cand.length)];
   }
 
   const genOf = kind => (make ? () => make(Math.random) : () => seededQuestion(bank, kind, newSeed()));

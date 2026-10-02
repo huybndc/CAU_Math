@@ -14,6 +14,7 @@ export const quiz = {
   'la.noteTol': 'Non-integer: write it exactly (1/3, √5) or as a decimal — each number may be off by at most {tol} (2 decimals is enough).',
   'la.needNums': 'No numbers found — write numbers, fractions (1/2) or roots (√5), separated by commas.',
   'la.needCount': 'The answer needs {n} numbers; you wrote {got}.',
+  'la.dClose': 'You got {got} — close, but rounded too coarsely: the error must be ≤ {tol}. Keep more decimals (or enter a fraction, e.g. −17/3).',
   'la.dValue': 'You got {got} — not quite. See the step-by-step solution below.',
   'la.dEntry': 'Entry {pos} is off: you wrote {got}, it should be {want}.',
   'la.dEntryMore': 'Entry {pos} is off: you wrote {got}, it should be {want} (and {more} more).',

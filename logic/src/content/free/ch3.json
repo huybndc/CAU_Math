@@ -222,63 +222,6 @@
   }
  },
  {
-  "id": "g-kmap-5",
-  "ch": "ch3",
-  "level": 3,
-  "source": {
-   "name": "Mano, Digital Design — ch. 3",
-   "license": "original problem"
-  },
-  "vi": {
-   "title": "Rút gọn hàm 5 biến",
-   "q": "Rút gọn `F(A, B, C, D, E) = Σm(0, 2, 4, 6, 9, 11, 13, 15, 17, 21, 25, 27, 29, 31)`. Gợi ý: xếp hai K-map 4×4 (A = 0 và A = 1) và chú ý các ô \"chồng lên nhau\".",
-   "hints": [
-    "Hai bản đồ: A = 0 (minterm 0–15) và A = 1 (16–31).",
-    "Nhóm hợp lệ có thể trải trên cả hai bản đồ nếu ô tương ứng đều là 1.",
-    "Tìm nhóm theo E trước (nhiều minterm lẻ / chẵn)."
-   ],
-   "solution": [
-    "Các minterm chẵn 0, 2, 4, 6 nằm ở `A = 0, B = 0, E = 0` (C, D tự do): nhóm 4 ô `A'B'E'`.",
-    "Các minterm lẻ 9, 11, 13, 15 (A = 0) và 25, 27, 29, 31 (A = 1) đều có `B = 1, E = 1`: nhóm 8 ô trải hai bản đồ ⇒ `BE`.",
-    "Còn 17, 21 (A = 1, B = 0, D = 0, E = 1) cùng 25, 29: nhóm `AD'E` (17, 21, 25, 29).",
-    "Phủ hết: `F = A'B'E' + BE + AD'E` (đã kiểm bằng máy)."
-   ],
-   "rubric": [
-    "Hiểu cách trải hai bản đồ.",
-    "Ba nhóm đúng.",
-    "Biểu thức đúng."
-   ],
-   "pitfalls": [
-    "Chỉ nhóm trong một bản đồ mà bỏ qua nhóm trải hai bản đồ.",
-    "Nhóm lệch 17, 21 mà không nhận ra mở rộng sang 25, 29."
-   ]
-  },
-  "en": {
-   "title": "Simplifying a 5-variable function",
-   "q": "Simplify `F(A, B, C, D, E) = Σm(0, 2, 4, 6, 9, 11, 13, 15, 17, 21, 25, 27, 29, 31)`. Hint: stack two 4×4 K-maps (A = 0 and A = 1) and look at cells that \"sit on top of each other\".",
-   "hints": [
-    "Two maps: A = 0 (minterms 0–15) and A = 1 (16–31).",
-    "A valid group may span both maps if the matching cells are all 1.",
-    "Look first at E (many odd / even minterms)."
-   ],
-   "solution": [
-    "The even minterms 0, 2, 4, 6 lie at `A = 0, B = 0, E = 0` (C, D free): a 4-cell group `A'B'E'`.",
-    "The odd minterms 9, 11, 13, 15 (A = 0) and 25, 27, 29, 31 (A = 1) all have `B = 1, E = 1`: an 8-cell group spanning both maps ⇒ `BE`.",
-    "What remains is 17, 21 (A = 1, B = 0, D = 0, E = 1) with 25, 29: the group `AD'E` (17, 21, 25, 29).",
-    "All covered: `F = A'B'E' + BE + AD'E` (verified by machine)."
-   ],
-   "rubric": [
-    "Understands how to stack the two maps.",
-    "Three correct groups.",
-    "Correct expression."
-   ],
-   "pitfalls": [
-    "Grouping inside one map only and missing the group spanning both.",
-    "Grouping 17, 21 alone instead of extending to 25, 29."
-   ]
-  }
- },
- {
   "id": "g-gray-code",
   "ch": "ch3",
   "level": 1,
