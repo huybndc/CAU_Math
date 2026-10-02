@@ -44,10 +44,13 @@ export function createSolver(host, { practice = null, examples = [], random = nu
   let copied = false;
   let hintN = 0;                 // số gợi ý (câu "vì sao" của các bước) đã mở khi đang che đáp án
 
+  // MỘT nút 🎲: phần lớn ra đề ngẫu nhiên, thỉnh thoảng bốc một ví dụ mẫu có chủ ý (ca biên: vô nghiệm, nhiều nghiệm, tràn…)
+  const roll = () => {
+    if (examples.length && (!random || Math.random() < 0.35)) examples[Math.floor(Math.random() * examples.length)].apply();
+    else random();
+  };
   const drawExamples = () => exRow.replaceChildren(...(examples.length || random ? [
-    el('span', { class: 'sv-ex-l', text: T('solver.try') }),
-    random && el('button', { type: 'button', class: 'sv-chip sv-rand', text: '🎲 ' + T('solver.random'), onClick: () => random() }),
-    ...examples.map(x => el('button', { type: 'button', class: 'sv-chip', text: typeof x.label === 'function' ? x.label() : x.label, onClick: () => x.apply() })),
+    el('button', { type: 'button', class: 'sv-chip sv-rand', text: '🎲 ' + T('solver.random'), onClick: roll }),
   ] : []));
 
   const why = st => st.why && el('details', { class: 'sv-why' }, [el('summary', { text: T('solver.why') }), el('p', { text: T(st.why.key, st.why.params) })]);   // một dòng "Vì sao?", bấm mới mở
