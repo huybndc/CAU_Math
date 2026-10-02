@@ -1,0 +1,12 @@
+/* Tự luận (free-screen.js) */
+.free-q{font-size:var(--fs-lg)}
+.free-md p{margin:.3rem 0}
+.free-hints{display:grid;gap:.5rem;margin:.8rem 0}
+.free-hint{padding:.5rem .8rem;border-left:3px solid var(--accent);background:var(--bg-soft,transparent)}
+.free-hint b{font-size:var(--fs-sm);color:var(--ink-dim)}
+.free-sol{padding-left:1.4rem;display:grid;gap:.4rem}
+.free-rubric,.free-pit{list-style:none;padding:0;display:grid;gap:.3rem}
+.free-rubric label{display:flex;gap:.5rem;align-items:flex-start}.free-rubric input{margin-top:.35rem}
+.free-pit li::before{content:"⚠ ";color:var(--warn)}
+.free-rate{display:flex;flex-wrap:wrap;gap:.5rem}
+.free-src{margin-top:1rem;font-size:var(--fs-sm);color:var(--ink-dim)}

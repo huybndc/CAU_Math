@@ -1,0 +1,409 @@
+[
+ {
+  "id": "d-log4-6",
+  "ch": "ch1",
+  "level": 2,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), PS1 bài 1",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "log₄6 là số vô tỉ",
+   "q": "Chứng minh `log₄ 6` là số vô tỉ.",
+   "hints": [
+    "Phương pháp: phản chứng — giả sử `log₄ 6 = m/n` với m, n là số nguyên dương.",
+    "Đổi sang dạng mũ: `4^m = 6^n`. Hai vế là tích các luỹ thừa nguyên tố — hãy xem vế nào có thừa số 3.",
+    "Thừa số nguyên tố của số nguyên dương là duy nhất; vế trái chỉ có thừa số 2."
+   ],
+   "solution": [
+    "Giả sử `log₄ 6 = m/n`, m, n nguyên dương (vì `log₄ 6 > 0`).",
+    "Khi đó `4^m = 6^n`, tức `2^(2m) = 2^n · 3^n`.",
+    "Vì n ≥ 1 nên vế phải chia hết cho 3, còn vế trái `2^(2m)` chỉ có ước nguyên tố 2 — mâu thuẫn.",
+    "Vậy không tồn tại m, n như thế, `log₄ 6` vô tỉ."
+   ],
+   "rubric": [
+    "Nói rõ dùng phản chứng và giả thiết `log₄ 6 = m/n`.",
+    "Biến đổi đúng sang `4^m = 6^n`.",
+    "Chỉ ra mâu thuẫn bằng thừa số 3 (hoặc phân tích nguyên tố duy nhất).",
+    "Kết luận đúng."
+   ],
+   "pitfalls": [
+    "Quên n ≥ 1: nếu n = 0 thì `3^n = 1` và không có mâu thuẫn — phải nói `log₄ 6 > 0` nên n dương.",
+    "So chẵn lẻ không dùng được: cả hai vế đều chẵn."
+   ]
+  },
+  "en": {
+   "title": "log₄6 is irrational",
+   "q": "Prove that `log₄ 6` is irrational.",
+   "hints": [
+    "Method: contradiction — assume `log₄ 6 = m/n` with positive integers m, n.",
+    "Rewrite as `4^m = 6^n`. Both sides are products of prime powers — which side has a factor 3?",
+    "Prime factorisation is unique; the left side only has the prime 2."
+   ],
+   "solution": [
+    "Suppose `log₄ 6 = m/n` with m, n positive integers (since `log₄ 6 > 0`).",
+    "Then `4^m = 6^n`, i.e. `2^(2m) = 2^n · 3^n`.",
+    "Since n ≥ 1 the right side is divisible by 3, but the left side `2^(2m)` has only the prime divisor 2 — contradiction.",
+    "So no such m, n exist: `log₄ 6` is irrational."
+   ],
+   "rubric": [
+    "States proof by contradiction and the assumption `log₄ 6 = m/n`.",
+    "Correctly rewrites as `4^m = 6^n`.",
+    "Derives the contradiction via the factor 3 (or unique factorisation).",
+    "Correct conclusion."
+   ],
+   "pitfalls": [
+    "Forgetting n ≥ 1: for n = 0, `3^n = 1` gives no contradiction — say `log₄ 6 > 0` forces n positive.",
+    "A parity argument fails: both sides are even."
+   ]
+  }
+ },
+ {
+  "id": "d-valid-or",
+  "ch": "ch1",
+  "level": 2,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 3.11",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Công thức hằng đúng và nhất quán",
+   "q": "(a) Lập bảng chân trị chứng tỏ `(P → Q) ∨ (Q → P)` là hằng đúng.\n(b) Cho công thức P, Q bất kỳ. Viết công thức R chỉ dùng AND, OR, NOT và P, Q sao cho R hằng đúng ⇔ P và Q tương đương.\n(c) Giải thích: P hằng đúng ⇔ NOT P không thoả được.\n(d) Cho P₁…P_k. Viết S sao cho tập {P₁…P_k} không nhất quán (không có phép gán nào làm tất cả đúng) ⇔ S hằng đúng.",
+   "hints": [
+    "(a) Bảng có 4 dòng; viết sẵn cột `P → Q` và `Q → P`.",
+    "(b) Hai công thức tương đương khi chúng luôn cùng giá trị — dùng `IFF` rồi khai triển bằng AND/OR/NOT.",
+    "(c)(d) Hằng đúng = đúng ở mọi phép gán; thoả được = đúng ở ít nhất một phép gán. Phủ định chuyển giữa hai khái niệm."
+   ],
+   "solution": [
+    "(a) P Q | P→Q | Q→P | OR: TT: T,T,T · TF: F,T,T · FT: T,F,T · FF: T,T,T. Cả 4 dòng đều T nên hằng đúng.",
+    "(b) `R = (P AND Q) OR (NOT P AND NOT Q)` là `P IFF Q`. P ≡ Q ⇔ ở mọi phép gán hai bên bằng nhau ⇔ R luôn đúng.",
+    "(c) P hằng đúng ⇔ mọi phép gán làm P đúng ⇔ không phép gán nào làm NOT P đúng ⇔ NOT P không thoả được.",
+    "(d) `S = NOT P₁ OR NOT P₂ OR … OR NOT P_k`. Không nhất quán ⇔ mọi phép gán đều làm ít nhất một Pᵢ sai ⇔ S đúng ở mọi phép gán."
+   ],
+   "rubric": [
+    "(a) bảng đủ 4 dòng, kết luận đúng.",
+    "(b) R đúng dạng IFF và giải thích hai chiều.",
+    "(c) dùng đúng định nghĩa \"mọi\" ↔ \"không tồn tại\".",
+    "(d) S là OR của các phủ định, có lập luận."
+   ],
+   "pitfalls": [
+    "Viết S = P₁ AND … AND P_k: đó là điều kiện *thoả được*, không phải hằng đúng.",
+    "Ở (b) dùng R = P IFF Q mà không khai triển bằng AND/OR/NOT thì chưa đúng yêu cầu đề."
+   ]
+  },
+  "en": {
+   "title": "Valid and consistent formulas",
+   "q": "(a) Verify by truth table that `(P → Q) ∨ (Q → P)` is valid.\n(b) For formulas P and Q, write a formula R using only AND, OR, NOT and copies of P, Q such that R is valid iff P and Q are equivalent.\n(c) Explain why P is valid iff NOT P is unsatisfiable.\n(d) For formulas P₁…P_k, write S so that {P₁…P_k} is inconsistent (no assignment makes all true) iff S is valid.",
+   "hints": [
+    "(a) Four rows; list the columns `P → Q` and `Q → P` first.",
+    "(b) Equivalent means always equal — use `IFF`, then expand it into AND/OR/NOT.",
+    "(c)(d) Valid = true under every assignment; satisfiable = true under at least one. Negation swaps the two."
+   ],
+   "solution": [
+    "(a) P Q | P→Q | Q→P | OR: TT: T,T,T · TF: F,T,T · FT: T,F,T · FF: T,T,T. All four rows are T, so it is valid.",
+    "(b) `R = (P AND Q) OR (NOT P AND NOT Q)`, i.e. `P IFF Q`. P ≡ Q iff the two agree under every assignment iff R is always true.",
+    "(c) P is valid iff every assignment makes P true iff no assignment makes NOT P true iff NOT P is unsatisfiable.",
+    "(d) `S = NOT P₁ OR NOT P₂ OR … OR NOT P_k`. Inconsistent iff every assignment falsifies some Pᵢ iff S is true under every assignment."
+   ],
+   "rubric": [
+    "(a) full 4-row table and the right conclusion.",
+    "(b) R is the IFF form, with both directions justified.",
+    "(c) uses \"for all\" ↔ \"there is no\" correctly.",
+    "(d) S is an OR of negations, with an argument."
+   ],
+   "pitfalls": [
+    "Writing S = P₁ AND … AND P_k: that expresses *satisfiable*, not valid.",
+    "In (b), giving R = P IFF Q without expanding into AND/OR/NOT does not meet the requirement."
+   ]
+  }
+ },
+ {
+  "id": "d-spec-sat",
+  "ch": "ch1",
+  "level": 2,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 3.12",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Đặc tả hệ thống có thoả được không",
+   "q": "Hệ thống tệp có các đặc tả:\n1. Nếu hệ thống tệp không bị khoá thì: (a) thư mới được xếp hàng; (b) thư mới được gửi vào bộ đệm; (c) hệ thống chạy bình thường, và ngược lại hệ thống chạy bình thường thì tệp không bị khoá.\n2. Nếu thư mới không được xếp hàng thì chúng được gửi vào bộ đệm.\n3. Thư mới không được gửi vào bộ đệm.\nDùng L = tệp bị khoá, Q = thư xếp hàng, B = thư gửi vào bộ đệm, N = chạy bình thường.\n(a) Dịch 5 đặc tả thành công thức. (b) Chỉ ra một phép gán thoả tất cả. (c) Chứng minh phép gán đó là duy nhất.",
+   "hints": [
+    "Mỗi đặc tả thành một công thức; \"ngược lại\" nghĩa là `IFF`.",
+    "Đặc tả 3 cho biết ngay B; dùng nó trong đặc tả 2 để tìm Q.",
+    "Sau khi biết Q, B, xét đặc tả 1(a) để suy ra L, rồi N."
+   ],
+   "solution": [
+    "(a) (1a) `NOT L → Q`; (1b) `NOT L → B`; (1c) `NOT L ↔ N`; (2) `NOT Q → B`; (3) `NOT B`.",
+    "(c) Từ (3): B = F. Từ (2): `NOT Q → F` nên Q = T.",
+    "Từ (1b): `NOT L → F` nên NOT L sai, tức L = T. Từ (1c): `NOT L ↔ N` với NOT L = F cho N = F.",
+    "(b) Phép gán L=T, Q=T, B=F, N=F: (1a) F→T đúng; (1b) F→F đúng; (1c) F↔F đúng; (2) F→F đúng; (3) đúng. Mỗi bước ở (c) là *bắt buộc* nên nó cũng là duy nhất."
+   ],
+   "rubric": [
+    "Dịch đúng 5 công thức (nhất là `IFF` ở 1c).",
+    "Phép gán ở (b) đã được kiểm đủ 5 đặc tả.",
+    "Lập luận duy nhất ở (c): mỗi giá trị bị ép, không thử mò."
+   ],
+   "pitfalls": [
+    "Kiểm tra phép gán chỉ trên vài đặc tả rồi tuyên bố \"thoả\" — phải đủ cả 5.",
+    "Nhầm \"nếu không khoá thì…\" thành `L → …`: điều kiện là NOT L."
+   ]
+  },
+  "en": {
+   "title": "Is the system specification satisfiable?",
+   "q": "A file system has these specifications:\n1. If the file system is not locked then: (a) new messages are queued; (b) new messages go to the buffer; (c) the system is functioning normally, and conversely, if it is functioning normally then the file system is not locked.\n2. If new messages are not queued then they go to the buffer.\n3. New messages do not go to the buffer.\nLet L = file system locked, Q = queued, B = sent to buffer, N = functioning normally.\n(a) Translate the five specifications into formulas. (b) Give one assignment satisfying all. (c) Prove it is the only one.",
+   "hints": [
+    "One formula per specification; \"conversely\" means `IFF`.",
+    "Specification 3 gives B at once; feed it into specification 2 to get Q.",
+    "Once Q and B are known, use 1(a) to get L, then N."
+   ],
+   "solution": [
+    "(a) (1a) `NOT L → Q`; (1b) `NOT L → B`; (1c) `NOT L ↔ N`; (2) `NOT Q → B`; (3) `NOT B`.",
+    "(c) From (3): B = F. From (2): `NOT Q → F`, so Q = T.",
+    "From (1b): `NOT L → F`, so NOT L is false, i.e. L = T. From (1c): `NOT L ↔ N` with NOT L = F gives N = F.",
+    "(b) The assignment L=T, Q=T, B=F, N=F: (1a) F→T true; (1b) F→F true; (1c) F↔F true; (2) F→F true; (3) true. Every step in (c) was forced, so it is also unique."
+   ],
+   "rubric": [
+    "Five correct formulas (especially `IFF` in 1c).",
+    "The assignment in (b) is checked against all five specs.",
+    "Uniqueness in (c): each value is forced, not guessed."
+   ],
+   "pitfalls": [
+    "Checking the assignment on only some specs and declaring it satisfying — all five are needed.",
+    "Reading \"if not locked then…\" as `L → …`: the condition is NOT L."
+   ]
+  }
+ },
+ {
+  "id": "d-cycle-cases",
+  "ch": "ch1",
+  "level": 2,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 3.7",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Đúng hai phép gán thoả (xét trường hợp)",
+   "q": "Công thức sau có sáu biến M, N, P, Q, R, S:\n`(P → Q) AND (Q → R) AND (R → S) AND (S → P) AND M AND N`\n(a) Bảng chân trị có bao nhiêu dòng? (b) Chứng minh công thức có đúng hai phép gán thoả bằng cách xét theo giá trị của P (không lập bảng).",
+   "hints": [
+    "(a) Sáu biến, mỗi biến T hoặc F.",
+    "(b) M và N bị ép bằng T. Còn lại là chuỗi suy ra vòng tròn P→Q→R→S→P.",
+    "Xét P = T rồi P = F, theo dây chuyền."
+   ],
+   "solution": [
+    "(a) 2⁶ = 64 dòng.",
+    "(b) M AND N đúng buộc M = N = T.",
+    "Nếu P = T: `P → Q` buộc Q = T, rồi `Q → R` buộc R = T, `R → S` buộc S = T; kiểm `S → P`: T → T đúng. Cho đúng một phép gán (tất cả T).",
+    "Nếu P = F: `S → P` buộc S = F (nếu S = T thì T → F sai). Rồi `R → S` buộc R = F, `Q → R` buộc Q = F; kiểm `P → Q`: F → F đúng. Cho đúng một phép gán (P=Q=R=S=F).",
+    "Hai trường hợp loại trừ nhau và bao trùm, nên có đúng hai phép gán thoả: M=N=T và P=Q=R=S cùng T hoặc cùng F."
+   ],
+   "rubric": [
+    "(a) = 64.",
+    "Chốt M = N = T từ hai mệnh đề đơn.",
+    "Hai nhánh P = T và P = F đều đi hết dây chuyền và *kiểm lại* mệnh đề đóng vòng.",
+    "Kết luận \"đúng hai\", không chỉ \"ít nhất hai\"."
+   ],
+   "pitfalls": [
+    "Quên kiểm mệnh đề cuối `S → P` (đóng vòng) ở mỗi nhánh — phép gán có thể không thoả.",
+    "Chỉ chỉ ra hai phép gán mà không chứng minh *không còn* phép gán nào khác."
+   ]
+  },
+  "en": {
+   "title": "Exactly two satisfying assignments (case analysis)",
+   "q": "Consider the formula over M, N, P, Q, R, S:\n`(P → Q) AND (Q → R) AND (R → S) AND (S → P) AND M AND N`\n(a) How many rows would its truth table have? (b) Prove it has exactly two satisfying assignments by cases on the value of P (no truth table).",
+   "hints": [
+    "(a) Six variables, each T or F.",
+    "(b) M and N are forced to T. The rest is a cyclic chain P→Q→R→S→P.",
+    "Take P = T, then P = F, and follow the chain."
+   ],
+   "solution": [
+    "(a) 2⁶ = 64 rows.",
+    "(b) M AND N true forces M = N = T.",
+    "If P = T: `P → Q` forces Q = T, then `Q → R` forces R = T, `R → S` forces S = T; check `S → P`: T → T holds. Exactly one assignment (all T).",
+    "If P = F: `S → P` forces S = F (S = T would give T → F). Then `R → S` forces R = F and `Q → R` forces Q = F; check `P → Q`: F → F holds. Exactly one assignment (P=Q=R=S=F).",
+    "The cases are exhaustive and disjoint, so there are exactly two satisfying assignments: M=N=T and P=Q=R=S all T or all F."
+   ],
+   "rubric": [
+    "(a) = 64.",
+    "Fixes M = N = T from the two atoms.",
+    "Both branches run the whole chain and *re-check* the closing clause.",
+    "Concludes \"exactly two\", not just \"at least two\"."
+   ],
+   "pitfalls": [
+    "Skipping the closing clause `S → P` in each branch — the assignment might not satisfy it.",
+    "Exhibiting two assignments without proving no others exist."
+   ]
+  }
+ },
+ {
+  "id": "d-nand-only",
+  "ch": "ch1",
+  "level": 2,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 3.13–3.14",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Một cổng đủ cho mọi công thức",
+   "q": "(a) Viết công thức chỉ dùng AND, OR, NOT tương đương với `A IFF B` và `A XOR B`.\n(b) Giải thích vì sao không cần AND.\n(c) `A NAND B` được định nghĩa là `NOT(A AND B)`. Giải thích vì sao mọi công thức tương đương một công thức chỉ dùng NAND.\n(d) Tương tự cho `P NOR Q := NOT P AND NOT Q`.",
+   "hints": [
+    "Mỗi toán tử khác viết được bằng AND/OR/NOT; chứng minh bằng bảng hoặc luật De Morgan.",
+    "(b) De Morgan: `A AND B ≡ NOT(NOT A OR NOT B)`.",
+    "(c) Biểu diễn NOT và AND bằng NAND, sau đó (a) cho phần còn lại."
+   ],
+   "solution": [
+    "(a) `A IFF B ≡ (A AND B) OR (NOT A AND NOT B)`; `A XOR B ≡ (A AND NOT B) OR (NOT A AND B)`. Còn `A → B ≡ NOT A OR B`, nên mọi công thức viết được bằng AND/OR/NOT.",
+    "(b) `A AND B ≡ NOT(NOT A OR NOT B)` (De Morgan), nên chỉ cần OR và NOT.",
+    "(c) `NOT A ≡ A NAND A`; `A AND B ≡ NOT(A NAND B) ≡ (A NAND B) NAND (A NAND B)`. Có NOT và AND thì có OR (De Morgan), nên có mọi công thức.",
+    "(d) NOR: `NOT A ≡ A NOR A`; `A OR B ≡ NOT(A NOR B)`; cùng (b) cho AND. Vậy NOR cũng đủ."
+   ],
+   "rubric": [
+    "(a) hai công thức đúng (có thể kiểm bằng bảng).",
+    "(b) dùng De Morgan.",
+    "(c) đưa được NOT và AND qua NAND, rồi kết luận.",
+    "(d) tương tự cho NOR."
+   ],
+   "pitfalls": [
+    "Chỉ kiểm NAND diễn tả được AND mà quên NOT: cần cả hai.",
+    "Viết `A NAND B` thành `NOT A AND NOT B` (đó là NOR)."
+   ]
+  },
+  "en": {
+   "title": "One gate is enough",
+   "q": "(a) Write formulas using only AND, OR, NOT equivalent to `A IFF B` and `A XOR B`.\n(b) Explain why AND is not even needed.\n(c) `A NAND B` is defined as `NOT(A AND B)`. Explain why every formula is equivalent to one using only NAND.\n(d) Do the same for `P NOR Q := NOT P AND NOT Q`.",
+   "hints": [
+    "Every other operator is expressible with AND/OR/NOT; check by table or De Morgan.",
+    "(b) De Morgan: `A AND B ≡ NOT(NOT A OR NOT B)`.",
+    "(c) Express NOT and AND with NAND, then (a) covers the rest."
+   ],
+   "solution": [
+    "(a) `A IFF B ≡ (A AND B) OR (NOT A AND NOT B)`; `A XOR B ≡ (A AND NOT B) OR (NOT A AND B)`. Also `A → B ≡ NOT A OR B`, so every formula can be written with AND/OR/NOT.",
+    "(b) `A AND B ≡ NOT(NOT A OR NOT B)` (De Morgan), so OR and NOT suffice.",
+    "(c) `NOT A ≡ A NAND A`; `A AND B ≡ NOT(A NAND B) ≡ (A NAND B) NAND (A NAND B)`. With NOT and AND we get OR (De Morgan) hence everything.",
+    "(d) NOR: `NOT A ≡ A NOR A`; `A OR B ≡ NOT(A NOR B)`; with (b) we get AND. So NOR is also enough."
+   ],
+   "rubric": [
+    "(a) two correct formulas (checkable by table).",
+    "(b) uses De Morgan.",
+    "(c) builds NOT and AND from NAND, then concludes.",
+    "(d) same idea for NOR."
+   ],
+   "pitfalls": [
+    "Showing NAND gives AND but forgetting NOT — both are needed.",
+    "Writing `A NAND B` as `NOT A AND NOT B` (that is NOR)."
+   ]
+  }
+ },
+ {
+  "id": "d-xor3-dnf",
+  "ch": "ch1",
+  "level": 1,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 3.16",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Dạng tuyển của A XOR B XOR C",
+   "q": "Đưa `A XOR B XOR C` về dạng tuyển chuẩn (OR của các tích AND của biến hoặc phủ định biến).",
+   "hints": [
+    "`A XOR B XOR C` đúng khi nào? Thử bảng 8 dòng.",
+    "XOR nhiều biến đúng khi số biến đúng là *lẻ*.",
+    "Mỗi dòng đúng cho một số hạng AND đủ ba biến."
+   ],
+   "solution": [
+    "`A XOR B XOR C` đúng đúng khi số biến bằng T là 1 hoặc 3.",
+    "Các dòng đúng: TFF, FTF, FFT, TTT.",
+    "Mỗi dòng cho một số hạng: `(A AND NOT B AND NOT C) OR (NOT A AND B AND NOT C) OR (NOT A AND NOT B AND C) OR (A AND B AND C)`.",
+    "Có thể kiểm bằng khai triển `(A XOR B) XOR C` với `A XOR B ≡ (A AND NOT B) OR (NOT A AND B)`."
+   ],
+   "rubric": [
+    "Xác định đúng 4 dòng đúng.",
+    "Mỗi dòng thành số hạng AND đủ ba biến với phủ định chính xác.",
+    "Nối bằng OR và kiểm (bảng hoặc khai triển)."
+   ],
+   "pitfalls": [
+    "Nhầm XOR ba biến thành \"đúng khi đúng ĐÚNG MỘT biến\" — TTT cũng đúng.",
+    "Số hạng thiếu phủ định (ví dụ viết A AND B AND C cho dòng TFF)."
+   ]
+  },
+  "en": {
+   "title": "Disjunctive form of A XOR B XOR C",
+   "q": "Convert `A XOR B XOR C` into disjunctive normal form (an OR of ANDs of variables or negated variables).",
+   "hints": [
+    "When is `A XOR B XOR C` true? Try the 8-row table.",
+    "XOR of several variables is true when an *odd* number of them are true.",
+    "Each true row gives one AND-term over all three variables."
+   ],
+   "solution": [
+    "`A XOR B XOR C` is true exactly when the number of T variables is 1 or 3.",
+    "True rows: TFF, FTF, FFT, TTT.",
+    "Each row yields a term: `(A AND NOT B AND NOT C) OR (NOT A AND B AND NOT C) OR (NOT A AND NOT B AND C) OR (A AND B AND C)`.",
+    "Cross-check by expanding `(A XOR B) XOR C` with `A XOR B ≡ (A AND NOT B) OR (NOT A AND B)`."
+   ],
+   "rubric": [
+    "Identifies exactly the 4 true rows.",
+    "Each row becomes a full three-variable AND-term with the right negations.",
+    "Joins with OR and checks it (table or expansion)."
+   ],
+   "pitfalls": [
+    "Reading three-way XOR as \"exactly one true\" — TTT is true as well.",
+    "Terms missing negations (e.g. A AND B AND C for the row TFF)."
+   ]
+  }
+ },
+ {
+  "id": "d-ripple-adder",
+  "ch": "ch1",
+  "level": 2,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 3.5",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Mạch cộng nối tiếp (ripple-carry)",
+   "q": "Hai số nhị phân n+1 bit `aₙ…a₁a₀` và `bₙ…b₁b₀`. (a) Viết công thức cho bit tổng sᵢ và nhớ cᵢ₊₁ (cᵢ là nhớ vào cột i, c₀ = 0). (b) Mỗi bit tổng cần mấy phép XOR, AND, OR? Tổng toàn mạch? (c) Vì sao mạch này chậm khi n lớn?",
+   "hints": [
+    "Mỗi cột là một \"bộ cộng đầy đủ\": nhận aᵢ, bᵢ và nhớ cᵢ.",
+    "Bit tổng = XOR của ba bit; nhớ ra = đa số của ba bit.",
+    "Đếm phép toán trên một cột rồi nhân với số cột."
+   ],
+   "solution": [
+    "(a) `sᵢ = aᵢ XOR bᵢ XOR cᵢ`; `cᵢ₊₁ = (aᵢ AND bᵢ) OR (aᵢ AND cᵢ) OR (bᵢ AND cᵢ)`, với `c₀ = F`.",
+    "(b) Mỗi cột: 2 XOR cho sᵢ; 3 AND + 2 OR cho nhớ ra: 7 phép toán. Toàn mạch n+1 cột: 7(n+1) phép toán (cột 0 có thể bớt vì c₀ = F).",
+    "(c) cᵢ₊₁ phụ thuộc cᵢ, nên nhớ phải lan lần lượt qua cả n+1 cột: thời gian tỉ lệ n."
+   ],
+   "rubric": [
+    "(a) hai công thức đúng cho sᵢ, cᵢ₊₁ và điều kiện đầu c₀.",
+    "(b) đếm đúng theo cột và nhân đúng.",
+    "(c) nêu được phụ thuộc dây chuyền của nhớ."
+   ],
+   "pitfalls": [
+    "Viết nhớ ra `aᵢ AND bᵢ AND cᵢ` — đó là \"cả ba cùng 1\", thiếu các trường hợp hai bit.",
+    "Đếm sai số cột (n+1, không phải n)."
+   ]
+  },
+  "en": {
+   "title": "Ripple-carry adder",
+   "q": "Two (n+1)-bit binary numbers `aₙ…a₁a₀` and `bₙ…b₁b₀`. (a) Give formulas for the sum bit sᵢ and carry cᵢ₊₁ (cᵢ is the carry into column i, c₀ = 0). (b) How many XOR, AND, OR operations per column? In total? (c) Why is this circuit slow for large n?",
+   "hints": [
+    "Each column is a full adder: inputs aᵢ, bᵢ and the carry cᵢ.",
+    "Sum bit = XOR of the three bits; carry out = majority of the three.",
+    "Count operations in one column and multiply by the number of columns."
+   ],
+   "solution": [
+    "(a) `sᵢ = aᵢ XOR bᵢ XOR cᵢ`; `cᵢ₊₁ = (aᵢ AND bᵢ) OR (aᵢ AND cᵢ) OR (bᵢ AND cᵢ)`, with `c₀ = F`.",
+    "(b) Per column: 2 XORs for sᵢ; 3 ANDs + 2 ORs for the carry: 7 operations. Whole circuit: 7(n+1) (column 0 can be trimmed since c₀ = F).",
+    "(c) cᵢ₊₁ depends on cᵢ, so the carry must ripple through all n+1 columns: time grows linearly in n."
+   ],
+   "rubric": [
+    "(a) correct sᵢ, cᵢ₊₁ and the initial condition c₀.",
+    "(b) counts per column and multiplies correctly.",
+    "(c) names the carry dependency chain."
+   ],
+   "pitfalls": [
+    "Carry `aᵢ AND bᵢ AND cᵢ` — that is \"all three are 1\", missing the two-bit cases.",
+    "Miscounting columns (n+1, not n)."
+   ]
+  }
+ }
+]

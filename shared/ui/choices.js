@@ -75,6 +75,7 @@ export const leadCard = ({ title, note, href, cta, alt }) => el('div', {
 export const practiceTabs = active => el('nav', { class: 'page-tabs', 'aria-label': T('nav.practice') }, [
   el('a', { href: '#/practice', 'aria-current': active === 'practice' ? 'page' : null, text: T('practice.tabKinds') }),
   el('a', { href: '#/exam', 'aria-current': active === 'exam' ? 'page' : null, text: T('practice.tabFull') }),
+  el('a', { href: '#/free', 'aria-current': active === 'free' ? 'page' : null, text: T('practice.tabFree') }),
 ]);
 
 /** Cách trả lời đang chọn ở Luyện tập: 'write' (tự luận) | 'choice' (trắc nghiệm) — nhớ theo môn. */
