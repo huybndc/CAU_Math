@@ -49,6 +49,7 @@ export function gradeValue(q, given) {
   }
   // không khớp lỗi nào quen: chỉ ra ô sai đầu tiên
   const bad = want.map((x, i) => (Math.abs(x - got[i]) <= tol ? -1 : i)).filter(i => i >= 0);
+  if (want.length === 1 && Math.abs(want[0] - got[0]) <= 10 * tol) return { ok: false, detailKey: 'la.dClose', detailParams: { got: fmt(got[0]), tol: fmt(tol) } };   // gần đúng nhưng làm tròn quá thô
   if (want.length === 1) return { ok: false, detailKey: 'la.dValue', detailParams: { got: fmt(got[0]) } };
   const i = bad[0];
   const cols = isMat(q.answer) ? q.answer[0].length : 0;

@@ -385,63 +385,6 @@
   }
  },
  {
-  "id": "l-kirchhoff",
-  "ch": "ch3",
-  "level": 2,
-  "source": {
-   "name": "MIT 18.06 Linear Algebra (Spring 2010), PS3, §3.2 Problem 37",
-   "license": "CC BY-NC-SA 3.0"
-  },
-  "vi": {
-   "title": "Định luật Kirchhoff và nullspace",
-   "q": "Mạng có 4 nút và 6 dòng điện `y1…y6`; định luật Kirchhoff (dòng vào = dòng ra) cho `Ay = 0` với `A = [1 0 −1 1 0 0; −1 1 0 0 1 0; 0 −1 1 0 0 1; 0 0 0 −1 −1 −1]`. (a) Viết 4 phương trình. (b) Tìm hạng và chiều của nullspace. (c) Tìm 3 nghiệm đặc biệt (biến tự do `y3, y5, y6`).",
-   "hints": [
-    "Mỗi hàng là một nút.",
-    "Cộng ba hàng cuối vào hàng đầu: được hàng 0?",
-    "Biến pivot: y1, y2, y4. Đặt lần lượt một biến tự do bằng 1."
-   ],
-   "solution": [
-    "(a) `y1 − y3 + y4 = 0`; `−y1 + y2 + y5 = 0`; `−y2 + y3 + y6 = 0`; `−y4 − y5 − y6 = 0`.",
-    "(b) Cộng cả bốn hàng cho hàng 0 ⇒ chỉ 3 hàng độc lập: hạng 3. Chiều nullspace là 6 − 3 = 3.",
-    "(c) Từ hàng cuối `y4 = −y5 − y6`; hàng 1 cho `y1 = y3 − y4`; hàng 3 cho `y2 = y3 + y6`. Với (y3, y5, y6) = (1,0,0): `[1; 1; 1; 0; 0; 0]`; (0,1,0): `[1; 0; 0; −1; 1; 0]`; (0,0,1): `[1; 1; 0; −1; 0; 1]`.",
-    "Kiểm bằng máy: A nhân mỗi nghiệm đều ra 0."
-   ],
-   "rubric": [
-    "(a) viết đúng bốn phương trình.",
-    "(b) hạng 3, chiều 3 vì 4 hàng cộng lại bằng 0.",
-    "(c) ba nghiệm đặc biệt và có kiểm."
-   ],
-   "pitfalls": [
-    "Cho hạng 4: bốn hàng phụ thuộc (tổng bằng 0).",
-    "Chọn biến tự do khác với cột không pivot."
-   ]
-  },
-  "en": {
-   "title": "Kirchhoff's law and the nullspace",
-   "q": "A network with 4 nodes and 6 currents `y1…y6`; Kirchhoff's law (current in = current out) gives `Ay = 0` with `A = [1 0 −1 1 0 0; −1 1 0 0 1 0; 0 −1 1 0 0 1; 0 0 0 −1 −1 −1]`. (a) Write the 4 equations. (b) Find the rank and the dimension of the nullspace. (c) Find 3 special solutions (free variables `y3, y5, y6`).",
-   "hints": [
-    "Each row is a node.",
-    "Add all four rows: do you get the zero row?",
-    "Pivot variables: y1, y2, y4. Set one free variable to 1 at a time."
-   ],
-   "solution": [
-    "(a) `y1 − y3 + y4 = 0`; `−y1 + y2 + y5 = 0`; `−y2 + y3 + y6 = 0`; `−y4 − y5 − y6 = 0`.",
-    "(b) The four rows add to the zero row ⇒ only 3 independent rows: rank 3. The nullspace has dimension 6 − 3 = 3.",
-    "(c) From the last row `y4 = −y5 − y6`; row 1 gives `y1 = y3 − y4`; row 3 gives `y2 = y3 + y6`. With (y3, y5, y6) = (1,0,0): `[1; 1; 1; 0; 0; 0]`; (0,1,0): `[1; 0; 0; −1; 1; 0]`; (0,0,1): `[1; 1; 0; −1; 0; 1]`.",
-    "Computer check: A times each solution gives 0."
-   ],
-   "rubric": [
-    "(a) writes the four equations correctly.",
-    "(b) rank 3, dimension 3 because the four rows sum to 0.",
-    "(c) three special solutions, checked."
-   ],
-   "pitfalls": [
-    "Giving rank 4: the four rows are dependent (they sum to 0).",
-    "Choosing different free variables than the non-pivot columns."
-   ]
-  }
- },
- {
   "id": "l-rank-ab-identity",
   "ch": "ch3",
   "level": 2,

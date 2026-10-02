@@ -15,6 +15,7 @@ export const quiz = {
   'la.noteTol': 'Số không nguyên: viết dạng chính xác (1/3, √5) hoặc thập phân — sai lệch tối đa {tol} mỗi số (làm tròn 2 chữ số là đủ).',
   'la.needNums': 'Chưa đọc được số nào — viết số, phân số (1/2) hoặc căn (√5), cách nhau bằng dấu phẩy.',
   'la.needCount': 'Đáp án cần {n} số, bạn đang ghi {got} số.',
+  'la.dClose': 'Bạn ra {got} — gần đúng nhưng làm tròn quá thô: sai số phải ≤ {tol}. Giữ thêm chữ số thập phân (hoặc nhập phân số, vd −17/3).',
   'la.dValue': 'Bạn ra {got} — chưa đúng. Xem lời giải từng bước bên dưới.',
   'la.dEntry': 'Sai ở ô {pos}: bạn ghi {got}, đúng là {want}.',
   'la.dEntryMore': 'Sai ở ô {pos}: bạn ghi {got}, đúng là {want} (và {more} ô khác nữa).',

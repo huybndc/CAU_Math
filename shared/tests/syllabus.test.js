@@ -39,7 +39,7 @@ describe('mốc giữa kỳ', () => {
 describe('trọng số chương cho bài full', () => {
   it('số tuần học mỗi chương', () => {
     expect(chapterWeeks('logic')).toEqual({ ch1: 1, ch2: 1, ch3: 2, ch4: 2 });
-    expect(chapterWeeks('linalg')).toEqual({ ch1: 1, ch2: 1, ch3: 3 });
+    expect(chapterWeeks('linalg')).toEqual({ ch1: 1, ch2: 3, ch3: 3 });
     expect(chapterWeeks('nope')).toEqual({});
   });
 });

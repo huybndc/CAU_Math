@@ -123,6 +123,7 @@ export const en = {
   'practice.mins': '~{m} min',
   'shell.chapters': 'Chapters',
   'practice.none': 'not tried yet',
+  'practice.needWhy': 'Ranked by review priority (recent mistakes, long since practised), not just by % correct.',
   'practice.need': 'most needed',
   'practice.old': 'Chapter exercises',
   'practice.oldNote': 'self-checked exercises (no generated question bank yet)',

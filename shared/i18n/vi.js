@@ -122,6 +122,7 @@ export const vi = {
   'practice.mins': '~{m} phút',
   'shell.chapters': 'Các chương',
   'practice.none': 'chưa làm câu nào',
+  'practice.needWhy': 'Xếp theo độ ưu tiên ôn lại (sai gần đây, lâu chưa làm), không chỉ theo % đúng.',
   'practice.need': 'cần luyện nhất',
   'practice.old': 'Bài luyện của chương',
   'practice.oldNote': 'bài tập tự chấm (chưa có ngân hàng câu tự sinh)',

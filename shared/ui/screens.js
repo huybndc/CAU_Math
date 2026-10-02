@@ -86,7 +86,7 @@ function renderPractice(r, cfg) {
           sub: g.kinds.length < 2 ? '' : g.kinds.map(k => T(`${c.prefix}.${k}`)).join(' · '),
           num: T('practice.mins', { m: roundMinutes(c.bank, g.kinds) }),
           acc: accCell(recentStats(events, { prefix: c.prefix, kinds: g.kinds }, now)),
-          tag: top && top.prefix === c.prefix && g.kinds.includes(top.kind) && tag(T('practice.need')),
+          tag: top && top.prefix === c.prefix && g.kinds.includes(top.kind) && Object.assign(tag(T('practice.need')), { title: T('practice.needWhy') }),
         })),
       ]),
     ];
