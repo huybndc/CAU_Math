@@ -32,24 +32,15 @@ const CARD_TITLES = '.card > h2, .card > summary > h2';
 const titleOf = h => [...h.childNodes].filter(n => n.nodeType === 3).map(n => n.textContent).join('').trim();
 
 function renderTools(r, cfg) {
-  // mỗi chương MỘT dòng: các công cụ bấm thử (tên ngắn) + một link gom ví dụ giải sẵn — không liệt kê từng ví dụ
-  const groups = cfg.chapters.map(c => {
-    const heads = sub => [...($(`#pane-${c.id}-${sub}`)?.querySelectorAll(CARD_TITLES) ?? [])];
-    const tools = heads('interactive');
-    const examples = heads('example');
-    if (!tools.length && !examples.length) return null;
-    return el('section', { class: 'tool-ch' }, [
-      el('h2', {}, [el('span', { class: 'ch-no', text: chNo(c.id) }), T('nav.' + c.id)]),
-      el('div', { class: 'tool-chips' }, [
-        ...tools.map((h, i) => el('a', { class: 'tool-chip live', href: `#/learn/${c.id}/interactive/${i}`, text: titleOf(h) })),
-        examples.length > 0 && el('a', { class: 'tool-chip more', href: `#/learn/${c.id}/example`, text: T('tools.examples', { n: examples.length }) }),
-      ]),
-    ]);
+  // mỗi chương MỘT dòng (tên các công cụ ghi nhỏ); chuyển giữa các công cụ làm ngay trong trang công cụ
+  const rows = cfg.chapters.map(c => {
+    const names = [...($(`#pane-${c.id}-interactive`)?.querySelectorAll(CARD_TITLES) ?? [])].map(h => titleOf(h).split(/[:(]/)[0].trim());
+    return names.length && row({ href: `#/learn/${c.id}/interactive/0`, title: chapterTitle(c.id), sub: names.join(' · '), });
   }).filter(Boolean);
   $('#screen-tools').replaceChildren(
     el('h1', { text: T('nav.tools') }),
     el('p', { class: 'subtitle', text: T('tools.sub') }),
-    ...groups,
+    el('div', { class: 'list mods' }, rows),
   );
   return T('nav.tools');
 }
