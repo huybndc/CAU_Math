@@ -72,24 +72,14 @@ describe('từ điển', () => {
   });
 });
 
-describe('setReport / sumReport', () => {
+describe('setReport', () => {
   it('phép toán tập hợp khớp định nghĩa; bao hàm–loại trừ; U', async () => {
-    const { setReport, sumReport, SUMS } = await import('../src/logic/report-sets.js');
+    const { setReport } = await import('../src/logic/report-sets.js');
     const r = setReport('1,2,3,4', '3,4,5');
     expect(r.answer.map(l => l.m)).toEqual(['{1, 2, 3, 4, 5}', '{3, 4}', '{1, 2}', '{1, 2, 5}']);
     const withU = setReport('2,4', '4,6', '1,2,3,4,5,6');
     expect(withU.steps[0].lines.find(l => l.key === 'ds.compA').m).toBe('{1, 3, 5, 6}');
     expect(() => setReport('1,9', '2', '1,2,3')).toThrow();
     expect(setReport('a, b', 'b, c').answer[0].m).toBe('{a, b, c}');
-  });
-  it('tổng đóng khớp cộng trực tiếp cho mọi dãy, check nhận giá trị', async () => {
-    const { sumReport, SUMS } = await import('../src/logic/report-sets.js');
-    for (const kind of SUMS) for (let n = 1; n <= 25; n += 3) for (const [a, d] of (kind === 'geom' ? [[1, 2], [3, 2], [2, -2], [5, 1]] : [[1, 1], [3, 4], [2, -3], [5, 2]])) {
-      const r = sumReport(kind, n, a, d);
-      expect(r.steps[1].lines.at(-1).key, `${kind} n=${n} a=${a} d=${d}`).toBe('ds.match');
-      expect(r.check(r.answer[0].m)).toBe(true);
-      expect(r.check('123456789')).toBe(false);
-    }
-    expect(() => sumReport('geom', 60, 1, 9)).toThrow();
   });
 });

@@ -45,37 +45,3 @@ export function setReport(aText, bText, uText = '') {
     ],
   };
 }
-
-export const SUMS = ['arith', 'geom', 'squares', 'cubes', 'odd'];
-const MAX_SAFE = 1e15;
-
-/** Tổng đóng của n số hạng đầu; p = [a₁, d | r] (cấp số cộng / nhân). Kiểm bằng cộng trực tiếp. */
-export function sumReport(kind, n, p1 = 1, p2 = 1) {
-  if (!SUMS.includes(kind)) fail('err.badQuizKind', { kind });
-  if (!Number.isInteger(n) || n < 1 || n > 60) fail('ds.badN');
-  const terms = Array.from({ length: n }, (_, i) => {
-    const k = i + 1;
-    return kind === 'arith' ? p1 + i * p2 : kind === 'geom' ? p1 * p2 ** i : kind === 'squares' ? k * k : kind === 'cubes' ? k ** 3 : 2 * k - 1;
-  });
-  const direct = terms.reduce((s, x) => s + x, 0);
-  if (!Number.isSafeInteger(direct) || Math.abs(direct) > MAX_SAFE) fail('ds.tooBig');
-  let formula, plug, value;
-  if (kind === 'arith') { formula = 'S = n(2a + (n − 1)d)/2'; plug = `S = (${n}·(2·${p1} + ${n - 1}·${p2}))/2`; value = n * (2 * p1 + (n - 1) * p2) / 2; }
-  else if (kind === 'geom') {
-    if (p2 === 0) fail('ds.badRatio');
-    formula = 'S = a(rⁿ − 1)/(r − 1)';
-    if (p2 === 1) { plug = `r = 1 ⇒ S = n·a = ${n}·${p1}`; value = n * p1; }
-    else { plug = `S = (${p1}·(${p2}^${n} − 1))/(${p2} − 1)`; value = p1 * (p2 ** n - 1) / (p2 - 1); }
-  } else if (kind === 'squares') { formula = 'S = n(n + 1)(2n + 1)/6'; plug = `S = (${n}·${n + 1}·${2 * n + 1})/6`; value = n * (n + 1) * (2 * n + 1) / 6; }
-  else if (kind === 'cubes') { formula = 'S = (n(n + 1)/2)²'; plug = `S = ((${n}·${n + 1})/2)²`; value = (n * (n + 1) / 2) ** 2; }
-  else { formula = 'S = n²'; plug = `S = ${n}²`; value = n * n; }
-  const head = terms.length > 8 ? `${terms.slice(0, 4).join(' + ')} + … + ${terms.at(-1)}` : terms.join(' + ');
-  return {
-    answer: [{ key: 'ds.sumIs', m: `S = ${String(value).replace('-', '−')}` }],
-    steps: [
-      { head: { key: 'ds.stFormula' }, why: { key: `ds.why.${kind}` }, lines: [formula, plug, `S = ${String(value).replace('-', '−')}`] },
-      { head: { key: 'ds.stCheck' }, why: { key: 'ds.whyCheck' }, lines: [`${head} = ${String(direct).replace('-', '−')}`, value === direct ? { key: 'ds.match' } : { key: 'ds.mismatch' }] },
-    ],
-    check: t => { const v = Number(String(t).replace(/[−–]/g, '-').match(/-?\d+/)?.[0]); return v === value; },
-  };
-}
