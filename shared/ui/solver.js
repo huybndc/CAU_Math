@@ -50,7 +50,7 @@ export function createSolver(host, { practice = null, examples = [], random = nu
     ...examples.map(x => el('button', { type: 'button', class: 'sv-chip', text: typeof x.label === 'function' ? x.label() : x.label, onClick: () => x.apply() })),
   ] : []));
 
-  const why = st => st.why && el('p', { class: 'sv-why', text: T(st.why.key, st.why.params) });
+  const why = st => st.why && el('details', { class: 'sv-why' }, [el('summary', { text: T('solver.why') }), el('p', { text: T(st.why.key, st.why.params) })]);   // một dòng "Vì sao?", bấm mới mở
 
   function paint() {
     drawExamples();

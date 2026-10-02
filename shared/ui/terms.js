@@ -34,18 +34,18 @@ function openPop(btn, entry) {
   pop.style.top = Math.max(8, below ? r.bottom + 6 : r.top - h - 6) + 'px';
 }
 
-addEventListener('pointerdown', e => { if (pop && !pop.contains(e.target) && !e.target.closest?.('.term')) closePop(); }, true);
+addEventListener('pointerdown', e => { if (pop && !pop.contains(e.target) && !e.target.closest?.('.gl-term')) closePop(); }, true);
 addEventListener('keydown', e => { if (e.key === 'Escape') closePop(); }, true);
 addEventListener('scroll', closePop, { passive: true, capture: true });
 
-/** Bọc thuật ngữ trong các nút `.term` (bỏ qua ma trận, nút, ô nhập, liên kết). */
+/** Bọc thuật ngữ trong các nút `.gl-term` (bỏ qua ma trận, nút, ô nhập, liên kết). */
 export function decorateTerms(root, entries) {
   const words = entries.flatMap((e, i) => e.words.map(w => ({ w, i }))).sort((a, b) => b.w.length - a.w.length);
   if (!words.length) return;
   const re = new RegExp(`(?<![\\p{L}\\p{N}_])(${words.map(x => esc(x.w)).join('|')})(?![\\p{L}\\p{N}_])`, 'giu');
   const byWord = new Map(words.map(x => [x.w.toLowerCase(), x.i]));
   const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
-    acceptNode: n => (n.parentElement.closest('.term, .mat, button, a, input, textarea, [contenteditable]') ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT),
+    acceptNode: n => (n.parentElement.closest('.gl-term, .mat, button, a, input, textarea, [contenteditable]') ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT),
   });
   const nodes = [];
   for (let n = walker.nextNode(); n; n = walker.nextNode()) nodes.push(n);
@@ -60,7 +60,7 @@ export function decorateTerms(root, entries) {
       frag.append(text.slice(at, m.index));
       const b = document.createElement('button');
       b.type = 'button';
-      b.className = 'term';
+      b.className = 'gl-term';
       b.textContent = m[0];
       b.addEventListener('click', ev => { ev.preventDefault(); ev.stopPropagation(); openPop(b, entries[byWord.get(m[0].toLowerCase())]); });
       frag.append(b);

@@ -78,6 +78,7 @@ export const en = {
   'solver.random': 'Random',
   'solver.empty': 'Enter the data above — the result appears right here.',
   'solver.hide': 'Hide answer (try it first)',
+  'solver.why': 'Why?',
   'solver.reveal': 'Show answer',
   'solver.openAll': 'Open all steps',
   'solver.closeAll': 'Collapse all',
