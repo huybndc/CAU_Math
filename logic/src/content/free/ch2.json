@@ -1,0 +1,340 @@
+[
+ {
+  "id": "g-simplify-alg",
+  "ch": "ch2",
+  "level": 2,
+  "source": {
+   "name": "Dạng bài theo giáo trình Mano, Digital Design (đề tự soạn; đáp án kiểm bằng máy), chương 2 — rút gọn đại số",
+   "license": "tự soạn"
+  },
+  "vi": {
+   "title": "Rút gọn bằng đại số Boolean",
+   "q": "Rút gọn bằng các tiên đề / định lý Boolean (nêu mỗi bước dùng định lý nào): `F = A'B'C + A'BC + AB'C + ABC' + ABC`.",
+   "hints": [
+    "Gom các số hạng có chung hai biến.",
+    "Dùng `X + X' = 1` và `X + X = X` (lặp lại một số hạng được).",
+    "Có thể nhận ra `AB(C + C')` và `C(A' + A)` — thử lặp số hạng `ABC`."
+   ],
+   "solution": [
+    "`F = A'B'C + A'BC + AB'C + ABC' + ABC`. Lặp số hạng `ABC` thêm một lần (X + X = X): `F = A'B'C + A'BC + AB'C + ABC + ABC' + ABC`.",
+    "Nhóm: `C(A'B' + A'B + AB' + AB) + AB(C' + C)`.",
+    "`A'B' + A'B + AB' + AB = 1` (mọi tổ hợp A, B) và `C' + C = 1`. Vậy `F = C·1 + AB·1 = C + AB`.",
+    "Kiểm bằng bảng chân trị: F = 1 ở các tổ hợp 001, 011, 101, 110, 111 (m1, m3, m5, m6, m7) — đúng là `C + AB`."
+   ],
+   "rubric": [
+    "Mỗi bước biến đổi nêu đúng định lý (lặp số hạng, phân phối, bù).",
+    "Kết quả `C + AB`.",
+    "Có kiểm (bảng chân trị hoặc K-map)."
+   ],
+   "pitfalls": [
+    "Bỏ số hạng thay vì lặp: `X + X = X` cho phép *thêm* bản sao.",
+    "Kết luận `A + B + C` do nhìn sót số hạng."
+   ]
+  },
+  "en": {
+   "title": "Simplifying with Boolean algebra",
+   "q": "Simplify using Boolean axioms/theorems (name the law used at each step): `F = A'B'C + A'BC + AB'C + ABC' + ABC`.",
+   "hints": [
+    "Group terms that share two variables.",
+    "Use `X + X' = 1` and `X + X = X` (a term may be repeated).",
+    "You may spot `AB(C + C')` and `C(A' + A)` — try repeating the term `ABC`."
+   ],
+   "solution": [
+    "`F = A'B'C + A'BC + AB'C + ABC' + ABC`. Repeat the term `ABC` once more (X + X = X): `F = A'B'C + A'BC + AB'C + ABC + ABC' + ABC`.",
+    "Group: `C(A'B' + A'B + AB' + AB) + AB(C' + C)`.",
+    "`A'B' + A'B + AB' + AB = 1` (every combination of A, B) and `C' + C = 1`. So `F = C·1 + AB·1 = C + AB`.",
+    "Check by truth table: F = 1 at 001, 011, 101, 110, 111 (m1, m3, m5, m6, m7) — exactly `C + AB`."
+   ],
+   "rubric": [
+    "Each step names the right law (repetition, distribution, complement).",
+    "Result `C + AB`.",
+    "Checks it (truth table or K-map)."
+   ],
+   "pitfalls": [
+    "Dropping a term instead of repeating: `X + X = X` allows *adding* a copy.",
+    "Concluding `A + B + C` after overlooking a term."
+   ]
+  }
+ },
+ {
+  "id": "g-demorgan-complement",
+  "ch": "ch2",
+  "level": 1,
+  "source": {
+   "name": "Dạng bài theo giáo trình Mano, Digital Design (đề tự soạn; đáp án kiểm bằng máy), chương 2 — De Morgan",
+   "license": "tự soạn"
+  },
+  "vi": {
+   "title": "Bù của một biểu thức",
+   "q": "Tìm bù `F'` của `F = A'B + C(D + E')`, chỉ để phủ định xuất hiện trên từng biến, bằng luật De Morgan; kiểm tính đúng bằng máy hoặc bảng.",
+   "hints": [
+    "Bù một tổng = tích các bù; bù một tích = tổng các bù.",
+    "Đi từ ngoài vào trong, từng lớp.",
+    "Phủ định kép bị triệt tiêu."
+   ],
+   "solution": [
+    "`F = A'B + C(D + E')` là tổng của hai số hạng: `F' = (A'B)' · (C(D + E'))'`.",
+    "`(A'B)' = A + B'`. `(C(D + E'))' = C' + (D + E')' = C' + D'E`.",
+    "Vậy `F' = (A + B')(C' + D'E)`.",
+    "Đã kiểm với cả 32 tổ hợp của 5 biến bằng máy: bằng đúng phủ định của F."
+   ],
+   "rubric": [
+    "Áp dụng De Morgan đúng từng lớp.",
+    "Triệt tiêu phủ định kép (`E'' = E`).",
+    "Kết quả `(A + B')(C' + D'E)`."
+   ],
+   "pitfalls": [
+    "Bù từng biến mà không đổi AND ↔ OR (kết quả sai).",
+    "Quên ngoặc làm mất cấu trúc tích của các tổng."
+   ]
+  },
+  "en": {
+   "title": "Complement of an expression",
+   "q": "Find the complement `F'` of `F = A'B + C(D + E')` with negations only on single variables, using De Morgan's laws; check the result by machine or truth table.",
+   "hints": [
+    "Complement of a sum = product of complements; of a product = sum of complements.",
+    "Work from the outside in, layer by layer.",
+    "Double negation cancels."
+   ],
+   "solution": [
+    "`F = A'B + C(D + E')` is a sum of two terms: `F' = (A'B)' · (C(D + E'))'`.",
+    "`(A'B)' = A + B'`. `(C(D + E'))' = C' + (D + E')' = C' + D'E`.",
+    "So `F' = (A + B')(C' + D'E)`.",
+    "Checked over all 32 combinations of the five variables by machine: it equals the negation of F."
+   ],
+   "rubric": [
+    "Applies De Morgan correctly layer by layer.",
+    "Cancels the double negation (`E'' = E`).",
+    "Result `(A + B')(C' + D'E)`."
+   ],
+   "pitfalls": [
+    "Complementing each variable without swapping AND ↔ OR (wrong result).",
+    "Dropping parentheses and losing the product-of-sums structure."
+   ]
+  }
+ },
+ {
+  "id": "g-nand-only",
+  "ch": "ch2",
+  "level": 2,
+  "source": {
+   "name": "Dạng bài theo giáo trình Mano, Digital Design (đề tự soạn; đáp án kiểm bằng máy), chương 2 — chỉ dùng NAND",
+   "license": "tự soạn"
+  },
+  "vi": {
+   "title": "Dựng mạch chỉ bằng cổng NAND",
+   "q": "Dựng `F = AB + CD'` chỉ bằng cổng NAND 2 đầu vào. Vẽ (mô tả) mạch và đếm số cổng.",
+   "hints": [
+    "NAND-NAND thực hiện tổng các tích.",
+    "NOT = NAND với hai đầu vào nối nhau.",
+    "Biến có phủ định `D'` cần một cổng NAND làm NOT."
+   ],
+   "solution": [
+    "`AB + CD' = ((AB)' · (CD')')'`, tức NAND của hai NAND: `F = NAND( NAND(A, B), NAND(C, D') )`.",
+    "`D'` lấy từ `NAND(D, D)`.",
+    "Mạch: `n1 = NAND(A, B)`; `n2 = NAND(D, D) = D'`; `n3 = NAND(C, n2) = (CD')'`; `F = NAND(n1, n3)`. Tổng 4 cổng NAND.",
+    "Kiểm 16 tổ hợp: `F` khớp `AB + CD'` (đã kiểm bằng máy)."
+   ],
+   "rubric": [
+    "Biến đổi đúng sang dạng NAND-NAND.",
+    "Có cổng NAND làm NOT cho D.",
+    "Đếm đúng 4 cổng."
+   ],
+   "pitfalls": [
+    "Quên cổng đảo cho D'.",
+    "Viết `F = NAND(A, B, C, D')` (NAND 4 đầu vào, sai logic)."
+   ]
+  },
+  "en": {
+   "title": "Building a circuit from NAND gates only",
+   "q": "Build `F = AB + CD'` using only 2-input NAND gates. Describe the circuit and count the gates.",
+   "hints": [
+    "NAND-NAND realises a sum of products.",
+    "NOT = NAND with both inputs tied together.",
+    "The complemented variable `D'` needs a NAND acting as an inverter."
+   ],
+   "solution": [
+    "`AB + CD' = ((AB)' · (CD')')'`, i.e. a NAND of two NANDs: `F = NAND( NAND(A, B), NAND(C, D') )`.",
+    "`D'` comes from `NAND(D, D)`.",
+    "Circuit: `n1 = NAND(A, B)`; `n2 = NAND(D, D) = D'`; `n3 = NAND(C, n2) = (CD')'`; `F = NAND(n1, n3)`. 4 NAND gates in total.",
+    "Checked over all 16 combinations: `F` equals `AB + CD'` (verified by machine)."
+   ],
+   "rubric": [
+    "Converts correctly to NAND-NAND form.",
+    "A NAND used as an inverter for D.",
+    "Counts 4 gates."
+   ],
+   "pitfalls": [
+    "Forgetting the inverter for D'.",
+    "Writing `F = NAND(A, B, C, D')` (a 4-input NAND, wrong logic)."
+   ]
+  }
+ },
+ {
+  "id": "g-canonical",
+  "ch": "ch2",
+  "level": 1,
+  "source": {
+   "name": "Dạng bài theo giáo trình Mano, Digital Design (đề tự soạn; đáp án kiểm bằng máy), chương 2 — dạng chính tắc",
+   "license": "tự soạn"
+  },
+  "vi": {
+   "title": "Minterm, maxterm và dạng chính tắc",
+   "q": "Hàm `F(A, B, C) = Σm(1, 3, 5, 6, 7)`. (a) Viết F ở dạng tổng các minterm và dạng tích các maxterm. (b) Viết dạng tối giản.",
+   "hints": [
+    "Maxterm của F gồm các chỉ số *không* có trong danh sách minterm.",
+    "Minterm `m5` ứng với `ABC` = 101 → `AB'C`.",
+    "Tối giản bằng K-map hoặc đại số."
+   ],
+   "solution": [
+    "(a) Tổng minterm: `F = A'B'C + A'BC + AB'C + ABC' + ABC`.",
+    "Các chỉ số còn lại là 0, 2, 4 nên `F = ΠM(0, 2, 4) = (A + B + C)(A + B' + C)(A' + B + C)` (maxterm M0 = A+B+C, M2 = A+B'+C, M4 = A'+B+C).",
+    "(b) Tối giản: `F = C + AB` (đại số hoặc K-map: một nhóm 4 ô cột C, một nhóm 2 ô `AB`). POS tương ứng `(A + C)(B + C)`."
+   ],
+   "rubric": [
+    "Minterm đúng với từng tổ hợp.",
+    "Maxterm lấy chỉ số bù và viết phủ định đúng.",
+    "Dạng tối giản `C + AB`."
+   ],
+   "pitfalls": [
+    "Viết maxterm bằng cách đảo dấu của minterm nhưng giữ tích (phải là tổng các biến với bit 1 phủ định).",
+    "Lẫn lộn: minterm dùng bit 1 → biến thường; maxterm dùng bit 0 → biến thường."
+   ]
+  },
+  "en": {
+   "title": "Minterms, maxterms and canonical forms",
+   "q": "The function `F(A, B, C) = Σm(1, 3, 5, 6, 7)`. (a) Write F as a sum of minterms and as a product of maxterms. (b) Write the minimal form.",
+   "hints": [
+    "The maxterms of F are the indices *not* in the minterm list.",
+    "Minterm `m5` corresponds to `ABC` = 101 → `AB'C`.",
+    "Minimise with a K-map or algebra."
+   ],
+   "solution": [
+    "(a) Sum of minterms: `F = A'B'C + A'BC + AB'C + ABC' + ABC`.",
+    "The remaining indices are 0, 2, 4 so `F = ΠM(0, 2, 4) = (A + B + C)(A + B' + C)(A' + B + C)` (maxterms M0 = A+B+C, M2 = A+B'+C, M4 = A'+B+C).",
+    "(b) Minimal: `F = C + AB` (algebra or K-map: a 4-cell group in the C columns and a 2-cell group `AB`). The matching POS is `(A + C)(B + C)`."
+   ],
+   "rubric": [
+    "Correct minterms for each combination.",
+    "Maxterms from the complementary indices with the right complements.",
+    "Minimal form `C + AB`."
+   ],
+   "pitfalls": [
+    "Writing maxterms by negating the minterm but keeping the product (they must be sums, with a 1-bit variable complemented).",
+    "Mixing conventions: minterm uses bit 1 → plain variable; maxterm uses bit 0 → plain variable."
+   ]
+  }
+ },
+ {
+  "id": "g-consensus",
+  "ch": "ch2",
+  "level": 2,
+  "source": {
+   "name": "Dạng bài theo giáo trình Mano, Digital Design (đề tự soạn; đáp án kiểm bằng máy), chương 2 — chứng minh đồng nhất thức",
+   "license": "tự soạn"
+  },
+  "vi": {
+   "title": "Định lý đồng thuận (consensus)",
+   "q": "Chứng minh bằng đại số Boolean (không dùng bảng chân trị): `AB + A'C + BC = AB + A'C`.",
+   "hints": [
+    "Nhân `BC` với `A + A'` (bằng 1).",
+    "Tách thành hai số hạng và hấp thụ.",
+    "Luật hấp thụ: `X + XY = X`."
+   ],
+   "solution": [
+    "`AB + A'C + BC = AB + A'C + BC(A + A')` (nhân với 1).",
+    "`= AB + A'C + ABC + A'BC`.",
+    "Nhóm: `AB(1 + C) + A'C(1 + B) = AB + A'C` (vì `1 + C = 1`, `1 + B = 1`).",
+    "Vậy số hạng `BC` (đồng thuận của AB và A'C) thừa."
+   ],
+   "rubric": [
+    "Nhân với `A + A'` đúng lý do.",
+    "Hấp thụ `1 + C = 1`, `1 + B = 1`.",
+    "Kết luận rõ BC thừa."
+   ],
+   "pitfalls": [
+    "Cố chứng minh bằng bảng chân trị khi đề cấm.",
+    "Quên thêm `BC` ở hai vế khi viết lại: chỉ được nhân với 1."
+   ]
+  },
+  "en": {
+   "title": "The consensus theorem",
+   "q": "Prove with Boolean algebra (no truth table): `AB + A'C + BC = AB + A'C`.",
+   "hints": [
+    "Multiply `BC` by `A + A'` (which equals 1).",
+    "Split into two terms and absorb.",
+    "Absorption law: `X + XY = X`."
+   ],
+   "solution": [
+    "`AB + A'C + BC = AB + A'C + BC(A + A')` (multiplying by 1).",
+    "`= AB + A'C + ABC + A'BC`.",
+    "Group: `AB(1 + C) + A'C(1 + B) = AB + A'C` (since `1 + C = 1`, `1 + B = 1`).",
+    "So the term `BC` (the consensus of AB and A'C) is redundant."
+   ],
+   "rubric": [
+    "Multiplies by `A + A'` with the right justification.",
+    "Absorbs using `1 + C = 1`, `1 + B = 1`.",
+    "States clearly that BC is redundant."
+   ],
+   "pitfalls": [
+    "Using a truth table when the problem forbids it.",
+    "Adding `BC` on one side only while rewriting: you may only multiply by 1."
+   ]
+  }
+ },
+ {
+  "id": "g-circuit-analysis",
+  "ch": "ch2",
+  "level": 2,
+  "source": {
+   "name": "Dạng bài theo giáo trình Mano, Digital Design (đề tự soạn; đáp án kiểm bằng máy), chương 2 — phân tích mạch",
+   "license": "tự soạn"
+  },
+  "vi": {
+   "title": "Phân tích mạch cổng",
+   "q": "Mạch: `X = NAND(A, B)`; `Y = NOR(X, C)`; `F = Y XOR A`. (a) Viết `Y` và `F` theo A, B, C. (b) Lập bảng chân trị. (c) Rút gọn F.",
+   "hints": [
+    "NAND(A, B) = (AB)'; NOR(X, C) = (X + C)'.",
+    "Rút gọn Y trước: `(X + C)' = X'C'`.",
+    "XOR với A: `A ⊕ Y = A'Y + AY'`."
+   ],
+   "solution": [
+    "(a) `X = (AB)'`, `Y = (X + C)' = X'C' = AB·C' = ABC'`. `F = A ⊕ ABC'`.",
+    "(b) Y = 1 chỉ khi `A = B = 1, C = 0`. F = A ⊕ Y: bảng (ABC → F): 000 → 0, 001 → 0, 010 → 0, 011 → 0, 100 → 1, 101 → 1, 110 → 0 (A=1, Y=1), 111 → 1.",
+    "(c) F = 1 ở các tổ hợp 100, 101, 111: `F = AB' + AC` (= A(B' + C)). Cũng suy từ đại số: `A ⊕ ABC' = A(1 ⊕ BC') = A(BC')' = A(B' + C)`."
+   ],
+   "rubric": [
+    "(a) Y và F biểu diễn đúng.",
+    "(b) bảng 8 dòng đúng, nhất là dòng 110.",
+    "(c) `A(B' + C)` có lý do."
+   ],
+   "pitfalls": [
+    "Cho `Y = (AB)' + C` (quên bù cả biểu thức ở NOR).",
+    "Bảng sai ở dòng 110 vì quên XOR cho `A = 1, Y = 1` ra 0."
+   ]
+  },
+  "en": {
+   "title": "Analysing a gate circuit",
+   "q": "Circuit: `X = NAND(A, B)`; `Y = NOR(X, C)`; `F = Y XOR A`. (a) Write `Y` and `F` in terms of A, B, C. (b) Make the truth table. (c) Simplify F.",
+   "hints": [
+    "NAND(A, B) = (AB)'; NOR(X, C) = (X + C)'.",
+    "Simplify Y first: `(X + C)' = X'C'`.",
+    "XOR with A: `A ⊕ Y = A'Y + AY'`."
+   ],
+   "solution": [
+    "(a) `X = (AB)'`, `Y = (X + C)' = X'C' = AB·C' = ABC'`. `F = A ⊕ ABC'`.",
+    "(b) Y = 1 only for `A = B = 1, C = 0`. F = A ⊕ Y; table (ABC → F): 000 → 0, 001 → 0, 010 → 0, 011 → 0, 100 → 1, 101 → 1, 110 → 0 (A=1, Y=1), 111 → 1.",
+    "(c) F = 1 at 100, 101, 111: `F = AB' + AC` (= A(B' + C)). Also from algebra: `A ⊕ ABC' = A(1 ⊕ BC') = A(BC')' = A(B' + C)`."
+   ],
+   "rubric": [
+    "(a) Y and F expressed correctly.",
+    "(b) correct 8-row table, especially row 110.",
+    "(c) `A(B' + C)` with a reason."
+   ],
+   "pitfalls": [
+    "Writing `Y = (AB)' + C` (forgetting to complement the whole NOR).",
+    "A wrong row 110 by forgetting XOR gives 0 for `A = 1, Y = 1`."
+   ]
+  }
+ }
+]

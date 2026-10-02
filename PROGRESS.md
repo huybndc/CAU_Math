@@ -72,3 +72,9 @@
 - [x] (Ngay) Sửa dòng `math.lock` trong `AGENTS.md` cho khớp thực tế.
 - [ ] (Ngay, chờ người học chọn hướng) Hợp nhất với mirror ở Study_Hub trước khi sửa tiếp nội dung Logic ở đây — kiểm:
   `diff -rq` thư mục `logic/ linalg/ discrete/ shared/` giữa hai repo (bỏ `*.md`) không còn file code/nội dung khác.
+
+## Tự luận tự chấm (2026-10-02)
+- Màn `#/free` (tab thứ ba của Luyện tập) cho cả 3 môn: đề · gợi ý theo thang · lời giải mẫu chia ý · ý chấm tự tích · chỗ hay sai · tự đánh giá (lưu theo môn, khoá `free`). Máy KHÔNG chấm.
+- Dữ liệu: `<app>/src/content/free/chN.json`; kiểm bằng `shared/logic/free.js` + `<app>/tests/free-content.test.js`.
+- Nội dung: Discrete 62 bài (MIT 6.042J, CC BY-NC-SA 3.0), LinAlg 38 bài (MIT 18.06 Spring 2010 PS1–4, CC BY-NC-SA 3.0), Logic 26 bài (dạng bài theo Mano, tự soạn). Đề diễn đạt lại, lời giải tự viết, số liệu kiểm bằng máy.
+- "Bài full" đổi tên thành "Bài tập dài" (thi thử chỉ là luyện tập dài, không bắt chước đề thật).

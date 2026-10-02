@@ -8,6 +8,7 @@
      #/practice                Luyện tập: danh sách dạng
      #/practice/ch3            trộn cả chương (app chưa có ngân hàng câu: bài luyện cũ)
      #/practice/ch3/sop        một dạng
+     #/free  ·  #/free/<id>    Tự luận: danh sách · một bài (tự chấm theo lời giải)
      #/exam                    Thi thử: chọn đề ; #/exam/run · #/exam/result
    Địa chỉ cũ #/ch3/<mục con> (link trong bài học, bản trước) vẫn đọc được.
    Thuần (không đụng window) để test được; ui/router.js dùng.
@@ -44,6 +45,8 @@ export function parseRoute(hash, chapters) {
       if (!a) return { view: 'practice' };
       if (!chapters.includes(a)) return null;
       return b ? { view: 'practice', ch: a, kind: b } : { view: 'practice', ch: a };
+    case 'free':
+      return !a ? { view: 'free' } : /^[a-z0-9-]+$/.test(a) && !b ? { view: 'free', id: a } : null;
     case 'exam':
       return EXAM_STEPS.includes(a ?? 'setup') ? { view: 'exam', step: a ?? 'setup' } : null;
     default:
@@ -57,6 +60,7 @@ export function routeOf(r) {
     case 'learn': return r.ch ? `#/learn/${r.ch}/${r.sub ?? 'theory'}${r.at != null ? `/${r.at}` : ''}` : '#/learn';
     case 'tools': return '#/tools';
     case 'practice': return '#/practice' + (r.ch ? `/${r.ch}` : '') + (r.kind ? `/${r.kind}` : '');
+    case 'free': return r.id ? `#/free/${r.id}` : '#/free';
     case 'exam': return r.step && r.step !== 'setup' ? `#/exam/${r.step}` : '#/exam';
     default: return '#/';
   }

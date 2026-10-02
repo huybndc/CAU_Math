@@ -1,0 +1,458 @@
+[
+ {
+  "id": "d-counter-models",
+  "ch": "ch2",
+  "level": 2,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 3.21, 3.22, 3.27",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Ba mô hình phản ví dụ",
+   "q": "Với mỗi công thức, hãy định nghĩa một mô hình (miền + vị từ) làm nó **sai** (không cần chứng minh dài, chỉ nêu mô hình và kiểm):\n(a) `∃x P(x) → ∀x P(x)`\n(b) `(∃x P(x) AND ∃x Q(x)) → ∃x (P(x) AND Q(x))`\n(c) `(∀x ∃y P(x, y)) → ∀z P(z, z)`",
+   "hints": [
+    "Để công thức dạng `A → B` sai: làm A đúng và B sai.",
+    "Miền hai phần tử thường là đủ.",
+    "(c) Cần P(x, y) đúng mỗi khi x ≠ y nhưng sai khi x = y."
+   ],
+   "solution": [
+    "(a) Miền {0, 1}, `P(x) :⇔ x = 0`. Có x = 0 làm P đúng nên vế trái đúng; P(1) sai nên `∀x P(x)` sai.",
+    "(b) Miền ℕ, `P(x) :⇔ x chẵn`, `Q(x) :⇔ x lẻ`. Vế trái đúng (0 chẵn, 1 lẻ); không số nào vừa chẵn vừa lẻ nên vế phải sai.",
+    "(c) Miền {0, 1}, `P(x, y) :⇔ x ≠ y`. Với mỗi x có y khác x nên vế trái đúng; `P(0, 0)` sai nên vế phải sai."
+   ],
+   "rubric": [
+    "Mỗi mô hình nêu rõ miền và định nghĩa vị từ.",
+    "Có kiểm: vế trái đúng, vế phải sai.",
+    "Hiểu đúng \"mô hình phản ví dụ\" là làm cả công thức sai."
+   ],
+   "pitfalls": [
+    "Chọn mô hình làm cả hai vế đều đúng hoặc cả hai đều sai — không phải phản ví dụ.",
+    "Chọn miền một phần tử: với một phần tử, `∃` và `∀` trùng nhau nên không bao giờ phản ví dụ được."
+   ]
+  },
+  "en": {
+   "title": "Three counter models",
+   "q": "For each formula define a model (domain + predicates) that makes it **false** (state and check the model; no long proof needed):\n(a) `∃x P(x) → ∀x P(x)`\n(b) `(∃x P(x) AND ∃x Q(x)) → ∃x (P(x) AND Q(x))`\n(c) `(∀x ∃y P(x, y)) → ∀z P(z, z)`",
+   "hints": [
+    "An implication `A → B` is false when A is true and B false.",
+    "Two-element domains are usually enough.",
+    "(c) You want P(x, y) true whenever x ≠ y but false when x = y."
+   ],
+   "solution": [
+    "(a) Domain {0, 1}, `P(x) :⇔ x = 0`. x = 0 makes P true so the left side holds; P(1) is false so `∀x P(x)` fails.",
+    "(b) Domain ℕ, `P(x) :⇔ x even`, `Q(x) :⇔ x odd`. Left side true (0 even, 1 odd); no number is both, so the right side is false.",
+    "(c) Domain {0, 1}, `P(x, y) :⇔ x ≠ y`. Every x has a y different from it so the left side holds; `P(0, 0)` is false so the right side fails."
+   ],
+   "rubric": [
+    "Each model states the domain and the predicates.",
+    "Checks: left side true, right side false.",
+    "Understands a counter model makes the whole formula false."
+   ],
+   "pitfalls": [
+    "Picking a model where both sides are true or both false — not a counter model.",
+    "A one-element domain can never work: there ∃ and ∀ coincide."
+   ]
+  }
+ },
+ {
+  "id": "d-quant-swap",
+  "ch": "ch2",
+  "level": 2,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 3.23",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Đổi chỗ lượng từ có hợp lệ?",
+   "q": "Công thức nào sau đây hằng đúng (mọi mô hình)? Với công thức không hợp lệ, cho mô hình phản ví dụ.\n(a) `∃x ∃y P(x, y) → ∃y ∃x P(x, y)`\n(b) `∀x ∃y Q(x, y) → ∃y ∀x Q(x, y)`\n(c) `∃x ∀y R(x, y) → ∀y ∃x R(x, y)`\n(d) `NOT(∃x S(x)) ⇔ ∀x NOT S(x)`",
+   "hints": [
+    "Hai lượng từ cùng loại đổi chỗ được; khác loại thì không đổi tuỳ ý.",
+    "Đọc thành lời: (b) \"ai cũng có một y\" so với \"có một y cho tất cả mọi người\".",
+    "(c) Nếu có một x \"làm được với mọi y\" thì với mỗi y, chính x đó là nhân chứng."
+   ],
+   "solution": [
+    "(a) Hợp lệ: hai `∃` cùng loại đổi chỗ được — cả hai nói \"có cặp (x, y) với P\".",
+    "(b) KHÔNG hợp lệ. Miền {0, 1}, `Q(x, y) :⇔ x = y`: mọi x có y = x nên vế trái đúng; không có y nào bằng cả 0 lẫn 1 nên vế phải sai.",
+    "(c) Hợp lệ: gọi x₀ là phần tử làm `∀y R(x₀, y)`; với mỗi y có `R(x₀, y)`, nên nhân chứng x = x₀ cho `∃x R(x, y)`.",
+    "(d) Hợp lệ: đây là luật De Morgan cho lượng từ."
+   ],
+   "rubric": [
+    "(a) và (d) hợp lệ, có lý do.",
+    "(b) không hợp lệ và có mô hình phản ví dụ đúng.",
+    "(c) hợp lệ, nêu nhân chứng cố định x₀ chung cho mọi y."
+   ],
+   "pitfalls": [
+    "Kết luận (b) hợp lệ vì \"trông giống (c)\" — chiều ∀∃ → ∃∀ là chiều sai.",
+    "Cho phản ví dụ nhưng không kiểm vế trái đúng và vế phải sai."
+   ]
+  },
+  "en": {
+   "title": "Does swapping quantifiers preserve validity?",
+   "q": "Which of these formulas are valid (true in every model)? For invalid ones give a counter model.\n(a) `∃x ∃y P(x, y) → ∃y ∃x P(x, y)`\n(b) `∀x ∃y Q(x, y) → ∃y ∀x Q(x, y)`\n(c) `∃x ∀y R(x, y) → ∀y ∃x R(x, y)`\n(d) `NOT(∃x S(x)) ⇔ ∀x NOT S(x)`",
+   "hints": [
+    "Two quantifiers of the same kind commute; different kinds do not in general.",
+    "Read it aloud: (b) \"everyone has a y\" versus \"one y works for everyone\".",
+    "(c) If one x works for all y then, for each y, that same x is a witness."
+   ],
+   "solution": [
+    "(a) Valid: two `∃` commute — both say \"some pair (x, y) satisfies P\".",
+    "(b) NOT valid. Domain {0, 1}, `Q(x, y) :⇔ x = y`: every x has y = x so the left side holds; no single y equals both 0 and 1 so the right side fails.",
+    "(c) Valid: let x₀ satisfy `∀y R(x₀, y)`; for each y, `R(x₀, y)` holds, so x = x₀ witnesses `∃x R(x, y)`.",
+    "(d) Valid: De Morgan for quantifiers."
+   ],
+   "rubric": [
+    "(a) and (d) valid, with reasons.",
+    "(b) invalid with a correct counter model.",
+    "(c) valid, naming a fixed witness x₀ shared by all y."
+   ],
+   "pitfalls": [
+    "Calling (b) valid because it \"looks like (c)\" — ∀∃ → ∃∀ is the wrong direction.",
+    "Giving a counter model without checking left side true and right side false."
+   ]
+  }
+ },
+ {
+  "id": "d-translate-nt",
+  "ch": "ch2",
+  "level": 3,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 3.29",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Viết \"chia hết\", \"nguyên tố\" bằng logic",
+   "q": "Miền là ℕ = {0, 1, 2, …}. Chỉ được dùng `+`, `×`, `=`, hằng số tự nhiên, phép toán logic và lượng từ (không có luỹ thừa). Viết vị từ:\n(a) `m | n` (m là ước của n).\n(b) `Prime(n)`: n là số nguyên tố.\n(c) `PrimePower(n)`: n là luỹ thừa của một số nguyên tố, `n = pᵏ` với k ≥ 1.",
+   "hints": [
+    "(a) m là ước của n khi có k với `m × k = n`.",
+    "(b) Nguyên tố: `n ≠ 0, 1` và mọi cách phân tích `n = a × b` đều có a = 1 hoặc b = 1.",
+    "(c) Luỹ thừa của p: mọi ước lớn hơn 1 của n đều chia hết cho cùng một số nguyên tố p."
+   ],
+   "solution": [
+    "(a) `m | n :⇔ ∃k (m × k = n)`.",
+    "(b) `Prime(n) :⇔ n ≠ 0 AND n ≠ 1 AND ∀a ∀b (a × b = n → (a = 1 OR b = 1))`.",
+    "(c) `PrimePower(n) :⇔ n ≠ 1 AND ∃p (Prime(p) AND ∀d ((d | n AND d ≠ 1) → p | d))`.",
+    "Kiểm (c): n = pᵏ thì mọi ước > 1 là pʲ (j ≥ 1) chia hết cho p. Ngược lại nếu một số nguyên tố q | n thì q là ước > 1 nên p | q, tức q = p: n chỉ có ước nguyên tố p. n = 0 bị loại vì 0 có ước nguyên tố q ≠ p."
+   ],
+   "rubric": [
+    "(a) dùng `∃k` với phép nhân.",
+    "(b) loại 0 và 1 và dùng điều kiện phân tích tầm thường.",
+    "(c) dùng p cố định và lập luận \"mọi ước > 1 chia hết cho p\", có loại n = 1.",
+    "Có kiểm các trường hợp biên (0, 1)."
+   ],
+   "pitfalls": [
+    "Quên loại n = 0 hoặc n = 1 ở (b): 0 và 1 không nguyên tố.",
+    "Viết (c) thành \"có ước nguyên tố p\" — điều đó đúng với mọi n > 1, không đủ để loại 6."
+   ]
+  },
+  "en": {
+   "title": "\"Divides\" and \"prime\" in logic",
+   "q": "Domain ℕ = {0, 1, 2, …}. You may use only `+`, `×`, `=`, constants, logical connectives and quantifiers (no exponentiation). Write predicates for:\n(a) `m | n` (m divides n).\n(b) `Prime(n)`.\n(c) `PrimePower(n)`: n is a power of a prime, `n = pᵏ` with k ≥ 1.",
+   "hints": [
+    "(a) m divides n when some k has `m × k = n`.",
+    "(b) Prime: `n ≠ 0, 1` and every factorisation `n = a × b` has a = 1 or b = 1.",
+    "(c) A power of p: every divisor above 1 of n is divisible by the same prime p."
+   ],
+   "solution": [
+    "(a) `m | n :⇔ ∃k (m × k = n)`.",
+    "(b) `Prime(n) :⇔ n ≠ 0 AND n ≠ 1 AND ∀a ∀b (a × b = n → (a = 1 OR b = 1))`.",
+    "(c) `PrimePower(n) :⇔ n ≠ 1 AND ∃p (Prime(p) AND ∀d ((d | n AND d ≠ 1) → p | d))`.",
+    "Check (c): if n = pᵏ every divisor > 1 is pʲ (j ≥ 1), divisible by p. Conversely if a prime q | n then q is a divisor > 1 so p | q, i.e. q = p: p is the only prime factor. n = 0 is excluded since it has a prime divisor q ≠ p."
+   ],
+   "rubric": [
+    "(a) uses `∃k` with multiplication.",
+    "(b) excludes 0 and 1 and uses the trivial-factorisation condition.",
+    "(c) fixes p and says \"every divisor > 1 is divisible by p\", excluding n = 1.",
+    "Edge cases (0, 1) are checked."
+   ],
+   "pitfalls": [
+    "Forgetting to exclude 0 or 1 in (b): neither is prime.",
+    "Writing (c) as \"has a prime divisor p\" — true for every n > 1, so it would not rule out 6."
+   ]
+  }
+ },
+ {
+  "id": "d-email-two",
+  "ch": "ch2",
+  "level": 2,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 3.30–3.31",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Ai đó gửi thư cho nhiều nhất / đúng hai người",
+   "q": "Miền là các sinh viên trong lớp; chỉ dùng `=` và `E(x, y)` (\"x đã gửi thư cho y\"). Viết công thức cho:\n(a) Có một sinh viên đã gửi thư cho **nhiều nhất hai người khác** (có thể gửi cho chính mình).\n(b) Có một sinh viên đã gửi thư cho **đúng hai người khác** (có thể gửi cho chính mình).",
+   "hints": [
+    "\"Nhiều nhất hai người khác\": liệt kê tối đa hai người y, z; ai mà x gửi thư thì phải là x, y hoặc z.",
+    "Không cần y ≠ z ở (a): nếu y = z thì chỉ còn một người khác.",
+    "(b) Thêm điều kiện y ≠ z, y ≠ x, z ≠ x và x thực sự gửi cho y và z."
+   ],
+   "solution": [
+    "(a) `∃x ∃y ∃z ∀w (E(x, w) → (w = x OR w = y OR w = z))`.",
+    "(b) `∃x ∃y ∃z (y ≠ z AND y ≠ x AND z ≠ x AND E(x, y) AND E(x, z) AND ∀w (E(x, w) → (w = x OR w = y OR w = z)))`.",
+    "Lý do (b): ba điều kiện khác nhau cho biết y, z là hai người khác x, khác nhau; điều kiện `∀w` cho biết không có người thứ ba."
+   ],
+   "rubric": [
+    "(a) đúng ý \"nhiều nhất\" (có `∀w`, cho phép w = x).",
+    "(b) có đủ: y, z phân biệt và khác x; x gửi cho cả hai; không ai khác.",
+    "Giải thích vì sao mỗi mệnh đề con cần có."
+   ],
+   "pitfalls": [
+    "Ở (b) quên `y ≠ x`: khi đó \"người khác\" có thể chính là x.",
+    "Viết `∀w (E(x, w) → w = y OR w = z)` — loại trường hợp x gửi cho chính mình, trái đề."
+   ]
+  },
+  "en": {
+   "title": "Someone who emailed at most / exactly two others",
+   "q": "Domain: the students of a class; only `=` and `E(x, y)` (\"x emailed y\") are allowed. Write formulas for:\n(a) There is a student who emailed **at most two other people** (possibly emailing themself).\n(b) There is a student who emailed **exactly two other people** (possibly emailing themself).",
+   "hints": [
+    "\"At most two others\": name at most two people y, z; anyone x emailed must be x, y or z.",
+    "No y ≠ z needed in (a): if y = z there is just one other.",
+    "(b) Add y ≠ z, y ≠ x, z ≠ x and that x really emailed y and z."
+   ],
+   "solution": [
+    "(a) `∃x ∃y ∃z ∀w (E(x, w) → (w = x OR w = y OR w = z))`.",
+    "(b) `∃x ∃y ∃z (y ≠ z AND y ≠ x AND z ≠ x AND E(x, y) AND E(x, z) AND ∀w (E(x, w) → (w = x OR w = y OR w = z)))`.",
+    "Why (b): the first three conditions say y, z are two distinct people other than x; the `∀w` clause says nobody else was emailed."
+   ],
+   "rubric": [
+    "(a) captures \"at most\" (has `∀w`, allows w = x).",
+    "(b) has all parts: y, z distinct and ≠ x; x emailed both; nobody else.",
+    "Explains why each conjunct is needed."
+   ],
+   "pitfalls": [
+    "Omitting `y ≠ x` in (b): then an \"other\" could be x itself.",
+    "Writing `∀w (E(x, w) → w = y OR w = z)` — this forbids emailing oneself, contrary to the statement."
+   ]
+  }
+ },
+ {
+  "id": "d-line-up",
+  "ch": "ch2",
+  "level": 2,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 3.33",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Xếp hàng: vị trí bằng vị từ F",
+   "q": "Một số sinh viên đứng thành hàng ngang (ít nhất hai người). Chỉ dùng `=` và `F(x, y)` (\"x đứng bên trái y ở đâu đó trong hàng\"). Đã định nghĩa một vị từ thì được dùng lại. Viết:\n(a) `InLine(x)`: x có trong hàng.\n(b) `First(x)`: x đứng đầu.\n(c) `RightOf(x, y)`: x ngay bên phải y.\n(d) `Second(x)`: x đứng thứ hai.",
+   "hints": [
+    "Miền là cả lớp, nên phải nói rõ ai đang ở trong hàng.",
+    "Có ít nhất hai người, nên ai ở trong hàng thì \"so sánh được\" với ai đó.",
+    "\"Ngay bên phải\" = bên phải y và không có ai xen giữa."
+   ],
+   "solution": [
+    "(a) `InLine(x) :⇔ ∃y (F(x, y) OR F(y, x))`.",
+    "(b) `First(x) :⇔ InLine(x) AND ∀y ((InLine(y) AND y ≠ x) → F(x, y))`.",
+    "(c) `RightOf(x, y) :⇔ F(y, x) AND NOT ∃z (F(y, z) AND F(z, x))`.",
+    "(d) `Second(x) :⇔ ∃y (First(y) AND RightOf(x, y))`."
+   ],
+   "rubric": [
+    "(a) dùng F để nhận ra người trong hàng.",
+    "(b) so với mọi người khác *trong hàng*.",
+    "(c) có điều kiện \"không có ai xen giữa\".",
+    "(d) dùng lại (b), (c)."
+   ],
+   "pitfalls": [
+    "Ở (b) quên giới hạn y trong hàng: người ngoài hàng không thoả `F(x, y)`, nên không ai đứng đầu.",
+    "Ở (c) chỉ viết `F(y, x)`: đó là \"bên phải\" chứ chưa phải \"ngay bên phải\"."
+   ]
+  },
+  "en": {
+   "title": "Lining up with the predicate F",
+   "q": "Some students stand in a line (at least two). Use only `=` and `F(x, y)` (\"x is somewhere to the left of y\"). Once a predicate is defined you may reuse it. Write:\n(a) `InLine(x)`: x is in the line.\n(b) `First(x)`: x is first.\n(c) `RightOf(x, y)`: x is immediately right of y.\n(d) `Second(x)`: x is second.",
+   "hints": [
+    "The domain is the whole class, so you must say who is in the line.",
+    "With at least two people, anyone in the line is comparable with someone.",
+    "\"Immediately right\" = right of y with nobody in between."
+   ],
+   "solution": [
+    "(a) `InLine(x) :⇔ ∃y (F(x, y) OR F(y, x))`.",
+    "(b) `First(x) :⇔ InLine(x) AND ∀y ((InLine(y) AND y ≠ x) → F(x, y))`.",
+    "(c) `RightOf(x, y) :⇔ F(y, x) AND NOT ∃z (F(y, z) AND F(z, x))`.",
+    "(d) `Second(x) :⇔ ∃y (First(y) AND RightOf(x, y))`."
+   ],
+   "rubric": [
+    "(a) uses F to detect line members.",
+    "(b) compares with every *other person in the line*.",
+    "(c) has the \"nobody in between\" clause.",
+    "(d) reuses (b) and (c)."
+   ],
+   "pitfalls": [
+    "In (b) not restricting y to the line: people outside it never satisfy `F(x, y)`, so nobody would be first.",
+    "In (c) writing only `F(y, x)`: that is \"to the right\", not \"immediately to the right\"."
+   ]
+  }
+ },
+ {
+  "id": "d-binary-strings",
+  "ch": "ch2",
+  "level": 2,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 3.25",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Chuỗi nhị phân bằng logic",
+   "q": "Miền: mọi chuỗi nhị phân hữu hạn (kể cả chuỗi rỗng ε). Được dùng `=`, ký hiệu 0, 1, ghép chuỗi (viết liền như `1y0`) và mọi toán tử logic. Cho sẵn `PREFIX(x, y) :⇔ ∃z (x z = y)` và `NO-1S(x) :⇔ NOT ∃u ∃v (u 1 v = x)` (x không chứa số 1). Viết công thức cho:\n(a) x gồm ba bản sao của một chuỗi nào đó.\n(b) x là chuỗi các số 0 có độ dài chẵn.\n(c) x không chứa cả 0 lẫn 1.\n(d) x là biểu diễn nhị phân của `2ᵏ + 1` với k ≥ 0.",
+   "hints": [
+    "Chuỗi y \"tồn tại\" nên dùng `∃y`.",
+    "(b) Độ dài chẵn nghĩa là `x = y y` với y nào đó.",
+    "(d) Viết vài giá trị: 2 = 10, 3 = 11, 5 = 101, 9 = 1001 … nhận ra dạng `1 0…0 1`."
+   ],
+   "solution": [
+    "(a) `∃y (x = y y y)`.",
+    "(b) `∃y (NO-1S(y) AND x = y y)`.",
+    "(c) Định nghĩa `NO-0S` tương tự `NO-1S`. Khi đó `NO-1S(x) OR NO-0S(x)`.",
+    "(d) `2⁰ + 1 = 2 = 10` và với k ≥ 1, `2ᵏ + 1` là `1 0…0 1` (k − 1 số 0): `x = 10 OR ∃y (NO-1S(y) AND x = 1 y 1)`. Với y = ε ta được 11 = 3 (k = 1)."
+   ],
+   "rubric": [
+    "(a)(b) dùng `∃y` với ghép chuỗi.",
+    "(c) gọi lại / tạo vị từ NO-0S và dùng OR.",
+    "(d) nhận ra dạng và xử lý riêng k = 0 (chuỗi `10`)."
+   ],
+   "pitfalls": [
+    "Ở (d) quên k = 0: `10` không có dạng `1 y 1`.",
+    "Ở (c) viết `NO-1S(x) AND NO-0S(x)`: AND chỉ cho chuỗi rỗng; cần OR."
+   ]
+  },
+  "en": {
+   "title": "Binary strings in logic",
+   "q": "Domain: all finite binary strings (including the empty string ε). You may use `=`, the symbols 0, 1, concatenation (written side by side, like `1y0`) and all logical operators. Given: `PREFIX(x, y) :⇔ ∃z (x z = y)` and `NO-1S(x) :⇔ NOT ∃u ∃v (u 1 v = x)` (x has no 1). Write formulas for:\n(a) x is three copies of some string.\n(b) x is an even-length string of 0s.\n(c) x does not contain both a 0 and a 1.\n(d) x is the binary representation of `2ᵏ + 1` for some k ≥ 0.",
+   "hints": [
+    "The string y \"exists\", so use `∃y`.",
+    "(b) Even length means `x = y y` for some y.",
+    "(d) List values: 2 = 10, 3 = 11, 5 = 101, 9 = 1001 … spot the shape `1 0…0 1`."
+   ],
+   "solution": [
+    "(a) `∃y (x = y y y)`.",
+    "(b) `∃y (NO-1S(y) AND x = y y)`.",
+    "(c) Define `NO-0S` like `NO-1S`. Then `NO-1S(x) OR NO-0S(x)`.",
+    "(d) `2⁰ + 1 = 2 = 10`, and for k ≥ 1, `2ᵏ + 1` is `1 0…0 1` (k − 1 zeros): `x = 10 OR ∃y (NO-1S(y) AND x = 1 y 1)`. With y = ε we get 11 = 3 (k = 1)."
+   ],
+   "rubric": [
+    "(a)(b) use `∃y` with concatenation.",
+    "(c) defines/uses NO-0S and an OR.",
+    "(d) spots the shape and treats k = 0 (the string `10`) separately."
+   ],
+   "pitfalls": [
+    "In (d) forgetting k = 0: `10` is not of the form `1 y 1`.",
+    "In (c) writing `NO-1S(x) AND NO-0S(x)`: AND only allows ε; you need OR."
+   ]
+  }
+ },
+ {
+  "id": "d-domain-truth",
+  "ch": "ch2",
+  "level": 1,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 3.19, 3.26",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Đúng hay sai tuỳ miền",
+   "q": "Với mỗi mệnh đề, cho biết đúng hay sai khi biến chạy trên ℕ, ℤ, ℚ, ℝ. Giải thích ngắn các trường hợp đáng nói.\n(1) `∃x (x² = 2)`\n(2) `∀x ∃y (2y = x)`\n(3) `∀y ∃x (x² = y)`\n(4) `∀x ≠ 0 ∃y (x y = 1)`",
+   "hints": [
+    "Hỏi: miền có chứa phần tử \"nhân chứng\" không?",
+    "(2) nửa của số lẻ có thuộc miền không?",
+    "(3) Thử y = 2 và y = −1."
+   ],
+   "solution": [
+    "(1) ℕ, ℤ, ℚ: sai (√2 vô tỉ). ℝ: đúng (x = √2).",
+    "(2) ℕ, ℤ: sai (x = 1 không có nửa trong miền). ℚ, ℝ: đúng (y = x/2).",
+    "(3) Sai ở cả bốn: y = 2 không là bình phương của số nguyên/hữu tỉ, và y = −1 không là bình phương của số thực.",
+    "(4) ℕ, ℤ: sai (x = 2 không có nghịch đảo trong miền). ℚ, ℝ: đúng (y = 1/x)."
+   ],
+   "rubric": [
+    "4 × 4 = 16 đáp án đúng.",
+    "Các lý do ngắn gọn: √2 vô tỉ, nửa của 1, bình phương không âm, nghịch đảo.",
+    "Hiểu rằng đổi miền có thể đổi giá trị chân lý của cùng một công thức."
+   ],
+   "pitfalls": [
+    "Nhầm (3) đúng trong ℝ: y âm không là bình phương của số thực.",
+    "Quên rằng \"∀x ≠ 0\" ở (4) vẫn gồm x = 2 trong ℕ, ℤ."
+   ]
+  },
+  "en": {
+   "title": "True or false depending on the domain",
+   "q": "For each statement decide whether it is true when the variables range over ℕ, ℤ, ℚ, ℝ. Add a short reason for the interesting cases.\n(1) `∃x (x² = 2)`\n(2) `∀x ∃y (2y = x)`\n(3) `∀y ∃x (x² = y)`\n(4) `∀x ≠ 0 ∃y (x y = 1)`",
+   "hints": [
+    "Ask: does the domain contain the needed witness?",
+    "(2) Is half of an odd number in the domain?",
+    "(3) Try y = 2 and y = −1."
+   ],
+   "solution": [
+    "(1) ℕ, ℤ, ℚ: false (√2 irrational). ℝ: true (x = √2).",
+    "(2) ℕ, ℤ: false (x = 1 has no half in the domain). ℚ, ℝ: true (y = x/2).",
+    "(3) False in all four: y = 2 is not a square of an integer/rational, and y = −1 is not a square of a real.",
+    "(4) ℕ, ℤ: false (x = 2 has no inverse in the domain). ℚ, ℝ: true (y = 1/x)."
+   ],
+   "rubric": [
+    "All 4 × 4 = 16 answers correct.",
+    "Short reasons: √2 irrational, half of 1, squares are non-negative, inverses.",
+    "Understands that changing the domain can change the truth value of the same formula."
+   ],
+   "pitfalls": [
+    "Calling (3) true over ℝ: a negative y is not a real square.",
+    "Forgetting that \"∀x ≠ 0\" in (4) still includes x = 2 in ℕ, ℤ."
+   ]
+  }
+ },
+ {
+  "id": "d-prefix-zeros",
+  "ch": "ch2",
+  "level": 2,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 3.25(e)",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "PREFIX(x, 0x) chỉ đúng cho chuỗi toàn số 0",
+   "q": "Trong miền chuỗi nhị phân, `PREFIX(x, y)` nghĩa là x là tiền tố của y. Chứng minh: `PREFIX(x, 0x)` đúng khi và chỉ khi x là chuỗi rỗng hoặc chỉ gồm số 0.",
+   "hints": [
+    "Viết `0x = x z` cho một chuỗi z nào đó rồi so từng ký tự từ trái.",
+    "Ký tự thứ i + 1 của `0x` là ký tự thứ i của x.",
+    "Chiều ngược lại: x toàn số 0 thì `0x` bằng x thêm một số 0 ở cuối."
+   ],
+   "solution": [
+    "(⇐) Nếu `x = 0ⁿ` thì `0x = 0ⁿ⁺¹ = x · 0`, nên x là tiền tố của `0x`.",
+    "(⇒) Giả sử `0x = x z`, x = x₁x₂…xₙ. Ký tự đầu của `0x` là 0 nên x₁ = 0 (nếu n ≥ 1).",
+    "Ký tự thứ i + 1 của `0x` là xᵢ, còn của `x z` là xᵢ₊₁ (với i < n). Vậy xᵢ₊₁ = xᵢ với mọi i < n.",
+    "Từ x₁ = 0 suy ra mọi xᵢ = 0 (quy nạp theo i): x chỉ gồm số 0."
+   ],
+   "rubric": [
+    "Chứng minh đủ hai chiều.",
+    "Biết so vị trí của `0x` và `x z`.",
+    "Dùng quy nạp (hoặc lặp) để suy ra mọi ký tự là 0."
+   ],
+   "pitfalls": [
+    "Chỉ kiểm vài ví dụ (x = 0, 00) — chưa chứng minh.",
+    "Quên trường hợp x rỗng (đúng tầm thường)."
+   ]
+  },
+  "en": {
+   "title": "PREFIX(x, 0x) holds only for all-zero strings",
+   "q": "In the domain of binary strings, `PREFIX(x, y)` means x is a prefix of y. Prove that `PREFIX(x, 0x)` holds iff x is empty or consists only of 0s.",
+   "hints": [
+    "Write `0x = x z` for some string z and compare characters from the left.",
+    "Character i + 1 of `0x` is character i of x.",
+    "Converse: if x is all 0s then `0x` is x with one more 0 at the end."
+   ],
+   "solution": [
+    "(⇐) If `x = 0ⁿ` then `0x = 0ⁿ⁺¹ = x · 0`, so x is a prefix of `0x`.",
+    "(⇒) Suppose `0x = x z`, x = x₁x₂…xₙ. The first character of `0x` is 0, so x₁ = 0 (if n ≥ 1).",
+    "Character i + 1 of `0x` is xᵢ and of `x z` is xᵢ₊₁ (for i < n). Hence xᵢ₊₁ = xᵢ for all i < n.",
+    "From x₁ = 0 it follows (induction on i) that every xᵢ = 0: x has only 0s."
+   ],
+   "rubric": [
+    "Proves both directions.",
+    "Compares positions of `0x` and `x z`.",
+    "Uses induction (or iteration) to get every character equal to 0."
+   ],
+   "pitfalls": [
+    "Checking a few examples (x = 0, 00) — that is not a proof.",
+    "Forgetting the empty x (trivially true)."
+   ]
+  }
+ }
+]

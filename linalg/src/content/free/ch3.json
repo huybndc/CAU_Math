@@ -1,0 +1,1169 @@
+[
+ {
+  "id": "l-subspace-sym",
+  "ch": "ch3",
+  "level": 1,
+  "source": {
+   "name": "MIT 18.06 Linear Algebra (Spring 2010), PS2, §3.1 bài 18",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Đối xứng, phản đối xứng có là không gian con?",
+   "q": "Trong không gian M các ma trận vuông cỡ n, các tập sau có là không gian con không? (a) Ma trận đối xứng (`Aᵀ = A`). (b) Ma trận phản đối xứng (`Aᵀ = −A`). (c) Ma trận *không* đối xứng (`Aᵀ ≠ A`). Nếu không, cho phản ví dụ.",
+   "hints": [
+    "Không gian con cần chứa 0 và đóng với cộng và nhân vô hướng.",
+    "Dùng `(A + B)ᵀ = Aᵀ + Bᵀ`.",
+    "(c): tổng hai ma trận không đối xứng có thể đối xứng; và ma trận 0 có đối xứng không?"
+   ],
+   "solution": [
+    "(a) Có: `Aᵀ = A`, `Bᵀ = B` ⇒ `(A + B)ᵀ = A + B`; `(cA)ᵀ = cA`.",
+    "(b) Có: `Aᵀ = −A`, `Bᵀ = −B` ⇒ `(A + B)ᵀ = −(A + B)`; `(cA)ᵀ = −cA`.",
+    "(c) Không: `[0 1; 0 0] + [0 0; 1 0] = [0 1; 1 0]` — hai ma trận không đối xứng cộng lại thành ma trận đối xứng. (Ngoài ra 0 là ma trận đối xứng nên tập này không chứa 0.)"
+   ],
+   "rubric": [
+    "(a)(b) kiểm cả cộng và nhân vô hướng.",
+    "(c) có phản ví dụ cụ thể và/hoặc lý do 0 không thuộc.",
+    "Nêu tiêu chí không gian con (chứa 0, đóng với cộng và nhân vô hướng)."
+   ],
+   "pitfalls": [
+    "Chỉ kiểm cộng mà quên nhân vô hướng.",
+    "Cho (c) là không gian con vì \"hầu hết ma trận đều không đối xứng\"."
+   ]
+  },
+  "en": {
+   "title": "Are symmetric and skew-symmetric matrices subspaces?",
+   "q": "In the space M of n×n matrices, are these sets subspaces? (a) Symmetric (`Aᵀ = A`). (b) Skew-symmetric (`Aᵀ = −A`). (c) *Un*symmetric matrices (`Aᵀ ≠ A`). If not, give a counterexample.",
+   "hints": [
+    "A subspace must contain 0 and be closed under addition and scalar multiples.",
+    "Use `(A + B)ᵀ = Aᵀ + Bᵀ`.",
+    "(c): the sum of two unsymmetric matrices can be symmetric; and is the zero matrix symmetric?"
+   ],
+   "solution": [
+    "(a) Yes: `Aᵀ = A`, `Bᵀ = B` ⇒ `(A + B)ᵀ = A + B`; `(cA)ᵀ = cA`.",
+    "(b) Yes: `Aᵀ = −A`, `Bᵀ = −B` ⇒ `(A + B)ᵀ = −(A + B)`; `(cA)ᵀ = −cA`.",
+    "(c) No: `[0 1; 0 0] + [0 0; 1 0] = [0 1; 1 0]` — two unsymmetric matrices add to a symmetric one. (Also 0 is symmetric, so this set does not contain 0.)"
+   ],
+   "rubric": [
+    "(a)(b) check both addition and scalar multiplication.",
+    "(c) a concrete counterexample and/or the reason 0 is missing.",
+    "States the subspace test (contains 0, closed under addition and scalars)."
+   ],
+   "pitfalls": [
+    "Checking addition but forgetting scalar multiples.",
+    "Calling (c) a subspace because \"most matrices are unsymmetric\"."
+   ]
+  }
+ },
+ {
+  "id": "l-colspace-larger",
+  "ch": "ch3",
+  "level": 1,
+  "source": {
+   "name": "MIT 18.06 Linear Algebra (Spring 2010), PS2, §3.1 bài 23",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Thêm cột b vào A",
+   "q": "Thêm một cột b vào A thì không gian cột lớn hơn trừ khi ___. Cho một ví dụ cột lớn hơn và một ví dụ không. Vì sao `Ax = b` giải được ⇔ không gian cột không lớn hơn (A và `[A b]` có cùng không gian cột)?",
+   "hints": [
+    "\"Lớn hơn\" nghĩa là b không nằm sẵn trong không gian cột của A.",
+    "Dùng `A = [1 0; 0 0]`.",
+    "`Ax` là tổ hợp các cột của A với hệ số x."
+   ],
+   "solution": [
+    "Không gian cột lớn hơn trừ khi b là tổ hợp tuyến tính của các cột của A (b đã nằm trong C(A)).",
+    "Ví dụ `A = [1 0; 0 0]`: C(A) là trục x. `b = [1; 0]` thuộc C(A) nên C không lớn hơn; `b = [0; 1]` không thuộc C(A) nên C(`[A b]`) là cả mặt phẳng — lớn hơn.",
+    "`Ax = b` giải được ⇔ b = tổ hợp các cột của A (hệ số là x) ⇔ b ∈ C(A) ⇔ thêm b không làm không gian cột lớn thêm."
+   ],
+   "rubric": [
+    "Điền đúng \"b nằm sẵn trong C(A)\".",
+    "Hai ví dụ phân biệt đúng.",
+    "Giải thích ba mệnh đề tương đương."
+   ],
+   "pitfalls": [
+    "Nhầm b = 0 với \"không đổi\": mọi b ∈ C(A) mới không đổi.",
+    "Chỉ cho một ví dụ."
+   ]
+  },
+  "en": {
+   "title": "Adding a column b to A",
+   "q": "Adding a column b to A makes the column space larger unless ___. Give an example where it gets larger and one where it does not. Why is `Ax = b` solvable exactly when the column space does not get larger (A and `[A b]` have the same column space)?",
+   "hints": [
+    "\"Larger\" means b is not already in the column space of A.",
+    "Use `A = [1 0; 0 0]`.",
+    "`Ax` is a combination of the columns of A with coefficients x."
+   ],
+   "solution": [
+    "The column space gets larger unless b is a linear combination of the columns of A (b already lies in C(A)).",
+    "Example `A = [1 0; 0 0]`: C(A) is the x-axis. `b = [1; 0]` lies in C(A) so nothing grows; `b = [0; 1]` is not in C(A) so C(`[A b]`) is the whole plane — larger.",
+    "`Ax = b` is solvable iff b is a combination of the columns of A (coefficients x) iff b ∈ C(A) iff adding b does not enlarge the column space."
+   ],
+   "rubric": [
+    "Fills in \"b already in C(A)\".",
+    "Two correct, different examples.",
+    "Explains the three equivalent statements."
+   ],
+   "pitfalls": [
+    "Thinking only b = 0 leaves it unchanged: every b ∈ C(A) does.",
+    "Giving only one example."
+   ]
+  }
+ },
+ {
+  "id": "l-sum-subspaces",
+  "ch": "ch3",
+  "level": 2,
+  "source": {
+   "name": "MIT 18.06 Linear Algebra (Spring 2010), PS2, §3.1 bài 30",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Tổng của hai không gian con",
+   "q": "S và T là hai không gian con của V. (a) Tổng `S + T` gồm mọi `s + t` (s ∈ S, t ∈ T). Chứng minh `S + T` là không gian vector (đóng với cộng và nhân vô hướng). (b) Nếu S, T là hai đường thẳng trong ℝᵐ thì `S + T` khác hợp `S ∪ T` thế nào? Giải thích: bao tuyến tính của `S ∪ T` là `S + T`.",
+   "hints": [
+    "Cộng `(s + t) + (s′ + t′)` và nhóm lại.",
+    "Hợp hai đường thẳng khác nhau không đóng với phép cộng.",
+    "Bao tuyến tính là không gian con *nhỏ nhất* chứa tập."
+   ],
+   "solution": [
+    "(a) `(s + t) + (s′ + t′) = (s + s′) + (t + t′)` với `s + s′ ∈ S`, `t + t′ ∈ T`; và `c(s + t) = cs + ct`. Vậy `S + T` đóng với cộng và nhân vô hướng (và chứa 0 = 0 + 0).",
+    "(b) Hai đường thẳng phân biệt qua gốc: `S + T` là cả một mặt phẳng, còn `S ∪ T` chỉ là hai đường (cộng một vector của S với một của T ra khỏi hợp), nên không đóng.",
+    "Bao tuyến tính của `S ∪ T` gồm mọi tổ hợp của vector trong hợp; mỗi tổ hợp là `s + t` nên nằm trong `S + T`. Ngược lại `S + T` là không gian con chứa S và T nên chứa bao tuyến tính. Vậy hai tập bằng nhau."
+   ],
+   "rubric": [
+    "(a) kiểm cộng, nhân vô hướng, chứa 0.",
+    "(b) chỉ ra mặt phẳng và hợp không đóng.",
+    "Hai chiều ⊆ ⊇ của \"bao tuyến tính = S + T\"."
+   ],
+   "pitfalls": [
+    "Cho rằng S ∪ T cũng là không gian con.",
+    "Chỉ chứng minh một chiều của đẳng thức bao tuyến tính."
+   ]
+  },
+  "en": {
+   "title": "The sum of two subspaces",
+   "q": "S and T are subspaces of V. (a) The sum `S + T` contains all `s + t` (s ∈ S, t ∈ T). Show `S + T` is a vector space (closed under addition and scalar multiplication). (b) If S and T are lines in ℝᵐ, how does `S + T` differ from the union `S ∪ T`? Explain: the span of `S ∪ T` is `S + T`.",
+   "hints": [
+    "Add `(s + t) + (s′ + t′)` and regroup.",
+    "The union of two different lines is not closed under addition.",
+    "The span is the *smallest* subspace containing the set."
+   ],
+   "solution": [
+    "(a) `(s + t) + (s′ + t′) = (s + s′) + (t + t′)` with `s + s′ ∈ S`, `t + t′ ∈ T`; and `c(s + t) = cs + ct`. So `S + T` is closed under addition and scalar multiplication (and contains 0 = 0 + 0).",
+    "(b) Two distinct lines through the origin: `S + T` is a whole plane, but `S ∪ T` is just two lines (adding a vector of S to one of T leaves the union), so it is not closed.",
+    "The span of `S ∪ T` consists of all combinations of vectors in the union; each such combination is `s + t`, so it lies in `S + T`. Conversely `S + T` is a subspace containing S and T, so it contains the span. Hence they are equal."
+   ],
+   "rubric": [
+    "(a) checks addition, scalar multiples, and contains 0.",
+    "(b) identifies the plane and that the union is not closed.",
+    "Both inclusions for \"span = S + T\"."
+   ],
+   "pitfalls": [
+    "Claiming S ∪ T is also a subspace.",
+    "Proving only one inclusion in the span argument."
+   ]
+  }
+ },
+ {
+  "id": "l-colspace-ab",
+  "ch": "ch3",
+  "level": 2,
+  "source": {
+   "name": "MIT 18.06 Linear Algebra (Spring 2010), PS2, §3.1 bài 32",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Không gian cột của A và của [A AB]",
+   "q": "Chứng minh `A` và `[A  AB]` (thêm các cột) có cùng không gian cột. Tìm một ma trận vuông A để `C(A²)` nhỏ hơn `C(A)`. Một ma trận n×n có `C(A) = ℝⁿ` khi và chỉ khi nó thế nào?",
+   "hints": [
+    "Mỗi cột của AB là tổ hợp các cột của A (hệ số: cột của B).",
+    "Thử ma trận lũy linh: `A² = 0`.",
+    "`C(A) = ℝⁿ` ⇔ `Ax = b` giải được với mọi b."
+   ],
+   "solution": [
+    "Cột j của `AB` là `A·(cột j của B)`, một tổ hợp các cột của A. Nên mọi tổ hợp cột của `[A  AB]` vẫn là tổ hợp cột của A: cùng không gian cột.",
+    "Lấy `A = [0 1; 0 0]`: `A² = 0`, `C(A²) = {0}` còn C(A) là đường thẳng qua `[1; 0]`.",
+    "Một ma trận n×n có `C(A) = ℝⁿ` khi và chỉ khi A khả nghịch (khi đó `Ax = b` giải được với mọi b)."
+   ],
+   "rubric": [
+    "Chứng minh cùng không gian cột theo \"mỗi cột của AB là tổ hợp cột của A\".",
+    "Ví dụ `A² = 0` đúng.",
+    "Nêu A khả nghịch."
+   ],
+   "pitfalls": [
+    "Chỉ chứng minh `C([A AB]) ⊇ C(A)` (hiển nhiên) mà quên chiều còn lại.",
+    "Chọn A = I: `A² = A` nên không nhỏ hơn."
+   ]
+  },
+  "en": {
+   "title": "Column spaces of A and [A AB]",
+   "q": "Show `A` and `[A  AB]` (extra columns) have the same column space. Find a square matrix A for which `C(A²)` is smaller than `C(A)`. For which n×n matrices is `C(A) = ℝⁿ`?",
+   "hints": [
+    "Each column of AB is a combination of the columns of A (coefficients: a column of B).",
+    "Try a nilpotent matrix: `A² = 0`.",
+    "`C(A) = ℝⁿ` iff `Ax = b` is solvable for every b."
+   ],
+   "solution": [
+    "Column j of `AB` is `A·(column j of B)`, a combination of the columns of A. So every combination of the columns of `[A  AB]` is still a combination of the columns of A: same column space.",
+    "Take `A = [0 1; 0 0]`: `A² = 0`, `C(A²) = {0}` while C(A) is the line through `[1; 0]`.",
+    "An n×n matrix has `C(A) = ℝⁿ` iff A is invertible (then `Ax = b` is solvable for every b)."
+   ],
+   "rubric": [
+    "Argues \"each column of AB is a combination of A's columns\".",
+    "A correct `A² = 0` example.",
+    "States A is invertible."
+   ],
+   "pitfalls": [
+    "Proving only `C([A AB]) ⊇ C(A)` (obvious) and forgetting the other inclusion.",
+    "Choosing A = I: `A² = A` so nothing shrinks."
+   ]
+  }
+ },
+ {
+  "id": "l-plane-param",
+  "ch": "ch3",
+  "level": 1,
+  "source": {
+   "name": "MIT 18.06 Linear Algebra (Spring 2010), PS3, §3.2 bài 18",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Mặt phẳng không đi qua gốc",
+   "q": "Mặt phẳng `x − 3y − z = 12` song song với `x − 3y − z = 0`. Một điểm riêng trên mặt phẳng này là (12, 0, 0). Mọi điểm của nó có dạng `[x; y; z] = [12; 0; 0] + y·[?; 1; 0] + z·[?; 0; 1]`. Điền các thành phần đầu.",
+   "hints": [
+    "Giải phương trình theo x: `x = 12 + 3y + z`.",
+    "y, z là hai biến tự do.",
+    "Nghiệm riêng + nghiệm tổng quát của phương trình thuần nhất."
+   ],
+   "solution": [
+    "`x = 12 + 3y + z`, còn y, z tuỳ ý.",
+    "`[x; y; z] = [12 + 3y + z; y; z] = [12; 0; 0] + y·[3; 1; 0] + z·[1; 0; 1]`.",
+    "Đó là nghiệm riêng (12, 0, 0) cộng nullspace của `[1 −3 −1]` (hai nghiệm đặc biệt `[3; 1; 0]`, `[1; 0; 1]`)."
+   ],
+   "rubric": [
+    "Giải theo x và nêu y, z tự do.",
+    "Hai vector đúng `[3; 1; 0]`, `[1; 0; 1]`.",
+    "Nhận ra cấu trúc nghiệm riêng + nullspace."
+   ],
+   "pitfalls": [
+    "Ghi `[−3; …]` (dấu sai) vì lấy hệ số y trong phương trình thay vì chuyển vế.",
+    "Quên nghiệm riêng (12, 0, 0): đó là mặt phẳng không qua gốc, không phải không gian con."
+   ]
+  },
+  "en": {
+   "title": "A plane not through the origin",
+   "q": "The plane `x − 3y − z = 12` is parallel to `x − 3y − z = 0`. One particular point on it is (12, 0, 0). Every point has the form `[x; y; z] = [12; 0; 0] + y·[?; 1; 0] + z·[?; 0; 1]`. Fill in the first components.",
+   "hints": [
+    "Solve for x: `x = 12 + 3y + z`.",
+    "y and z are the two free variables.",
+    "Particular solution + general solution of the homogeneous equation."
+   ],
+   "solution": [
+    "`x = 12 + 3y + z` with y, z arbitrary.",
+    "`[x; y; z] = [12 + 3y + z; y; z] = [12; 0; 0] + y·[3; 1; 0] + z·[1; 0; 1]`.",
+    "That is the particular solution (12, 0, 0) plus the nullspace of `[1 −3 −1]` (special solutions `[3; 1; 0]`, `[1; 0; 1]`)."
+   ],
+   "rubric": [
+    "Solves for x and names y, z as free.",
+    "The two vectors `[3; 1; 0]`, `[1; 0; 1]` are right.",
+    "Recognises particular solution + nullspace."
+   ],
+   "pitfalls": [
+    "Writing `[−3; …]` (wrong sign) by taking the coefficient of y without moving it across.",
+    "Dropping the particular solution (12, 0, 0): this plane misses the origin, so it is not a subspace."
+   ]
+  }
+ },
+ {
+  "id": "l-impossible-matrix",
+  "ch": "ch3",
+  "level": 2,
+  "source": {
+   "name": "MIT 18.06 Linear Algebra (Spring 2010), PS3, §3.2 bài 24",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Có ma trận như vậy không?",
+   "q": "Nếu có thể, dựng ma trận có không gian cột chứa `[1; 1; 0]` và `[0; 1; 1]`, và nullspace chứa `[1; 0; 1]` và `[0; 0; 1]`. Nếu không thể, giải thích.",
+   "hints": [
+    "Số cột của A là bao nhiêu? Nullspace nằm trong không gian nào?",
+    "Hai vector nullspace có độc lập không?",
+    "Số pivot = chiều của không gian cột; nullspace có chiều n − r."
+   ],
+   "solution": [
+    "Nullspace chứa vector có 3 thành phần nên A có 3 cột; cột chứa các vector 3 thành phần nên có 3 hàng: A là 3×3.",
+    "Hai vector `[1; 0; 1]`, `[0; 0; 1]` độc lập, nên chiều nullspace ≥ 2 ⇒ `r = 3 − dim N(A) ≤ 1` pivot.",
+    "Nhưng không gian cột chứa hai vector độc lập `[1; 1; 0]`, `[0; 1; 1]` nên `r ≥ 2`. Mâu thuẫn: *không thể* có ma trận như vậy."
+   ],
+   "rubric": [
+    "Xác định A là 3×3.",
+    "Dùng dim N(A) = n − r.",
+    "Chỉ ra mâu thuẫn r ≤ 1 và r ≥ 2."
+   ],
+   "pitfalls": [
+    "Cố dựng một ma trận cụ thể mà không kiểm chiều.",
+    "Quên rằng hai vector nullspace độc lập nên chiều nullspace ít nhất 2."
+   ]
+  },
+  "en": {
+   "title": "Is there such a matrix?",
+   "q": "If possible, construct a matrix whose column space contains `[1; 1; 0]` and `[0; 1; 1]` and whose nullspace contains `[1; 0; 1]` and `[0; 0; 1]`. If impossible, explain.",
+   "hints": [
+    "How many columns does A have? Where does the nullspace live?",
+    "Are the two nullspace vectors independent?",
+    "Number of pivots = dim of the column space; the nullspace has dimension n − r."
+   ],
+   "solution": [
+    "The nullspace holds 3-component vectors so A has 3 columns; the column space holds 3-component vectors so A has 3 rows: A is 3×3.",
+    "The vectors `[1; 0; 1]`, `[0; 0; 1]` are independent so dim N(A) ≥ 2 ⇒ `r = 3 − dim N(A) ≤ 1` pivot.",
+    "But the column space contains two independent vectors `[1; 1; 0]`, `[0; 1; 1]`, so `r ≥ 2`. Contradiction: *no* such matrix exists."
+   ],
+   "rubric": [
+    "Identifies A as 3×3.",
+    "Uses dim N(A) = n − r.",
+    "Points out the contradiction r ≤ 1 versus r ≥ 2."
+   ],
+   "pitfalls": [
+    "Trying to construct a concrete matrix without checking dimensions.",
+    "Forgetting the two nullspace vectors are independent so the nullspace has dimension at least 2."
+   ]
+  }
+ },
+ {
+  "id": "l-stacked-null",
+  "ch": "ch3",
+  "level": 1,
+  "source": {
+   "name": "MIT 18.06 Linear Algebra (Spring 2010), PS3, §3.2 bài 36",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Nullspace của ma trận xếp chồng",
+   "q": "Nếu `C = [A; B]` (A xếp trên B), nullspace N(C) liên hệ thế nào với N(A) và N(B)?",
+   "hints": [
+    "Viết `Cx` dưới dạng khối.",
+    "`Cx = 0` nghĩa là mọi hàng của C nhân x bằng 0.",
+    "Kết quả là một phép giao."
+   ],
+   "solution": [
+    "`Cx = [Ax; Bx]`. Vậy `Cx = 0` ⇔ `Ax = 0` và `Bx = 0`.",
+    "Do đó `N(C) = N(A) ∩ N(B)`: giao của hai nullspace.",
+    "Hiểu theo hàng: C có các hàng của cả A và B nên x phải vuông góc với tất cả các hàng đó."
+   ],
+   "rubric": [
+    "Viết `Cx = [Ax; Bx]`.",
+    "Kết luận là giao N(A) ∩ N(B).",
+    "Có lý do hai chiều ⇔."
+   ],
+   "pitfalls": [
+    "Kết luận là hợp hoặc tổng N(A) + N(B).",
+    "Quên rằng các vector 0 có thể khác kích thước (Ax = 0 và Bx = 0 là hai vector 0 khác nhau)."
+   ]
+  },
+  "en": {
+   "title": "Nullspace of a stacked matrix",
+   "q": "If `C = [A; B]` (A on top of B), how is N(C) related to N(A) and N(B)?",
+   "hints": [
+    "Write `Cx` in block form.",
+    "`Cx = 0` means every row of C times x is 0.",
+    "The answer is an intersection."
+   ],
+   "solution": [
+    "`Cx = [Ax; Bx]`. So `Cx = 0` iff `Ax = 0` and `Bx = 0`.",
+    "Hence `N(C) = N(A) ∩ N(B)`: the intersection of the two nullspaces.",
+    "Row view: C has the rows of both A and B, so x must be perpendicular to all of them."
+   ],
+   "rubric": [
+    "Writes `Cx = [Ax; Bx]`.",
+    "Concludes N(A) ∩ N(B).",
+    "Gives the iff reasoning in both directions."
+   ],
+   "pitfalls": [
+    "Concluding the union or the sum N(A) + N(B).",
+    "Forgetting the two zero vectors may have different lengths (Ax = 0 and Bx = 0 are different zero vectors)."
+   ]
+  }
+ },
+ {
+  "id": "l-kirchhoff",
+  "ch": "ch3",
+  "level": 2,
+  "source": {
+   "name": "MIT 18.06 Linear Algebra (Spring 2010), PS3, §3.2 bài 37",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Định luật Kirchhoff và nullspace",
+   "q": "Mạng có 4 nút và 6 dòng điện `y1…y6`; định luật Kirchhoff (dòng vào = dòng ra) cho `Ay = 0` với `A = [1 0 −1 1 0 0; −1 1 0 0 1 0; 0 −1 1 0 0 1; 0 0 0 −1 −1 −1]`. (a) Viết 4 phương trình. (b) Tìm hạng và chiều của nullspace. (c) Tìm 3 nghiệm đặc biệt (biến tự do `y3, y5, y6`).",
+   "hints": [
+    "Mỗi hàng là một nút.",
+    "Cộng ba hàng cuối vào hàng đầu: được hàng 0?",
+    "Biến pivot: y1, y2, y4. Đặt lần lượt một biến tự do bằng 1."
+   ],
+   "solution": [
+    "(a) `y1 − y3 + y4 = 0`; `−y1 + y2 + y5 = 0`; `−y2 + y3 + y6 = 0`; `−y4 − y5 − y6 = 0`.",
+    "(b) Cộng cả bốn hàng cho hàng 0 ⇒ chỉ 3 hàng độc lập: hạng 3. Chiều nullspace là 6 − 3 = 3.",
+    "(c) Từ hàng cuối `y4 = −y5 − y6`; hàng 1 cho `y1 = y3 − y4`; hàng 3 cho `y2 = y3 + y6`. Với (y3, y5, y6) = (1,0,0): `[1; 1; 1; 0; 0; 0]`; (0,1,0): `[1; 0; 0; −1; 1; 0]`; (0,0,1): `[1; 1; 0; −1; 0; 1]`.",
+    "Kiểm bằng máy: A nhân mỗi nghiệm đều ra 0."
+   ],
+   "rubric": [
+    "(a) viết đúng bốn phương trình.",
+    "(b) hạng 3, chiều 3 vì 4 hàng cộng lại bằng 0.",
+    "(c) ba nghiệm đặc biệt và có kiểm."
+   ],
+   "pitfalls": [
+    "Cho hạng 4: bốn hàng phụ thuộc (tổng bằng 0).",
+    "Chọn biến tự do khác với cột không pivot."
+   ]
+  },
+  "en": {
+   "title": "Kirchhoff's law and the nullspace",
+   "q": "A network with 4 nodes and 6 currents `y1…y6`; Kirchhoff's law (current in = current out) gives `Ay = 0` with `A = [1 0 −1 1 0 0; −1 1 0 0 1 0; 0 −1 1 0 0 1; 0 0 0 −1 −1 −1]`. (a) Write the 4 equations. (b) Find the rank and the dimension of the nullspace. (c) Find 3 special solutions (free variables `y3, y5, y6`).",
+   "hints": [
+    "Each row is a node.",
+    "Add all four rows: do you get the zero row?",
+    "Pivot variables: y1, y2, y4. Set one free variable to 1 at a time."
+   ],
+   "solution": [
+    "(a) `y1 − y3 + y4 = 0`; `−y1 + y2 + y5 = 0`; `−y2 + y3 + y6 = 0`; `−y4 − y5 − y6 = 0`.",
+    "(b) The four rows add to the zero row ⇒ only 3 independent rows: rank 3. The nullspace has dimension 6 − 3 = 3.",
+    "(c) From the last row `y4 = −y5 − y6`; row 1 gives `y1 = y3 − y4`; row 3 gives `y2 = y3 + y6`. With (y3, y5, y6) = (1,0,0): `[1; 1; 1; 0; 0; 0]`; (0,1,0): `[1; 0; 0; −1; 1; 0]`; (0,0,1): `[1; 1; 0; −1; 0; 1]`.",
+    "Computer check: A times each solution gives 0."
+   ],
+   "rubric": [
+    "(a) writes the four equations correctly.",
+    "(b) rank 3, dimension 3 because the four rows sum to 0.",
+    "(c) three special solutions, checked."
+   ],
+   "pitfalls": [
+    "Giving rank 4: the four rows are dependent (they sum to 0).",
+    "Choosing different free variables than the non-pivot columns."
+   ]
+  }
+ },
+ {
+  "id": "l-rank-ab-identity",
+  "ch": "ch3",
+  "level": 2,
+  "source": {
+   "name": "MIT 18.06 Linear Algebra (Spring 2010), PS3, §3.3 bài 19",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "AB = I thì BA = I",
+   "q": "A, B là ma trận n×n với `AB = I`. Dùng `rank(AB) ≤ rank(A)` chứng minh `rank(A) = n`. Suy ra A khả nghịch, B là nghịch đảo hai phía, và `BA = I`.",
+   "hints": [
+    "`rank(I) = n`.",
+    "Rank của A không vượt quá n.",
+    "Ma trận vuông hạng n thì khả nghịch."
+   ],
+   "solution": [
+    "`n = rank(I) = rank(AB) ≤ rank(A) ≤ n`, nên `rank(A) = n`.",
+    "A vuông hạng đủ n nên khả nghịch: tồn tại `A⁻¹` hai phía.",
+    "Từ `AB = I` nhân bên trái với `A⁻¹`: `B = A⁻¹`. Do đó `BA = A⁻¹A = I`."
+   ],
+   "rubric": [
+    "Chuỗi `n = rank(AB) ≤ rank(A) ≤ n`.",
+    "Suy ra A khả nghịch.",
+    "Rút ra `B = A⁻¹` và `BA = I`."
+   ],
+   "pitfalls": [
+    "Nói \"BA = I hiển nhiên\" — với ma trận không vuông thì AB = I không kéo theo BA = I.",
+    "Quên bất đẳng thức `rank(A) ≤ n`."
+   ]
+  },
+  "en": {
+   "title": "AB = I implies BA = I",
+   "q": "A, B are n×n with `AB = I`. Use `rank(AB) ≤ rank(A)` to prove `rank(A) = n`. Conclude A is invertible, B is its two-sided inverse, and `BA = I`.",
+   "hints": [
+    "`rank(I) = n`.",
+    "The rank of A is at most n.",
+    "A square matrix of rank n is invertible."
+   ],
+   "solution": [
+    "`n = rank(I) = rank(AB) ≤ rank(A) ≤ n`, so `rank(A) = n`.",
+    "A is square of full rank n, hence invertible: `A⁻¹` exists on both sides.",
+    "From `AB = I` multiply on the left by `A⁻¹`: `B = A⁻¹`. Hence `BA = A⁻¹A = I`."
+   ],
+   "rubric": [
+    "The chain `n = rank(AB) ≤ rank(A) ≤ n`.",
+    "Concludes A is invertible.",
+    "Gets `B = A⁻¹` and `BA = I`."
+   ],
+   "pitfalls": [
+    "Saying \"BA = I is obvious\" — for non-square matrices AB = I does not give BA = I.",
+    "Forgetting the inequality `rank(A) ≤ n`."
+   ]
+  }
+ },
+ {
+  "id": "l-col-row",
+  "ch": "ch3",
+  "level": 1,
+  "source": {
+   "name": "MIT 18.06 Linear Algebra (Spring 2010), PS3, §3.3 bài 25",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "A = (cột pivot)(hàng của R)",
+   "q": "Mọi ma trận m×n hạng r viết được thành (m×r)·(r×n): `A = (các cột pivot của A)(r hàng đầu của R)`. Viết `A = [1 1 2 4; 1 2 2 5; 1 3 2 6]` thành tích đó.",
+   "hints": [
+    "Khử A để được R và xác định cột pivot.",
+    "Hạng của A bằng số pivot.",
+    "Lấy các cột *của A* (không phải của R) tương ứng với cột pivot."
+   ],
+   "solution": [
+    "Khử: `R = [1 0 2 3; 0 1 0 1; 0 0 0 0]`, pivot ở cột 1 và 2, hạng r = 2.",
+    "Cột pivot của A: `[1; 1; 1]` và `[1; 2; 3]`; hai hàng đầu khác 0 của R: `[1 0 2 3]`, `[0 1 0 1]`.",
+    "`A = [1 1; 1 2; 1 3] · [1 0 2 3; 0 1 0 1]`. Kiểm: hàng 1: `1·(1,0,2,3) + 1·(0,1,0,1) = (1,1,2,4)` ✓; hàng 2: `1·R1 + 2·R2 = (1,2,2,5)` ✓; hàng 3: `R1 + 3R2 = (1,3,2,6)` ✓."
+   ],
+   "rubric": [
+    "Tìm đúng R, pivot, hạng.",
+    "Lấy cột pivot của A (không phải của R).",
+    "Kiểm tích ra A."
+   ],
+   "pitfalls": [
+    "Lấy cột pivot của R thay vì của A.",
+    "Dùng cả 3 hàng của R — hàng 0 làm tích 3×3 thay vì 2 nhân tử gọn."
+   ]
+  },
+  "en": {
+   "title": "A = (pivot columns)(rows of R)",
+   "q": "Every m×n matrix of rank r equals (m×r)·(r×n): `A = (pivot columns of A)(first r rows of R)`. Write `A = [1 1 2 4; 1 2 2 5; 1 3 2 6]` as this product.",
+   "hints": [
+    "Eliminate A to get R and find the pivot columns.",
+    "The rank of A is the number of pivots.",
+    "Use the columns *of A* (not of R) matching the pivot columns."
+   ],
+   "solution": [
+    "Elimination: `R = [1 0 2 3; 0 1 0 1; 0 0 0 0]`, pivots in columns 1 and 2, rank r = 2.",
+    "Pivot columns of A: `[1; 1; 1]` and `[1; 2; 3]`; the nonzero rows of R: `[1 0 2 3]`, `[0 1 0 1]`.",
+    "`A = [1 1; 1 2; 1 3] · [1 0 2 3; 0 1 0 1]`. Check: row 1: `1·(1,0,2,3) + 1·(0,1,0,1) = (1,1,2,4)` ✓; row 2: `1·R1 + 2·R2 = (1,2,2,5)` ✓; row 3: `R1 + 3R2 = (1,3,2,6)` ✓."
+   ],
+   "rubric": [
+    "Finds R, pivots and rank correctly.",
+    "Takes the pivot columns of A (not R).",
+    "Verifies the product equals A."
+   ],
+   "pitfalls": [
+    "Taking the pivot columns of R instead of A.",
+    "Using all 3 rows of R — the zero row makes it a 3×3 product rather than the compact two-factor form."
+   ]
+  }
+ },
+ {
+  "id": "l-solution-false",
+  "ch": "ch3",
+  "level": 2,
+  "source": {
+   "name": "MIT 18.06 Linear Algebra (Spring 2010), PS3, §3.4 bài 13",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Vì sao các khẳng định này sai",
+   "q": "Giải thích vì sao các khẳng định sau sai. (a) Nghiệm tổng quát là mọi tổ hợp tuyến tính của `xp` và `xn`. (b) Hệ `Ax = b` có nhiều nhất một nghiệm riêng. (c) Nghiệm `xp` có mọi biến tự do bằng 0 là nghiệm ngắn nhất (độ dài `|x|` nhỏ nhất) — cho phản ví dụ 2×2. (d) Nếu A khả nghịch thì không có nghiệm `xn` trong nullspace.",
+   "hints": [
+    "Nghiệm tổng quát là `xp + xn`, không phải tổ hợp tuỳ ý.",
+    "(b) Cộng một vector của nullspace vào xp.",
+    "(c) Thử `[1 1]x = 1`: điểm gần gốc nhất trên đường `x + y = 1`.",
+    "(d) Vector 0 luôn thuộc nullspace."
+   ],
+   "solution": [
+    "(a) Hệ số của `xp` phải bằng 1: tổ hợp `c·xp + xn` với c ≠ 1 không giải `Ax = b` (cho `cb`).",
+    "(b) Nếu `xn ∈ N(A)` thì `xp + xn` cũng là nghiệm riêng; nếu nullspace khác {0} thì có vô số.",
+    "(c) `A = [1 1; 1 1]`, `b = [1; 1]`. Nghiệm: đường thẳng `x + y = 1`. `xp` với biến tự do bằng 0 là `(1, 0)` có độ dài 1, nhưng `(1/2, 1/2)` ngắn hơn (độ dài `1/√2`).",
+    "(d) `xn = 0` luôn thuộc nullspace (nullspace của ma trận khả nghịch là {0}, vẫn chứa 0)."
+   ],
+   "rubric": [
+    "Phân biệt nghiệm riêng + nghiệm nullspace với tổ hợp tuỳ ý.",
+    "Phản ví dụ (c) tính độ dài.",
+    "Lý do cụ thể cho cả bốn."
+   ],
+   "pitfalls": [
+    "Cho rằng nghiệm có biến tự do bằng 0 ngắn nhất: chỉ đúng nếu nó vuông góc với nullspace.",
+    "Ở (d) nói nullspace của ma trận khả nghịch rỗng — nó là {0}, không phải rỗng."
+   ]
+  },
+  "en": {
+   "title": "Why these statements are false",
+   "q": "Explain why each is false. (a) The complete solution is any linear combination of `xp` and `xn`. (b) A system `Ax = b` has at most one particular solution. (c) The solution `xp` with all free variables zero is the shortest (minimum `|x|`) — give a 2×2 counterexample. (d) If A is invertible there is no solution `xn` in the nullspace.",
+   "hints": [
+    "The complete solution is `xp + xn`, not an arbitrary combination.",
+    "(b) Add a nullspace vector to xp.",
+    "(c) Try `[1 1]x = 1`: the point of the line `x + y = 1` nearest the origin.",
+    "(d) The zero vector always belongs to the nullspace."
+   ],
+   "solution": [
+    "(a) The coefficient of `xp` must be 1: a combination `c·xp + xn` with c ≠ 1 solves the system for `cb`, not b.",
+    "(b) If `xn ∈ N(A)` then `xp + xn` is also a particular solution; if the nullspace is not {0} there are infinitely many.",
+    "(c) `A = [1 1; 1 1]`, `b = [1; 1]`. The solutions form the line `x + y = 1`. `xp` with free variable 0 is `(1, 0)` of length 1, but `(1/2, 1/2)` is shorter (length `1/√2`).",
+    "(d) `xn = 0` is always in the nullspace (the nullspace of an invertible matrix is {0}, which still contains 0)."
+   ],
+   "rubric": [
+    "Distinguishes particular + nullspace from an arbitrary combination.",
+    "The counterexample in (c) computes lengths.",
+    "A concrete reason for each of the four."
+   ],
+   "pitfalls": [
+    "Believing the free-variables-zero solution is shortest: only true when it is perpendicular to the nullspace.",
+    "In (d) saying the nullspace of an invertible matrix is empty — it is {0}, not empty."
+   ]
+  }
+ },
+ {
+  "id": "l-rank-cases",
+  "ch": "ch3",
+  "level": 1,
+  "source": {
+   "name": "MIT 18.06 Linear Algebra (Spring 2010), PS3, §3.4 bài 25",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Quan hệ giữa r, m, n",
+   "q": "Viết mọi quan hệ giữa hạng r và m, n nếu `Ax = b` (A cỡ m×n) có: (a) vô nghiệm với một số b; (b) vô số nghiệm với mọi b; (c) đúng một nghiệm với một số b và vô nghiệm với các b khác; (d) đúng một nghiệm với mọi b.",
+   "hints": [
+    "r ≤ m và r ≤ n luôn đúng.",
+    "Có nghiệm với mọi b ⇔ hạng hàng đủ (r = m).",
+    "Nghiệm duy nhất khi có ⇔ hạng cột đủ (r = n)."
+   ],
+   "solution": [
+    "(a) Có b vô nghiệm ⇔ không gian cột nhỏ hơn ℝᵐ ⇔ `r < m`.",
+    "(b) Mọi b có nghiệm (`r = m`) và nullspace khác {0} (`r < n`): `m = r < n`.",
+    "(c) Nghiệm duy nhất khi tồn tại (`r = n`) nhưng không phải mọi b có nghiệm (`r < m`): `n = r < m`.",
+    "(d) Có nghiệm với mọi b và duy nhất: `r = m = n` (A khả nghịch)."
+   ],
+   "rubric": [
+    "Bốn điều kiện đúng.",
+    "Có lý do theo hạng hàng/hạng cột.",
+    "Phân biệt trường hợp A \"cao\" (m > n) với \"rộng\" (m < n)."
+   ],
+   "pitfalls": [
+    "Đảo m và n: hạng hàng đủ là `r = m` (số hàng), không phải n.",
+    "Quên rằng (b) và (c) là hai trường hợp đối lập của hình chữ nhật mỏng/béo."
+   ]
+  },
+  "en": {
+   "title": "Relations among r, m, n",
+   "q": "Write all known relations between the rank r and m, n if `Ax = b` (A is m×n) has: (a) no solution for some b; (b) infinitely many solutions for every b; (c) exactly one solution for some b and none for other b; (d) exactly one solution for every b.",
+   "hints": [
+    "r ≤ m and r ≤ n always hold.",
+    "A solution for every b iff full row rank (r = m).",
+    "Uniqueness when one exists iff full column rank (r = n)."
+   ],
+   "solution": [
+    "(a) Some b has no solution iff the column space is smaller than ℝᵐ iff `r < m`.",
+    "(b) Every b solvable (`r = m`) and nullspace not {0} (`r < n`): `m = r < n`.",
+    "(c) A solution is unique when it exists (`r = n`) but not every b is solvable (`r < m`): `n = r < m`.",
+    "(d) A solution for every b and unique: `r = m = n` (A invertible)."
+   ],
+   "rubric": [
+    "All four conditions correct.",
+    "Reasons in terms of row rank / column rank.",
+    "Distinguishes the \"tall\" (m > n) and \"wide\" (m < n) cases."
+   ],
+   "pitfalls": [
+    "Swapping m and n: full row rank is `r = m` (number of rows), not n.",
+    "Forgetting that (b) and (c) are the \"wide\" versus \"tall\" cases."
+   ]
+  }
+ },
+ {
+  "id": "l-gauss-ux",
+  "ch": "ch3",
+  "level": 1,
+  "source": {
+   "name": "MIT 18.06 Linear Algebra (Spring 2010), PS3, §3.4 bài 28",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Gauss–Jordan trên Ux = 0 và Ux = c",
+   "q": "Cho `U = [1 2 3; 0 0 4]` và `c = [5; 8]`. Dùng Gauss–Jordan trên `[U 0]` và `[U c]` để đến `Rx = 0` và `Rx = d`. Giải `Rx = 0` để tìm `xn` (biến tự do `x2 = 1`) và `Rx = d` để tìm `xp` (biến tự do `x2 = 0`).",
+   "hints": [
+    "Pivot ở cột 1 và 3; cột 2 là biến tự do.",
+    "Chia hàng 2 cho 4, rồi trừ 3 lần hàng 2 khỏi hàng 1.",
+    "Nghiệm tổng quát = xp + t·xn."
+   ],
+   "solution": [
+    "Hàng 2 ÷ 4: `[0 0 1 | 2]`. Hàng 1 − 3·hàng 2: `[1 2 0 | 5 − 6 = −1]`.",
+    "`R = [1 2 0; 0 0 1]`, `d = [−1; 2]` (và vế phải 0 cho `Rx = 0`).",
+    "`Rx = 0` với `x2 = 1`: `x1 = −2`, `x3 = 0`: `xn = [−2; 1; 0]`. `Rx = d` với `x2 = 0`: `x1 = −1`, `x3 = 2`: `xp = [−1; 0; 2]`.",
+    "Kiểm: `U·xp = [1·(−1) + 3·2; 4·2] = [5; 8] = c` ✓ và `U·xn = [−2 + 2; 0] = 0` ✓."
+   ],
+   "rubric": [
+    "Khử đúng ra R và d.",
+    "xn và xp đúng với biến tự do chỉ định.",
+    "Kiểm bằng cách nhân với U."
+   ],
+   "pitfalls": [
+    "Quên cập nhật vế phải khi trừ hàng: `5 − 3·2 = −1`.",
+    "Đặt biến tự do vào xp khác 0 mà đề yêu cầu 0."
+   ]
+  },
+  "en": {
+   "title": "Gauss–Jordan on Ux = 0 and Ux = c",
+   "q": "Let `U = [1 2 3; 0 0 4]` and `c = [5; 8]`. Apply Gauss–Jordan to `[U 0]` and `[U c]` to reach `Rx = 0` and `Rx = d`. Solve `Rx = 0` for `xn` (free variable `x2 = 1`) and `Rx = d` for `xp` (free variable `x2 = 0`).",
+   "hints": [
+    "Pivots in columns 1 and 3; column 2 is the free variable.",
+    "Divide row 2 by 4, then subtract 3 times row 2 from row 1.",
+    "Complete solution = xp + t·xn."
+   ],
+   "solution": [
+    "Row 2 ÷ 4: `[0 0 1 | 2]`. Row 1 − 3·row 2: `[1 2 0 | 5 − 6 = −1]`.",
+    "`R = [1 2 0; 0 0 1]`, `d = [−1; 2]` (and right side 0 for `Rx = 0`).",
+    "`Rx = 0` with `x2 = 1`: `x1 = −2`, `x3 = 0`: `xn = [−2; 1; 0]`. `Rx = d` with `x2 = 0`: `x1 = −1`, `x3 = 2`: `xp = [−1; 0; 2]`.",
+    "Check: `U·xp = [1·(−1) + 3·2; 4·2] = [5; 8] = c` ✓ and `U·xn = [−2 + 2; 0] = 0` ✓."
+   ],
+   "rubric": [
+    "Eliminates correctly to R and d.",
+    "xn and xp are right for the stated free variables.",
+    "Verifies by multiplying with U."
+   ],
+   "pitfalls": [
+    "Forgetting to update the right side when subtracting rows: `5 − 3·2 = −1`.",
+    "Putting a nonzero free variable into xp when 0 was requested."
+   ]
+  }
+ },
+ {
+  "id": "l-parabola",
+  "ch": "ch3",
+  "level": 2,
+  "source": {
+   "name": "MIT 18.06 Linear Algebra (Spring 2010), PS3, §3.4 bài 35",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Phương trình Kx = b có nghiệm parabol",
+   "q": "K là ma trận sai phân bậc hai 9×9 (2 trên đường chéo, −1 ở hai đường chéo cạnh). Giải `Kx = b = (10, …, 10)`. Chứng minh (hoặc kiểm) rằng 9 điểm `(i, xᵢ)` nằm trên một parabol; tìm công thức cho `xᵢ`.",
+   "hints": [
+    "Phương trình hàng i là `−x_{i−1} + 2xᵢ − x_{i+1} = 10` (với x₀ = x₁₀ = 0).",
+    "Đạo hàm bậc hai rời rạc bằng −10 ⇒ xᵢ bậc hai theo i.",
+    "Thử `xᵢ = a·i + c·i²`, điều kiện biên x₀ = 0, x₁₀ = 0."
+   ],
+   "solution": [
+    "Hàng i: `−x_{i−1} + 2xᵢ − x_{i+1} = 10`, hay `x_{i−1} − 2xᵢ + x_{i+1} = −10` (sai phân bậc hai bằng −10).",
+    "Một đa thức bậc hai `xᵢ = αi² + βi + γ` có sai phân bậc hai `2α`, nên `α = −5`. Điều kiện `x₀ = 0` cho γ = 0 và `x₁₀ = 0` cho `−500 + 10β = 0`, β = 50.",
+    "Vậy `xᵢ = 5i(10 − i)`: `x = (45, 80, 105, 120, 125, 120, 105, 80, 45)` (đã kiểm bằng máy). Các điểm nằm trên parabol vì nghiệm là đa thức bậc hai theo i."
+   ],
+   "rubric": [
+    "Viết đúng phương trình hàng và điều kiện biên.",
+    "Suy ra nghiệm bậc hai bằng sai phân bậc hai.",
+    "Công thức `5i(10 − i)` và các giá trị."
+   ],
+   "pitfalls": [
+    "Quên điều kiện biên x₀ = x₁₀ = 0 (hàng đầu và hàng cuối của K).",
+    "Chỉ nói \"trông như parabol\" mà không kiểm bằng sai phân."
+   ]
+  },
+  "en": {
+   "title": "Kx = b has a parabola solution",
+   "q": "K is the 9×9 second-difference matrix (2 on the diagonal, −1 on the neighbouring diagonals). Solve `Kx = b = (10, …, 10)`. Show (or check) that the nine points `(i, xᵢ)` lie on a parabola; find a formula for `xᵢ`.",
+   "hints": [
+    "Row i reads `−x_{i−1} + 2xᵢ − x_{i+1} = 10` (with x₀ = x₁₀ = 0).",
+    "The discrete second derivative is −10 ⇒ xᵢ is quadratic in i.",
+    "Try `xᵢ = a·i + c·i²` with boundary conditions x₀ = 0, x₁₀ = 0."
+   ],
+   "solution": [
+    "Row i: `−x_{i−1} + 2xᵢ − x_{i+1} = 10`, i.e. `x_{i−1} − 2xᵢ + x_{i+1} = −10` (second difference equals −10).",
+    "A quadratic `xᵢ = αi² + βi + γ` has second difference `2α`, so `α = −5`. `x₀ = 0` gives γ = 0 and `x₁₀ = 0` gives `−500 + 10β = 0`, β = 50.",
+    "So `xᵢ = 5i(10 − i)`: `x = (45, 80, 105, 120, 125, 120, 105, 80, 45)` (verified by computer). The points lie on a parabola since the solution is quadratic in i."
+   ],
+   "rubric": [
+    "Writes the row equation and boundary conditions correctly.",
+    "Derives a quadratic via the second difference.",
+    "The formula `5i(10 − i)` and the values."
+   ],
+   "pitfalls": [
+    "Forgetting the boundary conditions x₀ = x₁₀ = 0 (first and last rows of K).",
+    "Saying \"it looks like a parabola\" without checking via second differences."
+   ]
+  }
+ },
+ {
+  "id": "l-same-solutions",
+  "ch": "ch3",
+  "level": 3,
+  "source": {
+   "name": "MIT 18.06 Linear Algebra (Spring 2010), PS3, §3.4 bài 36",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Hai hệ cùng nghiệm thì cùng ma trận",
+   "q": "Giả sử `Ax = b` và `Cx = b` có cùng tập nghiệm đầy đủ với *mọi* b. Có đúng là A = C không?",
+   "hints": [
+    "Hai ma trận bằng nhau nếu `Ay = Cy` với mọi vector y.",
+    "Với y cho trước, chọn b = Ay.",
+    "Khi đó y là nghiệm của hệ thứ nhất."
+   ],
+   "solution": [
+    "Đúng, A = C.",
+    "Hai ma trận cùng cỡ bằng nhau khi `Ay = Cy` với mọi y (hoặc chỉ với các vector cơ sở: nhân với `eⱼ` lấy ra cột j).",
+    "Lấy y bất kỳ, đặt `b = Ay`. Khi đó y là nghiệm của `Ax = b`, nên theo giả thiết cũng là nghiệm của `Cx = b`: `Cy = b = Ay`.",
+    "Do y tuỳ ý, `A = C`."
+   ],
+   "rubric": [
+    "Kết luận \"đúng\".",
+    "Dùng đúng cách: chọn b = Ay.",
+    "Giải thích vì sao Ay = Cy với mọi y ⇒ A = C."
+   ],
+   "pitfalls": [
+    "Chỉ xét b = 0: khi đó cả hai chỉ cho cùng nullspace, chưa đủ để kết luận A = C.",
+    "Chọn b cố định rồi so hai tập nghiệm — cần chọn b phụ thuộc y."
+   ]
+  },
+  "en": {
+   "title": "Same solutions for every b means same matrix",
+   "q": "Suppose `Ax = b` and `Cx = b` have the same complete solutions for *every* b. Must A = C?",
+   "hints": [
+    "Two matrices are equal if `Ay = Cy` for every vector y.",
+    "For a given y choose b = Ay.",
+    "Then y solves the first system."
+   ],
+   "solution": [
+    "Yes, A = C.",
+    "Two matrices of the same size are equal when `Ay = Cy` for all y (or just for the standard basis vectors: multiplying by `eⱼ` picks out column j).",
+    "Take any y and set `b = Ay`. Then y solves `Ax = b`, so by hypothesis it also solves `Cx = b`: `Cy = b = Ay`.",
+    "Since y was arbitrary, `A = C`."
+   ],
+   "rubric": [
+    "Concludes \"yes\".",
+    "Chooses b = Ay in the right way.",
+    "Explains why Ay = Cy for all y gives A = C."
+   ],
+   "pitfalls": [
+    "Using only b = 0: then both only share a nullspace, not enough for A = C.",
+    "Picking a fixed b and comparing the two solution sets — b must depend on y."
+   ]
+  }
+ },
+ {
+  "id": "l-indep-six",
+  "ch": "ch3",
+  "level": 1,
+  "source": {
+   "name": "MIT 18.06 Linear Algebra (Spring 2010), PS4, §3.5 bài 2",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Nhiều nhất bao nhiêu vector độc lập",
+   "q": "Cho `v1 = [1; −1; 0; 0]`, `v2 = [1; 0; −1; 0]`, `v3 = [1; 0; 0; −1]`, `v4 = [0; 1; −1; 0]`, `v5 = [0; 1; 0; −1]`, `v6 = [0; 0; 1; −1]`. Tìm số lớn nhất các vector độc lập trong sáu vector này.",
+   "hints": [
+    "Tìm quan hệ giữa các vector: `v4` so với `v2 − v1`.",
+    "Nếu ba vector sau là tổ hợp của ba vector đầu thì rank ≤ 3.",
+    "Kiểm ba vector đầu độc lập bằng khử."
+   ],
+   "solution": [
+    "`v4 = v2 − v1`, `v5 = v3 − v1`, `v6 = v3 − v2`. Nên hạng của cả sáu vector ≤ 3 (ba vector sau là tổ hợp của ba vector đầu).",
+    "Ma trận `[v1 v2 v3]` có 3 pivot (khử): `[1 1 1; −1 0 0; 0 −1 0; 0 0 −1]` cho pivot ở mọi cột; vậy v1, v2, v3 độc lập.",
+    "Số lớn nhất là 3."
+   ],
+   "rubric": [
+    "Chỉ ra ba vector sau phụ thuộc ba vector đầu.",
+    "Chứng minh ba vector đầu độc lập.",
+    "Kết luận 3."
+   ],
+   "pitfalls": [
+    "Kết luận 6 hoặc 4 vì \"có nhiều vector hơn chiều\" — không gian chỉ chứa 4 chiều nhưng hạng thực tế là 3.",
+    "Chỉ nêu phụ thuộc mà không chứng tỏ ba vector đầu độc lập."
+   ]
+  },
+  "en": {
+   "title": "The largest number of independent vectors",
+   "q": "Let `v1 = [1; −1; 0; 0]`, `v2 = [1; 0; −1; 0]`, `v3 = [1; 0; 0; −1]`, `v4 = [0; 1; −1; 0]`, `v5 = [0; 1; 0; −1]`, `v6 = [0; 0; 1; −1]`. Find the largest number of independent vectors among these six.",
+   "hints": [
+    "Find relations among them: compare `v4` with `v2 − v1`.",
+    "If the last three are combinations of the first three then rank ≤ 3.",
+    "Check the first three are independent by elimination."
+   ],
+   "solution": [
+    "`v4 = v2 − v1`, `v5 = v3 − v1`, `v6 = v3 − v2`. So the rank of all six is ≤ 3 (the last three are combinations of the first three).",
+    "The matrix `[v1 v2 v3]` has 3 pivots (elimination): `[1 1 1; −1 0 0; 0 −1 0; 0 0 −1]` has a pivot in every column; so v1, v2, v3 are independent.",
+    "The largest number is 3."
+   ],
+   "rubric": [
+    "Shows the last three depend on the first three.",
+    "Proves the first three are independent.",
+    "Concludes 3."
+   ],
+   "pitfalls": [
+    "Answering 6 or 4 since \"there are more vectors than dimensions\" — the space has dimension 4 but the actual rank is 3.",
+    "Stating the dependencies without showing the first three are independent."
+   ]
+  }
+ },
+ {
+  "id": "l-plane-basis",
+  "ch": "ch3",
+  "level": 1,
+  "source": {
+   "name": "MIT 18.06 Linear Algebra (Spring 2010), PS4, §3.5 bài 20",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Cơ sở của mặt phẳng",
+   "q": "Tìm cơ sở cho mặt phẳng `x − 2y + 3z = 0` trong ℝ³. Rồi tìm cơ sở cho giao của mặt phẳng đó với mặt phẳng xy. Rồi tìm cơ sở cho mọi vector vuông góc với mặt phẳng.",
+   "hints": [
+    "Mặt phẳng là nullspace của `A = [1 −2 3]`.",
+    "Nghiệm đặc biệt cho cơ sở.",
+    "Vector vuông góc với mọi vector trong mặt phẳng là hàng của A."
+   ],
+   "solution": [
+    "Mặt phẳng là N(A), `A = [1 −2 3]` (pivot x; biến tự do y, z). Nghiệm đặc biệt: `[2; 1; 0]` (y = 1, z = 0) và `[−3; 0; 1]` (y = 0, z = 1): đó là cơ sở.",
+    "Giao với mặt phẳng xy (z = 0): chỉ còn các vector `y·[2; 1; 0]`, nên cơ sở là `[2; 1; 0]` (một đường thẳng).",
+    "Vector vuông góc với mặt phẳng nằm trong không gian hàng: `[1; −2; 3]`. Vì không gian vuông góc với một mặt phẳng trong ℝ³ có chiều 1, vector này là cơ sở."
+   ],
+   "rubric": [
+    "Cơ sở mặt phẳng từ hai nghiệm đặc biệt.",
+    "Giao là đường thẳng với cơ sở `[2; 1; 0]`.",
+    "Vector pháp tuyến `[1; −2; 3]`."
+   ],
+   "pitfalls": [
+    "Lấy hai vector bất kỳ trong mặt phẳng mà không chứng minh độc lập.",
+    "Cho cơ sở của giao là hai vector (giao với mặt xy chỉ là đường thẳng)."
+   ]
+  },
+  "en": {
+   "title": "A basis for a plane",
+   "q": "Find a basis for the plane `x − 2y + 3z = 0` in ℝ³. Then a basis for the intersection of that plane with the xy-plane. Then a basis for all vectors perpendicular to the plane.",
+   "hints": [
+    "The plane is the nullspace of `A = [1 −2 3]`.",
+    "The special solutions give a basis.",
+    "A vector perpendicular to every vector in the plane is a row of A."
+   ],
+   "solution": [
+    "The plane is N(A), `A = [1 −2 3]` (pivot x; free y, z). Special solutions: `[2; 1; 0]` (y = 1, z = 0) and `[−3; 0; 1]` (y = 0, z = 1): they form a basis.",
+    "Intersection with the xy-plane (z = 0): only multiples `y·[2; 1; 0]` remain, so a basis is `[2; 1; 0]` (a line).",
+    "A vector perpendicular to the plane lies in the row space: `[1; −2; 3]`. Since the space perpendicular to a plane in ℝ³ is one-dimensional, this vector is a basis."
+   ],
+   "rubric": [
+    "A plane basis from two special solutions.",
+    "The intersection is a line with basis `[2; 1; 0]`.",
+    "The normal vector `[1; −2; 3]`."
+   ],
+   "pitfalls": [
+    "Choosing two arbitrary vectors in the plane without showing independence.",
+    "Giving two vectors as a basis of the intersection (intersecting with the xy-plane only leaves a line)."
+   ]
+  }
+ },
+ {
+  "id": "l-shift-commute",
+  "ch": "ch3",
+  "level": 3,
+  "source": {
+   "name": "MIT 18.06 Linear Algebra (Spring 2010), PS4, §3.5 bài 37",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Ma trận giao hoán với ma trận dịch",
+   "q": "S là ma trận dịch `S = [0 1 0; 0 0 1; 0 0 0]`. Chứng minh nếu `AS = SA` thì A có dạng `[a b c; 0 a b; 0 0 a]`. Không gian con các ma trận giao hoán với S có chiều bao nhiêu?",
+   "hints": [
+    "Tính `AS` và `SA` với A tổng quát `[a b c; d e f; g h i]`.",
+    "`AS` dịch các cột sang phải; `SA` dịch các hàng lên.",
+    "So sánh từng phần tử."
+   ],
+   "solution": [
+    "`AS = [0 a b; 0 d e; 0 g h]` (dịch cột sang phải, cột 1 thành 0) và `SA = [d e f; g h i; 0 0 0]` (dịch hàng lên, hàng 3 thành 0).",
+    "So sánh từng ô: `d = 0`, `e = a`, `f = b`, `g = 0`, `h = d = 0`, `i = e = a`.",
+    "Vậy `A = [a b c; 0 a b; 0 0 a]` với ba tham số tự do a, b, c: không gian con có chiều 3."
+   ],
+   "rubric": [
+    "Tính đúng AS và SA.",
+    "So sánh phần tử ra dạng cần chứng minh.",
+    "Kết luận chiều 3."
+   ],
+   "pitfalls": [
+    "Nhầm ý nghĩa của AS và SA (cột trái so với hàng trên).",
+    "Đếm sai chiều (có ba tham số a, b, c)."
+   ]
+  },
+  "en": {
+   "title": "Matrices that commute with the shift",
+   "q": "S is the shift matrix `S = [0 1 0; 0 0 1; 0 0 0]`. Show that if `AS = SA` then A has the form `[a b c; 0 a b; 0 0 a]`. What is the dimension of the subspace of matrices commuting with S?",
+   "hints": [
+    "Compute `AS` and `SA` for a general `A = [a b c; d e f; g h i]`.",
+    "`AS` shifts columns right; `SA` shifts rows up.",
+    "Compare entry by entry."
+   ],
+   "solution": [
+    "`AS = [0 a b; 0 d e; 0 g h]` (columns shift right, column 1 becomes 0) and `SA = [d e f; g h i; 0 0 0]` (rows shift up, row 3 becomes 0).",
+    "Equating entry by entry: `d = 0`, `e = a`, `f = b`, `g = 0`, `h = d = 0`, `i = e = a`.",
+    "So `A = [a b c; 0 a b; 0 0 a]` with three free parameters a, b, c: the subspace has dimension 3."
+   ],
+   "rubric": [
+    "Computes AS and SA correctly.",
+    "Compares entries to reach the required form.",
+    "Concludes dimension 3."
+   ],
+   "pitfalls": [
+    "Mixing up the effect of AS and SA (columns versus rows).",
+    "Miscounting the dimension (there are three parameters a, b, c)."
+   ]
+  }
+ },
+ {
+  "id": "l-perm-basis",
+  "ch": "ch3",
+  "level": 3,
+  "source": {
+   "name": "MIT 18.06 Linear Algebra (Spring 2010), PS4, §3.5 bài 41",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Năm hoán vị còn lại độc lập",
+   "q": "Viết ma trận đơn vị I 3×3 như một tổ hợp của năm ma trận hoán vị 3×3 khác. Rồi chứng minh năm ma trận hoán vị đó độc lập tuyến tính. (Chúng là cơ sở của không gian con các ma trận 3×3 có tổng mọi hàng và mọi cột bằng nhau.)",
+   "hints": [
+    "Liệt kê 5 hoán vị khác I: ba phép đổi chỗ P21, P31, P32 và hai chu trình.",
+    "Tổng ba phép đổi chỗ so với tổng hai chu trình.",
+    "Độc lập: giả sử `c₁P₁ + … + c₅P₅ = 0` rồi so từng ô."
+   ],
+   "solution": [
+    "Các hoán vị: `P21 = [0 1 0; 1 0 0; 0 0 1]`, `P31 = [0 0 1; 0 1 0; 1 0 0]`, `P32 = [1 0 0; 0 0 1; 0 1 0]` và hai chu trình `P32P21`, `P21P32`.",
+    "`P21 + P31 + P32` là ma trận toàn số 1 (mỗi ô đúng một lần), còn `P32P21 + P21P32` là ma trận toàn 1 trừ I (ô ngoài đường chéo, mỗi ô một lần). Vậy `I = P21 + P31 + P32 − P32P21 − P21P32` (đã kiểm bằng máy).",
+    "Độc lập: nếu `c₁P21 + c₂P31 + c₃P32 + c₄P32P21 + c₅P21P32 = 0` thì các ô đường chéo (chỉ ba phép đổi chỗ có số 1 ở đó) cho `c₃ = c₂ = c₁ = 0`; khi đó các ô ngoài đường chéo cho `c₄ = c₅ = 0`."
+   ],
+   "rubric": [
+    "Liệt kê đúng 5 hoán vị.",
+    "Biểu thức I có kiểm.",
+    "Chứng minh độc lập qua so sánh ô."
+   ],
+   "pitfalls": [
+    "Nhầm dấu trong tổ hợp.",
+    "Cho rằng 5 ma trận độc lập chỉ vì \"khác nhau\" — cần chứng minh."
+   ]
+  },
+  "en": {
+   "title": "The other five permutation matrices are independent",
+   "q": "Write the 3×3 identity I as a combination of the other five 3×3 permutation matrices. Then prove these five permutation matrices are linearly independent. (They form a basis of the subspace of 3×3 matrices with all row and column sums equal.)",
+   "hints": [
+    "List the 5 permutations other than I: three swaps P21, P31, P32 and two 3-cycles.",
+    "Compare the sum of the three swaps with the sum of the two cycles.",
+    "Independence: assume `c₁P₁ + … + c₅P₅ = 0` and compare entries."
+   ],
+   "solution": [
+    "The permutations: `P21 = [0 1 0; 1 0 0; 0 0 1]`, `P31 = [0 0 1; 0 1 0; 1 0 0]`, `P32 = [1 0 0; 0 0 1; 0 1 0]` and the two cycles `P32P21`, `P21P32`.",
+    "`P21 + P31 + P32` is the all-ones matrix (each entry exactly once) and `P32P21 + P21P32` is all-ones minus I (each off-diagonal entry once). So `I = P21 + P31 + P32 − P32P21 − P21P32` (verified by computer).",
+    "Independence: if `c₁P21 + c₂P31 + c₃P32 + c₄P32P21 + c₅P21P32 = 0`, compare the diagonal entries (only the three swaps have 1s there) to get `c₃ = c₂ = c₁ = 0`; then the off-diagonal entries give `c₄ = c₅ = 0`."
+   ],
+   "rubric": [
+    "Lists the 5 permutations correctly.",
+    "The expression for I, checked.",
+    "Proves independence by comparing entries."
+   ],
+   "pitfalls": [
+    "Sign errors in the combination.",
+    "Believing five matrices are independent just because they differ — it needs proof."
+   ]
+  }
+ },
+ {
+  "id": "l-rank-nullity",
+  "ch": "ch3",
+  "level": 2,
+  "source": {
+   "name": "MIT 18.06 Linear Algebra (Spring 2010), PS4, §3.5 bài 44, §3.6 bài 11, 24",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Chiều và bốn không gian con",
+   "q": "A là ma trận m×n hạng r. (a) Chiều của \"đầu vào\", của nullspace và của \"đầu ra\" (không gian cột) là bao nhiêu và chúng liên hệ thế nào? (b) Giả sử có b để `Ax = b` vô nghiệm. Mọi bất đẳng thức giữa m, n, r là gì? Vì sao `Aᵀy = 0` có nghiệm khác 0? (c) `Aᵀy = d` giải được khi d nằm trong không gian nào trong bốn không gian con? Nghiệm duy nhất khi nào?",
+   "hints": [
+    "Đầu vào có n chiều; đầu ra là C(A).",
+    "Left nullspace là N(Aᵀ) có chiều m − r.",
+    "`Aᵀy` là tổ hợp các cột của Aᵀ, tức các hàng của A."
+   ],
+   "solution": [
+    "(a) Đầu vào: n; nullspace: n − r; đầu ra (không gian cột): r. Quan hệ `r + (n − r) = n`.",
+    "(b) Luôn có `r ≤ m`, `r ≤ n`. Có b vô nghiệm ⇔ C(A) nhỏ hơn ℝᵐ ⇒ `r < m`. Khi đó left nullspace N(Aᵀ) có chiều `m − r > 0`: `Aᵀy = 0` có nghiệm khác 0.",
+    "(c) `Aᵀy = d` giải được ⇔ d thuộc không gian hàng C(Aᵀ) (các tổ hợp của hàng A). Nghiệm duy nhất khi left nullspace chỉ chứa 0 (hai nghiệm khác nhau một vector của N(Aᵀ))."
+   ],
+   "rubric": [
+    "(a) ba chiều và quan hệ.",
+    "(b) bất đẳng thức đúng và m − r > 0.",
+    "(c) không gian hàng và điều kiện duy nhất qua left nullspace."
+   ],
+   "pitfalls": [
+    "Nhầm không gian hàng với left nullspace (Aᵀy là *tổ hợp các cột của Aᵀ*).",
+    "Quên `r ≤ n`."
+   ]
+  },
+  "en": {
+   "title": "Dimensions and the four subspaces",
+   "q": "A is an m×n matrix of rank r. (a) What are the dimensions of the \"inputs\", the nullspace and the \"outputs\" (column space), and how are they related? (b) Suppose some b has no solution of `Ax = b`. What inequalities hold among m, n, r? Why does `Aᵀy = 0` have a nonzero solution? (c) `Aᵀy = d` is solvable when d lies in which of the four subspaces? When is the solution unique?",
+   "hints": [
+    "Inputs have dimension n; outputs are C(A).",
+    "The left nullspace N(Aᵀ) has dimension m − r.",
+    "`Aᵀy` is a combination of the columns of Aᵀ, i.e. the rows of A."
+   ],
+   "solution": [
+    "(a) Inputs: n; nullspace: n − r; outputs (column space): r. Relation `r + (n − r) = n`.",
+    "(b) Always `r ≤ m`, `r ≤ n`. Some b unsolvable iff C(A) is smaller than ℝᵐ ⇒ `r < m`. Then the left nullspace N(Aᵀ) has dimension `m − r > 0`: `Aᵀy = 0` has a nonzero solution.",
+    "(c) `Aᵀy = d` is solvable iff d lies in the row space C(Aᵀ) (combinations of the rows of A). The solution is unique when the left nullspace contains only 0 (two solutions differ by a vector of N(Aᵀ))."
+   ],
+   "rubric": [
+    "(a) the three dimensions and the relation.",
+    "(b) the right inequalities and m − r > 0.",
+    "(c) the row space and uniqueness via the left nullspace."
+   ],
+   "pitfalls": [
+    "Confusing the row space with the left nullspace (`Aᵀy` is a *combination of the columns of Aᵀ*).",
+    "Forgetting `r ≤ n`."
+   ]
+  }
+ },
+ {
+  "id": "l-chess-rank",
+  "ch": "ch3",
+  "level": 2,
+  "source": {
+   "name": "MIT 18.06 Linear Algebra (Spring 2010), PS4, §3.6 bài 28",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Hạng của ma trận bàn cờ và ma trận quân cờ",
+   "q": "B là ma trận 8×8 bàn cờ (hàng lẻ `1 0 1 0 1 0 1 0`, hàng chẵn `0 1 0 1 0 1 0 1`). C là ma trận quân cờ: hàng 1 và 8 là `r n b q k b n r`, hàng 2 và 7 là `p p p p p p p p`, các hàng 3–6 toàn 0 (r, n, b, q, k, p là các số khác nhau, p ≠ 0). Tìm hạng, cơ sở không gian hàng và chiều của left nullspace của mỗi ma trận.",
+   "hints": [
+    "Đếm số hàng *khác nhau* và xem chúng có phải bội của nhau không.",
+    "Hạng = số hàng độc lập; left nullspace có chiều m − r.",
+    "Cơ sở không gian hàng: các hàng độc lập."
+   ],
+   "solution": [
+    "B có hai loại hàng, độc lập (không phải bội của nhau): hạng 2; không gian hàng có cơ sở là hai hàng đầu; left nullspace có chiều `8 − 2 = 6`.",
+    "C có hàng `r n b q k b n r`, hàng `p…p` và hàng 0. Hai hàng khác 0 độc lập (hàng thứ nhất không là bội của hàng toàn p vì các số r, n, b, q, k không đều bằng nhau): hạng 2; cơ sở không gian hàng là hai hàng đầu; left nullspace chiều 6.",
+    "Nếu p = 0 thì hàng p biến mất và hạng C còn 1."
+   ],
+   "rubric": [
+    "Hạng 2 cho cả hai và lý do.",
+    "Cơ sở không gian hàng là hai hàng đầu.",
+    "Chiều left nullspace 6; nhắc trường hợp p = 0."
+   ],
+   "pitfalls": [
+    "Cho hạng 8 vì 8 hàng \"khác\" — các hàng giống nhau chỉ tính một lần.",
+    "Quên rằng nếu hàng quân cờ là bội của hàng p thì hạng giảm."
+   ]
+  },
+  "en": {
+   "title": "Ranks of the checkerboard and chess matrices",
+   "q": "B is the 8×8 checkerboard matrix (odd rows `1 0 1 0 1 0 1 0`, even rows `0 1 0 1 0 1 0 1`). C is the chess matrix: rows 1 and 8 are `r n b q k b n r`, rows 2 and 7 are `p p p p p p p p`, rows 3–6 are all zeros (r, n, b, q, k, p are different numbers, p ≠ 0). Find the rank, a basis of the row space and the dimension of the left nullspace of each.",
+   "hints": [
+    "Count the *distinct* rows and check whether they are multiples of one another.",
+    "Rank = number of independent rows; the left nullspace has dimension m − r.",
+    "A row-space basis: the independent rows."
+   ],
+   "solution": [
+    "B has two kinds of rows, independent (not multiples): rank 2; the first two rows form a row-space basis; the left nullspace has dimension `8 − 2 = 6`.",
+    "C has the rows `r n b q k b n r`, `p…p` and zero rows. The two nonzero rows are independent (the first is not a multiple of the all-p row since r, n, b, q, k are not all equal): rank 2; a row-space basis is the first two rows; the left nullspace has dimension 6.",
+    "If p = 0 the p-row vanishes and the rank of C drops to 1."
+   ],
+   "rubric": [
+    "Rank 2 for both with the reason.",
+    "Row-space basis is the two distinct rows.",
+    "Left nullspace dimension 6; mentions the case p = 0."
+   ],
+   "pitfalls": [
+    "Answering rank 8 because there are 8 \"different-looking\" rows — repeated rows count once.",
+    "Forgetting that if the piece row were a multiple of the p-row the rank would drop."
+   ]
+  }
+ }
+]

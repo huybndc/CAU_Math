@@ -1,5 +1,6 @@
 import { onLangChange, getLang } from './i18n/index.js';
 import { setupShell, shellReady } from '@shared/ui/shell.js';
+import { freeFromGlob } from '@shared/logic/free.js';
 import { truthFigure } from '@shared/ui/figures.js';
 import { kmapFigure } from './ui/kmap-figure.js';
 import { gateFigure, circuitFigure, netFigure } from './ui/gate-svg.js';
@@ -27,10 +28,12 @@ const THEORY = {
   en: { ch1: theoryCh1En, ch2: theoryCh2En, ch3: theoryCh3En, ch4: theoryCh4En },
 };
 
+const FREE = freeFromGlob(import.meta.glob('./content/free/*.json', { eager: true }));
+
 window.addEventListener('DOMContentLoaded', () => {
   const figures = { truth: truthFigure, kmap: kmapFigure, gate: gateFigure, circuit: circuitFigure, net: netFigure };
   const widgets = { kmapGroup, kmapPick };
-  setupShell({ chapters, figures, widgets, lesson: ch => THEORY[getLang()][ch] });
+  setupShell({ chapters, figures, widgets, free: FREE, lesson: ch => THEORY[getLang()][ch] });
   setupGrayPage();
   setupKmapPage();
   setupCh1ExamplePage();

@@ -1,0 +1,676 @@
+[
+ {
+  "id": "l-singular-plane",
+  "ch": "ch2",
+  "level": 1,
+  "source": {
+   "name": "MIT 18.06 Linear Algebra (Spring 2010), PS1, §2.2 bài 20",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Ba mặt phẳng không giao nhau",
+   "q": "Ba mặt phẳng có thể không có điểm chung dù không có hai mặt nào song song. Tìm phương trình thứ ba không thể giải cùng với `x + y + z = 0` và `x − 2y − z = 1`. Hệ suy biến khi hàng 3 của A là gì so với hai hàng đầu?",
+   "hints": [
+    "Hệ suy biến khi hàng 3 của A là tổ hợp của hai hàng đầu.",
+    "Chọn vế trái = tổ hợp hai vế trái đã cho, nhưng vế phải *khác* tổ hợp đó của hai vế phải.",
+    "Ví dụ: `3·(hàng 1) − (hàng 2)`."
+   ],
+   "solution": [
+    "Hàng 3 là tổ hợp tuyến tính của hai hàng đầu ⇒ A suy biến.",
+    "Lấy vế trái `3(x + y + z) − (x − 2y − z) = 2x + 5y + 4z`.",
+    "Hai phương trình đầu cho `3·0 − 1 = −1` làm vế phải của tổ hợp đó. Chọn phương trình thứ ba `2x + 5y + 4z = 1` (vế phải ≠ −1): mâu thuẫn, vô nghiệm."
+   ],
+   "rubric": [
+    "Nhận ra hàng 3 là tổ hợp hai hàng đầu.",
+    "Dựng vế trái đúng tổ hợp.",
+    "Chọn vế phải để gây mâu thuẫn và giải thích."
+   ],
+   "pitfalls": [
+    "Chọn vế phải cũng đúng tổ hợp (−1): khi đó hệ có vô số nghiệm, không vô nghiệm.",
+    "Chọn mặt phẳng song song với một mặt đã cho — đề yêu cầu không có hai mặt song song."
+   ]
+  },
+  "en": {
+   "title": "Three planes with no common point",
+   "q": "Three planes can fail to meet in a point even if no two are parallel. Find a third equation that cannot be solved together with `x + y + z = 0` and `x − 2y − z = 1`. What must be true of row 3 of A for the system to be singular?",
+   "hints": [
+    "The system is singular when row 3 of A is a combination of rows 1 and 2.",
+    "Take the left side to be that combination, but the right side *different* from the same combination of the right sides.",
+    "For instance `3·(row 1) − (row 2)`."
+   ],
+   "solution": [
+    "Row 3 is a linear combination of rows 1 and 2 ⇒ A is singular.",
+    "Take the left side `3(x + y + z) − (x − 2y − z) = 2x + 5y + 4z`.",
+    "The first two equations give `3·0 − 1 = −1` as the right side of that combination. Choose `2x + 5y + 4z = 1` (right side ≠ −1): a contradiction, no solution."
+   ],
+   "rubric": [
+    "Recognises row 3 is a combination of rows 1 and 2.",
+    "Builds the left side as exactly that combination.",
+    "Chooses the right side to create a contradiction and explains it."
+   ],
+   "pitfalls": [
+    "Choosing the right side that also matches the combination (−1): then there are infinitely many solutions, not none.",
+    "Choosing a plane parallel to a given one — the problem asks that no two be parallel."
+   ]
+  }
+ },
+ {
+  "id": "l-singular-100",
+  "ch": "ch2",
+  "level": 2,
+  "source": {
+   "name": "MIT 18.06 Linear Algebra (Spring 2010), PS1, §2.2 bài 32",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Hệ 100 ẩn suy biến",
+   "q": "Cho 100 phương trình `Ax = 0` với 100 ẩn. Khử Gauss biến phương trình thứ 100 thành `0 = 0`.\n(a) Tính chất suy biến: một tổ hợp nào đó của 100 hàng bằng ___.\n(b) Hệ có vô số nghiệm: một tổ hợp nào đó của 100 cột bằng ___.\n(c) Dựng một ma trận suy biến 100×100 không có phần tử nào bằng 0.\n(d) Mô tả bằng lời \"bức tranh hàng\" và \"bức tranh cột\" của `Ax = 0` với ma trận của bạn.",
+   "hints": [
+    "Khử Gauss chỉ lấy tổ hợp các hàng.",
+    "`Ax = 0` có nghiệm khác 0 ⇒ các cột phụ thuộc.",
+    "(c) Ví dụ đơn giản: mọi hàng bằng nhau."
+   ],
+   "solution": [
+    "(a) Bằng vector không (hàng thứ 100 triệt tiêu sau khi trừ tổ hợp các hàng trước).",
+    "(b) Bằng vector không: nghiệm x khác 0 cho các hệ số của một tổ hợp cột bằng 0.",
+    "(c) Mọi hàng bằng `(1 2 3 … 100)`: không có số 0 và hạng bằng 1 nên suy biến.",
+    "(d) Bức tranh hàng: 100 bản sao của cùng một siêu phẳng `x1 + 2x2 + … + 100x100 = 0` trong không gian 100 chiều. Bức tranh cột: 100 vector đều cùng phương `(1, 1, …, 1)`, độ dài tỉ lệ 1, 2, …, 100 lần."
+   ],
+   "rubric": [
+    "(a)(b) trả lời \"vector không\" với giải thích.",
+    "(c) ví dụ không có số 0 và chứng minh suy biến.",
+    "(d) mô tả được hai bức tranh."
+   ],
+   "pitfalls": [
+    "Ở (c) lấy ma trận đường chéo có số 0 hoặc có hàng toàn 0 — đề yêu cầu không có phần tử 0.",
+    "Quên rằng nghiệm khác 0 của Ax = 0 chính là một tổ hợp cột bằng 0."
+   ]
+  },
+  "en": {
+   "title": "A singular 100×100 system",
+   "q": "Take 100 equations `Ax = 0` in 100 unknowns. Elimination reduces the 100th equation to `0 = 0`.\n(a) Singular property: some combination of the 100 rows is ___.\n(b) Infinitely many solutions: some combination of the 100 columns is ___.\n(c) Invent a 100×100 singular matrix with no zero entries.\n(d) Describe in words the row picture and column picture of `Ax = 0` for your matrix.",
+   "hints": [
+    "Elimination only takes combinations of rows.",
+    "`Ax = 0` having a nonzero solution means the columns are dependent.",
+    "(c) A simple choice: all rows equal."
+   ],
+   "solution": [
+    "(a) The zero vector (the 100th row vanishes after subtracting a combination of earlier rows).",
+    "(b) The zero vector: a nonzero solution x supplies the coefficients of a column combination equal to 0.",
+    "(c) Every row equal to `(1 2 3 … 100)`: no zero entries and rank 1, hence singular.",
+    "(d) Row picture: 100 copies of the same hyperplane `x1 + 2x2 + … + 100x100 = 0` in 100-space. Column picture: 100 vectors all parallel to `(1, 1, …, 1)`, with lengths 1, 2, …, 100 times that."
+   ],
+   "rubric": [
+    "(a)(b) answer \"zero vector\" with the reason.",
+    "(c) an example with no zeros and a proof it is singular.",
+    "(d) describes both pictures."
+   ],
+   "pitfalls": [
+    "In (c) using a diagonal matrix with zeros or an all-zero row — the problem forbids zero entries.",
+    "Forgetting that a nonzero solution of Ax = 0 is exactly a column combination equal to 0."
+   ]
+  }
+ },
+ {
+  "id": "l-pascal",
+  "ch": "ch2",
+  "level": 2,
+  "source": {
+   "name": "MIT 18.06 Linear Algebra (Spring 2010), PS1, §2.3 bài 29",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Khử Pascal",
+   "q": "Ma trận Pascal `P = [1 0 0 0; 1 1 0 0; 1 2 1 0; 1 3 3 1]`. (a) Tìm ma trận tam giác E sao cho `EP = [1 0 0 0; 0 1 0 0; 0 1 1 0; 0 1 2 1]` (Pascal nhỏ hơn nằm góc dưới phải). (b) Tìm M (tích vài ma trận như E) khử P hoàn toàn về I.",
+   "hints": [
+    "Mỗi hàng trừ hàng ngay trên nó.",
+    "E có 1 trên đường chéo và −1 dưới đường chéo.",
+    "Lặp lại với Pascal 3×3 còn lại, rồi 2×2; nhân các ma trận khử với nhau."
+   ],
+   "solution": [
+    "(a) `E = [1 0 0 0; −1 1 0 0; 0 −1 1 0; 0 0 −1 1]`: hàng i trừ hàng i−1. Kiểm: hàng 2 `(1,1,0,0) − (1,0,0,0) = (0,1,0,0)`, hàng 3 `(1,2,1,0) − (1,1,0,0) = (0,1,1,0)`, hàng 4 `(1,3,3,1) − (1,2,1,0) = (0,1,2,1)`.",
+    "Tiếp tục khử cột 2 bằng `E₂ = [1 0 0 0; 0 1 0 0; 0 −1 1 0; 0 0 −1 1]`, rồi cột 3 bằng `E₃ = [1 0 0 0; 0 1 0 0; 0 0 1 0; 0 0 −1 1]`.",
+    "(b) `M = E₃ E₂ E` (theo thứ tự áp dụng) và `MP = I`, nên `M = P⁻¹ = [1 0 0 0; −1 1 0 0; 1 −2 1 0; −1 3 −3 1]` (Pascal đổi dấu xen kẽ)."
+   ],
+   "rubric": [
+    "(a) ma trận E và kiểm tích EP.",
+    "Mô tả chuỗi khử E, E₂, E₃.",
+    "(b) M là nghịch đảo của P với các dấu xen kẽ và kiểm MP = I."
+   ],
+   "pitfalls": [
+    "Nhân các ma trận theo thứ tự sai (E trước hay sau): M = E₃E₂E, ma trận đầu tiên áp dụng nằm bên phải.",
+    "Quên rằng M = P⁻¹ nên có thể kiểm bằng MP = I."
+   ]
+  },
+  "en": {
+   "title": "Eliminating Pascal",
+   "q": "Pascal matrix `P = [1 0 0 0; 1 1 0 0; 1 2 1 0; 1 3 3 1]`. (a) Find a triangular E with `EP = [1 0 0 0; 0 1 0 0; 0 1 1 0; 0 1 2 1]` (a smaller Pascal in the lower right). (b) Find M (a product of several E-like matrices) that reduces P all the way to I.",
+   "hints": [
+    "Each row subtracts the row just above it.",
+    "E has 1 on the diagonal and −1 below it.",
+    "Repeat with the remaining 3×3 Pascal, then 2×2; multiply the elimination matrices together."
+   ],
+   "solution": [
+    "(a) `E = [1 0 0 0; −1 1 0 0; 0 −1 1 0; 0 0 −1 1]`: row i minus row i−1. Check: row 2 `(1,1,0,0) − (1,0,0,0) = (0,1,0,0)`, row 3 `(1,2,1,0) − (1,1,0,0) = (0,1,1,0)`, row 4 `(1,3,3,1) − (1,2,1,0) = (0,1,2,1)`.",
+    "Next eliminate column 2 with `E₂ = [1 0 0 0; 0 1 0 0; 0 −1 1 0; 0 0 −1 1]`, then column 3 with `E₃ = [1 0 0 0; 0 1 0 0; 0 0 1 0; 0 0 −1 1]`.",
+    "(b) `M = E₃ E₂ E` (first applied is rightmost) and `MP = I`, so `M = P⁻¹ = [1 0 0 0; −1 1 0 0; 1 −2 1 0; −1 3 −3 1]` (Pascal with alternating signs)."
+   ],
+   "rubric": [
+    "(a) the matrix E and a check of EP.",
+    "Describes the chain E, E₂, E₃.",
+    "(b) M is P⁻¹ with alternating signs, checked by MP = I."
+   ],
+   "pitfalls": [
+    "Multiplying the elimination matrices in the wrong order: M = E₃E₂E, the first applied is on the right.",
+    "Forgetting M = P⁻¹ so MP = I is an easy check."
+   ]
+  }
+ },
+ {
+  "id": "l-mult-count",
+  "ch": "ch2",
+  "level": 1,
+  "source": {
+   "name": "MIT 18.06 Linear Algebra (Spring 2010), PS1, §2.4 bài 36",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Nhân ma trận: thứ tự nào nhanh hơn",
+   "q": "A cỡ m×n, B cỡ n×p, C cỡ p×q. Số phép nhân của `(AB)C` là `mnp + mpq`; của `A(BC)` là `mnq + npq`.\n(a) A là 2×4, B là 4×7, C là 7×10: chọn `(AB)C` hay `A(BC)`?\n(b) Với vector N thành phần, chọn `(uᵀv)wᵀ` hay `uᵀ(vwᵀ)`?\n(c) Chứng minh `(AB)C` nhanh hơn khi `1/n + 1/q < 1/m + 1/p`.",
+   "hints": [
+    "Thay số vào hai công thức đếm.",
+    "(b) `uᵀv` là một số; `vwᵀ` là ma trận N×N.",
+    "(c) Chia hai vế `mnp + mpq < mnq + npq` cho mnpq."
+   ],
+   "solution": [
+    "(a) `(AB)C`: `2·4·7 + 2·7·10 = 56 + 140 = 196`. `A(BC)`: `2·4·10 + 4·7·10 = 80 + 280 = 360`. Chọn `(AB)C`.",
+    "(b) `(uᵀv)wᵀ`: tích vô hướng cần N phép nhân, rồi nhân số với wᵀ cần N: tổng 2N. `uᵀ(vwᵀ)`: `vwᵀ` cần N² phép nhân, rồi uᵀ nhân ma trận N×N cần N²: tổng 2N². Chọn `(uᵀv)wᵀ`.",
+    "(c) `mnp + mpq < mnq + npq`. Chia cho mnpq: `1/q + 1/n < 1/p + 1/m`."
+   ],
+   "rubric": [
+    "(a) đủ hai phép đếm 196 và 360.",
+    "(b) so 2N với 2N².",
+    "(c) biến đổi chia đúng cho mnpq."
+   ],
+   "pitfalls": [
+    "Nhầm công thức đếm (ví dụ quên một tích).",
+    "Ở (c) đảo chiều bất đẳng thức khi chia."
+   ]
+  },
+  "en": {
+   "title": "Matrix products: which order is cheaper",
+   "q": "A is m×n, B is n×p, C is p×q. The multiplication count of `(AB)C` is `mnp + mpq`; of `A(BC)` it is `mnq + npq`.\n(a) A is 2×4, B is 4×7, C is 7×10: prefer `(AB)C` or `A(BC)`?\n(b) With N-component vectors, choose `(uᵀv)wᵀ` or `uᵀ(vwᵀ)`?\n(c) Show `(AB)C` is faster when `1/n + 1/q < 1/m + 1/p`.",
+   "hints": [
+    "Plug the numbers into the two counts.",
+    "(b) `uᵀv` is a number; `vwᵀ` is an N×N matrix.",
+    "(c) Divide both sides of `mnp + mpq < mnq + npq` by mnpq."
+   ],
+   "solution": [
+    "(a) `(AB)C`: `2·4·7 + 2·7·10 = 56 + 140 = 196`. `A(BC)`: `2·4·10 + 4·7·10 = 80 + 280 = 360`. Prefer `(AB)C`.",
+    "(b) `(uᵀv)wᵀ`: the dot product takes N multiplications, then scaling wᵀ takes N: total 2N. `uᵀ(vwᵀ)`: `vwᵀ` takes N², then uᵀ times an N×N matrix takes N²: total 2N². Prefer `(uᵀv)wᵀ`.",
+    "(c) `mnp + mpq < mnq + npq`. Divide by mnpq: `1/q + 1/n < 1/p + 1/m`."
+   ],
+   "rubric": [
+    "(a) both counts, 196 and 360.",
+    "(b) compares 2N with 2N².",
+    "(c) divides correctly by mnpq."
+   ],
+   "pitfalls": [
+    "Miscounting (e.g. dropping a product).",
+    "Flipping the inequality when dividing in (c)."
+   ]
+  }
+ },
+ {
+  "id": "l-row-dependent",
+  "ch": "ch2",
+  "level": 1,
+  "source": {
+   "name": "MIT 18.06 Linear Algebra (Spring 2010), PS1, §2.5 bài 7",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Hàng 1 + hàng 2 = hàng 3",
+   "q": "A có `hàng 1 + hàng 2 = hàng 3`. Chứng minh A không khả nghịch: (a) Giải thích vì sao `Ax = (1, 0, 0)` vô nghiệm. (b) Những vế phải `(b1, b2, b3)` nào có thể có nghiệm? (c) Hàng 3 trở thành gì khi khử?",
+   "hints": [
+    "Gọi các hàng là A1, A2, A3; phương trình `Ai·x = bi`.",
+    "Cộng hai phương trình đầu.",
+    "Hàng phụ thuộc ⇒ hàng không sau khử."
+   ],
+   "solution": [
+    "(a) Nếu `Ax = (1, 0, 0)` thì `A1·x = 1`, `A2·x = 0`, `A3·x = 0`. Nhưng `A3 = A1 + A2` cho `A3·x = A1·x + A2·x = 1`, mâu thuẫn với 0.",
+    "(b) Tổng quát `A3·x = A1·x + A2·x` nên `b3 = b1 + b2`. Chỉ các b với `b1 + b2 = b3` mới có thể có nghiệm.",
+    "(c) Khử trừ hàng 1 và hàng 2 khỏi hàng 3 cho hàng toàn 0; A có nhiều nhất 2 pivot nên không khả nghịch."
+   ],
+   "rubric": [
+    "(a) dùng `A3 = A1 + A2` để ra mâu thuẫn.",
+    "(b) điều kiện `b3 = b1 + b2`.",
+    "(c) hàng 3 thành hàng không, kết luận không khả nghịch."
+   ],
+   "pitfalls": [
+    "Nói A không khả nghịch rồi bỏ qua việc chỉ ra điều kiện trên b.",
+    "Chọn `b1 + b2 + b3 = 0` — tổ hợp sai dấu."
+   ]
+  },
+  "en": {
+   "title": "Row 1 + row 2 = row 3",
+   "q": "A has `row 1 + row 2 = row 3`. Show A is not invertible: (a) Explain why `Ax = (1, 0, 0)` has no solution. (b) Which right sides `(b1, b2, b3)` might allow a solution? (c) What happens to row 3 in elimination?",
+   "hints": [
+    "Call the rows A1, A2, A3; the equations are `Ai·x = bi`.",
+    "Add the first two equations.",
+    "Dependent rows become a zero row after elimination."
+   ],
+   "solution": [
+    "(a) If `Ax = (1, 0, 0)` then `A1·x = 1`, `A2·x = 0`, `A3·x = 0`. But `A3 = A1 + A2` gives `A3·x = A1·x + A2·x = 1`, contradicting 0.",
+    "(b) In general `A3·x = A1·x + A2·x` so `b3 = b1 + b2`. Only b with `b1 + b2 = b3` can have a solution.",
+    "(c) Elimination subtracts rows 1 and 2 from row 3 giving a zero row; A has at most 2 pivots so it is not invertible."
+   ],
+   "rubric": [
+    "(a) uses `A3 = A1 + A2` for the contradiction.",
+    "(b) the condition `b3 = b1 + b2`.",
+    "(c) row 3 becomes zero, concludes not invertible."
+   ],
+   "pitfalls": [
+    "Saying A is singular but not stating the condition on b.",
+    "Choosing `b1 + b2 + b3 = 0` — wrong signs in the combination."
+   ]
+  }
+ },
+ {
+  "id": "l-bidiagonal",
+  "ch": "ch2",
+  "level": 2,
+  "source": {
+   "name": "MIT 18.06 Linear Algebra (Spring 2010), PS2, §2.5 bài 24, 40",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Nghịch đảo ma trận hai đường chéo",
+   "q": "A là ma trận 4×4 có 1 trên đường chéo và `−a, −b, −c` trên đường chéo ngay phía trên (các vị trí (1,2), (2,3), (3,4)); các ô khác bằng 0. Tìm `A⁻¹` bằng khử Gauss–Jordan trên `[A | I]`, rồi kiểm bằng cách khác: viết `A = I − N`.",
+   "hints": [
+    "A là tam giác trên nên khử từ dưới lên.",
+    "Cột cuối của A⁻¹ là nghiệm của `Ax = e4`.",
+    "N có a, b, c trên đường chéo phụ và `N⁴ = 0`."
+   ],
+   "solution": [
+    "Khử từ hàng dưới lên: `R3 += c·R4`, `R2 += b·R3`, `R1 += a·R2` (và các phép tương tự cho phần I). Kết quả:",
+    "`A⁻¹ = [1 a ab abc; 0 1 b bc; 0 0 1 c; 0 0 0 1]`.",
+    "Kiểm bằng khai triển: `A = I − N`, `N⁴ = 0` nên `A⁻¹ = (I − N)⁻¹ = I + N + N² + N³`. Mỗi luỹ thừa N dịch đường chéo lên một bậc và nhân các hệ số: ra đúng các phần tử `a, b, c, ab, bc, abc`."
+   ],
+   "rubric": [
+    "Khử Gauss–Jordan đúng thứ tự (dưới lên).",
+    "Ma trận nghịch đảo đúng.",
+    "Kiểm bằng chuỗi I + N + N² + N³."
+   ],
+   "pitfalls": [
+    "Khử từ trên xuống và gặp phần tử lẻ — ma trận tam giác trên khử từ dưới lên gọn hơn.",
+    "Quên rằng `N⁴ = 0` nên chuỗi dừng ở N³."
+   ]
+  },
+  "en": {
+   "title": "Inverse of a bidiagonal matrix",
+   "q": "A is 4×4 with 1 on the diagonal and `−a, −b, −c` on the diagonal just above (positions (1,2), (2,3), (3,4)); all other entries 0. Find `A⁻¹` by Gauss–Jordan on `[A | I]`, then check another way by writing `A = I − N`.",
+   "hints": [
+    "A is upper triangular so eliminate from the bottom up.",
+    "The last column of A⁻¹ solves `Ax = e4`.",
+    "N has a, b, c on the superdiagonal and `N⁴ = 0`."
+   ],
+   "solution": [
+    "Eliminate bottom-up: `R3 += c·R4`, `R2 += b·R3`, `R1 += a·R2` (and the same operations on the I part). Result:",
+    "`A⁻¹ = [1 a ab abc; 0 1 b bc; 0 0 1 c; 0 0 0 1]`.",
+    "Check by expansion: `A = I − N`, `N⁴ = 0` so `A⁻¹ = (I − N)⁻¹ = I + N + N² + N³`. Each power of N shifts the diagonal up one step and multiplies coefficients: this produces exactly `a, b, c, ab, bc, abc`."
+   ],
+   "rubric": [
+    "Gauss–Jordan done in the right order (bottom-up).",
+    "Correct inverse matrix.",
+    "Checks with the series I + N + N² + N³."
+   ],
+   "pitfalls": [
+    "Eliminating top-down and creating extra fill — bottom-up is cleaner for an upper triangular matrix.",
+    "Forgetting `N⁴ = 0` so the series stops at N³."
+   ]
+  }
+ },
+ {
+  "id": "l-lu-symmetric",
+  "ch": "ch2",
+  "level": 2,
+  "source": {
+   "name": "MIT 18.06 Linear Algebra (Spring 2010), PS2, §2.6 bài 13",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "LU của ma trận đối xứng đặc biệt",
+   "q": "Tính L và U cho `A = [a a a a; a b b b; a b c c; a b c d]`. Tìm bốn điều kiện trên a, b, c, d để A = LU có đủ bốn pivot.",
+   "hints": [
+    "Trừ hàng 1 khỏi hàng 2–4, rồi hàng 2 khỏi hàng 3–4, rồi hàng 3 khỏi hàng 4.",
+    "Mọi hệ số nhân bằng 1.",
+    "Pivot là phần tử khác 0 trên đường chéo của U."
+   ],
+   "solution": [
+    "Khử: hàng 2–4 trừ hàng 1; hàng 3–4 trừ hàng 2; hàng 4 trừ hàng 3. Mọi hệ số nhân `ℓij = 1`.",
+    "`U = [a a a a; 0 b−a b−a b−a; 0 0 c−b c−b; 0 0 0 d−c]` và `L = [1 0 0 0; 1 1 0 0; 1 1 1 0; 1 1 1 1]`.",
+    "Bốn pivot là `a, b−a, c−b, d−c`. Đủ bốn pivot khi `a ≠ 0, b ≠ a, c ≠ b, d ≠ c`."
+   ],
+   "rubric": [
+    "Thực hiện khử đúng và nêu L toàn số 1.",
+    "U đúng.",
+    "Bốn điều kiện khác 0 đúng."
+   ],
+   "pitfalls": [
+    "Viết điều kiện bằng 0 (a = 0, b = a, …) thay vì ≠ 0.",
+    "Đảo vai: L chứa hệ số nhân, U chứa pivot."
+   ]
+  },
+  "en": {
+   "title": "LU of a special symmetric matrix",
+   "q": "Compute L and U for `A = [a a a a; a b b b; a b c c; a b c d]`. Find four conditions on a, b, c, d for A = LU to have four pivots.",
+   "hints": [
+    "Subtract row 1 from rows 2–4, then row 2 from rows 3–4, then row 3 from row 4.",
+    "Every multiplier is 1.",
+    "Pivots are the nonzero diagonal entries of U."
+   ],
+   "solution": [
+    "Elimination: rows 2–4 minus row 1; rows 3–4 minus row 2; row 4 minus row 3. Every multiplier `ℓij = 1`.",
+    "`U = [a a a a; 0 b−a b−a b−a; 0 0 c−b c−b; 0 0 0 d−c]` and `L = [1 0 0 0; 1 1 0 0; 1 1 1 0; 1 1 1 1]`.",
+    "The four pivots are `a, b−a, c−b, d−c`. Four pivots exist iff `a ≠ 0, b ≠ a, c ≠ b, d ≠ c`."
+   ],
+   "rubric": [
+    "Carries out elimination and states L is all 1s.",
+    "U correct.",
+    "The four \"≠ 0\" conditions are correct."
+   ],
+   "pitfalls": [
+    "Writing the conditions as equalities (a = 0, b = a, …) instead of ≠.",
+    "Swapping roles: L holds multipliers, U holds pivots."
+   ]
+  }
+ },
+ {
+  "id": "l-ldu-unique",
+  "ch": "ch2",
+  "level": 3,
+  "source": {
+   "name": "MIT 18.06 Linear Algebra (Spring 2010), PS2, §2.6 bài 18",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "A = LDU là duy nhất",
+   "q": "Nếu `A = LDU = L₁D₁U₁` với mọi nhân tử khả nghịch (L, L₁ tam giác dưới đơn vị; U, U₁ tam giác trên đơn vị; D, D₁ đường chéo), chứng minh L = L₁, D = D₁, U = U₁. Gợi ý: suy ra `L₁⁻¹LD = D₁U₁U⁻¹`; hai vế là loại tam giác nào?",
+   "hints": [
+    "Nhân hai vế `LDU = L₁D₁U₁` bên trái với `L₁⁻¹`, bên phải với `U⁻¹`.",
+    "Tích các ma trận tam giác dưới (hoặc trên) cùng loại là cùng loại; nghịch đảo cũng vậy.",
+    "Một ma trận vừa tam giác dưới vừa tam giác trên là ma trận đường chéo."
+   ],
+   "solution": [
+    "`LDU = L₁D₁U₁` ⇒ `L₁⁻¹(LDU)U⁻¹ = L₁⁻¹(L₁D₁U₁)U⁻¹`, tức `L₁⁻¹LD = D₁U₁U⁻¹`.",
+    "Vế trái `L₁⁻¹LD` là tam giác dưới (tích các tam giác dưới). Vế phải `D₁U₁U⁻¹` là tam giác trên. Hai vế bằng nhau nên cùng là ma trận *đường chéo*.",
+    "Vì `L₁⁻¹L` có 1 trên đường chéo và `L₁⁻¹LD` đường chéo ⇒ `L₁⁻¹L` đường chéo với các phần tử 1: `L₁⁻¹L = I`, tức `L = L₁`. Tương tự `U₁U⁻¹` đường chéo với 1 trên đường chéo ⇒ `U = U₁`.",
+    "Thay lại: `LDU = LD₁U` nên `D = D₁` (nhân L⁻¹ bên trái, U⁻¹ bên phải)."
+   ],
+   "rubric": [
+    "Biến đổi đúng ra `L₁⁻¹LD = D₁U₁U⁻¹`.",
+    "Lập luận dưới × dưới, trên × trên và hai vế bằng nhau ⇒ đường chéo.",
+    "Dùng đường chéo đơn vị để suy ra L = L₁, U = U₁, rồi D = D₁."
+   ],
+   "pitfalls": [
+    "Quên rằng L₁⁻¹L vẫn có đường chéo toàn 1.",
+    "Kết luận D = D₁ mà chưa biết L = L₁ và U = U₁."
+   ]
+  },
+  "en": {
+   "title": "A = LDU is unique",
+   "q": "If `A = LDU = L₁D₁U₁` with all factors invertible (L, L₁ unit lower triangular; U, U₁ unit upper triangular; D, D₁ diagonal), prove L = L₁, D = D₁, U = U₁. Hint: derive `L₁⁻¹LD = D₁U₁U⁻¹`; what kind of matrix is each side?",
+   "hints": [
+    "Multiply `LDU = L₁D₁U₁` on the left by `L₁⁻¹` and on the right by `U⁻¹`.",
+    "Products and inverses of lower (or upper) triangular matrices stay lower (or upper) triangular.",
+    "A matrix that is both lower and upper triangular is diagonal."
+   ],
+   "solution": [
+    "`LDU = L₁D₁U₁` ⇒ `L₁⁻¹(LDU)U⁻¹ = L₁⁻¹(L₁D₁U₁)U⁻¹`, i.e. `L₁⁻¹LD = D₁U₁U⁻¹`.",
+    "The left side `L₁⁻¹LD` is lower triangular (product of lower triangular matrices). The right side `D₁U₁U⁻¹` is upper triangular. They are equal, so both are *diagonal*.",
+    "Since `L₁⁻¹L` has 1s on the diagonal and `L₁⁻¹LD` is diagonal, `L₁⁻¹L` is diagonal with entries 1: `L₁⁻¹L = I`, so `L = L₁`. Similarly `U₁U⁻¹` is diagonal with 1s ⇒ `U = U₁`.",
+    "Substituting back: `LDU = LD₁U` so `D = D₁` (multiply by L⁻¹ on the left and U⁻¹ on the right)."
+   ],
+   "rubric": [
+    "Derives `L₁⁻¹LD = D₁U₁U⁻¹` correctly.",
+    "Argues lower × lower, upper × upper and equal ⇒ diagonal.",
+    "Uses unit diagonals to get L = L₁, U = U₁, then D = D₁."
+   ],
+   "pitfalls": [
+    "Forgetting that L₁⁻¹L still has an all-ones diagonal.",
+    "Concluding D = D₁ before knowing L = L₁ and U = U₁."
+   ]
+  }
+ },
+ {
+  "id": "l-7kinv",
+  "ch": "ch2",
+  "level": 2,
+  "source": {
+   "name": "MIT 18.06 Linear Algebra (Spring 2010), PS2, §2.6 bài 26",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "7K⁻¹ có số nguyên",
+   "q": "K là ma trận sai phân bậc hai 6×6 (2 trên đường chéo, −1 ở hai đường chéo cạnh). (a) Viết tay `7K⁻¹` theo quy luật: hàng 1 và cột 1 là (6, 5, 4, 3, 2, 1); từ đường chéo trở lên, hàng i bằng i lần hàng 1; từ đường chéo trở xuống, cột j bằng j lần cột 1. (b) Kiểm bằng cách nhân với K.",
+   "hints": [
+    "Điền hàng 1: (6, 5, 4, 3, 2, 1).",
+    "Hàng i từ đường chéo trở lên là `i ×` hàng 1 *cắt ở phần tử i* (phần tử (i,j) với j ≥ i là `i·(7−j)`).",
+    "Đối xứng: phần tử (i,j) với i ≥ j là `j·(7−i)`."
+   ],
+   "solution": [
+    "Phần tử (i, j) của `7K⁻¹` là `min(i,j)·(7 − max(i,j))`.",
+    "`7K⁻¹ = [6 5 4 3 2 1; 5 10 8 6 4 2; 4 8 12 9 6 3; 3 6 9 12 8 4; 2 4 6 8 10 5; 1 2 3 4 5 6]`.",
+    "Kiểm bằng K·M: ra `7I` (đã kiểm bằng máy), chẳng hạn hàng 1 của K nhân cột 1 của M: `2·6 − 5 = 7`, và hàng 1 nhân cột 2: `2·5 − 10 = 0`."
+   ],
+   "rubric": [
+    "Điền đúng theo công thức/quy luật.",
+    "Ma trận 6×6 đúng.",
+    "Kiểm bằng nhân hoặc ít nhất vài ô."
+   ],
+   "pitfalls": [
+    "Sai quy luật ở khối trên/dưới đường chéo (nhầm hàng i với cột i).",
+    "Quên nhân 7 để ma trận chỉ có số nguyên."
+   ]
+  },
+  "en": {
+   "title": "7K⁻¹ has integer entries",
+   "q": "K is the 6×6 second-difference matrix (2 on the diagonal, −1 on the two neighbouring diagonals). (a) Write `7K⁻¹` by hand using the pattern: row 1 and column 1 are (6, 5, 4, 3, 2, 1); on and above the diagonal, row i is i times row 1 (cut at entry i); on and below the diagonal, column j is j times column 1. (b) Check by multiplying by K.",
+   "hints": [
+    "Fill row 1: (6, 5, 4, 3, 2, 1).",
+    "Row i on and above the diagonal is `i ×` row 1 (entry (i, j), j ≥ i, is `i·(7−j)`).",
+    "By symmetry entry (i, j) with i ≥ j is `j·(7−i)`."
+   ],
+   "solution": [
+    "Entry (i, j) of `7K⁻¹` is `min(i,j)·(7 − max(i,j))`.",
+    "`7K⁻¹ = [6 5 4 3 2 1; 5 10 8 6 4 2; 4 8 12 9 6 3; 3 6 9 12 8 4; 2 4 6 8 10 5; 1 2 3 4 5 6]`.",
+    "Check by K·M: it gives `7I` (verified by computer); for instance row 1 of K times column 1 of M is `2·6 − 5 = 7`, and row 1 times column 2 is `2·5 − 10 = 0`."
+   ],
+   "rubric": [
+    "Fills the matrix correctly by the pattern/formula.",
+    "The 6×6 matrix is right.",
+    "Checks by multiplication or at least a few entries."
+   ],
+   "pitfalls": [
+    "Mixing up the upper and lower blocks (row i vs column i).",
+    "Forgetting the factor 7 that makes all entries integers."
+   ]
+  }
+ },
+ {
+  "id": "l-perm-orders",
+  "ch": "ch2",
+  "level": 1,
+  "source": {
+   "name": "MIT 18.06 Linear Algebra (Spring 2010), PS2, §2.7 bài 13",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Bậc của ma trận hoán vị",
+   "q": "(a) Tìm ma trận hoán vị P cỡ 3×3 với `P³ = I` nhưng `P ≠ I`. (b) Tìm ma trận hoán vị P̂ cỡ 4×4 với `P̂⁴ ≠ I`.",
+   "hints": [
+    "(a) Hoán vị vòng quanh: 1→2→3→1.",
+    "(b) Ghép khối: một ô 1×1 và P ở (a).",
+    "Luỹ thừa của ma trận khối chéo là khối chéo các luỹ thừa."
+   ],
+   "solution": [
+    "(a) `P = [0 0 1; 1 0 0; 0 1 0]` chuyển hàng theo vòng (hàng 1 → vị trí 2 …). `P² = [0 1 0; 0 0 1; 1 0 0]` và `P³ = I`.",
+    "(b) Lấy `P̂ = [1 0; 0 P]` (khối chéo gồm 1 và P ở (a)). Khi đó `P̂³ = I`, nên `P̂⁴ = P̂ ≠ I`.",
+    "Ghi chú: hoán vị chu kỳ 3 có bậc 3, nên `P̂⁴ = P̂`."
+   ],
+   "rubric": [
+    "(a) ma trận vòng 3 và kiểm P³ = I.",
+    "(b) ma trận khối và lý do P̂⁴ = P̂ ≠ I.",
+    "Nêu được vì sao bậc của hoán vị phụ thuộc độ dài chu kỳ."
+   ],
+   "pitfalls": [
+    "Chọn P là hoán vị đổi hai hàng: `P² = I`, `P³ = P ≠ I`.",
+    "Ở (b) chọn P̂ có chu kỳ 4 (4-vòng): khi đó `P̂⁴ = I` — trái yêu cầu."
+   ]
+  },
+  "en": {
+   "title": "Orders of permutation matrices",
+   "q": "(a) Find a 3×3 permutation matrix P with `P³ = I` but `P ≠ I`. (b) Find a 4×4 permutation matrix P̂ with `P̂⁴ ≠ I`.",
+   "hints": [
+    "(a) Cycle the rows: 1→2→3→1.",
+    "(b) Use a block: a 1×1 block and the P from (a).",
+    "Powers of a block-diagonal matrix are block-diagonal of the powers."
+   ],
+   "solution": [
+    "(a) `P = [0 0 1; 1 0 0; 0 1 0]` moves rows cyclically. `P² = [0 1 0; 0 0 1; 1 0 0]` and `P³ = I`.",
+    "(b) Take `P̂ = [1 0; 0 P]` (block diagonal with 1 and the P of (a)). Then `P̂³ = I`, so `P̂⁴ = P̂ ≠ I`.",
+    "Note: a 3-cycle has order 3, so `P̂⁴ = P̂`."
+   ],
+   "rubric": [
+    "(a) the 3-cycle matrix and a check that P³ = I.",
+    "(b) the block matrix and the reason P̂⁴ = P̂ ≠ I.",
+    "Explains why the order of a permutation depends on its cycle length."
+   ],
+   "pitfalls": [
+    "Choosing a row-swap P: `P² = I`, `P³ = P ≠ I`.",
+    "In (b) choosing a 4-cycle: then `P̂⁴ = I`, contrary to the requirement."
+   ]
+  }
+ },
+ {
+  "id": "l-groups",
+  "ch": "ch2",
+  "level": 2,
+  "source": {
+   "name": "MIT 18.06 Linear Algebra (Spring 2010), PS2, §2.7 bài 36",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Tập ma trận nào là nhóm",
+   "q": "Một nhóm ma trận chứa `AB` và `A⁻¹` khi chứa A, B. Những tập nào là nhóm? (a) Ma trận tam giác dưới L có 1 trên đường chéo. (b) Ma trận đối xứng S. (c) Ma trận có mọi phần tử dương M. (d) Ma trận đường chéo khả nghịch D. (e) Ma trận hoán vị P. (f) Ma trận với `Qᵀ = Q⁻¹`. Nêu thêm hai nhóm khác.",
+   "hints": [
+    "Kiểm hai điều: tích và nghịch đảo có còn trong tập không.",
+    "Với tập không phải nhóm, tìm phản ví dụ nhỏ (2×2).",
+    "(b): tích hai ma trận đối xứng nói chung không đối xứng."
+   ],
+   "solution": [
+    "(a) Nhóm: tích hai ma trận tam giác dưới đơn vị là tam giác dưới đơn vị; nghịch đảo (Gauss–Jordan) cũng vậy.",
+    "(b) Không: `A = [0 1; 1 0]`, `B = [1 2; 2 3]` đối xứng nhưng `AB = [2 3; 1 2]` không đối xứng.",
+    "(c) Không: `M = [2 1; 1 1]` có mọi phần tử dương nhưng `M⁻¹ = [1 −1; −1 2]` có phần tử âm.",
+    "(d) Nhóm; (e) Nhóm (tích và nghịch đảo của hoán vị là hoán vị).",
+    "(f) Nhóm: `(AB)ᵀ = BᵀAᵀ = B⁻¹A⁻¹ = (AB)⁻¹` và `(A⁻¹)ᵀ = (Aᵀ)⁻¹ = (A⁻¹)⁻¹`.",
+    "Thêm ví dụ: khối chéo `[A 0; 0 B]` với A, B lấy từ hai nhóm; các ma trận `cP` với c ≠ 0 và P hoán vị."
+   ],
+   "rubric": [
+    "Phân loại đúng: (a)(d)(e)(f) là nhóm; (b)(c) không.",
+    "Phản ví dụ chạy được cho (b), (c).",
+    "Lý do cho các nhóm.",
+    "Hai nhóm thêm hợp lệ."
+   ],
+   "pitfalls": [
+    "Cho (c) là nhóm: nghịch đảo của ma trận dương có thể có phần tử âm.",
+    "Quên kiểm *cả* nghịch đảo (chỉ kiểm tích)."
+   ]
+  },
+  "en": {
+   "title": "Which matrix sets are groups",
+   "q": "A group of matrices contains `AB` and `A⁻¹` whenever it contains A and B. Which are groups? (a) Lower triangular L with 1s on the diagonal. (b) Symmetric matrices S. (c) Matrices with all positive entries M. (d) Invertible diagonal matrices D. (e) Permutation matrices P. (f) Matrices with `Qᵀ = Q⁻¹`. Invent two more groups.",
+   "hints": [
+    "Check two things: do products and inverses stay in the set?",
+    "For non-groups find a small (2×2) counterexample.",
+    "(b): the product of two symmetric matrices is generally not symmetric."
+   ],
+   "solution": [
+    "(a) Group: the product of two unit lower triangular matrices is unit lower triangular; so is the inverse (Gauss–Jordan).",
+    "(b) Not: `A = [0 1; 1 0]`, `B = [1 2; 2 3]` are symmetric but `AB = [2 3; 1 2]` is not.",
+    "(c) Not: `M = [2 1; 1 1]` is positive but `M⁻¹ = [1 −1; −1 2]` has a negative entry.",
+    "(d) Group; (e) Group (products and inverses of permutations are permutations).",
+    "(f) Group: `(AB)ᵀ = BᵀAᵀ = B⁻¹A⁻¹ = (AB)⁻¹` and `(A⁻¹)ᵀ = (Aᵀ)⁻¹ = A = (A⁻¹)⁻¹`.",
+    "More examples: block-diagonal `[A 0; 0 B]` with A, B from two groups; the matrices `cP` with c ≠ 0 and P a permutation."
+   ],
+   "rubric": [
+    "Classifies correctly: (a)(d)(e)(f) are groups; (b)(c) are not.",
+    "Working counterexamples for (b), (c).",
+    "Reasons for the groups.",
+    "Two valid extra groups."
+   ],
+   "pitfalls": [
+    "Calling (c) a group: the inverse of a positive matrix can have negative entries.",
+    "Checking only products and forgetting inverses."
+   ]
+  }
+ },
+ {
+  "id": "l-orthogonal-cols",
+  "ch": "ch2",
+  "level": 1,
+  "source": {
+   "name": "MIT 18.06 Linear Algebra (Spring 2010), PS2, §2.7 bài 40",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Cột của ma trận trực giao",
+   "q": "Cho `Qᵀ = Q⁻¹` (tức `QᵀQ = I`). (a) Chứng minh các cột q₁, …, qₙ là vector đơn vị. (b) Chứng minh hai cột khác nhau vuông góc. (c) Cho một ví dụ 2×2 có phần tử đầu `q₁₁ = cos θ`.",
+   "hints": [
+    "Phần tử (i, j) của `QᵀQ` là `qᵢᵀqⱼ`.",
+    "`QᵀQ = I` cho 1 trên đường chéo và 0 ngoài đường chéo.",
+    "Ma trận quay."
+   ],
+   "solution": [
+    "Phần tử (i, j) của `QᵀQ` là `qᵢᵀqⱼ = qᵢ·qⱼ`. Vì `QᵀQ = I`:",
+    "(a) `qᵢ·qᵢ = |qᵢ|² = 1` ⇒ cột là vector đơn vị.",
+    "(b) `qᵢ·qⱼ = 0` với i ≠ j ⇒ hai cột khác nhau vuông góc.",
+    "(c) Ma trận quay `Q = [cos θ  −sin θ; sin θ  cos θ]`: cột 1 `[cos θ; sin θ]`, cột 2 `[−sin θ; cos θ]` đều đơn vị và có tích vô hướng `−cos θ sin θ + sin θ cos θ = 0`."
+   ],
+   "rubric": [
+    "(a)(b) dùng phần tử (i, j) của QᵀQ.",
+    "(c) ví dụ đúng và kiểm hai tính chất.",
+    "Nói rõ \"đơn vị\" và \"vuông góc\" là hai nửa của QᵀQ = I."
+   ],
+   "pitfalls": [
+    "Nói `QQᵀ = I` mà không giải thích vì sao `QᵀQ` cũng bằng I (với Q vuông thì nghịch đảo hai phía).",
+    "Ví dụ (c) chỉ có cột 1 đơn vị."
+   ]
+  },
+  "en": {
+   "title": "Columns of an orthogonal matrix",
+   "q": "Suppose `Qᵀ = Q⁻¹` (so `QᵀQ = I`). (a) Show the columns q₁, …, qₙ are unit vectors. (b) Show distinct columns are perpendicular. (c) Give a 2×2 example with first entry `q₁₁ = cos θ`.",
+   "hints": [
+    "Entry (i, j) of `QᵀQ` is `qᵢᵀqⱼ`.",
+    "`QᵀQ = I` has 1 on the diagonal and 0 elsewhere.",
+    "A rotation matrix."
+   ],
+   "solution": [
+    "Entry (i, j) of `QᵀQ` is `qᵢᵀqⱼ = qᵢ·qⱼ`. Since `QᵀQ = I`:",
+    "(a) `qᵢ·qᵢ = |qᵢ|² = 1` ⇒ unit vectors.",
+    "(b) `qᵢ·qⱼ = 0` for i ≠ j ⇒ distinct columns are perpendicular.",
+    "(c) The rotation `Q = [cos θ  −sin θ; sin θ  cos θ]`: column 1 `[cos θ; sin θ]`, column 2 `[−sin θ; cos θ]` are unit and their dot product is `−cos θ sin θ + sin θ cos θ = 0`."
+   ],
+   "rubric": [
+    "(a)(b) use entry (i, j) of QᵀQ.",
+    "(c) a correct example with both properties checked.",
+    "States that \"unit\" and \"perpendicular\" are the two halves of QᵀQ = I."
+   ],
+   "pitfalls": [
+    "Writing `QQᵀ = I` without explaining why `QᵀQ = I` too (for square Q the inverse is two-sided).",
+    "An example in (c) where only column 1 is a unit vector."
+   ]
+  }
+ }
+]

@@ -1,0 +1,407 @@
+[
+ {
+  "id": "d-gcd-combo",
+  "ch": "ch6",
+  "level": 1,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 8.7",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "gcd(13a+8b, 5a+3b) = gcd(a, b)",
+   "q": "Chứng minh `gcd(13a + 8b, 5a + 3b) = gcd(a, b)` với mọi số nguyên a, b không đồng thời bằng 0.",
+   "hints": [
+    "Cần chứng tỏ hai cặp có cùng tập ước chung.",
+    "Chiều 1: một ước chung của a, b chia hết cả `13a+8b` lẫn `5a+3b`.",
+    "Chiều 2: biểu diễn a và b qua hai số mới — giải hệ (định thức `13·3 − 8·5 = −1`)."
+   ],
+   "solution": [
+    "Đặt `u = 13a + 8b`, `v = 5a + 3b`.",
+    "Nếu d | a và d | b thì d | u và d | v. Vậy mọi ước chung của (a, b) là ước chung của (u, v).",
+    "Ngược lại: `3u − 8v = (39 − 40)a + (24 − 24)b = −a` và `−5u + 13v = (−65 + 65)a + (−40 + 39)b = −b`. Nên a, b là tổ hợp nguyên của u, v: mọi ước chung của (u, v) chia hết a và b.",
+    "Hai cặp có cùng tập ước chung nên cùng gcd."
+   ],
+   "rubric": [
+    "Chứng minh cả hai chiều (hai tập ước chung bằng nhau).",
+    "Tìm được cách biểu diễn a, b qua u, v (hệ số đúng).",
+    "Kết luận."
+   ],
+   "pitfalls": [
+    "Chỉ chứng minh chiều \"ước của a, b chia u, v\" — thiếu chiều ngược.",
+    "Tính sai hệ số: kiểm lại `3u − 8v = −a` bằng khai triển."
+   ]
+  },
+  "en": {
+   "title": "gcd(13a+8b, 5a+3b) = gcd(a, b)",
+   "q": "Prove `gcd(13a + 8b, 5a + 3b) = gcd(a, b)` for all integers a, b not both zero.",
+   "hints": [
+    "Show the two pairs have the same set of common divisors.",
+    "Direction 1: a common divisor of a, b divides both `13a+8b` and `5a+3b`.",
+    "Direction 2: express a and b through the new numbers — solve the system (determinant `13·3 − 8·5 = −1`)."
+   ],
+   "solution": [
+    "Let `u = 13a + 8b`, `v = 5a + 3b`.",
+    "If d | a and d | b then d | u and d | v. So every common divisor of (a, b) divides u and v.",
+    "Conversely: `3u − 8v = (39 − 40)a + (24 − 24)b = −a` and `−5u + 13v = (−65 + 65)a + (−40 + 39)b = −b`. So a, b are integer combinations of u, v: every common divisor of (u, v) divides a and b.",
+    "The two pairs have the same common divisors, hence the same gcd."
+   ],
+   "rubric": [
+    "Proves both directions (equal sets of common divisors).",
+    "Finds how to write a, b via u, v (correct coefficients).",
+    "Concludes."
+   ],
+   "pitfalls": [
+    "Proving only \"divisors of a, b divide u, v\" — the converse is missing.",
+    "Wrong coefficients: re-check `3u − 8v = −a` by expanding."
+   ]
+  }
+ },
+ {
+  "id": "d-gcd-pulverizer",
+  "ch": "ch6",
+  "level": 1,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 8.8–8.9",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Máy nghiền (Euclid mở rộng)",
+   "q": "(a) Tìm số nguyên x, y với `30x + 22y = gcd(30, 22)`. Rồi tìm x′, y′ với `0 ≤ y′ < 30`.\n(b) Tính `gcd(84, 108)`. Tìm x, y với `84x + 108y = gcd(84, 108)` và `0 ≤ y < 84`.\n(c) 84 có nghịch đảo nhân modulo 108 không? Nếu có, tìm.",
+   "hints": [
+    "Chạy thuật toán Euclid (chia dư) rồi thế ngược lên.",
+    "Nghiệm tổng quát: cộng `(22/g)t` vào x, trừ `(30/g)t` ở y (g = gcd).",
+    "(c) 84 khả nghịch mod 108 ⇔ gcd(84, 108) = 1."
+   ],
+   "solution": [
+    "(a) `30 = 1·22 + 8`; `22 = 2·8 + 6`; `8 = 1·6 + 2`; `6 = 3·2`. gcd = 2. Thế ngược: `2 = 8 − 6 = 8 − (22 − 2·8) = 3·8 − 22 = 3(30 − 22) − 22 = 3·30 − 4·22`. Vậy x = 3, y = −4 (3·30 − 4·22 = 90 − 88 = 2). Nghiệm tổng quát `(3 + 11t, −4 − 15t)`. Với `0 ≤ y′ < 30`: t = −1 cho `x′ = −8`, `y′ = 11`: −240 + 242 = 2.",
+    "(b) `108 = 84 + 24`; `84 = 3·24 + 12`; `24 = 2·12`. gcd = 12. Thế: `12 = 84 − 3·24 = 84 − 3(108 − 84) = 4·84 − 3·108`. Nghiệm tổng quát `(4 + 9t, −3 − 7t)`. `0 ≤ y < 84`: t = −1: x = −5, y = 4: −420 + 432 = 12.",
+    "(c) gcd(84, 108) = 12 ≠ 1 nên 84 không có nghịch đảo modulo 108."
+   ],
+   "rubric": [
+    "Chạy Euclid đúng và thế ngược đúng.",
+    "Dạng nghiệm tổng quát và chọn t để y trong khoảng.",
+    "Kiểm tra lại bằng phép nhân.",
+    "(c) kết luận từ gcd ≠ 1."
+   ],
+   "pitfalls": [
+    "Thế ngược sai dấu — luôn kiểm `30x + 22y`.",
+    "Cho rằng \"tìm được x, y thì có nghịch đảo\" — chỉ đúng khi gcd = 1."
+   ]
+  },
+  "en": {
+   "title": "The pulverizer (extended Euclid)",
+   "q": "(a) Find integers x, y with `30x + 22y = gcd(30, 22)`. Then find x′, y′ with `0 ≤ y′ < 30`.\n(b) Compute `gcd(84, 108)`. Find x, y with `84x + 108y = gcd(84, 108)` and `0 ≤ y < 84`.\n(c) Does 84 have a multiplicative inverse modulo 108? If so find it.",
+   "hints": [
+    "Run Euclid's division steps, then substitute back up.",
+    "General solution: add `(22/g)t` to x, subtract `(30/g)t` from y (g = gcd).",
+    "(c) 84 is invertible mod 108 iff gcd(84, 108) = 1."
+   ],
+   "solution": [
+    "(a) `30 = 1·22 + 8`; `22 = 2·8 + 6`; `8 = 1·6 + 2`; `6 = 3·2`. gcd = 2. Back-substitute: `2 = 8 − 6 = 8 − (22 − 2·8) = 3·8 − 22 = 3(30 − 22) − 22 = 3·30 − 4·22`. So x = 3, y = −4 (3·30 − 4·22 = 90 − 88 = 2). General solution `(3 + 11t, −4 − 15t)`. For `0 ≤ y′ < 30`: t = −1 gives `x′ = −8`, `y′ = 11`: −240 + 242 = 2.",
+    "(b) `108 = 84 + 24`; `84 = 3·24 + 12`; `24 = 2·12`. gcd = 12. Substitute: `12 = 84 − 3·24 = 84 − 3(108 − 84) = 4·84 − 3·108`. General solution `(4 + 9t, −3 − 7t)`. For `0 ≤ y < 84`: t = −1: x = −5, y = 4: −420 + 432 = 12.",
+    "(c) gcd(84, 108) = 12 ≠ 1, so 84 has no multiplicative inverse modulo 108."
+   ],
+   "rubric": [
+    "Euclid and back-substitution done correctly.",
+    "The general solution and the choice of t to land y in range.",
+    "Checks by multiplying out.",
+    "(c) concludes from gcd ≠ 1."
+   ],
+   "pitfalls": [
+    "Sign errors when substituting back — always verify `30x + 22y`.",
+    "Thinking \"found x, y so there is an inverse\" — only when gcd = 1."
+   ]
+  }
+ },
+ {
+  "id": "d-gcd-truefalse",
+  "ch": "ch6",
+  "level": 2,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 8.10",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Đúng hay sai về gcd",
+   "q": "Với mỗi khẳng định về số nguyên dương a, b, c, cho biết đúng hay sai; nếu sai, cho phản ví dụ; nếu đúng, giải thích ngắn.\n(a) Nếu `gcd(a, b) ≠ 1` và `gcd(b, c) ≠ 1` thì `gcd(a, c) ≠ 1`.\n(b) Nếu `a | bc` và `gcd(a, b) = 1` thì `a | c`.\n(c) `gcd(aⁿ, bⁿ) = gcd(a, b)ⁿ`.\n(d) `gcd(ab, ac) = a·gcd(b, c)`.\n(e) `gcd(1 + a, 1 + b) = 1 + gcd(a, b)`.\n(f) Nếu một tổ hợp nguyên của a, b bằng 1 thì một tổ hợp nguyên của a và b² cũng bằng 1.\n(g) Nếu không tổ hợp nguyên nào của a, b bằng 2 thì cũng không tổ hợp nguyên nào của a², b² bằng 2.",
+   "hints": [
+    "Tổ hợp nguyên của a, b bằng k ⇔ `gcd(a, b) | k` (Bézout).",
+    "Hãy thử số nhỏ trước khi chứng minh; phản ví dụ thường là a, b, c nhỏ.",
+    "(b)(d): tính chất cơ bản của gcd và Bézout."
+   ],
+   "solution": [
+    "(a) Sai: a = 2, b = 6, c = 3: gcd(2, 6) = 2, gcd(6, 3) = 3, nhưng gcd(2, 3) = 1.",
+    "(b) Đúng: `1 = ax + by`, nhân với c: `c = acx + bcy`; a chia cả hai số hạng (a | bc) nên a | c.",
+    "(c) Đúng: phân tích nguyên tố — số mũ của mỗi nguyên tố trong gcd là min, nhân với n.",
+    "(d) Đúng: số mũ của mỗi nguyên tố p trong `ab`, `ac` hơn `b`, `c` một lượng `v_p(a)`; lấy min cộng cùng lượng đó.",
+    "(e) Sai: a = 2, b = 4: gcd(3, 5) = 1 nhưng 1 + gcd(2, 4) = 3.",
+    "(f) Đúng: `gcd(a, b) = 1` kéo theo `gcd(a, b²) = 1` (một ước nguyên tố chung của a và b² là ước của b).",
+    "(g) Đúng: \"không có tổ hợp bằng 2\" ⇔ `gcd(a, b) ∤ 2` ⇔ gcd ≥ 3 (hoặc a = b = 0); khi đó `gcd(a², b²) = gcd(a, b)² ≥ 9` không chia hết 2."
+   ],
+   "rubric": [
+    "Phân loại đúng 7 ý (sai: a, e; đúng: b, c, d, f, g).",
+    "Mỗi phản ví dụ chạy được.",
+    "Lý do cho các ý đúng đủ ý (Bézout, số mũ nguyên tố)."
+   ],
+   "pitfalls": [
+    "Cho (a) đúng vì \"chia sẻ ước chung\" có tính bắc cầu — không.",
+    "Với (g) quên trường hợp gcd = 1 (khi đó có tổ hợp bằng 2 — tiền đề sai nên không cần xét)."
+   ]
+  },
+  "en": {
+   "title": "True or false about gcd",
+   "q": "For each statement about positive integers a, b, c decide true or false; if false give a counterexample; if true explain briefly.\n(a) If `gcd(a, b) ≠ 1` and `gcd(b, c) ≠ 1` then `gcd(a, c) ≠ 1`.\n(b) If `a | bc` and `gcd(a, b) = 1` then `a | c`.\n(c) `gcd(aⁿ, bⁿ) = gcd(a, b)ⁿ`.\n(d) `gcd(ab, ac) = a·gcd(b, c)`.\n(e) `gcd(1 + a, 1 + b) = 1 + gcd(a, b)`.\n(f) If an integer combination of a and b equals 1 then so does some integer combination of a and b².\n(g) If no integer combination of a and b equals 2, then none of a² and b² equals 2.",
+   "hints": [
+    "An integer combination of a, b equals k iff `gcd(a, b) | k` (Bézout).",
+    "Try small numbers first; counterexamples are usually small.",
+    "(b)(d): basic gcd facts and Bézout."
+   ],
+   "solution": [
+    "(a) False: a = 2, b = 6, c = 3: gcd(2, 6) = 2, gcd(6, 3) = 3, but gcd(2, 3) = 1.",
+    "(b) True: `1 = ax + by`, multiply by c: `c = acx + bcy`; a divides both terms (a | bc) so a | c.",
+    "(c) True: by prime factorisation, each prime exponent in the gcd is a min, scaled by n.",
+    "(d) True: each prime exponent in `ab`, `ac` exceeds that in `b`, `c` by `v_p(a)`; the min shifts by the same amount.",
+    "(e) False: a = 2, b = 4: gcd(3, 5) = 1 but 1 + gcd(2, 4) = 3.",
+    "(f) True: `gcd(a, b) = 1` implies `gcd(a, b²) = 1` (a common prime of a and b² divides b).",
+    "(g) True: \"no combination equals 2\" iff `gcd(a, b) ∤ 2` iff gcd ≥ 3 (or a = b = 0); then `gcd(a², b²) = gcd(a, b)² ≥ 9` does not divide 2."
+   ],
+   "rubric": [
+    "Classifies all 7 correctly (false: a, e; true: b, c, d, f, g).",
+    "Each counterexample actually works.",
+    "Reasons for the true ones are sound (Bézout, prime exponents)."
+   ],
+   "pitfalls": [
+    "Calling (a) true because \"sharing a divisor\" feels transitive — it is not.",
+    "In (g) forgetting gcd = 1 (a combination equals 2 then — the premise is false so nothing to check)."
+   ]
+  }
+ },
+ {
+  "id": "d-gcd-perfect",
+  "ch": "ch6",
+  "level": 2,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 8.2",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Số hoàn hảo của Euclid",
+   "q": "Một số là hoàn hảo nếu bằng tổng các ước dương *khác chính nó* (6 = 1+2+3, 28 = 1+2+4+7+14). Chứng minh: nếu `2ᵏ − 1` là số nguyên tố thì `2ᵏ⁻¹(2ᵏ − 1)` là số hoàn hảo.",
+   "hints": [
+    "Đặt `p = 2ᵏ − 1` nguyên tố và `n = 2ᵏ⁻¹p`. Liệt kê các ước dương của n.",
+    "Vì p nguyên tố lẻ nên ước của n có dạng `2ⁱ` hoặc `2ⁱp`, với 0 ≤ i ≤ k−1.",
+    "Cộng hai nhóm (cấp số nhân) rồi trừ n."
+   ],
+   "solution": [
+    "`p = 2ᵏ − 1` nguyên tố, `n = 2ᵏ⁻¹p`. Phân tích nguyên tố của n là `2ᵏ⁻¹·p¹` nên các ước dương là `2ⁱ` và `2ⁱ·p` với 0 ≤ i ≤ k−1.",
+    "Tổng các ước: `(1 + 2 + … + 2ᵏ⁻¹)(1 + p) = (2ᵏ − 1)(1 + p) = (2ᵏ − 1)·2ᵏ = 2n`.",
+    "Tổng các ước *khác n* = `2n − n = n`. Vậy n hoàn hảo."
+   ],
+   "rubric": [
+    "Liệt kê đủ ước bằng phân tích nguyên tố.",
+    "Tính tổng cấp số nhân `2ᵏ − 1`.",
+    "Nhớ trừ chính n."
+   ],
+   "pitfalls": [
+    "Quên rằng p lẻ nên 2 và p khác nhau — thiếu bước này ước không có dạng như trên.",
+    "Quên trừ n: tổng *tất cả* ước là 2n."
+   ]
+  },
+  "en": {
+   "title": "Euclid's perfect numbers",
+   "q": "A number is perfect if it equals the sum of its positive divisors *other than itself* (6 = 1+2+3, 28 = 1+2+4+7+14). Prove: if `2ᵏ − 1` is prime then `2ᵏ⁻¹(2ᵏ − 1)` is perfect.",
+   "hints": [
+    "Let `p = 2ᵏ − 1` prime and `n = 2ᵏ⁻¹p`. List the positive divisors of n.",
+    "Since p is an odd prime, divisors have the form `2ⁱ` or `2ⁱp`, 0 ≤ i ≤ k−1.",
+    "Add the two families (geometric sums), then subtract n."
+   ],
+   "solution": [
+    "`p = 2ᵏ − 1` prime, `n = 2ᵏ⁻¹p`. The prime factorisation is `2ᵏ⁻¹·p¹`, so the positive divisors are `2ⁱ` and `2ⁱ·p` for 0 ≤ i ≤ k−1.",
+    "Sum of all divisors: `(1 + 2 + … + 2ᵏ⁻¹)(1 + p) = (2ᵏ − 1)(1 + p) = (2ᵏ − 1)·2ᵏ = 2n`.",
+    "Sum of divisors *other than n* = `2n − n = n`. So n is perfect."
+   ],
+   "rubric": [
+    "Lists all divisors via prime factorisation.",
+    "Computes the geometric sum `2ᵏ − 1`.",
+    "Remembers to subtract n itself."
+   ],
+   "pitfalls": [
+    "Forgetting p is odd so 2 ≠ p — otherwise the divisors are not of that form.",
+    "Not subtracting n: the sum of *all* divisors is 2n."
+   ]
+  }
+ },
+ {
+  "id": "d-gcd-euclid-lemma",
+  "ch": "ch6",
+  "level": 3,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 8.11",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Bổ đề Euclid từ Bézout",
+   "q": "Với các số nguyên khác 0, được dùng `gcd(a, b)` là một tổ hợp nguyên của a và b nhưng *không* được dùng phân tích nguyên tố duy nhất. Chứng minh:\n(a) Mọi ước chung của a và b chia hết `gcd(a, b)`.\n(b) Nếu `a | bc` và `gcd(a, b) = 1` thì `a | c`.\n(c) Nếu p nguyên tố và `p | bc` thì `p | b` hoặc `p | c`.",
+   "hints": [
+    "Bézout: `gcd(a, b) = ax + by`.",
+    "(a) ước chung d chia mọi tổ hợp nguyên của a, b.",
+    "(b) Nhân đẳng thức Bézout với c. (c) Dùng (b) với a := p."
+   ],
+   "solution": [
+    "(a) Gọi d là ước chung của a, b. Vì `gcd(a, b) = ax + by` nên d chia vế phải, tức d | gcd(a, b).",
+    "(b) Có x, y với `ax + by = 1`. Nhân với c: `c = acx + bcy`. a chia `acx`, và a chia `bcy` vì a | bc. Nên a | c.",
+    "(c) Nếu p ∤ b thì `gcd(p, b) = 1` (ước dương của p chỉ là 1, p và p ∤ b). Theo (b) với a := p được p | c. Vậy p | b hoặc p | c."
+   ],
+   "rubric": [
+    "(a) dùng đúng Bézout.",
+    "(b) nhân với c và nhận xét a chia từng số hạng.",
+    "(c) chia hai trường hợp theo p | b, dùng (b)."
+   ],
+   "pitfalls": [
+    "Dùng phân tích nguyên tố duy nhất — đề cấm vì chính nó cần các tính chất này.",
+    "Ở (b) quên điều kiện gcd(a, b) = 1: ví dụ a = 4, b = 2, c = 2: 4 | 4 nhưng 4 ∤ 2."
+   ]
+  },
+  "en": {
+   "title": "Euclid's lemma from Bézout",
+   "q": "For nonzero integers you may use that `gcd(a, b)` is an integer combination of a and b, but you may *not* use unique prime factorisation. Prove:\n(a) Every common divisor of a and b divides `gcd(a, b)`.\n(b) If `a | bc` and `gcd(a, b) = 1` then `a | c`.\n(c) If p is prime and `p | bc` then `p | b` or `p | c`.",
+   "hints": [
+    "Bézout: `gcd(a, b) = ax + by`.",
+    "(a) a common divisor d divides every integer combination of a, b.",
+    "(b) Multiply the Bézout identity by c. (c) Use (b) with a := p."
+   ],
+   "solution": [
+    "(a) Let d be a common divisor of a, b. Since `gcd(a, b) = ax + by`, d divides the right side, so d | gcd(a, b).",
+    "(b) There are x, y with `ax + by = 1`. Multiply by c: `c = acx + bcy`. a divides `acx`, and divides `bcy` since a | bc. So a | c.",
+    "(c) If p ∤ b then `gcd(p, b) = 1` (the positive divisors of p are 1 and p, and p ∤ b). By (b) with a := p we get p | c. So p | b or p | c."
+   ],
+   "rubric": [
+    "(a) uses Bézout properly.",
+    "(b) multiplies by c and notes a divides each term.",
+    "(c) splits on p | b and uses (b)."
+   ],
+   "pitfalls": [
+    "Using unique prime factorisation — forbidden, since it relies on these facts.",
+    "In (b) dropping gcd(a, b) = 1: a = 4, b = 2, c = 2 gives 4 | 4 but 4 ∤ 2."
+   ]
+  }
+ },
+ {
+  "id": "d-gcd-nints",
+  "ch": "ch6",
+  "level": 3,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 8.19",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "gcd của n số là tổ hợp nguyên",
+   "q": "Chứng minh bằng quy nạp: gcd của một tập hữu hạn khác rỗng các số nguyên là một tổ hợp nguyên của chúng. Được dùng: gcd của hai số là tổ hợp nguyên của chúng, và `gcd(A ∪ B) = gcd(gcd(A), gcd(B))`. Nêu rõ giả thiết quy nạp, cơ sở, bước.",
+   "hints": [
+    "Quy nạp theo số phần tử n của tập.",
+    "Bước: tập n+1 phần tử = tập n phần tử ∪ {một phần tử}.",
+    "Dùng `gcd(A ∪ {x}) = gcd(gcd(A), x)`, rồi tổ hợp nguyên của hai số."
+   ],
+   "solution": [
+    "P(n): gcd của mọi tập n số nguyên (khác rỗng) là một tổ hợp nguyên của chúng.",
+    "Cơ sở n = 1: `gcd({a}) = |a| = (±1)·a`, là tổ hợp nguyên của a.",
+    "Bước: tập S có n + 1 phần tử, `S = A ∪ {x}` với |A| = n. `gcd(S) = gcd(gcd(A), x)`. Theo giả thiết, `gcd(A) = Σ cᵢaᵢ` (aᵢ ∈ A). Theo kết quả hai số, `gcd(gcd(A), x) = u·gcd(A) + v·x = Σ (u cᵢ) aᵢ + v·x`: một tổ hợp nguyên của các phần tử của S.",
+    "Vậy P(n+1). Quy nạp xong."
+   ],
+   "rubric": [
+    "Nêu P(n), cơ sở và bước đủ ba phần.",
+    "Dùng đúng `gcd(A ∪ B) = gcd(gcd(A), gcd(B))` với B = {x}.",
+    "Khai triển tổ hợp lồng nhau thành tổ hợp phẳng."
+   ],
+   "pitfalls": [
+    "Quên cơ sở n = 1 (gcd của một số là |a|, không phải a).",
+    "Quên rằng tổ hợp của một tổ hợp vẫn là tổ hợp nguyên."
+   ]
+  },
+  "en": {
+   "title": "The gcd of n integers is an integer combination",
+   "q": "Prove by induction that the gcd of a finite nonempty set of integers is an integer combination of them. You may use: the gcd of two integers is an integer combination of them, and `gcd(A ∪ B) = gcd(gcd(A), gcd(B))`. State the hypothesis, base case and step clearly.",
+   "hints": [
+    "Induct on the size n of the set.",
+    "Step: a set of n+1 elements = an n-element set ∪ {one element}.",
+    "Use `gcd(A ∪ {x}) = gcd(gcd(A), x)` then the two-number result."
+   ],
+   "solution": [
+    "P(n): the gcd of every set of n integers (nonempty) is an integer combination of them.",
+    "Base n = 1: `gcd({a}) = |a| = (±1)·a`, an integer combination of a.",
+    "Step: S has n + 1 elements, `S = A ∪ {x}` with |A| = n. `gcd(S) = gcd(gcd(A), x)`. By hypothesis `gcd(A) = Σ cᵢaᵢ` (aᵢ ∈ A). By the two-number result `gcd(gcd(A), x) = u·gcd(A) + v·x = Σ (u cᵢ) aᵢ + v·x`: an integer combination of the elements of S.",
+    "So P(n+1). Induction complete."
+   ],
+   "rubric": [
+    "States P(n), base and step.",
+    "Uses `gcd(A ∪ B) = gcd(gcd(A), gcd(B))` with B = {x}.",
+    "Flattens the nested combination."
+   ],
+   "pitfalls": [
+    "Forgetting the base case n = 1 (the gcd of one number is |a|, not a).",
+    "Forgetting a combination of a combination is still an integer combination."
+   ]
+  }
+ },
+ {
+  "id": "d-gcd-fib-worst",
+  "ch": "ch6",
+  "level": 3,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 8.14",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Euclid chậm nhất với số Fibonacci",
+   "q": "Thuật toán Euclid: `(a, b) → (b, a mod b)` cho đến khi số thứ hai bằng 0; mỗi lần biến đổi là một \"bước\". Chứng minh: nếu `a > b > 0` và thuật toán làm đúng n ≥ 1 bước thì `a ≥ F(n+2)` và `b ≥ F(n+1)` (F Fibonacci, F(1) = F(2) = 1). Suy ra cặp nhỏ nhất làm n bước là (F(n+2), F(n+1)).",
+   "hints": [
+    "Quy nạp theo n. Cơ sở n = 1: `a > b ≥ 1`, nên a ≥ 2 = F(3), b ≥ 1 = F(2).",
+    "Bước: cặp (a, b) làm n + 1 bước thì (b, a mod b) làm n bước, với `b > a mod b > 0`.",
+    "Dùng `a = q·b + r` với q ≥ 1 để so a với b + r."
+   ],
+   "solution": [
+    "P(n): với a > b > 0, nếu Euclid làm đúng n bước thì a ≥ F(n+2), b ≥ F(n+1).",
+    "Cơ sở n = 1: `a > b ≥ 1` nên b ≥ 1 = F(2) và a ≥ 2 = F(3).",
+    "Bước: (a, b) làm n + 1 ≥ 2 bước; đặt r = a mod b. Bước đầu đưa đến (b, r) và n bước còn lại phải làm trên (b, r), với `b > r > 0` (r > 0 vì n ≥ 1 bước còn lại). Theo giả thiết, `b ≥ F(n+2)` và `r ≥ F(n+1)`.",
+    "Vì `a = q·b + r` với q ≥ 1 nên `a ≥ b + r ≥ F(n+2) + F(n+1) = F(n+3)`. Vậy a ≥ F(n+3), b ≥ F(n+2): P(n+1).",
+    "Cặp (F(n+2), F(n+1)) đạt dấu bằng (dễ kiểm: Euclid trên hai số Fibonacci liên tiếp lùi đúng từng bước), nên là cặp nhỏ nhất."
+   ],
+   "rubric": [
+    "Phát biểu P(n) đúng và cơ sở n = 1.",
+    "Nhận ra `a ≥ b + r` do q ≥ 1.",
+    "Dùng định nghĩa Fibonacci để cộng.",
+    "Nêu được cặp Fibonacci đạt dấu bằng."
+   ],
+   "pitfalls": [
+    "Quên điều kiện `r > 0`: nếu r = 0 thuật toán dừng, không còn n bước.",
+    "Dùng q = 1 cho mọi bước — chỉ cần `q ≥ 1` để có bất đẳng thức."
+   ]
+  },
+  "en": {
+   "title": "Euclid's algorithm is slowest on Fibonacci numbers",
+   "q": "Euclid's algorithm: `(a, b) → (b, a mod b)` until the second number is 0; each transformation is a \"step\". Prove: if `a > b > 0` and the algorithm takes exactly n ≥ 1 steps then `a ≥ F(n+2)` and `b ≥ F(n+1)` (F Fibonacci, F(1) = F(2) = 1). Conclude the smallest pair needing n steps is (F(n+2), F(n+1)).",
+   "hints": [
+    "Induct on n. Base n = 1: `a > b ≥ 1`, so a ≥ 2 = F(3), b ≥ 1 = F(2).",
+    "Step: if (a, b) takes n + 1 steps then (b, a mod b) takes n steps, with `b > a mod b > 0`.",
+    "Use `a = q·b + r` with q ≥ 1 to compare a with b + r."
+   ],
+   "solution": [
+    "P(n): for a > b > 0, if Euclid takes exactly n steps then a ≥ F(n+2), b ≥ F(n+1).",
+    "Base n = 1: `a > b ≥ 1` so b ≥ 1 = F(2) and a ≥ 2 = F(3).",
+    "Step: (a, b) takes n + 1 ≥ 2 steps; let r = a mod b. The first step leads to (b, r) and the remaining n steps run on (b, r), with `b > r > 0` (r > 0 since n ≥ 1 steps remain). By hypothesis `b ≥ F(n+2)` and `r ≥ F(n+1)`.",
+    "Since `a = q·b + r` with q ≥ 1, `a ≥ b + r ≥ F(n+2) + F(n+1) = F(n+3)`. So a ≥ F(n+3), b ≥ F(n+2): P(n+1).",
+    "The pair (F(n+2), F(n+1)) attains equality (Euclid on consecutive Fibonacci numbers steps down one index at a time), so it is the smallest."
+   ],
+   "rubric": [
+    "States P(n) correctly with base n = 1.",
+    "Notices `a ≥ b + r` because q ≥ 1.",
+    "Adds using the Fibonacci recurrence.",
+    "Shows the Fibonacci pair attains equality."
+   ],
+   "pitfalls": [
+    "Forgetting `r > 0`: if r = 0 the algorithm stops, so fewer steps remain.",
+    "Assuming q = 1 always — you only need `q ≥ 1` for the inequality."
+   ]
+  }
+ }
+]

@@ -1,0 +1,454 @@
+[
+ {
+  "id": "d-graph-handshake",
+  "ch": "ch8",
+  "level": 1,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 11.1",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Bổ đề bắt tay",
+   "q": "(a) Chứng minh trong mọi đồ thị đơn có số chẵn đỉnh bậc lẻ.\n(b) Suy ra: trong một buổi tiệc, số người bắt tay một số lẻ lần là số chẵn.\n(c) Giả sử George đã bắt tay một số lẻ người. Giải thích vì sao có một dãy bắt tay bắt đầu từ George và kết thúc ở một người *khác* cũng đã bắt tay một số lẻ lần.",
+   "hints": [
+    "Tổng các bậc bằng gấp đôi số cạnh.",
+    "Tổng bậc chẵn mà các đỉnh bậc chẵn đóng góp một số chẵn: phần còn lại thì sao?",
+    "(c) Xét thành phần liên thông chứa George."
+   ],
+   "solution": [
+    "(a) Mỗi cạnh được tính 2 lần: `Σ deg(v) = 2|E|`, chẵn. Các đỉnh bậc chẵn đóng góp tổng chẵn nên tổng các bậc lẻ cũng chẵn. Tổng của k số lẻ chỉ chẵn khi k chẵn.",
+    "(b) Đỉnh = người, cạnh = cặp đã bắt tay; áp dụng (a).",
+    "(c) Xét thành phần liên thông C chứa George (có bậc lẻ). C là một đồ thị đơn, theo (a) số đỉnh bậc lẻ trong C chẵn; George là một, nên còn ít nhất một đỉnh bậc lẻ khác trong C. Vì cùng thành phần liên thông nên có đường đi từ George đến người đó: đó là dãy bắt tay."
+   ],
+   "rubric": [
+    "(a) có lý do tổng bậc = 2|E|.",
+    "(b) mô hình hoá bằng đồ thị.",
+    "(c) dùng đúng thành phần liên thông và (a) áp dụng cho thành phần."
+   ],
+   "pitfalls": [
+    "Áp dụng (a) cho cả đồ thị rồi kết luận có đỉnh lẻ khác — nhưng đỉnh đó có thể ở thành phần khác, không có đường tới George.",
+    "Quên rằng số lẻ các bậc lẻ là không thể."
+   ]
+  },
+  "en": {
+   "title": "The handshake lemma",
+   "q": "(a) Prove that every simple graph has an even number of odd-degree vertices.\n(b) Conclude that at a party the number of people who shook hands an odd number of times is even.\n(c) George shook an odd number of hands. Explain why there is a handshake sequence starting with George and ending with a *different* person who also shook an odd number of hands.",
+   "hints": [
+    "The degrees sum to twice the number of edges.",
+    "Even-degree vertices add an even amount: what about the rest?",
+    "(c) Look at the connected component containing George."
+   ],
+   "solution": [
+    "(a) Every edge is counted twice: `Σ deg(v) = 2|E|`, even. Even-degree vertices contribute an even total, so the odd-degree ones also sum to an even number. A sum of k odd numbers is even only if k is even.",
+    "(b) Vertices = people, edges = pairs who shook hands; apply (a).",
+    "(c) Consider the component C containing George (odd degree). C is a simple graph so by (a) it has an even number of odd-degree vertices; George is one, so at least one more lies in C. Being in the same component there is a path from George to that person: the handshake sequence."
+   ],
+   "rubric": [
+    "(a) has the reason sum of degrees = 2|E|.",
+    "(b) models with a graph.",
+    "(c) uses the connected component and (a) applied to it."
+   ],
+   "pitfalls": [
+    "Applying (a) to the whole graph and concluding another odd vertex exists — it may lie in a different component with no path to George.",
+    "Forgetting that an odd count of odd degrees is impossible."
+   ]
+  }
+ },
+ {
+  "id": "d-graph-averages",
+  "ch": "ch8",
+  "level": 2,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 11.2",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Trung bình số bạn tình (đồ thị hai phía)",
+   "q": "Trong nhóm gồm m nam và f nữ, mỗi cuộc gặp có đúng một nam và một nữ. Trung bình số bạn nữ của một nam lớn hơn 20% so với trung bình số bạn nam của một nữ.\n(a) Một người nói \"vì mỗi cuộc gặp gồm một nam một nữ nên hai trung bình phải bằng nhau, nam đã nói quá\". Nhận xét.\n(b) Tìm hằng số c để `m = c·f`.\n(c) Có thể ghép mỗi nữ với một nam khác nhau không? Vì sao?",
+   "hints": [
+    "Đếm số cạnh theo hai phía của đồ thị hai phía: tổng bậc phía nam = tổng bậc phía nữ.",
+    "Trung bình × số người = tổng bậc.",
+    "Dùng tỉ lệ 1,2 giữa hai trung bình."
+   ],
+   "solution": [
+    "(a) Nhận xét sai: *tổng* số cuộc gặp tính theo nam và theo nữ bằng nhau, nhưng *trung bình* chia cho số người, mà m ≠ f nói chung.",
+    "(b) Gọi E là số cạnh. Trung bình của nam `E/m`, của nữ `E/f`. Điều kiện: `E/m = 1,2·E/f`, nên `f = 1,2·m` và `m = f/1,2 = (5/6)·f`. Vậy c = 5/6.",
+    "(c) Vì `f = 1,2m > m`, có nhiều nữ hơn nam (khi E > 0), nên không thể ghép mỗi nữ với một nam khác nhau (nguyên lý chuồng bồ câu)."
+   ],
+   "rubric": [
+    "(a) nêu được tổng bằng nhau nhưng trung bình chia cho số người khác nhau.",
+    "(b) c = 5/6 với phép tính `E/m = 1,2·E/f`.",
+    "(c) dùng f > m."
+   ],
+   "pitfalls": [
+    "Cho rằng c = 6/5 (đảo tỉ số).",
+    "Kết luận (c) mà không dựa vào f > m."
+   ]
+  },
+  "en": {
+   "title": "Average partners and bipartite graphs",
+   "q": "In a group of m men and f women every encounter has exactly one man and one woman. The men's average number of female partners is 20% larger than the women's average number of male partners.\n(a) Someone says \"each encounter involves one man and one woman, so the averages must agree, the men are exaggerating\". Comment.\n(b) Find the constant c with `m = c·f`.\n(c) Can each woman be paired with a distinct man? Why?",
+   "hints": [
+    "Count edges from both sides of the bipartite graph: total degree on the men's side = total on the women's side.",
+    "Average × number of people = total degree.",
+    "Use the ratio 1.2 between the two averages."
+   ],
+   "solution": [
+    "(a) The remark is wrong: the *totals* of encounters counted from either side agree, but *averages* divide by the number of people, and m ≠ f in general.",
+    "(b) Let E be the number of edges. Men's average `E/m`, women's `E/f`. The condition `E/m = 1.2·E/f` gives `f = 1.2·m` so `m = f/1.2 = (5/6)·f`. So c = 5/6.",
+    "(c) Since `f = 1.2m > m`, there are more women than men (when E > 0), so no pairing of each woman with a distinct man exists (pigeonhole)."
+   ],
+   "rubric": [
+    "(a) notes totals agree but averages divide by different counts.",
+    "(b) c = 5/6 using `E/m = 1.2·E/f`.",
+    "(c) uses f > m."
+   ],
+   "pitfalls": [
+    "Answering c = 6/5 (ratio inverted).",
+    "Concluding (c) without using f > m."
+   ]
+  }
+ },
+ {
+  "id": "d-graph-iso",
+  "ch": "ch8",
+  "level": 2,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 11.4",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Đẳng cấu đồ thị: có hay không",
+   "q": "Với mỗi cặp, hoặc định nghĩa một đẳng cấu, hoặc chứng minh không có. (Viết `ab` cho cạnh {a, b}.)\n(a) G₁: V = {1,…,6}, E = {12, 23, 34, 14, 15, 35, 45}; G₂: V = {1,…,6}, E = {12, 23, 34, 45, 51, 24, 25}.\n(b) G₃: V = {1,…,6}, E = {12, 23, 34, 14, 45, 56, 26}; G₄: V = {a,…,f}, E = {ab, bc, cd, de, ae, ef, cf}.",
+   "hints": [
+    "Tính dãy bậc của mỗi đồ thị — một tính chất bất biến qua đẳng cấu.",
+    "Nếu dãy bậc khác nhau thì không đẳng cấu.",
+    "Nếu giống nhau, cố ghép đỉnh theo bậc rồi kiểm cạnh."
+   ],
+   "solution": [
+    "(a) Bậc G₁: 1→3, 2→2, 3→3, 4→3, 5→3, 6→0. Bậc G₂: 1→2, 2→4, 3→2, 4→3, 5→3, 6→0. G₂ có một đỉnh bậc 4 còn G₁ không (và dãy bậc khác nhau), nên không đẳng cấu (số đỉnh bậc k là bất biến đẳng cấu).",
+    "(b) Dãy bậc đều là (2,2,2,2,3,3). Đỉnh bậc 3: G₃ có 2 và 4, G₄ có c và e, nên f(2), f(4) ∈ {c, e}. Chọn f(2) = c, f(4) = e rồi mở rộng theo các cạnh: `f(1) = d, f(2) = c, f(3) = f, f(4) = e, f(5) = a, f(6) = b`.",
+    "Kiểm từng cạnh G₃: 12 → dc ✓; 23 → cf ✓; 34 → fe ✓; 14 → de ✓; 45 → ea ✓; 56 → ab ✓; 26 → cb ✓. Cả 7 cạnh ánh xạ lên đúng 7 cạnh của G₄, và f song ánh nên đây là đẳng cấu."
+   ],
+   "rubric": [
+    "(a) so dãy bậc và nêu rõ tính chất bất biến.",
+    "(b) nêu ánh xạ f cụ thể.",
+    "(b) kiểm đủ 7 cạnh (cạnh→cạnh và đếm bằng nhau)."
+   ],
+   "pitfalls": [
+    "Kết luận \"đẳng cấu\" chỉ vì cùng số đỉnh, số cạnh và dãy bậc — chưa đủ, phải dựng ánh xạ.",
+    "Kiểm ánh xạ chỉ một chiều (cạnh G₃ ↦ cạnh G₄) mà không đếm số cạnh bằng nhau."
+   ]
+  },
+  "en": {
+   "title": "Graph isomorphism: yes or no",
+   "q": "For each pair either define an isomorphism or prove none exists. (Write `ab` for the edge {a, b}.)\n(a) G₁: V = {1,…,6}, E = {12, 23, 34, 14, 15, 35, 45}; G₂: V = {1,…,6}, E = {12, 23, 34, 45, 51, 24, 25}.\n(b) G₃: V = {1,…,6}, E = {12, 23, 34, 14, 45, 56, 26}; G₄: V = {a,…,f}, E = {ab, bc, cd, de, ae, ef, cf}.",
+   "hints": [
+    "Compute each graph's degree sequence — an isomorphism invariant.",
+    "Different degree sequences mean not isomorphic.",
+    "If equal, try matching vertices by degree and check the edges."
+   ],
+   "solution": [
+    "(a) G₁ degrees: 1→3, 2→2, 3→3, 4→3, 5→3, 6→0. G₂ degrees: 1→2, 2→4, 3→2, 4→3, 5→3, 6→0. G₂ has a degree-4 vertex and G₁ does not (the degree sequences differ), so they are not isomorphic (the number of vertices of each degree is invariant).",
+    "(b) Both degree sequences are (2,2,2,2,3,3). Degree-3 vertices: G₃ has 2 and 4, G₄ has c and e, so f(2), f(4) ∈ {c, e}. Pick f(2) = c, f(4) = e and extend along the edges: `f(1) = d, f(2) = c, f(3) = f, f(4) = e, f(5) = a, f(6) = b`.",
+    "Check each G₃ edge: 12 → dc ✓; 23 → cf ✓; 34 → fe ✓; 14 → de ✓; 45 → ea ✓; 56 → ab ✓; 26 → cb ✓. All 7 edges map onto the 7 edges of G₄ and f is a bijection, so it is an isomorphism."
+   ],
+   "rubric": [
+    "(a) compares degree sequences and names the invariant.",
+    "(b) gives an explicit map f.",
+    "(b) checks all 7 edges (and that the edge counts match)."
+   ],
+   "pitfalls": [
+    "Declaring isomorphic just because vertex count, edge count and degree sequence agree — you must construct the map.",
+    "Checking edges only one way without noting the edge counts are equal."
+   ]
+  }
+ },
+ {
+  "id": "d-graph-two-ended",
+  "ch": "ch8",
+  "level": 2,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 11.8",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Đồ thị \"hai đầu\" có phải là đường đi?",
+   "q": "Đồ thị \"hai đầu\" là đồ thị có đúng hai đỉnh bậc 1 và mọi đỉnh còn lại bậc 2. Đồ thị đường là đồ thị mà các đỉnh xếp được thành một dãy, chỉ có cạnh giữa các đỉnh liên tiếp.\n(a) Chứng minh khẳng định \"mọi đồ thị hai đầu là đồ thị đường\" là sai bằng một phản ví dụ.\n(b) \"Chứng minh\" sau sai ở đâu? *Quy nạp theo số cạnh n. Cơ sở n = 1: hai đỉnh nối nhau, là đường. Bước: lấy G có n cạnh là đồ thị hai đầu, theo giả thiết G là đường. Thêm một cạnh để được đồ thị hai đầu n+1 cạnh: cạnh mới phải nối một đầu mút của G với một đỉnh mới, nên kết quả vẫn là đường.*",
+   "hints": [
+    "(a) Bậc 2 cho mọi đỉnh còn lại không buộc đồ thị liên thông.",
+    "Thử đường đi (hai đầu) cộng thêm một thành phần riêng.",
+    "(b) Bước quy nạp đi từ G lên G′; có phải mọi đồ thị hai đầu n+1 cạnh đều đến từ cách đó?"
+   ],
+   "solution": [
+    "(a) Đồ thị gồm đường `a — b` (hai đầu mút bậc 1) và một tam giác `c, d, e` rời nhau. Chỉ a, b bậc 1, còn c, d, e bậc 2: hai đầu. Nhưng không liên thông nên không là đường.",
+    "(b) Lỗi nằm ở bước quy nạp: nó chỉ xét các đồ thị hai đầu n+1 cạnh *được tạo từ* một đồ thị hai đầu n cạnh bằng cách thêm cạnh. Không chứng minh được mọi đồ thị hai đầu n+1 cạnh đều có dạng đó (đồ thị đường + tam giác là đồ thị hai đầu, nhưng bỏ đi một cạnh bất kỳ thì không còn hai đầu).",
+    "Cách làm đúng là xuất phát từ đồ thị hai đầu n+1 cạnh *bất kỳ* rồi bỏ bớt để xuống n cạnh; nhưng ở đây việc bỏ một cạnh không luôn cho đồ thị hai đầu (đường + tam giác), nên không thể quy nạp — và khẳng định vốn sai."
+   ],
+   "rubric": [
+    "(a) phản ví dụ hợp lệ có kiểm bậc.",
+    "(b) chỉ ra lỗi \"xây lên\" (chỉ xét các đồ thị sinh ra từ cách thêm cạnh).",
+    "Nêu hướng đúng: đi xuống từ đồ thị bất kỳ."
+   ],
+   "pitfalls": [
+    "Cho rằng lỗi ở cơ sở n = 1 — cơ sở đúng.",
+    "Cho phản ví dụ có bậc 3 hoặc 0 — không phải hai đầu."
+   ]
+  },
+  "en": {
+   "title": "Is every two-ended graph a path?",
+   "q": "A \"two-ended\" graph has exactly two vertices of degree 1 and all others of degree 2. A line graph is one whose vertices can be listed in a sequence with edges only between consecutive vertices.\n(a) Show \"every two-ended graph is a line graph\" is false with a counterexample.\n(b) Where does this \"proof\" go wrong? *Induction on the number of edges n. Base n = 1: two vertices joined, a path. Step: let G be two-ended with n edges; by hypothesis G is a path. Add one edge to get a two-ended graph with n+1 edges: the new edge must join an endpoint of G to a new vertex, so the result is still a path.*",
+   "hints": [
+    "(a) Degree 2 everywhere else does not force connectedness.",
+    "Try a path (two ends) plus a separate component.",
+    "(b) The step goes from G up to G′; does every two-ended graph with n+1 edges arise that way?"
+   ],
+   "solution": [
+    "(a) The graph made of a path `a — b` (endpoints of degree 1) and a disjoint triangle `c, d, e`. Only a, b have degree 1 and c, d, e have degree 2: it is two-ended. It is not connected, so not a line graph.",
+    "(b) The flaw is the inductive step: it only considers two-ended graphs with n+1 edges that are *built from* a two-ended graph with n edges by adding an edge. It never shows every two-ended graph with n+1 edges has that form (path + triangle is two-ended, yet deleting any single edge leaves a graph that is no longer two-ended).",
+    "The right method is to start from an *arbitrary* two-ended graph with n+1 edges and shrink to n edges; but deleting one edge does not always leave a two-ended graph (path + triangle), so the induction cannot proceed — and the claim is false anyway."
+   ],
+   "rubric": [
+    "(a) valid counterexample with degrees checked.",
+    "(b) points out the \"build-up\" error (only graphs generated by adding an edge).",
+    "Mentions the right direction: descend from an arbitrary graph."
+   ],
+   "pitfalls": [
+    "Blaming the base case n = 1 — it is correct.",
+    "Giving a counterexample with a vertex of degree 3 or 0 — not two-ended."
+   ]
+  }
+ },
+ {
+  "id": "d-graph-bogus-connected",
+  "ch": "ch8",
+  "level": 2,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 11.48",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Mọi đỉnh bậc dương thì liên thông?",
+   "q": "\"Khẳng định sai\": nếu mọi đỉnh của đồ thị có bậc dương thì đồ thị liên thông.\n(a) Chứng minh khẳng định sai bằng phản ví dụ.\n(b) Tìm bước sai đầu tiên trong \"chứng minh\" sau: *Quy nạp theo số đỉnh. P(n): đồ thị n đỉnh mà mọi đỉnh bậc dương thì liên thông. Cơ sở n = 1 (đúng vì không có đỉnh bậc dương) và n = 2 (đúng). Bước: xét đồ thị n đỉnh mà mọi đỉnh bậc dương; theo P(n) nó liên thông. Thêm đỉnh x có bậc dương, nối với một đỉnh y nào đó. Mọi đỉnh z đều tới được x qua y. Vậy đồ thị n+1 đỉnh liên thông.*",
+   "hints": [
+    "(a) Hai cạnh rời nhau.",
+    "(b) Bước quy nạp: lấy đồ thị n+1 đỉnh *bất kỳ*; bỏ x đi có còn là đồ thị mà mọi đỉnh bậc dương không?",
+    "Hãy thử với phản ví dụ ở (a) và bỏ một đỉnh."
+   ],
+   "solution": [
+    "(a) Đồ thị 4 đỉnh {a, b, c, d} với hai cạnh ab và cd: mọi đỉnh bậc 1 nhưng không liên thông.",
+    "(b) Lỗi nằm ở bước quy nạp. Nó xuất phát từ \"một đồ thị n đỉnh mà mọi đỉnh bậc dương\", rồi *thêm* x. Nhưng một đồ thị n+1 đỉnh bất kỳ mà mọi đỉnh bậc dương, nếu bỏ x đi, có thể có đỉnh bậc 0 (đỉnh chỉ nối với x), nên phần còn lại *không* thoả giả thiết P(n).",
+    "Vì thế bước \"theo P(n) nó liên thông\" không áp dụng được cho mọi đồ thị n+1 đỉnh. Đây là lỗi \"xây lên\": chỉ chứng minh cho các đồ thị tạo được bằng cách thêm đỉnh vào đồ thị tốt, không phải cho mọi đồ thị n+1 đỉnh."
+   ],
+   "rubric": [
+    "(a) phản ví dụ hai cạnh rời nhau.",
+    "(b) chỉ ra bước quy nạp và lý do bỏ x có thể tạo đỉnh bậc 0.",
+    "Hiểu sai lầm là xuất phát từ đồ thị nhỏ rồi phát triển (thay vì bỏ đỉnh từ đồ thị lớn tuỳ ý)."
+   ],
+   "pitfalls": [
+    "Cho rằng lỗi ở cơ sở: cơ sở n = 1, 2 đúng.",
+    "Nói lỗi ở \"x nối với y\": bước đó chỉ là dùng định nghĩa bậc dương."
+   ]
+  },
+  "en": {
+   "title": "Positive degrees imply connected?",
+   "q": "\"False claim\": if every vertex of a graph has positive degree then the graph is connected.\n(a) Show the claim is false by a counterexample.\n(b) Find the first logical mistake in this \"proof\": *Induction on the number of vertices. P(n): an n-vertex graph in which every vertex has positive degree is connected. Base n = 1 (true: no vertex has positive degree) and n = 2 (true). Step: take an n-vertex graph where every vertex has positive degree; by P(n) it is connected. Add a vertex x of positive degree, joined to some vertex y. Every vertex z reaches x via y. So the (n+1)-vertex graph is connected.*",
+   "hints": [
+    "(a) Two disjoint edges.",
+    "(b) Take an *arbitrary* (n+1)-vertex graph with all degrees positive; after removing x do all degrees stay positive?",
+    "Test it on the counterexample from (a) with one vertex removed."
+   ],
+   "solution": [
+    "(a) The 4-vertex graph {a, b, c, d} with edges ab and cd: every vertex has degree 1 but it is not connected.",
+    "(b) The mistake is in the inductive step. It starts from \"an n-vertex graph with all degrees positive\" and *adds* x. But an arbitrary (n+1)-vertex graph with all degrees positive, after deleting x, can have a vertex of degree 0 (one adjacent only to x), so the remainder does *not* satisfy the hypothesis P(n).",
+    "Thus \"by P(n) it is connected\" cannot be applied to every (n+1)-vertex graph. This is the \"build-up error\": the proof only covers graphs obtained by adding a vertex to a good graph, not every (n+1)-vertex graph."
+   ],
+   "rubric": [
+    "(a) two disjoint edges as the counterexample.",
+    "(b) identifies the inductive step and why deleting x may create a degree-0 vertex.",
+    "Understands the error is growing a small graph instead of shrinking an arbitrary large one."
+   ],
+   "pitfalls": [
+    "Blaming the base case: n = 1, 2 are correct.",
+    "Blaming \"x joined to y\": that step merely uses positive degree."
+   ]
+  }
+ },
+ {
+  "id": "d-graph-euler",
+  "ch": "ch8",
+  "level": 3,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 11.44",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Chu trình Euler",
+   "q": "Chu trình Euler là một đường đi khép kín đi qua *mỗi cạnh đúng một lần*. Định lý: đồ thị liên thông có chu trình Euler khi và chỉ khi mọi đỉnh có bậc chẵn.\n(a) Chứng minh nếu có chu trình Euler thì mọi đỉnh bậc chẵn.\nChiều ngược lại: đặt \"đường đi Euler\" là đường đi dùng mỗi cạnh nhiều nhất một lần. Cho G liên thông hữu hạn, mọi đỉnh bậc chẵn, và w là đường đi Euler *dài nhất*.\n(b) Nếu w chưa dùng hết cạnh, giải thích vì sao có cạnh chưa dùng kề một đỉnh của w.\n(c) Chứng minh nếu w khép kín thì nó là chu trình Euler.\n(d) Chứng minh mọi cạnh kề đỉnh cuối của w đã nằm trong w.\n(e) Chứng minh đỉnh cuối của w trùng đỉnh đầu.\n(f) Kết luận.",
+   "hints": [
+    "(a) Mỗi lần chu trình đi qua một đỉnh dùng 2 cạnh kề nó (vào + ra).",
+    "(b)(c): G liên thông nên có đường từ w đến cạnh chưa dùng.",
+    "(d)(e): nếu còn cạnh chưa dùng kề đỉnh cuối thì kéo dài được w, mâu thuẫn \"dài nhất\". Đếm bậc đỉnh cuối."
+   ],
+   "solution": [
+    "(a) Đi dọc chu trình Euler, mỗi lần đi qua một đỉnh dùng đúng hai cạnh kề nó (đến và đi); đỉnh xuất phát cũng cặp cạnh đầu và cuối. Mọi cạnh được dùng đúng một lần nên bậc mỗi đỉnh là số chẵn.",
+    "(b) G liên thông nên có đường từ một đỉnh của w tới một đầu mút của cạnh chưa dùng. Cạnh đầu tiên trên đường đó rời khỏi tập đỉnh của w là cạnh chưa dùng kề một đỉnh của w.",
+    "(c) Nếu w khép kín nhưng chưa dùng hết cạnh, theo (b) có cạnh chưa dùng kề một đỉnh v của w. Quay w để bắt đầu từ v rồi đi theo cạnh đó: được đường Euler dài hơn w. Mâu thuẫn.",
+    "(d) Nếu một cạnh kề đỉnh cuối chưa nằm trong w, nối nó vào cuối w được đường Euler dài hơn. Mâu thuẫn.",
+    "(e) Giả sử đỉnh cuối u khác đỉnh đầu. Mỗi lần w đi qua u (không phải đầu hay cuối) dùng 2 cạnh kề u; riêng lần kết thúc ở u dùng 1 cạnh. Theo (d) mọi cạnh kề u đã nằm trong w, nên bậc của u là số lẻ. Mâu thuẫn bậc chẵn.",
+    "(f) Theo (e) w khép kín, theo (c) w là chu trình Euler."
+   ],
+   "rubric": [
+    "(a) có lý do \"mỗi lần đi qua đỉnh dùng hai cạnh\".",
+    "(b)(c) dùng tính liên thông và tính \"dài nhất\" đúng chỗ.",
+    "(d)(e) đếm bậc đỉnh cuối cho kết quả lẻ.",
+    "(f) ghép các kết luận."
+   ],
+   "pitfalls": [
+    "Ở (c) không xoay w để bắt đầu từ v — w khép kín nên được.",
+    "Ở (e) đếm sai: đỉnh cuối được thăm một lần *kết thúc*, dùng một cạnh, thêm các cặp cạnh cho những lần đi qua."
+   ]
+  },
+  "en": {
+   "title": "Euler tours",
+   "q": "An Euler tour is a closed walk that uses *every edge exactly once*. Theorem: a connected graph has an Euler tour iff every vertex has even degree.\n(a) Show that if an Euler tour exists then every vertex has even degree.\nFor the converse define an \"Euler walk\" as a walk using each edge at most once. Let G be finite, connected, all degrees even, and let w be the *longest* Euler walk.\n(b) If w misses some edge, explain why an unused edge touches a vertex of w.\n(c) Show that if w is closed it is an Euler tour.\n(d) Show that every edge at the end of w is already in w.\n(e) Show the end of w equals its start.\n(f) Conclude.",
+   "hints": [
+    "(a) Each time the tour passes a vertex it uses 2 edges at it (in + out).",
+    "(b)(c): G is connected so there is a path from w to an unused edge.",
+    "(d)(e): an unused edge at the end would extend w, contradicting \"longest\". Count the degree of the end."
+   ],
+   "solution": [
+    "(a) Walking along an Euler tour, each pass through a vertex uses exactly two of its edges (arrive and leave); the start vertex pairs its first and last edges. Every edge is used exactly once, so each vertex has even degree.",
+    "(b) G is connected, so there is a path from a vertex of w to an endpoint of an unused edge. The first edge of that path leaving the vertex set of w is unused and touches a vertex of w.",
+    "(c) If w is closed but misses an edge then by (b) an unused edge touches a vertex v of w. Rotate w to start at v and follow that edge: a longer Euler walk. Contradiction.",
+    "(d) If an edge at the end of w were not in w, appending it gives a longer Euler walk. Contradiction.",
+    "(e) Suppose the end u differs from the start. Each pass through u (not as start or end) uses 2 edges at u; the final arrival uses 1. By (d) every edge at u is in w, so the degree of u is odd. Contradiction with even degrees.",
+    "(f) By (e) w is closed, by (c) w is an Euler tour."
+   ],
+   "rubric": [
+    "(a) has \"each pass uses two edges\".",
+    "(b)(c) use connectivity and \"longest\" at the right places.",
+    "(d)(e) count the end vertex degree as odd.",
+    "(f) combines the conclusions."
+   ],
+   "pitfalls": [
+    "In (c) not rotating w to start at v — since w is closed you may.",
+    "In (e) miscounting: the end vertex is arrived at once *finally* (one edge), plus pairs of edges for each pass-through."
+   ]
+  }
+ },
+ {
+  "id": "d-graph-hall",
+  "ch": "ch8",
+  "level": 3,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 11.9, 11.13, 11.15",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Định lý Hall: cử đại diện",
+   "q": "(a) Mỗi câu lạc bộ cử một đại diện đến xin kinh phí, một sinh viên không được làm đại diện của hai câu lạc bộ. Mô hình hoá bằng bài toán ghép cặp hai phía.\n(b) Mỗi sinh viên thuộc không quá 9 câu lạc bộ, mỗi câu lạc bộ có ít nhất 13 thành viên. Chứng minh luôn chọn được đại diện hợp lệ cho mọi câu lạc bộ.\n(c) Bộ bài 52 lá (4 chất × 13 giá trị) xếp thành lưới 4 hàng × 13 cột, tuỳ ý. Chứng minh có thể chọn 13 lá, mỗi cột một lá, đủ 13 giá trị.",
+   "hints": [
+    "Định lý Hall: có phép ghép phủ hết phía trái ⇔ mọi tập S bên trái có `|N(S)| ≥ |S|`.",
+    "(b) Đếm cạnh từ S: ≥ 13|S|; mỗi đỉnh bên phải nhận ≤ 9 cạnh.",
+    "(c) Bên trái: 13 cột; bên phải: 13 giá trị; nối cột với giá trị xuất hiện trong cột."
+   ],
+   "solution": [
+    "(a) Hai phía: trái = câu lạc bộ, phải = sinh viên; nối câu lạc bộ với các thành viên. Một phép ghép phủ hết phía trái là cách chọn đại diện hợp lệ.",
+    "(b) Lấy tập S câu lạc bộ. Số cạnh ra khỏi S ≥ 13|S| (mỗi câu lạc bộ ≥ 13 thành viên). Các cạnh này đều dẫn đến N(S); mỗi sinh viên nằm trong ≤ 9 câu lạc bộ nên nhận ≤ 9 cạnh. Vậy `9·|N(S)| ≥ 13|S|`, tức `|N(S)| ≥ (13/9)|S| ≥ |S|`. Theo Hall có phép ghép phủ hết các câu lạc bộ.",
+    "(c) Trái = 13 cột, phải = 13 giá trị, nối cột với mỗi giá trị xuất hiện trong cột. Lấy tập S gồm n cột: chúng chứa 4n lá, mỗi giá trị chỉ có 4 lá nên có ít nhất `4n/4 = n` giá trị khác nhau trong S, tức `|N(S)| ≥ |S|`. Theo Hall có phép ghép phủ 13 cột, tức một giá trị khác nhau cho mỗi cột: chọn từ mỗi cột một lá có giá trị đó."
+   ],
+   "rubric": [
+    "(a) mô hình hai phía đúng.",
+    "(b) đếm cạnh hai đầu và bất đẳng thức `9|N(S)| ≥ 13|S|`.",
+    "(c) lập luận \"n cột có 4n lá, mỗi giá trị 4 lá\".",
+    "Nêu đúng định lý Hall và điều kiện cần kiểm."
+   ],
+   "pitfalls": [
+    "Kiểm điều kiện Hall chỉ cho tập một phần tử (các câu lạc bộ riêng lẻ) — phải với mọi tập S.",
+    "Quên rằng một giá trị có đúng 4 lá, nên n cột (4n lá) cần ≥ n giá trị."
+   ]
+  },
+  "en": {
+   "title": "Hall's theorem: choosing representatives",
+   "q": "(a) Each club must send one delegate to ask for funding, and no student may be the delegate of two clubs. Model this as a bipartite matching problem.\n(b) Each student belongs to at most 9 clubs and each club has at least 13 members. Prove a valid choice of delegates exists for every club.\n(c) A 52-card deck (4 suits × 13 values) is laid out arbitrarily in a grid of 4 rows × 13 columns. Prove you can pick 13 cards, one per column, showing all 13 values.",
+   "hints": [
+    "Hall: a matching covering the left side exists iff every set S on the left has `|N(S)| ≥ |S|`.",
+    "(b) Count edges from S: ≥ 13|S|; each right vertex receives ≤ 9 of them.",
+    "(c) Left: 13 columns; right: 13 values; join a column to each value that appears in it."
+   ],
+   "solution": [
+    "(a) Bipartite graph: left = clubs, right = students; join a club to its members. A matching covering the left side is a valid choice of delegates.",
+    "(b) Take a set S of clubs. The edges leaving S number at least 13|S| (each club has ≥ 13 members). They all lead into N(S); each student is in ≤ 9 clubs so receives ≤ 9 edges. So `9·|N(S)| ≥ 13|S|`, i.e. `|N(S)| ≥ (13/9)|S| ≥ |S|`. By Hall a matching covering all clubs exists.",
+    "(c) Left = 13 columns, right = 13 values, join a column to each value occurring in it. Take a set S of n columns: they hold 4n cards and each value has only 4 cards, so S shows at least `4n/4 = n` different values, i.e. `|N(S)| ≥ |S|`. By Hall a matching covers all 13 columns, giving a distinct value per column: pick from each column a card with that value."
+   ],
+   "rubric": [
+    "(a) correct bipartite model.",
+    "(b) counts edges from both ends and gets `9|N(S)| ≥ 13|S|`.",
+    "(c) argues \"n columns hold 4n cards, each value has 4 cards\".",
+    "States Hall's theorem and the condition to check."
+   ],
+   "pitfalls": [
+    "Checking Hall's condition only for single clubs — it must hold for every set S.",
+    "Forgetting each value has exactly 4 cards, so 4n cards need at least n values."
+   ]
+  }
+ },
+ {
+  "id": "d-graph-two-paths",
+  "ch": "ch8",
+  "level": 2,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 11.43",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Hai đường đi khác nhau cho ra chu trình",
+   "q": "(a) Cho ví dụ một đồ thị đơn có hai đỉnh u ≠ v và hai đường đi *khác nhau* giữa u và v nhưng không có chu trình nào chứa u hay v.\n(b) Chứng minh: nếu trong đồ thị đơn có hai đường đi khác nhau giữa hai đỉnh thì đồ thị có chu trình.",
+   "hints": [
+    "(a) Hai đường đi có thể chia sẻ phần lớn đỉnh ở giữa; chu trình phải đi qua u hay v?",
+    "(b) Xét hai đường đi p ≠ q; tìm chỗ chúng rẽ nhau và chỗ gặp lại.",
+    "Chọn các đường đi *ngắn nhất* (hoặc không lặp đỉnh) để lập luận gọn."
+   ],
+   "solution": [
+    "(a) Lấy các cạnh ua, ac, cb, ad, db, bv (đồ thị đơn không có cạnh song song nên cần hai đỉnh trung gian c, d). Hai đường u,a,c,b,v và u,a,d,b,v khác nhau; chu trình duy nhất là a,c,b,d, còn u và v không nằm trên chu trình nào.",
+    "(b) Giả sử p ≠ q là hai đường đi (không lặp đỉnh) từ u đến v. Gọi x là đỉnh đầu tiên mà hai đường *rẽ* nhau (hai đường trùng cho đến x rồi cạnh kế tiếp khác nhau), và y là đỉnh đầu tiên sau x lại có mặt trên cả hai đường (tồn tại vì v có mặt trên cả hai).",
+    "Đoạn của p từ x đến y và đoạn của q từ x đến y có chung đúng hai đầu mút x, y và khác nhau; ghép chúng được một chu trình đóng (độ dài ≥ 3 vì đồ thị đơn và các đường khác nhau).",
+    "Vậy đồ thị có chu trình."
+   ],
+   "rubric": [
+    "(a) ví dụ cụ thể, nêu rõ u, v không nằm trên chu trình.",
+    "(b) dùng đỉnh rẽ nhau và đỉnh gặp lại.",
+    "Giải thích vì sao ghép hai đoạn cho chu trình (đồ thị đơn)."
+   ],
+   "pitfalls": [
+    "Ở (a) dùng cạnh song song (đồ thị đơn không có).",
+    "Ở (b) quên chọn đường không lặp đỉnh: nếu lặp đỉnh thì đoạn \"chung\" có thể không đúng."
+   ]
+  },
+  "en": {
+   "title": "Two different paths force a cycle",
+   "q": "(a) Give an example of a simple graph with two vertices u ≠ v and two *different* paths between them but no cycle containing u or v.\n(b) Prove: if a simple graph has two different paths between two vertices then it contains a cycle.",
+   "hints": [
+    "(a) The two paths can share most vertices; must the cycle pass through u or v?",
+    "(b) Take paths p ≠ q; find where they diverge and where they meet again.",
+    "Use paths without repeated vertices to keep the argument tidy."
+   ],
+   "solution": [
+    "(a) Take edges ua, ac, cb, ad, db, bv (a simple graph has no parallel edges, hence the two middle vertices c, d). The paths u,a,c,b,v and u,a,d,b,v differ; the only cycle is a,c,b,d, and neither u nor v lies on a cycle.",
+    "(b) Suppose p ≠ q are two paths (no repeated vertices) from u to v. Let x be the first vertex where they *diverge* (they agree up to x, then their next edges differ) and y the first vertex after x lying on both paths again (it exists since v is on both).",
+    "The segment of p from x to y and the segment of q from x to y share exactly the endpoints x, y and are different; joining them gives a closed cycle (length ≥ 3: the graph is simple and the segments differ).",
+    "So the graph has a cycle."
+   ],
+   "rubric": [
+    "(a) concrete example, stating u, v are on no cycle.",
+    "(b) uses the divergence and meeting vertices.",
+    "Explains why joining the segments gives a cycle (simple graph)."
+   ],
+   "pitfalls": [
+    "Using parallel edges in (a) (not allowed in a simple graph).",
+    "Not choosing paths without repeated vertices in (b): a repeated vertex can break the \"common segment\" claim."
+   ]
+  }
+ }
+]

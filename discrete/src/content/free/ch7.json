@@ -1,0 +1,625 @@
+[
+ {
+  "id": "d-mod-24",
+  "ch": "ch7",
+  "level": 2,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 8.27",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "p² − 1 chia hết cho 24",
+   "q": "(a) Chứng minh nếu 3 ∤ n thì `n² ≡ 1 (mod 3)`.\n(b) Chứng minh nếu n lẻ thì `n² ≡ 1 (mod 8)`.\n(c) Suy ra nếu p là số nguyên tố lớn hơn 3 thì `24 | p² − 1`.",
+   "hints": [
+    "(a) n ≡ 1 hoặc 2 (mod 3): bình phương cả hai.",
+    "(b) n lẻ: n ≡ 1, 3, 5, 7 (mod 8). Bình phương từng trường hợp.",
+    "(c) 3 và 8 nguyên tố cùng nhau; một số chia hết cho cả hai thì chia hết cho tích."
+   ],
+   "solution": [
+    "(a) n ≡ 1: `n² ≡ 1`; n ≡ 2: `n² ≡ 4 ≡ 1 (mod 3)`.",
+    "(b) n ≡ 1, 3, 5, 7 (mod 8): `1, 9, 25, 49` ≡ `1, 1, 1, 1 (mod 8)`.",
+    "(c) p > 3 nguyên tố nên 3 ∤ p và p lẻ. Theo (a), 3 | p² − 1; theo (b), 8 | p² − 1. Vì gcd(3, 8) = 1, `3·8 = 24 | p² − 1`."
+   ],
+   "rubric": [
+    "(a)(b) xét đủ các lớp dư.",
+    "(c) giải thích vì sao p thoả điều kiện của cả (a) và (b).",
+    "Dùng đúng gcd(3, 8) = 1 để ghép."
+   ],
+   "pitfalls": [
+    "Ghép \"3 | x và 8 | x ⇒ 24 | x\" mà không nhắc gcd(3, 8) = 1 — với 4 và 6 thì sai.",
+    "Quên p lẻ nên n lẻ ở (b)."
+   ]
+  },
+  "en": {
+   "title": "p² − 1 is divisible by 24",
+   "q": "(a) Prove that if 3 ∤ n then `n² ≡ 1 (mod 3)`.\n(b) Prove that if n is odd then `n² ≡ 1 (mod 8)`.\n(c) Conclude that if p is a prime greater than 3 then `24 | p² − 1`.",
+   "hints": [
+    "(a) n ≡ 1 or 2 (mod 3): square both.",
+    "(b) n odd: n ≡ 1, 3, 5, 7 (mod 8). Square each.",
+    "(c) 3 and 8 are coprime; a number divisible by both is divisible by their product."
+   ],
+   "solution": [
+    "(a) n ≡ 1: `n² ≡ 1`; n ≡ 2: `n² ≡ 4 ≡ 1 (mod 3)`.",
+    "(b) n ≡ 1, 3, 5, 7 (mod 8): `1, 9, 25, 49` ≡ `1, 1, 1, 1 (mod 8)`.",
+    "(c) p > 3 prime, so 3 ∤ p and p is odd. By (a) 3 | p² − 1; by (b) 8 | p² − 1. Since gcd(3, 8) = 1, `3·8 = 24 | p² − 1`."
+   ],
+   "rubric": [
+    "(a)(b) cover all residue classes.",
+    "(c) explains why p meets the hypotheses of both (a) and (b).",
+    "Uses gcd(3, 8) = 1 to combine."
+   ],
+   "pitfalls": [
+    "Combining \"3 | x and 8 | x ⇒ 24 | x\" without noting gcd(3, 8) = 1 — false for 4 and 6.",
+    "Forgetting p odd so n odd in (b)."
+   ]
+  }
+ },
+ {
+  "id": "d-mod-inverse",
+  "ch": "ch7",
+  "level": 1,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 8.42–8.45",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Nghịch đảo modulo",
+   "q": "(a) Dùng máy nghiền tìm s, t với `40s + 7t = gcd(40, 7)`.\n(b) Suy ra nghịch đảo của 7 modulo 40 trong khoảng [1, 40).\n(c) Giải thích tổng quát: làm sao dùng s, t để tìm nghịch đảo của m modulo n khi nó tồn tại.",
+   "hints": [
+    "Euclid: `40 = 5·7 + 5`, `7 = 1·5 + 2`, `5 = 2·2 + 1`.",
+    "Thế ngược để ra `1 = 40s + 7t`.",
+    "Lấy modulo 40 hai vế."
+   ],
+   "solution": [
+    "(a) `40 = 5·7 + 5`; `7 = 5 + 2`; `5 = 2·2 + 1`. gcd = 1. Ngược: `1 = 5 − 2·2 = 5 − 2(7 − 5) = 3·5 − 2·7 = 3(40 − 5·7) − 2·7 = 3·40 − 17·7`. Vậy s = 3, t = −17.",
+    "(b) Modulo 40: `−17·7 ≡ 1`, nên nghịch đảo của 7 là `−17 ≡ 23`. Kiểm: `7·23 = 161 = 4·40 + 1`.",
+    "(c) Nếu `ms + nt = 1` thì modulo n: `ms ≡ 1`, nên `s mod n` là nghịch đảo của m. Cặp (s, t) có được từ máy nghiền khi gcd(m, n) = 1; nếu gcd > 1 thì không có nghịch đảo."
+   ],
+   "rubric": [
+    "Máy nghiền đúng và kiểm `3·40 − 17·7 = 1`.",
+    "Đưa −17 về [1, 40) thành 23 và kiểm.",
+    "Nêu điều kiện gcd(m, n) = 1."
+   ],
+   "pitfalls": [
+    "Trả lời nghịch đảo là −17 mà không đưa về khoảng [1, 40).",
+    "Lấy hệ số của n (là 3) làm nghịch đảo — nghịch đảo là hệ số của m."
+   ]
+  },
+  "en": {
+   "title": "Modular inverses",
+   "q": "(a) Use the pulverizer to find s, t with `40s + 7t = gcd(40, 7)`.\n(b) Deduce the inverse of 7 modulo 40 in [1, 40).\n(c) Explain in general how s, t give the inverse of m modulo n when it exists.",
+   "hints": [
+    "Euclid: `40 = 5·7 + 5`, `7 = 1·5 + 2`, `5 = 2·2 + 1`.",
+    "Substitute back to get `1 = 40s + 7t`.",
+    "Reduce both sides mod 40."
+   ],
+   "solution": [
+    "(a) `40 = 5·7 + 5`; `7 = 5 + 2`; `5 = 2·2 + 1`. gcd = 1. Back: `1 = 5 − 2·2 = 5 − 2(7 − 5) = 3·5 − 2·7 = 3(40 − 5·7) − 2·7 = 3·40 − 17·7`. So s = 3, t = −17.",
+    "(b) Mod 40: `−17·7 ≡ 1`, so the inverse of 7 is `−17 ≡ 23`. Check: `7·23 = 161 = 4·40 + 1`.",
+    "(c) If `ms + nt = 1` then mod n: `ms ≡ 1`, so `s mod n` is the inverse of m. The pair (s, t) comes from the pulverizer when gcd(m, n) = 1; if the gcd is larger there is no inverse."
+   ],
+   "rubric": [
+    "Pulverizer correct and checks `3·40 − 17·7 = 1`.",
+    "Reduces −17 into [1, 40) as 23 and verifies.",
+    "States the condition gcd(m, n) = 1."
+   ],
+   "pitfalls": [
+    "Answering −17 without reducing into [1, 40).",
+    "Taking the coefficient of n (here 3) as the inverse — the inverse is the coefficient of m."
+   ]
+  }
+ },
+ {
+  "id": "d-mod-solvable",
+  "ch": "ch7",
+  "level": 2,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 8.6",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Khi nào ax ≡ b (mod n) giải được",
+   "q": "Chứng minh phương trình đồng dư `ax ≡ b (mod n)` có nghiệm nguyên x khi và chỉ khi `gcd(a, n) | b`.",
+   "hints": [
+    "`ax ≡ b (mod n)` ⇔ có k với `ax − b = nk`, tức `ax − nk = b`.",
+    "Bézout: tổ hợp nguyên của a và n là bội của gcd(a, n).",
+    "Chiều ngược: nhân Bézout với `b/g`."
+   ],
+   "solution": [
+    "Đặt g = gcd(a, n). `ax ≡ b (mod n)` ⇔ có số nguyên k với `ax − nk = b`, tức b là một tổ hợp nguyên của a và n.",
+    "(⇒) Nếu có x, k thì g chia cả a lẫn n, nên g chia `ax − nk = b`.",
+    "(⇐) Nếu g | b, viết `b = g·c`. Theo Bézout `g = au + nv`. Nhân c: `b = a(uc) + n(vc)`, nên `x = uc` thoả `ax ≡ b (mod n)`."
+   ],
+   "rubric": [
+    "Chuyển đồng dư thành tổ hợp nguyên.",
+    "Chiều ⇒ dùng g chia cả hai số hạng.",
+    "Chiều ⇐ dùng Bézout và nhân với b/g."
+   ],
+   "pitfalls": [
+    "Chỉ chứng minh một chiều.",
+    "Nói \"giải được vì a có nghịch đảo\" — chỉ đúng khi gcd(a, n) = 1."
+   ]
+  },
+  "en": {
+   "title": "When is ax ≡ b (mod n) solvable",
+   "q": "Prove that the congruence `ax ≡ b (mod n)` has an integer solution x if and only if `gcd(a, n) | b`.",
+   "hints": [
+    "`ax ≡ b (mod n)` iff some k has `ax − b = nk`, i.e. `ax − nk = b`.",
+    "Bézout: integer combinations of a and n are exactly the multiples of gcd(a, n).",
+    "Converse: multiply the Bézout identity by `b/g`."
+   ],
+   "solution": [
+    "Let g = gcd(a, n). `ax ≡ b (mod n)` iff some integer k has `ax − nk = b`, i.e. b is an integer combination of a and n.",
+    "(⇒) If x, k exist, g divides both a and n, so g divides `ax − nk = b`.",
+    "(⇐) If g | b, write `b = g·c`. By Bézout `g = au + nv`. Multiply by c: `b = a(uc) + n(vc)`, so `x = uc` satisfies `ax ≡ b (mod n)`."
+   ],
+   "rubric": [
+    "Turns the congruence into an integer combination.",
+    "⇒ uses g dividing both terms.",
+    "⇐ uses Bézout and multiplies by b/g."
+   ],
+   "pitfalls": [
+    "Proving only one direction.",
+    "Saying \"solvable because a has an inverse\" — only valid when gcd(a, n) = 1."
+   ]
+  }
+ },
+ {
+  "id": "d-mod-last-digits",
+  "ch": "ch7",
+  "level": 2,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 8.69",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Ba chữ số cuối bằng định lý Euler",
+   "q": "Tìm số nguyên k > 1 sao cho n và nᵏ có ba chữ số cuối giống nhau với mọi n không chia hết cho 2 và cho 5. (Gợi ý: định lý Euler.)",
+   "hints": [
+    "Ba chữ số cuối giống nhau ⇔ `nᵏ ≡ n (mod 1000)`.",
+    "n nguyên tố cùng nhau với 1000 = 2³·5³ ⇔ n không chia hết cho 2 và 5.",
+    "Tính φ(1000) và dùng `n^φ(1000) ≡ 1`."
+   ],
+   "solution": [
+    "Cần `nᵏ ≡ n (mod 1000)` với mọi n nguyên tố cùng nhau với 1000.",
+    "`φ(1000) = 1000·(1 − 1/2)(1 − 1/5) = 400`. Theo Euler `n⁴⁰⁰ ≡ 1 (mod 1000)` với gcd(n, 1000) = 1.",
+    "Nhân n: `n⁴⁰¹ ≡ n (mod 1000)`. Vậy k = 401 thoả. (Thực ra k = 101 cũng thoả vì nhóm ℤ₁₀₀₀* có chu kỳ chia hết cho 100.)",
+    "Kiểm bằng máy với mọi n < 1000 nguyên tố cùng nhau với 10: cả 401 và 101 đều đúng."
+   ],
+   "rubric": [
+    "Đổi \"ba chữ số cuối\" thành đồng dư mod 1000.",
+    "Tính φ(1000) = 400 đúng.",
+    "Dùng Euler để ra k = 401, kiểm lại."
+   ],
+   "pitfalls": [
+    "Dùng φ(10) = 4 thay vì φ(1000).",
+    "Quên nhân thêm n: Euler cho `n⁴⁰⁰ ≡ 1`, chưa phải `nᵏ ≡ n`."
+   ]
+  },
+  "en": {
+   "title": "Last three digits via Euler's theorem",
+   "q": "Find an integer k > 1 such that n and nᵏ have the same last three digits for every n divisible by neither 2 nor 5. (Hint: Euler's theorem.)",
+   "hints": [
+    "Same last three digits iff `nᵏ ≡ n (mod 1000)`.",
+    "n coprime to 1000 = 2³·5³ iff n is divisible by neither 2 nor 5.",
+    "Compute φ(1000) and use `n^φ(1000) ≡ 1`."
+   ],
+   "solution": [
+    "We need `nᵏ ≡ n (mod 1000)` for all n coprime to 1000.",
+    "`φ(1000) = 1000·(1 − 1/2)(1 − 1/5) = 400`. By Euler `n⁴⁰⁰ ≡ 1 (mod 1000)` when gcd(n, 1000) = 1.",
+    "Multiply by n: `n⁴⁰¹ ≡ n (mod 1000)`. So k = 401 works. (In fact k = 101 also works since the group ℤ₁₀₀₀* has exponent dividing 100.)",
+    "Checked by computer for every n < 1000 coprime to 10: both 401 and 101 hold."
+   ],
+   "rubric": [
+    "Translates \"last three digits\" into congruence mod 1000.",
+    "Computes φ(1000) = 400 correctly.",
+    "Uses Euler to get k = 401 and verifies."
+   ],
+   "pitfalls": [
+    "Using φ(10) = 4 instead of φ(1000).",
+    "Forgetting to multiply by n: Euler gives `n⁴⁰⁰ ≡ 1`, not yet `nᵏ ≡ n`."
+   ]
+  }
+ },
+ {
+  "id": "d-mod-power-175",
+  "ch": "ch7",
+  "level": 3,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 8.70",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "(−12)^482 mod 175",
+   "q": "(a) Giải thích vì sao `(−12)⁴⁸²` có nghịch đảo modulo 175.\n(b) Tính φ(175).\n(c) Gọi số trong khoảng 0…174 là \"mạnh\" nếu một luỹ thừa dương nào đó của nó ≡ 1 (mod 175). Xác suất một số ngẫu nhiên là mạnh?\n(d) Tìm số dư của `(−12)⁴⁸²` khi chia cho 175.",
+   "hints": [
+    "175 = 5²·7. gcd(−12, 175) = ?",
+    "(b) φ(5²)·φ(7). (c) \"Mạnh\" ⇔ gcd(x, 175) = 1.",
+    "(d) Euler: giảm số mũ modulo φ(175)."
+   ],
+   "solution": [
+    "(a) 175 = 5²·7 và −12 không chia hết cho 5 hay 7, nên gcd(−12, 175) = 1; luỹ thừa của nó cũng nguyên tố cùng nhau với 175, nên có nghịch đảo.",
+    "(b) `φ(175) = φ(25)·φ(7) = 20·6 = 120`.",
+    "(c) x mạnh ⇒ x có nghịch đảo (xᵐ ≡ 1) nên gcd(x, 175) = 1; ngược lại nếu gcd = 1 thì `x¹²⁰ ≡ 1` (Euler). Vậy mạnh ⇔ nguyên tố cùng nhau, và xác suất = φ(175)/175 = 120/175 = 24/35.",
+    "(d) `482 = 4·120 + 2` nên `(−12)⁴⁸² ≡ (−12)² = 144 (mod 175)`. Số dư 144 (kiểm bằng máy: 144)."
+   ],
+   "rubric": [
+    "(a) gcd = 1 kèm lý do.",
+    "(b) φ(175) = 120.",
+    "(c) nhận ra \"mạnh\" ⇔ nguyên tố cùng nhau, xác suất 24/35.",
+    "(d) giảm số mũ mod φ và tính 144."
+   ],
+   "pitfalls": [
+    "Áp dụng φ(175) = φ(5)φ(7) = 24 (bỏ quên bậc 25).",
+    "Dùng số dư âm: (−12)² = 144 (số dương), đừng viết −144."
+   ]
+  },
+  "en": {
+   "title": "(−12)^482 mod 175",
+   "q": "(a) Explain why `(−12)⁴⁸²` has a multiplicative inverse modulo 175.\n(b) Compute φ(175).\n(c) Call a number in 0…174 \"powerful\" if some positive power of it is ≡ 1 (mod 175). What is the probability that a random number is powerful?\n(d) Find the remainder of `(−12)⁴⁸²` modulo 175.",
+   "hints": [
+    "175 = 5²·7. What is gcd(−12, 175)?",
+    "(b) φ(5²)·φ(7). (c) \"Powerful\" iff gcd(x, 175) = 1.",
+    "(d) Euler: reduce the exponent modulo φ(175)."
+   ],
+   "solution": [
+    "(a) 175 = 5²·7 and −12 is divisible by neither 5 nor 7, so gcd(−12, 175) = 1; its powers are coprime to 175 too, so it is invertible.",
+    "(b) `φ(175) = φ(25)·φ(7) = 20·6 = 120`.",
+    "(c) If x is powerful then xᵐ ≡ 1 so x is invertible, hence gcd(x, 175) = 1; conversely gcd = 1 gives `x¹²⁰ ≡ 1` (Euler). So powerful iff coprime, probability φ(175)/175 = 120/175 = 24/35.",
+    "(d) `482 = 4·120 + 2`, so `(−12)⁴⁸² ≡ (−12)² = 144 (mod 175)`. Remainder 144 (checked by computer)."
+   ],
+   "rubric": [
+    "(a) gcd = 1 with a reason.",
+    "(b) φ(175) = 120.",
+    "(c) sees \"powerful\" ⇔ coprime, probability 24/35.",
+    "(d) reduces the exponent mod φ and gets 144."
+   ],
+   "pitfalls": [
+    "Using φ(175) = φ(5)φ(7) = 24 (ignoring the square 25).",
+    "Sign slip: (−12)² = 144 is positive; do not write −144."
+   ]
+  }
+ },
+ {
+  "id": "d-mod-fermat-flaw",
+  "ch": "ch7",
+  "level": 2,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 8.71",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Tìm lỗi trong chuỗi đồng dư",
+   "q": "(a) Tính số dư của `35⁸⁶` khi chia cho 29.\n(b) Một \"chứng minh\" cho rằng `35⁸⁶ ≡ 1 (mod 29)`: `35⁸⁶ ≡ 6⁸⁶` (vì 35 ≡ 6) `≡ 6²⁸` (vì 86 ≡ 28) `≡ 1` (định lý Fermat nhỏ). Vì phần (a) cho số dư khác 1, chuỗi này có lỗi; chỉ ra dòng sai và giải thích.",
+   "hints": [
+    "(a) Rút gọn từng bước: 35 ≡ 6 (mod 29), rồi bình phương lặp.",
+    "Định lý Fermat: `a^(p−1) ≡ 1 (mod p)`. Số mũ được giảm modulo *p − 1* chứ không phải p.",
+    "Xem dòng nào đổi số mũ 86 thành 28."
+   ],
+   "solution": [
+    "(a) `35 ≡ 6`; `6² = 36 ≡ 7`; `6⁴ ≡ 49 ≡ 20`; `6⁸ ≡ 400 ≡ 23`; `6¹⁶ ≡ 529 ≡ 7`; `6³² ≡ 49 ≡ 20`; `6⁶⁴ ≡ 400 ≡ 23`. `86 = 64 + 16 + 4 + 2`: `23·7·20·7 = 22540 ≡ 7 (mod 29)`. Số dư là 7.",
+    "(b) Dòng sai là \"`6⁸⁶ ≡ 6²⁸` vì 86 ≡ 28\": 86 ≡ 28 (mod **29**), nhưng số mũ phải giảm modulo `p − 1 = 28`, và `86 ≡ 2 (mod 28)`. Đúng: `6⁸⁶ ≡ 6² = 36 ≡ 7 (mod 29)` — khớp (a).",
+    "Lỗi logic: dùng đồng dư modulo p cho số mũ, trong khi đồng dư đúng của số mũ là modulo p − 1 (chu kỳ của luỹ thừa)."
+   ],
+   "rubric": [
+    "(a) tính đúng 7 (kiểm bằng cách khác).",
+    "(b) chỉ đúng dòng và lý do: số mũ mod p − 1, không mod p.",
+    "Sửa lại để ra 7 cho thống nhất."
+   ],
+   "pitfalls": [
+    "Đổ lỗi cho Fermat nhỏ: định lý đúng, chỉ áp dụng sai ở bước đổi số mũ.",
+    "Đổ lỗi cho dòng \"35 ≡ 6\" — dòng đó đúng."
+   ]
+  },
+  "en": {
+   "title": "Spot the error in a congruence chain",
+   "q": "(a) Compute the remainder of `35⁸⁶` modulo 29.\n(b) A \"proof\" claims `35⁸⁶ ≡ 1 (mod 29)`: `35⁸⁶ ≡ 6⁸⁶` (since 35 ≡ 6) `≡ 6²⁸` (since 86 ≡ 28) `≡ 1` (Fermat's little theorem). Since (a) is not 1, the chain has a mistake; pinpoint the line and explain.",
+   "hints": [
+    "(a) Reduce step by step: 35 ≡ 6 (mod 29), then repeated squaring.",
+    "Fermat: `a^(p−1) ≡ 1 (mod p)`. Exponents reduce modulo *p − 1*, not p.",
+    "Which line changes the exponent 86 to 28?"
+   ],
+   "solution": [
+    "(a) `35 ≡ 6`; `6² = 36 ≡ 7`; `6⁴ ≡ 49 ≡ 20`; `6⁸ ≡ 400 ≡ 23`; `6¹⁶ ≡ 529 ≡ 7`; `6³² ≡ 49 ≡ 20`; `6⁶⁴ ≡ 400 ≡ 23`. `86 = 64 + 16 + 4 + 2`: `23·7·20·7 = 22540 ≡ 7 (mod 29)`. The remainder is 7.",
+    "(b) The bad line is \"`6⁸⁶ ≡ 6²⁸` since 86 ≡ 28\": 86 ≡ 28 (mod **29**), but exponents must be reduced modulo `p − 1 = 28`, and `86 ≡ 2 (mod 28)`. Correct: `6⁸⁶ ≡ 6² = 36 ≡ 7 (mod 29)` — matches (a).",
+    "The logical slip: using a congruence modulo p for the exponent, whereas the exponent is only determined modulo p − 1 (the period of powers)."
+   ],
+   "rubric": [
+    "(a) correct 7 (cross-checked).",
+    "(b) names the line and reason: exponent mod p − 1, not mod p.",
+    "Repairs it to get 7 consistently."
+   ],
+   "pitfalls": [
+    "Blaming Fermat's little theorem: it is true, it was misapplied when changing the exponent.",
+    "Blaming the line \"35 ≡ 6\" — that line is correct."
+   ]
+  }
+ },
+ {
+  "id": "d-mod-poly",
+  "ch": "ch7",
+  "level": 3,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 8.28, 8.41",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Đa thức bảo toàn đồng dư",
+   "q": "Tập P các đa thức nguyên một biến định nghĩa đệ quy: *cơ sở:* hàm đồng nhất `x` và mọi hàm hằng `c_m(x) = m` thuộc P; *hàm tạo:* nếu r, s ∈ P thì `r + s` và `r − s` ∈ P (và, tuỳ ý, `r·s` ∈ P). Chứng minh bằng quy nạp cấu trúc: với mọi q ∈ P, `j ≡ k (mod n) ⇒ q(j) ≡ q(k) (mod n)` (mọi số nguyên j, k, n > 1).",
+   "hints": [
+    "Giả thiết quy nạp cho q gồm r, s: `j ≡ k ⇒ r(j) ≡ r(k)`, `s(j) ≡ s(k)`.",
+    "Cơ sở: hàm đồng nhất, hàm hằng.",
+    "Bước hàm tạo: cộng, trừ (và nhân) các đồng dư modulo n."
+   ],
+   "solution": [
+    "Cố định j, k, n với `j ≡ k (mod n)`. P(q): `q(j) ≡ q(k) (mod n)`.",
+    "Cơ sở: `q(x) = x`: `q(j) = j ≡ k = q(k)`. `q = c_m`: `q(j) = m = q(k)`, nên đồng dư.",
+    "Hàm tạo: nếu P(r), P(s) thì `(r ± s)(j) = r(j) ± s(j) ≡ r(k) ± s(k) = (r ± s)(k) (mod n)` (cộng/trừ hai vế đồng dư). Tương tự với tích: `r(j)s(j) ≡ r(k)s(k)`.",
+    "Theo quy nạp cấu trúc P(q) đúng với mọi q ∈ P."
+   ],
+   "rubric": [
+    "Nêu giả thiết quy nạp cấu trúc rõ ràng.",
+    "Xử lý cả hai loại cơ sở.",
+    "Bước tạo dùng tính chất cộng/trừ (và nhân) của đồng dư."
+   ],
+   "pitfalls": [
+    "Quy nạp trên bậc của đa thức mà không nói rõ cấu trúc — định nghĩa đệ quy ở đây theo hàm tạo, không theo bậc.",
+    "Quên cơ sở hàm hằng."
+   ]
+  },
+  "en": {
+   "title": "Polynomials preserve congruence",
+   "q": "The set P of single-variable integer polynomials is defined recursively: *base:* the identity `x` and every constant function `c_m(x) = m` belong to P; *constructors:* if r, s ∈ P then `r + s` and `r − s` ∈ P (and, optionally, `r·s` ∈ P). Prove by structural induction: for all q ∈ P, `j ≡ k (mod n) ⇒ q(j) ≡ q(k) (mod n)` (all integers j, k, n > 1).",
+   "hints": [
+    "The hypothesis for q built from r, s: `j ≡ k ⇒ r(j) ≡ r(k)`, `s(j) ≡ s(k)`.",
+    "Base: identity, constants.",
+    "Constructor step: add, subtract (and multiply) congruences modulo n."
+   ],
+   "solution": [
+    "Fix j, k, n with `j ≡ k (mod n)`. P(q): `q(j) ≡ q(k) (mod n)`.",
+    "Base: `q(x) = x`: `q(j) = j ≡ k = q(k)`. `q = c_m`: `q(j) = m = q(k)`, so congruent.",
+    "Constructors: if P(r), P(s) then `(r ± s)(j) = r(j) ± s(j) ≡ r(k) ± s(k) = (r ± s)(k) (mod n)` (add/subtract congruent sides). Likewise for products: `r(j)s(j) ≡ r(k)s(k)`.",
+    "By structural induction P(q) holds for all q ∈ P."
+   ],
+   "rubric": [
+    "States the structural induction hypothesis clearly.",
+    "Handles both kinds of base case.",
+    "The constructor step uses addition/subtraction (and multiplication) of congruences."
+   ],
+   "pitfalls": [
+    "Inducting on the degree without saying how — the definition here is by constructors, not by degree.",
+    "Forgetting the constant-function base case."
+   ]
+  }
+ },
+ {
+  "id": "d-mod-false-claims",
+  "ch": "ch7",
+  "level": 2,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 8.72",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Phản ví dụ cho các khẳng định số học",
+   "q": "Với số nguyên bất kỳ, cho phản ví dụ cho mỗi khẳng định sai; ghi \"đúng\" nếu đúng (kèm lý do ngắn).\n(a) Với mọi a, b có x, y sao cho `ax + by = 1`.\n(b) `gcd(mb + r, b) = gcd(r, b)` với mọi m, r, b.\n(c) `k^(p−1) ≡ 1 (mod p)` với mọi số nguyên tố p và mọi số nguyên k.\n(d) `φ(pq) = (p − 1)(q − 1)` với mọi số nguyên tố p, q.\n(e) Nếu a, b nguyên tố cùng nhau với d thì `ac ≡ bc (mod d) ⇒ a ≡ b (mod d)`.",
+   "hints": [
+    "(a) gcd(a, b) phải là bao nhiêu thì có x, y?",
+    "(c) Fermat nhỏ cần điều kiện gì về k?",
+    "(d) Thử p = q. (e) Thử c chia hết cho d."
+   ],
+   "solution": [
+    "(a) Sai: a = 2, b = 4 (mọi tổ hợp là số chẵn).",
+    "(b) Đúng: ước chung của `mb + r` và b chia `r = (mb + r) − mb`, và ngược lại.",
+    "(c) Sai: k = p (hoặc bội của p) cho `k^(p−1) ≡ 0`.",
+    "(d) Sai: p = q = 2: φ(4) = 2 nhưng (2−1)(2−1) = 1.",
+    "(e) Sai: d = 3, c = 3, a = 1, b = 2: `3 ≡ 6 (mod 3)` nhưng `1 ≢ 2`."
+   ],
+   "rubric": [
+    "(a)(c)(d)(e) phản ví dụ chạy được (kiểm lại số).",
+    "(b) nhận ra đúng và có lý do.",
+    "Hiểu điều kiện cần của từng định lý (gcd, nguyên tố cùng nhau, p ≠ q)."
+   ],
+   "pitfalls": [
+    "Cho (d) phản ví dụ với p ≠ q — khi đó φ(pq) = (p−1)(q−1) đúng.",
+    "Cho phản ví dụ cho (b) — nó đúng."
+   ]
+  },
+  "en": {
+   "title": "Counterexamples for number-theory claims",
+   "q": "All variables are integers. Give a counterexample to each false statement; write \"true\" with a short reason if true.\n(a) For all a, b there are x, y with `ax + by = 1`.\n(b) `gcd(mb + r, b) = gcd(r, b)` for all m, r, b.\n(c) `k^(p−1) ≡ 1 (mod p)` for every prime p and every integer k.\n(d) `φ(pq) = (p − 1)(q − 1)` for all primes p, q.\n(e) If a, b are coprime to d then `ac ≡ bc (mod d) ⇒ a ≡ b (mod d)`.",
+   "hints": [
+    "(a) What must gcd(a, b) be for such x, y to exist?",
+    "(c) What condition does Fermat's little theorem need on k?",
+    "(d) Try p = q. (e) Try c divisible by d."
+   ],
+   "solution": [
+    "(a) False: a = 2, b = 4 (every combination is even).",
+    "(b) True: a common divisor of `mb + r` and b divides `r = (mb + r) − mb`, and conversely.",
+    "(c) False: k = p (or a multiple of p) gives `k^(p−1) ≡ 0`.",
+    "(d) False: p = q = 2: φ(4) = 2 but (2−1)(2−1) = 1.",
+    "(e) False: d = 3, c = 3, a = 1, b = 2: `3 ≡ 6 (mod 3)` but `1 ≢ 2`."
+   ],
+   "rubric": [
+    "(a)(c)(d)(e) counterexamples that actually work (numbers re-checked).",
+    "(b) recognised as true with a reason.",
+    "Understands each theorem's hypothesis (gcd, coprimality, p ≠ q)."
+   ],
+   "pitfalls": [
+    "Giving a counterexample to (d) with p ≠ q — then φ(pq) = (p−1)(q−1) holds.",
+    "Giving a counterexample to (b) — it is true."
+   ]
+  }
+ },
+ {
+  "id": "d-rsa-toy",
+  "ch": "ch7",
+  "level": 2,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 8.79",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Thử RSA với số nhỏ",
+   "q": "Dựng khoá RSA với hai số nguyên tố p = 13, q = 17.\n(a) Tính n và φ(n); chọn số mũ công khai e nhỏ nguyên tố cùng nhau với φ(n); tìm khoá bí mật d.\n(b) Mã hoá tin m = 100 bằng khoá công khai (e, n).\n(c) Giải mã để lấy lại m.",
+   "hints": [
+    "`n = pq`, `φ(n) = (p − 1)(q − 1)`.",
+    "e hợp lệ khi `gcd(e, φ(n)) = 1`; d là nghịch đảo của e modulo φ(n).",
+    "Mã hoá `c = mᵉ mod n`, giải mã `m = cᵈ mod n` (dùng bình phương lặp)."
+   ],
+   "solution": [
+    "(a) `n = 13·17 = 221`, `φ(n) = 12·16 = 192`. Chọn e = 5 (gcd(5, 192) = 1). d là nghịch đảo của 5 modulo 192: `5·77 = 385 = 2·192 + 1`, nên d = 77.",
+    "(b) `c = 100⁵ mod 221`. `100² = 10000 ≡ 10000 − 45·221 = 55`; `100⁴ ≡ 55² = 3025 ≡ 3025 − 13·221 = 152`; `100⁵ ≡ 152·100 = 15200 ≡ 15200 − 68·221 = 172`. Vậy c = 172.",
+    "(c) `m = 172⁷⁷ mod 221` = 100 (kiểm bằng máy: đúng). Vì `ed = 385 ≡ 1 (mod 192)` nên theo Euler `m^{ed} ≡ m`."
+   ],
+   "rubric": [
+    "(a) n = 221, φ = 192, e = 5, d = 77 và kiểm `5·77 ≡ 1 (mod 192)`.",
+    "(b) c = 172 với các bước bình phương lặp.",
+    "(c) giải mã trả lại 100 và nhắc `ed ≡ 1 (mod φ)`."
+   ],
+   "pitfalls": [
+    "Chọn e có gcd(e, φ(n)) > 1 (ví dụ e = 4 hoặc 3 — 3 | 192).",
+    "Tính d modulo n thay vì modulo φ(n)."
+   ]
+  },
+  "en": {
+   "title": "Trying out RSA with small numbers",
+   "q": "Build an RSA key from the primes p = 13, q = 17.\n(a) Compute n and φ(n); pick a small public exponent e coprime to φ(n); find the private exponent d.\n(b) Encrypt the message m = 100 with the public key (e, n).\n(c) Decrypt to recover m.",
+   "hints": [
+    "`n = pq`, `φ(n) = (p − 1)(q − 1)`.",
+    "e is valid when `gcd(e, φ(n)) = 1`; d is the inverse of e modulo φ(n).",
+    "Encrypt `c = mᵉ mod n`, decrypt `m = cᵈ mod n` (use repeated squaring)."
+   ],
+   "solution": [
+    "(a) `n = 13·17 = 221`, `φ(n) = 12·16 = 192`. Choose e = 5 (gcd(5, 192) = 1). d is the inverse of 5 modulo 192: `5·77 = 385 = 2·192 + 1`, so d = 77.",
+    "(b) `c = 100⁵ mod 221`. `100² = 10000 ≡ 10000 − 45·221 = 55`; `100⁴ ≡ 55² = 3025 ≡ 3025 − 13·221 = 152`; `100⁵ ≡ 152·100 = 15200 ≡ 15200 − 68·221 = 172`. So c = 172.",
+    "(c) `m = 172⁷⁷ mod 221` = 100 (checked by computer). Since `ed = 385 ≡ 1 (mod 192)`, Euler gives `m^{ed} ≡ m`."
+   ],
+   "rubric": [
+    "(a) n = 221, φ = 192, e = 5, d = 77 with `5·77 ≡ 1 (mod 192)` checked.",
+    "(b) c = 172 showing the repeated squaring.",
+    "(c) decryption returns 100 and mentions `ed ≡ 1 (mod φ)`."
+   ],
+   "pitfalls": [
+    "Choosing e with gcd(e, φ(n)) > 1 (e.g. e = 3 — 3 divides 192).",
+    "Computing d modulo n instead of modulo φ(n)."
+   ]
+  }
+ },
+ {
+  "id": "d-rsa-signature",
+  "ch": "ch7",
+  "level": 2,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 8.77, 8.80",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Chữ ký RSA và nếu biết φ(n)",
+   "q": "(a) Pete có khoá riêng `(d, n)` và khoá công khai `(e, n)`. Để ký thông điệp m ∈ [0, n), ông phát `s = m^d mod n`. Người nhận làm phép tính nào để lấy lại m? Vì sao ra đúng m?\n(b) Giả sử kẻ tấn công biết n, `φ(n)` và biết n là tích hai số nguyên tố p, q. Chứng minh người đó phân tích được n.",
+   "hints": [
+    "(a) Hai khoá đổi vai: `ed ≡ 1 (mod φ(n))`.",
+    "(b) Từ n = pq và φ(n) = (p − 1)(q − 1) = n − (p + q) + 1 suy ra p + q.",
+    "Rồi p, q là nghiệm của một phương trình bậc hai."
+   ],
+   "solution": [
+    "(a) Người nhận tính `sᵉ mod n`. Vì `sᵉ ≡ m^{de}`, và `de ≡ 1 (mod φ(n))` nên theo định lý RSA `m^{de} ≡ m (mod n)`.",
+    "(b) `φ(n) = (p − 1)(q − 1) = n − (p + q) + 1`, nên `p + q = n + 1 − φ(n)` tính được. Còn `pq = n`.",
+    "Vậy p, q là hai nghiệm của `x² − (p + q)x + n = 0`: `x = ((p + q) ± √((p + q)² − 4n))/2`. Giải ra p và q, tức phân tích được n."
+   ],
+   "rubric": [
+    "(a) tính đúng `sᵉ mod n` và giải thích bằng `de ≡ 1`.",
+    "(b) rút ra p + q từ φ(n).",
+    "(b) dựng phương trình bậc hai và giải."
+   ],
+   "pitfalls": [
+    "Giải mã chữ ký bằng khoá riêng d — chữ ký cần *khoá công khai* (e) mới kiểm được; ai cũng làm được.",
+    "Dùng φ(n) = n − 1 (đúng cho số nguyên tố, không đúng khi n = pq)."
+   ]
+  },
+  "en": {
+   "title": "RSA signatures, and knowing φ(n)",
+   "q": "(a) Pete has private key `(d, n)` and public key `(e, n)`. To sign a message m ∈ [0, n) he broadcasts `s = m^d mod n`. What calculation lets a reader recover m? Why does it give m?\n(b) Suppose an attacker knows n, `φ(n)` and that n is a product of two primes p, q. Show the attacker can factor n.",
+   "hints": [
+    "(a) The two keys swap roles: `ed ≡ 1 (mod φ(n))`.",
+    "(b) From n = pq and φ(n) = (p − 1)(q − 1) = n − (p + q) + 1 get p + q.",
+    "Then p, q are the roots of a quadratic."
+   ],
+   "solution": [
+    "(a) The reader computes `sᵉ mod n`. Since `sᵉ ≡ m^{de}` and `de ≡ 1 (mod φ(n))`, the RSA theorem gives `m^{de} ≡ m (mod n)`.",
+    "(b) `φ(n) = (p − 1)(q − 1) = n − (p + q) + 1`, so `p + q = n + 1 − φ(n)` is computable. Also `pq = n`.",
+    "So p, q are the two roots of `x² − (p + q)x + n = 0`: `x = ((p + q) ± √((p + q)² − 4n))/2`. Solving gives p and q, i.e. n is factored."
+   ],
+   "rubric": [
+    "(a) computes `sᵉ mod n` and explains via `de ≡ 1`.",
+    "(b) derives p + q from φ(n).",
+    "(b) forms and solves the quadratic."
+   ],
+   "pitfalls": [
+    "Decrypting a signature with the private d — verification needs the *public* e so that anyone can do it.",
+    "Using φ(n) = n − 1 (true for a prime n, not for n = pq)."
+   ]
+  }
+ },
+ {
+  "id": "d-rsa-correct",
+  "ch": "ch7",
+  "level": 3,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 8.81",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "RSA luôn giải mã đúng",
+   "q": "Cho n = pq với p ≠ q nguyên tố, `d·e ≡ 1 (mod (p−1)(q−1))`. Chứng minh `(mᵉ)ᵈ ≡ m (mod n)` với *mọi* m ∈ [0, n) (kể cả m không nguyên tố cùng nhau với n).\n(a) Trường hợp gcd(m, n) = 1: dùng Euler.\n(b) Chứng minh: nếu p nguyên tố và `a ≡ 1 (mod p−1)` thì `mᵃ ≡ m (mod p)` với mọi m.\n(c) Chứng minh: nếu `a ≡ b (mod p)` và `a ≡ b (mod q)` với p ≠ q nguyên tố thì `a ≡ b (mod pq)`.\n(d) Kết hợp để giải trường hợp tổng quát.",
+   "hints": [
+    "(a) `ed = 1 + k·φ(n)`.",
+    "(b) Xét hai trường hợp: p | m và p ∤ m (Fermat).",
+    "(c) p | a − b và q | a − b, p ≠ q nguyên tố ⇒ pq | a − b.",
+    "(d) Dùng (b) cho p và q rồi (c)."
+   ],
+   "solution": [
+    "(a) `ed = 1 + kφ(n)` với k ≥ 0. `m^{ed} = m·(m^{φ(n)})ᵏ ≡ m·1ᵏ = m (mod n)` theo Euler khi gcd(m, n) = 1.",
+    "(b) a = 1 + t(p − 1). Nếu p | m thì cả hai vế ≡ 0. Nếu p ∤ m thì `mᵃ = m·(m^{p−1})ᵗ ≡ m (mod p)` theo Fermat.",
+    "(c) p | (a − b) và q | (a − b), p, q nguyên tố khác nhau nên `a − b` chia hết cho tích pq (p chia (a−b), viết a − b = pt; q | pt và q ∤ p nên q | t).",
+    "(d) `ed ≡ 1 (mod p − 1)` và `(mod q − 1)` (vì (p−1) | (p−1)(q−1)). Theo (b), `m^{ed} ≡ m (mod p)` và `(mod q)`. Theo (c), `m^{ed} ≡ m (mod pq)`."
+   ],
+   "rubric": [
+    "(a) dùng `ed = 1 + kφ(n)`.",
+    "(b) xét cả p | m và p ∤ m.",
+    "(c) ghép đồng dư mà không dùng định lý phần dư Trung Hoa, chỉ dùng p, q nguyên tố khác nhau.",
+    "(d) dùng (b) hai lần và (c)."
+   ],
+   "pitfalls": [
+    "Bỏ qua trường hợp p | m ở (b): Fermat cần p ∤ m.",
+    "Ở (c) quên p ≠ q (nếu p = q thì không ghép được modulo p²)."
+   ]
+  },
+  "en": {
+   "title": "RSA always decrypts correctly",
+   "q": "Let n = pq with distinct primes p, q and `d·e ≡ 1 (mod (p−1)(q−1))`. Prove `(mᵉ)ᵈ ≡ m (mod n)` for *every* m ∈ [0, n) (even if m is not coprime to n).\n(a) Case gcd(m, n) = 1: use Euler.\n(b) Prove: if p is prime and `a ≡ 1 (mod p−1)` then `mᵃ ≡ m (mod p)` for all m.\n(c) Prove: if `a ≡ b (mod p)` and `a ≡ b (mod q)` for distinct primes p, q then `a ≡ b (mod pq)`.\n(d) Combine to handle the general case.",
+   "hints": [
+    "(a) `ed = 1 + k·φ(n)`.",
+    "(b) Two cases: p | m and p ∤ m (Fermat).",
+    "(c) p | a − b and q | a − b with p ≠ q prime ⇒ pq | a − b.",
+    "(d) Use (b) for p and q, then (c)."
+   ],
+   "solution": [
+    "(a) `ed = 1 + kφ(n)` with k ≥ 0. `m^{ed} = m·(m^{φ(n)})ᵏ ≡ m·1ᵏ = m (mod n)` by Euler when gcd(m, n) = 1.",
+    "(b) a = 1 + t(p − 1). If p | m both sides are ≡ 0. If p ∤ m then `mᵃ = m·(m^{p−1})ᵗ ≡ m (mod p)` by Fermat.",
+    "(c) p | (a − b) and q | (a − b) with distinct primes, so `a − b` is divisible by pq (write a − b = pt; q | pt and q ∤ p so q | t).",
+    "(d) `ed ≡ 1 (mod p − 1)` and `(mod q − 1)` (since (p−1) | (p−1)(q−1)). By (b), `m^{ed} ≡ m (mod p)` and `(mod q)`. By (c), `m^{ed} ≡ m (mod pq)`."
+   ],
+   "rubric": [
+    "(a) uses `ed = 1 + kφ(n)`.",
+    "(b) handles both p | m and p ∤ m.",
+    "(c) combines congruences using only that p, q are distinct primes (no CRT).",
+    "(d) applies (b) twice and then (c)."
+   ],
+   "pitfalls": [
+    "Skipping p | m in (b): Fermat needs p ∤ m.",
+    "In (c) forgetting p ≠ q (if p = q you cannot combine to modulus p²)."
+   ]
+  }
+ }
+]

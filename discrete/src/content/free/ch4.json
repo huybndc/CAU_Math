@@ -1,0 +1,401 @@
+[
+ {
+  "id": "d-ind-cubes",
+  "ch": "ch4",
+  "level": 1,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 5.3",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Tổng lập phương",
+   "q": "Chứng minh bằng quy nạp: `1³ + 2³ + … + n³ = (n(n+1)/2)²` với mọi n ≥ 1. Trình bày đủ 5 phần: tuyên bố quy nạp, giả thiết P(n), bước cơ sở, bước quy nạp, kết luận.",
+   "hints": [
+    "P(n) :⇔ `1³ + … + n³ = (n(n+1)/2)²`.",
+    "Bước quy nạp: tách số hạng cuối `(n+1)³`, dùng P(n) cho phần còn lại.",
+    "Cuối cùng cần rút gọn `(n(n+1)/2)² + (n+1)³` về dạng `((n+1)(n+2)/2)²` — đặt thừa số chung `(n+1)²/4`."
+   ],
+   "solution": [
+    "Quy nạp theo n; P(n): `Σₖ₌₁ⁿ k³ = (n(n+1)/2)²`.",
+    "Cơ sở n = 1: vế trái 1, vế phải `(1·2/2)² = 1`.",
+    "Bước: giả sử P(n). Khi đó `Σₖ₌₁ⁿ⁺¹ k³ = (n(n+1)/2)² + (n+1)³ = (n+1)²/4 · (n² + 4(n+1)) = (n+1)²(n+2)²/4`.",
+    "Vì `n² + 4n + 4 = (n+2)²`, vế phải là `((n+1)(n+2)/2)²`: đó là P(n+1). Theo nguyên lý quy nạp P(n) đúng với mọi n ≥ 1."
+   ],
+   "rubric": [
+    "Đủ 5 phần của mẫu chứng minh quy nạp.",
+    "Dùng giả thiết P(n) *đúng chỗ* trong bước quy nạp.",
+    "Đại số rút gọn đúng đến `((n+1)(n+2)/2)²`."
+   ],
+   "pitfalls": [
+    "Viết P(n+1) ở đầu bước rồi \"biến đổi hai vế\" — dễ vòng tròn; hãy xuất phát từ vế trái P(n+1).",
+    "Quên bước cơ sở hoặc kiểm n = 1 sai."
+   ]
+  },
+  "en": {
+   "title": "Sum of cubes",
+   "q": "Prove by induction: `1³ + 2³ + … + n³ = (n(n+1)/2)²` for all n ≥ 1. Use the full five-part template: declare induction, state P(n), base case, inductive step, conclusion.",
+   "hints": [
+    "P(n) :⇔ `1³ + … + n³ = (n(n+1)/2)²`.",
+    "Inductive step: split off the last term `(n+1)³` and use P(n) for the rest.",
+    "You must simplify `(n(n+1)/2)² + (n+1)³` to `((n+1)(n+2)/2)²` — factor out `(n+1)²/4`."
+   ],
+   "solution": [
+    "Induction on n; P(n): `Σₖ₌₁ⁿ k³ = (n(n+1)/2)²`.",
+    "Base n = 1: left side 1, right side `(1·2/2)² = 1`.",
+    "Step: assume P(n). Then `Σₖ₌₁ⁿ⁺¹ k³ = (n(n+1)/2)² + (n+1)³ = (n+1)²/4 · (n² + 4(n+1)) = (n+1)²(n+2)²/4`.",
+    "Since `n² + 4n + 4 = (n+2)²` the right side is `((n+1)(n+2)/2)²`, which is P(n+1). By induction P(n) holds for all n ≥ 1."
+   ],
+   "rubric": [
+    "All five parts of the template.",
+    "Uses P(n) *at the right place* in the step.",
+    "Algebra simplifies correctly to `((n+1)(n+2)/2)²`."
+   ],
+   "pitfalls": [
+    "Writing P(n+1) first and \"transforming both sides\" — easy to go circular; start from the left side of P(n+1).",
+    "Missing the base case or checking n = 1 wrongly."
+   ]
+  }
+ },
+ {
+  "id": "d-ind-geometric",
+  "ch": "ch4",
+  "level": 1,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 5.4",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Tổng cấp số nhân",
+   "q": "Chứng minh bằng quy nạp theo n: với mọi n ∈ ℕ và số thực r ≠ 1, `1 + r + r² + … + rⁿ = (rⁿ⁺¹ − 1)/(r − 1)`.",
+   "hints": [
+    "P(n) :⇔ `Σᵢ₌₀ⁿ rⁱ = (rⁿ⁺¹ − 1)/(r − 1)` — r là hằng cố định ≠ 1.",
+    "Bước: `Σᵢ₌₀ⁿ⁺¹ rⁱ = Σᵢ₌₀ⁿ rⁱ + rⁿ⁺¹`.",
+    "Quy đồng mẫu `r − 1` ở cuối."
+   ],
+   "solution": [
+    "Cơ sở n = 0: vế trái 1, vế phải `(r − 1)/(r − 1) = 1` (dùng r ≠ 1).",
+    "Bước: giả sử P(n). `Σᵢ₌₀ⁿ⁺¹ rⁱ = (rⁿ⁺¹ − 1)/(r − 1) + rⁿ⁺¹ = (rⁿ⁺¹ − 1 + rⁿ⁺²− rⁿ⁺¹)/(r − 1) = (rⁿ⁺² − 1)/(r − 1)`.",
+    "Đó là P(n+1). Quy nạp xong."
+   ],
+   "rubric": [
+    "Cơ sở n = 0 và có dùng r ≠ 1.",
+    "Dùng đúng giả thiết quy nạp và quy đồng đúng.",
+    "Nêu rõ r cố định, quy nạp theo n."
+   ],
+   "pitfalls": [
+    "Quy nạp trên r thay vì n.",
+    "Chia cho `r − 1` mà không nhắc r ≠ 1."
+   ]
+  },
+  "en": {
+   "title": "Geometric sum",
+   "q": "Prove by induction on n: for all n ∈ ℕ and real r ≠ 1, `1 + r + r² + … + rⁿ = (rⁿ⁺¹ − 1)/(r − 1)`.",
+   "hints": [
+    "P(n) :⇔ `Σᵢ₌₀ⁿ rⁱ = (rⁿ⁺¹ − 1)/(r − 1)` — r is a fixed constant ≠ 1.",
+    "Step: `Σᵢ₌₀ⁿ⁺¹ rⁱ = Σᵢ₌₀ⁿ rⁱ + rⁿ⁺¹`.",
+    "Put everything over the denominator `r − 1`."
+   ],
+   "solution": [
+    "Base n = 0: left side 1, right side `(r − 1)/(r − 1) = 1` (uses r ≠ 1).",
+    "Step: assume P(n). `Σᵢ₌₀ⁿ⁺¹ rⁱ = (rⁿ⁺¹ − 1)/(r − 1) + rⁿ⁺¹ = (rⁿ⁺¹ − 1 + rⁿ⁺² − rⁿ⁺¹)/(r − 1) = (rⁿ⁺² − 1)/(r − 1)`.",
+    "This is P(n+1). Induction complete."
+   ],
+   "rubric": [
+    "Base n = 0 and uses r ≠ 1.",
+    "Uses the hypothesis and common denominator correctly.",
+    "States r is fixed and the induction is on n."
+   ],
+   "pitfalls": [
+    "Inducting on r instead of n.",
+    "Dividing by `r − 1` without noting r ≠ 1."
+   ]
+  }
+ },
+ {
+  "id": "d-ind-inv-squares",
+  "ch": "ch4",
+  "level": 2,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 5.5",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Tổng nghịch đảo bình phương < 2",
+   "q": "Chứng minh `1 + 1/4 + 1/9 + … + 1/n² < 2` với mọi n ≥ 1. Gợi ý: chứng minh một khẳng định *mạnh hơn* — \"tổng ≤ 2 − 1/n\".",
+   "hints": [
+    "Quy nạp trực tiếp trên \"< 2\" bị kẹt: giả thiết `S(n) < 2` không đủ để suy ra `S(n) + 1/(n+1)² < 2`.",
+    "Thử P(n): `S(n) ≤ 2 − 1/n` (mạnh hơn nhưng quy nạp trơn tru).",
+    "Cần bất đẳng thức `1/(n+1)² ≤ 1/n − 1/(n+1) = 1/(n(n+1))`."
+   ],
+   "solution": [
+    "Chứng minh P(n): `Σₖ₌₁ⁿ 1/k² ≤ 2 − 1/n` với n ≥ 1; từ đó `< 2` vì `1/n > 0`.",
+    "Cơ sở n = 1: `1 ≤ 2 − 1 = 1` đúng.",
+    "Bước: `S(n+1) ≤ 2 − 1/n + 1/(n+1)²`. Do `1/(n+1)² < 1/(n(n+1)) = 1/n − 1/(n+1)` nên `S(n+1) < 2 − 1/n + 1/n − 1/(n+1) = 2 − 1/(n+1)`.",
+    "Vậy P(n+1) đúng. Mọi n: `S(n) ≤ 2 − 1/n < 2`."
+   ],
+   "rubric": [
+    "Nhận ra phải tăng cường giả thiết.",
+    "Chọn đúng hàm `2 − 1/n`.",
+    "Bước quy nạp có bất đẳng thức `1/(n+1)² ≤ 1/(n(n+1))`.",
+    "Kết luận trở lại bất đẳng thức gốc."
+   ],
+   "pitfalls": [
+    "Cố quy nạp với \"< 2\" — giả thiết quá yếu, bước không đi được.",
+    "Quên rằng kết luận \"< 2\" cần `1/n > 0`."
+   ]
+  },
+  "en": {
+   "title": "Sum of reciprocal squares is below 2",
+   "q": "Prove `1 + 1/4 + 1/9 + … + 1/n² < 2` for all n ≥ 1. Hint: prove a *stronger* statement — \"the sum is ≤ 2 − 1/n\".",
+   "hints": [
+    "Direct induction on \"< 2\" gets stuck: `S(n) < 2` is too weak to give `S(n) + 1/(n+1)² < 2`.",
+    "Try P(n): `S(n) ≤ 2 − 1/n` (stronger but the step goes through).",
+    "You need `1/(n+1)² ≤ 1/n − 1/(n+1) = 1/(n(n+1))`."
+   ],
+   "solution": [
+    "Prove P(n): `Σₖ₌₁ⁿ 1/k² ≤ 2 − 1/n` for n ≥ 1; then `< 2` since `1/n > 0`.",
+    "Base n = 1: `1 ≤ 2 − 1 = 1` holds.",
+    "Step: `S(n+1) ≤ 2 − 1/n + 1/(n+1)²`. Since `1/(n+1)² < 1/(n(n+1)) = 1/n − 1/(n+1)` we get `S(n+1) < 2 − 1/n + 1/n − 1/(n+1) = 2 − 1/(n+1)`.",
+    "So P(n+1) holds. For all n: `S(n) ≤ 2 − 1/n < 2`."
+   ],
+   "rubric": [
+    "Realises the hypothesis must be strengthened.",
+    "Chooses `2 − 1/n`.",
+    "The step contains `1/(n+1)² ≤ 1/(n(n+1))`.",
+    "Returns to the original inequality at the end."
+   ],
+   "pitfalls": [
+    "Trying induction on \"< 2\" — too weak, the step fails.",
+    "Forgetting that \"< 2\" needs `1/n > 0`."
+   ]
+  }
+ },
+ {
+  "id": "d-ind-cassini",
+  "ch": "ch4",
+  "level": 2,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 5.8",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Đồng nhất thức Fibonacci",
+   "q": "Dãy Fibonacci: F(0)=0, F(1)=1, F(n)=F(n−1)+F(n−2) với n ≥ 2. Chứng minh bằng quy nạp: `F(n−1)·F(n+1) − F(n)² = (−1)ⁿ` với mọi n ≥ 1.",
+   "hints": [
+    "Viết vài giá trị để thấy dấu (−1)ⁿ: n=1: F(0)F(2) − F(1)² = 0 − 1 = −1.",
+    "Bước: thay `F(n+2) = F(n+1) + F(n)` vào `F(n)·F(n+2) − F(n+1)²`.",
+    "Nhóm lại để thấy kết quả là −(vế trái của giả thiết P(n))."
+   ],
+   "solution": [
+    "P(n): `F(n−1)F(n+1) − F(n)² = (−1)ⁿ`, n ≥ 1.",
+    "Cơ sở n = 1: `F(0)F(2) − F(1)² = 0·1 − 1 = −1 = (−1)¹`.",
+    "Bước: `F(n)F(n+2) − F(n+1)² = F(n)(F(n+1)+F(n)) − F(n+1)² = F(n)² + F(n+1)(F(n) − F(n+1))`. Vì `F(n) − F(n+1) = −F(n−1)`, ta được `F(n)² − F(n+1)F(n−1) = −(F(n−1)F(n+1) − F(n)²) = −(−1)ⁿ = (−1)ⁿ⁺¹`.",
+    "Đó là P(n+1). Vậy đúng với mọi n ≥ 1."
+   ],
+   "rubric": [
+    "Cơ sở đúng.",
+    "Dùng định nghĩa truy hồi `F(n+2) = F(n+1)+F(n)` đúng chỗ.",
+    "Đưa được về `−(P(n))` và đổi dấu đúng."
+   ],
+   "pitfalls": [
+    "Áp dụng truy hồi ở chỉ số chưa định nghĩa (F(−1) khi n = 0): cơ sở phải là n = 1.",
+    "Mất dấu khi đổi `F(n) − F(n+1) = −F(n−1)`."
+   ]
+  },
+  "en": {
+   "title": "A Fibonacci identity",
+   "q": "Fibonacci numbers: F(0)=0, F(1)=1, F(n)=F(n−1)+F(n−2) for n ≥ 2. Prove by induction: `F(n−1)·F(n+1) − F(n)² = (−1)ⁿ` for all n ≥ 1.",
+   "hints": [
+    "List a few values to see the sign (−1)ⁿ: n=1: F(0)F(2) − F(1)² = 0 − 1 = −1.",
+    "Step: substitute `F(n+2) = F(n+1) + F(n)` into `F(n)·F(n+2) − F(n+1)²`.",
+    "Then relate the result to the hypothesis `F(n−1)F(n+1) − F(n)² = (−1)ⁿ`."
+   ],
+   "solution": [
+    "P(n): `F(n−1)F(n+1) − F(n)² = (−1)ⁿ`, n ≥ 1.",
+    "Base n = 1: `F(0)F(2) − F(1)² = 0·1 − 1 = −1 = (−1)¹`.",
+    "Step: `F(n)F(n+2) − F(n+1)² = F(n)(F(n+1)+F(n)) − F(n+1)² = F(n)² + F(n+1)(F(n) − F(n+1))`. Since `F(n) − F(n+1) = −F(n−1)`, this is `F(n)² − F(n+1)F(n−1) = −(F(n−1)F(n+1) − F(n)²) = −(−1)ⁿ = (−1)ⁿ⁺¹`.",
+    "That is P(n+1). So it holds for all n ≥ 1."
+   ],
+   "rubric": [
+    "Correct base case.",
+    "Uses the recurrence `F(n+2) = F(n+1)+F(n)` in the right place.",
+    "Rewrites as `−P(n)` and flips the sign correctly."
+   ],
+   "pitfalls": [
+    "Losing the sign when rewriting `F(n) − F(n+1) = −F(n−1)`.",
+    "Applying the recurrence at the wrong index (F(n+1) for n = 0, where F(−1) is undefined)."
+   ]
+  }
+ },
+ {
+  "id": "d-ind-envelopes",
+  "ch": "ch4",
+  "level": 2,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 5.16",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Phong bì 1, 2, 4, …",
+   "q": "Có n phong bì, phong bì thứ i chứa `2ⁱ` đô la (i = 0, …, n−1). Gọi P(n): \"với mọi số nguyên k, 0 ≤ k < 2ⁿ, có một tập phong bì có tổng đúng k đô la\". Chứng minh P(n) với mọi n ≥ 1 bằng quy nạp.",
+   "hints": [
+    "Cơ sở n = 1: một phong bì 1 đô la, k ∈ {0, 1}.",
+    "Bước: thêm phong bì `2ⁿ`. Chia k < 2ⁿ⁺¹ thành hai trường hợp: k < 2ⁿ và k ≥ 2ⁿ.",
+    "Trường hợp k ≥ 2ⁿ: dùng phong bì mới rồi tìm tập cho `k − 2ⁿ`."
+   ],
+   "solution": [
+    "Cơ sở n = 1: phong bì 1 đô la; k = 0 (không chọn), k = 1 (chọn).",
+    "Bước: giả sử P(n); xét n + 1 phong bì và 0 ≤ k < 2ⁿ⁺¹.",
+    "Nếu k < 2ⁿ: P(n) cho tập con của n phong bì đầu có tổng k.",
+    "Nếu 2ⁿ ≤ k < 2ⁿ⁺¹: khi đó 0 ≤ k − 2ⁿ < 2ⁿ, P(n) cho tập con của n phong bì đầu có tổng `k − 2ⁿ`; thêm phong bì `2ⁿ` được tổng k.",
+    "Vậy P(n+1) đúng."
+   ],
+   "rubric": [
+    "Cơ sở đúng.",
+    "Chia hai trường hợp theo k < 2ⁿ hay không.",
+    "Ở trường hợp 2, kiểm `0 ≤ k − 2ⁿ < 2ⁿ` để dùng được giả thiết."
+   ],
+   "pitfalls": [
+    "Quên kiểm `k − 2ⁿ` nằm trong khoảng của giả thiết quy nạp.",
+    "Dùng phong bì mới ở trường hợp k < 2ⁿ (thừa, và có thể vượt k)."
+   ]
+  },
+  "en": {
+   "title": "Envelopes 1, 2, 4, …",
+   "q": "There are n envelopes, envelope i holds `2ⁱ` dollars (i = 0, …, n−1). Let P(n): \"for every integer k with 0 ≤ k < 2ⁿ some set of envelopes totals exactly k dollars\". Prove P(n) for all n ≥ 1 by induction.",
+   "hints": [
+    "Base n = 1: one envelope of 1 dollar, k ∈ {0, 1}.",
+    "Step: add the envelope `2ⁿ`. Split k < 2ⁿ⁺¹ into k < 2ⁿ and k ≥ 2ⁿ.",
+    "For k ≥ 2ⁿ: use the new envelope and find a set for `k − 2ⁿ`."
+   ],
+   "solution": [
+    "Base n = 1: the 1-dollar envelope; k = 0 (pick none), k = 1 (pick it).",
+    "Step: assume P(n); take n + 1 envelopes and 0 ≤ k < 2ⁿ⁺¹.",
+    "If k < 2ⁿ: P(n) gives a subset of the first n envelopes totalling k.",
+    "If 2ⁿ ≤ k < 2ⁿ⁺¹: then 0 ≤ k − 2ⁿ < 2ⁿ, P(n) gives a subset of the first n totalling `k − 2ⁿ`; add the `2ⁿ` envelope to get k.",
+    "So P(n+1) holds."
+   ],
+   "rubric": [
+    "Correct base case.",
+    "Splits on whether k < 2ⁿ.",
+    "In case 2 checks `0 ≤ k − 2ⁿ < 2ⁿ` so the hypothesis applies."
+   ],
+   "pitfalls": [
+    "Not checking that `k − 2ⁿ` lies in the range of the induction hypothesis.",
+    "Using the new envelope when k < 2ⁿ (unnecessary, may overshoot)."
+   ]
+  }
+ },
+ {
+  "id": "d-ind-flawed-sum",
+  "ch": "ch4",
+  "level": 2,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 5.7",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Tìm lỗi trong chứng minh quy nạp",
+   "q": "\"Định lý sai\": với mọi n ≥ 0, `2 + 3 + 4 + … + n = n(n+1)/2`. \"Chứng minh\": P(n): `2+3+…+n = n(n+1)/2`. Cơ sở n = 0: cả hai vế bằng 0 (tổng rỗng). Bước: giả sử P(n); khi đó `2+3+…+n+(n+1) = [2+3+…+n] + (n+1) = n(n+1)/2 + (n+1) = (n+1)(n+2)/2`, tức P(n+1).\nChứng minh sai ở đâu? (Gợi ý: khẳng định thật sự đúng là gì?)",
+   "hints": [
+    "Thử n = 1: vế trái `2+…+1`?, vế phải 1.",
+    "Định lý đúng với n nào? Tính vài giá trị.",
+    "Xem bước P(n) ⟹ P(n+1) có đúng với *mọi* n ≥ 0 không — đặc biệt n = 0."
+   ],
+   "solution": [
+    "P(1) sai: tổng `2+…+1` là tổng rỗng = 0 còn `1·2/2 = 1`. Còn P(0) đúng. Vậy bước P(0) ⟹ P(1) sai.",
+    "Lỗi nằm ở bước quy nạp: viết `2+3+…+n+(n+1) = [2+…+n] + (n+1)` chỉ đúng khi n ≥ 1. Với n = 0, `2+3+…+(n+1) = 2+…+1` là tổng rỗng = 0, không phải `[2+…+0] + 1 = 1`.",
+    "Với n ≥ 2 bước đó đúng, nhưng chuỗi quy nạp đã đứt ở P(1) nên không \"đi tiếp\" được. Khẳng định đúng là `2+3+…+n = n(n+1)/2 − 1` với n ≥ 1."
+   ],
+   "rubric": [
+    "Chỉ ra P(1) sai (hoặc bước tại n = 0 sai).",
+    "Giải thích vì sao tách số hạng cuối không hợp lệ khi n = 0.",
+    "Nêu được rằng \"bước đúng với mọi n ≥ 1\" chưa đủ nếu cầu nối đầu bị hỏng."
+   ],
+   "pitfalls": [
+    "Cho rằng lỗi ở đại số: đại số hoàn toàn đúng.",
+    "Kết luận lỗi ở \"cơ sở\" — cơ sở P(0) đúng; lỗi là bước đầu P(0) ⟹ P(1)."
+   ]
+  },
+  "en": {
+   "title": "Spot the flaw in an induction proof",
+   "q": "\"False theorem\": for all n ≥ 0, `2 + 3 + 4 + … + n = n(n+1)/2`. \"Proof\": P(n): `2+3+…+n = n(n+1)/2`. Base n = 0: both sides are 0 (empty sum). Step: assume P(n); then `2+3+…+n+(n+1) = [2+3+…+n] + (n+1) = n(n+1)/2 + (n+1) = (n+1)(n+2)/2`, which is P(n+1).\nWhere exactly is the error? (Hint: what is the correct statement?)",
+   "hints": [
+    "Try n = 1: left side `2+…+1`?, right side 1.",
+    "For which n is the claim true? Compute a few values.",
+    "Does P(n) ⟹ P(n+1) hold for *every* n ≥ 0 — in particular n = 0?"
+   ],
+   "solution": [
+    "P(1) is false: `2+…+1` is an empty sum = 0 while `1·2/2 = 1`. P(0) is true. So the step P(0) ⟹ P(1) is invalid.",
+    "The error is in the inductive step: `2+3+…+n+(n+1) = [2+…+n] + (n+1)` holds only for n ≥ 1. For n = 0, `2+3+…+(n+1) = 2+…+1` is empty = 0, not `[2+…+0] + 1 = 1`.",
+    "For n ≥ 2 the step is fine, but the chain of implications is broken at P(1), so it cannot \"carry on\". The correct statement is `2+3+…+n = n(n+1)/2 − 1` for n ≥ 1."
+   ],
+   "rubric": [
+    "Identifies P(1) false (or the step at n = 0 invalid).",
+    "Explains why splitting off the last term is invalid for n = 0.",
+    "Notes that a step valid for n ≥ 1 is not enough if the first link fails."
+   ],
+   "pitfalls": [
+    "Blaming the algebra: it is perfectly correct.",
+    "Blaming the base case: P(0) is true; the failure is the first step P(0) ⟹ P(1)."
+   ]
+  }
+ },
+ {
+  "id": "d-ind-periphery",
+  "ch": "ch4",
+  "level": 2,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 5.10",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Chu vi hình ghép ô vuông luôn chẵn",
+   "q": "Đặt lần lượt các ô vuông đơn vị, mỗi ô mới có chung ít nhất một cạnh với ô đã đặt và không chồng lên ô nào. Chứng minh bằng quy nạp theo số ô: chu vi hình ghép luôn là số chẵn.",
+   "hints": [
+    "P(n): mọi hình ghép n ô theo luật trên có chu vi chẵn.",
+    "Cơ sở: một ô, chu vi 4.",
+    "Khi thêm ô mới chung k cạnh (1 ≤ k ≤ 4) với hình cũ, chu vi đổi thế nào? Cạnh chung bị mất khỏi chu vi cả hai phía."
+   ],
+   "solution": [
+    "P(n): mọi hình gồm n ô ghép hợp lệ có chu vi chẵn. Cơ sở n = 1: chu vi 4, chẵn.",
+    "Bước: hình n+1 ô có thể thu được từ một hình n ô (bỏ đi một ô \"cuối\" sao cho phần còn lại vẫn nối với nhau — luôn tồn tại vì ta xây từng ô một). Chu vi mới = chu vi cũ + 4 − 2k, với k là số cạnh chung (k ≥ 1).",
+    "Vì chu vi cũ chẵn (giả thiết quy nạp) và 4 − 2k chẵn nên chu vi mới chẵn.",
+    "Vậy P(n+1) đúng."
+   ],
+   "rubric": [
+    "Cơ sở đúng.",
+    "Công thức thay đổi `+4 − 2k` có lý do (4 cạnh mới, mỗi cạnh chung ẩn đi 2 đơn vị: một của ô cũ, một của ô mới).",
+    "Kết luận chẵn dùng giả thiết quy nạp."
+   ],
+   "pitfalls": [
+    "Chỉ kiểm vài hình rồi kết luận.",
+    "Quên rằng k có thể là 2, 3, 4 (ô mới chung nhiều cạnh)."
+   ]
+  },
+  "en": {
+   "title": "The perimeter of glued unit squares is always even",
+   "q": "Place unit squares one at a time; each new square shares at least one edge with a placed square and no squares overlap. Prove by induction on the number of squares that the perimeter is always even.",
+   "hints": [
+    "P(n): every legal shape with n squares has even perimeter.",
+    "Base: one square, perimeter 4.",
+    "When the new square shares k edges (1 ≤ k ≤ 4) with the old shape, how does the perimeter change? Shared edges leave the perimeter on both sides."
+   ],
+   "solution": [
+    "P(n): every legally built shape of n squares has even perimeter. Base n = 1: perimeter 4, even.",
+    "Step: a shape with n+1 squares arises from an n-square shape by adding the last square. New perimeter = old perimeter + 4 − 2k where k ≥ 1 is the number of shared edges.",
+    "The old perimeter is even (hypothesis) and 4 − 2k is even, so the new perimeter is even.",
+    "So P(n+1) holds."
+   ],
+   "rubric": [
+    "Correct base case.",
+    "The change `+4 − 2k` is justified (4 new edges, each shared edge hides 2 units: one of the old square, one of the new).",
+    "The evenness conclusion uses the hypothesis."
+   ],
+   "pitfalls": [
+    "Checking a few shapes and concluding.",
+    "Forgetting that k can be 2, 3 or 4 (the new square can share several edges)."
+   ]
+  }
+ }
+]

@@ -1,0 +1,450 @@
+[
+ {
+  "id": "d-strong-3n",
+  "ch": "ch5",
+  "level": 3,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 5.27",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "n ≤ 3^(n/3) bằng quy nạp mạnh",
+   "q": "Dùng quy nạp mạnh chứng minh `n ≤ 3^(n/3)` với mọi số nguyên n ≥ 0.",
+   "hints": [
+    "Bước quy nạp từ n−3 lên n: `n = (n−3) + 3 ≤ 3^((n−3)/3) + 3`.",
+    "Cần `3^((n−3)/3) + 3 ≤ 3·3^((n−3)/3)`, tức `3^((n−3)/3) ≥ 3/2`.",
+    "Điều đó chỉ đúng khi n đủ lớn — nên phải kiểm nhiều trường hợp cơ sở trực tiếp."
+   ],
+   "solution": [
+    "Trường hợp cơ sở trực tiếp n = 0, 1, 2, 3, 4: `0 ≤ 1`; `1 ≤ 3^(1/3) ≈ 1,44`; `2 ≤ 3^(2/3) ≈ 2,08`; `3 ≤ 3`; `4 ≤ 3^(4/3) ≈ 4,33`.",
+    "Bước: cho n ≥ 5, giả sử đúng với mọi k < n. Đặt m = n − 3 ≥ 2. Giả thiết cho `m ≤ 3^(m/3)`.",
+    "Khi đó `n = m + 3 ≤ 3^(m/3) + 3`. Vì m ≥ 2 nên `3^(m/3) ≥ 3^(2/3) > 3/2`, suy ra `3 < 2·3^(m/3)` và `3^(m/3) + 3 < 3·3^(m/3) = 3^(m/3 + 1) = 3^(n/3)`.",
+    "Vậy `n ≤ 3^(n/3)` với mọi n ≥ 0."
+   ],
+   "rubric": [
+    "Chọn đúng bước \"n − 3\" và dùng quy nạp mạnh.",
+    "Phát hiện cần nhiều cơ sở và kiểm đủ 0–4.",
+    "Bất đẳng thức trong bước quy nạp đúng điều kiện m ≥ 2."
+   ],
+   "pitfalls": [
+    "Chỉ kiểm n = 0 rồi làm bước quy nạp: bước cần `3^(m/3) ≥ 3/2`, sai với m = 0, 1.",
+    "Dùng 3^(1/3) ≈ 1,44 < 3/2: m = 1 (n = 4) không đi bằng bước quy nạp — phải kiểm trực tiếp."
+   ]
+  },
+  "en": {
+   "title": "n ≤ 3^(n/3) by strong induction",
+   "q": "Use strong induction to prove `n ≤ 3^(n/3)` for every integer n ≥ 0.",
+   "hints": [
+    "Step from n−3 to n: `n = (n−3) + 3 ≤ 3^((n−3)/3) + 3`.",
+    "You need `3^((n−3)/3) + 3 ≤ 3·3^((n−3)/3)`, i.e. `3^((n−3)/3) ≥ 3/2`.",
+    "That only holds for large enough n — so several base cases must be checked directly."
+   ],
+   "solution": [
+    "Direct base cases n = 0, 1, 2, 3, 4: `0 ≤ 1`; `1 ≤ 3^(1/3) ≈ 1.44`; `2 ≤ 3^(2/3) ≈ 2.08`; `3 ≤ 3`; `4 ≤ 3^(4/3) ≈ 4.33`.",
+    "Step: for n ≥ 5 assume it for all k < n. Let m = n − 3 ≥ 2. The hypothesis gives `m ≤ 3^(m/3)`.",
+    "Then `n = m + 3 ≤ 3^(m/3) + 3`. As m ≥ 2, `3^(m/3) ≥ 3^(2/3) > 3/2`, so `3 < 2·3^(m/3)` and `3^(m/3) + 3 < 3·3^(m/3) = 3^(m/3 + 1) = 3^(n/3)`.",
+    "Hence `n ≤ 3^(n/3)` for all n ≥ 0."
+   ],
+   "rubric": [
+    "Picks the \"n − 3\" step and uses strong induction.",
+    "Notices several base cases are needed and checks 0–4.",
+    "The inequality in the step is justified under m ≥ 2."
+   ],
+   "pitfalls": [
+    "Checking only n = 0 and doing the step: it needs `3^(m/3) ≥ 3/2`, false for m = 0, 1.",
+    "Since 3^(1/3) ≈ 1.44 < 3/2, m = 1 (n = 4) cannot go through the step — check it directly."
+   ]
+  }
+ },
+ {
+  "id": "d-strong-binet",
+  "ch": "ch5",
+  "level": 3,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 5.21",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Công thức Binet",
+   "q": "F(0)=0, F(1)=1, F(n)=F(n−1)+F(n−2). Chứng minh bằng quy nạp mạnh: `F(n) = (pⁿ − qⁿ)/√5`, với `p = (1+√5)/2`, `q = (1−√5)/2`. Gợi ý: p và q là nghiệm của `x² = x + 1`.",
+   "hints": [
+    "Cần *hai* cơ sở: n = 0 và n = 1 (truy hồi dùng hai số hạng trước).",
+    "Bước: `F(n) = F(n−1) + F(n−2)`, thay công thức cho cả hai (giả thiết mạnh).",
+    "Dùng `p² = p + 1` và `q² = q + 1` nhân với `pⁿ⁻²`, `qⁿ⁻²`."
+   ],
+   "solution": [
+    "Cơ sở: `n = 0`: `(1 − 1)/√5 = 0 = F(0)`. `n = 1`: `(p − q)/√5 = √5/√5 = 1 = F(1)`.",
+    "Bước: n ≥ 2, giả sử đúng cho n−1, n−2. `F(n) = (pⁿ⁻¹ − qⁿ⁻¹)/√5 + (pⁿ⁻² − qⁿ⁻²)/√5 = (pⁿ⁻² (p + 1) − qⁿ⁻² (q + 1))/√5`.",
+    "Vì `p + 1 = p²` và `q + 1 = q²` nên `= (pⁿ − qⁿ)/√5`. Xong."
+   ],
+   "rubric": [
+    "Có đủ hai cơ sở n = 0, 1.",
+    "Dùng giả thiết cho cả n−1 và n−2.",
+    "Dùng đúng `p² = p + 1`, `q² = q + 1`."
+   ],
+   "pitfalls": [
+    "Chỉ một cơ sở: bước ở n = 2 cần F(0) và F(1).",
+    "Chứng minh lại `p + 1 = p²` sai chiều hoặc quên cho q."
+   ]
+  },
+  "en": {
+   "title": "Binet's formula",
+   "q": "F(0)=0, F(1)=1, F(n)=F(n−1)+F(n−2). Prove by strong induction: `F(n) = (pⁿ − qⁿ)/√5` where `p = (1+√5)/2`, `q = (1−√5)/2`. Hint: p and q are roots of `x² = x + 1`.",
+   "hints": [
+    "You need *two* base cases: n = 0 and n = 1 (the recurrence uses two previous terms).",
+    "Step: `F(n) = F(n−1) + F(n−2)`, plug in the formula for both (strong hypothesis).",
+    "Use `p² = p + 1` and `q² = q + 1`, multiplied by `pⁿ⁻²`, `qⁿ⁻²`."
+   ],
+   "solution": [
+    "Base: `n = 0`: `(1 − 1)/√5 = 0 = F(0)`. `n = 1`: `(p − q)/√5 = √5/√5 = 1 = F(1)`.",
+    "Step: n ≥ 2, assume it for n−1, n−2. `F(n) = (pⁿ⁻¹ − qⁿ⁻¹)/√5 + (pⁿ⁻² − qⁿ⁻²)/√5 = (pⁿ⁻² (p + 1) − qⁿ⁻² (q + 1))/√5`.",
+    "Since `p + 1 = p²` and `q + 1 = q²` this equals `(pⁿ − qⁿ)/√5`. Done."
+   ],
+   "rubric": [
+    "Both base cases n = 0, 1.",
+    "Uses the hypothesis for both n−1 and n−2.",
+    "Uses `p² = p + 1`, `q² = q + 1` correctly."
+   ],
+   "pitfalls": [
+    "A single base case: the step at n = 2 needs F(0) and F(1).",
+    "Verifying `p + 1 = p²` the wrong way round or forgetting q."
+   ]
+  }
+ },
+ {
+  "id": "d-strong-even-fib",
+  "ch": "ch5",
+  "level": 2,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 5.18–5.19",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "\"Mọi số Fibonacci đều chẵn\"",
+   "q": "\"Chứng minh\" bằng quy nạp mạnh rằng mọi F(n) chẵn: *Cơ sở:* F(0) = 0 chẵn. *Bước:* giả sử n ≥ 2 và F(k) chẵn với mọi k < n. Khi đó F(n−1), F(n−2) chẵn nên `F(n) = F(n−1) + F(n−2)` chẵn. Kết luận F(n) chẵn với mọi n.\nKhẳng định sai (F(1) = 1). Lỗi ở đâu?",
+   "hints": [
+    "Thử tính F(2), F(3).",
+    "Xem bước quy nạp có dùng F(0) *và* F(1) khi n = 2.",
+    "Bước quy nạp có cần một cơ sở cho mọi giá trị nó dùng không?"
+   ],
+   "solution": [
+    "Cơ sở chỉ kiểm n = 0, nhưng bước quy nạp dùng hai số hạng trước (F(n−1) và F(n−2)).",
+    "Với n = 2, bước dùng F(1) và F(0). F(0) chẵn (cơ sở) nhưng F(1) = 1 lẻ — khẳng định \"F(k) chẵn với mọi k < 2\" không được cơ sở bảo đảm, và là sai.",
+    "Vì thế lỗi nằm ở chỗ coi giả thiết \"mọi k < n\" đúng cho n = 2 (nói cách khác thiếu cơ sở F(1)). Các bước sau đúng nhưng đứng trên chân sai."
+   ],
+   "rubric": [
+    "Chỉ ra bước đi từ n = 2 (hoặc thiếu cơ sở F(1)).",
+    "Giải thích vì sao một cơ sở là không đủ khi bước dùng hai số hạng trước.",
+    "Cho F(1) = 1 làm phản ví dụ."
+   ],
+   "pitfalls": [
+    "Cho rằng lỗi ở \"tổng hai số chẵn là chẵn\" — điều đó đúng.",
+    "Nói lỗi ở \"quy nạp mạnh không dùng được\" — quy nạp mạnh dùng được, chỉ cần đủ cơ sở."
+   ]
+  },
+  "en": {
+   "title": "\"Every Fibonacci number is even\"",
+   "q": "\"Proof\" by strong induction that every F(n) is even: *Base:* F(0) = 0 is even. *Step:* let n ≥ 2 and suppose F(k) is even for all k < n. Then F(n−1) and F(n−2) are even, so `F(n) = F(n−1) + F(n−2)` is even. Conclude F(n) is even for all n.\nThe claim is false (F(1) = 1). Where is the error?",
+   "hints": [
+    "Compute F(2), F(3).",
+    "Check whether the step uses F(0) *and* F(1) when n = 2.",
+    "Does a step need a base case for every value it relies on?"
+   ],
+   "solution": [
+    "The base case only checks n = 0 but the step uses two previous terms (F(n−1) and F(n−2)).",
+    "For n = 2 the step uses F(1) and F(0). F(0) is even (base) but F(1) = 1 is odd — \"F(k) even for all k < 2\" is not guaranteed by the base case and is false.",
+    "So the error is treating the hypothesis \"for all k < n\" as valid at n = 2 (i.e. a missing base case F(1)). Later steps are fine but stand on a false footing."
+   ],
+   "rubric": [
+    "Points to the step at n = 2 (or missing base case F(1)).",
+    "Explains why one base case is not enough when the step uses two previous terms.",
+    "Uses F(1) = 1 as the counterexample."
+   ],
+   "pitfalls": [
+    "Blaming \"sum of two evens is even\" — that is true.",
+    "Saying strong induction cannot be used — it can, with enough base cases."
+   ]
+  }
+ },
+ {
+  "id": "d-strong-stamps",
+  "ch": "ch5",
+  "level": 2,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 5.31",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Tem 4 xu và 5 xu",
+   "q": "Chứng minh mọi số tiền bưu phí từ 12 xu trở lên có thể dán đúng bằng tem 4 xu và 5 xu. Dùng quy nạp mạnh (nói rõ các cơ sở).",
+   "hints": [
+    "Tính các số từ 12 đến 15: mỗi số viết được thế nào?",
+    "Bước: n ≥ 16 thì n − 4 ≥ 12.",
+    "Vì bước lùi 4 đơn vị nên cần 4 cơ sở liên tiếp."
+   ],
+   "solution": [
+    "P(n): n xu có thể dán bằng tem 4 và 5 xu.",
+    "Cơ sở: 12 = 4+4+4; 13 = 4+4+5; 14 = 4+5+5; 15 = 5+5+5.",
+    "Bước: n ≥ 16, giả sử P(k) với mọi 12 ≤ k < n. Vì n − 4 ≥ 12, P(n−4) đúng: có cách dán n − 4 xu; thêm một tem 4 xu được n.",
+    "Vậy P(n) với mọi n ≥ 12."
+   ],
+   "rubric": [
+    "Nêu đúng 4 cơ sở (12–15) với cách dán cụ thể.",
+    "Bước dùng P(n−4) với điều kiện n − 4 ≥ 12.",
+    "Nêu rõ dùng quy nạp mạnh (hoặc thường với 4 cơ sở)."
+   ],
+   "pitfalls": [
+    "Chỉ làm cơ sở 12: bước n−4 không phủ 13, 14, 15.",
+    "Bước dùng n − 5 mà không đủ cơ sở (n − 5 ≥ 12 chỉ từ n ≥ 17)."
+   ]
+  },
+  "en": {
+   "title": "4-cent and 5-cent stamps",
+   "q": "Prove every postage of 12 cents or more can be formed exactly with 4-cent and 5-cent stamps. Use strong induction (state the base cases clearly).",
+   "hints": [
+    "Work out 12 to 15: how is each written?",
+    "Step: for n ≥ 16 we have n − 4 ≥ 12.",
+    "Since the step goes back 4, you need 4 consecutive base cases."
+   ],
+   "solution": [
+    "P(n): n cents can be formed from 4- and 5-cent stamps.",
+    "Base: 12 = 4+4+4; 13 = 4+4+5; 14 = 4+5+5; 15 = 5+5+5.",
+    "Step: n ≥ 16, assume P(k) for all 12 ≤ k < n. Since n − 4 ≥ 12, P(n−4) holds: n − 4 cents can be formed; add one 4-cent stamp to get n.",
+    "So P(n) for all n ≥ 12."
+   ],
+   "rubric": [
+    "Gives all 4 base cases (12–15) with explicit stamps.",
+    "The step uses P(n−4) with n − 4 ≥ 12.",
+    "States it is strong induction (or ordinary with 4 bases)."
+   ],
+   "pitfalls": [
+    "Only base case 12: the n−4 step does not cover 13, 14, 15.",
+    "Stepping from n − 5 without enough base cases (n − 5 ≥ 12 only from n ≥ 17)."
+   ]
+  }
+ },
+ {
+  "id": "d-strong-flaw-unique",
+  "ch": "ch5",
+  "level": 3,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 5.22",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Tìm lỗi: phân tích nguyên tố duy nhất",
+   "q": "Gọi dãy số nguyên tố giảm yếu (không tăng) là \"pusp\". \"Bổ đề\": mọi số nguyên n ≥ 2 là tích của *đúng một* pusp (vd 252 = 7·3·3·2·2). \"Chứng minh\" bằng quy nạp mạnh: n nguyên tố thì là tích của dãy một phần tử, duy nhất. Nếu n + 1 hợp số, `n+1 = k·m` với 2 ≤ k, m ≤ n; theo giả thiết k, m là pusp, trộn hai dãy theo thứ tự giảm được một dãy giảm yếu có tích n+1, nên duy nhất.\nChứng minh sai chỗ nào?",
+   "hints": [
+    "Phần *tồn tại* (có ít nhất một pusp) có đúng không?",
+    "Phần *duy nhất*: trộn hai dãy cho một dãy, nhưng có thể có dãy khác không?",
+    "Một số hợp có thể viết `k·m` theo nhiều cách khác nhau."
+   ],
+   "solution": [
+    "Phần tồn tại đúng: trộn dãy của k và của m cho một dãy giảm yếu có tích `k·m`.",
+    "Chỗ sai là kết luận \"nên duy nhất\". Mới có *một* dãy (trộn). Chưa chứng minh mọi dãy giảm yếu có tích n+1 đều bằng dãy này.",
+    "Một dãy khác S có tích n+1 có thể không chia được thành hai dãy ứng với *cùng* phân tích `k·m`; giả thiết quy nạp chỉ nói về duy nhất của k và m, không nói gì về các cách tách khác. Phải dùng thêm tính chất: nếu nguyên tố p | a·b thì p | a hoặc p | b."
+   ],
+   "rubric": [
+    "Tách đúng phần tồn tại (đúng) khỏi phần duy nhất (chưa chứng minh).",
+    "Chỉ ra bước \"nên duy nhất\" là bước hổng.",
+    "Nói được thiếu một ý: các phân tích khác nhau của n+1 thành tích hai số."
+   ],
+   "pitfalls": [
+    "Nói rằng bổ đề sai: bổ đề đúng, chỉ là chứng minh hổng.",
+    "Chỉ trích chỗ \"trộn hai dãy\" — bước đó là đúng, vì nó chỉ cho tồn tại."
+   ]
+  },
+  "en": {
+   "title": "Spot the flaw: unique prime factorisation",
+   "q": "Call a weakly decreasing sequence of primes a \"pusp\". \"Lemma\": every integer n ≥ 2 is the product of *exactly one* pusp (e.g. 252 = 7·3·3·2·2). \"Proof\" by strong induction: if n is prime it is a one-term product, and that is unique. If n + 1 is composite, `n+1 = k·m` with 2 ≤ k, m ≤ n; by hypothesis k and m are pusps, merging them in decreasing order gives a weakly decreasing sequence with product n+1, which is therefore unique.\nWhere is the proof flawed?",
+   "hints": [
+    "Is the *existence* part (at least one pusp) right?",
+    "The *uniqueness* part: merging gives one sequence, but could another exist?",
+    "A composite number can be written `k·m` in several ways."
+   ],
+   "solution": [
+    "Existence is fine: merging the sequences of k and of m yields a weakly decreasing sequence with product `k·m`.",
+    "The flaw is the conclusion \"hence unique\". We have produced *one* sequence (the merge) but not shown every weakly decreasing sequence with product n+1 equals it.",
+    "Another sequence S with product n+1 might not split into two parts matching the *same* factorisation `k·m`; the hypothesis speaks only about uniqueness for k and m, not about other splittings. An extra fact is needed: if a prime p divides a·b then p | a or p | b."
+   ],
+   "rubric": [
+    "Separates existence (fine) from uniqueness (unproved).",
+    "Identifies \"hence unique\" as the gap.",
+    "Notes what is missing: other factorisations of n+1 into two factors."
+   ],
+   "pitfalls": [
+    "Claiming the lemma is false: it is true, only the proof has a gap.",
+    "Blaming \"merge the two sequences\" — that step is correct (it only gives existence)."
+   ]
+  }
+ },
+ {
+  "id": "d-inv-wall-e",
+  "ch": "ch5",
+  "level": 2,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 5.33",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Rô-bốt Wall-E không đến được Eve",
+   "q": "Wall-E bắt đầu ở (0, 0) trên lưới và mỗi bước đi theo một trong bốn kiểu: (+2, −1), (+1, −2), (+1, +1), (−3, 0). Eve ở (0, 2). Chứng minh bằng nguyên lý bất biến rằng Wall-E không bao giờ đến được Eve.",
+   "hints": [
+    "Tìm đại lượng không đổi (theo modulo nào đó) qua mọi bước.",
+    "Thử `x − y` hoặc `x + y` hoặc `x + 2y` modulo 3. Tính thay đổi của mỗi kiểu bước.",
+    "So sánh giá trị tại (0, 0) và tại (0, 2)."
+   ],
+   "solution": [
+    "Mô hình: trạng thái là toạ độ (x, y); bắt đầu (0, 0); chuyển trạng thái là bốn bước trên.",
+    "Bất biến P: `x − y ≡ 0 (mod 3)`. Mỗi bước đổi `x − y` lần lượt: (+2) − (−1) = +3; (+1) − (−2) = +3; (+1) − (+1) = 0; (−3) − 0 = −3 — đều chia hết cho 3.",
+    "P đúng ở (0, 0) và được giữ qua mọi bước, nên đúng ở mọi trạng thái đạt được.",
+    "Tại (0, 2): `x − y = −2 ≢ 0 (mod 3)`. Vậy (0, 2) không đạt được."
+   ],
+   "rubric": [
+    "Mô hình trạng thái và bước rõ ràng.",
+    "Bất biến đúng và kiểm cả bốn kiểu bước.",
+    "Cơ sở: P đúng tại trạng thái đầu.",
+    "Kết luận: trạng thái đích vi phạm P."
+   ],
+   "pitfalls": [
+    "Chỉ kiểm vài bước mà không phải cả bốn kiểu.",
+    "Chọn bất biến không đổi qua bước nhưng cũng đúng tại (0, 2) — vô dụng."
+   ]
+  },
+  "en": {
+   "title": "Wall-E never reaches Eve",
+   "q": "Wall-E starts at (0, 0) on a grid and each step is one of: (+2, −1), (+1, −2), (+1, +1), (−3, 0). Eve waits at (0, 2). Use the Invariant Principle to prove Wall-E can never reach Eve.",
+   "hints": [
+    "Find a quantity that stays constant (mod something) through every step.",
+    "Try `x − y`, `x + y` or `x + 2y` mod 3. Compute how each step type changes it.",
+    "Compare the value at (0, 0) with that at (0, 2)."
+   ],
+   "solution": [
+    "Model: states are coordinates (x, y); start (0, 0); transitions are the four steps.",
+    "Invariant P: `x − y ≡ 0 (mod 3)`. Each step changes `x − y` by: (+2) − (−1) = +3; (+1) − (−2) = +3; (+1) − (+1) = 0; (−3) − 0 = −3 — all multiples of 3.",
+    "P holds at (0, 0) and is preserved by every step, so it holds in every reachable state.",
+    "At (0, 2): `x − y = −2 ≢ 0 (mod 3)`. So (0, 2) is unreachable."
+   ],
+   "rubric": [
+    "Clear state model and steps.",
+    "Correct invariant, checked for all four step types.",
+    "Base: P holds in the start state.",
+    "Conclusion: the goal state violates P."
+   ],
+   "pitfalls": [
+    "Checking a few steps rather than all four kinds.",
+    "Choosing an invariant that is also true at (0, 2) — useless."
+   ]
+  }
+ },
+ {
+  "id": "d-inv-multiply",
+  "ch": "ch5",
+  "level": 3,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 5.32",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Thuật toán nhân chia 3",
+   "q": "Thủ tục `multiply(x, y)`: r := x, s := y, a := 0; trong khi s ≠ 0: nếu 3 | s thì r := 3r, s := s/3; ngược lại nếu 3 | (s−1) thì a := a + r, r := 3r, s := (s−1)/3; ngược lại a := a + 2r, r := 3r, s := (s−2)/3. Trả về a.\n(a) Chạy thủ tục với x = 5, y = 10 (liệt kê các trạng thái (r, s, a)).\n(b) Dùng phương pháp bất biến chứng minh: nếu thủ tục dừng (s = 0) thì a = x·y.\n(c) Chứng minh thủ tục dừng sau nhiều nhất `1 + log₃ y` lần lặp.",
+   "hints": [
+    "(a) Mỗi lần lặp s giảm xuống `⌊s/3⌋`; r nhân 3.",
+    "(b) Tìm biểu thức theo r, s, a luôn bằng x·y. Thử `a + r·s`.",
+    "(c) s sau mỗi lần lặp nhỏ hơn hoặc bằng s/3."
+   ],
+   "solution": [
+    "(a) Trạng thái: (5, 10, 0) → s = 10: 3 ∤ 10, 3 | 9 → (15, 3, 5) → 3 | 3 → (45, 1, 5) → 3 | (1−1) → (135, 0, 50). Trả về a = 50 = 5·10.",
+    "(b) Bất biến P: `a + r·s = x·y`. Ban đầu `0 + x·y`. Mỗi chuyển: 3 | s: `a + 3r·(s/3) = a + rs`. 3 | (s−1): `(a + r) + 3r·(s−1)/3 = a + r + r(s−1) = a + rs`. Còn lại: `(a + 2r) + 3r·(s−2)/3 = a + 2r + r(s−2) = a + rs`. Vậy P luôn đúng; khi s = 0, `a = x·y`.",
+    "(c) Mỗi lần lặp s mới là `⌊s/3⌋` (mọi nhánh), nên sau t lần `s ≤ y/3ᵗ`. s là số nguyên ≥ 1 trước lần lặp thứ t + 1 nên `1 ≤ y/3ᵗ`, tức `t ≤ log₃ y`. Vậy tổng số lần lặp ≤ 1 + log₃ y."
+   ],
+   "rubric": [
+    "(a) đủ các trạng thái và đáp án 50.",
+    "(b) bất biến `a + rs = xy` và kiểm cả ba nhánh.",
+    "(c) lập luận s giảm theo 3 lần mỗi lần, có đánh giá log."
+   ],
+   "pitfalls": [
+    "Chỉ kiểm bất biến ở một nhánh.",
+    "Quên rằng (c) cần s là số nguyên dương để có `s ≥ 1`."
+   ]
+  },
+  "en": {
+   "title": "The divide-by-3 multiplication algorithm",
+   "q": "Procedure `multiply(x, y)`: r := x, s := y, a := 0; while s ≠ 0: if 3 | s then r := 3r, s := s/3; else if 3 | (s−1) then a := a + r, r := 3r, s := (s−1)/3; else a := a + 2r, r := 3r, s := (s−2)/3. Return a.\n(a) Run it with x = 5, y = 10 (list the states (r, s, a)).\n(b) Use the invariant method to prove: if it halts (s = 0) then a = x·y.\n(c) Prove it halts after at most `1 + log₃ y` iterations.",
+   "hints": [
+    "(a) Each iteration replaces s with `⌊s/3⌋`; r is multiplied by 3.",
+    "(b) Find an expression in r, s, a that always equals x·y. Try `a + r·s`.",
+    "(c) After each iteration s is at most s/3."
+   ],
+   "solution": [
+    "(a) States: (5, 10, 0) → s = 10: 3 ∤ 10, 3 | 9 → (15, 3, 5) → 3 | 3 → (45, 1, 5) → 3 | (1−1) → (135, 0, 50). Returns a = 50 = 5·10.",
+    "(b) Invariant P: `a + r·s = x·y`. Initially `0 + x·y`. Each transition: 3 | s: `a + 3r·(s/3) = a + rs`. 3 | (s−1): `(a + r) + 3r·(s−1)/3 = a + r + r(s−1) = a + rs`. Otherwise: `(a + 2r) + 3r·(s−2)/3 = a + 2r + r(s−2) = a + rs`. So P always holds; when s = 0, `a = x·y`.",
+    "(c) Every branch makes the new s equal `⌊s/3⌋`, so after t iterations `s ≤ y/3ᵗ`. Before iteration t + 1, s is an integer ≥ 1, so `1 ≤ y/3ᵗ`, i.e. `t ≤ log₃ y`. So at most 1 + log₃ y iterations."
+   ],
+   "rubric": [
+    "(a) all states and the answer 50.",
+    "(b) invariant `a + rs = xy` checked in all three branches.",
+    "(c) argues s shrinks by a factor of 3 each time, with a log estimate."
+   ],
+   "pitfalls": [
+    "Checking the invariant in only one branch.",
+    "Forgetting (c) needs s to be a positive integer to get `s ≥ 1`."
+   ]
+  }
+ },
+ {
+  "id": "d-inv-buckets",
+  "ch": "ch5",
+  "level": 2,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 8.20",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Hai xô nước và toà nhà sập",
+   "q": "Xô lớn chứa 25 lít, xô nhỏ chứa 10 lít. Nếu một lúc nào đó có đúng 13 lít trong một xô thì toà nhà sập. Trạng thái (b, l) là lượng nước hiện có. Bắt đầu (0, 0). Thao tác: đổ đầy một xô, đổ bỏ hết một xô, rót từ xô này sang xô kia cho đến khi xô nguồn hết hoặc xô đích đầy.\n(a) Viết các thao tác thành các chuyển trạng thái (b, l) → (b′, l′) (rót xô lớn sang xô nhỏ chia hai trường hợp).\n(b) Dùng nguyên lý bất biến chứng minh không bao giờ có b = 13 hoặc l = 13.",
+   "hints": [
+    "Mọi con số xuất hiện là 25, 10, 0 hoặc hiệu/tổng của chúng.",
+    "Thử bất biến: cả b và l đều chia hết cho 5.",
+    "Kiểm từng loại thao tác (đổ đầy, đổ bỏ, rót hai chiều)."
+   ],
+   "solution": [
+    "(a) Đổ đầy lớn: (b, l) → (25, l). Đổ đầy nhỏ: (b, l) → (b, 10). Đổ bỏ: (b, l) → (0, l) hoặc (b, 0). Rót lớn sang nhỏ: nếu b + l ≤ 10 thì (b, l) → (0, b + l); ngược lại (b, l) → (b − (10 − l), 10). Rót nhỏ sang lớn: nếu b + l ≤ 25 thì (b, l) → (b + l, 0); ngược lại (b, l) → (25, l − (25 − b)).",
+    "(b) Bất biến P: `5 | b` và `5 | l`. Ở (0, 0) đúng. Đổ đầy/đổ bỏ: các giá trị mới là 25, 10 hoặc 0 hoặc giữ nguyên — chia hết cho 5. Rót: các giá trị mới là `b + l`, `b − (10 − l)`, `l − (25 − b)`, 0, 10, 25 — đều là tổ hợp nguyên của các số chia hết cho 5 nên chia hết cho 5.",
+    "Vậy P đúng với mọi trạng thái đạt được. 13 không chia hết cho 5 nên không bao giờ có 13 lít trong một xô."
+   ],
+   "rubric": [
+    "(a) đủ các thao tác và hai trường hợp khi rót.",
+    "(b) bất biến đúng và kiểm mọi loại chuyển.",
+    "Kết luận 13 không đạt được vì không chia hết cho 5."
+   ],
+   "pitfalls": [
+    "Quên một loại chuyển (rót chiều ngược lại, hoặc nhánh \"ngược lại\" khi xô đích đầy).",
+    "Chọn bất biến sai, ví dụ \"b chẵn\" — 25 là lẻ."
+   ]
+  },
+  "en": {
+   "title": "Two buckets and a collapsing building",
+   "q": "The big bucket holds 25 gallons, the small one 10. If at any moment a bucket contains exactly 13 gallons, the building collapses. The state (b, l) is the current volumes, starting at (0, 0). Operations: fill a bucket, empty a bucket, pour from one bucket into the other until the source is empty or the target is full.\n(a) Write the operations as transitions (b, l) → (b′, l′) (pouring big into small has two cases).\n(b) Use the Invariant Principle to prove neither b nor l is ever 13.",
+   "hints": [
+    "Every number that appears is 25, 10, 0 or a difference/sum of them.",
+    "Try the invariant: both b and l are multiples of 5.",
+    "Check every operation type (fill, empty, pour both ways)."
+   ],
+   "solution": [
+    "(a) Fill big: (b, l) → (25, l). Fill small: (b, l) → (b, 10). Empty: (b, l) → (0, l) or (b, 0). Pour big into small: if b + l ≤ 10 then (b, l) → (0, b + l); else (b, l) → (b − (10 − l), 10). Pour small into big: if b + l ≤ 25 then (b, l) → (b + l, 0); else (b, l) → (25, l − (25 − b)).",
+    "(b) Invariant P: `5 | b` and `5 | l`. True at (0, 0). Fill/empty: the new values are 25, 10, 0 or unchanged — all multiples of 5. Pour: the new values are `b + l`, `b − (10 − l)`, `l − (25 − b)`, 0, 10, 25 — integer combinations of multiples of 5, so multiples of 5.",
+    "So P holds in every reachable state. 13 is not a multiple of 5, so no bucket ever holds 13 gallons."
+   ],
+   "rubric": [
+    "(a) all operations and both pour cases.",
+    "(b) correct invariant and every transition type checked.",
+    "Concludes 13 is unreachable because it is not a multiple of 5."
+   ],
+   "pitfalls": [
+    "Missing a transition (the reverse pour, or the \"else\" branch when the target fills).",
+    "A wrong invariant such as \"b is even\" — 25 is odd."
+   ]
+  }
+ }
+]

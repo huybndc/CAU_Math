@@ -1,5 +1,6 @@
 import { onLangChange, getLang } from './i18n/index.js';
 import { setupShell, shellReady } from '@shared/ui/shell.js';
+import { freeFromGlob } from '@shared/logic/free.js';
 import { mountLesson } from '@shared/ui/lesson.js';
 import { truthFigure } from '@shared/ui/figures.js';
 import { mountTruthSolver, mountEuclidSolver, mountCongruenceSolver, mountDiophantineSolver, mountPowSolver, mountSetSolver, mountSumSolver } from './ui/solvers.js';
@@ -30,8 +31,10 @@ const THEORY = {
 const banks = Object.fromEntries(CHAPTERS.map(c => [c.prefix, c.bank]));
 const FIGURES = { truth: truthFigure, graph: graphFigure };
 
+const FREE = freeFromGlob(import.meta.glob('./content/free/*.json', { eager: true }));
+
 window.addEventListener('DOMContentLoaded', () => {
-  setupShell({ chapters: CHAPTERS, figures: FIGURES, widgets: {}, lesson: ch => THEORY[getLang()][ch] });
+  setupShell({ chapters: CHAPTERS, figures: FIGURES, widgets: {}, free: FREE, lesson: ch => THEORY[getLang()][ch] });
   const mountAllTheory = () => {
     const d = THEORY[getLang()];
     Object.keys(d).forEach(ch => mountLesson(document.querySelector(`#theory-${ch}-body`), d[ch], { chapter: ch, banks, figures: FIGURES }));

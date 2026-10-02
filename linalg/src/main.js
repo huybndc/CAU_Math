@@ -1,5 +1,6 @@
 import { onLangChange, getLang } from './i18n/index.js';
 import { setupShell, shellReady } from '@shared/ui/shell.js';
+import { freeFromGlob } from '@shared/logic/free.js';
 import { mountVectorSolver, mountComboSolver, mountSystemSolver, mountMatrixSolver, mountSpaceSolver } from './ui/solvers.js';
 import { mountLesson } from '@shared/ui/lesson.js';
 import { foldCards } from '@shared/ui/fold-cards.js';
@@ -23,8 +24,10 @@ const THEORY = {
 };
 const banks = Object.fromEntries(CHAPTERS.map(c => [c.prefix, c.bank]));
 
+const FREE = freeFromGlob(import.meta.glob('./content/free/*.json', { eager: true }));
+
 window.addEventListener('DOMContentLoaded', () => {
-  setupShell({ chapters: CHAPTERS, figures: FIGURES, widgets: WIDGETS, lesson: ch => THEORY[getLang()][ch] });
+  setupShell({ chapters: CHAPTERS, figures: FIGURES, widgets: WIDGETS, free: FREE, lesson: ch => THEORY[getLang()][ch] });
   setupCh1ExamplePage();
   shellReady.then(() => {                      // sau khi tài khoản gắn xong (đọc được ô nhập đã nhớ)
     mountVectorSolver(document.getElementById('tool-vec'));

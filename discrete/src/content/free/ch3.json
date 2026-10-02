@@ -1,0 +1,352 @@
+[
+ {
+  "id": "d-demorgan-sets",
+  "ch": "ch3",
+  "level": 1,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 4.3–4.5",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Luật De Morgan cho tập hợp (chuỗi ⇔)",
+   "q": "Chứng minh `(A ∩ B)ᶜ = Aᶜ ∪ Bᶜ` bằng một chuỗi các mệnh đề \"⇔\" trên phần tử x. Được dùng luật De Morgan của mệnh đề: `NOT(P AND Q) ≡ NOT P OR NOT Q`.",
+   "hints": [
+    "Hai tập bằng nhau khi mọi x thuộc tập này ⇔ thuộc tập kia.",
+    "Mở định nghĩa: x ∈ Sᶜ ⇔ NOT(x ∈ S); x ∈ A ∩ B ⇔ (x ∈ A) AND (x ∈ B).",
+    "Rồi áp dụng De Morgan của mệnh đề với P = \"x ∈ A\", Q = \"x ∈ B\"."
+   ],
+   "solution": [
+    "Lấy x bất kỳ.",
+    "`x ∈ (A ∩ B)ᶜ` ⇔ `NOT(x ∈ A ∩ B)` ⇔ `NOT(x ∈ A AND x ∈ B)`.",
+    "Theo De Morgan mệnh đề: ⇔ `NOT(x ∈ A) OR NOT(x ∈ B)` ⇔ `x ∈ Aᶜ OR x ∈ Bᶜ` ⇔ `x ∈ Aᶜ ∪ Bᶜ`.",
+    "x tuỳ ý nên hai tập bằng nhau."
+   ],
+   "rubric": [
+    "Mở đúng từng định nghĩa (phần bù, giao, hợp).",
+    "Chuỗi toàn ⇔ (không chỉ ⇒).",
+    "Nêu đúng chỗ dùng De Morgan mệnh đề.",
+    "Kết luận \"x tuỳ ý ⇒ hai tập bằng nhau\"."
+   ],
+   "pitfalls": [
+    "Chỉ chứng minh một chiều (⊆) — bằng nhau cần cả hai chiều (hoặc chuỗi ⇔).",
+    "Chứng minh bằng hình Venn: là minh hoạ, không phải chứng minh."
+   ]
+  },
+  "en": {
+   "title": "De Morgan for sets (chain of iffs)",
+   "q": "Prove `(A ∩ B)ᶜ = Aᶜ ∪ Bᶜ` by a chain of \"iff\" statements about an element x. You may use propositional De Morgan: `NOT(P AND Q) ≡ NOT P OR NOT Q`.",
+   "hints": [
+    "Two sets are equal when every x is in one iff it is in the other.",
+    "Unfold definitions: x ∈ Sᶜ iff NOT(x ∈ S); x ∈ A ∩ B iff (x ∈ A) AND (x ∈ B).",
+    "Then use propositional De Morgan with P = \"x ∈ A\", Q = \"x ∈ B\"."
+   ],
+   "solution": [
+    "Take an arbitrary x.",
+    "`x ∈ (A ∩ B)ᶜ` iff `NOT(x ∈ A ∩ B)` iff `NOT(x ∈ A AND x ∈ B)`.",
+    "By propositional De Morgan: iff `NOT(x ∈ A) OR NOT(x ∈ B)` iff `x ∈ Aᶜ OR x ∈ Bᶜ` iff `x ∈ Aᶜ ∪ Bᶜ`.",
+    "Since x was arbitrary the sets are equal."
+   ],
+   "rubric": [
+    "Unfolds each definition (complement, intersection, union).",
+    "The chain is all iffs (not just implications).",
+    "Names where propositional De Morgan is used.",
+    "Concludes \"arbitrary x ⇒ sets equal\"."
+   ],
+   "pitfalls": [
+    "Proving only one direction (⊆) — equality needs both (or an iff chain).",
+    "A Venn diagram is an illustration, not a proof."
+   ]
+  }
+ },
+ {
+  "id": "d-powerset",
+  "ch": "ch3",
+  "level": 2,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 4.6",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Tập luỹ thừa",
+   "q": "Với tập A, B bất kỳ: (a) Chứng minh `pow(A ∩ B) = pow(A) ∩ pow(B)`. (b) Chứng minh `pow(A) ∪ pow(B) ⊆ pow(A ∪ B)`, và dấu = xảy ra khi và chỉ khi A ⊆ B hoặc B ⊆ A.",
+   "hints": [
+    "`S ∈ pow(X)` nghĩa là `S ⊆ X`.",
+    "(a) `S ⊆ A ∩ B` ⇔ `S ⊆ A` và `S ⊆ B`.",
+    "(b) Để chứng minh \"chỉ khi\": nếu A ⊄ B và B ⊄ A thì chọn a ∈ A − B, b ∈ B − A và xét tập {a, b}."
+   ],
+   "solution": [
+    "(a) `S ∈ pow(A ∩ B)` ⇔ `S ⊆ A ∩ B` ⇔ (`S ⊆ A` AND `S ⊆ B`) ⇔ `S ∈ pow(A) ∩ pow(B)`.",
+    "(b) Nếu `S ⊆ A` hoặc `S ⊆ B` thì `S ⊆ A ∪ B`, nên ⊆ luôn đúng.",
+    "Nếu A ⊆ B thì `pow(A) ⊆ pow(B)` và `pow(A ∪ B) = pow(B) = pow(A) ∪ pow(B)`: dấu =. Tương tự khi B ⊆ A.",
+    "Ngược lại giả sử A ⊄ B và B ⊄ A: lấy a ∈ A − B, b ∈ B − A. Khi đó {a, b} ⊆ A ∪ B nhưng {a, b} ⊄ A (b ∉ A) và ⊄ B (a ∉ B). Vậy {a, b} ∈ pow(A ∪ B) mà ∉ pow(A) ∪ pow(B): không bằng."
+   ],
+   "rubric": [
+    "(a) chuỗi ⇔ đúng với định nghĩa pow.",
+    "(b) chứng minh ⊆ và hai chiều của điều kiện bằng.",
+    "Dựng được tập {a, b} làm phản ví dụ."
+   ],
+   "pitfalls": [
+    "Nhầm `pow(A) ∪ pow(B)` với `pow(A ∪ B)`: tập {a, b} cho thấy khác nhau.",
+    "Chỉ cho một ví dụ để kết luận \"chỉ khi\" mà không tổng quát."
+   ]
+  },
+  "en": {
+   "title": "Power sets",
+   "q": "For any sets A, B: (a) Prove `pow(A ∩ B) = pow(A) ∩ pow(B)`. (b) Prove `pow(A) ∪ pow(B) ⊆ pow(A ∪ B)`, with equality iff A ⊆ B or B ⊆ A.",
+   "hints": [
+    "`S ∈ pow(X)` means `S ⊆ X`.",
+    "(a) `S ⊆ A ∩ B` iff `S ⊆ A` and `S ⊆ B`.",
+    "(b) For \"only if\": if A ⊄ B and B ⊄ A pick a ∈ A − B, b ∈ B − A and look at {a, b}."
+   ],
+   "solution": [
+    "(a) `S ∈ pow(A ∩ B)` iff `S ⊆ A ∩ B` iff (`S ⊆ A` AND `S ⊆ B`) iff `S ∈ pow(A) ∩ pow(B)`.",
+    "(b) If `S ⊆ A` or `S ⊆ B` then `S ⊆ A ∪ B`, so ⊆ always holds.",
+    "If A ⊆ B then `pow(A) ⊆ pow(B)` and `pow(A ∪ B) = pow(B) = pow(A) ∪ pow(B)`: equality. Likewise if B ⊆ A.",
+    "Conversely suppose A ⊄ B and B ⊄ A: take a ∈ A − B, b ∈ B − A. Then {a, b} ⊆ A ∪ B but {a, b} ⊄ A (b ∉ A) and ⊄ B (a ∉ B). So {a, b} ∈ pow(A ∪ B) but ∉ pow(A) ∪ pow(B): not equal."
+   ],
+   "rubric": [
+    "(a) an iff chain faithful to the definition of pow.",
+    "(b) proves ⊆ and both directions of the equality condition.",
+    "Builds the set {a, b} as the witness."
+   ],
+   "pitfalls": [
+    "Confusing `pow(A) ∪ pow(B)` with `pow(A ∪ B)`: the set {a, b} shows they differ.",
+    "Giving one example for the \"only if\" instead of a general argument."
+   ]
+  }
+ },
+ {
+  "id": "d-union-product",
+  "ch": "ch3",
+  "level": 2,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 4.13",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "\"Định lý\" sai về tích Descartes",
+   "q": "Xét khẳng định sai: với mọi tập A, B, C, D, `(A ∪ B) × (C ∪ D) = (A × C) ∪ (B × D)`.\n(a) Cho một ví dụ cụ thể làm nó sai.\n(b) Chỉ ra bước sai trong \"chứng minh\" dưới đây: `(x, y) ∈ (A × C) ∪ (B × D)` ⇔ `(x ∈ A AND y ∈ C) OR (x ∈ B AND y ∈ D)` ⇔ `(x ∈ A OR x ∈ B) AND (y ∈ C OR y ∈ D)` ⇔ `(x, y) ∈ (A ∪ B) × (C ∪ D)`.\n(c) Sửa lại để chứng minh đúng một chiều: `(A × C) ∪ (B × D) ⊆ (A ∪ B) × (C ∪ D)`.",
+   "hints": [
+    "(a) Chọn tập một phần tử, rời nhau.",
+    "(b) Bước nào đổi \"(P AND Q) OR (R AND S)\" thành \"(P OR R) AND (Q OR S)\"?",
+    "(c) Chiều nào của bước đó đúng?"
+   ],
+   "solution": [
+    "(a) A = {1}, B = {2}, C = {3}, D = {4}. Vế trái chứa (1, 4); vế phải chỉ có (1, 3) và (2, 4). Không bằng nhau.",
+    "(b) Bước thứ hai sai: `(P AND Q) OR (R AND S)` kéo theo `(P OR R) AND (Q OR S)`, nhưng điều ngược lại không đúng (ví dụ P và S đúng, Q và R sai).",
+    "(c) Nếu `(x, y) ∈ (A × C) ∪ (B × D)` thì (x ∈ A và y ∈ C) hoặc (x ∈ B và y ∈ D); trong cả hai trường hợp x ∈ A ∪ B và y ∈ C ∪ D, nên `(x, y) ∈ (A ∪ B) × (C ∪ D)`.",
+    "Chiều ngược lại không đúng nên chỉ có ⊆, không có =."
+   ],
+   "rubric": [
+    "(a) ví dụ đúng và chỉ ra phần tử (1, 4).",
+    "(b) chỉ đúng bước thứ hai và lý do không đảo được.",
+    "(c) chứng minh ⊆ bằng xét hai trường hợp."
+   ],
+   "pitfalls": [
+    "Chỉ nói \"bài chứng minh sai\" mà không chỉ ra bước nào.",
+    "Ở (c) cố chứng minh bằng nhau — chiều ⊇ sai."
+   ]
+  },
+  "en": {
+   "title": "A false theorem about Cartesian products",
+   "q": "Consider the false claim: for all sets A, B, C, D, `(A ∪ B) × (C ∪ D) = (A × C) ∪ (B × D)`.\n(a) Give a concrete counterexample.\n(b) Find the flawed step in this \"proof\": `(x, y) ∈ (A × C) ∪ (B × D)` iff `(x ∈ A AND y ∈ C) OR (x ∈ B AND y ∈ D)` iff `(x ∈ A OR x ∈ B) AND (y ∈ C OR y ∈ D)` iff `(x, y) ∈ (A ∪ B) × (C ∪ D)`.\n(c) Repair it to prove one direction correctly: `(A × C) ∪ (B × D) ⊆ (A ∪ B) × (C ∪ D)`.",
+   "hints": [
+    "(a) Use one-element, disjoint sets.",
+    "(b) Which step turns \"(P AND Q) OR (R AND S)\" into \"(P OR R) AND (Q OR S)\"?",
+    "(c) Which direction of that step is valid?"
+   ],
+   "solution": [
+    "(a) A = {1}, B = {2}, C = {3}, D = {4}. The left side contains (1, 4); the right side has only (1, 3) and (2, 4). Not equal.",
+    "(b) The second step is wrong: `(P AND Q) OR (R AND S)` implies `(P OR R) AND (Q OR S)`, but not conversely (e.g. P and S true, Q and R false).",
+    "(c) If `(x, y) ∈ (A × C) ∪ (B × D)` then (x ∈ A and y ∈ C) or (x ∈ B and y ∈ D); in both cases x ∈ A ∪ B and y ∈ C ∪ D, so `(x, y) ∈ (A ∪ B) × (C ∪ D)`.",
+    "The reverse inclusion fails, so we only get ⊆, not equality."
+   ],
+   "rubric": [
+    "(a) correct example, pointing to the element (1, 4).",
+    "(b) names the second step and why it cannot be reversed.",
+    "(c) proves ⊆ by two cases."
+   ],
+   "pitfalls": [
+    "Saying \"the proof is wrong\" without naming the step.",
+    "In (c) trying to prove equality — the ⊇ direction is false."
+   ]
+  }
+ },
+ {
+  "id": "d-three-union",
+  "ch": "ch3",
+  "level": 2,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 4.8",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Hợp ba tập thành các phần rời nhau",
+   "q": "Chứng minh với mọi tập A, B, C:\n`A ∪ B ∪ C = (A − B) ∪ (B − C) ∪ (C − A) ∪ (A ∩ B ∩ C)`",
+   "hints": [
+    "Hai chiều ⊆ và ⊇, hoặc một chuỗi ⇔ với x bất kỳ.",
+    "Mỗi x thuộc hợp rơi vào một trong các trường hợp theo việc nó thuộc những tập nào.",
+    "Gợi ý mệnh đề: `P OR Q OR R ≡ (P AND NOT Q) OR (Q AND NOT R) OR (R AND NOT P) OR (P AND Q AND R)`."
+   ],
+   "solution": [
+    "Với x bất kỳ, đặt P = \"x ∈ A\", Q = \"x ∈ B\", R = \"x ∈ C\".",
+    "Vế phải nói: (P AND NOT Q) OR (Q AND NOT R) OR (R AND NOT P) OR (P AND Q AND R).",
+    "Kiểm 8 trường hợp của (P, Q, R): (F,F,F) cả hai vế sai. Nếu có ít nhất một đúng và không phải cả ba, thì tồn tại vị trí chuyển từ đúng sang sai theo vòng P→Q→R→P, nên một trong ba số hạng đầu đúng. Cả ba đúng thì số hạng cuối đúng.",
+    "Ngược lại mỗi số hạng vế phải kéo theo P OR Q OR R.",
+    "Vì x tuỳ ý nên hai vế bằng nhau."
+   ],
+   "rubric": [
+    "Chuyển sang mệnh đề P, Q, R hoặc dùng hai chiều ⊆ ⊇.",
+    "Kiểm đủ các trường hợp (bảng 8 dòng hoặc lập luận vòng).",
+    "Có cả chiều ⊇."
+   ],
+   "pitfalls": [
+    "Chỉ kiểm vài trường hợp thay vì mọi tổ hợp thuộc / không thuộc.",
+    "Nhầm `C − A` thành `A − C` (vòng A → B → C → A phải đúng chiều)."
+   ]
+  },
+  "en": {
+   "title": "Union of three sets as pieces",
+   "q": "Prove for all sets A, B, C:\n`A ∪ B ∪ C = (A − B) ∪ (B − C) ∪ (C − A) ∪ (A ∩ B ∩ C)`",
+   "hints": [
+    "Two inclusions ⊆ and ⊇, or an iff chain for arbitrary x.",
+    "Each x in the union falls in one case depending on which sets contain it.",
+    "Propositional hint: `P OR Q OR R ≡ (P AND NOT Q) OR (Q AND NOT R) OR (R AND NOT P) OR (P AND Q AND R)`."
+   ],
+   "solution": [
+    "For arbitrary x let P = \"x ∈ A\", Q = \"x ∈ B\", R = \"x ∈ C\".",
+    "The right side says (P AND NOT Q) OR (Q AND NOT R) OR (R AND NOT P) OR (P AND Q AND R).",
+    "Check all 8 cases of (P, Q, R): (F,F,F) both sides false. If at least one is true but not all three, going around the cycle P→Q→R→P there is a step from true to false, so one of the first three terms is true. If all three are true the last term is.",
+    "Conversely each term on the right implies P OR Q OR R.",
+    "x was arbitrary so the sets are equal."
+   ],
+   "rubric": [
+    "Translates to P, Q, R or uses the two inclusions.",
+    "Covers every case (8-row table or the cycle argument).",
+    "Includes the ⊇ direction."
+   ],
+   "pitfalls": [
+    "Testing a few cases instead of every in/out combination.",
+    "Writing `A − C` for `C − A` (the cycle A → B → C → A must have the right orientation)."
+   ]
+  }
+ },
+ {
+  "id": "d-cartesian-disjoint",
+  "ch": "ch3",
+  "level": 2,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 4.12",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Hai tích Descartes rời nhau",
+   "q": "Chứng minh: nếu `A × B` và `C × D` rời nhau (không có phần tử chung) thì A rời C hoặc B rời D.",
+   "hints": [
+    "Dùng phản đảo: giả sử A giao C khác rỗng *và* B giao D khác rỗng.",
+    "Chọn một phần tử chung của A và C, một phần tử chung của B và D.",
+    "Ghép thành một cặp thuộc cả hai tích."
+   ],
+   "solution": [
+    "Giả sử ngược lại: có a ∈ A ∩ C và có b ∈ B ∩ D.",
+    "Khi đó (a, b) ∈ A × B (vì a ∈ A, b ∈ B) và (a, b) ∈ C × D (vì a ∈ C, b ∈ D).",
+    "Vậy `A × B` và `C × D` có phần tử chung (a, b), mâu thuẫn với giả thiết rời nhau.",
+    "Nên A ∩ C = ∅ hoặc B ∩ D = ∅."
+   ],
+   "rubric": [
+    "Chọn đúng phương pháp (phản đảo / phản chứng) và phủ định đúng \"A rời C hoặc B rời D\".",
+    "Dựng được cặp chung (a, b).",
+    "Kết luận đúng."
+   ],
+   "pitfalls": [
+    "Phủ định sai: phủ định của \"hoặc\" là \"và\" (cả hai đều giao nhau).",
+    "Chứng minh chiều ngược lại — đề không hỏi."
+   ]
+  },
+  "en": {
+   "title": "Disjoint Cartesian products",
+   "q": "Prove: if `A × B` and `C × D` are disjoint (no common element) then A and C are disjoint or B and D are disjoint.",
+   "hints": [
+    "Use the contrapositive: assume A meets C *and* B meets D.",
+    "Pick a common element of A and C and one of B and D.",
+    "Pair them into an element in both products."
+   ],
+   "solution": [
+    "Suppose the opposite: there is a ∈ A ∩ C and b ∈ B ∩ D.",
+    "Then (a, b) ∈ A × B (a ∈ A, b ∈ B) and (a, b) ∈ C × D (a ∈ C, b ∈ D).",
+    "So `A × B` and `C × D` share (a, b), contradicting disjointness.",
+    "Hence A ∩ C = ∅ or B ∩ D = ∅."
+   ],
+   "rubric": [
+    "Right method (contrapositive/contradiction) with a correct negation of \"A disjoint C or B disjoint D\".",
+    "Builds the shared pair (a, b).",
+    "Correct conclusion."
+   ],
+   "pitfalls": [
+    "Wrong negation: the negation of \"or\" is \"and\" (both pairs intersect).",
+    "Proving the converse — not asked."
+   ]
+  }
+ },
+ {
+  "id": "d-subset-takeaway",
+  "ch": "ch3",
+  "level": 3,
+  "source": {
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 4.7",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Trò \"bốc tập con\" với 4 phần tử",
+   "q": "Hai người chơi, tập A hữu hạn. Lần lượt mỗi người chọn một tập con *khác rỗng* của A, với luật: không được chọn chính A, và không được chọn tập chứa một tập đã có người chọn trước đó. Người không đi được là thua.\nVới |A| = 3 người đi thứ hai luôn thắng (ví dụ: nếu người đầu chọn 1 phần tử, người sau chọn 2 phần tử còn lại, và ngược lại). Chứng minh với |A| = 4 người đi thứ hai cũng có chiến thuật thắng.",
+   "hints": [
+    "Phân biệt theo cỡ của nước đi đầu tiên: 1, 2 hoặc 3 phần tử.",
+    "Sau nước đáp thích hợp, ván có thể quy về trò 3 phần tử đã biết.",
+    "Với nước đầu cỡ 2, phần còn lại gồm các tập một phần tử và các cặp \"chéo\" — tìm một cách đáp đối xứng."
+   ],
+   "solution": [
+    "Tên A = {a, b, c, d}. Người thứ hai đáp bằng **phần bù** của nước vừa đi (nếu hợp lệ).",
+    "Nước đầu 1 phần tử, ví dụ {a}: đáp {b, c, d}. Từ giờ không được chọn tập có a, cũng không chọn tập chứa {b, c, d}: các nước còn lại là tập con thực sự khác rỗng của {b, c, d} — đúng trò 3 phần tử, với người đầu phải đi: người đi sau (ta) thắng.",
+    "Nước đầu 3 phần tử, ví dụ {a, b, c}: đáp {d}. Tương tự còn lại các tập con thực sự khác rỗng của {a, b, c}: trò 3 phần tử.",
+    "Nước đầu 2 phần tử, ví dụ {a, b}: đáp {c, d}. Các nước còn lại là 4 tập một phần tử và 4 cặp \"chéo\" {a, c}, {a, d}, {b, c}, {b, d} (mọi tập 3 phần tử chứa {a, b} hoặc {c, d}, bị cấm). Chiến thuật tiếp: nếu đối thủ chọn {x}, ta chọn \"bạn\" của nó trong cặp ban đầu ({a}↔{b}, {c}↔{d}); nếu đối thủ chọn cặp chéo, ta chọn cặp chéo bù của nó ({a, c}↔{b, d}, {a, d}↔{b, c}). Các nước đáp này luôn hợp lệ và mỗi lần ta đáp thì số nước còn lại của đối thủ giảm đối xứng, nên ta luôn có nước đi — người đi trước hết nước trước.",
+    "Mọi nước đầu đều có đáp thắng, vậy người đi thứ hai thắng. (Đã kiểm lại bằng vét cạn bằng máy.)"
+   ],
+   "rubric": [
+    "Chia đủ ba cỡ nước đầu.",
+    "Cỡ 1 và 3: quy về trò 3 phần tử một cách có lý do.",
+    "Cỡ 2: nêu đúng cặp \"bạn\" và cặp chéo bù, và lý do các nước đáp luôn hợp lệ.",
+    "Kết luận rõ chiến thuật."
+   ],
+   "pitfalls": [
+    "Chỉ xét vài nước đầu rồi kết luận \"chắc đúng\".",
+    "Quên rằng mọi tập chứa một tập đã chọn đều bị cấm — nên tập 3 phần tử bị loại sau khi cặp bị chọn."
+   ]
+  },
+  "en": {
+   "title": "Subset take-away with 4 elements",
+   "q": "Two players, a finite set A. Players alternately choose a *nonempty* subset of A, with the rules: never the whole set A, and never a set containing a subset already named. A player who cannot move loses.\nFor |A| = 3 the second player always wins (if the first picks one element, reply with the other two; and vice versa). Prove that for |A| = 4 the second player still has a winning strategy.",
+   "hints": [
+    "Split by the size of the first move: 1, 2 or 3 elements.",
+    "After a suitable reply the game reduces to the known 3-element game.",
+    "For a first move of size 2, the rest consists of singletons and \"crossing\" pairs — find a symmetric reply."
+   ],
+   "solution": [
+    "Write A = {a, b, c, d}. The second player replies with the **complement** of the move just made (when legal).",
+    "First move of one element, e.g. {a}: reply {b, c, d}. From now on no set may contain a or contain {b, c, d}: the remaining moves are the proper nonempty subsets of {b, c, d} — exactly the 3-element game with the first player to move, so we (second) win.",
+    "First move of three elements, e.g. {a, b, c}: reply {d}. Likewise what remains is the 3-element game on {a, b, c}.",
+    "First move of two elements, e.g. {a, b}: reply {c, d}. What remains is the 4 singletons and the 4 \"crossing\" pairs {a, c}, {a, d}, {b, c}, {b, d} (every 3-set contains {a, b} or {c, d}, so is banned). Then: if the opponent picks {x}, we pick its \"partner\" from the original pairing ({a}↔{b}, {c}↔{d}); if the opponent picks a crossing pair, we pick its complementary crossing pair ({a, c}↔{b, d}, {a, d}↔{b, c}). These replies are always legal and shrink the opponent's options in matched pairs, so we always have a move and the first player runs out first.",
+    "Every first move has a winning reply, so the second player wins. (Also confirmed by exhaustive computer search.)"
+   ],
+   "rubric": [
+    "Splits all three first-move sizes.",
+    "Sizes 1 and 3: reduces to the 3-element game with a reason.",
+    "Size 2: names the partner and complementary crossing pair and why the replies stay legal.",
+    "States the strategy clearly."
+   ],
+   "pitfalls": [
+    "Checking a few first moves and concluding \"probably true\".",
+    "Forgetting that any superset of a named set is banned — 3-sets vanish once a pair is named."
+   ]
+  }
+ }
+]
