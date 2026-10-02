@@ -34,7 +34,7 @@ const titleOf = h => [...h.childNodes].filter(n => n.nodeType === 3).map(n => n.
 function renderTools(r, cfg) {
   // mỗi chương MỘT dòng (tên các công cụ ghi nhỏ); chuyển giữa các công cụ làm ngay trong trang công cụ
   const rows = cfg.chapters.map(c => {
-    const names = [...($(`#pane-${c.id}-interactive`)?.querySelectorAll(CARD_TITLES) ?? [])].map(h => titleOf(h).split(/[:(]/)[0].trim());
+    const names = [...($(`#pane-${c.id}-interactive`)?.querySelectorAll(CARD_TITLES) ?? [])].filter(h => !h.closest('.card .card')).map(h => titleOf(h).split(/[:(]/)[0].trim());
     return names.length && row({ href: `#/learn/${c.id}/interactive/0`, title: chapterTitle(c.id), sub: names.join(' · '), });
   }).filter(Boolean);
   $('#screen-tools').replaceChildren(

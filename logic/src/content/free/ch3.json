@@ -4,8 +4,8 @@
   "ch": "ch3",
   "level": 1,
   "source": {
-   "name": "Dạng bài theo giáo trình Mano, Digital Design (đề tự soạn; đáp án kiểm bằng máy), chương 3 — K-map 4 biến",
-   "license": "tự soạn"
+   "name": "Mano, Digital Design — ch. 3",
+   "license": "original problem"
   },
   "vi": {
    "title": "Rút gọn bằng K-map 4 biến",
@@ -61,8 +61,8 @@
   "ch": "ch3",
   "level": 2,
   "source": {
-   "name": "Dạng bài theo giáo trình Mano, Digital Design (đề tự soạn; đáp án kiểm bằng máy), chương 3 — don't care",
-   "license": "tự soạn"
+   "name": "Mano, Digital Design — ch. 3",
+   "license": "original problem"
   },
   "vi": {
    "title": "K-map với điều kiện không quan tâm",
@@ -116,8 +116,8 @@
   "ch": "ch3",
   "level": 2,
   "source": {
-   "name": "Dạng bài theo giáo trình Mano, Digital Design (đề tự soạn; đáp án kiểm bằng máy), chương 3 — tích các tổng",
-   "license": "tự soạn"
+   "name": "Mano, Digital Design — ch. 3",
+   "license": "original problem"
   },
   "vi": {
    "title": "Dạng SOP và POS tối giản",
@@ -171,8 +171,8 @@
   "ch": "ch3",
   "level": 2,
   "source": {
-   "name": "Dạng bài theo giáo trình Mano, Digital Design (đề tự soạn; đáp án kiểm bằng máy), chương 3 — implicant nguyên tố",
-   "license": "tự soạn"
+   "name": "Mano, Digital Design — ch. 3",
+   "license": "original problem"
   },
   "vi": {
    "title": "Implicant nguyên tố và thiết yếu",
@@ -226,8 +226,8 @@
   "ch": "ch3",
   "level": 3,
   "source": {
-   "name": "Dạng bài theo giáo trình Mano, Digital Design (đề tự soạn; đáp án kiểm bằng máy), chương 3 — K-map 5 biến",
-   "license": "tự soạn"
+   "name": "Mano, Digital Design — ch. 3",
+   "license": "original problem"
   },
   "vi": {
    "title": "Rút gọn hàm 5 biến",
@@ -283,8 +283,8 @@
   "ch": "ch3",
   "level": 1,
   "source": {
-   "name": "Dạng bài theo giáo trình Mano, Digital Design (đề tự soạn; đáp án kiểm bằng máy), chương 3 — mã Gray",
-   "license": "tự soạn"
+   "name": "Mano, Digital Design — ch. 3",
+   "license": "original problem"
   },
   "vi": {
    "title": "Mã Gray và bộ chuyển đổi",

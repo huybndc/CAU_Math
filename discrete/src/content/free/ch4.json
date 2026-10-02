@@ -4,7 +4,7 @@
   "ch": "ch4",
   "level": 1,
   "source": {
-   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 5.3",
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), Problem 5.3",
    "license": "CC BY-NC-SA 3.0"
   },
   "vi": {
@@ -61,7 +61,7 @@
   "ch": "ch4",
   "level": 1,
   "source": {
-   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 5.4",
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), Problem 5.4",
    "license": "CC BY-NC-SA 3.0"
   },
   "vi": {
@@ -116,7 +116,7 @@
   "ch": "ch4",
   "level": 2,
   "source": {
-   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 5.5",
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), Problem 5.5",
    "license": "CC BY-NC-SA 3.0"
   },
   "vi": {
@@ -175,7 +175,7 @@
   "ch": "ch4",
   "level": 2,
   "source": {
-   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 5.8",
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), Problem 5.8",
    "license": "CC BY-NC-SA 3.0"
   },
   "vi": {
@@ -232,7 +232,7 @@
   "ch": "ch4",
   "level": 2,
   "source": {
-   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 5.16",
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), Problem 5.16",
    "license": "CC BY-NC-SA 3.0"
   },
   "vi": {
@@ -291,7 +291,7 @@
   "ch": "ch4",
   "level": 2,
   "source": {
-   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 5.7",
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), Problem 5.7",
    "license": "CC BY-NC-SA 3.0"
   },
   "vi": {
@@ -305,7 +305,7 @@
    "solution": [
     "P(1) sai: tổng `2+…+1` là tổng rỗng = 0 còn `1·2/2 = 1`. Còn P(0) đúng. Vậy bước P(0) ⟹ P(1) sai.",
     "Lỗi nằm ở bước quy nạp: viết `2+3+…+n+(n+1) = [2+…+n] + (n+1)` chỉ đúng khi n ≥ 1. Với n = 0, `2+3+…+(n+1) = 2+…+1` là tổng rỗng = 0, không phải `[2+…+0] + 1 = 1`.",
-    "Với n ≥ 2 bước đó đúng, nhưng chuỗi quy nạp đã đứt ở P(1) nên không \"đi tiếp\" được. Khẳng định đúng là `2+3+…+n = n(n+1)/2 − 1` với n ≥ 1."
+    "Từ n ≥ 1 việc tách này đúng, nhưng chuỗi quy nạp đã đứt ở P(1) nên không \"đi tiếp\" được. Khẳng định đúng là `2+3+…+n = n(n+1)/2 − 1` với n ≥ 1."
    ],
    "rubric": [
     "Chỉ ra P(1) sai (hoặc bước tại n = 0 sai).",
@@ -328,7 +328,7 @@
    "solution": [
     "P(1) is false: `2+…+1` is an empty sum = 0 while `1·2/2 = 1`. P(0) is true. So the step P(0) ⟹ P(1) is invalid.",
     "The error is in the inductive step: `2+3+…+n+(n+1) = [2+…+n] + (n+1)` holds only for n ≥ 1. For n = 0, `2+3+…+(n+1) = 2+…+1` is empty = 0, not `[2+…+0] + 1 = 1`.",
-    "For n ≥ 2 the step is fine, but the chain of implications is broken at P(1), so it cannot \"carry on\". The correct statement is `2+3+…+n = n(n+1)/2 − 1` for n ≥ 1."
+    "From n ≥ 1 the split is valid, but the chain of implications is broken at P(1), so it cannot \"carry on\". The correct statement is `2+3+…+n = n(n+1)/2 − 1` for n ≥ 1."
    ],
    "rubric": [
     "Identifies P(1) false (or the step at n = 0 invalid).",
@@ -346,7 +346,7 @@
   "ch": "ch4",
   "level": 2,
   "source": {
-   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 5.10",
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), Problem 5.10",
    "license": "CC BY-NC-SA 3.0"
   },
   "vi": {

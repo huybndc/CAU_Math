@@ -47,6 +47,7 @@ export const ch1 = {
   'c1.base8': 'Bát phân (8)',
   'c1.base10': 'Thập phân (10)',
   'c1.base16': 'Thập lục phân (16)',
+  'ln.tooBig': 'Số quá lớn (tối đa 2⁵³ ≈ 9·10¹⁵) — máy không đổi được chính xác.',
   'c1.signedErr': 'Nhập một số nguyên, ví dụ −9.',
   'c1.fmtMagnitude': 'Signed-magnitude', 'c1.fmtOnes': "Signed 1's complement", 'c1.fmtTwos': "Signed 2's complement",
   'c1.addTitle': "Cộng hai số 2's complement",

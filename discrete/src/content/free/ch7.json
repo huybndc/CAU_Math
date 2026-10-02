@@ -4,7 +4,7 @@
   "ch": "ch7",
   "level": 2,
   "source": {
-   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 8.27",
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), Problem 8.27",
    "license": "CC BY-NC-SA 3.0"
   },
   "vi": {
@@ -59,7 +59,7 @@
   "ch": "ch7",
   "level": 1,
   "source": {
-   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 8.42–8.45",
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), Problem 8.42–8.45",
    "license": "CC BY-NC-SA 3.0"
   },
   "vi": {
@@ -114,7 +114,7 @@
   "ch": "ch7",
   "level": 2,
   "source": {
-   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 8.6",
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), Problem 8.6",
    "license": "CC BY-NC-SA 3.0"
   },
   "vi": {
@@ -169,7 +169,7 @@
   "ch": "ch7",
   "level": 2,
   "source": {
-   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 8.69",
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), Problem 8.69",
    "license": "CC BY-NC-SA 3.0"
   },
   "vi": {
@@ -183,7 +183,7 @@
    "solution": [
     "Cần `nᵏ ≡ n (mod 1000)` với mọi n nguyên tố cùng nhau với 1000.",
     "`φ(1000) = 1000·(1 − 1/2)(1 − 1/5) = 400`. Theo Euler `n⁴⁰⁰ ≡ 1 (mod 1000)` với gcd(n, 1000) = 1.",
-    "Nhân n: `n⁴⁰¹ ≡ n (mod 1000)`. Vậy k = 401 thoả. (Thực ra k = 101 cũng thoả vì nhóm ℤ₁₀₀₀* có chu kỳ chia hết cho 100.)",
+    "Nhân n: `n⁴⁰¹ ≡ n (mod 1000)`. Vậy k = 401 thoả. (Thực ra k = 101 cũng thoả vì mọi phần tử của ℤ₁₀₀₀* có cấp là ước của 100.)",
     "Kiểm bằng máy với mọi n < 1000 nguyên tố cùng nhau với 10: cả 401 và 101 đều đúng."
    ],
    "rubric": [
@@ -207,7 +207,7 @@
    "solution": [
     "We need `nᵏ ≡ n (mod 1000)` for all n coprime to 1000.",
     "`φ(1000) = 1000·(1 − 1/2)(1 − 1/5) = 400`. By Euler `n⁴⁰⁰ ≡ 1 (mod 1000)` when gcd(n, 1000) = 1.",
-    "Multiply by n: `n⁴⁰¹ ≡ n (mod 1000)`. So k = 401 works. (In fact k = 101 also works since the group ℤ₁₀₀₀* has exponent dividing 100.)",
+    "Multiply by n: `n⁴⁰¹ ≡ n (mod 1000)`. So k = 401 works. (In fact k = 101 also works since every element of ℤ₁₀₀₀* has order dividing 100.)",
     "Checked by computer for every n < 1000 coprime to 10: both 401 and 101 hold."
    ],
    "rubric": [
@@ -226,7 +226,7 @@
   "ch": "ch7",
   "level": 3,
   "source": {
-   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 8.70",
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), Problem 8.70",
    "license": "CC BY-NC-SA 3.0"
   },
   "vi": {
@@ -285,7 +285,7 @@
   "ch": "ch7",
   "level": 2,
   "source": {
-   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 8.71",
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), Problem 8.71",
    "license": "CC BY-NC-SA 3.0"
   },
   "vi": {
@@ -340,7 +340,7 @@
   "ch": "ch7",
   "level": 3,
   "source": {
-   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 8.28, 8.41",
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), Problem 8.28, 8.41",
    "license": "CC BY-NC-SA 3.0"
   },
   "vi": {
@@ -397,7 +397,7 @@
   "ch": "ch7",
   "level": 2,
   "source": {
-   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 8.72",
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), Problem 8.72",
    "license": "CC BY-NC-SA 3.0"
   },
   "vi": {
@@ -456,7 +456,7 @@
   "ch": "ch7",
   "level": 2,
   "source": {
-   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 8.79",
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), Problem 8.79",
    "license": "CC BY-NC-SA 3.0"
   },
   "vi": {
@@ -511,7 +511,7 @@
   "ch": "ch7",
   "level": 2,
   "source": {
-   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 8.77, 8.80",
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), Problem 8.77, 8.80",
    "license": "CC BY-NC-SA 3.0"
   },
   "vi": {
@@ -566,7 +566,7 @@
   "ch": "ch7",
   "level": 3,
   "source": {
-   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 8.81",
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), Problem 8.81",
    "license": "CC BY-NC-SA 3.0"
   },
   "vi": {

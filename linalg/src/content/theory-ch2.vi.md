@@ -156,6 +156,13 @@ Chương 3 dưới tên **null space**.
 
 <div data-tool="ch2/0"></div>
 
+## Nghịch đảo, hoán vị, chuyển vị và LU
+
+- **Nghịch đảo** `A⁻¹` (chỉ có khi A vuông và đủ n trụ): `AA⁻¹ = A⁻¹A = I`. Tìm bằng khử Gauss–Jordan trên `[A | I]`. Nếu `AB = I` với A, B vuông thì tự động `BA = I`.
+- **Hoán vị** P: ma trận đổi chỗ hàng (mỗi hàng, mỗi cột đúng một số 1). `P⁻¹ = Pᵀ`. Khử Gauss cần P khi gặp trụ bằng 0.
+- **Chuyển vị** `Aᵀ`: hàng thành cột. `(AB)ᵀ = BᵀAᵀ`, `(AB)⁻¹ = B⁻¹A⁻¹` (đảo thứ tự).
+- **LU**: khử Gauss ghi lại các hệ số nhân vào L (tam giác dưới, đường chéo 1), phần còn lại là U (tam giác trên): `A = LU`. Thêm D chéo cho trụ: `A = LDU` (duy nhất).
+
 ## Những chỗ hay sai
 
 - **Nhân một hàng với 0.** Mất nghiệm, không đảo ngược được. Cấm.

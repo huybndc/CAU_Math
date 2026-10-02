@@ -4,8 +4,8 @@
   "ch": "ch2",
   "level": 2,
   "source": {
-   "name": "Dạng bài theo giáo trình Mano, Digital Design (đề tự soạn; đáp án kiểm bằng máy), chương 2 — rút gọn đại số",
-   "license": "tự soạn"
+   "name": "Mano, Digital Design — ch. 2",
+   "license": "original problem"
   },
   "vi": {
    "title": "Rút gọn bằng đại số Boolean",
@@ -61,8 +61,8 @@
   "ch": "ch2",
   "level": 1,
   "source": {
-   "name": "Dạng bài theo giáo trình Mano, Digital Design (đề tự soạn; đáp án kiểm bằng máy), chương 2 — De Morgan",
-   "license": "tự soạn"
+   "name": "Mano, Digital Design — ch. 2",
+   "license": "original problem"
   },
   "vi": {
    "title": "Bù của một biểu thức",
@@ -118,8 +118,8 @@
   "ch": "ch2",
   "level": 2,
   "source": {
-   "name": "Dạng bài theo giáo trình Mano, Digital Design (đề tự soạn; đáp án kiểm bằng máy), chương 2 — chỉ dùng NAND",
-   "license": "tự soạn"
+   "name": "Mano, Digital Design — ch. 2",
+   "license": "original problem"
   },
   "vi": {
    "title": "Dựng mạch chỉ bằng cổng NAND",
@@ -175,8 +175,8 @@
   "ch": "ch2",
   "level": 1,
   "source": {
-   "name": "Dạng bài theo giáo trình Mano, Digital Design (đề tự soạn; đáp án kiểm bằng máy), chương 2 — dạng chính tắc",
-   "license": "tự soạn"
+   "name": "Mano, Digital Design — ch. 2",
+   "license": "original problem"
   },
   "vi": {
    "title": "Minterm, maxterm và dạng chính tắc",
@@ -230,8 +230,8 @@
   "ch": "ch2",
   "level": 2,
   "source": {
-   "name": "Dạng bài theo giáo trình Mano, Digital Design (đề tự soạn; đáp án kiểm bằng máy), chương 2 — chứng minh đồng nhất thức",
-   "license": "tự soạn"
+   "name": "Mano, Digital Design — ch. 2",
+   "license": "original problem"
   },
   "vi": {
    "title": "Định lý đồng thuận (consensus)",
@@ -287,8 +287,8 @@
   "ch": "ch2",
   "level": 2,
   "source": {
-   "name": "Dạng bài theo giáo trình Mano, Digital Design (đề tự soạn; đáp án kiểm bằng máy), chương 2 — phân tích mạch",
-   "license": "tự soạn"
+   "name": "Mano, Digital Design — ch. 2",
+   "license": "original problem"
   },
   "vi": {
    "title": "Phân tích mạch cổng",

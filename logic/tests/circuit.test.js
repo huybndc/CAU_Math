@@ -27,3 +27,11 @@ describe('mạch từ biểu thức', () => {
     expect(levels(net).at(-1)).toBeGreaterThan(Math.min(...levels(net)));
   });
 });
+
+import { baseReport } from '../src/logic/report-number.js';
+describe('đổi cơ số số lớn', () => {
+  it('từ chối số vượt 2^53 thay vì trả đáp án sai', () => {
+    expect(() => baseReport('123456789012345678901234567890', 10)).toThrow();
+    expect(() => baseReport('255', 10)).not.toThrow();
+  });
+});

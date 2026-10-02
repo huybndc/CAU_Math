@@ -4,8 +4,8 @@
   "ch": "ch4",
   "level": 3,
   "source": {
-   "name": "Dạng bài theo giáo trình Mano, Digital Design (đề tự soạn; đáp án kiểm bằng máy), chương 4 — bộ chuyển mã",
-   "license": "tự soạn"
+   "name": "Mano, Digital Design — ch. 4",
+   "license": "original problem"
   },
   "vi": {
    "title": "Bộ chuyển BCD → Excess-3",
@@ -59,8 +59,8 @@
   "ch": "ch4",
   "level": 1,
   "source": {
-   "name": "Dạng bài theo giáo trình Mano, Digital Design (đề tự soạn; đáp án kiểm bằng máy), chương 4 — bộ cộng",
-   "license": "tự soạn"
+   "name": "Mano, Digital Design — ch. 4",
+   "license": "original problem"
   },
   "vi": {
    "title": "Bộ cộng đầy đủ từ hai bộ nửa cộng",
@@ -114,8 +114,8 @@
   "ch": "ch4",
   "level": 2,
   "source": {
-   "name": "Dạng bài theo giáo trình Mano, Digital Design (đề tự soạn; đáp án kiểm bằng máy), chương 4 — cộng/trừ 4 bit",
-   "license": "tự soạn"
+   "name": "Mano, Digital Design — ch. 4",
+   "license": "original problem"
   },
   "vi": {
    "title": "Bộ cộng/trừ 4 bit và cờ tràn",
@@ -169,8 +169,8 @@
   "ch": "ch4",
   "level": 2,
   "source": {
-   "name": "Dạng bài theo giáo trình Mano, Digital Design (đề tự soạn; đáp án kiểm bằng máy), chương 4 — bộ giải mã",
-   "license": "tự soạn"
+   "name": "Mano, Digital Design — ch. 4",
+   "license": "original problem"
   },
   "vi": {
    "title": "Thực hiện hàm bằng bộ giải mã 3→8",
@@ -224,8 +224,8 @@
   "ch": "ch4",
   "level": 2,
   "source": {
-   "name": "Dạng bài theo giáo trình Mano, Digital Design (đề tự soạn; đáp án kiểm bằng máy), chương 4 — bộ dồn kênh",
-   "license": "tự soạn"
+   "name": "Mano, Digital Design — ch. 4",
+   "license": "original problem"
   },
   "vi": {
    "title": "Thực hiện hàm bằng MUX 4→1",
@@ -281,8 +281,8 @@
   "ch": "ch4",
   "level": 2,
   "source": {
-   "name": "Dạng bài theo giáo trình Mano, Digital Design (đề tự soạn; đáp án kiểm bằng máy), chương 4 — bộ so sánh",
-   "license": "tự soạn"
+   "name": "Mano, Digital Design — ch. 4",
+   "license": "original problem"
   },
   "vi": {
    "title": "Bộ so sánh 2 bit",
@@ -338,8 +338,8 @@
   "ch": "ch4",
   "level": 1,
   "source": {
-   "name": "Dạng bài theo giáo trình Mano, Digital Design (đề tự soạn; đáp án kiểm bằng máy), chương 4 — kiểm tra chẵn lẻ",
-   "license": "tự soạn"
+   "name": "Mano, Digital Design — ch. 4",
+   "license": "original problem"
   },
   "vi": {
    "title": "Bộ tạo và kiểm bit chẵn lẻ",

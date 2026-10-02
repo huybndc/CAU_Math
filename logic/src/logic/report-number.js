@@ -1,6 +1,7 @@
 import {
   toDecimal, positionalTerms, intToBaseSteps, fracToBaseSteps, convertBase, binaryToGrouped, groupedToBinary,
 } from './number-systems.js';
+import { fail } from '@shared/logic/app-error.js';
 import { diminishedComplement, radixComplement, subtractByComplement, subtractValue, complementResultValue } from './complements.js';
 import { FORMATS, range, encode, decode, addTwos, subTwos } from './signed-binary.js';
 
@@ -18,6 +19,7 @@ const GROUP = { 8: 3, 16: 4 };                              // nhị phân ↔ b
 /** Đổi một số (có thể có phần lẻ) từ cơ số `from` sang các cơ số còn lại, kèm cách làm cho từng cơ số đích. */
 export function baseReport(text, from) {
   const dec = toDecimal(text, from);
+  if (Math.abs(dec) > Number.MAX_SAFE_INTEGER) fail('ln.tooBig');     // số lớn hơn 2⁵³: double mất chữ số — từ chối thay vì trả đáp án sai
   const targets = BASES.filter(r => r !== from);
   const conv = Object.fromEntries(targets.map(r => [r, convertBase(text, from, r)]));
   const inexact = r => !fracToBaseSteps(dec % 1, r).exact;

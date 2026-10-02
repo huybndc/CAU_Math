@@ -3,7 +3,7 @@ import { t as T, getLang } from '../i18n/index.js';
 import { load, save } from './store.js';
 import { chNo, chapterTitle, row, leadCard, practiceTabs, tag } from './choices.js';
 import { mdNodes } from './lesson.js';
-import { RATINGS, summarize, nextUp } from '../logic/free.js';
+import { RATINGS, summarize, nextUp, following } from '../logic/free.js';
 
 /* ---------------------------------------------------------------
    TỰ LUẬN (đề giống bộ đề giáo trình): máy chỉ đưa đề, gợi ý theo thang, lời giải mẫu chia ý và các ý chấm;
@@ -56,7 +56,7 @@ function list(host, all, cfg) {
     el('div', { class: 'list mods' }, mine.map(q => row({
       href: `#/free/${q.id}`, title: text(q).title, sub: q.source.name,
       num: stars(q.level), acc: '',
-      tag: rt[q.id] && tag(T('free.r_' + rt[q.id].r), rt[q.id].r === 'ok' ? 'ok' : 'hi'),
+      tag: rt[q.id] && tag(T('free.rate_' + rt[q.id].r), rt[q.id].r === 'ok' ? 'ok' : 'hi'),
     }))),
   );
   return T('free.title');
@@ -73,27 +73,27 @@ function problem(host, p, all, cfg) {
   const mod = (title, body, open = true, cls = '') => el('details', { class: `card free-mod ${cls}`, open: open ? '' : null }, [el('summary', {}, el('h2', { text: title })), ...[body].flat()]);
 
   const hints = [
-    ...t.hints.slice(0, sess.hints).map((h, i) => mod(T('free.hintN', { n: i + 1 }), md(h), i === sess.hints - 1, 'free-hint')),
+    ...t.hints.slice(0, sess.hints).map((h, i) => mod(T('free.hintN', { n: i + 1 }), md(h), true, 'free-hint')),
     sess.hints < t.hints.length && el('button', {
       type: 'button', class: 'btn', text: T('free.hintBtn', { n: sess.hints + 1, m: t.hints.length }),
       onClick: () => { sess.hints++; redraw(); },
     }),
   ];
 
+  const nx = following(all.filter(x => x.ch === p.ch), p.id) ?? nextUp(all.filter(x => x.ch === p.ch), rt, p.id);
   const right = sess.shown ? [
     mod(T('free.solution'), el('ol', { class: 'free-sol' }, t.solution.map(x => el('li', {}, md(x))))),
     mod(T('free.rubric'), [el('p', { class: 'subtitle', text: T('free.rubricNote') }), el('ul', { class: 'free-rubric' }, t.rubric.map(x => el('li', {}, el('label', {}, [el('input', { type: 'checkbox' }), md(x)]))))]),
     mod(T('free.pitfalls'), el('ul', { class: 'free-pit' }, t.pitfalls.map(x => el('li', {}, md(x)))), false),
-    mod(T('free.rate'), el('div', { class: 'free-rate', role: 'group' }, RATINGS.map(k => el('button', {
+    mod(T('free.rate'), el('div', { class: 'free-rate', role: 'group' }, [...RATINGS.map(k => el('button', {
       type: 'button', class: 'btn' + (cur === k ? ' primary' : ''), 'aria-pressed': String(cur === k),
       onClick: () => { save(RATE_KEY, { ...ratings(), [p.id]: { r: k, t: Date.now() } }); redraw(); },
-    }, T('free.rate_' + k))))),
+    }, T('free.rate_' + k))), nx && el('a', { class: 'btn', href: `#/free/${nx.id}`, 'data-icon': 'next' }, el('span', { text: T('free.next') }))])),
   ] : [el('div', { class: 'card free-mod free-wait' }, [
     el('p', { class: 'subtitle', text: T('free.tryFirst') }),
     el('button', { type: 'button', class: 'btn primary', text: T('free.show'), onClick: () => { sess.shown = true; redraw(); } }),
   ])];
 
-  const n = nextUp(all.filter(x => x.ch === p.ch), rt, p.id);
   host.replaceChildren(...[
     el('header', {}, [
       el('a', { class: 'back', href: '#/free', 'data-icon': 'prev', text: T('free.title') }),
@@ -104,7 +104,6 @@ function problem(host, p, all, cfg) {
       el('div', { class: 'free-left' }, [mod(T('free.problem'), md(t.q), true, 'free-q'), ...hints, el('p', { class: 'free-src', text: T('free.source', { name: p.source.name, license: p.source.license }) })]),
       el('div', { class: 'free-right' }, right),
     ]),
-    sess.shown && n && el('a', { class: 'btn', href: `#/free/${n.id}`, 'data-icon': 'next' }, el('span', { text: T('free.next') })),
   ].filter(Boolean));
   return t.title;
 }

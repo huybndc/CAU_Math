@@ -76,7 +76,7 @@ hướng, độ dài thành 1:
 u = v / ‖v‖        ví dụ (3, 4)/5 = (0.6, 0.8)
 ```
 
-Đây là thao tác dùng liên tục về sau (trực chuẩn hoá, Gram-Schmidt ở Ch.4), nên
+Đây là thao tác dùng liên tục về sau (trực chuẩn hoá, Gram-Schmidt, ở phần sau của môn), nên
 quen tay sớm thì lợi.
 
 <div data-check="c1q:length" data-also="c1q:unit"></div>
@@ -141,7 +141,7 @@ proj_w(v) = ((v · w) / (w · w)) · w
 
 Đây là "cái bóng" của `v` đổ lên đường thẳng chứa `w`. Phần còn lại
 `v − proj_w(v)` luôn vuông góc với `w` — kiểm tra bằng dot product thấy ngay
-bằng 0. Ý này chính là hạt giống của least squares ở Chương 4.
+bằng 0. Ý này chính là hạt giống của least squares, ở phần sau của môn.
 
 <div data-check="c1q:angle" data-needs="c1q:dot c1q:length"></div>
 

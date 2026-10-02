@@ -82,7 +82,7 @@ length 1:
 u = v / ‖v‖        for example (3, 4)/5 = (0.6, 0.8)
 ```
 
-This move is used constantly later (orthonormal bases, Gram-Schmidt in Ch.4),
+This move is used constantly later (orthonormal bases, Gram-Schmidt, later in the course),
 so it pays to get comfortable with it early.
 
 <div data-check="c1q:length" data-also="c1q:unit"></div>
@@ -148,7 +148,7 @@ proj_w(v) = ((v · w) / (w · w)) · w
 
 This is the "shadow" `v` casts on the line through `w`. What is left over,
 `v − proj_w(v)`, is always perpendicular to `w` — check it with a dot product
-and you get exactly 0. That idea is the seed of least squares in Chapter 4.
+and you get exactly 0. That idea is the seed of least squares, later in the course.
 
 <div data-check="c1q:angle" data-needs="c1q:dot c1q:length"></div>
 
