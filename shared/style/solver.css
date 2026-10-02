@@ -91,3 +91,6 @@
 .vfig .vf-proj{stroke:var(--ink-dim)}.vfig .vf-arc{fill:none;stroke:var(--ink-dim);stroke-width:1.5}
 .sv-hints{margin:0;padding-left:20px;font-size:var(--fs-sm);color:var(--ink-dim)}.sv-hint{justify-self:start}
 .lesson .tool-link{display:inline-block;margin:.4rem 0 0;text-decoration:none}
+
+.circuit-set{display:grid;gap:.6rem;width:100%}.circuit-scroll{overflow-x:auto}.circuit-scroll .fig-net{display:block;margin:0 auto;max-width:none}
+.sv-fig:has(.circuit-set){display:block}

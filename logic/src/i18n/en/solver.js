@@ -18,6 +18,7 @@ export const solver = {
   'ex.sop': 'Minimal SOP:', 'ex.pos': 'Minimal POS:', 'ex.tabTable': 'Truth table', 'ex.stTable': 'Truth table and minterms', 'ex.minterms': 'Minterms:', 'ex.truth': 'Truth table',
   'ex.tabMin': 'Simplify', 'ex.stPrime': 'Largest groups (prime implicants)', 'ex.whyPrime': 'Merge adjacent 1-cells (and X) into the biggest groups of 2, 4, 8…; bigger groups mean fewer literals.',
   'ex.piEss': 'essential:', 'ex.pi': 'optional:', 'ex.stCover': 'Pick groups that cover every 1', 'ex.whyCover': 'An essential group is the only one covering some 1-cell — it must be chosen; then add the fewest others to finish.',
+  'ex.figTyped': 'Circuit exactly as typed', 'ex.figAndOr': 'AND–OR circuit of the minimal SOP', 'ex.figNand': 'All-NAND circuit',
   'ex.ess': 'chosen (essential):', 'ex.pick': 'chosen extra:', 'ex.tabCompl': 'Complement / dual', 'ex.stDeM': 'Complement by DeMorgan', 'ex.stDual': 'Complement via the dual', 'ex.tabNand': 'All-NAND', 'ex.stNand': 'Turn the SOP into all-NAND',
   'gl.comp': "complement|r's|1's|2's", 'gl.comp.d': "Complement of N: subtract each digit from r − 1 ((r − 1)'s complement), then add 1 (r's complement). Turns subtraction into addition.",
   'gl.endcarry': 'end carry', 'gl.endcarry.d': 'The carry out of the top digit when adding. Subtracting by complement: a carry means the result is positive.',

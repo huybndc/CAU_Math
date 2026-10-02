@@ -199,3 +199,5 @@ table.grid tr.src td{color:var(--accent);font-weight:700}
 .pos-terms .term b,.pos-terms .hl{color:var(--accent)}
 table.grid.digits td{min-width:1.6em;text-align:center}
 .signbit{color:var(--bad);font-weight:700}
+
+.fig-net .lit{font-size:14px}

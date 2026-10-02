@@ -8,6 +8,7 @@ import { codesReport, CODE_OPS } from '../logic/report-codes.js';
 import { randomValues } from '../logic/random-function.js';
 import { formatSpec } from '../logic/expr-parser.js';
 import { glossary } from './glossary.js';
+import { exprCircuits } from './circuit-set.js';
 
 /* ---------------------------------------------------------------
    CÁC MÁY GIẢI của Logic Circuit (màn Công cụ): Đổi cơ số · Trừ bằng số bù · Số có dấu · Biểu thức Boole.
@@ -87,7 +88,11 @@ export function mountExprSolver(host) {
     ],
     random: () => { const n = pick([3, 4]); return { f: formatSpec(randomValues(n, true)), n }; },
     examples: [["x'y + xy'", { f: "x'y + xy'", n: 'a' }], ['Σm(1,3,5,7)', { f: 'Σm(1,3,5,7)', n: 'a' }], ["w'x + yz'", { f: "w'x + yz'", n: 'a' }]],
-    report: g => (g('f') ? exprReport(g('f'), g('n') === 'a' ? autoVars(g('f')) : +g('n')) : null),
+    report: g => {
+      if (!g('f')) return null;
+      const r = exprReport(g('f'), g('n') === 'a' ? autoVars(g('f')) : +g('n'));
+      return { ...r, figure: () => exprCircuits(g('f'), r) };
+    },
   });
 }
 

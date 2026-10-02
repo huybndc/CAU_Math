@@ -58,5 +58,5 @@ export function exprReport(text, n = autoVars(text)) {
     } catch { /* hàm hằng hoặc dạng không chuyển được: bỏ các ngăn phụ */ }
   }
   steps.push(tableStep);
-  return { answer: [{ key: 'ex.sop', m: sop.expr }, { key: 'ex.pos', m: pos.expr }], steps, check: same, n: N };
+  return { answer: [{ key: 'ex.sop', m: sop.expr }, { key: 'ex.pos', m: pos.expr }], steps, check: same, n: N, sop: sop.expr };
 }
