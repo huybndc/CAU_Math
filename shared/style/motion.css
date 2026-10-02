@@ -1,0 +1,61 @@
+/* ===================================================================
+   CHUYỂN ĐỘNG — mượt (ease-out ngắn) + sống động (nảy nhẹ khi có phản hồi).
+   Mọi thứ tắt khi người dùng chọn giảm chuyển động (cuối file).
+   =================================================================== */
+:root{
+  --dur-fast:120ms; --dur:200ms; --dur-slow:340ms;
+  --ease-out:cubic-bezier(.22,1,.36,1);          /* vào mượt, dừng êm */
+  --ease-spring:cubic-bezier(.34,1.56,.64,1);    /* nảy nhẹ (overshoot) */
+}
+
+/* ---- chuyển màn: trượt + mờ nhẹ ---- */
+::view-transition-old(root){animation:vt-out var(--dur-fast) ease-in both}
+::view-transition-new(root){animation:vt-in var(--dur-slow) var(--ease-out) both}
+@keyframes vt-out{to{opacity:0;transform:translateY(-4px)}}
+@keyframes vt-in{from{opacity:0;transform:translateY(10px)}}
+
+/* ---- vào màn: thẻ / dòng hiện lần lượt ---- */
+.screen.active > .card,.screen.active > .lead-card,.page.active .card,
+.screen.active .list > *,.screen.active .ch-tree > *{animation:rise var(--dur-slow) var(--ease-out) both}
+.screen.active .list > :nth-child(2),.screen.active .ch-tree > :nth-child(2),.page.active .card:nth-child(2){animation-delay:40ms}
+.screen.active .list > :nth-child(3),.screen.active .ch-tree > :nth-child(3),.page.active .card:nth-child(3){animation-delay:80ms}
+.screen.active .list > :nth-child(4),.screen.active .ch-tree > :nth-child(4){animation-delay:120ms}
+.screen.active .list > :nth-child(n+5),.screen.active .ch-tree > :nth-child(n+5){animation-delay:150ms}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}}
+
+/* ---- phản hồi khi làm bài ---- */
+.run-card .msg.ok{animation:pop var(--dur-slow) var(--ease-spring) both}
+.run-card .msg.bad{animation:shake 380ms var(--ease-out) both}
+.run-card .run-ans{animation:rise var(--dur-slow) var(--ease-out) 160ms both}
+@keyframes pop{0%{opacity:0;transform:scale(.92)}60%{opacity:1;transform:scale(1.03)}to{transform:none}}
+@keyframes shake{0%,100%{transform:none}18%{transform:translateX(-7px)}36%{transform:translateX(6px)}54%{transform:translateX(-4px)}72%{transform:translateX(3px)}}
+.run-dots li{transition:background var(--dur) var(--ease-out),transform var(--dur) var(--ease-spring)}
+.run-dots li.now{animation:pulse 1.4s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.45}}
+.run-summary{animation:pop var(--dur-slow) var(--ease-spring) both}
+.run-summary li{animation:rise var(--dur-slow) var(--ease-out) both}
+.run-summary li:nth-child(2){animation-delay:60ms}.run-summary li:nth-child(3){animation-delay:120ms}.run-summary li:nth-child(n+4){animation-delay:180ms}
+
+/* ---- máy giải: đáp án vẽ lại mỗi lần gõ ⇒ chỉ mờ rất nhẹ, không nảy (tránh nháy) ---- */
+.sv-answer,.sv-body{animation:fade var(--dur-fast) ease-out both}
+@keyframes fade{from{opacity:.4}}
+
+/* ---- mở / đóng khối gập: co giãn mượt (Chrome) ---- */
+:root{interpolate-size:allow-keywords}
+details::details-content{block-size:0;overflow:clip;transition:block-size var(--dur) var(--ease-out),content-visibility var(--dur) allow-discrete}
+details[open]::details-content{block-size:auto}
+details > summary::after,.card.fold > summary::after{transition:transform var(--dur) var(--ease-spring)}
+
+/* ---- nhấn / rê chuột ---- */
+.btn,.chip,.tab,.lead-card,.exam-chip,.exam-mode{transition:transform var(--dur-fast) var(--ease-out),box-shadow var(--dur) var(--ease-out),background var(--dur-fast),border-color var(--dur-fast),color var(--dur-fast)}
+.btn:active,.chip:active,.exam-chip:active,.exam-mode:active{transform:scale(.96)}
+.btn:hover,.lead-card:hover{transform:translateY(-1px)}
+.lead-card:hover{box-shadow:0 8px 22px -14px rgb(0 0 0 / .35)}
+.scratch-btn{transition:transform var(--dur) var(--ease-spring),box-shadow var(--dur)}
+.scratch-btn:hover{transform:translateY(-2px) scale(1.03)}
+.scratch:not([hidden]){animation:rise var(--dur) var(--ease-out) both}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition-duration:.01ms!important}
+  ::view-transition-old(root),::view-transition-new(root){animation:none}
+}
