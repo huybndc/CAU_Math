@@ -59,17 +59,17 @@ export function modInverse(a, n) {
  * @returns {{ value, bits: string, squares: {i, v}[], used: number[] }}
  */
 export function modPow(a, k, n) {
-  assertInt(a, k, n);
-  if (k < 0) fail('err.needNonNeg');
-  if (n <= 0) fail('err.modPositive');
-  if ((n - 1) ** 2 > Number.MAX_SAFE_INTEGER) fail('err.tooBig');   // v·v phải còn chính xác
-  const bits = k.toString(2);
+  const A = BigInt(a), K = BigInt(k), N = BigInt(n);   // BigInt: modulo lớn (10⁹+7, 10¹⁸…) vẫn chính xác
+  if (K < 0n) fail('err.needNonNeg');
+  if (N <= 0n) fail('err.modPositive');
+  const bits = K.toString(2);
   const squares = [];
-  let v = mod(a, n);
-  for (let i = 0; i < bits.length; i++) { squares.push({ i, v }); v = (v * v) % n; }
+  let v = ((A % N) + N) % N;
+  for (let i = 0; i < bits.length; i++) { squares.push({ i, v }); v = (v * v) % N; }
   const used = [...bits].reverse().flatMap((b, i) => (b === '1' ? [i] : []));
-  const value = used.reduce((acc, i) => (acc * squares[i].v) % n, 1 % n);
-  return { value, bits, squares, used };
+  const value = used.reduce((acc, i) => (acc * squares[i].v) % N, 1n % N);
+  const out = x => (x <= BigInt(Number.MAX_SAFE_INTEGER) ? Number(x) : x);
+  return { value: out(value), bits, squares: squares.map(q => ({ i: q.i, v: out(q.v) })), used };
 }
 
 /** Phân tích thừa số nguyên tố: [{ p, e }] tăng dần. */

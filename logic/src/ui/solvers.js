@@ -9,6 +9,7 @@ import { randomValues } from '../logic/random-function.js';
 import { formatSpec } from '../logic/expr-parser.js';
 import { glossary } from './glossary.js';
 import { exprCircuits } from './circuit-set.js';
+import { rippleReport, implReport } from '../logic/report-circuit.js';
 
 /* ---------------------------------------------------------------
    CÁC MÁY GIẢI của Logic Circuit (màn Công cụ): Đổi cơ số · Trừ bằng số bù · Số có dấu · Biểu thức Boole.
@@ -113,5 +114,29 @@ export function mountCodesSolver(host) {
     },
     examples: [['478 + 395 (BCD)', { op: 'bcdAdd', x: '478', y: '395' }], ['2025 → mã', { op: 'dec', x: '2025' }], ['1011 → Gray', { op: 'bin2gray', x: '1011' }], ['1110 → nhị phân', { op: 'gray2bin', x: '1110' }]],
     report: g => (g('x') ? codesReport(g('op'), g('x'), g('y'), g('kind')) : null),
+  });
+}
+
+export function mountRippleSolver(host) {
+  const bin = n => Array.from({ length: n }, () => rnd(0, 1)).join('');
+  mount(host, {
+    key: 'ripple',
+    practice: '#/practice/ch4',
+    specs: () => [{ id: 'a', label: T('cc.a'), value: '0111', size: 10 }, { id: 'b', label: T('cc.b'), value: '0110', size: 10 },
+      { id: 'op', label: T('cc.op'), value: 'add', options: [{ v: 'add', t: 'A + B' }, { v: 'sub', t: 'A − B' }] }],
+    random: () => { const n = pick([4, 4, 6, 8]); return { a: bin(n), b: bin(n), op: pick(['add', 'sub']) }; },
+    examples: [['0111 + 0110', { a: '0111', b: '0110', op: 'add' }], ['0110 − 0011', { a: '0110', b: '0011', op: 'sub' }], ['1000 − 0001', { a: '1000', b: '0001', op: 'sub' }]],
+    report: g => (g('a') && g('b') ? rippleReport(g('a'), g('b'), g('op')) : null),
+  });
+}
+
+export function mountImplSolver(host) {
+  mount(host, {
+    key: 'impl',
+    practice: '#/practice/ch4',
+    specs: () => [{ id: 'f', label: T('cc.func'), value: 'Σm(1,2,6,7)', size: 26 }],
+    random: () => ({ f: formatSpec(randomValues(pick([3, 3, 4]), false)) }),
+    examples: [['Σm(1,2,4,7)  (tổng FA)', { f: 'Σm(1,2,4,7)' }], ['Σm(3,5,6,7)  (nhớ FA)', { f: 'Σm(3,5,6,7)' }], ['Σm(0,1,3,7,9,12)', { f: 'Σm(0,1,3,7,9,12)' }]],
+    report: g => (g('f') ? implReport(g('f')) : null),
   });
 }

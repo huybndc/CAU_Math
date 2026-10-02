@@ -1,336 +1,281 @@
 [
- {
-  "id": "g-convert",
-  "ch": "ch1",
-  "level": 1,
-  "source": {
-   "name": "Mano, Digital Design — ch. 1",
-   "license": "original problem"
+  {
+    "id": "g-convert",
+    "ch": "ch1",
+    "level": 1,
+    "source": {
+      "name": "Mano, Digital Design — ch. 1",
+      "license": "original problem"
+    },
+    "vi": {
+      "title": "Đổi cơ số một số có phần lẻ",
+      "q": "Đổi số thập phân `215,375` sang nhị phân, bát phân và thập lục phân. Nêu cách làm với phần nguyên và phần lẻ.",
+      "hints": [
+        "Phần nguyên: chia liên tiếp cho 2 (đọc dư ngược lên).",
+        "Phần lẻ: nhân liên tiếp với 2 (đọc phần nguyên xuôi xuống).",
+        "Bát phân / thập lục phân: gom nhị phân từng nhóm 3 / 4 bit tính từ dấu phẩy ra hai phía."
+      ],
+      "solution": [
+        "Phần nguyên 215: `215 = 11010111₂` (215 = 128 + 64 + 16 + 4 + 2 + 1).",
+        "Phần lẻ 0,375: `0,375·2 = 0,75 → 0`; `0,75·2 = 1,5 → 1`; `0,5·2 = 1,0 → 1` ⇒ `0,011₂`. Vậy `215,375 = 11010111,011₂`.",
+        "Bát phân: nhóm 3 bit từ dấu phẩy: `011 010 111 , 011` ⇒ `327,3₈`. Thập lục phân: nhóm 4 bit: `1101 0111 , 0110` ⇒ `D7,6₁₆` (nhóm cuối của phần lẻ phải thêm 0 bên phải)."
+      ],
+      "rubric": [
+        "Phần nguyên đúng.",
+        "Phần lẻ đúng và dừng đúng chỗ.",
+        "Nhóm bit đúng hướng (từ dấu phẩy ra), có bù số 0 ở cuối phần lẻ."
+      ],
+      "pitfalls": [
+        "Nhóm bit của phần lẻ từ trái sang phải mà không bù 0 bên phải: `011` nhóm 4 bit phải là `0110`.",
+        "Đọc dư của phép chia xuôi thay vì ngược."
+      ]
+    },
+    "en": {
+      "title": "Converting a number with a fractional part",
+      "q": "Convert decimal `215.375` to binary, octal and hexadecimal. Show the method for the integer and fraction parts.",
+      "hints": [
+        "Integer part: divide repeatedly by 2 (read remainders upwards).",
+        "Fraction part: multiply repeatedly by 2 (read integer parts downwards).",
+        "Octal / hex: group the binary digits by 3 / 4 outward from the point."
+      ],
+      "solution": [
+        "Integer 215: `215 = 11010111₂` (215 = 128 + 64 + 16 + 4 + 2 + 1).",
+        "Fraction 0.375: `0.375·2 = 0.75 → 0`; `0.75·2 = 1.5 → 1`; `0.5·2 = 1.0 → 1` ⇒ `0.011₂`. So `215.375 = 11010111.011₂`.",
+        "Octal: group by 3 from the point: `011 010 111 . 011` ⇒ `327.3₈`. Hex: group by 4: `1101 0111 . 0110` ⇒ `D7.6₁₆` (the last group of the fraction is padded with 0 on the right)."
+      ],
+      "rubric": [
+        "Correct integer part.",
+        "Correct fraction part, stopping at the right place.",
+        "Groups outward from the point and pads the end of the fraction with 0."
+      ],
+      "pitfalls": [
+        "Grouping the fraction from the left without right-padding: `011` as a 4-bit group must be `0110`.",
+        "Reading the division remainders top-down instead of bottom-up."
+      ]
+    }
   },
-  "vi": {
-   "title": "Đổi cơ số một số có phần lẻ",
-   "q": "Đổi số thập phân `215,375` sang nhị phân, bát phân và thập lục phân. Nêu cách làm với phần nguyên và phần lẻ.",
-   "hints": [
-    "Phần nguyên: chia liên tiếp cho 2 (đọc dư ngược lên).",
-    "Phần lẻ: nhân liên tiếp với 2 (đọc phần nguyên xuôi xuống).",
-    "Bát phân / thập lục phân: gom nhị phân từng nhóm 3 / 4 bit tính từ dấu phẩy ra hai phía."
-   ],
-   "solution": [
-    "Phần nguyên 215: `215 = 11010111₂` (215 = 128 + 64 + 16 + 4 + 2 + 1).",
-    "Phần lẻ 0,375: `0,375·2 = 0,75 → 0`; `0,75·2 = 1,5 → 1`; `0,5·2 = 1,0 → 1` ⇒ `0,011₂`. Vậy `215,375 = 11010111,011₂`.",
-    "Bát phân: nhóm 3 bit từ dấu phẩy: `011 010 111 , 011` ⇒ `327,3₈`. Thập lục phân: nhóm 4 bit: `1101 0111 , 0110` ⇒ `D7,6₁₆` (nhóm cuối của phần lẻ phải thêm 0 bên phải)."
-   ],
-   "rubric": [
-    "Phần nguyên đúng.",
-    "Phần lẻ đúng và dừng đúng chỗ.",
-    "Nhóm bit đúng hướng (từ dấu phẩy ra), có bù số 0 ở cuối phần lẻ."
-   ],
-   "pitfalls": [
-    "Nhóm bit của phần lẻ từ trái sang phải mà không bù 0 bên phải: `011` nhóm 4 bit phải là `0110`.",
-    "Đọc dư của phép chia xuôi thay vì ngược."
-   ]
+  {
+    "id": "g-find-base",
+    "ch": "ch1",
+    "level": 2,
+    "source": {
+      "name": "Mano, Digital Design — ch. 1",
+      "license": "original problem"
+    },
+    "vi": {
+      "title": "Tìm cơ số r",
+      "q": "(a) Tìm r để `(121)ᵣ = 25₁₀`. (b) Nghiệm của phương trình `x² − 11x + 22 = 0` là `x = 3` và `x = 6` khi các số được viết trong cơ số r. Tìm r.",
+      "hints": [
+        "(a) Khai triển theo giá trị vị trí: `1·r² + 2·r + 1`.",
+        "(b) Ở cơ số r, hệ số `11ᵣ = r + 1` và `22ᵣ = 2r + 2`.",
+        "Dùng tổng và tích nghiệm (Viète)."
+      ],
+      "solution": [
+        "(a) `r² + 2r + 1 = 25 ⇒ (r + 1)² = 25 ⇒ r = 4`. Kiểm: `121₄ = 16 + 8 + 1 = 25`.",
+        "(b) Phương trình trong cơ số r: `x² − (r + 1)x + (2r + 2) = 0`. Tổng nghiệm `3 + 6 = 9 = r + 1 ⇒ r = 8`. Tích nghiệm `3·6 = 18 = 2r + 2 = 18` ✓.",
+        "Vậy r = 8 (và các chữ số 3, 6 hợp lệ trong cơ số 8)."
+      ],
+      "rubric": [
+        "(a) khai triển đúng theo luỹ thừa của r và kiểm.",
+        "(b) chuyển `11ᵣ`, `22ᵣ` đúng và dùng tổng/tích.",
+        "Kiểm tính hợp lệ của chữ số với cơ số tìm được."
+      ],
+      "pitfalls": [
+        "Quên rằng chữ số phải nhỏ hơn r (ở (b), r phải > 6).",
+        "Hiểu `11ᵣ` là mười một thay vì `r + 1`."
+      ]
+    },
+    "en": {
+      "title": "Finding the radix r",
+      "q": "(a) Find r such that `(121)ᵣ = 25₁₀`. (b) The roots of `x² − 11x + 22 = 0` are `x = 3` and `x = 6` when numbers are written in radix r. Find r.",
+      "hints": [
+        "(a) Expand by place value: `1·r² + 2·r + 1`.",
+        "(b) In radix r the coefficients are `11ᵣ = r + 1` and `22ᵣ = 2r + 2`.",
+        "Use the sum and product of the roots (Vieta)."
+      ],
+      "solution": [
+        "(a) `r² + 2r + 1 = 25 ⇒ (r + 1)² = 25 ⇒ r = 4`. Check: `121₄ = 16 + 8 + 1 = 25`.",
+        "(b) In radix r the equation is `x² − (r + 1)x + (2r + 2) = 0`. Sum of roots `3 + 6 = 9 = r + 1 ⇒ r = 8`. Product `3·6 = 18 = 2r + 2 = 18` ✓.",
+        "So r = 8 (and the digits 3, 6 are valid in radix 8)."
+      ],
+      "rubric": [
+        "(a) expands by powers of r and checks.",
+        "(b) converts `11ᵣ`, `22ᵣ` correctly and uses sum/product.",
+        "Checks the digits are valid in the radix found."
+      ],
+      "pitfalls": [
+        "Forgetting digits must be less than r (in (b), r must exceed 6).",
+        "Reading `11ᵣ` as eleven instead of `r + 1`."
+      ]
+    }
   },
-  "en": {
-   "title": "Converting a number with a fractional part",
-   "q": "Convert decimal `215.375` to binary, octal and hexadecimal. Show the method for the integer and fraction parts.",
-   "hints": [
-    "Integer part: divide repeatedly by 2 (read remainders upwards).",
-    "Fraction part: multiply repeatedly by 2 (read integer parts downwards).",
-    "Octal / hex: group the binary digits by 3 / 4 outward from the point."
-   ],
-   "solution": [
-    "Integer 215: `215 = 11010111₂` (215 = 128 + 64 + 16 + 4 + 2 + 1).",
-    "Fraction 0.375: `0.375·2 = 0.75 → 0`; `0.75·2 = 1.5 → 1`; `0.5·2 = 1.0 → 1` ⇒ `0.011₂`. So `215.375 = 11010111.011₂`.",
-    "Octal: group by 3 from the point: `011 010 111 . 011` ⇒ `327.3₈`. Hex: group by 4: `1101 0111 . 0110` ⇒ `D7.6₁₆` (the last group of the fraction is padded with 0 on the right)."
-   ],
-   "rubric": [
-    "Correct integer part.",
-    "Correct fraction part, stopping at the right place.",
-    "Groups outward from the point and pads the end of the fraction with 0."
-   ],
-   "pitfalls": [
-    "Grouping the fraction from the left without right-padding: `011` as a 4-bit group must be `0110`.",
-    "Reading the division remainders top-down instead of bottom-up."
-   ]
+  {
+    "id": "g-twos-sub",
+    "ch": "ch1",
+    "level": 2,
+    "source": {
+      "name": "Mano, Digital Design — ch. 1",
+      "license": "original problem"
+    },
+    "vi": {
+      "title": "Trừ bằng số bù 2 (8 bit)",
+      "q": "Tính `53 − 87` trong biểu diễn bù 2 8 bit: viết 53, 87, −87 và kết quả; kiểm lại kết quả bằng cách đổi ngược.",
+      "hints": [
+        "`−x` trong bù 2 = đảo mọi bit của x rồi cộng 1.",
+        "`a − b = a + (−b)`; cộng nhị phân 8 bit, bỏ nhớ ra.",
+        "Kết quả bit đầu bằng 1 là số âm: đổi ngược để đọc."
+      ],
+      "solution": [
+        "`53 = 00110101`, `87 = 01010111`.",
+        "`−87`: đảo `10101000`, cộng 1 ⇒ `10101001`.",
+        "`53 + (−87) = 00110101 + 10101001 = 11011110` (không có nhớ ra).",
+        "Đọc kết quả: bit đầu 1 ⇒ âm. Đảo `00100001`, cộng 1 ⇒ `00100010 = 34`, nên kết quả là `−34` ✓ (53 − 87 = −34)."
+      ],
+      "rubric": [
+        "Viết đúng 53 và 87 ở 8 bit.",
+        "Tính đúng −87 (đảo + 1).",
+        "Cộng đúng và đọc ngược kết quả ra −34."
+      ],
+      "pitfalls": [
+        "Đảo bit mà quên cộng 1.",
+        "Kết luận \"tràn\" vì nhớ ra bằng 0 — với phép cộng có dấu cần xem nhớ vào/ra bit dấu, không phải chỉ nhớ ra."
+      ]
+    },
+    "en": {
+      "title": "Subtraction with two's complement (8 bits)",
+      "q": "Compute `53 − 87` in 8-bit two's complement: write 53, 87, −87 and the result; verify by converting back.",
+      "hints": [
+        "`−x` in two's complement = invert all bits of x then add 1.",
+        "`a − b = a + (−b)`; add in 8 bits, discard the carry out.",
+        "A leading 1 means a negative result: convert back to read it."
+      ],
+      "solution": [
+        "`53 = 00110101`, `87 = 01010111`.",
+        "`−87`: invert `10101000`, add 1 ⇒ `10101001`.",
+        "`53 + (−87) = 00110101 + 10101001 = 11011110` (no carry out).",
+        "Reading it: leading 1 ⇒ negative. Invert `00100001`, add 1 ⇒ `00100010 = 34`, so the result is `−34` ✓ (53 − 87 = −34)."
+      ],
+      "rubric": [
+        "Writes 53 and 87 correctly in 8 bits.",
+        "Computes −87 correctly (invert + 1).",
+        "Adds correctly and reads the result back as −34."
+      ],
+      "pitfalls": [
+        "Inverting the bits but forgetting to add 1.",
+        "Declaring overflow because the carry out is 0 — for signed addition compare the carries into and out of the sign bit, not just the carry out."
+      ]
+    }
+  },
+  {
+    "id": "g-overflow",
+    "ch": "ch1",
+    "level": 2,
+    "source": {
+      "name": "Mano, Digital Design — ch. 1",
+      "license": "original problem"
+    },
+    "vi": {
+      "title": "Phát hiện tràn khi cộng bù 2",
+      "q": "Với số bù 2 8 bit (miền −128…127), cộng các cặp sau, nói kết quả có tràn không, và cho cách phát hiện bằng bit nhớ: (a) `100 + 50`. (b) `75 + (−20)`. (c) `(−100) + (−50)`.",
+      "hints": [
+        "Tràn xảy ra khi hai số cùng dấu cho kết quả khác dấu.",
+        "Cách mạch: tràn = nhớ vào bit dấu XOR nhớ ra khỏi bit dấu.",
+        "Kiểm bằng giá trị thật có nằm trong −128…127 không."
+      ],
+      "solution": [
+        "(a) `100 = 01100100`, `50 = 00110010`: tổng `10010110`. Hai số dương cho bit dấu 1 ⇒ **tràn** (150 > 127; `10010110` đọc là −106). Nhớ vào bit dấu = 1, nhớ ra = 0: XOR = 1.",
+        "(b) `75 + (−20) = 55`: `01001011 + 11101100 = (1)00110111`. Khác dấu nên không tràn; nhớ vào = 1, nhớ ra = 1: XOR = 0.",
+        "(c) `(−100) + (−50) = −150 < −128`: `10011100 + 11001110 = (1)01101010`. Hai số âm cho kết quả dương ⇒ **tràn**; nhớ vào bit dấu = 0, nhớ ra = 1: XOR = 1."
+      ],
+      "rubric": [
+        "(a) và (c) tràn, (b) không.",
+        "Giải thích bằng quy tắc dấu hoặc bằng XOR nhớ.",
+        "Có kiểm giá trị thực ngoài phạm vi."
+      ],
+      "pitfalls": [
+        "Dùng \"nhớ ra khỏi bit dấu = 1\" làm dấu hiệu tràn: (b) có nhớ ra mà không tràn.",
+        "Quên rằng cộng hai số khác dấu không bao giờ tràn."
+      ]
+    },
+    "en": {
+      "title": "Detecting overflow in two's complement addition",
+      "q": "With 8-bit two's complement (range −128…127), add the pairs below, say whether overflow occurs, and give the carry-based detection: (a) `100 + 50`. (b) `75 + (−20)`. (c) `(−100) + (−50)`.",
+      "hints": [
+        "Overflow occurs when two operands of the same sign give a result of the opposite sign.",
+        "Circuit rule: overflow = carry into the sign bit XOR carry out of it.",
+        "Check against the true value being in −128…127."
+      ],
+      "solution": [
+        "(a) `100 = 01100100`, `50 = 00110010`: sum `10010110`. Two positives with sign bit 1 ⇒ **overflow** (150 > 127; `10010110` reads as −106). Carry into the sign bit = 1, carry out = 0: XOR = 1.",
+        "(b) `75 + (−20) = 55`: `01001011 + 11101100 = (1)00110111`. Mixed signs so no overflow; carry in = 1, carry out = 1: XOR = 0.",
+        "(c) `(−100) + (−50) = −150 < −128`: `10011100 + 11001110 = (1)01101010`. Two negatives give a positive ⇒ **overflow**; carry into sign = 0, carry out = 1: XOR = 1."
+      ],
+      "rubric": [
+        "(a) and (c) overflow, (b) does not.",
+        "Explains via the sign rule or the carry XOR.",
+        "Checks the true value is out of range."
+      ],
+      "pitfalls": [
+        "Using \"carry out of the sign bit = 1\" as the overflow flag: (b) has a carry out yet no overflow.",
+        "Forgetting that adding numbers of opposite signs never overflows."
+      ]
+    }
+  },
+  {
+    "id": "g-bcd-add",
+    "ch": "ch1",
+    "level": 2,
+    "source": {
+      "name": "Mano, Digital Design — ch. 1",
+      "license": "original problem"
+    },
+    "vi": {
+      "title": "Cộng số BCD",
+      "q": "Cộng `678 + 495` trong mã BCD. Trình bày từng chữ số: cộng nhị phân 4 bit, khi nào phải hiệu chỉnh (+0110) và nhớ sang chữ số kế.",
+      "hints": [
+        "Mỗi chữ số thập phân là 4 bit (0000–1001).",
+        "Tổng 4 bit > 9 hoặc có nhớ ra ⇒ cộng thêm 0110 (6).",
+        "Cộng từ chữ số hàng đơn vị lên."
+      ],
+      "solution": [
+        "Hàng đơn vị: `8 + 5`: `1000 + 0101 = 1101 (13 > 9)` ⇒ cộng 6: `1101 + 0110 = 1 0011` ⇒ chữ số `0011` (3), nhớ 1.",
+        "Hàng chục: `7 + 9 + 1(nhớ)`: `0111 + 1001 + 0001 = 10001 (17)`, có nhớ ra ⇒ cộng 6: `0001 + 0110 = 0111` (7), nhớ 1.",
+        "Hàng trăm: `6 + 4 + 1`: `0110 + 0100 + 0001 = 1011 (11 > 9)` ⇒ `1011 + 0110 = 1 0001` ⇒ `0001` (1), nhớ 1.",
+        "Kết quả: `0001 0001 0111 0011` = `1173` ✓ (678 + 495 = 1173)."
+      ],
+      "rubric": [
+        "Cộng đúng từng chữ số cùng nhớ.",
+        "Hiệu chỉnh +6 khi >9 hoặc có nhớ ra.",
+        "Kết quả BCD đúng và đổi lại 1173."
+      ],
+      "pitfalls": [
+        "Quên hiệu chỉnh khi tổng 4 bit nhỏ hơn 16 nhưng lớn hơn 9.",
+        "Quên cộng nhớ từ hàng trước vào bước tiếp theo."
+      ]
+    },
+    "en": {
+      "title": "Adding BCD numbers",
+      "q": "Add `678 + 495` in BCD. Show each digit: the 4-bit binary add, when the +0110 correction is needed and the carry to the next digit.",
+      "hints": [
+        "Each decimal digit is 4 bits (0000–1001).",
+        "A 4-bit sum > 9 or a carry out ⇒ add 0110 (6).",
+        "Add from the units digit upwards."
+      ],
+      "solution": [
+        "Units: `8 + 5`: `1000 + 0101 = 1101 (13 > 9)` ⇒ add 6: `1101 + 0110 = 1 0011` ⇒ digit `0011` (3), carry 1.",
+        "Tens: `7 + 9 + 1 (carry)`: `0111 + 1001 + 0001 = 10001 (17)`, carry out ⇒ add 6: `0001 + 0110 = 0111` (7), carry 1.",
+        "Hundreds: `6 + 4 + 1`: `0110 + 0100 + 0001 = 1011 (11 > 9)` ⇒ `1011 + 0110 = 1 0001` ⇒ `0001` (1), carry 1.",
+        "Result: `0001 0001 0111 0011` = `1173` ✓ (678 + 495 = 1173)."
+      ],
+      "rubric": [
+        "Adds each digit with its carry correctly.",
+        "Applies the +6 correction when > 9 or on carry out.",
+        "Correct BCD result converted back to 1173."
+      ],
+      "pitfalls": [
+        "Skipping the correction when the 4-bit sum is below 16 but above 9.",
+        "Forgetting to feed the carry from the previous digit into the next step."
+      ]
+    }
   }
- },
- {
-  "id": "g-find-base",
-  "ch": "ch1",
-  "level": 2,
-  "source": {
-   "name": "Mano, Digital Design — ch. 1",
-   "license": "original problem"
-  },
-  "vi": {
-   "title": "Tìm cơ số r",
-   "q": "(a) Tìm r để `(121)ᵣ = 25₁₀`. (b) Nghiệm của phương trình `x² − 11x + 22 = 0` là `x = 3` và `x = 6` khi các số được viết trong cơ số r. Tìm r.",
-   "hints": [
-    "(a) Khai triển theo giá trị vị trí: `1·r² + 2·r + 1`.",
-    "(b) Ở cơ số r, hệ số `11ᵣ = r + 1` và `22ᵣ = 2r + 2`.",
-    "Dùng tổng và tích nghiệm (Viète)."
-   ],
-   "solution": [
-    "(a) `r² + 2r + 1 = 25 ⇒ (r + 1)² = 25 ⇒ r = 4`. Kiểm: `121₄ = 16 + 8 + 1 = 25`.",
-    "(b) Phương trình trong cơ số r: `x² − (r + 1)x + (2r + 2) = 0`. Tổng nghiệm `3 + 6 = 9 = r + 1 ⇒ r = 8`. Tích nghiệm `3·6 = 18 = 2r + 2 = 18` ✓.",
-    "Vậy r = 8 (và các chữ số 3, 6 hợp lệ trong cơ số 8)."
-   ],
-   "rubric": [
-    "(a) khai triển đúng theo luỹ thừa của r và kiểm.",
-    "(b) chuyển `11ᵣ`, `22ᵣ` đúng và dùng tổng/tích.",
-    "Kiểm tính hợp lệ của chữ số với cơ số tìm được."
-   ],
-   "pitfalls": [
-    "Quên rằng chữ số phải nhỏ hơn r (ở (b), r phải > 6).",
-    "Hiểu `11ᵣ` là mười một thay vì `r + 1`."
-   ]
-  },
-  "en": {
-   "title": "Finding the radix r",
-   "q": "(a) Find r such that `(121)ᵣ = 25₁₀`. (b) The roots of `x² − 11x + 22 = 0` are `x = 3` and `x = 6` when numbers are written in radix r. Find r.",
-   "hints": [
-    "(a) Expand by place value: `1·r² + 2·r + 1`.",
-    "(b) In radix r the coefficients are `11ᵣ = r + 1` and `22ᵣ = 2r + 2`.",
-    "Use the sum and product of the roots (Vieta)."
-   ],
-   "solution": [
-    "(a) `r² + 2r + 1 = 25 ⇒ (r + 1)² = 25 ⇒ r = 4`. Check: `121₄ = 16 + 8 + 1 = 25`.",
-    "(b) In radix r the equation is `x² − (r + 1)x + (2r + 2) = 0`. Sum of roots `3 + 6 = 9 = r + 1 ⇒ r = 8`. Product `3·6 = 18 = 2r + 2 = 18` ✓.",
-    "So r = 8 (and the digits 3, 6 are valid in radix 8)."
-   ],
-   "rubric": [
-    "(a) expands by powers of r and checks.",
-    "(b) converts `11ᵣ`, `22ᵣ` correctly and uses sum/product.",
-    "Checks the digits are valid in the radix found."
-   ],
-   "pitfalls": [
-    "Forgetting digits must be less than r (in (b), r must exceed 6).",
-    "Reading `11ᵣ` as eleven instead of `r + 1`."
-   ]
-  }
- },
- {
-  "id": "g-twos-sub",
-  "ch": "ch1",
-  "level": 2,
-  "source": {
-   "name": "Mano, Digital Design — ch. 1",
-   "license": "original problem"
-  },
-  "vi": {
-   "title": "Trừ bằng số bù 2 (8 bit)",
-   "q": "Tính `53 − 87` trong biểu diễn bù 2 8 bit: viết 53, 87, −87 và kết quả; kiểm lại kết quả bằng cách đổi ngược.",
-   "hints": [
-    "`−x` trong bù 2 = đảo mọi bit của x rồi cộng 1.",
-    "`a − b = a + (−b)`; cộng nhị phân 8 bit, bỏ nhớ ra.",
-    "Kết quả bit đầu bằng 1 là số âm: đổi ngược để đọc."
-   ],
-   "solution": [
-    "`53 = 00110101`, `87 = 01010111`.",
-    "`−87`: đảo `10101000`, cộng 1 ⇒ `10101001`.",
-    "`53 + (−87) = 00110101 + 10101001 = 11011110` (không có nhớ ra).",
-    "Đọc kết quả: bit đầu 1 ⇒ âm. Đảo `00100001`, cộng 1 ⇒ `00100010 = 34`, nên kết quả là `−34` ✓ (53 − 87 = −34)."
-   ],
-   "rubric": [
-    "Viết đúng 53 và 87 ở 8 bit.",
-    "Tính đúng −87 (đảo + 1).",
-    "Cộng đúng và đọc ngược kết quả ra −34."
-   ],
-   "pitfalls": [
-    "Đảo bit mà quên cộng 1.",
-    "Kết luận \"tràn\" vì nhớ ra bằng 0 — với phép cộng có dấu cần xem nhớ vào/ra bit dấu, không phải chỉ nhớ ra."
-   ]
-  },
-  "en": {
-   "title": "Subtraction with two's complement (8 bits)",
-   "q": "Compute `53 − 87` in 8-bit two's complement: write 53, 87, −87 and the result; verify by converting back.",
-   "hints": [
-    "`−x` in two's complement = invert all bits of x then add 1.",
-    "`a − b = a + (−b)`; add in 8 bits, discard the carry out.",
-    "A leading 1 means a negative result: convert back to read it."
-   ],
-   "solution": [
-    "`53 = 00110101`, `87 = 01010111`.",
-    "`−87`: invert `10101000`, add 1 ⇒ `10101001`.",
-    "`53 + (−87) = 00110101 + 10101001 = 11011110` (no carry out).",
-    "Reading it: leading 1 ⇒ negative. Invert `00100001`, add 1 ⇒ `00100010 = 34`, so the result is `−34` ✓ (53 − 87 = −34)."
-   ],
-   "rubric": [
-    "Writes 53 and 87 correctly in 8 bits.",
-    "Computes −87 correctly (invert + 1).",
-    "Adds correctly and reads the result back as −34."
-   ],
-   "pitfalls": [
-    "Inverting the bits but forgetting to add 1.",
-    "Declaring overflow because the carry out is 0 — for signed addition compare the carries into and out of the sign bit, not just the carry out."
-   ]
-  }
- },
- {
-  "id": "g-overflow",
-  "ch": "ch1",
-  "level": 2,
-  "source": {
-   "name": "Mano, Digital Design — ch. 1",
-   "license": "original problem"
-  },
-  "vi": {
-   "title": "Phát hiện tràn khi cộng bù 2",
-   "q": "Với số bù 2 8 bit (miền −128…127), cộng các cặp sau, nói kết quả có tràn không, và cho cách phát hiện bằng bit nhớ: (a) `100 + 50`. (b) `75 + (−20)`. (c) `(−100) + (−50)`.",
-   "hints": [
-    "Tràn xảy ra khi hai số cùng dấu cho kết quả khác dấu.",
-    "Cách mạch: tràn = nhớ vào bit dấu XOR nhớ ra khỏi bit dấu.",
-    "Kiểm bằng giá trị thật có nằm trong −128…127 không."
-   ],
-   "solution": [
-    "(a) `100 = 01100100`, `50 = 00110010`: tổng `10010110`. Hai số dương cho bit dấu 1 ⇒ **tràn** (150 > 127; `10010110` đọc là −106). Nhớ vào bit dấu = 1, nhớ ra = 0: XOR = 1.",
-    "(b) `75 + (−20) = 55`: `01001011 + 11101100 = (1)00110111`. Khác dấu nên không tràn; nhớ vào = 1, nhớ ra = 1: XOR = 0.",
-    "(c) `(−100) + (−50) = −150 < −128`: `10011100 + 11001110 = (1)01101010`. Hai số âm cho kết quả dương ⇒ **tràn**; nhớ vào bit dấu = 0, nhớ ra = 1: XOR = 1."
-   ],
-   "rubric": [
-    "(a) và (c) tràn, (b) không.",
-    "Giải thích bằng quy tắc dấu hoặc bằng XOR nhớ.",
-    "Có kiểm giá trị thực ngoài phạm vi."
-   ],
-   "pitfalls": [
-    "Dùng \"nhớ ra khỏi bit dấu = 1\" làm dấu hiệu tràn: (b) có nhớ ra mà không tràn.",
-    "Quên rằng cộng hai số khác dấu không bao giờ tràn."
-   ]
-  },
-  "en": {
-   "title": "Detecting overflow in two's complement addition",
-   "q": "With 8-bit two's complement (range −128…127), add the pairs below, say whether overflow occurs, and give the carry-based detection: (a) `100 + 50`. (b) `75 + (−20)`. (c) `(−100) + (−50)`.",
-   "hints": [
-    "Overflow occurs when two operands of the same sign give a result of the opposite sign.",
-    "Circuit rule: overflow = carry into the sign bit XOR carry out of it.",
-    "Check against the true value being in −128…127."
-   ],
-   "solution": [
-    "(a) `100 = 01100100`, `50 = 00110010`: sum `10010110`. Two positives with sign bit 1 ⇒ **overflow** (150 > 127; `10010110` reads as −106). Carry into the sign bit = 1, carry out = 0: XOR = 1.",
-    "(b) `75 + (−20) = 55`: `01001011 + 11101100 = (1)00110111`. Mixed signs so no overflow; carry in = 1, carry out = 1: XOR = 0.",
-    "(c) `(−100) + (−50) = −150 < −128`: `10011100 + 11001110 = (1)01101010`. Two negatives give a positive ⇒ **overflow**; carry into sign = 0, carry out = 1: XOR = 1."
-   ],
-   "rubric": [
-    "(a) and (c) overflow, (b) does not.",
-    "Explains via the sign rule or the carry XOR.",
-    "Checks the true value is out of range."
-   ],
-   "pitfalls": [
-    "Using \"carry out of the sign bit = 1\" as the overflow flag: (b) has a carry out yet no overflow.",
-    "Forgetting that adding numbers of opposite signs never overflows."
-   ]
-  }
- },
- {
-  "id": "g-bcd-add",
-  "ch": "ch1",
-  "level": 2,
-  "source": {
-   "name": "Mano, Digital Design — ch. 1",
-   "license": "original problem"
-  },
-  "vi": {
-   "title": "Cộng số BCD",
-   "q": "Cộng `678 + 495` trong mã BCD. Trình bày từng chữ số: cộng nhị phân 4 bit, khi nào phải hiệu chỉnh (+0110) và nhớ sang chữ số kế.",
-   "hints": [
-    "Mỗi chữ số thập phân là 4 bit (0000–1001).",
-    "Tổng 4 bit > 9 hoặc có nhớ ra ⇒ cộng thêm 0110 (6).",
-    "Cộng từ chữ số hàng đơn vị lên."
-   ],
-   "solution": [
-    "Hàng đơn vị: `8 + 5`: `1000 + 0101 = 1101 (13 > 9)` ⇒ cộng 6: `1101 + 0110 = 1 0011` ⇒ chữ số `0011` (3), nhớ 1.",
-    "Hàng chục: `7 + 9 + 1(nhớ)`: `0111 + 1001 + 0001 = 10001 (17)`, có nhớ ra ⇒ cộng 6: `0001 + 0110 = 0111` (7), nhớ 1.",
-    "Hàng trăm: `6 + 4 + 1`: `0110 + 0100 + 0001 = 1011 (11 > 9)` ⇒ `1011 + 0110 = 1 0001` ⇒ `0001` (1), nhớ 1.",
-    "Kết quả: `0001 0001 0111 0011` = `1173` ✓ (678 + 495 = 1173)."
-   ],
-   "rubric": [
-    "Cộng đúng từng chữ số cùng nhớ.",
-    "Hiệu chỉnh +6 khi >9 hoặc có nhớ ra.",
-    "Kết quả BCD đúng và đổi lại 1173."
-   ],
-   "pitfalls": [
-    "Quên hiệu chỉnh khi tổng 4 bit nhỏ hơn 16 nhưng lớn hơn 9.",
-    "Quên cộng nhớ từ hàng trước vào bước tiếp theo."
-   ]
-  },
-  "en": {
-   "title": "Adding BCD numbers",
-   "q": "Add `678 + 495` in BCD. Show each digit: the 4-bit binary add, when the +0110 correction is needed and the carry to the next digit.",
-   "hints": [
-    "Each decimal digit is 4 bits (0000–1001).",
-    "A 4-bit sum > 9 or a carry out ⇒ add 0110 (6).",
-    "Add from the units digit upwards."
-   ],
-   "solution": [
-    "Units: `8 + 5`: `1000 + 0101 = 1101 (13 > 9)` ⇒ add 6: `1101 + 0110 = 1 0011` ⇒ digit `0011` (3), carry 1.",
-    "Tens: `7 + 9 + 1 (carry)`: `0111 + 1001 + 0001 = 10001 (17)`, carry out ⇒ add 6: `0001 + 0110 = 0111` (7), carry 1.",
-    "Hundreds: `6 + 4 + 1`: `0110 + 0100 + 0001 = 1011 (11 > 9)` ⇒ `1011 + 0110 = 1 0001` ⇒ `0001` (1), carry 1.",
-    "Result: `0001 0001 0111 0011` = `1173` ✓ (678 + 495 = 1173)."
-   ],
-   "rubric": [
-    "Adds each digit with its carry correctly.",
-    "Applies the +6 correction when > 9 or on carry out.",
-    "Correct BCD result converted back to 1173."
-   ],
-   "pitfalls": [
-    "Skipping the correction when the 4-bit sum is below 16 but above 9.",
-    "Forgetting to feed the carry from the previous digit into the next step."
-   ]
-  }
- },
- {
-  "id": "g-hamming",
-  "ch": "ch1",
-  "level": 3,
-  "source": {
-   "name": "Mano, Digital Design — ch. 1",
-   "license": "original problem"
-  },
-  "vi": {
-   "title": "Mã Hamming (7,4)",
-   "q": "Mã Hamming (7,4) dùng parity chẵn; các bit parity ở vị trí 1, 2, 4 và dữ liệu ở vị trí 3, 5, 6, 7. (a) Mã hoá dữ liệu `1011`. (b) Nhận được từ mã `0110111`: tìm vị trí bit lỗi và sửa.",
-   "hints": [
-    "Bit parity vị trí 1 bao phủ các vị trí có bit 1 trong số thứ tự: 1, 3, 5, 7; vị trí 2: 2, 3, 6, 7; vị trí 4: 4, 5, 6, 7.",
-    "Mỗi tổng parity (kể cả bit parity) phải chẵn.",
-    "Tổ hợp ba kết quả kiểm `c4 c2 c1` đọc thành số nhị phân là vị trí lỗi."
-   ],
-   "solution": [
-    "(a) Dữ liệu `d3 d5 d6 d7 = 1 0 1 1`. `p1 = d3 ⊕ d5 ⊕ d7 = 1 ⊕ 0 ⊕ 1 = 0`; `p2 = d3 ⊕ d6 ⊕ d7 = 1 ⊕ 1 ⊕ 1 = 1`; `p4 = d5 ⊕ d6 ⊕ d7 = 0 ⊕ 1 ⊕ 1 = 0`. Từ mã (vị trí 1…7): `0 1 1 0 0 1 1` = `0110011`.",
-    "(b) Nhận `0110111` (vị trí 1…7 = 0,1,1,0,1,1,1). `c1 = bit1 ⊕ bit3 ⊕ bit5 ⊕ bit7 = 0⊕1⊕1⊕1 = 1`; `c2 = bit2 ⊕ bit3 ⊕ bit6 ⊕ bit7 = 1⊕1⊕1⊕1 = 0`; `c4 = bit4 ⊕ bit5 ⊕ bit6 ⊕ bit7 = 0⊕1⊕1⊕1 = 1`.",
-    "Hội chứng `c4 c2 c1 = 101 = 5`: lỗi ở vị trí 5. Đảo bit 5: `0110011` — khớp từ mã ở (a), dữ liệu `1011`."
-   ],
-   "rubric": [
-    "(a) tính đúng ba bit parity và ghép đúng thứ tự vị trí.",
-    "(b) tính đúng ba phép kiểm.",
-    "Đọc hội chứng thành vị trí 5 và sửa."
-   ],
-   "pitfalls": [
-    "Xếp bit parity vào cuối thay vì vị trí 1, 2, 4.",
-    "Đọc hội chứng theo thứ tự `c1 c2 c4` (ngược): 101 trùng ở ví dụ này nhưng sai với lỗi ở vị trí 3 hay 6."
-   ]
-  },
-  "en": {
-   "title": "Hamming (7,4) code",
-   "q": "A Hamming (7,4) code uses even parity; parity bits sit at positions 1, 2, 4 and data bits at 3, 5, 6, 7. (a) Encode the data `1011`. (b) The received word is `0110111`: find the erroneous position and correct it.",
-   "hints": [
-    "Parity bit 1 covers positions whose index has bit 1 set: 1, 3, 5, 7; bit 2: 2, 3, 6, 7; bit 4: 4, 5, 6, 7.",
-    "Each parity group (including its parity bit) must have even parity.",
-    "The three check results `c4 c2 c1` read as a binary number give the error position."
-   ],
-   "solution": [
-    "(a) Data `d3 d5 d6 d7 = 1 0 1 1`. `p1 = d3 ⊕ d5 ⊕ d7 = 1 ⊕ 0 ⊕ 1 = 0`; `p2 = d3 ⊕ d6 ⊕ d7 = 1 ⊕ 1 ⊕ 1 = 1`; `p4 = d5 ⊕ d6 ⊕ d7 = 0 ⊕ 1 ⊕ 1 = 0`. Codeword (positions 1…7): `0 1 1 0 0 1 1` = `0110011`.",
-    "(b) Received `0110111` (positions 1…7 = 0,1,1,0,1,1,1). `c1 = bit1 ⊕ bit3 ⊕ bit5 ⊕ bit7 = 0⊕1⊕1⊕1 = 1`; `c2 = bit2 ⊕ bit3 ⊕ bit6 ⊕ bit7 = 1⊕1⊕1⊕1 = 0`; `c4 = bit4 ⊕ bit5 ⊕ bit6 ⊕ bit7 = 0⊕1⊕1⊕1 = 1`.",
-    "Syndrome `c4 c2 c1 = 101 = 5`: the error is at position 5. Flipping bit 5 gives `0110011` — matching the codeword in (a), data `1011`."
-   ],
-   "rubric": [
-    "(a) three correct parity bits placed at the right positions.",
-    "(b) three correct checks.",
-    "Reads the syndrome as position 5 and corrects it."
-   ],
-   "pitfalls": [
-    "Putting parity bits at the end instead of positions 1, 2, 4.",
-    "Reading the syndrome as `c1 c2 c4` (reversed): 101 coincides here but fails for an error at position 3 or 6."
-   ]
-  }
- }
 ]

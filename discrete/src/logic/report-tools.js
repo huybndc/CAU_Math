@@ -114,6 +114,6 @@ export function powReport(a, k, n) {
       },
       { head: { key: 'dr.stProduct' }, lines: [`${terms.join(' · ') || '1'} ≡ ${P.value} (mod ${n})`] },
     ],
-    check: s => firstInt(s) === P.value,
+    check: s => { const m = String(s).replace('−', '-').match(/-?\d+/); return !!m && BigInt(m[0]) === BigInt(P.value); },
   };
 }

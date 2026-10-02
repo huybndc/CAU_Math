@@ -42,9 +42,9 @@ describe('số học', () => {
     expect(r.bits).toBe('1101');
     expect(r.used).toEqual([0, 2, 3]);
     for (let a = 0; a < 12; a++) for (let k = 0; k < 20; k++) expect(modPow(a, k, 13).value).toBe(Number(BigInt(a) ** BigInt(k) % 13n));
-    // n lớn tới mức v·v mất chính xác ⇒ báo lỗi, không trả số sai
-    expect(modPow(2, 5, 94906265).value).toBe(32);
-    expect(() => modPow(2, 5, 94906267)).toThrow();
+    // BigInt: modulo lớn (10⁹+7) vẫn chính xác
+    expect(modPow(2, 5, 94906267).value).toBe(32);
+    expect(modPow(2, 10, 1000000007).value).toBe(1024);
     expect(() => modPow(2, 5, 0)).toThrow();
   });
 

@@ -4,6 +4,9 @@ import { createSolver } from '@shared/ui/solver.js';
 import { fieldRow } from '@shared/ui/fields.js';
 import { truthReport, euclidReport, congruenceReport, diophantineReport, powReport } from '../logic/report-tools.js';
 import { setReport, sumReport, SUMS } from '../logic/report-sets.js';
+import { quantReport, RELS } from '../logic/report-quant.js';
+import { stateReport } from '../logic/report-state.js';
+import { graphReport } from '../logic/report-graph.js';
 import { glossary } from './glossary.js';
 
 /* ---------------------------------------------------------------
@@ -13,7 +16,12 @@ import { glossary } from './glossary.js';
 
 const rnd = (lo, hi) => lo + Math.floor(Math.random() * (hi - lo + 1));
 const pick = a => a[rnd(0, a.length - 1)];
-const int = x => { const s = x.replace('−', '-'); if (!/^-?\d+$/.test(s)) fail('err.needInt'); return +s; };
+const int = (x, big = false) => {
+  const s = x.replace('−', '-').replace(/[\s,_]/g, '');
+  if (!/^-?\d+$/.test(s)) fail('err.needInt');
+  if (!Number.isSafeInteger(+s)) { if (big) return BigInt(s); fail('err.bigInt'); }
+  return +s;
+};
 
 function mount(host, { key, specs, examples = [], random, report, practice }) {
   let fr;
@@ -85,7 +93,7 @@ export function mountPowSolver(host) {
     specs: () => [{ id: 'a', label: 'a', value: '7', size: 6 }, { id: 'k', label: 'k', value: '45', size: 6 }, { id: 'n', label: 'n', value: '13', size: 8 }],
     random: () => ({ a: rnd(2, 40), k: rnd(5, 200), n: rnd(7, 97) }),
     examples: [['7^45 mod 13', { a: 7, k: 45, n: 13 }], ['2^100 mod 7', { a: 2, k: 100, n: 7 }], ['3^202 mod 11', { a: 3, k: 202, n: 11 }]],
-    report: g => (g('a') && g('k') && g('n') ? powReport(int(g('a')), int(g('k')), int(g('n'))) : null),
+    report: g => (g('a') && g('k') && g('n') ? powReport(int(g('a'), true), int(g('k'), true), int(g('n'), true)) : null),
   });
 }
 
@@ -111,5 +119,38 @@ export function mountSumSolver(host) {
     random: () => ({ kind: pick(SUMS), n: rnd(5, 20), p1: rnd(1, 6), p2: rnd(2, 4) }),
     examples: [['1 + 2 + … + 10 (a=1, d=1)', { kind: 'arith', n: 10, p1: 1, p2: 1 }], ['1 + 2 + 4 + … (2ⁿ⁻¹)', { kind: 'geom', n: 10, p1: 1, p2: 2 }], ['1² + … + 10²', { kind: 'squares', n: 10 }]],
     report: g => (g('n') ? sumReport(g('kind'), int(g('n')), int(g('p1') || '1'), int(g('p2') || '1')) : null),
+  });
+}
+
+export function mountQuantSolver(host) {
+  mount(host, {
+    key: 'quant',
+    practice: '#/practice/ch2',
+    specs: () => [{ id: 'd', label: T('dq.dom'), value: '1, 2, 3, 4', size: 16 }, { id: 'r', label: T('dq.rel'), value: 'lt', options: Object.entries(RELS).map(([v, [t]]) => ({ v, t })) }],
+    random: () => ({ d: [...Array(rnd(3, 6)).keys()].map(i => i + rnd(0, 1) * -1).join(', '), r: pick(Object.keys(RELS)) }),
+    examples: [['x < y', { d: '1, 2, 3, 4', r: 'lt' }], ['x = y', { d: '1, 2, 3', r: 'eq' }], ['x + y = 0', { d: '-2, -1, 0, 1, 2', r: 'sum0' }]],
+    report: g => (g('d') ? quantReport(g('d'), g('r')) : null),
+  });
+}
+
+export function mountStateSolver(host) {
+  mount(host, {
+    key: 'state',
+    practice: '#/practice/ch5',
+    specs: () => [{ id: 'm', label: T('dst.moves'), value: '2,-1; 1,-2; 1,1; -3,0', size: 26 }, { id: 's', label: T('dst.start'), value: '0, 0', size: 8 }, { id: 'g', label: T('dst.goal'), value: '0, 2', size: 8 }],
+    random: () => { const mv = Array.from({ length: rnd(2, 4) }, () => `${rnd(-3, 3)},${rnd(-3, 3)}`).filter(x => x !== '0,0'); return { m: (mv.length ? mv : ['1,2']).join('; '), s: '0, 0', g: `${rnd(-4, 6)}, ${rnd(-4, 6)}` }; },
+    examples: [['Wall-E → (0, 2)', { m: '2,-1; 1,-2; 1,1; -3,0', s: '0, 0', g: '0, 2' }], ['Wall-E → (3, 0)', { m: '2,-1; 1,-2; 1,1; -3,0', s: '0, 0', g: '3, 0' }], ['(+2,+4) ; (+6,0)', { m: '2,4; 6,0', s: '0, 0', g: '5, 5' }]],
+    report: g => (g('m') && g('s') && g('g') ? stateReport(g('m'), g('s'), g('g')) : null),
+  });
+}
+
+export function mountGraphSolver(host) {
+  mount(host, {
+    key: 'graph',
+    practice: '#/practice/ch8',
+    specs: () => [{ id: 'e', label: T('dg.edges'), value: '1-2, 2-3, 3-4, 4-1, 1-3', size: 34 }],
+    random: () => { const n = rnd(4, 7), es = new Set(); while (es.size < rnd(n - 1, n + 3)) { const a = rnd(1, n), b = rnd(1, n); if (a !== b) es.add(`${Math.min(a, b)}-${Math.max(a, b)}`); } return { e: [...es].join(', ') }; },
+    examples: [['K₄ − cạnh', { e: '1-2, 2-3, 3-4, 4-1, 1-3' }], ['C₅', { e: '1-2, 2-3, 3-4, 4-5, 5-1' }], ['2 thành phần', { e: '1-2, 2-3, 4-5' }]],
+    report: g => (g('e') ? graphReport(g('e')) : null),
   });
 }

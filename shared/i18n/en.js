@@ -249,6 +249,8 @@ export const en = {
   'exam.layout.randomNote': 'Same count, all mixed, no chapter names while taking it.',
   'exam.mix': '80% written answers · 20% multiple choice.',
   'exam.part': 'Part {n}',
+  'exam.summaryPartLong': '{n} questions · {p} Parts · untimed',
+  'exam.summaryRandomLong': '{n} questions · shuffled · untimed',
   'exam.summaryPart': '{n} questions · {p} Parts · {m} min',
   'exam.summaryRandom': '{n} questions · shuffled · {m} min',
   'exam.answered': '{a}/{n} answered',

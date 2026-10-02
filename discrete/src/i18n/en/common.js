@@ -17,6 +17,7 @@ export const common = {
   'err.needNonNeg': 'The exponent must be non-negative.',
   'err.needPositive': 'A positive integer is needed.',
   'err.rsaE': 'e = {e} is not coprime to φ = {phi}, so there is no d.',
+  'err.bigInt': 'Number too large for this tool (max about 9·10¹⁵). Only “Modular power” accepts larger numbers.',
   'err.tooBig': 'Number too large to compute exactly (n up to about 94 million).',
   'err.badQuizKind': 'Invalid question type: {kind}.',
   'err.prefix': 'Error: ',

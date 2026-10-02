@@ -84,3 +84,12 @@ describe('DEC: radian, ln/log/exp/abs, hằng e', () => {
     expect(evaluate('1E', 16).value).toBe(30);
   });
 });
+
+import { evaluate as evalCalc } from '../logic/calc.js';
+describe('giai thừa & số lớn (hệ 10)', () => {
+  it('5! = 120, 2^100 hiện được', () => {
+    expect(evalCalc('5!', 10).value).toBe(120);
+    expect(evalCalc('2^100', 10).value / 2 ** 100).toBeCloseTo(1, 10);
+    expect(evalCalc('FFFFFFFFFF*FFFFFFFFFF', 16).error).toBe('calc.tooBig');
+  });
+});

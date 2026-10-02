@@ -17,6 +17,7 @@ export const common = {
   'err.needNonNeg': 'Số mũ phải không âm.',
   'err.needPositive': 'Cần số nguyên dương.',
   'err.rsaE': 'e = {e} không nguyên tố cùng nhau với φ = {phi}, nên không có d.',
+  'err.bigInt': 'Số quá lớn cho công cụ này (tối đa khoảng 9·10¹⁵). Riêng «Lũy thừa mod» nhận số lớn hơn.',
   'err.tooBig': 'Số quá lớn để tính chính xác (n tối đa khoảng 94 triệu).',
   'err.badQuizKind': 'Dạng bài không hợp lệ: {kind}.',
   'err.prefix': 'Lỗi: ',

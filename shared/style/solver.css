@@ -97,3 +97,7 @@
 
 .sv-why>summary{cursor:pointer;color:var(--ink-dim);font-size:var(--fs-sm);list-style:none;display:inline-block}.sv-why>summary::-webkit-details-marker{display:none}
 .sv-why>summary::before{content:"▸ "}.sv-why[open]>summary::before{content:"▾ "}.sv-why>p{margin:.3rem 0 .6rem}
+
+/* biểu thức dài (POS…) xuống dòng thay vì tràn khung */
+.sv-answer .step,.sv-answer .math{overflow-wrap:anywhere;min-width:0}
+.sv-answer{min-width:0}

@@ -437,3 +437,6 @@ body.exam-focus .appnav{display:none}
 .dr-cv{position:absolute;inset:0;width:100%;height:100%;cursor:crosshair}
 .dr-dot{width:1.5rem;height:1.5rem;min-width:0!important;padding:0!important;border-radius:50%!important;background:var(--c)!important}
 .dr-dot[aria-pressed="true"]{outline:2px solid var(--accent);outline-offset:2px}
+
+/* nút Nháp nổi không che nội dung cuối trang */
+#app{padding-bottom:max(3rem,5.5rem)}

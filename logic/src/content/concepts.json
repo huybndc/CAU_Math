@@ -1117,46 +1117,6 @@
     "source": "MIT OCW 6.004 Spring 2009, Tutorial 1 (có lời giải), bài 5 — CC BY-NC-SA, tự diễn đạt"
   },
   {
-    "id": "l1-src-hamming",
-    "chapter": "ch1",
-    "section": "1.7",
-    "type": "why",
-    "answer": 0,
-    "vi": {
-      "q": "Mã cần khoảng cách Hamming tối thiểu bao nhiêu để SỬA được mọi lỗi 1 bit?",
-      "options": [
-        "3",
-        "2",
-        "1",
-        "4"
-      ],
-      "why": [
-        "Lỗi 1 bit đưa từ mã đi xa 1; với khoảng cách 3, từ nhận vẫn gần từ mã gốc nhất.",
-        "Khoảng cách 2 chỉ đủ phát hiện: từ nhận có thể cách đều hai từ mã.",
-        "Khoảng cách 1: lỗi 1 bit biến từ mã này thành từ mã khác, không phát hiện được.",
-        "4 đủ sửa 1 lỗi và phát hiện 2 lỗi, nhiều hơn mức tối thiểu."
-      ],
-      "explain": "Phát hiện e lỗi cần khoảng cách e + 1; sửa e lỗi cần 2e + 1. Parity có khoảng cách 2; mã Hamming có khoảng cách 3."
-    },
-    "en": {
-      "q": "What minimum Hamming distance lets a code CORRECT every 1-bit error?",
-      "options": [
-        "3",
-        "2",
-        "1",
-        "4"
-      ],
-      "why": [
-        "A 1-bit error moves a codeword by 1; with distance 3 the received word stays closest to the original.",
-        "Distance 2 only detects: the received word may be equally far from two codewords.",
-        "Distance 1: a 1-bit error turns one codeword into another, undetected.",
-        "4 corrects 1 error and detects 2, more than the minimum."
-      ],
-      "explain": "Detecting e errors needs distance e + 1; correcting e errors needs 2e + 1. Parity has distance 2; the Hamming code has distance 3."
-    },
-    "source": "MIT OCW 6.004 Spring 2009, Tutorial 1 (có lời giải), bài 6 — CC BY-NC-SA, tự diễn đạt"
-  },
-  {
     "id": "l1-src-2of5",
     "chapter": "ch1",
     "section": "1.7",
@@ -2025,46 +1985,6 @@
       "format": "twos",
       "value": -77
     }
-  },
-  {
-    "id": "l1-src-hd4",
-    "chapter": "ch1",
-    "section": "1.7",
-    "type": "apply",
-    "answer": 0,
-    "vi": {
-      "q": "Hai từ mã 010010 và 110101. Khoảng cách Hamming là bao nhiêu, và một mã có khoảng cách tối thiểu đó phát hiện, sửa được mấy lỗi?",
-      "options": [
-        "4; phát hiện 3, sửa 1",
-        "4; phát hiện 4, sửa 2",
-        "3; phát hiện 2, sửa 1",
-        "4; phát hiện 3, sửa 2"
-      ],
-      "why": [
-        "Khác nhau ở 4 vị trí. Phát hiện HD − 1 = 3 lỗi; sửa ⌊(HD − 1)/2⌋ = 1 lỗi.",
-        "Phát hiện được HD − 1 lỗi, không phải HD.",
-        "Đếm lại: hai từ khác nhau ở bit 1, 4, 5, 6.",
-        "Sửa 2 lỗi cần khoảng cách ít nhất 5."
-      ],
-      "explain": "Lỗi e bit bị phát hiện nếu không biến từ mã này thành từ mã khác: e ≤ HD − 1. Sửa được nếu từ nhận vẫn gần từ mã gốc nhất: 2e + 1 ≤ HD."
-    },
-    "en": {
-      "q": "Codewords 010010 and 110101. What is their Hamming distance, and how many errors can a code with that minimum distance detect and correct?",
-      "options": [
-        "4; detect 3, correct 1",
-        "4; detect 4, correct 2",
-        "3; detect 2, correct 1",
-        "4; detect 3, correct 2"
-      ],
-      "why": [
-        "They differ in 4 positions. Detect HD − 1 = 3 errors; correct ⌊(HD − 1)/2⌋ = 1.",
-        "Detection handles HD − 1 errors, not HD.",
-        "Recount: they differ in bits 1, 4, 5, 6.",
-        "Correcting 2 errors needs distance at least 5."
-      ],
-      "explain": "An e-bit error is detected if it cannot turn one codeword into another: e ≤ HD − 1. It is corrected if the received word stays closest to the original: 2e + 1 ≤ HD."
-    },
-    "source": "MIT OCW 6.004 Spring 2017, Basics of Information Worksheet (có đáp án), bài 4F — CC BY-NC-SA, tự diễn đạt"
   },
   {
     "id": "l1-src-5copies",

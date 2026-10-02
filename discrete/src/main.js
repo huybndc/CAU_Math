@@ -3,7 +3,7 @@ import { setupShell, shellReady } from '@shared/ui/shell.js';
 import { freeFromGlob } from '@shared/logic/free.js';
 import { mountLesson } from '@shared/ui/lesson.js';
 import { truthFigure } from '@shared/ui/figures.js';
-import { mountTruthSolver, mountEuclidSolver, mountCongruenceSolver, mountDiophantineSolver, mountPowSolver, mountSetSolver, mountSumSolver } from './ui/solvers.js';
+import { mountTruthSolver, mountEuclidSolver, mountCongruenceSolver, mountDiophantineSolver, mountPowSolver, mountSetSolver, mountSumSolver, mountQuantSolver, mountStateSolver, mountGraphSolver } from './ui/solvers.js';
 import { graphFigure } from './ui/graph-figure.js';
 import { CHAPTERS } from './logic/chapters.js';
 import theoryCh1Vi from './content/theory-ch1.vi.md?raw';
@@ -48,6 +48,9 @@ window.addEventListener('DOMContentLoaded', () => {
     mountPowSolver(document.getElementById('tool-pow'));
     mountSetSolver(document.getElementById('tool-sets'));
     mountSumSolver(document.getElementById('tool-sums'));
+    mountQuantSolver(document.getElementById('tool-quant'));
+    mountStateSolver(document.getElementById('tool-state'));
+    mountGraphSolver(document.getElementById('tool-graph'));
   });
   onLangChange(mountAllTheory);
   console.log('%cÔn tập Toán rời rạc', 'font-weight:bold');

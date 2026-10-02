@@ -9,7 +9,9 @@ import { fail as appFail } from '@shared/logic/app-error.js';
 
 export function parseBoolExpr(text, n) {
   const names = varNames(n);
-  const src = text.replace(/[·*.×∧&]/g, '').replace(/[|∨]/g, '+').replace(/[¬]/g, '!');
+  let src = text.replace(/[·*.×∧&]/g, '').replace(/[|∨]/g, '+').replace(/[¬]/g, '!');
+  // Mano viết A, B, C… → ánh xạ lần lượt sang biến của app (chỉ khi không lẫn chữ thường v–z)
+  if (/[A-E]/.test(src) && !/[v-z]/i.test(src)) src = src.replace(/[A-E]/g, c => names[c.charCodeAt(0) - 65] ?? c);
   let i = 0;
   const skip = () => { while (i < src.length && /\s/.test(src[i])) i++; };
   const peek = () => { skip(); return i < src.length ? src[i] : null; };

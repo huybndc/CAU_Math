@@ -249,6 +249,8 @@ export const vi = {
   'exam.layout.randomNote': 'Cùng số câu, trộn hết, không hiện tên chương khi làm.',
   'exam.mix': 'Tự luận 80% · trắc nghiệm 20%.',
   'exam.part': 'Part {n}',
+  'exam.summaryPartLong': '{n} câu · {p} Part · không tính giờ',
+  'exam.summaryRandomLong': '{n} câu · trộn ngẫu nhiên · không tính giờ',
   'exam.summaryPart': '{n} câu · {p} Part · {m} phút',
   'exam.summaryRandom': '{n} câu · trộn ngẫu nhiên · {m} phút',
   'exam.answered': 'Đã làm {a}/{n}',

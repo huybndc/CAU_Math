@@ -263,20 +263,6 @@ An n-bit **register** is n storage cells, each holding one bit. The same content
 
 The key idea of the chapter: **the meaning of bits comes from how we agree to read them**, not from the bits.
 
-## Hamming (7,4): correcting a single-bit error
-
-Parity only *detects*. **Hamming (7,4)** adds 3 parity bits to 4 data bits so a single-bit error can be *corrected*. Number positions 1…7: parity bits sit at positions **1, 2, 4** (powers of 2), data at **3, 5, 6, 7**.
-
-Each parity bit covers the positions whose index has the matching bit set:
-
-```
-p1: 1, 3, 5, 7     p2: 2, 3, 6, 7     p4: 4, 5, 6, 7     (each group has an even number of 1s)
-```
-
-**Correcting:** recompute three checks `c1, c2, c4` (each is the XOR of its group). Read `c4 c2 c1` as a binary number = the **position of the bad bit** (0 = no error). Flip that bit.
-
-Example: data `1011` → codeword `0110011`. Received `0110111`: `c4 c2 c1 = 101 = 5` ⇒ the error is at bit 5.
-
 ## Common mistakes
 
 - Reading the remainders **top-down** for the integer part (read bottom-up).

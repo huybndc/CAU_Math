@@ -115,7 +115,7 @@ export function kmapGroup(spec, ctx) {
     }));
     const expr = groupsToExpr(st.groups.map(g => g.imp), n, pos);
     exprBox.replaceChildren(el('span', 'w-f', 'F ='), el('span', 'math', expr.replace(/'/g, '′') || '…'));
-    commitBtn.hidden = !sel.size || !!ctx.locked;
+    commitBtn.style.visibility = !sel.size || ctx.locked ? 'hidden' : '';   // giữ chỗ: nút không nhảy khi chọn/chốt nhóm
   }
 
   if (!ctx.locked) {
