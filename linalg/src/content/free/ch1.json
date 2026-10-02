@@ -1,0 +1,277 @@
+[
+ {
+  "id": "l-cos-angle",
+  "ch": "ch1",
+  "level": 1,
+  "source": {
+   "name": "MIT 18.06 Linear Algebra (Spring 2010), PS1, Strang §1.2 bài 23",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Công thức cos θ = v·w / (|v||w|)",
+   "q": "Hai vector 2D `v = [v1; v2]`, `w = [w1; w2]` hợp với trục x các góc α, β. Dùng `cos α = v1/|v|`, `sin α = v2/|v|` và tương tự cho β, cùng công thức `cos(β − α) = cos α cos β + sin α sin β`, để suy ra `cos θ = v·w / (|v||w|)`, với θ = β − α là góc giữa hai vector.",
+   "hints": [
+    "Viết `cos β`, `sin β` theo w1, w2 và |w| (giống α với v).",
+    "Thay cả bốn giá trị vào công thức cos(β − α).",
+    "Rút gọn tử số thành `v1w1 + v2w2`."
+   ],
+   "solution": [
+    "`cos α = v1/|v|`, `sin α = v2/|v|`; `cos β = w1/|w|`, `sin β = w2/|w|`.",
+    "Thay: `cos θ = cos(β − α) = (w1/|w|)(v1/|v|) + (w2/|w|)(v2/|v|)`.",
+    "Gộp mẫu: `cos θ = (v1w1 + v2w2)/(|v||w|) = v·w / (|v||w|)`."
+   ],
+   "rubric": [
+    "Viết đúng cos β, sin β.",
+    "Dùng đúng công thức cos(β − α).",
+    "Gộp ra tích vô hướng và mẫu `|v||w|`."
+   ],
+   "pitfalls": [
+    "Nhầm công thức hiệu góc thành `cos α cos β − sin α sin β` (đó là cos(α + β)).",
+    "Quên rằng θ = β − α nên có thể âm; cos thì chẵn nên không sao."
+   ]
+  },
+  "en": {
+   "title": "The formula cos θ = v·w / (|v||w|)",
+   "q": "Two 2D vectors `v = [v1; v2]`, `w = [w1; w2]` make angles α, β with the x-axis. Use `cos α = v1/|v|`, `sin α = v2/|v|` (and likewise for β) with `cos(β − α) = cos α cos β + sin α sin β` to derive `cos θ = v·w / (|v||w|)`, where θ = β − α is the angle between them.",
+   "hints": [
+    "Write `cos β`, `sin β` in terms of w1, w2 and |w| (as for α with v).",
+    "Substitute all four values into cos(β − α).",
+    "Simplify the numerator to `v1w1 + v2w2`."
+   ],
+   "solution": [
+    "`cos α = v1/|v|`, `sin α = v2/|v|`; `cos β = w1/|w|`, `sin β = w2/|w|`.",
+    "Substitute: `cos θ = cos(β − α) = (w1/|w|)(v1/|v|) + (w2/|w|)(v2/|v|)`.",
+    "Combine over a common denominator: `cos θ = (v1w1 + v2w2)/(|v||w|) = v·w / (|v||w|)`."
+   ],
+   "rubric": [
+    "Writes cos β, sin β correctly.",
+    "Uses the right angle-difference formula.",
+    "Collects the dot product and the denominator `|v||w|`."
+   ],
+   "pitfalls": [
+    "Using `cos α cos β − sin α sin β` (that is cos(α + β)).",
+    "Worrying that θ = β − α may be negative: cosine is even so it does not matter."
+   ]
+  }
+ },
+ {
+  "id": "l-neg-dots",
+  "ch": "ch1",
+  "level": 1,
+  "source": {
+   "name": "MIT 18.06 Linear Algebra (Spring 2010), PS1, §1.2 bài 28",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Ba vector tích vô hướng đôi một âm",
+   "q": "Có thể có ba vector u, v, w trong mặt phẳng xy sao cho `u·v < 0`, `v·w < 0` và `u·w < 0` không? Nếu có, cho ví dụ và giải thích bằng hình học.",
+   "hints": [
+    "Tích vô hướng âm ⇔ góc giữa hai vector lớn hơn 90°.",
+    "Ba vector có thể cách đều nhau quanh gốc.",
+    "Thử ba hướng cách nhau 120°."
+   ],
+   "solution": [
+    "Có. Lấy `u = [1; 0]`, `v = [−1/2; √3/2]`, `w = [−1/2; −√3/2]` (cách nhau 120°).",
+    "Khi đó `u·v = −1/2`, `v·w = 1/4 − 3/4 = −1/2`, `u·w = −1/2`: cả ba đều âm.",
+    "Hình học: `u·v = |u||v| cos θ < 0` ⇔ θ > 90°; ba vector chia đường tròn thành ba cung 120° nên mỗi cặp lệch 120° > 90°."
+   ],
+   "rubric": [
+    "Trả lời \"có\" kèm ví dụ cụ thể.",
+    "Tính cả ba tích vô hướng.",
+    "Giải thích bằng góc lớn hơn 90°."
+   ],
+   "pitfalls": [
+    "Chọn ví dụ có một tích vô hướng bằng 0 (góc đúng 90°, chưa < 0).",
+    "Chọn cả ba vector trong cùng nửa mặt phẳng: khi đó có hai vector tạo góc nhọn."
+   ]
+  },
+  "en": {
+   "title": "Three vectors with pairwise negative dot products",
+   "q": "Can three vectors u, v, w in the xy-plane satisfy `u·v < 0`, `v·w < 0` and `u·w < 0`? If so, give an example and explain geometrically.",
+   "hints": [
+    "Negative dot product iff the angle between the vectors exceeds 90°.",
+    "Three vectors can be spread evenly around the origin.",
+    "Try three directions 120° apart."
+   ],
+   "solution": [
+    "Yes. Take `u = [1; 0]`, `v = [−1/2; √3/2]`, `w = [−1/2; −√3/2]` (120° apart).",
+    "Then `u·v = −1/2`, `v·w = 1/4 − 3/4 = −1/2`, `u·w = −1/2`: all three negative.",
+    "Geometry: `u·v = |u||v| cos θ < 0` iff θ > 90°; three vectors split the circle into three 120° arcs so every pair is 120° > 90° apart."
+   ],
+   "rubric": [
+    "Answers \"yes\" with a concrete example.",
+    "Computes all three dot products.",
+    "Explains via angles greater than 90°."
+   ],
+   "pitfalls": [
+    "Choosing an example with a dot product equal to 0 (exactly 90°, not yet < 0).",
+    "Putting all three in one half-plane: then two of them make an acute angle."
+   ]
+  }
+ },
+ {
+  "id": "l-dependent-3",
+  "ch": "ch1",
+  "level": 1,
+  "source": {
+   "name": "MIT 18.06 Linear Algebra (Spring 2010), PS1, §1.3 bài 4",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Tổ hợp bằng vector không",
+   "q": "Cho `w1 = [1; 2; 3]`, `w2 = [4; 5; 6]`, `w3 = [7; 8; 9]`. Tìm tổ hợp `x1w1 + x2w2 + x3w3` bằng vector không (x không tất cả bằng 0). Ba vector này độc lập hay phụ thuộc, và chúng nằm trên hình gì? Ma trận W có các cột đó có khả nghịch không?",
+   "hints": [
+    "Để ý hiệu `w2 − w1` và `w3 − w2`.",
+    "Nếu hai hiệu bằng nhau thì `w1 − 2w2 + w3 = 0`.",
+    "Có tổ hợp không tầm thường bằng 0 ⇒ phụ thuộc ⇒ không khả nghịch."
+   ],
+   "solution": [
+    "`w2 − w1 = [3; 3; 3] = w3 − w2`, nên `w1 − 2w2 + w3 = 0`. Kiểm: `1 − 8 + 7 = 0`, `2 − 10 + 8 = 0`, `3 − 12 + 9 = 0`.",
+    "Vì có tổ hợp không tầm thường bằng 0 nên ba vector phụ thuộc: chúng nằm trong một mặt phẳng.",
+    "Khi đó `Wx = 0` có nghiệm `x = (1, −2, 1) ≠ 0`, nên W không khả nghịch."
+   ],
+   "rubric": [
+    "Tìm đúng tổ hợp (1, −2, 1) và kiểm từng thành phần.",
+    "Kết luận phụ thuộc, nằm trong mặt phẳng.",
+    "Liên hệ với W không khả nghịch."
+   ],
+   "pitfalls": [
+    "Kiểm chỉ một thành phần của tổ hợp.",
+    "Nói \"độc lập\" vì không có hai vector nào song song — phụ thuộc xét cả ba cùng lúc."
+   ]
+  },
+  "en": {
+   "title": "A combination giving the zero vector",
+   "q": "Let `w1 = [1; 2; 3]`, `w2 = [4; 5; 6]`, `w3 = [7; 8; 9]`. Find a combination `x1w1 + x2w2 + x3w3` equal to the zero vector (x not all zero). Are the vectors independent or dependent, and what do they lie in? Is the matrix W with these columns invertible?",
+   "hints": [
+    "Look at the differences `w2 − w1` and `w3 − w2`.",
+    "If the two differences are equal then `w1 − 2w2 + w3 = 0`.",
+    "A nontrivial combination giving 0 means dependent, so not invertible."
+   ],
+   "solution": [
+    "`w2 − w1 = [3; 3; 3] = w3 − w2`, so `w1 − 2w2 + w3 = 0`. Check: `1 − 8 + 7 = 0`, `2 − 10 + 8 = 0`, `3 − 12 + 9 = 0`.",
+    "A nontrivial combination gives 0, so the vectors are dependent: they lie in one plane.",
+    "Then `Wx = 0` has the solution `x = (1, −2, 1) ≠ 0`, so W is not invertible."
+   ],
+   "rubric": [
+    "Finds the combination (1, −2, 1) and checks every component.",
+    "Concludes dependent, lying in a plane.",
+    "Connects this to W being non-invertible."
+   ],
+   "pitfalls": [
+    "Checking only one component of the combination.",
+    "Saying \"independent\" because no two are parallel — dependence concerns all three together."
+   ]
+  }
+ },
+ {
+  "id": "l-centered-diff",
+  "ch": "ch1",
+  "level": 2,
+  "source": {
+   "name": "MIT 18.06 Linear Algebra (Spring 2010), PS1, §1.3 bài 13",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Ma trận sai phân tâm 5×5 không khả nghịch",
+   "q": "Cho `C = [0 1 0 0 0; −1 0 1 0 0; 0 −1 0 1 0; 0 0 −1 0 1; 0 0 0 −1 0]`. Viết 5 phương trình `Cx = b`. Tìm một tổ hợp vế trái bằng 0. Tổ hợp nào của b1…b5 phải bằng 0 để hệ có nghiệm?",
+   "hints": [
+    "Viết từng hàng: hàng i cho `x_{i+1} − x_{i−1}`.",
+    "Tìm các hàng mà cộng/trừ cho ra hàng không.",
+    "Cùng tổ hợp đó áp dụng lên b."
+   ],
+   "solution": [
+    "Các phương trình: `x2 = b1`, `−x1 + x3 = b2`, `−x2 + x4 = b3`, `−x3 + x5 = b4`, `−x4 = b5`.",
+    "Cộng phương trình 1, 3, 5: vế trái `x2 + (−x2 + x4) + (−x4) = 0`.",
+    "Vậy vế phải cũng phải 0: điều kiện giải được là `b1 + b3 + b5 = 0`. Hệ không giải được với b làm tổng này khác 0, nên C không khả nghịch."
+   ],
+   "rubric": [
+    "Viết đúng 5 phương trình.",
+    "Tìm đúng tổ hợp hàng 1 + 3 + 5.",
+    "Suy ra điều kiện `b1 + b3 + b5 = 0` trên b."
+   ],
+   "pitfalls": [
+    "Đòi `b1 + b2 + ... + b5 = 0` (tổ hợp sai).",
+    "Chỉ nói \"định thức bằng 0\" mà không chỉ ra điều kiện trên b."
+   ]
+  },
+  "en": {
+   "title": "The 5×5 centered difference matrix is singular",
+   "q": "Let `C = [0 1 0 0 0; −1 0 1 0 0; 0 −1 0 1 0; 0 0 −1 0 1; 0 0 0 −1 0]`. Write the five equations `Cx = b`. Find a combination of the left sides that gives 0. What combination of b1…b5 must vanish for a solution to exist?",
+   "hints": [
+    "Write each row: row i gives `x_{i+1} − x_{i−1}`.",
+    "Find rows that add/subtract to the zero row.",
+    "Apply the same combination to b."
+   ],
+   "solution": [
+    "The equations: `x2 = b1`, `−x1 + x3 = b2`, `−x2 + x4 = b3`, `−x3 + x5 = b4`, `−x4 = b5`.",
+    "Add equations 1, 3, 5: the left side is `x2 + (−x2 + x4) + (−x4) = 0`.",
+    "So the right side must also vanish: solvability requires `b1 + b3 + b5 = 0`. With any other b the system has no solution, so C is singular."
+   ],
+   "rubric": [
+    "Writes all five equations correctly.",
+    "Finds the combination rows 1 + 3 + 5.",
+    "Deduces the condition `b1 + b3 + b5 = 0` on b."
+   ],
+   "pitfalls": [
+    "Demanding `b1 + b2 + ... + b5 = 0` (wrong combination).",
+    "Only saying \"determinant is 0\" without the condition on b."
+   ]
+  }
+ },
+ {
+  "id": "l-markov",
+  "ch": "ch1",
+  "level": 2,
+  "source": {
+   "name": "MIT 18.06 Linear Algebra (Spring 2010), PS1, §2.1 bài 29–30",
+   "license": "CC BY-NC-SA 3.0"
+  },
+  "vi": {
+   "title": "Ma trận Markov và trạng thái dừng",
+   "q": "Cho `A = [.8 .3; .2 .7]` và `u0 = [1; 0]`, đặt `u_{k+1} = A u_k`.\n(a) Tính u1, u2, u3. Nhận xét gì về tổng các thành phần?\n(b) Dãy tiến tới một vector dừng s. Đoán s và kiểm `As = s`.\n(c) Tìm s chính xác bằng cách giải `(A − I)s = 0` với tổng thành phần bằng 1.",
+   "hints": [
+    "Mỗi cột của A có tổng 1.",
+    "Trạng thái dừng thoả `As = s`, tức s nằm trong nullspace của `A − I`.",
+    "Nhớ thêm ràng buộc `s1 + s2 = 1`."
+   ],
+   "solution": [
+    "(a) `u1 = [.8; .2]`, `u2 = A u1 = [.7; .3]`, `u3 = [.65; .35]`. Mọi vector (kể cả u0) có tổng thành phần bằng 1, vì mỗi cột của A có tổng 1.",
+    "(b) Dãy tiến tới `s = [.6; .4]`; kiểm `As = [.8·.6 + .3·.4; .2·.6 + .7·.4] = [.6; .4]`.",
+    "(c) `(A − I)s = 0`: `−.2 s1 + .3 s2 = 0`, tức `s1 : s2 = 3 : 2`. Với `s1 + s2 = 1`: `s = [.6; .4]`."
+   ],
+   "rubric": [
+    "(a) tính đúng u1, u2, u3 và nhận ra tổng bằng 1 vì cột tổng 1.",
+    "(b) kiểm As = s.",
+    "(c) giải hệ với ràng buộc tổng bằng 1."
+   ],
+   "pitfalls": [
+    "Quên ràng buộc tổng bằng 1: nghiệm của `(A − I)s = 0` là cả một đường thẳng.",
+    "Kết luận s chỉ từ đồ thị, không kiểm As = s."
+   ]
+  },
+  "en": {
+   "title": "Markov matrix and the steady state",
+   "q": "Let `A = [.8 .3; .2 .7]` and `u0 = [1; 0]`, with `u_{k+1} = A u_k`.\n(a) Compute u1, u2, u3. What do you notice about the entries' sum?\n(b) The sequence approaches a steady vector s. Guess s and check `As = s`.\n(c) Find s exactly by solving `(A − I)s = 0` with entries summing to 1.",
+   "hints": [
+    "Each column of A sums to 1.",
+    "A steady state satisfies `As = s`, i.e. s lies in the nullspace of `A − I`.",
+    "Remember the extra condition `s1 + s2 = 1`."
+   ],
+   "solution": [
+    "(a) `u1 = [.8; .2]`, `u2 = A u1 = [.7; .3]`, `u3 = [.65; .35]`. Every vector (u0 too) has entries summing to 1, because each column of A sums to 1.",
+    "(b) The sequence approaches `s = [.6; .4]`; check `As = [.8·.6 + .3·.4; .2·.6 + .7·.4] = [.6; .4]`.",
+    "(c) `(A − I)s = 0`: `−.2 s1 + .3 s2 = 0`, i.e. `s1 : s2 = 3 : 2`. With `s1 + s2 = 1`: `s = [.6; .4]`."
+   ],
+   "rubric": [
+    "(a) computes u1, u2, u3 and links sum 1 to the column sums.",
+    "(b) checks As = s.",
+    "(c) solves with the sum-to-1 constraint."
+   ],
+   "pitfalls": [
+    "Forgetting the sum-to-1 constraint: solutions of `(A − I)s = 0` form a whole line.",
+    "Concluding s from a graph without checking As = s."
+   ]
+  }
+ }
+]

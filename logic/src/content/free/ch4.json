@@ -1,0 +1,391 @@
+[
+ {
+  "id": "g-excess3",
+  "ch": "ch4",
+  "level": 3,
+  "source": {
+   "name": "Dạng bài theo giáo trình Mano, Digital Design (đề tự soạn; đáp án kiểm bằng máy), chương 4 — bộ chuyển mã",
+   "license": "tự soạn"
+  },
+  "vi": {
+   "title": "Bộ chuyển BCD → Excess-3",
+   "q": "Thiết kế mạch tổ hợp đổi chữ số BCD `ABCD` (0–9) sang mã Excess-3 `wxyz` (= số + 3). Lập bảng chân trị, dùng K-map với các tổ hợp 10–15 là \"không quan tâm\", viết bốn hàm tối giản.",
+   "hints": [
+    "Excess-3 của d là mã nhị phân của d + 3: 0 → 0011, 9 → 1100.",
+    "Mỗi đầu ra w, x, y, z là một hàm riêng, dùng d(10–15).",
+    "z là bit thấp nhất: nó đổi khi cộng 3 (lẻ) — nhìn D."
+   ],
+   "solution": [
+    "Các minterm bằng 1: `w`: 5, 6, 7, 8, 9; `x`: 1, 2, 3, 4, 9; `y`: 0, 3, 4, 7, 8; `z`: 0, 2, 4, 6, 8; không quan tâm: 10–15.",
+    "K-map cho: `z = D'`; `y = CD + C'D'`; `x = B'C + B'D + BC'D'`; `w = A + BC + BD`.",
+    "Kiểm bằng máy với 10 chữ số BCD hợp lệ: đúng bảng d + 3."
+   ],
+   "rubric": [
+    "Bảng chân trị đúng (kể cả d).",
+    "Dùng không quan tâm để mở rộng nhóm.",
+    "Bốn hàm đúng."
+   ],
+   "pitfalls": [
+    "Coi tổ hợp 10–15 là 0 (hàm phức tạp hơn).",
+    "Nhầm Excess-3 với cộng 3 vào cả mã BCD thay vì số thập phân."
+   ]
+  },
+  "en": {
+   "title": "BCD to Excess-3 converter",
+   "q": "Design a combinational circuit that converts a BCD digit `ABCD` (0–9) to Excess-3 `wxyz` (= digit + 3). Make the truth table, use K-maps with combinations 10–15 as don't cares, and write the four minimal functions.",
+   "hints": [
+    "Excess-3 of d is the binary code of d + 3: 0 → 0011, 9 → 1100.",
+    "Each output w, x, y, z is a separate function, using d(10–15).",
+    "z is the lowest bit: look at D."
+   ],
+   "solution": [
+    "Minterms equal to 1: `w`: 5, 6, 7, 8, 9; `x`: 1, 2, 3, 4, 9; `y`: 0, 3, 4, 7, 8; `z`: 0, 2, 4, 6, 8; don't cares: 10–15.",
+    "K-maps give: `z = D'`; `y = CD + C'D'`; `x = B'C + B'D + BC'D'`; `w = A + BC + BD`.",
+    "Checked by machine on the ten valid BCD digits: they match digit + 3."
+   ],
+   "rubric": [
+    "Correct truth table (with the d rows).",
+    "Uses don't cares to enlarge groups.",
+    "Four correct functions."
+   ],
+   "pitfalls": [
+    "Treating 10–15 as 0 (more complex functions).",
+    "Confusing Excess-3 with adding 3 to the BCD code rather than to the decimal value."
+   ]
+  }
+ },
+ {
+  "id": "g-full-adder",
+  "ch": "ch4",
+  "level": 1,
+  "source": {
+   "name": "Dạng bài theo giáo trình Mano, Digital Design (đề tự soạn; đáp án kiểm bằng máy), chương 4 — bộ cộng",
+   "license": "tự soạn"
+  },
+  "vi": {
+   "title": "Bộ cộng đầy đủ từ hai bộ nửa cộng",
+   "q": "Viết phương trình của bộ nửa cộng (HA) và bộ cộng đầy đủ (FA). Dựng FA từ hai HA và một cổng OR, rồi chứng minh `Cout = AB + Cin(A ⊕ B)`.",
+   "hints": [
+    "HA: `S = A ⊕ B`, `C = AB`.",
+    "FA = HA(A, B) rồi HA(kết quả, Cin).",
+    "Nhớ ra là OR của hai nhớ trung gian."
+   ],
+   "solution": [
+    "HA: `S = A ⊕ B`, `C = AB`.",
+    "FA: `HA1(A, B)` cho `s1 = A ⊕ B`, `c1 = AB`; `HA2(s1, Cin)` cho `S = s1 ⊕ Cin = A ⊕ B ⊕ Cin`, `c2 = s1·Cin`. `Cout = c1 + c2 = AB + Cin(A ⊕ B)`.",
+    "Chứng minh Cout là \"đa số\": `Cout = 1` ⇔ ít nhất hai trong ba A, B, Cin bằng 1. Nếu A = B = 1 thì c1 = 1; nếu đúng một trong A, B là 1 thì `A ⊕ B = 1` và cần `Cin = 1`; nếu A = B = 0 thì cả hai số hạng bằng 0 — khớp."
+   ],
+   "rubric": [
+    "Phương trình HA, FA đúng.",
+    "Ghép đúng hai HA và OR.",
+    "Giải thích Cout là hàm đa số."
+   ],
+   "pitfalls": [
+    "Dùng OR thay cho XOR ở tổng.",
+    "Quên đi qua cả hai HA: `Cout` cần cả `c1` và `c2`."
+   ]
+  },
+  "en": {
+   "title": "A full adder from two half adders",
+   "q": "Write the equations of a half adder (HA) and a full adder (FA). Build the FA from two HAs and an OR gate, then show `Cout = AB + Cin(A ⊕ B)`.",
+   "hints": [
+    "HA: `S = A ⊕ B`, `C = AB`.",
+    "FA = HA(A, B) then HA(result, Cin).",
+    "The carry out is the OR of the two partial carries."
+   ],
+   "solution": [
+    "HA: `S = A ⊕ B`, `C = AB`.",
+    "FA: `HA1(A, B)` gives `s1 = A ⊕ B`, `c1 = AB`; `HA2(s1, Cin)` gives `S = s1 ⊕ Cin = A ⊕ B ⊕ Cin`, `c2 = s1·Cin`. `Cout = c1 + c2 = AB + Cin(A ⊕ B)`.",
+    "Why Cout is \"majority\": `Cout = 1` iff at least two of A, B, Cin are 1. If A = B = 1 then c1 = 1; if exactly one of A, B is 1 then `A ⊕ B = 1` and `Cin = 1` is needed; if A = B = 0 both terms are 0 — consistent."
+   ],
+   "rubric": [
+    "Correct HA and FA equations.",
+    "Wires two HAs and an OR correctly.",
+    "Explains Cout as the majority function."
+   ],
+   "pitfalls": [
+    "Using OR instead of XOR for the sum.",
+    "Forgetting both HAs: `Cout` needs `c1` and `c2`."
+   ]
+  }
+ },
+ {
+  "id": "g-add-sub",
+  "ch": "ch4",
+  "level": 2,
+  "source": {
+   "name": "Dạng bài theo giáo trình Mano, Digital Design (đề tự soạn; đáp án kiểm bằng máy), chương 4 — cộng/trừ 4 bit",
+   "license": "tự soạn"
+  },
+  "vi": {
+   "title": "Bộ cộng/trừ 4 bit và cờ tràn",
+   "q": "Bộ cộng 4 bit có đầu vào điều khiển M: M = 0 cộng, M = 1 trừ. (a) Mô tả mạch. (b) Tính `0110 − 0011` (6 − 3). (c) Tính `0111 + 0110` (7 + 6) và tìm cờ tràn V.",
+   "hints": [
+    "Mỗi bit B đi qua XOR với M; `Cin = M`.",
+    "Trừ = cộng bù 2: `A + B' + 1`.",
+    "V = nhớ vào bit dấu XOR nhớ ra khỏi bit dấu (`C₃ ⊕ C₄`)."
+   ],
+   "solution": [
+    "(a) Bốn cổng XOR: `Bᵢ ⊕ M` đưa vào bộ cộng 4 bit; `Cin = M`. M = 0: `A + B`; M = 1: `A + B' + 1 = A − B`. Cờ tràn `V = C₃ ⊕ C₄`.",
+    "(b) M = 1: `B ⊕ 1 = 1100`; `0110 + 1100 + 1 = 1 0011`: kết quả `0011 = 3`, `C₄ = 1`, `C₃ = 1` ⇒ `V = 0`.",
+    "(c) M = 0: `0111 + 0110 = 1101`: là −3 trong bù 2 nhưng đúng là 13 — **tràn**. `C₃ = 1` (nhớ vào bit dấu), `C₄ = 0` ⇒ `V = 1`."
+   ],
+   "rubric": [
+    "(a) XOR với M và Cin = M.",
+    "(b) ra 0011, V = 0.",
+    "(c) ra 1101 và V = 1 có giải thích."
+   ],
+   "pitfalls": [
+    "Quên Cin = M khi trừ (mất \"+1\" của bù 2).",
+    "Dùng `C₄` một mình làm cờ tràn có dấu."
+   ]
+  },
+  "en": {
+   "title": "4-bit adder/subtractor and the overflow flag",
+   "q": "A 4-bit adder has a control input M: M = 0 adds, M = 1 subtracts. (a) Describe the circuit. (b) Compute `0110 − 0011` (6 − 3). (c) Compute `0111 + 0110` (7 + 6) and find the overflow flag V.",
+   "hints": [
+    "Each B bit goes through an XOR with M; `Cin = M`.",
+    "Subtraction = adding the two's complement: `A + B' + 1`.",
+    "V = carry into the sign bit XOR carry out of it (`C₃ ⊕ C₄`)."
+   ],
+   "solution": [
+    "(a) Four XOR gates: `Bᵢ ⊕ M` feed the 4-bit adder; `Cin = M`. M = 0: `A + B`; M = 1: `A + B' + 1 = A − B`. Overflow `V = C₃ ⊕ C₄`.",
+    "(b) M = 1: `B ⊕ 1 = 1100`; `0110 + 1100 + 1 = 1 0011`: result `0011 = 3`, `C₄ = 1`, `C₃ = 1` ⇒ `V = 0`.",
+    "(c) M = 0: `0111 + 0110 = 1101`: that reads as −3 in two's complement but the true sum is 13 — **overflow**. `C₃ = 1` (carry into the sign bit), `C₄ = 0` ⇒ `V = 1`."
+   ],
+   "rubric": [
+    "(a) XOR with M and Cin = M.",
+    "(b) gets 0011, V = 0.",
+    "(c) gets 1101 and V = 1 with the explanation."
+   ],
+   "pitfalls": [
+    "Forgetting Cin = M when subtracting (loses the \"+1\" of two's complement).",
+    "Using `C₄` alone as the signed overflow flag."
+   ]
+  }
+ },
+ {
+  "id": "g-decoder",
+  "ch": "ch4",
+  "level": 2,
+  "source": {
+   "name": "Dạng bài theo giáo trình Mano, Digital Design (đề tự soạn; đáp án kiểm bằng máy), chương 4 — bộ giải mã",
+   "license": "tự soạn"
+  },
+  "vi": {
+   "title": "Thực hiện hàm bằng bộ giải mã 3→8",
+   "q": "Dùng một bộ giải mã 3→8 (đầu ra tích cực mức cao) và các cổng OR để thực hiện đồng thời `S(A, B, C) = Σm(1, 2, 4, 7)` và `Cout(A, B, C) = Σm(3, 5, 6, 7)`. Hai hàm này là gì?",
+   "hints": [
+    "Mỗi đầu ra của bộ giải mã là một minterm.",
+    "Hàm = OR các minterm của nó.",
+    "Nhìn tổng và nhớ của bộ cộng đầy đủ."
+   ],
+   "solution": [
+    "Bộ giải mã cho `m0 … m7`. `S = m1 + m2 + m4 + m7` (OR 4 đầu vào) và `Cout = m3 + m5 + m6 + m7` (OR 4 đầu vào).",
+    "Hai hàm chính là tổng và nhớ ra của bộ cộng đầy đủ: S = 1 khi số bit 1 là lẻ (`A ⊕ B ⊕ C`), Cout = 1 khi có từ hai bit 1 trở lên.",
+    "Tổng cộng: một bộ giải mã 3→8 và hai cổng OR 4 đầu vào."
+   ],
+   "rubric": [
+    "Nối đúng các minterm vào OR.",
+    "Nhận ra bộ cộng đầy đủ.",
+    "Liệt kê tài nguyên."
+   ],
+   "pitfalls": [
+    "Dùng đầu ra tích cực mức thấp mà không đổi OR thành NAND.",
+    "Lẫn minterm với maxterm."
+   ]
+  },
+  "en": {
+   "title": "Implementing functions with a 3→8 decoder",
+   "q": "Use one 3→8 decoder (active-high outputs) and OR gates to implement `S(A, B, C) = Σm(1, 2, 4, 7)` and `Cout(A, B, C) = Σm(3, 5, 6, 7)` at once. What are these two functions?",
+   "hints": [
+    "Each decoder output is a minterm.",
+    "A function = the OR of its minterms.",
+    "Look at the sum and carry of a full adder."
+   ],
+   "solution": [
+    "The decoder gives `m0 … m7`. `S = m1 + m2 + m4 + m7` (4-input OR) and `Cout = m3 + m5 + m6 + m7` (4-input OR).",
+    "They are the sum and carry-out of a full adder: S = 1 when the number of 1s is odd (`A ⊕ B ⊕ C`), Cout = 1 when two or more inputs are 1.",
+    "Total: one 3→8 decoder and two 4-input OR gates."
+   ],
+   "rubric": [
+    "Wires the right minterms into the ORs.",
+    "Recognises the full adder.",
+    "Lists the hardware."
+   ],
+   "pitfalls": [
+    "Using active-low outputs without changing the OR to a NAND.",
+    "Mixing up minterms and maxterms."
+   ]
+  }
+ },
+ {
+  "id": "g-mux",
+  "ch": "ch4",
+  "level": 2,
+  "source": {
+   "name": "Dạng bài theo giáo trình Mano, Digital Design (đề tự soạn; đáp án kiểm bằng máy), chương 4 — bộ dồn kênh",
+   "license": "tự soạn"
+  },
+  "vi": {
+   "title": "Thực hiện hàm bằng MUX 4→1",
+   "q": "Dùng một MUX 4→1 (chọn `S1 = A`, `S0 = B`) để thực hiện `F(A, B, C) = Σm(1, 2, 6, 7)`. Tìm bốn đầu vào dữ liệu theo C.",
+   "hints": [
+    "Mỗi giá trị của (A, B) chọn một đầu vào I₀…I₃.",
+    "Với mỗi (A, B) xét F theo C: có thể là 0, 1, C hoặc C'.",
+    "Hai minterm kề nhau (A, B cố định, C = 0/1) là hai dòng bảng chân trị."
+   ],
+   "solution": [
+    "`AB = 00` (minterm 0, 1): F = 0, 1 ⇒ `I₀ = C`.",
+    "`AB = 01` (minterm 2, 3): F = 1, 0 ⇒ `I₁ = C'`.",
+    "`AB = 10` (minterm 4, 5): F = 0, 0 ⇒ `I₂ = 0`.",
+    "`AB = 11` (minterm 6, 7): F = 1, 1 ⇒ `I₃ = 1`. Cần thêm một cổng NOT cho C'."
+   ],
+   "rubric": [
+    "Chia đúng cặp minterm theo (A, B).",
+    "Bốn đầu vào C, C', 0, 1.",
+    "Nhớ cổng NOT cho C'."
+   ],
+   "pitfalls": [
+    "Đảo thứ tự S1, S0 (A, B) làm hoán vị `I₁` và `I₂`.",
+    "Quên rằng F phụ thuộc C nên đầu vào không chỉ là 0/1."
+   ]
+  },
+  "en": {
+   "title": "Implementing a function with a 4→1 MUX",
+   "q": "Use one 4→1 MUX (select `S1 = A`, `S0 = B`) to implement `F(A, B, C) = Σm(1, 2, 6, 7)`. Find the four data inputs in terms of C.",
+   "hints": [
+    "Each value of (A, B) selects one input I₀…I₃.",
+    "For each (A, B) look at F as a function of C: it can be 0, 1, C or C'.",
+    "Two adjacent minterms (A, B fixed, C = 0/1) are two truth-table rows."
+   ],
+   "solution": [
+    "`AB = 00` (minterms 0, 1): F = 0, 1 ⇒ `I₀ = C`.",
+    "`AB = 01` (minterms 2, 3): F = 1, 0 ⇒ `I₁ = C'`.",
+    "`AB = 10` (minterms 4, 5): F = 0, 0 ⇒ `I₂ = 0`.",
+    "`AB = 11` (minterms 6, 7): F = 1, 1 ⇒ `I₃ = 1`. One extra NOT gate is needed for C'."
+   ],
+   "rubric": [
+    "Pairs the minterms correctly by (A, B).",
+    "The four inputs C, C', 0, 1.",
+    "Remembers the NOT gate for C'."
+   ],
+   "pitfalls": [
+    "Swapping S1, S0 (A, B), which exchanges `I₁` and `I₂`.",
+    "Forgetting F depends on C so the inputs are not only 0/1."
+   ]
+  }
+ },
+ {
+  "id": "g-comparator",
+  "ch": "ch4",
+  "level": 2,
+  "source": {
+   "name": "Dạng bài theo giáo trình Mano, Digital Design (đề tự soạn; đáp án kiểm bằng máy), chương 4 — bộ so sánh",
+   "license": "tự soạn"
+  },
+  "vi": {
+   "title": "Bộ so sánh 2 bit",
+   "q": "Thiết kế bộ so sánh hai số 2 bit `A = A1A0` và `B = B1B0`: viết ba đầu ra `A > B`, `A = B`, `A < B`.",
+   "hints": [
+    "`A = B` khi từng cặp bit bằng nhau (XNOR).",
+    "`A > B` khi bit cao lớn hơn, hoặc bit cao bằng nhau và bit thấp lớn hơn.",
+    "`A < B` là phần còn lại (hoặc đổi vai A, B)."
+   ],
+   "solution": [
+    "Đặt `x1 = (A1 ⊕ B1)'`, `x0 = (A0 ⊕ B0)'`.",
+    "`A = B`: `x1·x0`.",
+    "`A > B`: `A1B1' + x1·A0B0'`.",
+    "`A < B`: `A1'B1 + x1·A0'B0` (đối xứng). Kiểm 16 tổ hợp bằng máy: ba hàm đúng và đúng một đầu ra bằng 1 ở mỗi tổ hợp."
+   ],
+   "rubric": [
+    "`A = B` bằng AND của hai XNOR.",
+    "`A > B` có hai trường hợp (bit cao hơn / bằng nhau rồi bit thấp hơn).",
+    "`A < B` đối xứng và có kiểm \"đúng một\"."
+   ],
+   "pitfalls": [
+    "Quên điều kiện bit cao bằng nhau ở trường hợp thứ hai.",
+    "Dùng OR thay cho AND ở `A = B`."
+   ]
+  },
+  "en": {
+   "title": "A 2-bit comparator",
+   "q": "Design a comparator for two 2-bit numbers `A = A1A0` and `B = B1B0`: write the three outputs `A > B`, `A = B`, `A < B`.",
+   "hints": [
+    "`A = B` when each bit pair is equal (XNOR).",
+    "`A > B` when the high bit is greater, or the high bits are equal and the low bit is greater.",
+    "`A < B` is what remains (or swap the roles of A and B)."
+   ],
+   "solution": [
+    "Let `x1 = (A1 ⊕ B1)'`, `x0 = (A0 ⊕ B0)'`.",
+    "`A = B`: `x1·x0`.",
+    "`A > B`: `A1B1' + x1·A0B0'`.",
+    "`A < B`: `A1'B1 + x1·A0'B0` (symmetric). Checked over all 16 combinations by machine: the three functions are right and exactly one output is 1 for every input."
+   ],
+   "rubric": [
+    "`A = B` as the AND of two XNORs.",
+    "`A > B` has two cases (higher bit / equal then lower bit).",
+    "`A < B` by symmetry with an \"exactly one\" check."
+   ],
+   "pitfalls": [
+    "Forgetting the \"high bits equal\" condition in the second case.",
+    "Using OR instead of AND for `A = B`."
+   ]
+  }
+ },
+ {
+  "id": "g-parity",
+  "ch": "ch4",
+  "level": 1,
+  "source": {
+   "name": "Dạng bài theo giáo trình Mano, Digital Design (đề tự soạn; đáp án kiểm bằng máy), chương 4 — kiểm tra chẵn lẻ",
+   "license": "tự soạn"
+  },
+  "vi": {
+   "title": "Bộ tạo và kiểm bit chẵn lẻ",
+   "q": "Thiết kế bộ tạo bit chẵn (even parity) cho dữ liệu 4 bit `ABCD` và bộ kiểm cho từ 5 bit nhận được. Nêu loại lỗi nào phát hiện được và loại nào không.",
+   "hints": [
+    "Bit chẵn P sao cho tổng số bit 1 của 5 bit là chẵn.",
+    "P là XOR của các bit dữ liệu.",
+    "Bộ kiểm tính XOR của cả 5 bit."
+   ],
+   "solution": [
+    "Bộ tạo: `P = A ⊕ B ⊕ C ⊕ D` (số bit 1 của ABCD lẻ thì P = 1).",
+    "Bộ kiểm: `E = A ⊕ B ⊕ C ⊕ D ⊕ P`; `E = 0` ⇒ không phát hiện lỗi, `E = 1` ⇒ có lỗi.",
+    "Phát hiện mọi lỗi lẻ số bit (1, 3, 5 bit sai) vì tổng số bit 1 đổi chẵn lẻ. **Không** phát hiện lỗi chẵn số bit (2, 4 bit sai) và không chỉ ra vị trí lỗi."
+   ],
+   "rubric": [
+    "P và E đúng.",
+    "Nêu lỗi lẻ phát hiện được.",
+    "Nêu lỗi chẵn không phát hiện và không định vị."
+   ],
+   "pitfalls": [
+    "Cho rằng bit chẵn lẻ sửa được lỗi 1 bit (cần mã Hamming).",
+    "Nhầm parity chẵn / lẻ: lẻ có P đảo."
+   ]
+  },
+  "en": {
+   "title": "Parity generator and checker",
+   "q": "Design an even-parity generator for 4-bit data `ABCD` and a checker for a received 5-bit word. Say which errors are detected and which are not.",
+   "hints": [
+    "The parity bit P makes the total number of 1s in the five bits even.",
+    "P is the XOR of the data bits.",
+    "The checker XORs all five bits."
+   ],
+   "solution": [
+    "Generator: `P = A ⊕ B ⊕ C ⊕ D` (an odd number of 1s in ABCD gives P = 1).",
+    "Checker: `E = A ⊕ B ⊕ C ⊕ D ⊕ P`; `E = 0` ⇒ no error detected, `E = 1` ⇒ an error.",
+    "Detects every odd number of bit errors (1, 3, 5 flipped bits) since the parity of the count of 1s changes. It does **not** detect an even number of errors (2, 4 bits) and does not say where the error is."
+   ],
+   "rubric": [
+    "Correct P and E.",
+    "States odd-bit errors are detected.",
+    "States even-bit errors are missed and the error is not located."
+   ],
+   "pitfalls": [
+    "Claiming parity corrects single-bit errors (that needs a Hamming code).",
+    "Mixing even/odd parity: odd parity inverts P."
+   ]
+  }
+ }
+]

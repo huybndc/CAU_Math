@@ -103,7 +103,7 @@ export const vi = {
   'learn.current': 'đang học',
   /* Luyện tập */
   'practice.tabKinds': 'Luyện theo dạng',
-  'practice.tabFull': 'Bài full 60–90 phút',
+  'practice.tabFull': 'Bài tập dài 60–90 phút',
   'practice.mix': 'Trộn cả chương',
   'practice.meta': '{n} câu · ~{m} phút',
   'practice.scopeWeek': '7 ngày',
@@ -307,6 +307,7 @@ export const vi = {
   'grid.pen': 'Bút nhóm {n}',
   'grid.penTip': 'Chọn một màu rồi bấm ô để tô nhóm; bấm lại màu đó để thôi tô và quay về điền 1/0/X.',
   'practice.tabFree': 'Tự luận',
+  'free.problem': 'Đề bài',
   'free.title': 'Tự luận',
   'free.sub': 'Đề theo bộ bài tập giáo trình. Máy không chấm: bạn làm trên giấy, xem lời giải rồi tự đánh giá.',
   'free.none': 'Môn này chưa có bài tự luận.', 'free.noneNote': 'Trong lúc chờ, mục Luyện tập có bài tự chấm theo từng chương.',

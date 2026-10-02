@@ -70,31 +70,28 @@ function problem(host, p, all, cfg) {
   const rt = ratings();
   const cur = rt[p.id]?.r;
 
-  const hints = el('div', { class: 'free-hints' }, [
-    ...t.hints.slice(0, sess.hints).map((h, i) => el('div', { class: 'free-hint' }, [el('b', { text: T('free.hintN', { n: i + 1 }) }), md(h)])),
+  const mod = (title, body, open = true, cls = '') => el('details', { class: `card free-mod ${cls}`, open: open ? '' : null }, [el('summary', {}, el('h2', { text: title })), ...[body].flat()]);
+
+  const hints = [
+    ...t.hints.slice(0, sess.hints).map((h, i) => mod(T('free.hintN', { n: i + 1 }), md(h), i === sess.hints - 1, 'free-hint')),
     sess.hints < t.hints.length && el('button', {
       type: 'button', class: 'btn', text: T('free.hintBtn', { n: sess.hints + 1, m: t.hints.length }),
       onClick: () => { sess.hints++; redraw(); },
     }),
-  ]);
+  ];
 
-  const body = sess.shown ? [
-    el('h2', { text: T('free.solution') }),
-    el('ol', { class: 'free-sol' }, t.solution.map(s => el('li', {}, md(s)))),
-    el('h2', { text: T('free.rubric') }),
-    el('p', { class: 'subtitle', text: T('free.rubricNote') }),
-    el('ul', { class: 'free-rubric' }, t.rubric.map(x => el('li', {}, el('label', {}, [el('input', { type: 'checkbox' }), md(x)])))),
-    el('h2', { text: T('free.pitfalls') }),
-    el('ul', { class: 'free-pit' }, t.pitfalls.map(x => el('li', {}, md(x)))),
-    el('h2', { text: T('free.rate') }),
-    el('div', { class: 'free-rate', role: 'group' }, RATINGS.map(k => el('button', {
+  const right = sess.shown ? [
+    mod(T('free.solution'), el('ol', { class: 'free-sol' }, t.solution.map(x => el('li', {}, md(x))))),
+    mod(T('free.rubric'), [el('p', { class: 'subtitle', text: T('free.rubricNote') }), el('ul', { class: 'free-rubric' }, t.rubric.map(x => el('li', {}, el('label', {}, [el('input', { type: 'checkbox' }), md(x)]))))]),
+    mod(T('free.pitfalls'), el('ul', { class: 'free-pit' }, t.pitfalls.map(x => el('li', {}, md(x)))), false),
+    mod(T('free.rate'), el('div', { class: 'free-rate', role: 'group' }, RATINGS.map(k => el('button', {
       type: 'button', class: 'btn' + (cur === k ? ' primary' : ''), 'aria-pressed': String(cur === k),
       onClick: () => { save(RATE_KEY, { ...ratings(), [p.id]: { r: k, t: Date.now() } }); redraw(); },
-    }, T('free.rate_' + k)))),
-  ] : [
+    }, T('free.rate_' + k))))),
+  ] : [el('div', { class: 'card free-mod free-wait' }, [
     el('p', { class: 'subtitle', text: T('free.tryFirst') }),
     el('button', { type: 'button', class: 'btn primary', text: T('free.show'), onClick: () => { sess.shown = true; redraw(); } }),
-  ];
+  ])];
 
   const n = nextUp(all.filter(x => x.ch === p.ch), rt, p.id);
   host.replaceChildren(...[
@@ -103,10 +100,10 @@ function problem(host, p, all, cfg) {
       el('p', { class: 'crumb', text: `${chapterTitle(p.ch)} · ${stars(p.level)}` }),
       el('h1', { text: t.title }),
     ]),
-    el('div', { class: 'card free-q' }, md(t.q)),
-    hints,
-    ...body,
-    el('p', { class: 'free-src', text: T('free.source', { name: p.source.name, license: p.source.license }) }),
+    el('div', { class: 'free-cols' }, [
+      el('div', { class: 'free-left' }, [mod(T('free.problem'), md(t.q), true, 'free-q'), ...hints, el('p', { class: 'free-src', text: T('free.source', { name: p.source.name, license: p.source.license }) })]),
+      el('div', { class: 'free-right' }, right),
+    ]),
     sess.shown && n && el('a', { class: 'btn', href: `#/free/${n.id}`, 'data-icon': 'next' }, el('span', { text: T('free.next') })),
   ].filter(Boolean));
   return t.title;

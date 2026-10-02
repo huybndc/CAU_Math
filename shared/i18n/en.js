@@ -104,7 +104,7 @@ export const en = {
   'learn.current': 'studying',
   /* Practice */
   'practice.tabKinds': 'Practise by type',
-  'practice.tabFull': 'Full test, 60–90 min',
+  'practice.tabFull': 'Long practice, 60–90 min',
   'practice.mix': 'Mix the whole chapter',
   'practice.meta': '{n} questions · ~{m} min',
   'practice.scopeWeek': '7 days',
@@ -307,6 +307,7 @@ export const en = {
   'grid.pen': 'Group pen {n}',
   'grid.penTip': 'Pick a colour, then click cells to mark a group; click the colour again to go back to entering 1/0/X.',
   'practice.tabFree': 'Free response',
+  'free.problem': 'Problem',
   'free.title': 'Free response',
   'free.sub': 'Problems follow the textbook problem sets. Nothing is auto-graded: work on paper, read the solution, rate yourself.',
   'free.none': 'This course has no free-response problems yet.', 'free.noneNote': 'Meanwhile, Practice has self-checked questions by chapter.',

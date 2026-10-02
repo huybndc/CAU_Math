@@ -1,0 +1,340 @@
+[
+ {
+  "id": "g-kmap-4",
+  "ch": "ch3",
+  "level": 1,
+  "source": {
+   "name": "Dạng bài theo giáo trình Mano, Digital Design (đề tự soạn; đáp án kiểm bằng máy), chương 3 — K-map 4 biến",
+   "license": "tự soạn"
+  },
+  "vi": {
+   "title": "Rút gọn bằng K-map 4 biến",
+   "q": "Rút gọn `F(A, B, C, D) = Σm(0, 2, 5, 7, 8, 10, 13, 15)` bằng K-map. Nêu các nhóm đã khoanh.",
+   "hints": [
+    "Vẽ K-map 4×4 với thứ tự hàng/cột theo mã Gray: 00, 01, 11, 10.",
+    "Các nhóm phải là 1, 2, 4, 8 ô; được \"cuộn\" quanh mép.",
+    "Bốn góc là một nhóm hợp lệ."
+   ],
+   "solution": [
+    "Đánh dấu 1 ở các ô 0, 2, 5, 7, 8, 10, 13, 15.",
+    "Nhóm 4 ô ở bốn góc: minterm 0, 2, 8, 10 (cùng `B = 0`, `D = 0`) ⇒ `B'D'`.",
+    "Nhóm 4 ô ở giữa: minterm 5, 7, 13, 15 (cùng `B = 1`, `D = 1`) ⇒ `BD`.",
+    "Mọi ô 1 đã được phủ: `F = B'D' + BD` (tức XNOR của B và D; đã kiểm bằng máy)."
+   ],
+   "rubric": [
+    "Nhóm bốn góc đúng.",
+    "Nhóm giữa đúng.",
+    "Biểu thức `B'D' + BD`."
+   ],
+   "pitfalls": [
+    "Không nhận ra nhóm bốn góc (cuộn quanh mép).",
+    "Khoanh nhóm 3 ô hoặc lệch hàng/cột không phải luỹ thừa của 2."
+   ]
+  },
+  "en": {
+   "title": "Simplifying with a 4-variable K-map",
+   "q": "Simplify `F(A, B, C, D) = Σm(0, 2, 5, 7, 8, 10, 13, 15)` with a K-map. Name the groups you circle.",
+   "hints": [
+    "Draw a 4×4 K-map with rows/columns in Gray order: 00, 01, 11, 10.",
+    "Groups must have 1, 2, 4 or 8 cells and may wrap around the edges.",
+    "The four corners form a valid group."
+   ],
+   "solution": [
+    "Mark 1s at cells 0, 2, 5, 7, 8, 10, 13, 15.",
+    "A 4-cell group at the four corners: minterms 0, 2, 8, 10 (all with `B = 0`, `D = 0`) ⇒ `B'D'`.",
+    "A 4-cell group in the middle: minterms 5, 7, 13, 15 (all with `B = 1`, `D = 1`) ⇒ `BD`.",
+    "Every 1 is covered: `F = B'D' + BD` (the XNOR of B and D; verified by machine)."
+   ],
+   "rubric": [
+    "The four-corner group is right.",
+    "The middle group is right.",
+    "The expression `B'D' + BD`."
+   ],
+   "pitfalls": [
+    "Missing the four-corner group (wrap-around).",
+    "Circling 3 cells or a misaligned group whose size is not a power of 2."
+   ]
+  }
+ },
+ {
+  "id": "g-kmap-dc",
+  "ch": "ch3",
+  "level": 2,
+  "source": {
+   "name": "Dạng bài theo giáo trình Mano, Digital Design (đề tự soạn; đáp án kiểm bằng máy), chương 3 — don't care",
+   "license": "tự soạn"
+  },
+  "vi": {
+   "title": "K-map với điều kiện không quan tâm",
+   "q": "Rút gọn `F(A, B, C, D) = Σm(1, 3, 7, 11, 15)` với `d(0, 2, 5)` (điều kiện không quan tâm). Có mấy đáp án tối giản?",
+   "hints": [
+    "Ô d có thể coi là 1 nếu giúp nhóm lớn hơn; không bắt buộc phải phủ.",
+    "Tìm các nhóm lớn nhất có thể (kể cả d).",
+    "Kiểm có nhiều cách phủ cùng số số hạng không."
+   ],
+   "solution": [
+    "Các nhóm lớn: `CD` (ô 3, 7, 11, 15 — đều là 1 bắt buộc, `11` và `15` chỉ phủ được bởi nhóm này nên nó thiết yếu). `A'B'` (ô 0, 1, 2, 3: dùng d ở 0, 2). `A'D` (ô 1, 3, 5, 7: dùng d ở 5).",
+    "Cần phủ thêm ô 1 và 3 (chưa phủ bởi CD? ô 3 đã phủ; còn ô 1): có thể dùng `A'B'` hoặc `A'D`.",
+    "Vậy có **hai** đáp án tối giản, cùng 2 số hạng: `F = CD + A'B'` và `F = CD + A'D`. Cả hai đều đúng ở mọi minterm của F và tự do ở các ô d."
+   ],
+   "rubric": [
+    "Nhận `CD` là nhóm thiết yếu.",
+    "Dùng đúng ô d để tạo nhóm lớn.",
+    "Nêu được hai đáp án tối giản."
+   ],
+   "pitfalls": [
+    "Cho rằng chỉ có một đáp án tối giản.",
+    "Coi ô d là 0 (mất nhóm lớn) hoặc bắt buộc phải phủ hết ô d."
+   ]
+  },
+  "en": {
+   "title": "K-map with don't cares",
+   "q": "Simplify `F(A, B, C, D) = Σm(1, 3, 7, 11, 15)` with don't cares `d(0, 2, 5)`. How many minimal answers are there?",
+   "hints": [
+    "A d-cell may be treated as 1 if it enlarges a group; it need not be covered.",
+    "Look for the largest possible groups (including d cells).",
+    "Check whether several covers have the same number of terms."
+   ],
+   "solution": [
+    "Large groups: `CD` (cells 3, 7, 11, 15 — 11 and 15 can only be covered by this group so it is essential). `A'B'` (cells 0, 1, 2, 3: uses d at 0, 2). `A'D` (cells 1, 3, 5, 7: uses d at 5).",
+    "Cell 1 remains to be covered (CD covers 3): use either `A'B'` or `A'D`.",
+    "So there are **two** minimal answers with 2 terms each: `F = CD + A'B'` and `F = CD + A'D`. Both are correct on every minterm of F and free on the d-cells."
+   ],
+   "rubric": [
+    "Recognises `CD` as essential.",
+    "Uses the d cells to form larger groups.",
+    "States both minimal answers."
+   ],
+   "pitfalls": [
+    "Claiming a unique minimal answer.",
+    "Treating d as 0 (loses a large group) or insisting every d must be covered."
+   ]
+  }
+ },
+ {
+  "id": "g-kmap-pos",
+  "ch": "ch3",
+  "level": 2,
+  "source": {
+   "name": "Dạng bài theo giáo trình Mano, Digital Design (đề tự soạn; đáp án kiểm bằng máy), chương 3 — tích các tổng",
+   "license": "tự soạn"
+  },
+  "vi": {
+   "title": "Dạng SOP và POS tối giản",
+   "q": "Với `F(A, B, C, D) = Σm(0, 1, 2, 5, 8, 9, 10)`: (a) tìm dạng tổng các tích (SOP) tối giản; (b) tìm dạng tích các tổng (POS) tối giản bằng cách khoanh các ô 0 của K-map.",
+   "hints": [
+    "SOP: nhóm các ô 1. POS: nhóm các ô 0 của F, lấy ra `F'` rồi bù lại.",
+    "Các ô 0: những chỉ số không thuộc F.",
+    "Dùng De Morgan để từ SOP của F' ra POS của F."
+   ],
+   "solution": [
+    "(a) Các nhóm ô 1: `B'C'` (0, 1, 8, 9), `B'D'` (0, 2, 8, 10), `A'C'D` (1, 5): `F = B'C' + B'D' + A'C'D`.",
+    "(b) Các ô 0: 3, 4, 6, 7, 11, 12, 13, 14, 15. Nhóm: `AB` (12, 13, 14, 15), `BD'` (4, 6, 12, 14), `CD` (3, 7, 11, 15): `F' = AB + BD' + CD`.",
+    "Bù hai vế: `F = (AB + BD' + CD)' = (A' + B')(B' + D)(C' + D')`. (Kiểm bằng máy cả 16 tổ hợp.)"
+   ],
+   "rubric": [
+    "(a) SOP tối giản đúng.",
+    "(b) nhóm đúng các ô 0.",
+    "Bù bằng De Morgan ra POS đúng."
+   ],
+   "pitfalls": [
+    "Viết POS bằng cách lấy `F'` rồi quên bù.",
+    "Khoanh ô 1 cho POS (phải khoanh ô 0)."
+   ]
+  },
+  "en": {
+   "title": "Minimal SOP and POS",
+   "q": "For `F(A, B, C, D) = Σm(0, 1, 2, 5, 8, 9, 10)`: (a) find the minimal sum-of-products (SOP); (b) find the minimal product-of-sums (POS) by circling the 0 cells of the K-map.",
+   "hints": [
+    "SOP: group the 1 cells. POS: group the 0 cells of F, take `F'`, then complement.",
+    "The 0 cells are the indices not in F.",
+    "Use De Morgan to turn the SOP of F' into the POS of F."
+   ],
+   "solution": [
+    "(a) Groups of 1s: `B'C'` (0, 1, 8, 9), `B'D'` (0, 2, 8, 10), `A'C'D` (1, 5): `F = B'C' + B'D' + A'C'D`.",
+    "(b) The 0 cells: 3, 4, 6, 7, 11, 12, 13, 14, 15. Groups: `AB` (12, 13, 14, 15), `BD'` (4, 6, 12, 14), `CD` (3, 7, 11, 15): `F' = AB + BD' + CD`.",
+    "Complement both sides: `F = (AB + BD' + CD)' = (A' + B')(B' + D)(C' + D')`. (Checked by machine over all 16 combinations.)"
+   ],
+   "rubric": [
+    "(a) correct minimal SOP.",
+    "(b) correctly groups the 0 cells.",
+    "Complements with De Morgan to the right POS."
+   ],
+   "pitfalls": [
+    "Writing the POS from `F'` and forgetting to complement.",
+    "Circling 1s for the POS (you must circle 0s)."
+   ]
+  }
+ },
+ {
+  "id": "g-kmap-epi",
+  "ch": "ch3",
+  "level": 2,
+  "source": {
+   "name": "Dạng bài theo giáo trình Mano, Digital Design (đề tự soạn; đáp án kiểm bằng máy), chương 3 — implicant nguyên tố",
+   "license": "tự soạn"
+  },
+  "vi": {
+   "title": "Implicant nguyên tố và thiết yếu",
+   "q": "Với `F(A, B, C, D) = Σm(0, 1, 2, 5, 6, 7, 8, 9, 10, 14)`: liệt kê mọi implicant nguyên tố (PI), chỉ ra các PI thiết yếu (EPI) và một phủ tối giản.",
+   "hints": [
+    "PI = nhóm lớn nhất không thể mở rộng thêm.",
+    "EPI = PI duy nhất phủ một minterm nào đó.",
+    "Sau khi lấy EPI, xem minterm nào còn trống."
+   ],
+   "solution": [
+    "PI: `B'C'` (0, 1, 8, 9), `B'D'` (0, 2, 8, 10), `CD'` (2, 6, 10, 14), `A'BC` (6, 7), `A'BD` (5, 7), `A'C'D` (1, 5).",
+    "EPI: `B'C'` (duy nhất phủ 9) và `CD'` (duy nhất phủ 14). `B'D'` không thiết yếu vì 0, 2, 8, 10 đã được hai EPI phủ.",
+    "Sau EPI còn minterm 5 và 7 chưa phủ: `A'BD` phủ cả hai (một số hạng). Phủ tối giản: `F = B'C' + CD' + A'BD`."
+   ],
+   "rubric": [
+    "Liệt kê đủ 6 PI.",
+    "Chọn đúng EPI và giải thích minterm \"duy nhất\".",
+    "Phủ tối giản đúng 3 số hạng."
+   ],
+   "pitfalls": [
+    "Cho `B'D'` là thiết yếu.",
+    "Chọn thêm hai số hạng cho 5 và 7 thay vì một nhóm chung `A'BD`."
+   ]
+  },
+  "en": {
+   "title": "Prime and essential implicants",
+   "q": "For `F(A, B, C, D) = Σm(0, 1, 2, 5, 6, 7, 8, 9, 10, 14)`: list all prime implicants (PIs), identify the essential ones (EPIs) and give a minimal cover.",
+   "hints": [
+    "A PI is a group that cannot be enlarged.",
+    "An EPI is the only PI covering some minterm.",
+    "After taking the EPIs see which minterms are left."
+   ],
+   "solution": [
+    "PIs: `B'C'` (0, 1, 8, 9), `B'D'` (0, 2, 8, 10), `CD'` (2, 6, 10, 14), `A'BC` (6, 7), `A'BD` (5, 7), `A'C'D` (1, 5).",
+    "EPIs: `B'C'` (only one covering 9) and `CD'` (only one covering 14). `B'D'` is not essential since 0, 2, 8, 10 are already covered by the two EPIs.",
+    "After the EPIs minterms 5 and 7 remain: `A'BD` covers both (one term). Minimal cover: `F = B'C' + CD' + A'BD`."
+   ],
+   "rubric": [
+    "Lists all 6 PIs.",
+    "Picks the EPIs and explains the \"only one\" minterm.",
+    "A minimal 3-term cover."
+   ],
+   "pitfalls": [
+    "Calling `B'D'` essential.",
+    "Adding two terms for 5 and 7 instead of the single shared group `A'BD`."
+   ]
+  }
+ },
+ {
+  "id": "g-kmap-5",
+  "ch": "ch3",
+  "level": 3,
+  "source": {
+   "name": "Dạng bài theo giáo trình Mano, Digital Design (đề tự soạn; đáp án kiểm bằng máy), chương 3 — K-map 5 biến",
+   "license": "tự soạn"
+  },
+  "vi": {
+   "title": "Rút gọn hàm 5 biến",
+   "q": "Rút gọn `F(A, B, C, D, E) = Σm(0, 2, 4, 6, 9, 11, 13, 15, 17, 21, 25, 27, 29, 31)`. Gợi ý: xếp hai K-map 4×4 (A = 0 và A = 1) và chú ý các ô \"chồng lên nhau\".",
+   "hints": [
+    "Hai bản đồ: A = 0 (minterm 0–15) và A = 1 (16–31).",
+    "Nhóm hợp lệ có thể trải trên cả hai bản đồ nếu ô tương ứng đều là 1.",
+    "Tìm nhóm theo E trước (nhiều minterm lẻ / chẵn)."
+   ],
+   "solution": [
+    "Các minterm chẵn 0, 2, 4, 6 nằm ở `A = 0, B = 0, E = 0` (C, D tự do): nhóm 4 ô `A'B'E'`.",
+    "Các minterm lẻ 9, 11, 13, 15 (A = 0) và 25, 27, 29, 31 (A = 1) đều có `B = 1, E = 1`: nhóm 8 ô trải hai bản đồ ⇒ `BE`.",
+    "Còn 17, 21 (A = 1, B = 0, D = 0, E = 1) cùng 25, 29: nhóm `AD'E` (17, 21, 25, 29).",
+    "Phủ hết: `F = A'B'E' + BE + AD'E` (đã kiểm bằng máy)."
+   ],
+   "rubric": [
+    "Hiểu cách trải hai bản đồ.",
+    "Ba nhóm đúng.",
+    "Biểu thức đúng."
+   ],
+   "pitfalls": [
+    "Chỉ nhóm trong một bản đồ mà bỏ qua nhóm trải hai bản đồ.",
+    "Nhóm lệch 17, 21 mà không nhận ra mở rộng sang 25, 29."
+   ]
+  },
+  "en": {
+   "title": "Simplifying a 5-variable function",
+   "q": "Simplify `F(A, B, C, D, E) = Σm(0, 2, 4, 6, 9, 11, 13, 15, 17, 21, 25, 27, 29, 31)`. Hint: stack two 4×4 K-maps (A = 0 and A = 1) and look at cells that \"sit on top of each other\".",
+   "hints": [
+    "Two maps: A = 0 (minterms 0–15) and A = 1 (16–31).",
+    "A valid group may span both maps if the matching cells are all 1.",
+    "Look first at E (many odd / even minterms)."
+   ],
+   "solution": [
+    "The even minterms 0, 2, 4, 6 lie at `A = 0, B = 0, E = 0` (C, D free): a 4-cell group `A'B'E'`.",
+    "The odd minterms 9, 11, 13, 15 (A = 0) and 25, 27, 29, 31 (A = 1) all have `B = 1, E = 1`: an 8-cell group spanning both maps ⇒ `BE`.",
+    "What remains is 17, 21 (A = 1, B = 0, D = 0, E = 1) with 25, 29: the group `AD'E` (17, 21, 25, 29).",
+    "All covered: `F = A'B'E' + BE + AD'E` (verified by machine)."
+   ],
+   "rubric": [
+    "Understands how to stack the two maps.",
+    "Three correct groups.",
+    "Correct expression."
+   ],
+   "pitfalls": [
+    "Grouping inside one map only and missing the group spanning both.",
+    "Grouping 17, 21 alone instead of extending to 25, 29."
+   ]
+  }
+ },
+ {
+  "id": "g-gray-code",
+  "ch": "ch3",
+  "level": 1,
+  "source": {
+   "name": "Dạng bài theo giáo trình Mano, Digital Design (đề tự soạn; đáp án kiểm bằng máy), chương 3 — mã Gray",
+   "license": "tự soạn"
+  },
+  "vi": {
+   "title": "Mã Gray và bộ chuyển đổi",
+   "q": "(a) Lập mã Gray 4 bit bằng phương pháp phản xạ. (b) Đổi nhị phân `10110` sang Gray, rồi đổi `11101` ngược về nhị phân. (c) Viết công thức từng bit của bộ chuyển nhị phân → Gray và Gray → nhị phân. (d) Vì sao K-map dùng thứ tự Gray cho nhãn hàng/cột?",
+   "hints": [
+    "Phản xạ: viết dãy 3 bit, thêm 0 phía trước; rồi viết ngược dãy đó với 1 ở trước.",
+    "Nhị phân → Gray: bit cao giữ nguyên; các bit sau là XOR của hai bit nhị phân liền nhau.",
+    "Gray → nhị phân: bit cao giữ nguyên; mỗi bit sau = (bit nhị phân trước) XOR (bit Gray hiện tại)."
+   ],
+   "solution": [
+    "(a) 4 bit: `0000, 0001, 0011, 0010, 0110, 0111, 0101, 0100, 1100, 1101, 1111, 1110, 1010, 1011, 1001, 1000` (hai từ liền nhau khác đúng một bit).",
+    "(b) `b = 10110`: `g4 = b4 = 1`, `g3 = b4⊕b3 = 1⊕0 = 1`, `g2 = b3⊕b2 = 0⊕1 = 1`, `g1 = b2⊕b1 = 1⊕1 = 0`, `g0 = b1⊕b0 = 1⊕0 = 1` ⇒ Gray `11101`. Ngược lại: `b4 = 1`, `b3 = b4⊕g3 = 1⊕1 = 0`, `b2 = b3⊕g2 = 0⊕1 = 1`, `b1 = b2⊕g1 = 1⊕0 = 1`, `b0 = b1⊕g0 = 1⊕1 = 0` ⇒ `10110` ✓.",
+    "(c) `gₙ = bₙ`, `gᵢ = bᵢ₊₁ ⊕ bᵢ`; ngược lại `bₙ = gₙ`, `bᵢ = bᵢ₊₁ ⊕ gᵢ` (chuỗi XOR tích luỹ).",
+    "(d) Hai ô liền nhau trên K-map chỉ khác một biến, nên có thể gộp thành một số hạng bỏ được biến đó; nhãn Gray bảo đảm tính kề này, kể cả khi cuộn quanh mép."
+   ],
+   "rubric": [
+    "(a) dãy đúng và tính chất \"đổi một bit\".",
+    "(b) hai phép đổi đúng và nhất quán.",
+    "(c) công thức XOR đúng.",
+    "(d) giải thích bằng tính kề (khác một biến)."
+   ],
+   "pitfalls": [
+    "Đổi Gray → nhị phân bằng XOR hai bit Gray liền nhau (đó là chiều ngược).",
+    "Nói K-map dùng Gray \"cho đẹp\" mà không nêu tính kề."
+   ]
+  },
+  "en": {
+   "title": "Gray code and converters",
+   "q": "(a) Build the 4-bit Gray code by the reflection method. (b) Convert binary `10110` to Gray, then convert `11101` back to binary. (c) Write the bitwise formulas of the binary → Gray and Gray → binary converters. (d) Why does a K-map label rows/columns in Gray order?",
+   "hints": [
+    "Reflection: write the 3-bit sequence with a 0 prefix; then write it in reverse with a 1 prefix.",
+    "Binary → Gray: top bit unchanged; each lower bit is the XOR of two neighbouring binary bits.",
+    "Gray → binary: top bit unchanged; each lower bit = (previous binary bit) XOR (current Gray bit)."
+   ],
+   "solution": [
+    "(a) 4 bits: `0000, 0001, 0011, 0010, 0110, 0111, 0101, 0100, 1100, 1101, 1111, 1110, 1010, 1011, 1001, 1000` (neighbouring words differ in exactly one bit).",
+    "(b) `b = 10110`: `g4 = b4 = 1`, `g3 = b4⊕b3 = 1⊕0 = 1`, `g2 = b3⊕b2 = 0⊕1 = 1`, `g1 = b2⊕b1 = 1⊕1 = 0`, `g0 = b1⊕b0 = 1⊕0 = 1` ⇒ Gray `11101`. Back: `b4 = 1`, `b3 = b4⊕g3 = 1⊕1 = 0`, `b2 = b3⊕g2 = 0⊕1 = 1`, `b1 = b2⊕g1 = 1⊕0 = 1`, `b0 = b1⊕g0 = 1⊕1 = 0` ⇒ `10110` ✓.",
+    "(c) `gₙ = bₙ`, `gᵢ = bᵢ₊₁ ⊕ bᵢ`; conversely `bₙ = gₙ`, `bᵢ = bᵢ₊₁ ⊕ gᵢ` (a cumulative XOR chain).",
+    "(d) Two neighbouring K-map cells differ in exactly one variable, so they merge into a term without that variable; Gray labels guarantee this adjacency, including wrap-around."
+   ],
+   "rubric": [
+    "(a) correct sequence and the one-bit-change property.",
+    "(b) both conversions correct and consistent.",
+    "(c) correct XOR formulas.",
+    "(d) explains via adjacency (one variable differs)."
+   ],
+   "pitfalls": [
+    "Converting Gray → binary by XOR of two neighbouring Gray bits (that is the other direction).",
+    "Saying the K-map uses Gray \"for neatness\" without mentioning adjacency."
+   ]
+  }
+ }
+]

@@ -10,3 +10,13 @@
 .free-pit li::before{content:"⚠ ";color:var(--warn)}
 .free-rate{display:flex;flex-wrap:wrap;gap:.5rem}
 .free-src{margin-top:1rem;font-size:var(--fs-sm);color:var(--ink-dim)}
+
+.free-cols{display:grid;gap:1rem;align-items:start}
+@media(min-width:900px){.free-cols{grid-template-columns:minmax(0,5fr) minmax(0,6fr)}.free-left{position:sticky;top:1rem}}
+.free-left,.free-right{display:grid;gap:.75rem}
+.free-mod>summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:.5rem}
+.free-mod>summary::-webkit-details-marker{display:none}
+.free-mod>summary::before{content:"▸";color:var(--ink-dim);transition:transform .12s}
+.free-mod[open]>summary::before{transform:rotate(90deg)}
+.free-mod>summary h2{margin:0;font-size:var(--fs-md,1rem)}
+.free-mod[open]>summary{margin-bottom:.5rem}
