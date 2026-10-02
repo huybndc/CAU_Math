@@ -78,3 +78,7 @@
 - Dữ liệu: `<app>/src/content/free/chN.json`; kiểm bằng `shared/logic/free.js` + `<app>/tests/free-content.test.js`.
 - Nội dung: Discrete 62 bài (MIT 6.042J, CC BY-NC-SA 3.0), LinAlg 38 bài (MIT 18.06 Spring 2010 PS1–4, CC BY-NC-SA 3.0), Logic 26 bài (dạng bài theo Mano, tự soạn). Đề diễn đạt lại, lời giải tự viết, số liệu kiểm bằng máy.
 - "Bài full" đổi tên thành "Bài tập dài" (thi thử chỉ là luyện tập dài, không bắt chước đề thật).
+
+## Sơ đồ mạch tự vẽ (2026-10-02)
+- Máy giải "Biểu thức Boole" (Logic, Công cụ ch2) vẽ thêm 3 mạch trong khung gập: đúng như gõ · AND–OR của SOP tối giản · toàn NAND (`logic/src/logic/circuit.js` + `ui/circuit-figure.js`, test mô phỏng khớp bảng chân trị).
+- Mới là mức A (biểu thức → sơ đồ, chỉ để xem). Kéo-thả cổng + mô phỏng (mức B) chưa làm — chỉ làm nếu người học thấy cần.

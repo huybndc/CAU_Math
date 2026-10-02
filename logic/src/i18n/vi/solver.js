@@ -22,6 +22,7 @@ export const solver = {
   'ex.sop': 'SOP tối giản:', 'ex.pos': 'POS tối giản:', 'ex.tabTable': 'Bảng chân trị', 'ex.stTable': 'Bảng chân trị và minterm', 'ex.minterms': 'Các minterm:', 'ex.truth': 'Bảng chân trị',
   'ex.tabMin': 'Rút gọn', 'ex.stPrime': 'Các nhóm lớn nhất (prime implicant)', 'ex.whyPrime': 'Ghép các ô 1 (và X) kề nhau thành nhóm 2, 4, 8… lớn nhất có thể; nhóm càng lớn càng ít literal.',
   'ex.piEss': 'bắt buộc:', 'ex.pi': 'tuỳ chọn:', 'ex.stCover': 'Chọn nhóm phủ hết các ô 1', 'ex.whyCover': 'Nhóm bắt buộc (essential) là nhóm duy nhất phủ một ô 1 nào đó — phải chọn; rồi thêm nhóm ít nhất cho đủ.',
+  'ex.figTyped': 'Mạch đúng như biểu thức gõ', 'ex.figAndOr': 'Mạch AND–OR của SOP tối giản', 'ex.figNand': 'Mạch toàn NAND',
   'ex.ess': 'chọn (bắt buộc):', 'ex.pick': 'chọn thêm:', 'ex.tabCompl': 'Bù / dual', 'ex.stDeM': 'Bù bằng DeMorgan', 'ex.stDual': 'Bù qua dual', 'ex.tabNand': 'Toàn NAND', 'ex.stNand': 'Chuyển SOP thành toàn NAND',
   // thuật ngữ bấm được (ui/glossary.js)
   'gl.comp': "số bù|complement|r's|1's|2's", 'gl.comp.d': "Số bù của N: (r − 1) trừ từng chữ số (số bù r − 1) rồi cộng 1 (số bù r). Dùng để đổi phép trừ thành phép cộng.",

@@ -99,3 +99,9 @@ export function netFigure({ gates }) {
   g += d + `<path d="M${out} ${y3 + 20} H312"/><text x="318" y="${y3 + 20}" dominant-baseline="middle" class="lit out">F</text>`;
   return svg(340, 146, `<g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">${g}</g>`, 'fig-circuit');
 }
+
+/** Ký hiệu một cổng đặt ở (x, y) (ô 40 cao): { d, out } — nét vẽ (kèm vòng đảo) và hoành độ đầu ra. */
+export function gateSymbol(op, x, y) {
+  const b = body(BASE[op], x, y), bub = BUBBLE.has(op);
+  return { d: `<path d="${b.d}"/>${bub ? `<circle cx="${b.out + 4.5}" cy="${y + 20}" r="4"/>` : ''}`, out: b.out + (bub ? 9 : 0) };
+}
