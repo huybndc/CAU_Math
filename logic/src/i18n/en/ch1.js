@@ -47,6 +47,7 @@ export const ch1 = {
   'c1.base8': 'Octal (8)',
   'c1.base10': 'Decimal (10)',
   'c1.base16': 'Hexadecimal (16)',
+  'ln.tooBig': 'Number too large (max 2⁵³ ≈ 9·10¹⁵) — cannot be converted exactly.',
   'c1.signedErr': 'Enter an integer, e.g. −9.',
   'c1.fmtMagnitude': 'Signed-magnitude', 'c1.fmtOnes': "Signed 1's complement", 'c1.fmtTwos': "Signed 2's complement",
   'c1.addTitle': "Adding two 2's complement numbers",

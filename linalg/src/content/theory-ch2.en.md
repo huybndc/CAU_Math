@@ -164,6 +164,13 @@ system", comes back in Chapter 3 under the name **null space**.
 
 <div data-tool="ch2/0"></div>
 
+## Inverses, permutations, transposes and LU
+
+- **Inverse** `A⁻¹` (only for square A with n pivots): `AA⁻¹ = A⁻¹A = I`. Find it by Gauss–Jordan on `[A | I]`. For square A, B, `AB = I` automatically gives `BA = I`.
+- **Permutation** P: a row-swapping matrix (one 1 in each row and column). `P⁻¹ = Pᵀ`. Elimination needs P when a pivot is 0.
+- **Transpose** `Aᵀ`: rows become columns. `(AB)ᵀ = BᵀAᵀ`, `(AB)⁻¹ = B⁻¹A⁻¹` (order reverses).
+- **LU**: elimination stores its multipliers in L (lower triangular, 1s on the diagonal); what remains is U (upper triangular): `A = LU`. Pull the pivots into a diagonal D: `A = LDU` (unique).
+
 ## Common mistakes
 
 - **Multiplying a row by 0.** Solutions are lost and it cannot be undone. Never.

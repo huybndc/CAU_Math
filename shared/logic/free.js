@@ -37,6 +37,12 @@ export function summarize(problems, ratings) {
   return out;
 }
 
+/** Bài ngay sau bài hiện tại trong cùng danh sách (hết danh sách thì quay về bài nên làm tiếp). */
+export function following(problems, id) {
+  const i = problems.findIndex(p => p.id === id);
+  return problems[i + 1] ?? null;
+}
+
 /** Bài nên làm tiếp: bài tự đánh giá "chưa đúng" → "gần đúng" → chưa làm (theo thứ tự đề); bỏ bài đang xem. */
 export function nextUp(problems, ratings, currentId = null) {
   const rest = problems.filter(p => p.id !== currentId);

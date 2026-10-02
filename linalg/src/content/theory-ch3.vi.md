@@ -152,6 +152,19 @@ nhất của một ma trận.
 
 <div data-tool="ch3/0"></div>
 
+## Bốn không gian con
+
+A cỡ m×n, hạng r:
+
+| Không gian | Nằm trong | Chiều |
+|---|---|---|
+| Cột `C(A)` | ℝᵐ | r |
+| Hàng `C(Aᵀ)` | ℝⁿ | r |
+| Null space `N(A)` | ℝⁿ | n − r |
+| Null space trái `N(Aᵀ)` | ℝᵐ | m − r |
+
+`N(Aᵀ)` gồm các y thoả `Aᵀy = 0` (tức `yᵀA = 0`): các tổ hợp hàng cho vector 0. Không gian hàng vuông góc với `N(A)`; không gian cột vuông góc với `N(Aᵀ)`. Điều kiện giải được: `Ax = b` có nghiệm ⇔ b vuông góc với mọi y trong `N(Aᵀ)`.
+
 ## Những chỗ hay sai
 
 - **Quên "qua gốc toạ độ".** Đường thẳng hay mặt phẳng không đi qua gốc thì

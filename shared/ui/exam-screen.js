@@ -106,13 +106,14 @@ function pastList() {
   if (!hist.length) return [];
   const date = ts => new Date(ts).toLocaleString(getLang() === 'vi' ? 'vi-VN' : 'en-GB', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' });
   const last = loadExam()?.submittedAt;
-  return [el('h2', { class: 'section-label', text: T('exam.history') }), el('div', { class: 'list' }, hist.map(h => row({
+  const plain = a => { a.removeAttribute('href'); a.querySelector('.row-go')?.remove(); return a; };   // chỉ lần mới nhất còn kết quả để mở lại
+  return [el('h2', { class: 'section-label', text: T('exam.history') }), el('div', { class: 'list' }, hist.map(h => [h, row({
     href: h.ts === last ? '#/exam/result' : '#/exam',
     title: h.mode === 'exam' ? `${T('exam.modeExam')} · ${T('exam.minutes', { m: h.minutes })}` : T('exam.modeLong'),
     sub: `${date(h.ts)} · ${T('exam.chapters')} ${listOf(h.chapters)}`,
     num: `${h.right}/${h.n}`,
     acc: accCell({ accuracy: h.n ? h.right / h.n : null, attempts: h.n }),
-  })))];
+  })]).map(([h, a]) => (h.ts === last ? a : plain(a))))];
 }
 
 /* ---------------- kết quả ---------------- */

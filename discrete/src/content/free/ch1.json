@@ -4,7 +4,7 @@
   "ch": "ch1",
   "level": 2,
   "source": {
-   "name": "MIT 6.042J Mathematics for Computer Science (2015), PS1 bài 1",
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), PS1 Problem 1",
    "license": "CC BY-NC-SA 3.0"
   },
   "vi": {
@@ -63,7 +63,7 @@
   "ch": "ch1",
   "level": 2,
   "source": {
-   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 3.11",
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), Problem 3.11",
    "license": "CC BY-NC-SA 3.0"
   },
   "vi": {
@@ -122,7 +122,7 @@
   "ch": "ch1",
   "level": 2,
   "source": {
-   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 3.12",
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), Problem 3.12",
    "license": "CC BY-NC-SA 3.0"
   },
   "vi": {
@@ -131,7 +131,7 @@
    "hints": [
     "Mỗi đặc tả thành một công thức; \"ngược lại\" nghĩa là `IFF`.",
     "Đặc tả 3 cho biết ngay B; dùng nó trong đặc tả 2 để tìm Q.",
-    "Sau khi biết Q, B, xét đặc tả 1(a) để suy ra L, rồi N."
+    "Sau khi biết Q, B, xét đặc tả 1(b) để suy ra L, rồi N."
    ],
    "solution": [
     "(a) (1a) `NOT L → Q`; (1b) `NOT L → B`; (1c) `NOT L ↔ N`; (2) `NOT Q → B`; (3) `NOT B`.",
@@ -155,7 +155,7 @@
    "hints": [
     "One formula per specification; \"conversely\" means `IFF`.",
     "Specification 3 gives B at once; feed it into specification 2 to get Q.",
-    "Once Q and B are known, use 1(a) to get L, then N."
+    "Once Q and B are known, use 1(b) to get L, then N."
    ],
    "solution": [
     "(a) (1a) `NOT L → Q`; (1b) `NOT L → B`; (1c) `NOT L ↔ N`; (2) `NOT Q → B`; (3) `NOT B`.",
@@ -179,7 +179,7 @@
   "ch": "ch1",
   "level": 2,
   "source": {
-   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 3.7",
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), Problem 3.7",
    "license": "CC BY-NC-SA 3.0"
   },
   "vi": {
@@ -240,7 +240,7 @@
   "ch": "ch1",
   "level": 2,
   "source": {
-   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 3.13–3.14",
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), Problem 3.13–3.14",
    "license": "CC BY-NC-SA 3.0"
   },
   "vi": {
@@ -299,7 +299,7 @@
   "ch": "ch1",
   "level": 1,
   "source": {
-   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 3.16",
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), Problem 3.16",
    "license": "CC BY-NC-SA 3.0"
   },
   "vi": {
@@ -356,7 +356,7 @@
   "ch": "ch1",
   "level": 2,
   "source": {
-   "name": "MIT 6.042J Mathematics for Computer Science (2015), bài 3.5",
+   "name": "MIT 6.042J Mathematics for Computer Science (2015), Problem 3.5",
    "license": "CC BY-NC-SA 3.0"
   },
   "vi": {
@@ -368,8 +368,8 @@
     "Đếm phép toán trên một cột rồi nhân với số cột."
    ],
    "solution": [
-    "(a) `sᵢ = aᵢ XOR bᵢ XOR cᵢ`; `cᵢ₊₁ = (aᵢ AND bᵢ) OR (aᵢ AND cᵢ) OR (bᵢ AND cᵢ)`, với `c₀ = F`.",
-    "(b) Mỗi cột: 2 XOR cho sᵢ; 3 AND + 2 OR cho nhớ ra: 7 phép toán. Toàn mạch n+1 cột: 7(n+1) phép toán (cột 0 có thể bớt vì c₀ = F).",
+    "(a) `sᵢ = aᵢ XOR bᵢ XOR cᵢ`; `cᵢ₊₁ = (aᵢ AND bᵢ) OR (aᵢ AND cᵢ) OR (bᵢ AND cᵢ)`, với `c₀ = 0`.",
+    "(b) Mỗi cột: 2 XOR cho sᵢ; 3 AND + 2 OR cho nhớ ra: 7 phép toán. Toàn mạch n+1 cột: 7(n+1) phép toán (cột 0 có thể bớt vì c₀ = 0).",
     "(c) cᵢ₊₁ phụ thuộc cᵢ, nên nhớ phải lan lần lượt qua cả n+1 cột: thời gian tỉ lệ n."
    ],
    "rubric": [
@@ -391,8 +391,8 @@
     "Count operations in one column and multiply by the number of columns."
    ],
    "solution": [
-    "(a) `sᵢ = aᵢ XOR bᵢ XOR cᵢ`; `cᵢ₊₁ = (aᵢ AND bᵢ) OR (aᵢ AND cᵢ) OR (bᵢ AND cᵢ)`, with `c₀ = F`.",
-    "(b) Per column: 2 XORs for sᵢ; 3 ANDs + 2 ORs for the carry: 7 operations. Whole circuit: 7(n+1) (column 0 can be trimmed since c₀ = F).",
+    "(a) `sᵢ = aᵢ XOR bᵢ XOR cᵢ`; `cᵢ₊₁ = (aᵢ AND bᵢ) OR (aᵢ AND cᵢ) OR (bᵢ AND cᵢ)`, with `c₀ = 0`.",
+    "(b) Per column: 2 XORs for sᵢ; 3 ANDs + 2 ORs for the carry: 7 operations. Whole circuit: 7(n+1) (column 0 can be trimmed since c₀ = 0).",
     "(c) cᵢ₊₁ depends on cᵢ, so the carry must ripple through all n+1 columns: time grows linearly in n."
    ],
    "rubric": [

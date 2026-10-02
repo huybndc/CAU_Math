@@ -161,6 +161,19 @@ most important number attached to a matrix.
 
 <div data-tool="ch3/0"></div>
 
+## The four subspaces
+
+A is m×n of rank r:
+
+| Subspace | Lives in | Dimension |
+|---|---|---|
+| Column `C(A)` | ℝᵐ | r |
+| Row `C(Aᵀ)` | ℝⁿ | r |
+| Null space `N(A)` | ℝⁿ | n − r |
+| Left null space `N(Aᵀ)` | ℝᵐ | m − r |
+
+`N(Aᵀ)` holds the y with `Aᵀy = 0` (i.e. `yᵀA = 0`): row combinations giving the zero vector. The row space is perpendicular to `N(A)`; the column space is perpendicular to `N(Aᵀ)`. Solvability: `Ax = b` has a solution iff b is perpendicular to every y in `N(Aᵀ)`.
+
 ## Common mistakes
 
 - **Forgetting "through the origin".** A line or plane that misses the origin is

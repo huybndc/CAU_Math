@@ -4,8 +4,8 @@
   "ch": "ch1",
   "level": 1,
   "source": {
-   "name": "Dạng bài theo giáo trình Mano, Digital Design (đề tự soạn; đáp án kiểm bằng máy), chương 1 — đổi cơ số",
-   "license": "tự soạn"
+   "name": "Mano, Digital Design — ch. 1",
+   "license": "original problem"
   },
   "vi": {
    "title": "Đổi cơ số một số có phần lẻ",
@@ -59,8 +59,8 @@
   "ch": "ch1",
   "level": 2,
   "source": {
-   "name": "Dạng bài theo giáo trình Mano, Digital Design (đề tự soạn; đáp án kiểm bằng máy), chương 1 — tìm cơ số",
-   "license": "tự soạn"
+   "name": "Mano, Digital Design — ch. 1",
+   "license": "original problem"
   },
   "vi": {
    "title": "Tìm cơ số r",
@@ -114,8 +114,8 @@
   "ch": "ch1",
   "level": 2,
   "source": {
-   "name": "Dạng bài theo giáo trình Mano, Digital Design (đề tự soạn; đáp án kiểm bằng máy), chương 1 — số bù 2",
-   "license": "tự soạn"
+   "name": "Mano, Digital Design — ch. 1",
+   "license": "original problem"
   },
   "vi": {
    "title": "Trừ bằng số bù 2 (8 bit)",
@@ -171,8 +171,8 @@
   "ch": "ch1",
   "level": 2,
   "source": {
-   "name": "Dạng bài theo giáo trình Mano, Digital Design (đề tự soạn; đáp án kiểm bằng máy), chương 1 — tràn số",
-   "license": "tự soạn"
+   "name": "Mano, Digital Design — ch. 1",
+   "license": "original problem"
   },
   "vi": {
    "title": "Phát hiện tràn khi cộng bù 2",
@@ -226,8 +226,8 @@
   "ch": "ch1",
   "level": 2,
   "source": {
-   "name": "Dạng bài theo giáo trình Mano, Digital Design (đề tự soạn; đáp án kiểm bằng máy), chương 1 — BCD",
-   "license": "tự soạn"
+   "name": "Mano, Digital Design — ch. 1",
+   "license": "original problem"
   },
   "vi": {
    "title": "Cộng số BCD",
@@ -283,8 +283,8 @@
   "ch": "ch1",
   "level": 3,
   "source": {
-   "name": "Dạng bài theo giáo trình Mano, Digital Design (đề tự soạn; đáp án kiểm bằng máy), chương 1 — mã sửa lỗi",
-   "license": "tự soạn"
+   "name": "Mano, Digital Design — ch. 1",
+   "license": "original problem"
   },
   "vi": {
    "title": "Mã Hamming (7,4)",
