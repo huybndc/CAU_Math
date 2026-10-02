@@ -559,3 +559,5 @@ khác syllabus, lịch học bắt đầu từ 2026/09/01".)
 **D60. Nhập lịch sử về đúng tài khoản (2026-10-01).** Kiểm trên bản đang chạy: `hydrateProgress` chạy trước `adoptAccount` nên sự kiện lấy từ máy chủ rơi vào vùng lưu "guest" còn màn Tổng quan đọc vùng của tài khoản ⇒ app đếm 12 câu, Hub 14. Nay gắn tài khoản trước khi đọc/ghi.
 
 **D61. Gộp nhật ký theo số lần (2026-10-01).** Kiểm trực tiếp: Linear Algebra hub 48 câu, app 33. Ảnh chụp từ Desktop có 20 câu thi cùng một ts và chỉ 5 chữ ký khác nhau (bài thi bản cũ ghi chung một ts); bản dedupe theo tập hợp gộp 20 thành 5. Nay `mergeEvents` đếm theo số lần: chỉ bỏ đúng số bản đã có ở máy.
+
+**D-no-billing (2026-10-03).** Không bật billing ở bất kỳ dịch vụ nào của dự án (Supabase, Cloudflare, project Google của key Gemini dùng cho Live_Lecture); user xác nhận. Hard $0 giữ nguyên: thấy dấu hiệu bị tính tiền thì dừng và báo. Ghi chú đồng bộ ở Study_Hub/DECISIONS.md và Live_Lecture/DECISIONS.md (D18).
