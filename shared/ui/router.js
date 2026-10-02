@@ -17,15 +17,18 @@ export function go(r) {
 
 /** @param {string[]} chapters  @param {(route: object) => void} onChange */
 export function startRouter(chapters, onChange) {
+  let busy = false;
   const apply = animate => {
     const r = parseRoute(window.location.hash, chapters) ?? { view: 'home' };
     const canon = routeOf(r);
     if (window.location.hash !== canon) history.replaceState(null, '', canon);
     const run = () => { current = r; onChange(r); window.scrollTo(0, 0); };
-    if (!animate || !document.startViewTransition) { run(); return; }
+    if (!animate || !document.startViewTransition || busy) { run(); return; }   // đang chuyển dở (bấm liên tục): đổi thẳng, không huỷ-vẽ-lại ⇒ không giật
     // chuyển màn bị huỷ (bấm liên tục, tab bị ẩn) thì các promise bị từ chối — không phải lỗi
     const vt = document.startViewTransition(run);
-    [vt.ready, vt.finished, vt.updateCallbackDone].forEach(p => p?.catch(() => {}));
+    busy = true;
+    vt.finished.catch(() => {}).finally(() => { busy = false; });
+    [vt.ready, vt.updateCallbackDone].forEach(p => p?.catch(() => {}));
   };
   window.addEventListener('hashchange', () => apply(true));
   document.addEventListener('click', e => {

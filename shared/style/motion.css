@@ -8,20 +8,12 @@
   --ease-spring:cubic-bezier(.34,1.56,.64,1);    /* nảy nhẹ (overshoot) */
 }
 
-/* ---- chuyển màn: trượt + mờ nhẹ ---- */
-::view-transition-old(root){animation:vt-out var(--dur-fast) ease-in both}
-::view-transition-new(root){animation:vt-in var(--dur-slow) var(--ease-out) both}
-@keyframes vt-out{to{opacity:0;transform:translateY(-4px)}}
-@keyframes vt-in{from{opacity:0;transform:translateY(10px)}}
-
-/* ---- vào màn: thẻ / dòng hiện lần lượt ---- */
-.screen.active > .card,.screen.active > .lead-card,.page.active .card,
-.screen.active .list > *,.screen.active .ch-tree > *{animation:rise var(--dur-slow) var(--ease-out) both}
-.screen.active .list > :nth-child(2),.screen.active .ch-tree > :nth-child(2),.page.active .card:nth-child(2){animation-delay:40ms}
-.screen.active .list > :nth-child(3),.screen.active .ch-tree > :nth-child(3),.page.active .card:nth-child(3){animation-delay:80ms}
-.screen.active .list > :nth-child(4),.screen.active .ch-tree > :nth-child(4){animation-delay:120ms}
-.screen.active .list > :nth-child(n+5),.screen.active .ch-tree > :nth-child(n+5){animation-delay:150ms}
-@keyframes rise{from{opacity:0;transform:translateY(10px)}}
+/* ---- chuyển màn: chỉ mờ chéo rất nhanh. Không trượt, không hiện lần lượt: bấm đổi tab liên tục mà
+   còn chồng nhiều chuyển động lên nhau thì bị giật (flick). ---- */
+::view-transition-old(root){animation:none}
+::view-transition-new(root){animation:vt-fade 140ms ease-out both}
+@keyframes vt-fade{from{opacity:.3}}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}}
 
 /* ---- phản hồi khi làm bài ---- */
 .run-card .msg.ok{animation:pop var(--dur-slow) var(--ease-spring) both}
