@@ -1,12 +1,11 @@
 import { t as T, tError, onLangChange } from '../i18n/index.js';
 import { fail } from '@shared/logic/app-error.js';
 import { createSolver } from '@shared/ui/solver.js';
+import { el } from '@shared/ui/dom.js';
 import { fieldRow } from '@shared/ui/fields.js';
 import { truthReport, euclidReport, congruenceReport, diophantineReport, powReport } from '../logic/report-tools.js';
-import { setReport, sumReport, SUMS } from '../logic/report-sets.js';
-import { quantReport, RELS } from '../logic/report-quant.js';
-import { stateReport } from '../logic/report-state.js';
-import { graphReport } from '../logic/report-graph.js';
+import { setReport } from '../logic/report-sets.js';
+import { graphReport, parseEdges } from '../logic/report-graph.js';
 import { glossary } from './glossary.js';
 
 /* ---------------------------------------------------------------
@@ -39,6 +38,7 @@ function mount(host, { key, specs, examples = [], random, report, practice }) {
   };
   draw(); onLangChange(draw);
   run();
+  return { get: id => fr.get(id), set: v => fr.set(v) };
 }
 
 export function mountTruthSolver(host) {
@@ -108,49 +108,64 @@ export function mountSetSolver(host) {
   });
 }
 
-export function mountSumSolver(host) {
-  mount(host, {
-    key: 'sums',
-    practice: '#/practice/ch4',
-    specs: () => [
-      { id: 'kind', label: T('ds.kind'), value: 'arith', options: SUMS.map(v => ({ v, t: T(`ds.k.${v}`) })) },
-      { id: 'n', label: T('ds.n'), value: '10', size: 6 }, { id: 'p1', label: T('ds.p1'), value: '3', size: 6 }, { id: 'p2', label: T('ds.p2'), value: '4', size: 6 },
-    ],
-    random: () => ({ kind: pick(SUMS), n: rnd(5, 20), p1: rnd(1, 6), p2: rnd(2, 4) }),
-    examples: [['1 + 2 + … + 10 (a=1, d=1)', { kind: 'arith', n: 10, p1: 1, p2: 1 }], ['1 + 2 + 4 + … (2ⁿ⁻¹)', { kind: 'geom', n: 10, p1: 1, p2: 2 }], ['1² + … + 10²', { kind: 'squares', n: 10 }]],
-    report: g => (g('n') ? sumReport(g('kind'), int(g('n')), int(g('p1') || '1'), int(g('p2') || '1')) : null),
-  });
-}
-
-export function mountQuantSolver(host) {
-  mount(host, {
-    key: 'quant',
-    practice: '#/practice/ch2',
-    specs: () => [{ id: 'd', label: T('dq.dom'), value: '1, 2, 3, 4', size: 16 }, { id: 'r', label: T('dq.rel'), value: 'lt', options: Object.entries(RELS).map(([v, [t]]) => ({ v, t })) }],
-    random: () => ({ d: [...Array(rnd(3, 6)).keys()].map(i => i + rnd(0, 1) * -1).join(', '), r: pick(Object.keys(RELS)) }),
-    examples: [['x < y', { d: '1, 2, 3, 4', r: 'lt' }], ['x = y', { d: '1, 2, 3', r: 'eq' }], ['x + y = 0', { d: '-2, -1, 0, 1, 2', r: 'sum0' }]],
-    report: g => (g('d') ? quantReport(g('d'), g('r')) : null),
-  });
-}
-
-export function mountStateSolver(host) {
-  mount(host, {
-    key: 'state',
-    practice: '#/practice/ch5',
-    specs: () => [{ id: 'm', label: T('dst.moves'), value: '2,-1; 1,-2; 1,1; -3,0', size: 26 }, { id: 's', label: T('dst.start'), value: '0, 0', size: 8 }, { id: 'g', label: T('dst.goal'), value: '0, 2', size: 8 }],
-    random: () => { const mv = Array.from({ length: rnd(2, 4) }, () => `${rnd(-3, 3)},${rnd(-3, 3)}`).filter(x => x !== '0,0'); return { m: (mv.length ? mv : ['1,2']).join('; '), s: '0, 0', g: `${rnd(-4, 6)}, ${rnd(-4, 6)}` }; },
-    examples: [['Wall-E → (0, 2)', { m: '2,-1; 1,-2; 1,1; -3,0', s: '0, 0', g: '0, 2' }], ['Wall-E → (3, 0)', { m: '2,-1; 1,-2; 1,1; -3,0', s: '0, 0', g: '3, 0' }], ['(+2,+4) ; (+6,0)', { m: '2,4; 6,0', s: '0, 0', g: '5, 5' }]],
-    report: g => (g('m') && g('s') && g('g') ? stateReport(g('m'), g('s'), g('g')) : null),
-  });
+/** Hình đồ thị: đỉnh trên vòng tròn; bấm 2 đỉnh để thêm/xoá cạnh. Hai phía ⇒ tô 2 màu; đỉnh bậc lẻ viền đứt. */
+function graphFigure({ V, E, deg, color, odd }, toggle) {
+  const NS = 'http://www.w3.org/2000/svg', R = 118, C = 150, S = 300;
+  const mk = (tag, attrs, parent) => { const n = document.createElementNS(NS, tag); for (const k in attrs) n.setAttribute(k, attrs[k]); parent?.append(n); return n; };
+  const svg = mk('svg', { viewBox: `0 0 ${S} ${S}`, width: S, height: S, role: 'img', style: 'max-width:100%;cursor:pointer' });
+  const pos = Object.fromEntries(V.map((v, i) => { const a = (2 * Math.PI * i) / V.length - Math.PI / 2; return [v, [C + R * Math.cos(a), C + R * Math.sin(a)]]; }));
+  for (const [a, b] of E) mk('line', { x1: pos[a][0], y1: pos[a][1], x2: pos[b][0], y2: pos[b][1], stroke: 'currentColor', 'stroke-width': 1.6, opacity: 0.7 }, svg);
+  let first = null;
+  const dots = {};
+  for (const v of V) {
+    const [x, y] = pos[v], g = mk('g', {}, svg);
+    const fill = color ? (color[v] ? 'var(--panel)' : 'var(--accent-soft)') : 'var(--panel)';
+    dots[v] = mk('circle', { cx: x, cy: y, r: 17, fill, stroke: odd.includes(v) ? 'var(--accent)' : 'currentColor', 'stroke-width': odd.includes(v) ? 2.6 : 1.4, 'stroke-dasharray': odd.includes(v) ? '4 3' : '' }, g);
+    mk('text', { x, y: y + 4.5, 'text-anchor': 'middle', 'font-size': 13, fill: 'currentColor', 'font-weight': 600 }, g).textContent = v;
+    mk('text', { x: x + (x - C) * 0.2, y: y + (y - C) * 0.2 + 4, 'text-anchor': 'middle', 'font-size': 10.5, fill: 'var(--ink-dim)' }, g).textContent = deg[v];
+    g.addEventListener('click', () => {
+      if (first === null) { first = v; dots[v].setAttribute('stroke-width', 4); return; }
+      const a = first; first = null;
+      if (a !== v) toggle(a, v);
+      else dots[v].setAttribute('stroke-width', odd.includes(v) ? 2.6 : 1.4);
+    });
+  }
+  return el('div', { class: 'graph-fig' }, [svg, el('small', { class: 'dim', text: T('dg.hint') })]);
 }
 
 export function mountGraphSolver(host) {
-  mount(host, {
+  let api;
+  const toggle = (a, b) => {
+    const { V, edges } = parseEdges(api.get('e'));
+    const key = ([x, y]) => [x, y].sort().join('|'), k = key([a, b]);
+    const has = edges.some(e => key(e) === k);
+    const next = has ? edges.filter(e => key(e) !== k) : [...edges, [a, b]];
+    const used = new Set(next.flat());
+    const iso = V.filter(v => !used.has(v));
+    api.set({ e: [...next.map(e => e.join('-')), ...iso].join(', ') });
+  };
+  const addV = d => {
+    const { V, edges } = parseEdges(api.get('e') || '1');
+    const nums = V.filter(v => /^\d+$/.test(v)).map(Number);
+    let list = V;
+    if (d > 0) list = [...V, String((nums.length ? Math.max(...nums) : 0) + 1)];
+    else if (V.length > 1) { const last = V[V.length - 1]; list = V.slice(0, -1); edges.splice(0, edges.length, ...edges.filter(e => !e.includes(last))); }
+    const used = new Set(edges.flat());
+    api.set({ e: [...edges.map(e => e.join('-')), ...list.filter(v => !used.has(v))].join(', ') });
+  };
+  api = mount(host, {
     key: 'graph',
     practice: '#/practice/ch8',
     specs: () => [{ id: 'e', label: T('dg.edges'), value: '1-2, 2-3, 3-4, 4-1, 1-3', size: 34 }],
     random: () => { const n = rnd(4, 7), es = new Set(); while (es.size < rnd(n - 1, n + 3)) { const a = rnd(1, n), b = rnd(1, n); if (a !== b) es.add(`${Math.min(a, b)}-${Math.max(a, b)}`); } return { e: [...es].join(', ') }; },
     examples: [['K₄ − cạnh', { e: '1-2, 2-3, 3-4, 4-1, 1-3' }], ['C₅', { e: '1-2, 2-3, 3-4, 4-5, 5-1' }], ['2 thành phần', { e: '1-2, 2-3, 4-5' }]],
-    report: g => (g('e') ? graphReport(g('e')) : null),
+    report: g => {
+      if (!g('e')) return null;
+      const r = graphReport(g('e'));
+      r.figure = () => el('div', {}, [graphFigure(r.graph, toggle), el('div', { class: 'row tight' }, [
+        el('button', { type: 'button', class: 'btn', onClick: () => addV(1) }, T('dg.addV')),
+        el('button', { type: 'button', class: 'btn', onClick: () => addV(-1) }, T('dg.delV'))])]);
+      return r;
+    },
   });
 }
