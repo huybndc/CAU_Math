@@ -77,8 +77,13 @@ export function evaluate(text, base, { angle = 'deg' } = {}) {
   }
   /** a ^ b (kết hợp phải, ưu tiên hơn × ÷ và dấu âm đứng trước: −2^2 = −4). */
   function power() {
-    const v = atom();
+    let v = atom();
     skip();
+    while (dec && src[i] === '!') {      // n! (giai thừa, n nguyên 0…170)
+      if (!Number.isInteger(v) || v < 0 || v > 170) err('calc.domain');
+      let f = 1; for (let k = 2; k <= v; k++) f *= k;
+      v = f; i++; skip();
+    }
     if (dec && src[i] === '^') { i++; return v ** power(); }
     return v;
   }
@@ -113,7 +118,7 @@ export function evaluate(text, base, { angle = 'deg' } = {}) {
     const value = sum();
     skip();
     if (i < src.length) err('calc.unexpected');
-    if (!Number.isFinite(value) || Math.abs(value) > Number.MAX_SAFE_INTEGER) err('calc.tooBig');
+    if (!Number.isFinite(value) || (!dec && Math.abs(value) > Number.MAX_SAFE_INTEGER)) err('calc.tooBig');   // hệ 10: số lớn vẫn hiện (dạng mũ), chỉ hệ 2/8/16 cần chính xác
     return { value: Number(value.toPrecision(15)) };        // bỏ bụi dấu phẩy động: 0.1 + 0.2 = 0.3
   } catch (e) {
     if (!e.key) throw e;
@@ -123,7 +128,7 @@ export function evaluate(text, base, { angle = 'deg' } = {}) {
 
 /** Số → chuỗi ở cơ số r (có dấu −; nhị phân nhóm 4 bit cho dễ đọc). Số lẻ chỉ hiện ở hệ 10. */
 export function show(value, r) {
-  if (!Number.isInteger(value)) return r === 10 ? String(value).replace('-', '−') : '—';
+  if (!Number.isSafeInteger(value)) return r === 10 ? String(value).replace('-', '−') : '—';
   const s = Math.abs(value).toString(r).toUpperCase();
   const body = r === 2 ? s.padStart(Math.ceil(s.length / 4) * 4, '0').replace(/(.{4})(?=.)/g, '$1 ') : s;
   return (value < 0 ? '−' : '') + body;

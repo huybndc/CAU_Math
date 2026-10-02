@@ -263,20 +263,6 @@ Parity chỉ **phát hiện** lỗi ở **số lẻ bit**; lỗi 2 bit thì lọ
 
 Ý chính của chương: **ý nghĩa của bit đến từ quy ước đọc**, không nằm trong bản thân bit.
 
-## Mã Hamming (7,4): sửa lỗi 1 bit
-
-Parity chỉ *phát hiện*. **Hamming (7,4)** thêm 3 bit parity vào 4 bit dữ liệu để *sửa* được lỗi 1 bit. Đánh số vị trí 1…7: bit parity ở vị trí **1, 2, 4** (luỹ thừa của 2), dữ liệu ở **3, 5, 6, 7**.
-
-Mỗi bit parity "trông coi" các vị trí có bit tương ứng bằng 1 trong số thứ tự:
-
-```
-p1: 1, 3, 5, 7     p2: 2, 3, 6, 7     p4: 4, 5, 6, 7     (mỗi nhóm có tổng bit 1 chẵn)
-```
-
-**Sửa lỗi:** tính lại 3 phép kiểm `c1, c2, c4` (mỗi phép = XOR cả nhóm). Đọc `c4 c2 c1` như số nhị phân = **vị trí bit lỗi** (0 = không lỗi). Đảo bit đó.
-
-Ví dụ: dữ liệu `1011` → mã `0110011`. Nhận `0110111`: `c4 c2 c1 = 101 = 5` ⇒ lỗi ở bit 5.
-
 ## Những chỗ hay sai
 
 - Đọc số dư **từ trên xuống** khi đổi phần nguyên (phải đọc từ dưới lên).

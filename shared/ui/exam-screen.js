@@ -75,7 +75,7 @@ function renderSetup(cfg) {
         type: 'button', class: 'exam-chip', 'aria-pressed': String(S.chapters.includes(c.id)),
         onClick: () => { S.chapters = S.chapters.includes(c.id) ? S.chapters.filter(x => x !== c.id) : [...S.chapters, c.id].sort(); draw(); },
       }, [el('b', { text: chNo(c.id) }), T('nav.' + c.id)]))), T('exam.scopeNote')),
-      field(T('exam.length'), seg(EXAM_MINUTES, m => m === S.minutes, m => { S.minutes = m; }, m => T('exam.minutes', { m }))),
+      S.mode === 'exam' && field(T('exam.length'), seg(EXAM_MINUTES, m => m === S.minutes, m => { S.minutes = m; }, m => T('exam.minutes', { m }))),
       field(T('exam.layout'), el('div', { class: 'exam-modes' }, ['part', 'random'].map(o => el('button', {
         type: 'button', class: 'exam-mode', 'aria-pressed': String(S.order === o), onClick: () => { S.order = o; draw(); },
       }, [el('b', { text: T('exam.layout.' + o) }), el('small', { text: T('exam.layout.' + o + 'Note') })]))), T('exam.mix')),
@@ -83,7 +83,7 @@ function renderSetup(cfg) {
         type: 'button', class: 'exam-mode', 'aria-pressed': String(S.mode === m), onClick: () => { S.mode = m; draw(); },
       }, [el('b', { text: T(m === 'exam' ? 'exam.modeExam' : 'exam.modeLong') }), el('small', { text: T(m === 'exam' ? 'exam.modeExamNote' : 'exam.modeLongNote') })])))),
       el('div', { class: 'exam-go' }, [
-        el('span', { text: chs.length ? T(S.order === 'part' ? 'exam.summaryPart' : 'exam.summaryRandom', { n: count, p: chs.length, m: S.minutes }) : T('exam.pickOne') }),
+        el('span', { text: chs.length ? T((S.order === 'part' ? 'exam.summaryPart' : 'exam.summaryRandom') + (S.mode === 'exam' ? '' : 'Long'), { n: count, p: chs.length, m: S.minutes }) : T('exam.pickOne') }),
         el('button', { type: 'button', class: 'btn primary', 'data-icon': 'next', disabled: !chs.length, onClick: () => start(S) }, el('span', { text: T('exam.start') })),
       ]),
     );

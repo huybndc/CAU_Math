@@ -15,7 +15,7 @@ import theoryCh1En from './content/theory-ch1.en.md?raw';
 import { setupCh1CodesPage } from './ui/ch1-codes-page.js';
 import { setupCh2ExamplePage } from './ui/ch2-example-page.js';
 import { setupCh2InteractivePage } from './ui/ch2-interactive-page.js';
-import { mountBaseSolver, mountComplementSolver, mountSignedSolver, mountCodesSolver, mountExprSolver } from './ui/solvers.js';
+import { mountBaseSolver, mountComplementSolver, mountSignedSolver, mountCodesSolver, mountExprSolver, mountRippleSolver, mountImplSolver } from './ui/solvers.js';
 import theoryCh2Vi from './content/theory-ch2.vi.md?raw';
 import theoryCh2En from './content/theory-ch2.en.md?raw';
 import theoryCh3Vi from './content/theory-ch3.vi.md?raw';
@@ -44,6 +44,8 @@ window.addEventListener('DOMContentLoaded', () => {
     mountSignedSolver(document.getElementById('tool-signed'));
     mountCodesSolver(document.getElementById('tool-codes'));
     mountExprSolver(document.getElementById('tool-expr'));
+    mountRippleSolver(document.getElementById('tool-ripple'));
+    mountImplSolver(document.getElementById('tool-impl'));
   });
   setupCh2ExamplePage();
   setupCh2InteractivePage();

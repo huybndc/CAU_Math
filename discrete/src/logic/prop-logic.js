@@ -13,7 +13,7 @@
 
 import { fail } from '@shared/logic/app-error.js';
 
-const ASCII = [[/<->|<=>|\biff\b/g, '↔'], [/->|=>/g, '→'], [/\bxor\b/g, '⊕'], [/\band\b|&&?|\^/g, '∧'], [/\bor\b|\|\|?/g, '∨'], [/\bnot\b|[~!¬]/g, '¬']];
+const ASCII = [[/<->|<=>|\biff\b/g, '↔'], [/->|=>/g, '→'], [/\bxor\b/g, '⊕'], [/\band\b|&&?|\^/g, '∧'], [/\bor\b|\|\|?|(?<=[a-z0-9)'])\s+v\s+(?=[a-z(¬~!])/g, '∨'], [/\bnot\b|[~!¬]/g, '¬']];
 
 /** Chuỗi ASCII → ký hiệu chuẩn (để hiện lại đúng như sách). */
 export const normalize = s => ASCII.reduce((acc, [re, to]) => acc.replace(re, to), String(s));

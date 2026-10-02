@@ -360,7 +360,7 @@
     "Nêu lỗi chẵn không phát hiện và không định vị."
    ],
    "pitfalls": [
-    "Cho rằng bit chẵn lẻ sửa được lỗi 1 bit (cần mã Hamming).",
+    "Cho rằng bit chẵn lẻ sửa được lỗi 1 bit.",
     "Nhầm parity chẵn / lẻ: lẻ có P đảo."
    ]
   },
@@ -383,7 +383,7 @@
     "States even-bit errors are missed and the error is not located."
    ],
    "pitfalls": [
-    "Claiming parity corrects single-bit errors (that needs a Hamming code).",
+    "Claiming parity corrects single-bit errors.",
     "Mixing even/odd parity: odd parity inverts P."
    ]
   }
