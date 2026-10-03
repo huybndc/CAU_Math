@@ -125,3 +125,6 @@ export function reconcile(base, current, remotes, now) {
   }
   return { base: merged, writes };
 }
+
+/** Đồng bộ thư mục chỉ có trên máy tính: bản online dưới Hub không có điểm cuối /__sync (trả 404), nên khỏi gọi. */
+export const folderSyncPossible = (underHub, hostname) => !underHub || ['localhost', '127.0.0.1', '[::1]'].includes(hostname);

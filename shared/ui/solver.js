@@ -32,9 +32,10 @@ export function createSolver(host, { practice = null, examples = [], random = nu
   const exRow = el('div', { class: 'sv-ex' });
   const inputs = el('div', { class: 'sv-in' });
   const out = el('div', { class: 'sv-out', 'aria-live': 'polite' });
+  const err = el('div', { class: 'sv-errbox', role: 'alert' });   // lỗi nằm ngay dưới ô nhập (cột trái), không ở cột kết quả
   const toolsEl = el('div', { class: 'sv-tools' });         // Che đáp án + Bài tương tự: nằm dưới ô nhập (cột trái trên màn rộng)
   host.classList.add('sv');
-  host.replaceChildren(exRow, inputs, out, toolsEl);
+  host.replaceChildren(exRow, inputs, err, out, toolsEl);
 
   let last = null;               // { result } | { error } | null
   let revealed = false;          // đã bấm "Hiện" trong lúc đang che
@@ -58,8 +59,9 @@ export function createSolver(host, { practice = null, examples = [], random = nu
   function paint() {
     drawExamples();
     toolsEl.replaceChildren();
+    err.replaceChildren();
     if (!last) { out.replaceChildren(el('p', { class: 'sv-empty', text: T('solver.empty') })); return; }
-    if (last.error) { out.replaceChildren(el('p', { class: 'sv-err', role: 'alert', text: last.error })); return; }
+    if (last.error) { err.append(el('p', { class: 'sv-err', text: last.error })); out.replaceChildren(); return; }
     const { answer, steps } = last.result;
     const hide = load(HIDE_KEY, false);
     const masked = hide && !revealed;

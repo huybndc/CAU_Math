@@ -10,7 +10,10 @@ export function fieldRow(specs, onChange, key = null) {
     const input = sp.options
       ? el('select', {}, sp.options.map(o => el('option', { value: o.v, text: o.t, selected: String(o.v) === String(saved[sp.id] ?? sp.value) ? '' : null })))
       : el('input', { type: 'text', value: saved[sp.id] ?? sp.value ?? '', size: sp.size ?? 10, placeholder: sp.ph, autocomplete: 'off', spellcheck: 'false' });
-    const fire = () => { if (key) save(key, Object.fromEntries(Object.entries(inputs).map(([k, v]) => [k, v.value]))); onChange(); };
+    const fire = () => {
+      const ok = onChange() !== false;                  // onChange trả false khi giá trị lỗi: không nhớ, lần sau mở lại không còn lỗi
+      if (key && ok) save(key, Object.fromEntries(Object.entries(inputs).map(([k, v]) => [k, v.value])));
+    };
     input.addEventListener('input', fire);
     input.addEventListener('change', fire);
     inputs[sp.id] = input;
