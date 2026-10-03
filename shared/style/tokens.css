@@ -38,6 +38,7 @@
 
   --accent:#1f7a64; --accent-ink:#ffffff;
   --accent-soft:color-mix(in srgb,var(--accent) 8%,var(--panel));
+  --accent-ink-soft:color-mix(in srgb,var(--accent) 70%,var(--ink)); /* chữ màu nhấn trên nền --accent-soft, đạt AA */
   --cell-1:color-mix(in srgb,var(--accent) 15%,var(--panel));
 }
 

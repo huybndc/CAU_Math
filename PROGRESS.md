@@ -42,6 +42,7 @@
   D68: câu sai ở thi thử / bài tập dài cũng vào Sổ câu sai (store.markMistake dùng chung với runner); màn kết quả nhắc.
   D69: Discrete D5 thêm 2 dạng tự luận (Đếm bước đong nước — BFS độc lập kiểm; Ít tem a nhất — vét cạn kiểm) + 2 máy giải mới: Tập hợp (∪ ∩ − ⊕ bù, đếm bao hàm–loại trừ) ở D3 và Tổng đóng (cấp số cộng/nhân, bình phương, lập phương, số lẻ; kiểm bằng cộng trực tiếp) ở D4; thẻ bài học D3/D4 có nút máy giải.
   D70 (2026-10-03): UI trang môn khớp Hub — tokens.css thêm --sp-*/--lift/--hi-ink (cùng giá trị với Hub); tab đang chọn = nền --panel + viền như Hub; .btn cùng cỡ/đệm với Hub; chữ hổ phách dùng --hi-ink; "7 ngày" (.acc-scope) bỏ opacity → đạt AA trên nền tối. Sáng/tối vẫn theo hệ thống trừ khi đã bấm nút đổi (khoá study-theme). Không đổi logic/solver/oracle/math.answer.
+  D71 (2026-10-03): Luyện tập — thanh tiến độ dày (12px) + đếm rõ; phản hồi đúng/sai nổi (viền, cỡ lớn) kèm chip "Đúng liên tiếp k"; tổng kết có thanh đúng/sai từng dạng, nhãn "Cần luyện lại" ở dạng yếu nhất, nút "Làm tiếp". AA: token --accent-ink-soft cho .ch-no/.tag.now; nút link (Gợi ý, Xem đáp án) dùng --ink. Khung chờ (motion.css) cho màn còn rỗng lúc tải (Tổng quan trống ~0,3 s trước khi JS vẽ). Bộ quét tương phản: 0 chỗ <4.5 ở 3 app × 4 màn × sáng/tối. Không đổi logic/solver/oracle/math.answer.
   Không làm: ghi sự kiện máy giải sang Hub — đổi contract math.answer cần yêu cầu contract riêng (AGENTS.md).
 
 ## In progress

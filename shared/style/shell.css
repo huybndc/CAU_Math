@@ -89,7 +89,7 @@ a.entry:hover{background:var(--panel2)}
 a.entry:hover .row-go{background:var(--accent)}
 .tag{display:inline-block;margin-left:.55rem;font-size:var(--fs-xs);font-weight:600;padding:1px 7px;border-radius:999px;vertical-align:1px}
 .tag.hi{color:var(--hi-ink);background:var(--hi-bg)}
-.tag.now{color:var(--accent);background:var(--accent-soft)}
+.tag.now{color:var(--accent-ink-soft);background:var(--accent-soft)}
 
 /* việc chính của màn: một khối duy nhất có nút màu nhấn */
 .lead-card{
@@ -122,7 +122,7 @@ a.entry:hover .row-go{background:var(--accent)}
 
 /* chương trong mục Học: số chương + tên + tiến độ + hành động */
 .ch-row{display:grid;grid-template-columns:2.2rem minmax(0,1fr) auto;align-items:center;gap:1rem;padding:1rem .75rem;border-bottom:1px solid var(--line)}
-.ch-no{width:2.2rem;height:2.2rem;border-radius:var(--r-md);display:grid;place-items:center;font:600 var(--fs-md) var(--mono);color:var(--accent);background:var(--accent-soft)}
+.ch-no{width:2.2rem;height:2.2rem;border-radius:var(--r-md);display:grid;place-items:center;font:600 var(--fs-md) var(--mono);color:var(--accent-ink-soft);background:var(--accent-soft)}
 .ch-main b{font-weight:600}
 .ch-main small{display:block;font-size:var(--fs-sm);color:var(--ink-dim);margin-top:.1rem}
 .ch-main .links{margin-top:.35rem;font-size:var(--fs-sm)}

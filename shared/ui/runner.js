@@ -195,10 +195,12 @@ export function mountRunner(host, { bank, prefix, figures = {}, widgets = {}, si
     } else {
       const ok = e.ok;
       // bọc cả dòng trong MỘT span: .msg là flex, để rời thì mỗi mảnh chữ thành một cột
+      const sk = streak();
       fb.append(h('div', 'msg ' + (ok ? 'ok' : 'bad'), '<span>'
         + (ok ? T('run.correct') : e.revealed ? T('run.revealed') : T('run.wrong'))
         + (ok ? '' : ` <span class="run-ans">${T('run.answerIs', { answer: answerHtml(q) })}</span>`)
-        + (e.detail ? ` <span class="run-detail">${e.detail}</span>` : '') + '</span>'));
+        + (e.detail ? ` <span class="run-detail">${e.detail}</span>` : '') + '</span>'
+        + (ok && sk >= 2 ? `<span class="run-chip">${T('run.chain', { k: sk })}</span>` : '')));
       const ex = explainBlock(q);
       if (ex) fb.append(ex);
       // sai: chỉ luôn thẻ bài học của đúng dạng này (thẻ đó có câu thử của dạng này)
@@ -306,10 +308,13 @@ export function mountRunner(host, { bank, prefix, figures = {}, widgets = {}, si
     });
     const wrongKinds = [...byKind].filter(([, v]) => v.ok < v.n).map(([k]) => k);
 
+    const weakest = [...byKind.values()].filter(v => v.ok < v.n).sort((a, b) => a.ok / a.n - b.ok / b.n)[0];
     const list = h('ul', 'run-summary');
     [...byKind].sort((a, b) => a[1].ok / a[1].n - b[1].ok / b[1].n).forEach(([k, v]) => {
       const li = h('li', v.ok === v.n ? 'ok' : 'bad');
+      li.style.setProperty('--p', Math.round(100 * v.ok / v.n) + '%');
       li.append(h('span', null, label(k)));
+      if (v.ok < v.n && v === weakest) li.append(h('span', 'need', T('run.need')));
       // sai thì chỉ luôn thẻ bài học cần ôn (thẻ đó có câu thử của đúng dạng này)
       const rv = v.ok < v.n && review?.(k);
       if (rv) {
