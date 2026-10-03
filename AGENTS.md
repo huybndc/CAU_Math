@@ -22,7 +22,7 @@
 5. `git remote -v` phải là `https://github.com/huybndc/CAU_Math_App.git` → rồi mới commit. Push lên nhánh làm việc của phiên; không push thẳng `main` hay nhánh người khác; gộp vào `main` qua PR.
 
 **Chống mất việc khi phiên dừng đột ngột:**
-- Usage chạm ~95% ⇒ dừng việc, commit ngay (kể cả dở dang: `wip: …`) và push lên nhánh làm việc; cập nhật `PROGRESS.md` một dòng "đang dở ở đâu". Nếu phiên đã dừng, người học dùng opencode để commit phần còn lại.
+- Usage chạm ~95% ⇒ dừng việc, commit ngay (kể cả dở dang: `wip: …`) và push lên nhánh làm việc; cập nhật `PROGRESS.md` một dòng "đang dở ở đâu". Nếu phiên đã dừng, người học tự commit phần còn lại.
 - Không tự đo được % usage ⇒ commit sau mỗi bước con đã test xong, đừng dồn nhiều việc vào một commit.
 - Nên gói khoảng 2 milestone mỗi phiên (khuyến nghị, không bắt buộc); không sang milestone mới khi test đang fail.
 
@@ -59,3 +59,8 @@ Quy tắc riêng của môn: `logic/AGENTS.md`, `linalg/AGENTS.md`, `discrete/AG
 
 ## Đề thi thử (D53)
 - Kiểu TOPIK: chia theo Part (mỗi chương một Part, số câu cố định, dễ → khó) hoặc trộn ngẫu nhiên không hiện tên chương; 80% tự luận · 20% trắc nghiệm, áp dụng cho mọi môn. Môn mới: ngân hàng phải có `choiceBank` và đủ dạng tự luận.
+
+## Layout and help rules
+- Each screen must fit one viewport (about 1280×720). Do not add page-level vertical scroll. A long list scrolls inside its own card.
+- Put help on the screen where the problem occurs, as the `?` button (`shared/ui/screen-help.js`). Do not add a separate help page or help link.
+- When you add a feature, add one row to the `HELP` entry of its screen, in Vietnamese and English.
