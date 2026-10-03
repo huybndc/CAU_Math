@@ -62,5 +62,11 @@ Quy tắc riêng của môn: `logic/AGENTS.md`, `linalg/AGENTS.md`, `discrete/AG
 
 ## Layout and help rules
 - Each screen must fit one viewport (about 1280×720). Do not add page-level vertical scroll. A long list scrolls inside its own card.
+- Do not remove information to avoid scroll. Use layout, collapse, or in-card scroll.
 - Put help on the screen where the problem occurs, as the `?` button (`shared/ui/screen-help.js`). Do not add a separate help page or help link.
 - When you add a feature, add one row to the `HELP` entry of its screen, in Vietnamese and English.
+
+## Autonomy
+- You may edit, commit, and merge without asking.
+- Before you act, review the change as a senior engineer and as the user. Do not cause serious harm.
+- Before an action that is hard to undo, prepare a way back and report it.
