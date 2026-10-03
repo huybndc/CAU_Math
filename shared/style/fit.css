@@ -1,0 +1,28 @@
+/* ===================================================================
+   MỖI MÀN VỪA MỘT KHUNG NHÌN (≥1000px, cao ≈720): bớt cuộn bằng bố cục — nhiều cột, bớt khoảng đệm —
+   không bỏ thông tin. Danh sách dài cuộn trong thẻ của nó. Quy tắc: AGENTS.md "Layout and help rules".
+   =================================================================== */
+@media (min-width:1000px){
+  /* Tổng quan: tiêu đề + phụ đề cùng một dòng, chương xếp 4 cột */
+  #screen-home > h1{display:inline-block;margin:0 .8rem 0 0}
+  #screen-home > .subtitle{display:inline-block;margin:0}
+  #screen-home .section-label{margin:.8rem 0 .4rem}
+  #screen-home .list.mods{grid-template-columns:repeat(auto-fill,minmax(13rem,1fr));gap:.55rem}
+  #screen-home .mods .entry{padding:.65rem .8rem;gap:.3rem .5rem}
+  #screen-home .stats-line{margin-top:.6rem}
+  #screen-home > p.muted.small{margin:.3rem 0 0}
+
+  /* Học: danh sách thẻ trong chương xếp 3 cột; mở một chương thì các chương khác tự gập (name="ch") */
+  .tree-cards{columns:4 9.5rem;column-gap:.6rem}
+  .tree-cards li{break-inside:avoid}
+  .tree-cards a{padding:.35rem .5rem}
+  .ch-tree > summary{padding:.4rem .5rem}
+  .tree{gap:.35rem}
+  #app{padding-bottom:1.5rem}
+  #screen-learn > h1{margin-bottom:.2rem}
+  .tree-next{margin:0 0 .5rem}
+  .tree{max-height:calc(100vh - 11rem);overflow:auto}
+  .tree > .ch-tree{margin:0}
+  .ch-tree > summary{min-height:0}
+  #screen-learn > .subtitle{margin:0 0 .6rem}
+}

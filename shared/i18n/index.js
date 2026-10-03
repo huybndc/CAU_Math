@@ -69,6 +69,7 @@ export function applyStaticText(root = document) {
   });
   root.querySelectorAll('[data-i18n-title]').forEach(el => {
     el.title = t(el.dataset.i18nTitle);
+    if (el.matches('[role="group"], .theme-toggle')) el.setAttribute('aria-label', el.title);   // nút/nhóm chỉ có icon hoặc chữ ngắn cần tên đọc được
   });
 }
 

@@ -40,12 +40,15 @@ export const en = {
   'shell.close': 'Close',
   /* sync between machines (D37) — cloud button tooltip */
   'sync.wait': 'Syncing…',
-  'sync.ok': 'Synced via {label} at {time} · {n} machines. Click to sync now. Folder: {dir}',
-  'sync.hub': 'Online version: progress is saved to your Study Hub account and shows in Stats. Folder sync (iCloud/Drive) only runs when the app is opened on a computer.',
-  'sync.off': 'Not syncing between machines: check iCloud Drive / Google Drive / OneDrive / Dropbox, or set STUDY_SYNC_DIR in .env (sign in first if an account is used).',
-  'sync.err': 'Sync failed ({msg}). Progress is still saved on this machine — click to retry.',
+  'sync.ok': 'Synced at {time}. Click to sync again.',
+  'sync.hub': 'Progress is saved to your Study Hub account.',
+  'sync.off': 'Not syncing between machines (check the iCloud/Drive folder or sign in).',
+  'sync.err': 'Sync failed ({msg}). Click to retry.',
   /* bộ chạy luyện tập */
   /* task-based menu */
+  'shell.lang': 'Language',
+  'tools.count': '{n} tools',
+  'home.notStarted': 'Not started · {n} chapters',
   'shell.menu': 'Main menu',
   'scratch.sym0': 'Sum of minterms, e.g. Σm(1, 3, 5)',
   'scratch.sym1': 'Product of maxterms, e.g. ΠM(0, 2)',

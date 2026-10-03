@@ -77,7 +77,7 @@ export function setupPalette(cfg) {
   // nút nhỏ ở chân menu trái cho ai không biết phím tắt
   const foot = $('.appnav-foot');
   if (foot && !foot.querySelector('.nav-search')) {
-    const b = el('button', { type: 'button', class: 'nav-search', title: T('palette.title'), 'aria-label': T('palette.title'), onClick: open }, '⌕');
+    const b = el('button', { type: 'button', class: 'nav-search', title: T('palette.title'), 'aria-label': T('palette.title'), onClick: open });
     foot.prepend(b);
   }
 }

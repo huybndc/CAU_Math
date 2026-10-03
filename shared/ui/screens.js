@@ -35,12 +35,16 @@ function renderTools(r, cfg) {
   // mỗi chương MỘT dòng (tên các công cụ ghi nhỏ); chuyển giữa các công cụ làm ngay trong trang công cụ
   const rows = cfg.chapters.map(c => {
     const names = [...($(`#pane-${c.id}-interactive`)?.querySelectorAll(CARD_TITLES) ?? [])].filter(h => !h.closest('.card .card')).map(h => titleOf(h).split(/[:(]/)[0].trim());
-    return names.length && row({ href: `#/learn/${c.id}/interactive/0`, title: chapterTitle(c.id), sub: names.join(' · '), });
+    return names.length && el('a', { class: 'tool-card', href: `#/learn/${c.id}/interactive/0`, title: names.join(' · ') }, [
+      el('span', { class: 'tool-ico', 'aria-hidden': 'true' }),
+      el('span', { class: 'tool-main' }, [el('b', { text: chapterTitle(c.id) }), el('small', { text: names.join(' · ') })]),
+      el('span', { class: 'tool-go' }, [T('tools.count', { n: names.length }), el('i', { 'aria-hidden': 'true' })]),
+    ]);
   }).filter(Boolean);
   $('#screen-tools').replaceChildren(
     el('h1', { text: T('nav.tools') }),
     el('p', { class: 'subtitle', text: T('tools.sub') }),
-    el('div', { class: 'list mods' }, rows),
+    el('div', { class: 'tool-cards' }, rows),
   );
   return T('nav.tools');
 }
