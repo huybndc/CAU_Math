@@ -1,5 +1,5 @@
 import { currentUser, adoptAccount, accountStorageKey, accountDataEntries, hubHref } from '@host';
-import { reconcile, trackLocal, validEntries, isSyncKey, isSyncableKey } from '../logic/sync.js';
+import { reconcile, trackLocal, validEntries, isSyncKey, isSyncableKey, folderSyncPossible } from '../logic/sync.js';
 import { t as T, onLangChange } from '../i18n/index.js';
 
 /* ---------------------------------------------------------------
@@ -101,6 +101,7 @@ async function pull() {
     setInfo({ state: 'off' });
     return false;
   }
+  if (!folderSyncPossible(!!hubHref, location.hostname)) { setInfo({ state: 'off' }); return false; }
   const res = await fetch('/__sync?scope=' + encodeURIComponent(scope), { cache: 'no-store' });
   const data = res.ok ? await res.json().catch(() => null) : null;
   if (!data?.dir) { setInfo({ state: 'off' }); return false; }

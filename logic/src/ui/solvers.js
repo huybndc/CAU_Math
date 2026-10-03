@@ -2,6 +2,7 @@ import { t as T, tError, onLangChange } from '../i18n/index.js';
 import { fail } from '@shared/logic/app-error.js';
 import { createSolver } from '@shared/ui/solver.js';
 import { fieldRow } from '@shared/ui/fields.js';
+import { save } from '@shared/ui/store.js';
 import { baseReport, complementReport, signedReport } from '../logic/report-number.js';
 import { exprReport, autoVars } from '../logic/report-expr.js';
 import { codesReport, CODE_OPS } from '../logic/report-codes.js';
@@ -29,11 +30,11 @@ function mount(host, { key, specs, examples = [], random, report, practice }) {
     try {
       const out = report(fr.get);
       if (out) s.show(out); else s.clear();
-    } catch (e) { s.error(tError(e)); }
+    } catch (e) { s.error(tError(e)); return false; }
   };
   const draw = () => { const old = fr ? Object.fromEntries(specs().map(sp => [sp.id, fr.get(sp.id)])) : {}; fr = fieldRow(specs().map(sp => ({ ...sp, value: old[sp.id] ?? sp.value })), run, 'tool-' + key); s.inputs.replaceChildren(fr.node); };
   draw(); onLangChange(draw);
-  run();
+  if (run() === false) { save('tool-' + key, {}); fr = null; draw(); run(); }   // giá trị đã nhớ từ trước mà lỗi: về mặc định
 }
 
 export function mountBaseSolver(host) {

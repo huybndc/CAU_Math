@@ -3,6 +3,7 @@ import { fail } from '@shared/logic/app-error.js';
 import { createSolver } from '@shared/ui/solver.js';
 import { el } from '@shared/ui/dom.js';
 import { fieldRow } from '@shared/ui/fields.js';
+import { save } from '@shared/ui/store.js';
 import { truthReport, euclidReport, congruenceReport, diophantineReport, powReport } from '../logic/report-tools.js';
 import { setReport } from '../logic/report-sets.js';
 import { graphReport, parseEdges } from '../logic/report-graph.js';
@@ -29,7 +30,7 @@ function mount(host, { key, specs, examples = [], random, report, practice }) {
     try {
       const out = report(fr.get);
       if (out) s.show(out); else s.clear();
-    } catch (e) { s.error(tError(e)); }
+    } catch (e) { s.error(tError(e)); return false; }
   };
   const draw = () => {
     const old = fr ? Object.fromEntries(specs().map(sp => [sp.id, fr.get(sp.id)])) : {};
@@ -37,7 +38,7 @@ function mount(host, { key, specs, examples = [], random, report, practice }) {
     s.inputs.replaceChildren(fr.node);
   };
   draw(); onLangChange(draw);
-  run();
+  if (run() === false) { save('tool-' + key, {}); fr = null; draw(); run(); }   // giá trị đã nhớ từ trước mà lỗi: về mặc định
   return { get: id => fr.get(id), set: v => fr.set(v) };
 }
 

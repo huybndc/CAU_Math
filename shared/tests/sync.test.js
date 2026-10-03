@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { mergeEntry, trackLocal, reconcile, validEntries, SYNC_APP, isSyncableKey } from '../logic/sync.js';
+import { mergeEntry, trackLocal, reconcile, validEntries, SYNC_APP, isSyncableKey, folderSyncPossible } from '../logic/sync.js';
 
 const ev = (ts, kind, ok = true) => ({ ts, prefix: 'c1q', kind, ok, mode: 'practice' });
 const J = x => JSON.stringify(x);
@@ -106,5 +106,13 @@ describe('đọc file bản chụp', () => {
     expect(validEntries({ app: 'khac', entries: {} })).toBeNull();
     const snap = { app: SYNC_APP, entries: { 'progress:logic': { v: '1', t: 1 }, b: { v: 2, t: 1 }, c: { v: 'x' }, 'sync:meta': { v: '', t: 1 }, 'sb-demo-auth-token': { v: 'secret', t: 9 }, 'hub:outbox': { v: '[]', t: 9 }, 'exam:logic': { v: null, t: 3 } } };
     expect(validEntries(snap)).toEqual({ 'progress:logic': { v: '1', t: 1 }, 'exam:logic': { v: null, t: 3 } });
+  });
+});
+
+describe('đồng bộ thư mục chỉ chạy khi có điểm cuối', () => {
+  it('bản online dưới Hub: không gọi /__sync; máy tính hoặc không dưới Hub: gọi', () => {
+    expect(folderSyncPossible(true, 'hub.example.workers.dev')).toBe(false);
+    expect(folderSyncPossible(true, 'localhost')).toBe(true);
+    expect(folderSyncPossible(false, 'localhost')).toBe(true);
   });
 });
