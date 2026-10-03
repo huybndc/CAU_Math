@@ -24,6 +24,40 @@
 .tool-chip:hover{border-color:var(--accent);color:var(--accent)}
 .tool-chip:hover::after{color:var(--accent)}
 
+/* ---------- Học: danh sách mục dễ đọc, 3 trạng thái rõ (chưa · đã xem · đã nắm) + mục nên học tiếp ---------- */
+.tree-cards a{font-size:var(--fs-md);padding:.55rem .7rem;color:var(--ink)}
+.tree-cards .dot{flex:0 0 .95rem;width:.95rem;height:.95rem;display:grid;place-items:center;border:2px solid var(--ink-dim);box-sizing:border-box}
+.tree-cards li.seen .dot{background:var(--ink-dim);border-color:var(--ink-dim)}
+.tree-cards li.passed .dot{background:var(--ok);border-color:var(--ok)}
+.tree-cards li.passed .dot::after{content:"";width:.28rem;height:.5rem;margin-top:-.08rem;border:solid var(--panel);border-width:0 2px 2px 0;transform:rotate(45deg)}
+.tree-cards li.passed a{color:var(--ink)}
+.tree-cards li.next a{background:var(--accent-soft);box-shadow:inset 3px 0 0 var(--accent);font-weight:600}
+.tree-cards li.next .dot{border-color:var(--accent)}
+
+/* ---------- Công cụ: thẻ chương có icon, mô tả một dòng, nhìn là biết bấm được ---------- */
+.tool-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(20rem,1fr));gap:.8rem}
+.tool-card{display:grid;grid-template-columns:2.6rem minmax(0,1fr);gap:.2rem .9rem;align-items:center;padding:1rem 1.1rem;border:1px solid var(--line-strong);
+  border-radius:var(--r-lg);background:var(--panel);color:var(--ink);text-decoration:none;box-shadow:var(--lift);transition:border-color .12s,transform .12s}
+.tool-card:hover{border-color:var(--accent);transform:translateY(-1px)}
+.tool-ico{grid-row:span 2;width:2.6rem;height:2.6rem;border-radius:var(--r-md);background:var(--accent-soft);position:relative}
+.tool-ico::before{content:"";position:absolute;inset:.6rem;background:var(--accent-ink-soft);-webkit-mask:var(--ico) center/contain no-repeat;mask:var(--ico) center/contain no-repeat;
+  --ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.9' stroke-linecap='round'%3E%3Cpath d='M4 7h9M17 7h3M4 17h3M11 17h9'/%3E%3Ccircle cx='15' cy='7' r='2'/%3E%3Ccircle cx='9' cy='17' r='2'/%3E%3C/svg%3E")}
+.tool-main{min-width:0;display:flex;flex-direction:column;gap:.15rem}
+.tool-main b{font-size:var(--fs-lg);font-weight:600}
+.tool-main small{font-size:var(--fs-sm);color:var(--ink-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tool-go{grid-column:2;display:flex;align-items:center;gap:.4rem;font-size:var(--fs-sm);font-weight:600;color:var(--accent-ink-soft)}
+.tool-go i{width:.9rem;height:.9rem;background:currentColor;-webkit-mask:var(--c) center/contain no-repeat;mask:var(--c) center/contain no-repeat;transition:transform .12s;
+  --c:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E")}
+.tool-card:hover .tool-go i{transform:translateX(3px)}
+
+/* ---------- Tổng quan: chương chưa làm gộp thành một dải ---------- */
+.idle-chapters{margin-top:.8rem;border:1px dashed var(--line-strong);border-radius:var(--r-lg)}
+.idle-chapters > summary{padding:.7rem 1rem;cursor:pointer;color:var(--ink);font-size:var(--fs-sm);font-weight:600;list-style:none;display:flex;align-items:center;gap:.6rem}
+.idle-chapters > summary::-webkit-details-marker{display:none}
+.idle-chapters > summary::before{content:"";width:.45rem;height:.45rem;border-right:2px solid var(--ink-dim);border-bottom:2px solid var(--ink-dim);transform:rotate(-45deg);transition:transform .15s}
+.idle-chapters[open] > summary::before{transform:rotate(45deg)}
+.idle-chapters .list.mods{padding:0 .8rem .8rem}
+
 /* ---------- thu gọn menu trái thành cột icon (chỉ ≥761px; shell.js setupNavCollapse) ---------- */
 .nav-collapse{display:none}
 @media (min-width:761px){

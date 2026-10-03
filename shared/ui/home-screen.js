@@ -73,6 +73,7 @@ export function renderHome(r, cfg) {
   const recent = statsOf(events, { since });
   const stat = (v, label) => el('span', {}, [el('b', { text: v }), label]);
 
+  const idle = [];                                   // chương chưa làm câu nào: gộp thành một dải "Chưa bắt đầu"
   const chapters = cfg.chapters.filter(c => c.bank).map(c => {
     const tried = c.bank.KINDS.filter(k => statsOf(events, { prefix: c.prefix, kind: k }).attempts > 0).length;
     const a = row({
@@ -81,8 +82,11 @@ export function renderHome(r, cfg) {
       acc: accCell(recentStats(events, { prefix: c.prefix }, now)),
     });
     a.addEventListener('click', () => save('practice-ch', c.id));   // mở Luyện tập đúng chương này
-    return a;
-  });
+    if (tried === 0) idle.push(a);
+    return tried === 0 ? null : a;
+  }).filter(Boolean);
+  const idleBox = idle.length && el('details', { class: 'idle-chapters', open: !chapters.length },
+    [el('summary', { text: T('home.notStarted', { n: idle.length }) }), el('div', { class: 'list mods' }, idle)]);
 
   $('#screen-home').replaceChildren(
     el('h1', { text: T('app.short') }),
@@ -96,7 +100,7 @@ export function renderHome(r, cfg) {
       stat(String(recent.attempts), T('home.statQ')),
     ]),
     el('p', { class: 'muted small', text: T('home.statNote') }),
-    ...(chapters.length ? [el('h2', { class: 'section-label', text: T('home.byChapter') }), el('div', { class: 'list mods' }, chapters)] : []),
+    ...(chapters.length + idle.length ? [el('h2', { class: 'section-label', text: T('home.byChapter') }), chapters.length ? el('div', { class: 'list mods' }, chapters) : '', idleBox || ''] : []),
   );
   return T('nav.home');
 }

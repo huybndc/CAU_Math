@@ -34,13 +34,13 @@ export function renderLearn(r, cfg) {
       const passed = cardPassed(events, card.body);
       const state = passed ? 'passed' : k <= at && load('lesson-' + c.id, null) != null ? 'seen' : '';
       const isNext = nextAt && nextAt.ch === c.id && nextAt.card === k;
-      return el('li', { class: state }, el('a', {
+      return el('li', { class: [state, isNext && 'next'].filter(Boolean).join(' ') }, el('a', {
         href: `#/learn/${c.id}/theory`, onClick: () => seekLesson(c.id, k),
         title: pointKeys(card.body).length ? T('learn.hasPoint') : undefined,
       }, [el('span', { class: 'dot', 'aria-hidden': 'true' }), el('span', { text: card.title }), isNext && tag(T('learn.next'), 'now')]));
     });
 
-    const box = el('details', { class: 'ch-tree', 'data-ch': c.id }, [
+    const box = el('details', { class: 'ch-tree', 'data-ch': c.id, name: 'ch-tree' }, [
       el('summary', {}, [
         el('span', { class: 'ch-no', text: chNo(c.id) }),
         el('span', { class: 'ch-main' }, [

@@ -1,5 +1,7 @@
 /* Tìm nhanh (shared/ui/palette.js) */
-.nav-search{font-size:1.1rem;line-height:1;padding:.35rem .55rem;border:1px solid var(--line);border-radius:var(--r-md);background:none;color:var(--ink-dim);cursor:pointer}
+.nav-search{width:32px;height:32px;flex:0 0 auto;padding:0;display:grid;place-items:center;border:1px solid var(--line);border-radius:var(--r-md);background:var(--panel);color:var(--ink-dim);cursor:pointer}
+.nav-search::before{content:"";width:18px;height:18px;background:currentColor;-webkit-mask:var(--ico) center/contain no-repeat;mask:var(--ico) center/contain no-repeat;
+  --ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round'%3E%3Ccircle cx='10.5' cy='10.5' r='6.5'/%3E%3Cpath d='M15.5 15.5L21 21'/%3E%3C/svg%3E")}
 .nav-search:hover{color:var(--ink);background:color-mix(in srgb,var(--ink) 6%,transparent)}
 .palette{width:min(560px,92vw);margin:12vh auto 0;padding:0;border:1px solid var(--line);border-radius:var(--r-lg,12px);background:var(--panel);color:var(--ink);box-shadow:0 20px 60px rgba(0,0,0,.35)}
 .palette::backdrop{background:rgba(0,0,0,.4)}

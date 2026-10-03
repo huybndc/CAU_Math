@@ -40,11 +40,14 @@ export const vi = {
   'shell.close': 'Đóng',
   /* đồng bộ giữa các máy (D37) — chữ trong tooltip nút mây */
   'sync.wait': 'Đang đồng bộ…',
-  'sync.ok': 'Đồng bộ qua {label} lúc {time} · {n} máy. Bấm để đồng bộ ngay. Thư mục: {dir}',
-  'sync.hub': 'Bản online: tiến độ lưu trên tài khoản Study Hub của bạn và hiện ở Thống kê. Đồng bộ thư mục (iCloud/Drive) chỉ chạy khi mở app trên máy tính.',
-  'sync.off': 'Chưa đồng bộ giữa các máy: kiểm tra iCloud Drive / Google Drive / OneDrive / Dropbox, hoặc đặt STUDY_SYNC_DIR trong .env (nếu có tài khoản thì cần đăng nhập).',
-  'sync.err': 'Đồng bộ lỗi ({msg}). Tiến độ vẫn lưu trên máy này — bấm để thử lại.',
+  'sync.ok': 'Đã đồng bộ lúc {time}. Bấm để đồng bộ lại.',
+  'sync.hub': 'Tiến độ lưu trên tài khoản Study Hub.',
+  'sync.off': 'Chưa đồng bộ giữa các máy (kiểm tra thư mục iCloud/Drive hoặc đăng nhập).',
+  'sync.err': 'Đồng bộ lỗi ({msg}). Bấm để thử lại.',
   /* menu theo việc */
+  'shell.lang': 'Ngôn ngữ',
+  'tools.count': '{n} công cụ',
+  'home.notStarted': 'Chưa bắt đầu · {n} chương',
   'shell.menu': 'Mục chính',
   'scratch.sym0': 'Dạng tổng các minterm, vd Σm(1, 3, 5)',
   'scratch.sym1': 'Dạng tích các maxterm, vd ΠM(0, 2)',
