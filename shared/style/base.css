@@ -39,15 +39,15 @@ h1,h2,h3,h4{line-height:1.25;letter-spacing:-.01em}
 
 /* ---------------- nút & ô nhập ---------------- */
 button.btn,a.btn{
-  font:inherit;font-size:var(--fs-sm);font-weight:600;
-  display:inline-flex;align-items:center;gap:7px;
-  padding:9px 15px;border-radius:var(--r-md);cursor:pointer;
+  font:inherit;font-size:var(--fs-md);
+  display:inline-flex;align-items:center;gap:.4rem;
+  padding:.5rem .95rem;border-radius:var(--r-md);cursor:pointer;
   border:1px solid var(--line-strong);background:var(--panel);color:var(--ink);
   transition:border-color .12s ease,background .12s ease;
 }
 button.btn:hover,a.btn:hover{border-color:var(--accent);color:var(--accent)}
 button.btn:active{transform:translateY(1px)}
-button.btn.primary,a.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+button.btn.primary,a.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
 button.btn.primary:hover,a.btn.primary:hover{filter:brightness(1.08);color:var(--accent-ink)}
 button.btn:disabled{opacity:.4;cursor:not-allowed}
 input[type=text],select{

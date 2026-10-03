@@ -10,7 +10,7 @@
 .mods .entry > :nth-child(3){grid-area:acc}
 .mods .entry > :nth-child(4){grid-area:go}
 .mods .entry > :empty{display:none}
-.acc-scope{flex:none;font-weight:400;opacity:.75}
+.acc-scope{flex:none;font-weight:400;color:var(--ink-dim)}
 
 /* ---------- Công cụ: mỗi chương một module, mỗi công cụ một ô lớn ---------- */
 .tool-ch{margin:0 0 .9rem;padding:1rem 1.1rem 1.1rem;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--panel)}

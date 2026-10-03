@@ -44,7 +44,7 @@
   border:1px solid var(--line);background:var(--panel);color:var(--ink);
 }
 .exam-clock.hidden{font:500 var(--fs-sm)/1.9 var(--font);color:var(--ink-dim);letter-spacing:0}
-.exam-clock.low{color:var(--hi);border-color:var(--hi);background:var(--hi-bg)}
+.exam-clock.low{color:var(--hi-ink);border-color:var(--hi);background:var(--hi-bg)}
 
 .exam-body{display:flex;flex-direction:column;gap:1rem;max-width:54rem}
 .exam-pal{border:1px solid var(--line);border-radius:var(--r-md);background:var(--panel)}
@@ -70,7 +70,7 @@
 .pal[aria-current="true"]{outline:2px solid var(--accent);outline-offset:1px;color:var(--ink);font-weight:700}
 
 .exam-q{max-width:none;margin:0}
-.exam-flag[aria-pressed="true"]{color:var(--hi);text-decoration-color:var(--hi);font-weight:600}
+.exam-flag[aria-pressed="true"]{color:var(--hi-ink);text-decoration-color:var(--hi);font-weight:600}
 .exam-nav{display:flex;justify-content:space-between;margin-top:1.6rem;padding-top:1rem;border-top:1px solid var(--line)}
 /* thi thử: phương án đang chọn (chưa chấm) */
 .choice.picked{border-color:var(--accent);background:var(--accent-soft)}
