@@ -6,6 +6,7 @@ import { setupPalette } from './palette.js';
 import { startRouter, currentRoute } from './router.js';
 import { showRoute } from './screens.js';
 import { startSync } from './sync.js';
+import { setupScreenHelp } from './screen-help.js';
 import { hydrateProgress, syncProgress } from './store.js';
 import { hubHref } from '@host';
 
@@ -143,9 +144,10 @@ export async function setupShell(cfg) {
   }
   startSync();
   await syncProgress();
-  startRouter(cfg.chapters.map(c => c.id), r => showRoute(r, cfg));
+  const help = setupScreenHelp();
+  startRouter(cfg.chapters.map(c => c.id), r => { showRoute(r, cfg); help.set(r); });
   setupPalette(cfg);
-  onLangChange(() => { showRoute(currentRoute(), cfg); labelHints(); });
+  onLangChange(() => { showRoute(currentRoute(), cfg); labelHints(); help.set(currentRoute()); });
   markReady();
   window.addEventListener('scroll', () => {
     document.querySelectorAll('.hint:popover-open').forEach(h => h.hidePopover());

@@ -561,3 +561,5 @@ khác syllabus, lịch học bắt đầu từ 2026/09/01".)
 **D61. Gộp nhật ký theo số lần (2026-10-01).** Kiểm trực tiếp: Linear Algebra hub 48 câu, app 33. Ảnh chụp từ Desktop có 20 câu thi cùng một ts và chỉ 5 chữ ký khác nhau (bài thi bản cũ ghi chung một ts); bản dedupe theo tập hợp gộp 20 thành 5. Nay `mergeEvents` đếm theo số lần: chỉ bỏ đúng số bản đã có ở máy.
 
 **D-no-billing (2026-10-03).** Không bật billing ở bất kỳ dịch vụ nào của dự án (Supabase, Cloudflare, project Google của key Gemini dùng cho Live_Lecture); user xác nhận. Hard $0 giữ nguyên: thấy dấu hiệu bị tính tiền thì dừng và báo. Ghi chú đồng bộ ở Study_Hub/DECISIONS.md và Live_Lecture/DECISIONS.md (D18).
+
+**D-help (2026-10-03).** Trợ giúp theo màn hình: nút `?` (phím `?`) ở mọi màn, thẻ nhỏ vi/en, nội dung ở `shared/ui/screen-help.js`. Không làm trang hướng dẫn riêng; mỗi màn phải vừa một khung nhìn (Tổng quan còn cuộn nhẹ ở 720px — chưa sửa).
