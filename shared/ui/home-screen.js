@@ -85,7 +85,7 @@ export function renderHome(r, cfg) {
     if (tried === 0) idle.push(a);
     return tried === 0 ? null : a;
   }).filter(Boolean);
-  const idleBox = idle.length && el('details', { class: 'idle-chapters', open: !chapters.length },
+  const idleBox = idle.length && el('details', { class: 'idle-chapters' },   // luôn thu gọn: mở sẵn thì người mới (mọi chương chưa làm) bị cuộn cả trang (kiểm 1280×720)
     [el('summary', { text: T('home.notStarted', { n: idle.length }) }), el('div', { class: 'list mods' }, idle)]);
 
   $('#screen-home').replaceChildren(
