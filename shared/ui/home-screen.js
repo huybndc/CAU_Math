@@ -2,7 +2,7 @@ import { $, el } from './dom.js';
 import { t as T } from '../i18n/index.js';
 import { statsOf, minutesSince, recentStats, weekSince } from '../logic/progress.js';
 import { weekOf, WEEKS, EXAM_WEEKS, daysToMidterm } from '../logic/syllabus.js';
-import { loadEvents, save, subjectOf } from './store.js';
+import { loadEvents, load, save, subjectOf } from './store.js';
 import { targetOf } from '../logic/exam-target.js';
 import { chapterTitle, roundMinutes, rankedKinds, accCell, row, leadCard, studied } from './choices.js';
 import { nextPoint } from '../logic/prereq.js';
@@ -91,7 +91,8 @@ function side(cfg, events, now) {
     act({ href: '#/practice', title: T('practice.tabKinds'), note: T('home.actKindsNote') }),
     act({ href: '#/free', title: T('practice.tabFree'), note: T('home.actFreeNote') }),
     act({ href: '#/exam', title: T('nav.exam'), note: days >= 0 && days <= 21 ? T('home.actExamSoon', { n: days }) : T('home.actExamNote') }),
-    petBlock(),
+    petBlock({ get: () => load('pet', 'off'), set: v => save('pet', v) },
+      { off: T('pet.off'), cat: T('pet.cat'), blob: T('pet.blob'), bot: T('pet.bot'), aria: T('pet.aria') }),
   ]);
 }
 

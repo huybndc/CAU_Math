@@ -1,9 +1,9 @@
 /* Khu giải trí nhỏ (shared/ui/pet.js): mặc định tắt; keyframes `pet` là ngoại lệ DUY NHẤT của quy tắc "chuyển động giống Study_Hub" (test canh). */
 .pet{display:flex;align-items:center;gap:.7rem;margin-top:.6rem}
-.pet-toggle{font:inherit;font-size:var(--fs-sm);background:none;color:var(--ink-dim);border:1px solid var(--line-strong);border-radius:var(--r-md);padding:.25rem .7rem;cursor:pointer}
-.pet-toggle:hover{background:var(--panel2);color:var(--ink)}
-.pet-toggle:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.pet-pick{font:inherit;font-size:var(--fs-sm);background:var(--panel);color:var(--ink-dim);border:1px solid var(--line-strong);border-radius:var(--r-md);padding:.25rem .5rem;cursor:pointer}
+.pet-pick:hover{background:var(--panel2);color:var(--ink)}
+.pet-pick:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .pet-art{display:none;width:64px;height:64px}
-.pet.on .pet-art{display:block;animation:pet 3s ease-in-out infinite alternate}
+.pet:not([data-pet="off"]) .pet-art{display:block;animation:pet 3s ease-in-out infinite alternate}
 @keyframes pet{to{transform:translateY(2px)}}
-@media (prefers-reduced-motion:reduce){.pet.on .pet-art{animation:none}}
+@media (prefers-reduced-motion:reduce){.pet:not([data-pet="off"]) .pet-art{animation:none}}
