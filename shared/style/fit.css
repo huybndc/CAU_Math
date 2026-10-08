@@ -42,3 +42,17 @@
 .act small{display:block;font-size:var(--fs-sm);color:var(--ink-dim)}
 .act-go{flex:none;width:1.6rem;height:1.6rem;display:grid;place-items:center;border:1px solid var(--line-strong);border-radius:50%;color:var(--ink-dim);font-size:var(--fs-sm)}
 .act:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* Thi thử (màn chọn đề): bớt đệm dọc để vừa 1280×720 ở cỡ gốc 107% */
+@media (min-width:1000px){
+  #screen-exam .exam-field{padding:.55rem .75rem}
+  #screen-exam .exam-go{padding:.6rem .75rem}
+  #screen-exam .exam-setup{margin-bottom:.4rem}
+}
+
+/* Danh sách/biểu mẫu dài (môn nhiều chương) cuộn trong khung của nó, không cuộn cả trang */
+@media (min-width:1000px){
+  #screen-free .list.mods{max-height:calc(100vh - 26rem);overflow:auto}
+  #screen-exam .exam-setup{max-height:calc(100vh - 22rem);overflow:auto}
+  #screen-exam .exam-go{position:sticky;bottom:0;background:var(--bg)}
+}
