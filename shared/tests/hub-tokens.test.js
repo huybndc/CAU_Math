@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { describe, it, expect } from 'vitest';
-import { render } from '../../scripts/sync-hub-tokens.mjs';
+import { render } from '../style/render-tokens.mjs';
 
 /* Token chung với Study_Hub: design-tokens.json là bản chụp (chép từ Study_Hub main), tokens-hub.css sinh từ nó.
    tokens.css không được khai báo lại token của Hub, trừ các ngoại lệ có chủ ý bên dưới. */
@@ -9,7 +9,7 @@ const snap = JSON.parse(read('design-tokens.json'));
 const OWN = new Set(['accent', 'accent-ink']);        // CAU_Math: --accent là màu môn, không phải màu mực như ở Hub
 
 describe('token chung với Study_Hub', () => {
-  it('tokens-hub.css khớp design-tokens.json (lệch ⇒ chạy node scripts/sync-hub-tokens.mjs)', () => {
+  it('tokens-hub.css khớp design-tokens.json (lệch ⇒ chạy node shared/style/render-tokens.mjs)', () => {
     expect(read('tokens-hub.css')).toBe(render(snap));
   });
   it('snapshot đủ cả sáng và tối, có màu 3 môn và vạch mục tiêu', () => {
