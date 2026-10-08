@@ -1,0 +1,12 @@
+[
+  "side-tab|home/home.css|border-left:3px solid var(--accent)}",
+  "side-tab|shared/style/free.css|border-left:3px solid var(--accent)",
+  "side-tab|shared/style/lesson.css|border-left:3px solid var(--accent)}",
+  "side-tab|shared/style/modules.css|.tree-cards li.next a — inset box-shadow 3px stripe (left)",
+  "side-tab|shared/style/modules.css|border-right:2px solid var(--ink-dim)",
+  "side-tab|shared/style/runner.css|border-left-width:5px",
+  "side-tab|shared/style/shell.css|border-left:2px solid var(--ink-dim)",
+  "side-tab|shared/style/shell.css|border-right:2px solid var(--ink-dim)",
+  "side-tab|shared/style/solver.css|border-left:4px solid var(--accent)",
+  "side-tab|shared/style/solver.css|border-right:2px solid var(--ink-dim)"
+]

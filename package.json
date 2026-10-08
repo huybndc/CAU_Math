@@ -12,7 +12,8 @@
     "check": "bash scripts/check_file_sizes.sh .",
     "launcher": "bash scripts/make-launcher.sh",
     "gen": "vite-node scripts/gen/generate.js",
-    "gen:review": "vite-node scripts/gen/review.js"
+    "gen:review": "vite-node scripts/gen/review.js",
+    "design:check": "node scripts/design-check.mjs index.html home shared logic/index.html discrete/index.html linalg/index.html"
   },
   "devDependencies": {
     "vite": "^7.1.5",
