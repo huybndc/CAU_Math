@@ -1,0 +1,21 @@
+{
+  "source": "Study_Hub src/logic/dates.js (SEMESTER) + src/logic/dashboard.js (EXAM_TARGET); chạy `npm run exam:export`",
+  "semesterStart": "2026-09-01",
+  "exams": [
+    {
+      "week": 8,
+      "name": "giữa kỳ",
+      "date": "2026-10-20"
+    },
+    {
+      "week": 16,
+      "name": "cuối kỳ",
+      "date": "2026-12-15"
+    }
+  ],
+  "target": {
+    "logic": 80,
+    "linalg": 80,
+    "discrete": 80
+  }
+}

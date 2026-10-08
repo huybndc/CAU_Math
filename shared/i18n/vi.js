@@ -154,6 +154,9 @@ export const vi = {
   'home.actFreeNote': 'Tự chấm theo lời giải mẫu',
   'home.actExamNote': 'Chọn chương, tính giờ',
   'home.actExamSoon': 'Giữa kỳ còn {n} ngày',
+  'home.goalLabel': 'Mục tiêu thi · vạch xanh = {t}%',
+  'home.goalNow': 'Hiện {p}% · còn {n} điểm',
+  'home.goalDone': 'Hiện {p}% · đã đạt mục tiêu',
   'home.byChapter': 'Theo chương',
   'home.tried': '{a}/{b} dạng',
   /* bộ chạy luyện tập */

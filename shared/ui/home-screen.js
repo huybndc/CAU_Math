@@ -2,7 +2,8 @@ import { $, el } from './dom.js';
 import { t as T } from '../i18n/index.js';
 import { statsOf, minutesSince, recentStats, weekSince } from '../logic/progress.js';
 import { weekOf, WEEKS, EXAM_WEEKS, daysToMidterm } from '../logic/syllabus.js';
-import { loadEvents, save } from './store.js';
+import { loadEvents, save, subjectOf } from './store.js';
+import { targetOf } from '../logic/exam-target.js';
 import { chapterTitle, roundMinutes, rankedKinds, accCell, row, leadCard, studied } from './choices.js';
 import { nextPoint } from '../logic/prereq.js';
 import { seekLesson, lessonGraph } from './lesson.js';
@@ -50,6 +51,22 @@ function today(cfg, events, now) {
     note: `${chapterTitle(first.ch)} · ${why(first)} · ~${roundMinutes(first.bank, [first.kind])} ${T('home.min')}`,
     href: `#/practice/${first.ch}/${first.kind}`, cta: T('practice.start'),
   });
+}
+
+/** Mục tiêu thi: thanh % đúng hiện tại + vạch mục tiêu (cùng số với Study_Hub: exam-target.json). */
+function goalRow(events) {
+  const t = targetOf(subjectOf());
+  if (t == null) return '';
+  const { accuracy } = statsOf(events);
+  const p = accuracy === null ? null : Math.round(accuracy * 100);
+  return el('div', { class: 'goal-row' }, [
+    el('h2', { class: 'section-label', text: T('home.goalLabel', { t }) }),
+    el('div', { class: 'goal-line' }, [
+      el('span', { class: 'goal-bar', role: 'img', 'aria-label': T('home.goalNow', { p: p ?? 0, n: Math.max(0, t - (p ?? 0)) }) }, [
+        el('i', { style: `width:${p ?? 0}%` }), el('u', { style: `left:${t}%` })]),
+      el('span', { class: 'small', text: p === null ? T('practice.none') : p >= t ? T('home.goalDone', { p }) : T('home.goalNow', { p, n: t - p }) }),
+    ]),
+  ]);
 }
 
 /** Thẻ hành động nhẹ (viền mảnh, hover đổi nền): tên đậm + một dòng phụ + nút mũi tên tròn. */
@@ -102,6 +119,7 @@ export function renderHome(r, cfg) {
     termBlock(now),
     el('div', { class: 'home-cols' }, [
       el('div', { class: 'home-main' }, [
+        goalRow(events),
         el('h2', { class: 'section-label', text: T('home.today') }),
         today(cfg, events, now),
         el('div', { class: 'stats-line', title: T('home.statNote') }, [
