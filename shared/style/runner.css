@@ -125,10 +125,9 @@ button.link:hover{color:var(--accent)}
   width:42px;height:52px;border-radius:8px;cursor:pointer;
   border:1.5px dashed var(--line-strong);background:var(--panel);
   font:700 1.35rem/1 var(--mono);color:var(--line-strong);
-  transition:background .1s ease,border-color .1s ease,transform .08s ease;
+  transition:background var(--dur-fast),border-color var(--dur-fast);
 }
 .w-bit:hover:not(:disabled){border-color:var(--accent)}
-.w-bit:active:not(:disabled){transform:scale(.94)}
 .w-bit[data-v="0"]{border-style:solid;color:var(--ink)}
 .w-bit[data-v="1"]{border-style:solid;border-color:var(--accent);background:var(--accent);color:var(--accent-ink)}
 .w-bit:disabled{cursor:default;opacity:1}
