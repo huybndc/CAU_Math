@@ -46,7 +46,6 @@ button.btn,a.btn{
   transition:border-color .12s ease,background .12s ease;
 }
 button.btn:hover,a.btn:hover{border-color:var(--accent);color:var(--accent)}
-button.btn:active{transform:translateY(1px)}
 button.btn.primary,a.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
 button.btn.primary:hover,a.btn.primary:hover{filter:brightness(1.08);color:var(--accent-ink)}
 button.btn:disabled{opacity:.4;cursor:not-allowed}
@@ -175,3 +174,17 @@ table.grid tbody tr:hover td{background:var(--panel2)}
 .card.fold[open] > summary::after{content:"▴"}
 .card.fold > summary h2{margin:0}
 .card.fold > .fold-body{padding:0 1.25rem 1.25rem}
+
+/* khung chờ: màn còn rỗng hiện vài khối xám (cùng nhịp mờ với .skel-line của Study_Hub); mất ngay khi có nội dung */
+.screen.active:empty::before{content:"";display:block;height:20rem;border-radius:var(--r-lg);
+  background:
+    linear-gradient(var(--line),var(--line)) 0 0/14rem 1.6rem no-repeat,
+    linear-gradient(var(--line),var(--line)) 0 3rem/22rem .9rem no-repeat,
+    linear-gradient(var(--panel2),var(--panel2)) 0 6rem/100% 4.5rem no-repeat,
+    linear-gradient(var(--panel2),var(--panel2)) 0 12rem/32% 6rem no-repeat,
+    linear-gradient(var(--panel2),var(--panel2)) 50% 12rem/32% 6rem no-repeat,
+    linear-gradient(var(--panel2),var(--panel2)) 100% 12rem/32% 6rem no-repeat;
+  animation:skel 1.2s ease-in-out infinite alternate}
+@keyframes skel{to{opacity:.45}}
+/* đổi màn: không hiệu ứng (Study_Hub không có) */
+::view-transition-group(root),::view-transition-old(root),::view-transition-new(root){animation:none}

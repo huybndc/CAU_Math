@@ -37,8 +37,8 @@
 /* ---------- Công cụ: thẻ chương có icon, mô tả một dòng, nhìn là biết bấm được ---------- */
 .tool-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(20rem,1fr));gap:.8rem}
 .tool-card{display:grid;grid-template-columns:2.6rem minmax(0,1fr);gap:.2rem .9rem;align-items:center;padding:1rem 1.1rem;border:1px solid var(--line-strong);
-  border-radius:var(--r-lg);background:var(--panel);color:var(--ink);text-decoration:none;box-shadow:var(--lift);transition:border-color .12s,transform .12s}
-.tool-card:hover{border-color:var(--accent);transform:translateY(-1px)}
+  border-radius:var(--r-lg);background:var(--panel);color:var(--ink);text-decoration:none;box-shadow:var(--lift);transition:border-color var(--dur-fast)}
+.tool-card:hover{border-color:var(--accent)}
 .tool-ico{grid-row:span 2;width:2.6rem;height:2.6rem;border-radius:var(--r-md);background:var(--accent-soft);position:relative}
 .tool-ico::before{content:"";position:absolute;inset:.6rem;background:var(--accent-ink-soft);-webkit-mask:var(--ico) center/contain no-repeat;mask:var(--ico) center/contain no-repeat;
   --ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.9' stroke-linecap='round'%3E%3Cpath d='M4 7h9M17 7h3M4 17h3M11 17h9'/%3E%3Ccircle cx='15' cy='7' r='2'/%3E%3Ccircle cx='9' cy='17' r='2'/%3E%3C/svg%3E")}
@@ -46,9 +46,9 @@
 .tool-main b{font-size:var(--fs-lg);font-weight:600}
 .tool-main small{font-size:var(--fs-sm);color:var(--ink-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tool-go{grid-column:2;display:flex;align-items:center;gap:.4rem;font-size:var(--fs-sm);font-weight:600;color:var(--accent-ink-soft)}
-.tool-go i{width:.9rem;height:.9rem;background:currentColor;-webkit-mask:var(--c) center/contain no-repeat;mask:var(--c) center/contain no-repeat;transition:transform .12s;
+.tool-go i{width:.9rem;height:.9rem;background:currentColor;-webkit-mask:var(--c) center/contain no-repeat;mask:var(--c) center/contain no-repeat;transition:transform var(--dur-fast);
   --c:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E")}
-.tool-card:hover .tool-go i{transform:translateX(3px)}
+.tool-card:hover .tool-go i{transform:translateX(2px)}
 
 /* ---------- Tổng quan: chương chưa làm gộp thành một dải ---------- */
 .idle-chapters{margin-top:.8rem;border:1px dashed var(--line-strong);border-radius:var(--r-lg)}
