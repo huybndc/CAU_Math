@@ -91,8 +91,6 @@ function side(cfg, events, now) {
     act({ href: '#/practice', title: T('practice.tabKinds'), note: T('home.actKindsNote') }),
     act({ href: '#/free', title: T('practice.tabFree'), note: T('home.actFreeNote') }),
     act({ href: '#/exam', title: T('nav.exam'), note: days >= 0 && days <= 21 ? T('home.actExamSoon', { n: days }) : T('home.actExamNote') }),
-    petBlock({ get: () => load('pet', 'off'), set: v => save('pet', v) },
-      { off: T('pet.off'), cat: T('pet.cat'), blob: T('pet.blob'), bot: T('pet.bot'), aria: T('pet.aria') }),
   ]);
 }
 
@@ -125,11 +123,13 @@ export function renderHome(r, cfg) {
         goalRow(events),
         el('h2', { class: 'section-label', text: T('home.today') }),
         today(cfg, events, now),
+        el('div', { class: 'stats-row' }, [petBlock({ get: () => load('pet', null), set: v => save('pet', v) },
+          { on: T('pet.on'), off: T('pet.offBtn'), cat: T('pet.cat'), owl: T('pet.owl'), plant: T('pet.plant'), aria: T('pet.aria') }),
         el('div', { class: 'stats-line', title: T('home.statNote') }, [
           stat(String(minutesSince(events, seconds, since)), T('home.statMin')),
           stat(recent.accuracy === null ? '—' : `${Math.round(recent.accuracy * 100)}%`, T('home.statAcc')),
           stat(String(recent.attempts), T('home.statQ')),
-        ]),
+        ])]),
         chapters.length ? el('h2', { class: 'section-label', text: T('home.byChapter') }) : '',
         chapters.length ? el('div', { class: 'list home-chapters' }, chapters) : '',
       ]),
