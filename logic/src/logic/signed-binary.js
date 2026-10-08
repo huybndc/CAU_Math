@@ -88,9 +88,14 @@ export function addTwos(aBits, bBits) {
 /** Trừ A − B bằng 2's complement: cộng A với 2's complement của B. */
 export function subTwos(aBits, bBits) {
   if (aBits.length !== bBits.length) fail('err.sameWidth');
-  const negB = encode(-decode(bBits, 'twos'), 'twos', bBits.length);
+  // bù 2 của B tính theo bit (đảo rồi +1, bỏ nhớ): với B = −2^(w−1) vẫn ra chính nó, không ném lỗi — phép trừ tràn và báo overflow
+  decode(bBits, 'twos');                                   // kiểm bBits chỉ gồm 0/1
+  const w = bBits.length;
+  const negB = BigInt.asUintN(w, ~BigInt('0b' + bBits) + 1n).toString(2).padStart(w, '0');
   const r = addTwos(aBits, negB);
-  return { ...r, negB };
+  // tràn của A − B: A, B khác dấu mà kết quả khác dấu A (không dùng cờ của A + (−B): sai khi B = −2^(w−1))
+  const overflow = (aBits[0] !== bBits[0]) && (r.bits[0] !== aBits[0]);
+  return { ...r, overflow, negB };
 }
 
 /** Bảng đối chiếu 3 dạng cho một giá trị (giá trị nào không biểu diễn được thì null). */

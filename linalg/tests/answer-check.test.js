@@ -129,3 +129,15 @@ describe('căn bậc hai và ô rời', () => {
     expect(parseNumbers('1 … -2 … 3/2')).toEqual([1, -2, 1.5]);
   });
 });
+
+describe('checkNumber: dấu phẩy thập phân kiểu Việt', () => {
+  it('"0,5" là 0.5, không phải danh sách hai số', () => {
+    expect(checkNumber('0,5', 0.5)).toBe(true);
+    expect(checkNumber('-1,25', -1.25)).toBe(true);
+    expect(checkNumber('0,5', 5)).toBe(false);
+  });
+  it('vector vẫn tách ở dấu phẩy', () => {
+    expect(checkVector('1,2', [1, 2])).toBe(true);
+    expect(checkVector('(0,5)', [0, 5])).toBe(true);
+  });
+});
