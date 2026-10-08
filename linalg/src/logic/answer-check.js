@@ -54,7 +54,9 @@ export function parseNumbers(text) {
 
 /** So một số với sai số cho phép. */
 export function checkNumber(given, expected, tol = 1e-6) {
-  const nums = parseNumbers(given);
+  // "0,5" là một số (dấu phẩy thập phân kiểu Việt), không phải danh sách hai số 0 và 5
+  const g = /^\s*[-−–]?\d+,\d+\s*$/.test(String(given)) ? String(given).replace(',', '.') : given;
+  const nums = parseNumbers(g);
   if (!nums || nums.length !== 1) return false;
   return Math.abs(nums[0] - expected) <= tol;
 }

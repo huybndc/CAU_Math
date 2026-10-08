@@ -142,3 +142,23 @@ describe('subTwos', () => {
     }
   });
 });
+
+describe('subTwos: mọi cặp giá trị (đối chiếu số học, w = 3…6)', () => {
+  it('đúng giá trị mod 2^w và cờ overflow, kể cả khi trừ số âm nhỏ nhất (0 − (−8))', () => {
+    for (let w = 3; w <= 6; w++) {
+      const half = 2 ** (w - 1);
+      for (let a = -half; a < half; a++) for (let b = -half; b < half; b++) {
+        const r = subTwos(encode(a, 'twos', w), encode(b, 'twos', w));
+        const d = a - b;
+        expect(r.overflow, `${a}-${b} w=${w}`).toBe(d < -half || d >= half);
+        expect(parseInt(r.bits, 2), `${a}-${b} w=${w}`).toBe(((d % (2 * half)) + 2 * half) % (2 * half));
+      }
+    }
+  });
+  it('0000 − 1000 (0 − (−8)) tràn thay vì ném lỗi', () => {
+    const r = subTwos('0000', '1000');
+    expect(r.bits).toBe('1000');
+    expect(r.overflow).toBe(true);
+    expect(r.negB).toBe('1000');
+  });
+});
