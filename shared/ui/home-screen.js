@@ -7,6 +7,7 @@ import { targetOf } from '../logic/exam-target.js';
 import { chapterTitle, roundMinutes, rankedKinds, accCell, row, leadCard, studied } from './choices.js';
 import { nextPoint } from '../logic/prereq.js';
 import { seekLesson, lessonGraph } from './lesson.js';
+import { petBlock } from './pet.js';
 
 /* ---------------------------------------------------------------
    TỔNG QUAN của một môn (D16, D19):
@@ -90,6 +91,7 @@ function side(cfg, events, now) {
     act({ href: '#/practice', title: T('practice.tabKinds'), note: T('home.actKindsNote') }),
     act({ href: '#/free', title: T('practice.tabFree'), note: T('home.actFreeNote') }),
     act({ href: '#/exam', title: T('nav.exam'), note: days >= 0 && days <= 21 ? T('home.actExamSoon', { n: days }) : T('home.actExamNote') }),
+    petBlock(),
   ]);
 }
 

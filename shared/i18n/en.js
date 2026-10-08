@@ -158,6 +158,8 @@ export const en = {
   'home.goalLabel': 'Exam goal · blue mark = {t}%',
   'home.goalNow': 'Now {p}% · {n} points to go',
   'home.goalDone': 'Now {p}% · goal reached',
+  'pet.show': 'Show companion',
+  'pet.hide': 'Hide companion',
   'home.byChapter': 'By chapter',
   'home.tried': '{a}/{b} types',
   'run.allKinds': 'All types',
