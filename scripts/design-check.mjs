@@ -10,7 +10,7 @@ const argv = process.argv.slice(2);
 const flag = (n) => argv.includes(n);
 const bi = argv.indexOf('--baseline');
 const baselineFile = bi >= 0 ? argv[bi + 1] : 'design-baseline.json';
-const paths = argv.filter((a, i) => !a.startsWith('--') && i !== bi + 1);
+const paths = argv.filter((a, i) => !a.startsWith('--') && (bi < 0 || i !== bi + 1)); // bi = -1 khi không có --baseline: đừng bỏ phần tử đầu
 const targets = (paths.length ? paths : ['index.html', 'src']).filter(existsSync);
 
 let out = '[]';
