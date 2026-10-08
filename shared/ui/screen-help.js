@@ -9,17 +9,19 @@ import { getLang } from '../i18n/index.js';
 export const HELP = {
   home: {
     vi: { title: 'Tổng quan', rows: [
-      ['Hôm nay', 'Bài gợi ý cho bạn lúc này. Bấm Bắt đầu, hoặc chọn một lựa chọn ở dòng "Hoặc".'],
+      ['Hôm nay', 'Bài gợi ý cho bạn lúc này. Bấm Bắt đầu để làm ngay.'],
       ['7 ngày', 'Số phút học, % đúng và số câu trong 7 ngày gần nhất, tính cả máy khác; cùng số với Thống kê ở Study Hub.'],
-      ['Theo chương', 'Bấm một chương để vào luyện đúng chương đó.'],
+      ['Theo chương', 'Bấm một chương để vào luyện đúng chương đó; danh sách dài thì cuộn trong khung.'],
+      ['Học · Luyện tập', 'Cột bên phải: học tiếp thẻ kế, công cụ, luyện theo dạng, tự luận, thi thử.'],
       ['Ctrl K', 'Tìm nhanh trong app (gõ không dấu cũng được), Enter mở đúng bài.'],
       ['Nháp', 'Nút nổi góc dưới phải, mở ở mọi màn: ghi chú, máy tính, bảng chân trị, bìa K, vẽ.'],
       ['Đám mây', 'Trạng thái đồng bộ tiến độ với Study Hub. Số khác Hub thì chờ vài giây rồi tải lại.', 'warn'],
     ] },
     en: { title: 'Overview', rows: [
-      ['Today', 'The suggested task right now. Press Start, or pick one of the "Or" options.'],
+      ['Today', 'The suggested task right now. Press Start to do it now.'],
       ['7 days', 'Minutes studied, % correct and questions in the last 7 days, including other devices; same numbers as Study Hub stats.'],
-      ['By chapter', 'Open a chapter to practise exactly that chapter.'],
+      ['By chapter', 'Open a chapter to practise exactly that chapter; a long list scrolls inside its frame.'],
+      ['Learn · Practice', 'Right column: next lesson card, tools, practice by type, free-response, mock exam.'],
       ['Ctrl K', 'Quick search in the app; press Enter to open the result.'],
       ['Scratch', 'Floating button at the bottom right on every screen: notes, calculator, truth table, K-map, draw.'],
       ['Cloud', 'Progress sync status with Study Hub. If numbers differ from the Hub, wait a few seconds and reload.', 'warn'],

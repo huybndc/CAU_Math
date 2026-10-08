@@ -147,6 +147,13 @@ export const vi = {
   'home.min': 'phút',
   'home.midExam': 'Đề giữa kỳ thử',
   'home.learnNow': 'Học tiếp chương đang học',
+  'home.actToc': 'Mục lục bài học',
+  'home.actTocNote': '{n} chương',
+  'home.actToolsNote': 'Máy giải và công cụ bấm thử',
+  'home.actKindsNote': 'Chọn chương và dạng bài',
+  'home.actFreeNote': 'Tự chấm theo lời giải mẫu',
+  'home.actExamNote': 'Chọn chương, tính giờ',
+  'home.actExamSoon': 'Giữa kỳ còn {n} ngày',
   'home.byChapter': 'Theo chương',
   'home.tried': '{a}/{b} dạng',
   /* bộ chạy luyện tập */
