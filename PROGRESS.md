@@ -88,3 +88,8 @@
 ## Sơ đồ mạch tự vẽ (2026-10-02)
 - Máy giải "Biểu thức Boole" (Logic, Công cụ ch2) vẽ thêm 3 mạch trong khung gập: đúng như gõ · AND–OR của SOP tối giản · toàn NAND (`logic/src/logic/circuit.js` + `ui/circuit-figure.js`, test mô phỏng khớp bảng chân trị).
 - Mới là mức A (biểu thức → sơ đồ, chỉ để xem). Kéo-thả cổng + mô phỏng (mức B) chưa làm — chỉ làm nếu người học thấy cần.
+
+## Tổng quan 2 cột (2026-10-09)
+- Tổng quan mỗi môn: trái = Hôm nay + số liệu 7 ngày + chương trong thẻ tự cuộn (~5 hàng, chương chưa làm vẫn hiện, bỏ dải gập "Chưa bắt đầu"); phải = Học (2 thẻ) · Luyện tập (3 thẻ) kiểu thẻ nhẹ. Bỏ dòng "Hoặc" ở khối Hôm nay (thẻ phải thay vào, một nguồn số).
+- Chốt cùng Study_Hub: tông lạnh, cỡ 107%/15/13/26, thẻ viền 1px bo 10px. CHƯA làm: snapshot token (chờ Hub sinh JSON + test lệch), dòng "Giữa kỳ còn N ngày + vạch mục tiêu" (cần EXAM_TARGET chung).
+- Token chung với Study_Hub (2026-10-09): `shared/style/design-tokens.json` = bản chụp từ Study_Hub `design-tokens.json` (commit 2d48f41); `tokens-hub.css` sinh bằng `node scripts/sync-hub-tokens.mjs`; `tokens.css` chỉ còn token riêng. Màu nhấn = màu môn của Hub (`--viz-*`) — khác Hub ở chỗ `--accent` (Hub: màu mực). Font Source Sans 3 + html 107% như Hub. Test: `shared/tests/hub-tokens.test.js`. Hub đổi token → chép JSON mới + chạy script.

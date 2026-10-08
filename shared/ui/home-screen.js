@@ -10,8 +10,8 @@ import { seekLesson, lessonGraph } from './lesson.js';
 /* ---------------------------------------------------------------
    TỔNG QUAN của một môn (D16, D19):
    - điểm nhấn duy nhất: dải 16 tuần + số ngày tới giữa kỳ;
-   - MỘT việc chính (gợi ý cần nhất, kèm lý do — toeic D52), việc thứ hai là
-     một dòng chữ; số liệu 7 ngày viết thành một dòng, không đóng hộp;
+   - MỘT việc chính (gợi ý cần nhất, kèm lý do — toeic D52); cột phải: Học · Luyện tập;
+     số liệu 7 ngày viết thành một dòng, không đóng hộp;
    - không streak: nghỉ vài hôm quay lại không bị "phạt" (toeic D51).
    --------------------------------------------------------------- */
 
@@ -45,24 +45,35 @@ function today(cfg, events, now) {
     return leadCard({ title: T('home.learnNow'), note: chapterTitle(ch), href: `#/learn/${ch}/theory`, cta: T('learn.start') });
   }
   const [first] = ranked;
-  const second = ranked.find(x => x.ch !== first.ch) ?? ranked[1];
-  const days = daysToMidterm(new Date(now));
-  const alts = [];
-  // việc học tiếp theo thứ tự tiên quyết (đồ thị data-needs, D29) — một dòng chữ, không thêm hộp
-  const g = lessonGraph(cfg);
-  const nx = nextPoint(g, events);
-  if (nx) {
-    const n = g.get(nx);
-    alts.push(el('a', { href: `#/learn/${n.ch}/theory`, onClick: () => seekLesson(n.ch, n.card), text: T('learn.nextCard', { title: n.title }) }));
-  }
-  if (second) alts.push(el('a', { href: `#/practice/${second.ch}/${second.kind}` }, [T(`${second.prefix}.${second.kind}`), el('small', { text: ` ${why(second)}` })]));
-  if (days >= 0 && days <= 21) alts.push(el('a', { href: '#/exam', text: T('home.midExam') }));
   return leadCard({
     title: T(`${first.prefix}.${first.kind}`),
     note: `${chapterTitle(first.ch)} · ${why(first)} · ~${roundMinutes(first.bank, [first.kind])} ${T('home.min')}`,
     href: `#/practice/${first.ch}/${first.kind}`, cta: T('practice.start'),
-    alt: alts.length && el('span', { class: 'alt' }, [T('home.or'), ' ', alts]),
   });
+}
+
+/** Thẻ hành động nhẹ (viền mảnh, hover đổi nền): tên đậm + một dòng phụ + nút mũi tên tròn. */
+const act = ({ href, title, note, onClick }) => el('a', { class: 'act', href, onClick }, [
+  el('span', {}, [el('b', { text: title }), el('small', { text: note })]),
+  el('span', { class: 'act-go', 'aria-hidden': 'true', text: '→' }),
+]);
+
+/** Cột phải: Học (2 thẻ) và Luyện tập (3 thẻ) — những việc không trùng khối "Hôm nay". */
+function side(cfg, events, now) {
+  const g = lessonGraph(cfg);
+  const nx = nextPoint(g, events);
+  const n = nx && g.get(nx);
+  const days = daysToMidterm(new Date(now));
+  return el('div', { class: 'home-side' }, [
+    el('h2', { class: 'section-label', text: T('nav.learn') }),
+    n ? act({ href: `#/learn/${n.ch}/theory`, title: T('learn.nextCard', { title: n.title }), note: chapterTitle(n.ch), onClick: () => seekLesson(n.ch, n.card) })
+      : act({ href: '#/learn', title: T('home.actToc'), note: T('home.actTocNote', { n: cfg.chapters.length }) }),
+    act({ href: '#/tools', title: T('nav.tools'), note: T('home.actToolsNote') }),
+    el('h2', { class: 'section-label', text: T('nav.practice') }),
+    act({ href: '#/practice', title: T('practice.tabKinds'), note: T('home.actKindsNote') }),
+    act({ href: '#/free', title: T('practice.tabFree'), note: T('home.actFreeNote') }),
+    act({ href: '#/exam', title: T('nav.exam'), note: days >= 0 && days <= 21 ? T('home.actExamSoon', { n: days }) : T('home.actExamNote') }),
+  ]);
 }
 
 export function renderHome(r, cfg) {
@@ -73,7 +84,7 @@ export function renderHome(r, cfg) {
   const recent = statsOf(events, { since });
   const stat = (v, label) => el('span', {}, [el('b', { text: v }), label]);
 
-  const idle = [];                                   // chương chưa làm câu nào: gộp thành một dải "Chưa bắt đầu"
+  // mọi chương trong MỘT thẻ tự cuộn (~5 hàng): chương chưa làm vẫn hiện, không phải gập
   const chapters = cfg.chapters.filter(c => c.bank).map(c => {
     const tried = c.bank.KINDS.filter(k => statsOf(events, { prefix: c.prefix, kind: k }).attempts > 0).length;
     const a = row({
@@ -82,25 +93,27 @@ export function renderHome(r, cfg) {
       acc: accCell(recentStats(events, { prefix: c.prefix }, now)),
     });
     a.addEventListener('click', () => save('practice-ch', c.id));   // mở Luyện tập đúng chương này
-    if (tried === 0) idle.push(a);
-    return tried === 0 ? null : a;
-  }).filter(Boolean);
-  const idleBox = idle.length && el('details', { class: 'idle-chapters' },   // luôn thu gọn: mở sẵn thì người mới (mọi chương chưa làm) bị cuộn cả trang (kiểm 1280×720)
-    [el('summary', { text: T('home.notStarted', { n: idle.length }) }), el('div', { class: 'list mods' }, idle)]);
+    return a;
+  });
 
   $('#screen-home').replaceChildren(
     el('h1', { text: T('app.short') }),
     el('p', { class: 'subtitle', text: T('app.book') }),
     termBlock(now),
-    el('h2', { class: 'section-label', text: T('home.today') }),
-    today(cfg, events, now),
-    el('div', { class: 'stats-line' }, [
-      stat(String(minutesSince(events, seconds, since)), T('home.statMin')),
-      stat(recent.accuracy === null ? '—' : `${Math.round(recent.accuracy * 100)}%`, T('home.statAcc')),
-      stat(String(recent.attempts), T('home.statQ')),
+    el('div', { class: 'home-cols' }, [
+      el('div', { class: 'home-main' }, [
+        el('h2', { class: 'section-label', text: T('home.today') }),
+        today(cfg, events, now),
+        el('div', { class: 'stats-line', title: T('home.statNote') }, [
+          stat(String(minutesSince(events, seconds, since)), T('home.statMin')),
+          stat(recent.accuracy === null ? '—' : `${Math.round(recent.accuracy * 100)}%`, T('home.statAcc')),
+          stat(String(recent.attempts), T('home.statQ')),
+        ]),
+        chapters.length ? el('h2', { class: 'section-label', text: T('home.byChapter') }) : '',
+        chapters.length ? el('div', { class: 'list home-chapters' }, chapters) : '',
+      ]),
+      side(cfg, events, now),
     ]),
-    el('p', { class: 'muted small', text: T('home.statNote') }),
-    ...(chapters.length + idle.length ? [el('h2', { class: 'section-label', text: T('home.byChapter') }), chapters.length ? el('div', { class: 'list mods' }, chapters) : '', idleBox || ''] : []),
   );
   return T('nav.home');
 }
