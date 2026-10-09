@@ -1,6 +1,6 @@
 import { $, el } from './dom.js';
 import { t as T } from '../i18n/index.js';
-import { statsOf, recentStats } from '../logic/progress.js';
+import { statsOf, recentStats, weekSince } from '../logic/progress.js';
 import { weekOf, WEEKS, EXAM_WEEKS, daysToMidterm } from '../logic/syllabus.js';
 import { loadEvents, load, save, savePet, subjectOf } from './store.js';
 import { targetOf } from '../logic/exam-target.js';
@@ -77,6 +77,17 @@ const act = ({ href, title, note, onClick }) => el('a', { class: 'act', href, on
 ]);
 
 /** Cột phải: Học (2 thẻ) và Luyện tập (3 thẻ) — những việc không trùng khối "Hôm nay". */
+/** "Tuần này" như Hub: nhân vật + 3 số của 7 ngày qua (số câu, % đúng, số ngày có học). */
+function weekBlock(events, now) {
+  const since = weekSince(now), w = statsOf(events, { since });
+  const days = new Set(events.filter(e => e.ts >= since && e.ts <= now).map(e => new Date(e.ts).toDateString())).size;
+  const n = (v, t) => el('div', {}, [el('b', { class: 'num', text: String(v) }), t]);
+  return el('div', { class: 'home-week' }, [
+    petBlock({ get: () => load('pet', null), set: savePet }, { settings: T('pet.settings'), show: T('pet.show') }),
+    n(w.attempts, T('home.wkDone')), n(w.attempts ? `${Math.round(w.accuracy * 100)}%` : '—', T('home.wkAcc')), n(days, T('home.wkDays')),
+  ]);
+}
+
 function side(cfg, events, now) {
   const g = lessonGraph(cfg);
   const nx = nextPoint(g, events);
@@ -119,7 +130,8 @@ export function renderHome(r, cfg) {
         goalRow(events),
         el('h2', { class: 'section-label', text: T('home.today') }),
         today(cfg, events, now),
-        petBlock({ get: () => load('pet', null), set: savePet }, { settings: T('pet.settings'), show: T('pet.show') }),
+        el('h2', { class: 'section-label', text: T('home.week') }),
+        weekBlock(events, now),
         chapters.length ? el('h2', { class: 'section-label', text: T('home.byChapter') }) : '',
         chapters.length ? el('div', { class: 'list home-chapters' }, chapters) : '',
       ]),
