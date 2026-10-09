@@ -7,6 +7,9 @@
 
 export const DAY = 86400000;
 
+/** Sự kiện làm bài của một câu; MỌI chế độ (luyện tập, thi thử, bài dài) ghi cùng một hình dạng — có `tag` (= q.review) thì điểm kiến thức có nhãn mới tính được (knowledge.isPassed). */
+export const answerEvent = (prefix, q, ok, mode) => ({ prefix, kind: q.kind, ok: !!ok, mode, ...(q.review && { tag: q.review }) });
+
 /** Số câu / số đúng / tỉ lệ đúng, lọc theo ngân hàng, dạng (hoặc nhóm dạng `kinds`), thời điểm. */
 export function statsOf(events, { prefix, kind, kinds, since = 0 } = {}) {
   let attempts = 0, correct = 0;

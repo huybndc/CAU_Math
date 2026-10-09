@@ -66,3 +66,19 @@ describe('ví dụ mẫu', () => {
     expect(pick([12, 9, 3])).toBe(1);                         // cùng quá dài ⇒ ngắn hơn
   });
 });
+
+describe('mọi chế độ ghi cùng hình dạng sự kiện (answerEvent) — điểm có nhãn tính được từ Thi thử/Bài dài', () => {
+  it('có q.review ⇒ có tag; không có ⇒ không có tag', async () => {
+    const { answerEvent } = await import('../logic/progress.js');
+    expect(answerEvent('c1q', { kind: 'convert', review: 'toDec' }, true, 'exam')).toEqual({ prefix: 'c1q', kind: 'convert', ok: true, mode: 'exam', tag: 'toDec' });
+    expect(answerEvent('c1q', { kind: 'gray' }, 1, 'long')).toEqual({ prefix: 'c1q', kind: 'gray', ok: true, mode: 'long' });
+  });
+  it('2 câu đúng liền ở Thi thử cho điểm có nhãn c1q:convert:toDec ⇒ đã nắm (trước đây sự kiện thiếu tag nên không bao giờ qua)', async () => {
+    const { answerEvent } = await import('../logic/progress.js');
+    const q = { kind: 'convert', review: 'toDec' };
+    const events = [answerEvent('c1q', q, true, 'exam'), answerEvent('c1q', q, true, 'exam')];
+    expect(isPassed(events, 'c1q:convert:toDec')).toBe(true);
+    const old = events.map(({ tag, ...e }) => e);          // dạng cũ: không tag
+    expect(isPassed(old, 'c1q:convert:toDec')).toBe(false);
+  });
+});

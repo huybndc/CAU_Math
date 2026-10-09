@@ -3,6 +3,7 @@ import { questionView, explainBlock, answerHtml, tp } from './question.js';
 import { record, subjectOf, load, save, drop, markMistake } from './store.js';
 import { freshQuestion, poolSize, seededQuestion, newSeed, questionCode, signature } from '../logic/question-pool.js';
 import { streakOf } from '../logic/knowledge.js';
+import { answerEvent } from '../logic/progress.js';
 import { h } from './dom.js';
 
 /* ---------------------------------------------------------------
@@ -275,7 +276,7 @@ export function mountRunner(host, { bank, prefix, figures = {}, widgets = {}, si
     e.ok = !!r.ok;
     e.detail = r.detailKey ? T(r.detailKey, tp(r.detailParams)) : '';
     S.phase = 'answered';
-    if (!S.redo) record({ prefix, kind: e.q.kind, ok: e.ok, mode, ...(e.q.review && { tag: e.q.review }) });
+    if (!S.redo) record(answerEvent(prefix, e.q, e.ok, mode));
     trackMistake(e);
     onResult?.(e.ok);
     persist();
@@ -288,7 +289,7 @@ export function mountRunner(host, { bank, prefix, figures = {}, widgets = {}, si
     e.ok = false;
     e.revealed = true;
     S.phase = 'answered';
-    if (!S.redo) record({ prefix, kind: e.q.kind, ok: false, mode, ...(e.q.review && { tag: e.q.review }) });
+    if (!S.redo) record(answerEvent(prefix, e.q, false, mode));
     trackMistake(e);
     onResult?.(false);
     persist();
