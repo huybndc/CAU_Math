@@ -126,6 +126,14 @@ export function record(list) {
   pushRemote(subject, added);
 }
 
+/** Lưu lựa chọn nhân vật {on, kind} ở máy + gửi sự kiện pet.set (Hub: bản mới nhất theo ts thắng). Không có Hub/chưa đăng nhập thì chỉ lưu máy. */
+export async function savePet(st) {
+  save('pet', st);
+  try {
+    if (await currentUser()) await pushHubEvents([{ id: crypto.randomUUID(), ts: Date.now(), type: 'pet.set', payload: { on: st.on, kind: st.kind } }], mathDeviceId());
+  } catch (e) { console.warn('pet.set sync failed:', e?.message || e); }
+}
+
 /** Đẩy nhật ký sẵn có sau khi migrate ID + nhập lịch sử remote. */
 export const syncProgress = async () => {
   const subject = subjectOf();

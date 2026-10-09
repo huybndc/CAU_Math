@@ -2,7 +2,7 @@ import { $, el } from './dom.js';
 import { t as T } from '../i18n/index.js';
 import { statsOf, recentStats } from '../logic/progress.js';
 import { weekOf, WEEKS, EXAM_WEEKS, daysToMidterm } from '../logic/syllabus.js';
-import { loadEvents, load, save, subjectOf } from './store.js';
+import { loadEvents, load, save, savePet, subjectOf } from './store.js';
 import { targetOf } from '../logic/exam-target.js';
 import { chapterTitle, roundMinutes, rankedKinds, accCell, row, leadCard, studied } from './choices.js';
 import { nextPoint } from '../logic/prereq.js';
@@ -119,10 +119,7 @@ export function renderHome(r, cfg) {
         goalRow(events),
         el('h2', { class: 'section-label', text: T('home.today') }),
         today(cfg, events, now),
-        petBlock({ get: () => load('pet', null), set: v => save('pet', v) }, {
-          on: T('pet.on'), off: T('pet.offBtn'), aria: T('pet.aria'), settings: T('pet.settings'), say: [T('pet.say1'), T('pet.say2'), T('pet.say3')],
-          cat: T('pet.cat'), owl: T('pet.owl'), plant: T('pet.plant'),
-        }),
+        petBlock({ get: () => load('pet', null), set: savePet }, { settings: T('pet.settings'), show: T('pet.show') }),
         chapters.length ? el('h2', { class: 'section-label', text: T('home.byChapter') }) : '',
         chapters.length ? el('div', { class: 'list home-chapters' }, chapters) : '',
       ]),

@@ -44,7 +44,7 @@ describe('motion giống Study_Hub', () => {
     expect(Object.values(EXCEPT).flat().sort()).toEqual(['pet', 'skel']);
     expect(t).toMatch(/@keyframes pet\{to\{transform:translateY\(2px\)\}\}/);
     expect(+t.match(/animation:pet (\d*\.?\d+)s/)[1]).toBeGreaterThanOrEqual(2.5);
-    expect(t).toMatch(/prefers-reduced-motion:reduce\)\{\.pet:not\(\[data-pet="off"\]\) \.pet-art\{animation:none\}/);
-    expect(t).toMatch(/\.pet-art\{display:none/);
+    expect(t).toMatch(/prefers-reduced-motion:reduce\)\{\.pet:not\(\[data-pet="off"\]\) \.pet-face \.pet-art\{animation:none\}/);
+    expect(t).toContain('.pet:not([data-pet="off"]) .pet-face .pet-art{animation:pet');
   });
 });
