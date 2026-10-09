@@ -159,8 +159,6 @@ export const en = {
   'home.wkDone': 'answered',
   'home.wkAcc': 'correct',
   'home.wkDays': 'days studied',
-  'pet.settings': 'Pet settings',
-  'pet.show': 'Show pet',
   'home.byChapter': 'By chapter',
   'home.tried': '{a}/{b} types',
   'run.allKinds': 'All types',

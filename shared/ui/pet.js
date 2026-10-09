@@ -1,43 +1,40 @@
+/* Nhân vật ở dải "Tuần này": không chữ nhìn thấy; nhãn chỉ cho trình đọc màn hình. Chọn qua bánh răng nhỏ cạnh tiêu đề → ô nhân vật + công tắc.
+   Lựa chọn lưu theo tài khoản bằng sự kiện pet.set (bản mới nhất thắng), đồng bộ giữa Hub và app toán. */
 import { el } from './dom.js';
-import { KINDS, normalizePet, petSvg, label, BLINK_MS, CLICK, HOVER } from '../logic/pet.js';
+import { KIND_IDS, petSvg, petOf, label } from '../logic/pet.js';
 
-/* ---------------------------------------------------------------
-   Nhân vật (dựng từ design-pets.json, không chữ trên giao diện): bấm = vui, rê = ngạc nhiên, chớp mắt định kỳ.
-   Bánh răng nhỏ cạnh tiêu đề → popover: 4 ô chọn nhân vật + công tắc Bật/Tắt. Mặc định BẬT; tắt thì chỉ còn bánh răng.
-   Không phụ thuộc store/i18n để Hub mirror: nơi gọi truyền storage = { get(), set({on, kind}) } và labels = { settings, show }; trả { art, ctl }.
-   --------------------------------------------------------------- */
-const GEAR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>';
+const GEAR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>';
+let popOpen = false;
+let timer = 0;
 
-export function petBlock(storage, labels) {
-  let st = normalizePet(storage.get());
-  let react = 0, blink = 0;
-  const face = el('button', { type: 'button', class: 'pet-face' });
-  const gear = el('button', { type: 'button', class: 'pet-gear', title: labels.settings, 'aria-label': labels.settings, 'aria-haspopup': 'true', 'aria-expanded': 'false', html: GEAR });
-  const opts = el('div', { class: 'pet-opts', role: 'radiogroup', 'aria-label': labels.settings }, KINDS.map(k =>
-    el('button', { type: 'button', class: 'pet-opt', role: 'radio', 'data-kind': k, 'aria-label': label(k), html: petSvg(k), onClick: () => set({ kind: k, on: true }) })));
-  const sw = el('button', { type: 'button', class: 'pet-sw', role: 'switch', 'aria-label': labels.show, onClick: () => set({ on: !st.on }) }, el('i'));
-  const pop = el('div', { class: 'pet-pop', hidden: true }, [opts, sw]);
-  const box = el('span', { class: 'pet-ctl' }, [gear, pop]);   // cạnh tiêu đề "Tuần này"; nhân vật (face) đặt ở dải số
+// Bấm ra ngoài khối nhân vật thì đóng popover (đăng ký một lần).
+document.addEventListener('click', e => {
+  if (popOpen && !e.target.closest?.('.pet-ctl')) { popOpen = false; document.querySelector('.pet-pop')?.setAttribute('hidden', ''); document.querySelector('.pet-gear')?.setAttribute('aria-expanded', 'false'); }
+});
 
-  const open = v => { pop.hidden = !v; gear.setAttribute('aria-expanded', String(v)); };
-  const show = expr => { face.innerHTML = petSvg(st.kind, expr); };
-  const swap = (expr, ms) => { clearTimeout(react); show(expr); react = setTimeout(() => show('neutral'), ms); };
-  function set(patch) { st = { ...st, ...patch }; paint(); storage.set(st); }
-  function paint() {
-    clearTimeout(react);
-    face.dataset.pet = st.on ? st.kind : 'off';
-    face.hidden = !st.on;
-    if (st.on) { face.setAttribute('aria-label', label(st.kind)); show('neutral'); }
-    sw.setAttribute('aria-checked', String(st.on));
-    opts.querySelectorAll('.pet-opt').forEach(b => b.setAttribute('aria-checked', String(b.dataset.kind === st.kind)));
+/** Trả {art, ctl}: art = nhân vật (null khi tắt) đặt ở dải số; ctl = bánh răng + popover đặt cạnh tiêu đề "Tuần này". */
+export function petBlock(ctx) {
+  clearInterval(timer);
+  const pet = petOf(ctx.data.hub);
+  const set = patch => { popOpen = true; ctx.add('pet.set', { ...pet, ...patch }); ctx.render(); };
+
+  let art = null;
+  if (pet.on) {
+    art = el('button', { class: 'pet-face', type: 'button', 'aria-label': label(pet.kind), html: petSvg(pet.kind) });
+    const swap = (expr, ms) => { if (!art.isConnected) return; art.innerHTML = petSvg(pet.kind, expr); setTimeout(() => { if (art.isConnected) art.innerHTML = petSvg(pet.kind); }, ms); };
+    art.addEventListener('click', () => swap('happy', 1200));
+    art.addEventListener('mouseenter', () => swap('surprised', 700));
+    timer = setInterval(() => (art.isConnected ? swap('blink', 140) : clearInterval(timer)), 4000);
   }
-  gear.addEventListener('click', e => { e.stopPropagation(); open(pop.hidden); });
-  document.addEventListener('click', e => { if (!pop.hidden && !pop.contains(e.target)) open(false); });
-  box.addEventListener('keydown', e => { if (e.key === 'Escape' && !pop.hidden) { open(false); gear.focus(); } });
-  face.addEventListener('click', () => swap(CLICK.expression, CLICK.ms));
-  face.addEventListener('mouseenter', () => swap(HOVER.expression, HOVER.ms));
-  clearInterval(petBlock.timer);
-  petBlock.timer = setInterval(() => { if (!box.isConnected) clearInterval(petBlock.timer); else if (st.on) swap('blink', 140); }, BLINK_MS);
-  paint();
-  return { art: face, ctl: box };
+
+  const pop = el('div', { class: 'pet-pop', hidden: !popOpen }, [
+    el('div', { class: 'pet-opts', role: 'radiogroup', 'aria-label': 'Nhân vật' }, KIND_IDS.map(k => el('button', {
+      class: 'pet-opt', type: 'button', role: 'radio', 'aria-checked': String(pet.kind === k), 'aria-label': label(k), html: petSvg(k), onclick: () => set({ kind: k, on: true }),
+    }))),
+    el('button', { class: 'pet-sw', type: 'button', role: 'switch', 'aria-checked': String(pet.on), 'aria-label': 'Hiện nhân vật', onclick: () => set({ on: !pet.on }) }, el('i')),
+  ]);
+  const gear = el('button', { class: 'pet-gear', type: 'button', 'aria-label': 'Cài đặt nhân vật', 'aria-expanded': String(popOpen), html: GEAR, onclick: () => {
+    popOpen = !popOpen; pop.hidden = !popOpen; gear.setAttribute('aria-expanded', String(popOpen));
+  } });
+  return { art, ctl: el('span', { class: 'pet-ctl' }, [gear, pop]) };
 }

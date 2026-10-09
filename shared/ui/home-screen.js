@@ -78,11 +78,11 @@ const act = ({ href, title, note, onClick }) => el('a', { class: 'act', href, on
 
 /** Cột phải: Học (2 thẻ) và Luyện tập (3 thẻ) — những việc không trùng khối "Hôm nay". */
 /** "Tuần này" như Hub: nhân vật + 3 số của 7 ngày qua (số câu, % đúng, số ngày có học). */
-function weekBlock(events, now) {
+function weekBlock(events, now, ctx) {
   const since = weekSince(now), w = statsOf(events, { since });
   const days = new Set(events.filter(e => e.ts >= since && e.ts <= now).map(e => new Date(e.ts).toDateString())).size;
   const n = (v, t) => el('div', {}, [el('b', { class: 'num', text: String(v) }), t]);
-  const { art, ctl } = petBlock({ get: () => load('pet', null), set: savePet }, { settings: T('pet.settings'), show: T('pet.show') });
+  const { art, ctl } = petBlock(ctx);
   return [el('h2', { class: 'section-label wk' }, [el('span', { text: T('home.week') }), ctl]), el('div', { class: 'home-week' }, [
     art,
     n(w.attempts, T('home.wkDone')), n(w.attempts ? `${Math.round(w.accuracy * 100)}%` : '—', T('home.wkAcc')), n(days, T('home.wkDays')),
@@ -109,6 +109,9 @@ function side(cfg, events, now) {
 export function renderHome(r, cfg) {
   const events = loadEvents();
   const now = Date.now();
+  // cùng API với Hub: ctx.data.hub (nhật ký có pet.set), ctx.add(type, payload), ctx.render()
+  const saved = load('pet', null);
+  const petCtx = { data: { hub: saved == null ? [] : [{ type: 'pet.set', payload: saved }] }, add: (_type, payload) => savePet(payload), render: () => renderHome(r, cfg) };
 
   // mọi chương trong MỘT thẻ tự cuộn (~5 hàng): chương chưa làm vẫn hiện, không phải gập
   const chapters = cfg.chapters.filter(c => c.bank).map(c => {
@@ -131,7 +134,7 @@ export function renderHome(r, cfg) {
         goalRow(events),
         el('h2', { class: 'section-label', text: T('home.today') }),
         today(cfg, events, now),
-        ...weekBlock(events, now),
+        ...weekBlock(events, now, petCtx),
         chapters.length ? el('h2', { class: 'section-label', text: T('home.byChapter') }) : '',
         chapters.length ? el('div', { class: 'list home-chapters' }, chapters) : '',
       ]),
