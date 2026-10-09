@@ -211,20 +211,25 @@ function makeDual(rnd) {
 /** Rút gọn một tổng các minterm về SOP ít literal nhất (§2.4, Example 2.1–2.2). */
 function makeSimplify(rnd) {
   const n = 3;
-  const values = new Array(8).fill(0);
-  const list = shuffle([...Array(8).keys()], rnd).slice(0, int(3, 5, rnd)).sort((a, b) => a - b);
-  list.forEach(m => { values[m] = 1; });
   const names = varNames(n);
-  const canon = list.map(m => names.map((v, i) => v + ((m >> (n - 1 - i)) & 1 ? '' : "'")).join('')).join(' + ');
-  const best = minimizeSOP(values, n);
-  return {
-    kind: 'simplify', format: 'text',
-    textKey: 'c2q.qSimplify', textParams: { expr: canon },
-    answer: best.expr, target: { expr: canon, literals: totalLiterals(best.terms, n), values },
-    hintKey: 'c2q.hSimplify',
-    explainKey: 'c2q.xSimplify', explainParams: { answer: best.expr, lit: totalLiterals(best.terms, n) },
-    meta: { list, n },
-  };
+  // đề phải RÚT GỌN ĐƯỢC (ít literal hơn dạng chính tắc); không thì "rút gọn" ra chính nó = câu đố mẹo (3 minterm rời nhau)
+  for (let tries = 0; ; tries++) {
+    const values = new Array(8).fill(0);
+    const list = shuffle([...Array(8).keys()], rnd).slice(0, int(3, 5, rnd)).sort((a, b) => a - b);
+    list.forEach(m => { values[m] = 1; });
+    const best = minimizeSOP(values, n);
+    const lit = totalLiterals(best.terms, n);
+    if (lit >= list.length * n && tries < 200) continue;
+    const canon = list.map(m => names.map((v, i) => v + ((m >> (n - 1 - i)) & 1 ? '' : "'")).join('')).join(' + ');
+    return {
+      kind: 'simplify', format: 'text',
+      textKey: 'c2q.qSimplify', textParams: { expr: canon },
+      answer: best.expr, target: { expr: canon, literals: lit, values },
+      hintKey: 'c2q.hSimplify',
+      explainKey: 'c2q.xSimplify', explainParams: { answer: best.expr, lit },
+      meta: { list, n },
+    };
+  }
 }
 
 /** SOP → mạch toàn NAND (§2.8, Fig. 2.7c). */
