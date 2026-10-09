@@ -158,8 +158,6 @@ export const vi = {
   'home.wkDone': 'câu đã làm',
   'home.wkAcc': 'trả lời đúng',
   'home.wkDays': 'ngày đã học',
-  'pet.settings': 'Cài đặt nhân vật',
-  'pet.show': 'Hiện nhân vật',
   'home.byChapter': 'Theo chương',
   'home.tried': '{a}/{b} dạng',
   /* bộ chạy luyện tập */

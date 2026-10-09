@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync, existsSync } from 'node:fs';
-import { KINDS, normalizePet, petSvg, label } from '../logic/pet.js';
+import { KINDS, petOf, normalizePet, petSvg, label } from '../logic/pet.js';
 import DESIGN from '../logic/design-pets.json';
 
 describe('bạn đồng hành (design-pets.json của Study_Hub)', () => {
@@ -26,9 +26,15 @@ describe('bạn đồng hành (design-pets.json của Study_Hub)', () => {
       expect(r > 200 && g < 90 && b < 90, `${k} ${c}`).toBe(false);
     }
   });
+  it('API khớp Hub: petOf lấy pet.set cuối cùng; petBlock(ctx) trả {art, ctl} và gọi ctx.add/ctx.render', () => {
+    expect(petOf([])).toEqual({ on: true, kind: 'cat' });
+    expect(petOf([{ type: 'pet.set', payload: { on: true, kind: 'puppy' } }, { type: 'math.answer', payload: {} }, { type: 'pet.set', payload: { on: false, kind: 'peach' } }])).toEqual({ on: false, kind: 'peach' });
+  });
   it('bản chép khớp Study_Hub khi repo Hub nằm cạnh (chạy máy bạn; CI không có thì bỏ qua)', () => {
     const p = new URL('../../../Study_Hub/design-pets.json', import.meta.url);
     if (!existsSync(p)) return;
     expect(DESIGN).toEqual(JSON.parse(readFileSync(p, 'utf8')));
+    const hub = new URL('../../../Study_Hub/src/ui/pet.js', import.meta.url);   // UI y hệt Hub, chỉ khác đường import
+    if (existsSync(hub)) expect(readFileSync(new URL('../ui/pet.js', import.meta.url), 'utf8')).toBe(readFileSync(hub, 'utf8').replace("'../pets/index.js'", "'../logic/pet.js'"));
   });
 });
