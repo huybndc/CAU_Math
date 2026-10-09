@@ -1,7 +1,8 @@
 import { pushProgress } from './progress-push.js';
 import { mergeEvents } from '../logic/progress.js';
+import { normalizePet } from '../logic/pet.js';
 import { addMistake, dropMistake } from '../logic/mistakes.js';
-import { currentUser, loadMathAnswerEvents, pushHubEvents, accountStorageKey, adoptAccount } from '@host';
+import { currentUser, loadMathAnswerEvents, loadPetEvents, pushHubEvents, accountStorageKey, adoptAccount } from '@host';
 
 /* ---------------------------------------------------------------
    LƯU TRONG TRÌNH DUYỆT — 3 app chung một origin nên khoá luôn có tên môn
@@ -105,13 +106,27 @@ export async function hydrateProgress(subject = subjectOf()) {
       mode: e.payload.mode || 'practice',
       ...(e.payload.tag ? { tag: e.payload.tag } : {}),
     }));
+  const petChanged = await hydratePet(subject);
   const local0 = loadEvents(subject);
   const normalized = withIds(subject, local0);
   const events = mergeEvents(normalized.events, remote);
   const changed = normalized.changed || events.length !== local0.length || events.some((e, i) => JSON.stringify(e) !== JSON.stringify(local0[i]));
   if (changed) save('progress', events, subject);
   await pushRemote(subject, events);
-  return changed;
+  return changed || petChanged;
+}
+
+/** Đọc lại pet.set đã lưu ở Hub: bản cuối thắng, nhưng chỉ nhận nếu mới hơn lần đổi cuối ở máy này (đổi lúc offline không bị ghi đè). */
+export async function hydratePet(subject) {
+  try {
+    const last = (await loadPetEvents()).at(-1);
+    if (!last || last.ts <= load('pet-ts', 0, subject)) return false;
+    const next = normalizePet(last.payload), cur = normalizePet(load('pet', null, subject));
+    save('pet-ts', last.ts, subject);
+    if (next.on === cur.on && next.kind === cur.kind) return false;
+    save('pet', next, subject);
+    return true;
+  } catch (e) { console.warn('pet.set hydrate failed:', e?.message || e); return false; }
 }
 
 /** Ghi một hoặc nhiều sự kiện { prefix, kind, ok, mode } — thêm dấu thời gian. */
@@ -129,6 +144,7 @@ export function record(list) {
 /** Lưu lựa chọn nhân vật {on, kind} ở máy + gửi sự kiện pet.set (Hub: bản mới nhất theo ts thắng). Không có Hub/chưa đăng nhập thì chỉ lưu máy. */
 export async function savePet(st) {
   save('pet', st);
+  save('pet-ts', Date.now());
   try {
     if (await currentUser()) await pushHubEvents([{ id: crypto.randomUUID(), ts: Date.now(), type: 'pet.set', payload: { on: st.on, kind: st.kind } }], mathDeviceId());
   } catch (e) { console.warn('pet.set sync failed:', e?.message || e); }
