@@ -66,3 +66,10 @@ describe('căn dạng chính xác', () => {
     expect(specialAngle(53.13)).toBeNull();
   });
 });
+
+describe('detByElimination với ma trận cỡ nhỏ', () => {
+  it('ma trận cỡ 1e-5 có det khác 0 (không bị cắt ngưỡng tuyệt đối); suy biến vẫn det 0', () => {
+    expect(detByElimination([[1e-5, 0], [0, 1e-5]]).det).toBeCloseTo(1e-10, 20);
+    expect(detByElimination([[1, 2], [2, 4]]).det).toBe(0);
+  });
+});

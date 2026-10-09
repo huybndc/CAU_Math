@@ -69,7 +69,7 @@ export function inverseSteps(A) {
   };
 }
 
-/** Định thức bằng khử: det = (−1)^(số lần đổi hàng) · tích các trụ. */
+/** Định thức bằng khử: det = (−1)^(số lần đổi hàng) · tích các trụ. Hạng thiếu ⇒ det = 0 chính xác (không cắt ngưỡng tuyệt đối: ma trận cỡ 1e-5 vẫn có det khác 0). */
 export function detByElimination(A) {
   const { rows, cols } = shape(A);
   if (rows !== cols) fail('err.needSquare', { rows, cols });
@@ -77,5 +77,5 @@ export function detByElimination(A) {
   const swaps = e.ops.filter(o => o.type === 'swap').length;
   const diag = e.U.map((r, i) => r[i]);
   const det = e.pivots.length < rows ? 0 : (swaps % 2 ? -1 : 1) * diag.reduce((p, x) => p * x, 1);
-  return { det: Math.abs(det) < 1e-9 ? 0 : det, swaps, diag, U: e.U, rank: e.pivots.length };
+  return { det, swaps, diag, U: e.U, rank: e.pivots.length };
 }
