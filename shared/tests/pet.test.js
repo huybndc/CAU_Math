@@ -3,14 +3,17 @@ import { KINDS, normalizePet } from '../logic/pet.js';
 import { PET_ART } from '../ui/pet-art.js';
 
 describe('bạn đồng hành', () => {
-  it('mặc định tắt; giá trị lưu cũ được đọc lại đúng; giá trị lạ ⇒ tắt', () => {
-    expect(normalizePet(undefined)).toEqual({ on: false, kind: 'cat' });
-    expect(normalizePet(null)).toEqual({ on: false, kind: 'cat' });
+  it('mặc định BẬT (chưa lưu gì); tắt rõ ràng thì giữ tắt; giá trị lưu cũ được đọc lại đúng', () => {
+    expect(normalizePet(undefined)).toEqual({ on: true, kind: 'cat' });
+    expect(normalizePet(null)).toEqual({ on: true, kind: 'cat' });
+    expect(normalizePet('robot?')).toEqual({ on: true, kind: 'cat' });
     expect(normalizePet('off')).toEqual({ on: false, kind: 'cat' });
+    expect(normalizePet(false)).toEqual({ on: false, kind: 'cat' });
     expect(normalizePet(true)).toEqual({ on: true, kind: 'cat' });
     expect(normalizePet('owl')).toEqual({ on: true, kind: 'owl' });
-    expect(normalizePet({ on: true, kind: 'plant' })).toEqual({ on: true, kind: 'plant' });
-    expect(normalizePet({ on: 'yes', kind: 'dog' })).toEqual({ on: false, kind: 'cat' });
+    expect(normalizePet({ on: false, kind: 'plant' })).toEqual({ on: false, kind: 'plant' });
+    expect(normalizePet({ on: true, kind: 'dog' })).toEqual({ on: true, kind: 'cat' });
+    expect(normalizePet({ kind: 'owl' })).toEqual({ on: true, kind: 'owl' });
   });
   it('đúng 3 nhân vật: mèo, cú, cây — mỗi SVG ≤ 3KB, không script/ảnh ngoài/animation riêng, không phụ thuộc theme', () => {
     expect(KINDS).toEqual(['cat', 'owl', 'plant']);

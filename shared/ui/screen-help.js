@@ -11,7 +11,7 @@ export const HELP = {
     vi: { title: 'Tổng quan', rows: [
       ['Hôm nay', 'Bài gợi ý cho bạn lúc này. Bấm Bắt đầu để làm ngay.'],
       ['Theo chương', 'Bấm một chương để vào luyện đúng chương đó; danh sách dài thì cuộn trong khung.'],
-      ['Học · Luyện tập', 'Cột bên phải: học tiếp thẻ kế, công cụ, luyện theo dạng, tự luận, thi thử. Khối trái, dưới "Hôm nay": biểu tượng bánh răng nhỏ bật/tắt bạn đồng hành và chọn Mèo, Cú hoặc Cây; bấm vào nhân vật để nó phản ứng (mặc định tắt).'],
+      ['Học · Luyện tập', 'Cột bên phải: học tiếp thẻ kế, công cụ, luyện theo dạng, tự luận, thi thử. Khối trái, dưới "Hôm nay": biểu tượng bánh răng nhỏ bật/tắt bạn đồng hành và chọn Mèo, Cú hoặc Cây; bấm vào nhân vật để nó phản ứng (mặc định bật).'],
       ['Ctrl K', 'Tìm nhanh trong app (gõ không dấu cũng được), Enter mở đúng bài.'],
       ['Nháp', 'Nút nổi góc dưới phải, mở ở mọi màn: ghi chú, máy tính, bảng chân trị, bìa K, vẽ.'],
       ['Đám mây', 'Trạng thái đồng bộ tiến độ với Study Hub. Số khác Hub thì chờ vài giây rồi tải lại.', 'warn'],
@@ -19,7 +19,7 @@ export const HELP = {
     en: { title: 'Overview', rows: [
       ['Today', 'The suggested task right now. Press Start to do it now.'],
       ['By chapter', 'Open a chapter to practise exactly that chapter; a long list scrolls inside its frame.'],
-      ['Learn · Practice', 'Right column: next lesson card, tools, practice by type, free-response, mock exam. Left block, under "Today": the small gear turns the companion on/off and picks Cat, Owl or Plant; click the character to make it react (off by default).'],
+      ['Learn · Practice', 'Right column: next lesson card, tools, practice by type, free-response, mock exam. Left block, under "Today": the small gear turns the companion on/off and picks Cat, Owl or Plant; click the character to make it react (on by default).'],
       ['Ctrl K', 'Quick search in the app; press Enter to open the result.'],
       ['Scratch', 'Floating button at the bottom right on every screen: notes, calculator, truth table, K-map, draw.'],
       ['Cloud', 'Progress sync status with Study Hub. If numbers differ from the Hub, wait a few seconds and reload.', 'warn'],

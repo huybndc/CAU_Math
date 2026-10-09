@@ -39,7 +39,7 @@ describe('motion giống Study_Hub', () => {
       }
     }
   });
-  it("ngoại lệ DUY NHẤT `pet`: chỉ dịch ≤2px, chu kỳ ≥2.5s, dừng khi giảm chuyển động, mặc định ẩn", () => {
+  it("ngoại lệ DUY NHẤT `pet`: chỉ dịch ≤2px, chu kỳ ≥2.5s, dừng khi giảm chuyển động, nhân vật tắt thì ẩn", () => {
     const t = css('shared/style/pet.css');
     expect(Object.values(EXCEPT).flat().sort()).toEqual(['pet', 'skel']);
     expect(t).toMatch(/@keyframes pet\{to\{transform:translateY\(2px\)\}\}/);
