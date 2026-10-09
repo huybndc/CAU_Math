@@ -1,13 +1,13 @@
 /* Nhân vật (shared/ui/pet.js, hình từ design-pets.json): mặc định BẬT; keyframes `pet` là ngoại lệ DUY NHẤT của quy tắc "chuyển động giống Study_Hub" (test canh). Không chữ nhìn thấy. */
-.pet{position:relative;display:flex;align-items:flex-end;gap:.25rem}
+.pet-ctl{position:relative;display:inline-flex}
 .pet-face{display:block;width:4.2rem;height:4.2rem;padding:0;border:0;background:none;cursor:pointer;border-radius:var(--r-md)}
 .pet-face[hidden]{display:none}
 .pet-art{display:block;width:100%;height:100%;image-rendering:pixelated}
-.pet:not([data-pet="off"]) .pet-face .pet-art{animation:pet 3s ease-in-out infinite alternate}
-.pet-gear{display:grid;place-items:center;width:1.5rem;height:1.5rem;padding:0;border-radius:50%;border:1px solid var(--line-strong);background:var(--panel);color:var(--ink-dim);cursor:pointer}
-.pet-gear svg{width:.85rem;height:.85rem}
-.pet-gear:hover,.pet-gear[aria-expanded="true"]{color:var(--ink);border-color:var(--ink)}
-.pet-pop{position:absolute;z-index:30;left:0;top:calc(100% + .4rem);display:grid;gap:.6rem;padding:.6rem;border:1px solid var(--line-strong);border-radius:var(--r-lg);background:var(--panel);box-shadow:var(--lift)}
+.pet-face:not([data-pet="off"]) .pet-art{animation:pet 3s ease-in-out infinite alternate}
+.pet-gear{display:grid;place-items:center;width:1.1rem;height:1.1rem;padding:0;border-radius:50%;border:0;background:none;color:var(--ink-dim);cursor:pointer;opacity:.75}
+.pet-gear svg{width:.8rem;height:.8rem}
+.pet-gear:hover,.pet-gear[aria-expanded="true"]{color:var(--ink);opacity:1}
+.pet-pop{position:absolute;z-index:30;left:0;top:calc(100% + .35rem);display:grid;gap:.6rem;padding:.6rem;border:1px solid var(--line-strong);border-radius:var(--r-lg);background:var(--panel);box-shadow:var(--lift)}
 .pet-pop[hidden]{display:none}
 .pet-opts{display:flex;gap:.4rem}
 .pet-opt{width:3.1rem;height:3.1rem;padding:.1rem;border:1px solid var(--line);border-radius:var(--r-md);background:var(--bg);cursor:pointer}
@@ -18,4 +18,4 @@
 .pet-sw[aria-checked="true"] i{transform:translateX(.85rem)}
 .pet-gear:focus-visible,.pet-sw:focus-visible,.pet-opt:focus-visible,.pet-face:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 @keyframes pet{to{transform:translateY(2px)}}
-@media (prefers-reduced-motion:reduce){.pet:not([data-pet="off"]) .pet-face .pet-art{animation:none}}
+@media (prefers-reduced-motion:reduce){.pet-face:not([data-pet="off"]) .pet-art{animation:none}}

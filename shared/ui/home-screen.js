@@ -82,10 +82,11 @@ function weekBlock(events, now) {
   const since = weekSince(now), w = statsOf(events, { since });
   const days = new Set(events.filter(e => e.ts >= since && e.ts <= now).map(e => new Date(e.ts).toDateString())).size;
   const n = (v, t) => el('div', {}, [el('b', { class: 'num', text: String(v) }), t]);
-  return el('div', { class: 'home-week' }, [
-    petBlock({ get: () => load('pet', null), set: savePet }, { settings: T('pet.settings'), show: T('pet.show') }),
+  const { art, ctl } = petBlock({ get: () => load('pet', null), set: savePet }, { settings: T('pet.settings'), show: T('pet.show') });
+  return [el('h2', { class: 'section-label wk' }, [el('span', { text: T('home.week') }), ctl]), el('div', { class: 'home-week' }, [
+    art,
     n(w.attempts, T('home.wkDone')), n(w.attempts ? `${Math.round(w.accuracy * 100)}%` : '—', T('home.wkAcc')), n(days, T('home.wkDays')),
-  ]);
+  ])];
 }
 
 function side(cfg, events, now) {
@@ -130,8 +131,7 @@ export function renderHome(r, cfg) {
         goalRow(events),
         el('h2', { class: 'section-label', text: T('home.today') }),
         today(cfg, events, now),
-        el('h2', { class: 'section-label', text: T('home.week') }),
-        weekBlock(events, now),
+        ...weekBlock(events, now),
         chapters.length ? el('h2', { class: 'section-label', text: T('home.byChapter') }) : '',
         chapters.length ? el('div', { class: 'list home-chapters' }, chapters) : '',
       ]),
