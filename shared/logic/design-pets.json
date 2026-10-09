@@ -610,6 +610,26 @@
    "expression": "surprised",
    "ms": 700
   },
+  "shy": {
+   "expression": "shy",
+   "clicks": 3,
+   "withinMs": 2000,
+   "ms": 1500
+  },
+  "sad": {
+   "expression": "sad",
+   "minAnswered": 10,
+   "maxAccuracy": 0.5
+  },
+  "sleepy": {
+   "expression": "sleepy",
+   "idleDays": 3,
+   "quietHours": [
+    23,
+    5
+   ]
+  },
+  "reducedMotion": "không chớp tự động; tâm trạng nền là hình tĩnh, vẫn hiện",
   "noText": true,
   "noRed": "màu đỏ dành cho Live_Lecture"
  }

@@ -111,7 +111,7 @@ export function renderHome(r, cfg) {
   const now = Date.now();
   // cùng API với Hub: ctx.data.hub (nhật ký có pet.set), ctx.add(type, payload), ctx.render()
   const saved = load('pet', null);
-  const petCtx = { data: { hub: saved == null ? [] : [{ type: 'pet.set', payload: saved }] }, add: (_type, payload) => savePet(payload), render: () => renderHome(r, cfg) };
+  const petCtx = { acts: events, data: { hub: saved == null ? [] : [{ type: 'pet.set', payload: saved }] }, add: (_type, payload) => savePet(payload), render: () => renderHome(r, cfg) };
 
   // mọi chương trong MỘT thẻ tự cuộn (~5 hàng): chương chưa làm vẫn hiện, không phải gập
   const chapters = cfg.chapters.filter(c => c.bank).map(c => {

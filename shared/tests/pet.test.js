@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync, existsSync } from 'node:fs';
 import { KINDS, petOf, normalizePet, petSvg, label } from '../logic/pet.js';
+import { RULES, mood, shyBurst } from '../logic/pet-rules.js';
 import DESIGN from '../logic/design-pets.json';
 
 describe('bạn đồng hành (design-pets.json của Study_Hub)', () => {
@@ -30,11 +31,24 @@ describe('bạn đồng hành (design-pets.json của Study_Hub)', () => {
     expect(petOf([])).toEqual({ on: true, kind: 'cat' });
     expect(petOf([{ type: 'pet.set', payload: { on: true, kind: 'puppy' } }, { type: 'math.answer', payload: {} }, { type: 'pet.set', payload: { on: false, kind: 'peach' } }])).toEqual({ on: false, kind: 'peach' });
   });
+  it('quy tắc biểu cảm khớp design-pets.json; tâm trạng nền và bấm nhanh', () => {
+    const { shy, sad, sleepy, blinkEveryMs, click, hover } = DESIGN.rules;
+    expect(RULES).toMatchObject({ shy, sad, sleepy, blinkEveryMs, click, hover });
+    const noon = new Date(2026, 9, 9, 12).getTime();
+    expect(mood({ now: noon, lastTs: noon, answered: 10, correct: 4 })).toBe('sad');
+    expect(mood({ now: noon, lastTs: noon, answered: 9, correct: 0 })).toBe('neutral');
+    expect(mood({ now: noon, lastTs: noon - 3 * 864e5 })).toBe('sleepy');
+    expect(mood({ now: noon, lastTs: null })).toBe('neutral');
+    expect(mood({ now: new Date(2026, 9, 9, 23).getTime() })).toBe('sleepy');
+    const t = []; expect([0, 500, 1000].map(x => shyBurst(t, x))).toEqual([false, false, true]);
+  });
   it('bản chép khớp Study_Hub khi repo Hub nằm cạnh (chạy máy bạn; CI không có thì bỏ qua)', () => {
     const p = new URL('../../../Study_Hub/design-pets.json', import.meta.url);
     if (!existsSync(p)) return;
     expect(DESIGN).toEqual(JSON.parse(readFileSync(p, 'utf8')));
     const hub = new URL('../../../Study_Hub/src/ui/pet.js', import.meta.url);   // UI y hệt Hub, chỉ khác đường import
-    if (existsSync(hub)) expect(readFileSync(new URL('../ui/pet.js', import.meta.url), 'utf8')).toBe(readFileSync(hub, 'utf8').replace("'../pets/index.js'", "'../logic/pet.js'"));
+    if (existsSync(hub)) expect(readFileSync(new URL('../ui/pet.js', import.meta.url), 'utf8')).toBe(readFileSync(hub, 'utf8').replace("'../pets/index.js'", "'../logic/pet.js'").replace("'../pets/rules.js'", "'../logic/pet-rules.js'"));
+    const rules = new URL('../../../Study_Hub/src/pets/rules.js', import.meta.url);
+    expect(readFileSync(new URL('../logic/pet-rules.js', import.meta.url), 'utf8')).toBe(readFileSync(rules, 'utf8'));
   });
 });

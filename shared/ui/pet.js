@@ -2,6 +2,8 @@
    Lựa chọn lưu theo tài khoản bằng sự kiện pet.set (bản mới nhất thắng), đồng bộ giữa Hub và app toán. */
 import { el } from './dom.js';
 import { KIND_IDS, petSvg, petOf, label } from '../logic/pet.js';
+import { RULES, mood, shyBurst } from '../logic/pet-rules.js';
+import { weekSummary } from '../logic/stats.js';
 
 const GEAR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>';
 let popOpen = false;
@@ -20,11 +22,15 @@ export function petBlock(ctx) {
 
   let art = null;
   if (pet.on) {
-    art = el('button', { class: 'pet-face', type: 'button', 'aria-label': label(pet.kind), html: petSvg(pet.kind) });
-    const swap = (expr, ms) => { if (!art.isConnected) return; art.innerHTML = petSvg(pet.kind, expr); setTimeout(() => { if (art.isConnected) art.innerHTML = petSvg(pet.kind); }, ms); };
-    art.addEventListener('click', () => swap('happy', 1200));
-    art.addEventListener('mouseenter', () => swap('surprised', 700));
-    timer = setInterval(() => (art.isConnected ? swap('blink', 140) : clearInterval(timer)), 4000);
+    const now = Date.now(), w = weekSummary(ctx.acts, now);
+    const base = mood({ now, lastTs: ctx.acts.reduce((m, a) => Math.max(m, a.ts), 0) || null, answered: w.answered, correct: w.correct });
+    art = el('button', { class: 'pet-face', type: 'button', 'aria-label': label(pet.kind), html: petSvg(pet.kind, base) });
+    const clicks = [];
+    const swap = (expr, ms) => { if (!art.isConnected) return; art.innerHTML = petSvg(pet.kind, expr); setTimeout(() => { if (art.isConnected) art.innerHTML = petSvg(pet.kind, base); }, ms); };
+    art.addEventListener('click', () => (shyBurst(clicks, Date.now()) ? swap(RULES.shy.expression, RULES.shy.ms) : swap(RULES.click.expression, RULES.click.ms)));
+    art.addEventListener('mouseenter', () => swap(RULES.hover.expression, RULES.hover.ms));
+    const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!still && base !== 'sleepy') timer = setInterval(() => (art.isConnected ? swap('blink', 140) : clearInterval(timer)), RULES.blinkEveryMs);
   }
 
   const pop = el('div', { class: 'pet-pop', hidden: !popOpen }, [
