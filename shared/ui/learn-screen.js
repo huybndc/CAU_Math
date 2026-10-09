@@ -1,11 +1,11 @@
 import { $, el } from './dom.js';
 import { t as T } from '../i18n/index.js';
 import { splitCards } from '../logic/cards.js';
-import { pointsSummary, pointKeys, cardPassed } from '../logic/knowledge.js';
-import { nextPoint } from '../logic/prereq.js';
+import { pointsSummary, pointKeys } from '../logic/knowledge.js';
+import { nextLearn, cardDone } from '../logic/prereq.js';
 import { loadEvents, load, save } from './store.js';
 import { chNo, tag, studied } from './choices.js';
-import { seekLesson, lessonGraph } from './lesson.js';
+import { seekLesson, lessonGraph, readOf } from './lesson.js';
 
 /* ---------------------------------------------------------------
    HỌC = MỤC LỤC DẠNG CÂY, THU GỌN (D29) — như cây note của Obsidian:
@@ -20,18 +20,19 @@ export function renderLearn(r, cfg) {
   const events = loadEvents();
   const now = studied(cfg, events)[0];                   // chương đang học = chương làm gần nhất
   const g = lessonGraph(cfg);
-  const next = nextPoint(g, events);
-  const nextAt = next && g.get(next);                    // { ch, card } của thẻ nên học tiếp
+  const nextAt = nextLearn(cfg.chapters.map(c => ({ ch: c.id, cards: splitCards(cfg.lesson?.(c.id) ?? '').cards })), g, events, readOf);   // { ch, card, title } thẻ nên học tiếp
   const open = new Set(load('learn-open', null) ?? [nextAt?.ch ?? now ?? cfg.chapters[0].id]);
 
   const rows = cfg.chapters.map(c => {
     const md = cfg.lesson?.(c.id);
     const cards = md ? splitCards(md).cards : [];
     const pts = pointsSummary(events, cards);
+    const read = readOf(c.id);
+    const doneN = cards.filter((card, k) => cardDone(events, card.body, read.has(k))).length;
     const at = Math.min(load('lesson-' + c.id, 0), Math.max(0, cards.length - 1));
 
     const items = cards.map((card, k) => {
-      const passed = cardPassed(events, card.body);
+      const passed = cardDone(events, card.body, read.has(k));
       const state = passed ? 'passed' : k <= at && load('lesson-' + c.id, null) != null ? 'seen' : '';
       const isNext = nextAt && nextAt.ch === c.id && nextAt.card === k;
       return el('li', { class: [state, isNext && 'next'].filter(Boolean).join(' ') }, el('a', {
@@ -48,8 +49,8 @@ export function renderLearn(r, cfg) {
           el('small', { text: T('learn.cardsShort', { n: cards.length })
             + (pts.total ? ` · ${T('learn.points', { p: pts.passed, n: pts.total })}` : '') }),
         ]),
-        el('span', { class: 'ch-bar', title: pts.total ? `${pts.passed}/${pts.total}` : '' },
-          el('i', { style: `width:${pts.total ? Math.round((pts.passed / pts.total) * 100) : 0}%` })),
+        el('span', { class: 'ch-bar', title: `${doneN}/${cards.length}` },
+          el('i', { style: `width:${cards.length ? Math.round((doneN / cards.length) * 100) : 0}%` })),
       ]),
       el('ol', { class: 'tree-cards' }, items),
     ]);
