@@ -146,8 +146,6 @@ a.entry:hover .row-go{background:var(--accent)}
 .term-track li:last-child span{left:auto;right:0;transform:none}
 .term-track li.now span{color:var(--ink);font-weight:700}
 .term-track li.exam span{color:var(--hi-ink);font-weight:700}
-.stats-line{display:flex;gap:2rem;margin:0 0 1rem;font-size:var(--fs-sm);color:var(--ink-dim)}
-.stats-line b{font:600 1.15rem var(--mono);color:var(--ink);margin-right:.35rem}
 
 /* chuyển màn: mờ rất ngắn (chỉ khi ĐỔI màn) */
 

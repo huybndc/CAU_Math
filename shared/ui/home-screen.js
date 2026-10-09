@@ -1,12 +1,13 @@
 import { $, el } from './dom.js';
 import { t as T } from '../i18n/index.js';
-import { statsOf, minutesSince, recentStats, weekSince } from '../logic/progress.js';
+import { statsOf, recentStats, weekSince } from '../logic/progress.js';
 import { weekOf, WEEKS, EXAM_WEEKS, daysToMidterm } from '../logic/syllabus.js';
-import { loadEvents, save, subjectOf } from './store.js';
+import { loadEvents, load, save, savePet, subjectOf } from './store.js';
 import { targetOf } from '../logic/exam-target.js';
 import { chapterTitle, roundMinutes, rankedKinds, accCell, row, leadCard, studied } from './choices.js';
 import { nextPoint } from '../logic/prereq.js';
 import { seekLesson, lessonGraph } from './lesson.js';
+import { petBlock } from './pet.js';
 
 /* ---------------------------------------------------------------
    TỔNG QUAN của một môn (D16, D19):
@@ -76,6 +77,18 @@ const act = ({ href, title, note, onClick }) => el('a', { class: 'act', href, on
 ]);
 
 /** Cột phải: Học (2 thẻ) và Luyện tập (3 thẻ) — những việc không trùng khối "Hôm nay". */
+/** "Tuần này" như Hub: nhân vật + 3 số của 7 ngày qua (số câu, % đúng, số ngày có học). */
+function weekBlock(events, now) {
+  const since = weekSince(now), w = statsOf(events, { since });
+  const days = new Set(events.filter(e => e.ts >= since && e.ts <= now).map(e => new Date(e.ts).toDateString())).size;
+  const n = (v, t) => el('div', {}, [el('b', { class: 'num', text: String(v) }), t]);
+  const { art, ctl } = petBlock({ get: () => load('pet', null), set: savePet }, { settings: T('pet.settings'), show: T('pet.show') });
+  return [el('h2', { class: 'section-label wk' }, [el('span', { text: T('home.week') }), ctl]), el('div', { class: 'home-week' }, [
+    art,
+    n(w.attempts, T('home.wkDone')), n(w.attempts ? `${Math.round(w.accuracy * 100)}%` : '—', T('home.wkAcc')), n(days, T('home.wkDays')),
+  ])];
+}
+
 function side(cfg, events, now) {
   const g = lessonGraph(cfg);
   const nx = nextPoint(g, events);
@@ -96,10 +109,6 @@ function side(cfg, events, now) {
 export function renderHome(r, cfg) {
   const events = loadEvents();
   const now = Date.now();
-  const since = weekSince(now);
-  const seconds = Object.fromEntries(cfg.chapters.filter(c => c.bank).map(c => [c.prefix, c.bank.SECONDS]));
-  const recent = statsOf(events, { since });
-  const stat = (v, label) => el('span', {}, [el('b', { text: v }), label]);
 
   // mọi chương trong MỘT thẻ tự cuộn (~5 hàng): chương chưa làm vẫn hiện, không phải gập
   const chapters = cfg.chapters.filter(c => c.bank).map(c => {
@@ -122,11 +131,7 @@ export function renderHome(r, cfg) {
         goalRow(events),
         el('h2', { class: 'section-label', text: T('home.today') }),
         today(cfg, events, now),
-        el('div', { class: 'stats-line', title: T('home.statNote') }, [
-          stat(String(minutesSince(events, seconds, since)), T('home.statMin')),
-          stat(recent.accuracy === null ? '—' : `${Math.round(recent.accuracy * 100)}%`, T('home.statAcc')),
-          stat(String(recent.attempts), T('home.statQ')),
-        ]),
+        ...weekBlock(events, now),
         chapters.length ? el('h2', { class: 'section-label', text: T('home.byChapter') }) : '',
         chapters.length ? el('div', { class: 'list home-chapters' }, chapters) : '',
       ]),

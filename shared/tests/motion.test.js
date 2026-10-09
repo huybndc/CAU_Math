@@ -7,6 +7,8 @@ const dirs = ['shared/style', 'logic/src', 'linalg/src', 'discrete/src'];
 const files = dirs.flatMap(d => readdirSync(new URL(`../../${d}/`, import.meta.url)).filter(f => f.endsWith('.css')).map(f => `${d}/${f}`));
 const css = f => readFileSync(new URL(`../../${f}`, import.meta.url), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '');
 const motion = css('shared/style/motion.css');
+/* keyframes cho phép: `skel` (khung chờ, như Hub) và `pet` — ngoại lệ DUY NHẤT so với Study_Hub, đã thống nhất 3 bên (xem test 'pet' bên dưới). */
+const EXCEPT = { 'shared/style/base.css': ['skel'], 'shared/style/pet.css': ['pet'] };
 
 describe('motion giống Study_Hub', () => {
   it('motion.css có đúng token và quy tắc của Hub', () => {
@@ -18,7 +20,7 @@ describe('motion giống Study_Hub', () => {
   });
   const others = files.filter(f => f !== 'shared/style/motion.css');
   it('chỉ có keyframes của khung chờ (skel), không nảy/rung/trượt', () => {
-    for (const f of others) expect([...css(f).matchAll(/@keyframes\s+([\w-]+)/g)].map(m => m[1]), f).toEqual(f === 'shared/style/base.css' ? ['skel'] : []);
+    for (const f of others) expect([...css(f).matchAll(/@keyframes\s+([\w-]+)/g)].map(m => m[1]), f).toEqual(EXCEPT[f] ?? []);
   });
   it('không phóng to khi rê/nhấn, không easing cong riêng, không nhấc quá 1px', () => {
     for (const f of others) {
@@ -36,5 +38,13 @@ describe('motion giống Study_Hub', () => {
         expect(ms, `${f}: ${m[0]}`).toBeLessThanOrEqual(200);
       }
     }
+  });
+  it("ngoại lệ DUY NHẤT `pet`: chỉ dịch ≤2px, chu kỳ ≥2.5s, dừng khi giảm chuyển động, nhân vật tắt thì ẩn", () => {
+    const t = css('shared/style/pet.css');
+    expect(Object.values(EXCEPT).flat().sort()).toEqual(['pet', 'skel']);
+    expect(t).toMatch(/@keyframes pet\{to\{transform:translateY\(2px\)\}\}/);
+    expect(+t.match(/animation:pet (\d*\.?\d+)s/)[1]).toBeGreaterThanOrEqual(2.5);
+    expect(t).toMatch(/prefers-reduced-motion:reduce\)\{\.pet-face:not\(\[data-pet="off"\]\) \.pet-art\{animation:none\}/);
+    expect(t).toContain('.pet-face:not([data-pet="off"]) .pet-art{animation:pet');
   });
 });

@@ -9,7 +9,6 @@
   #screen-home .section-label{margin:.8rem 0 .4rem}
   #screen-home .list.mods{grid-template-columns:repeat(auto-fill,minmax(13rem,1fr));gap:.55rem}
   #screen-home .mods .entry{padding:.65rem .8rem;gap:.3rem .5rem}
-  #screen-home .stats-line{margin-top:.6rem}
   #screen-home > p.muted.small{margin:.3rem 0 0}
 
   /* Học: danh sách thẻ trong chương xếp 3 cột; mở một chương thì các chương khác tự gập (name="ch") */
@@ -64,3 +63,12 @@
 .goal-bar i{position:absolute;inset:0 auto 0 0;border-radius:4px;background:var(--accent)}
 .goal-bar u{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--goal)}
 .goal-line .small{color:var(--ink-dim);white-space:nowrap}
+
+/* Tổng quan: bạn đồng hành ở khối TRÁI (dưới "Hôm nay"); bật nhân vật thì khung chương co bớt để không cuộn trang */
+#screen-home .home-week{display:flex;align-items:flex-end;gap:2.5rem;padding:.2rem .6rem;color:var(--ink-dim);font-size:var(--fs-sm)}
+#screen-home .home-week .pet-face{margin-right:1rem}
+.wk{display:flex;align-items:center;gap:.4rem}
+#screen-home .home-week .num{display:block;font-size:var(--fs-xl);line-height:1.15;color:var(--ink);font-weight:600}
+@media (min-width:1000px){
+  #screen-home .home-main:has(.pet-face:not([data-pet="off"])) .home-chapters{max-height:max(8rem,calc(100vh - 35rem))}
+}
