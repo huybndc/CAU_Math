@@ -2,7 +2,7 @@
 import { createHash } from 'node:crypto';
 import { readFileSync, writeFileSync } from 'node:fs';
 
-export const MIRRORED = ['shared/ui/pet.js', 'shared/logic/pet-rules.js', 'shared/logic/design-pets.json'];
+export const MIRRORED = ['shared/ui/pet.js', 'shared/logic/pet.js', 'shared/logic/pet-engine.js', 'shared/logic/pet-art.json', 'shared/logic/pet-rules.js', 'shared/logic/design-pets.json', 'shared/style/pet.css'];
 export const sha = path => createHash('sha256').update(readFileSync(new URL(`../${path}`, import.meta.url))).digest('hex');
 
 if (import.meta.url === `file://${process.argv[1]}`) {

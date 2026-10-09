@@ -1,5 +1,9 @@
 {
-  "shared/ui/pet.js": "29c97dc4cd5985666969049eb36fb75b9e3c83d39ad920db9bd2a7319ebee1d9",
-  "shared/logic/pet-rules.js": "cd0f6fad804f1150faf738a20d3205ff8fae4f760c6cb284cdd4cf33fc77fa35",
-  "shared/logic/design-pets.json": "60cffe035dd3416ff308c5d930f750ccf544729bd28c0f66d6a9aa1e3bb10678"
+  "shared/ui/pet.js": "53e06424edd48bae3ecf980a98557be011cbd1e69e50f11b56b23d48270b1ca2",
+  "shared/logic/pet.js": "cd06dd18901dff20b6dcb6914a1f433f70d7e6784c2d95b63c6c6f574bdc64d6",
+  "shared/logic/pet-engine.js": "de60f9e42e52c38d3be651bfb72c1bbac0611e62e80dfa8e37658fe8df648832",
+  "shared/logic/pet-art.json": "777b71933edad86ed79e824c202358dd17abafbcbd68cd9ef464cff3b49475cb",
+  "shared/logic/pet-rules.js": "e658d3ab8edcab4eb862e2b6c0feb263072325727db4b6debdfa78f4045b496b",
+  "shared/logic/design-pets.json": "f3d4ee24d023edf60349693a3a7ef4636cb9b89ffebbeb181f57d75eb5ee6017",
+  "shared/style/pet.css": "ce07819ed0edce89d964102e1c9f16c38f17745a6a6e0ba71d43ef60f5d4a0ca"
 }

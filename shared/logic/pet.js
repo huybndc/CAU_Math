@@ -1,31 +1,32 @@
-import DESIGN from './design-pets.json';
+/* Nhân vật pixel — thuần, không DOM. Nguồn thật của hình/màu/biểu cảm cho Hub, CAU_Math, Live_Lecture
+   (qua design-pets.json). Hình + bộ chạy ở art.json / engine.js. Quy tắc: không chữ trên giao diện chính. */
+import { ART_IDS, nameOf, frameSvg } from './pet-engine.js';
 
-/** Bạn đồng hành: dựng từ design-pets.json (bản chép của Study_Hub — Hub làm chủ, KHÔNG sửa tay; Hub đổi thì chép lại).
- *  {on, kind} lưu theo môn; MẶC ĐỊNH BẬT. Hub ghi cùng lựa chọn bằng sự kiện pet.set. */
-export const KIND_IDS = Object.keys(DESIGN.kinds);
-export const KINDS = KIND_IDS;
-export const DEFAULT_PET = { ...DESIGN.rules.default };
-export const label = k => DESIGN.labels[k];
+export const KIND_IDS = ART_IDS;
+export const EXPRESSIONS = [
+  'neutral', 'blink', 'happy', 'sleepy', 'surprised', 'sad', 'shy',
+  'wink', 'cheer', 'proud', 'focus', 'final', 'wave', 'eager', 'relieved', 'hungry', 'yawn', 'lazy', 'petted', 'tilt', 'squint', 'wag', 'look',
+];
+export const DEFAULT_PET = { on: true, kind: KIND_IDS[0] };
 
-/** Dữ liệu tay/mạng/localStorage → {on, kind} hợp lệ; sai thì về mặc định. Chấp nhận cả giá trị lưu cũ (true/false/'off'/tên). */
+/** Dữ liệu tay/mạng/localStorage → {on, kind} hợp lệ; sai thì về mặc định (bật, nhân vật đầu). */
 export function normalizePet(v) {
-  if (v === false || v === 'off') return { ...DEFAULT_PET, on: false };
-  if (typeof v === 'string' && KINDS.includes(v)) return { on: true, kind: v };
   const o = v && typeof v === 'object' ? v : {};
-  return { on: typeof o.on === 'boolean' ? o.on : DEFAULT_PET.on, kind: KINDS.includes(o.kind) ? o.kind : DEFAULT_PET.kind };
+  return { on: typeof o.on === 'boolean' ? o.on : DEFAULT_PET.on, kind: KIND_IDS.includes(o.kind) ? o.kind : DEFAULT_PET.kind };
 }
 
-/** SVG chuỗi 16×16 (crispEdges, không chữ, aria-hidden — nút bao ngoài mới có nhãn). */
-export function petSvg(kind, expr = 'neutral', cls = 'pet-art') {
-  const { palette, frames } = DESIGN.kinds[kind];
-  let rc = '';
-  frames[expr].forEach((row, y) => [...row].forEach((ch, x) => { if (palette[ch]) rc += `<rect x="${x}" y="${y}" width="1" height="1" fill="${palette[ch]}"/>`; }));
-  return `<svg class="${cls}" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true">${rc}</svg>`;
-}
+/** Tên nhân vật — chỉ cho aria-label (trình đọc màn hình), không hiện trên giao diện. */
+export const label = kind => nameOf(kind);
 
-/** Lựa chọn hiện tại từ nhật ký hub (đã sắp theo thời gian): bản pet.set cuối cùng thắng; chưa có thì mặc định. API như src/pets/index.js của Hub. */
-export function petOf(hub) {
+/** SVG chuỗi (crispEdges, không chữ); decorative nên aria-hidden — nút bao ngoài mới có nhãn. */
+export const petSvg = frameSvg;
+
+/** Sự kiện có ts xa tương lai (đồng hồ lệch/dữ liệu xấu) sẽ thắng mãi: bỏ qua khi ts > now + 5 phút (tự hết khi đồng hồ qua mốc đó). */
+export const MAX_SKEW_MS = 5 * 60 * 1000;
+
+/** Lựa chọn hiện tại từ nhật ký hub: pet.set MỚI NHẤT thắng — so (ts, rồi id theo thứ tự chuỗi), không phụ thuộc thứ tự mảng; chưa có thì mặc định. */
+export function petOf(hub, now = Date.now()) {
   let last = null;
-  for (const e of hub) if (e.type === 'pet.set') last = e.payload;
-  return normalizePet(last);
+  for (const e of hub) if (e.type === 'pet.set' && !(e.ts > now + MAX_SKEW_MS) && (!last || e.ts > last.ts || (e.ts === last.ts && String(e.id) >= String(last.id)))) last = e;
+  return normalizePet(last?.payload);
 }
