@@ -24,7 +24,7 @@ it('6 nhân vật × mọi biểu cảm: khung đúng cỡ, mọi ô là màu h�
     for (const c of colorsOf(k)) { const [r, g, b] = [1, 3, 5].map(i => parseInt(c.slice(i, i + 2), 16)); expect(r > 200 && g < 80 && b < 80, `${k} ${c} quá đỏ`).toBe(false); }
   }
   expect(petSvg('cao')).not.toMatch(/<text/);
-});
+}, 20000);   // ~1s đơn lẻ; song song với cả bộ có lúc chạm trần 5s mặc định
 
 it('engine: mỗi nhân vật chạy đủ động tác riêng + hiệu ứng nhiều khung không lỗi', () => {
   for (const k of KIND_IDS) {
