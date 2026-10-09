@@ -1,0 +1,5 @@
+{
+  "shared/ui/pet.js": "29c97dc4cd5985666969049eb36fb75b9e3c83d39ad920db9bd2a7319ebee1d9",
+  "shared/logic/pet-rules.js": "cd0f6fad804f1150faf738a20d3205ff8fae4f760c6cb284cdd4cf33fc77fa35",
+  "shared/logic/design-pets.json": "60cffe035dd3416ff308c5d930f750ccf544729bd28c0f66d6a9aa1e3bb10678"
+}
