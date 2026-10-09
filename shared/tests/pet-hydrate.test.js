@@ -20,4 +20,17 @@ describe('đọc lại pet.set từ Hub', () => {
     expect(await hydratePet('logic')).toBe(false);
     expect(load('pet', null, 'logic')).toEqual({ on: true, kind: 'peach' });
   });
+  it('ts tương lai (đồng hồ lệch +365 ngày) không thắng mãi: bỏ qua, lựa chọn của người dùng giữ nguyên', async () => {
+    const year = 365 * 864e5;
+    events.push({ ts: Date.now() + year, payload: { on: true, kind: 'puppy' } });
+    expect(await hydratePet('logic')).toBe(false);
+    save('pet', { on: true, kind: 'peach' }, 'logic'); save('pet-ts', Date.now(), 'logic');   // người dùng chọn lại ở máy đúng giờ
+    expect(await hydratePet('logic')).toBe(false);
+    expect(load('pet', null, 'logic')).toEqual({ on: true, kind: 'peach' });
+  });
+  it('sự kiện lệch ≤ 5 phút vẫn được nhận; bản hợp lệ cuối thắng khi có bản tương lai phía sau', async () => {
+    events.push({ ts: Date.now() + 60_000, payload: { on: true, kind: 'sprout' } }, { ts: Date.now() + 365 * 864e5, payload: { on: false, kind: 'cat' } });
+    expect(await hydratePet('logic')).toBe(true);
+    expect(load('pet', null, 'logic')).toEqual({ on: true, kind: 'sprout' });
+  });
 });

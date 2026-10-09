@@ -119,7 +119,9 @@ export async function hydrateProgress(subject = subjectOf()) {
 /** Đọc lại pet.set đã lưu ở Hub: bản cuối thắng, nhưng chỉ nhận nếu mới hơn lần đổi cuối ở máy này (đổi lúc offline không bị ghi đè). */
 export async function hydratePet(subject) {
   try {
-    const last = (await loadPetEvents()).at(-1);
+    // ts do máy khách đặt: bỏ sự kiện từ tương lai (> bây giờ + 5 phút) — đồng hồ lệch không được thắng mãi (kẹp ts vẫn thắng mãi nên phải bỏ hẳn)
+    const limit = Date.now() + 5 * 60_000;
+    const last = (await loadPetEvents()).filter(e => e.ts <= limit).at(-1);
     if (!last || last.ts <= load('pet-ts', 0, subject)) return false;
     const next = normalizePet(last.payload), cur = normalizePet(load('pet', null, subject));
     save('pet-ts', last.ts, subject);
