@@ -70,13 +70,14 @@
 - Do not commit class-only PDFs, slides, private syllabus files, secrets, or personal data.
 
 ## Tự soi
+- 2026-10-09 · rà việc (Ngay) còn lại · Mục hợp nhất mirror đã xong từ 10-01 nhưng vẫn `[ ]`, mỗi phiên sẽ tưởng còn việc · Đánh `[x]` sau khi chạy lại `diff -rq`; không phát hiện mới. Câu mới của lần này dồn cho Study_Hub (A3).
 - 2026-09-29 · C2 (kiến thức phải tìm lại mỗi phiên) · Phiên nào cũng phải tự phát hiện rằng hai bản toán đã lệch nhau:
   nội dung Logic mới (29/09) chỉ nằm trong mirror ở Study_Hub, Discrete HW1 (PR #2) chỉ nằm ở đây; `AGENTS.md` ghi bản online
   build theo `math.lock` nhưng file đó chưa tồn tại · Sửa dòng `AGENTS.md` cho đúng thực tế; ghi việc hợp nhất dưới đây.
 
 ## Việc từ tự soi
 - [x] (Ngay) Sửa dòng `math.lock` trong `AGENTS.md` cho khớp thực tế.
-- [ ] (Ngay, chờ người học chọn hướng) Hợp nhất với mirror ở Study_Hub trước khi sửa tiếp nội dung Logic ở đây — kiểm:
+- [x] (Ngay, đã xong 2026-10-01 qua CAU_Math PR #8 + Study_Hub PR #37/#38; kiểm lại 2026-10-09: `diff -rq` logic/ linalg/ discrete/ bỏ *.md = rỗng) Hợp nhất với mirror ở Study_Hub trước khi sửa tiếp nội dung Logic ở đây — kiểm:
   `diff -rq` thư mục `logic/ linalg/ discrete/ shared/` giữa hai repo (bỏ `*.md`) không còn file code/nội dung khác.
 
 ## Tự luận tự chấm (2026-10-02)
