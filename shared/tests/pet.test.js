@@ -12,13 +12,15 @@ describe('bạn đồng hành', () => {
     expect(normalizePet({ on: true, kind: 'plant' })).toEqual({ on: true, kind: 'plant' });
     expect(normalizePet({ on: 'yes', kind: 'dog' })).toEqual({ on: false, kind: 'cat' });
   });
-  it('đúng 3 nhân vật: mèo, cú, cây — mỗi SVG ≤ 3KB, không script/ảnh ngoài/animation riêng, màu qua token', () => {
+  it('đúng 3 nhân vật: mèo, cú, cây — mỗi SVG ≤ 3KB, không script/ảnh ngoài/animation riêng, không phụ thuộc theme', () => {
     expect(KINDS).toEqual(['cat', 'owl', 'plant']);
     expect(Object.keys(PET_ART).sort()).toEqual([...KINDS].sort());
     for (const [k, svg] of Object.entries(PET_ART)) {
       expect(new TextEncoder().encode(svg).length, k).toBeLessThanOrEqual(3072);
       expect(svg, k).not.toMatch(/<script|<image|href=|<animate|<style|@keyframes|\son\w+=/i);
-      expect(svg, k).toContain('var(--');
     }
+  });
+  it('mỗi nhân vật có mắt thường (.pe) và mắt vui (.ph) để phản ứng khi bấm', () => {
+    for (const [k, svg] of Object.entries(PET_ART)) { expect(svg, k).toContain('class="pe"'); expect(svg, k).toContain('class="ph"'); }
   });
 });

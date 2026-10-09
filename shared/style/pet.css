@@ -1,13 +1,19 @@
-/* Bạn đồng hành (shared/ui/pet.js): mặc định tắt; keyframes `pet` là ngoại lệ DUY NHẤT của quy tắc "chuyển động giống Study_Hub" (test canh). */
+/* Bạn đồng hành (shared/ui/pet.js): mặc định tắt (chỉ còn biểu tượng cài đặt); keyframes `pet` là ngoại lệ DUY NHẤT của quy tắc "chuyển động giống Study_Hub" (test canh). */
 .pet{display:flex;align-items:center;gap:.8rem}
-.pet-ctl{display:flex;flex-direction:column;align-items:flex-start;gap:.35rem}
+.pet-stage{position:relative;display:flex;align-items:flex-start;gap:.15rem}
+.pet-gear{display:grid;place-items:center;width:1.7rem;height:1.7rem;padding:0;background:none;border:1px solid transparent;border-radius:var(--r-md);color:var(--ink-dim);cursor:pointer}
+.pet-gear:hover,.pet-gear[aria-expanded="true"]{background:var(--panel2);color:var(--ink);border-color:var(--line)}
+.pet-menu{position:absolute;z-index:30;left:0;top:calc(100% + .3rem);display:flex;flex-direction:column;gap:.45rem;padding:.6rem;background:var(--panel);border:1px solid var(--line-strong);border-radius:var(--r-lg);box-shadow:var(--lift);white-space:nowrap}
+.pet-menu[hidden],.pet-kinds[hidden]{display:none}
+.pet-kinds{display:flex;gap:.3rem}
 .pet-toggle,.pet-kind{font:inherit;font-size:var(--fs-sm);background:none;color:var(--ink-dim);border:1px solid var(--line-strong);border-radius:var(--r-md);padding:.2rem .65rem;cursor:pointer}
 .pet-toggle:hover,.pet-kind:hover{background:var(--panel2);color:var(--ink)}
 .pet-kind[aria-checked="true"]{background:var(--accent-soft);border-color:var(--accent);color:var(--ink)}
-.pet-kinds{display:flex;gap:.3rem}
-.pet-kinds[hidden]{display:none}
-.pet-toggle:focus-visible,.pet-kind:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.pet-art{display:none;width:64px;height:64px;flex:none}
+.pet-gear:focus-visible,.pet-toggle:focus-visible,.pet-kind:focus-visible,.pet-art:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.pet-art{display:none;width:72px;height:72px;flex:none;padding:0;border:0;background:none;cursor:pointer;border-radius:var(--r-md)}
+.pet-art .ph,.pet.happy .pet-art .pe{display:none}
+.pet.happy .pet-art .ph{display:inline}
 .pet:not([data-pet="off"]) .pet-art{display:block;animation:pet 3s ease-in-out infinite alternate}
+.pet-say{flex:1;min-width:0;font-size:var(--fs-sm);color:var(--ink-dim)}
 @keyframes pet{to{transform:translateY(2px)}}
 @media (prefers-reduced-motion:reduce){.pet:not([data-pet="off"]) .pet-art{animation:none}}

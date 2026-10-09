@@ -1,6 +1,6 @@
 import { $, el } from './dom.js';
 import { t as T } from '../i18n/index.js';
-import { statsOf, minutesSince, recentStats, weekSince } from '../logic/progress.js';
+import { statsOf, recentStats } from '../logic/progress.js';
 import { weekOf, WEEKS, EXAM_WEEKS, daysToMidterm } from '../logic/syllabus.js';
 import { loadEvents, load, save, subjectOf } from './store.js';
 import { targetOf } from '../logic/exam-target.js';
@@ -97,10 +97,6 @@ function side(cfg, events, now) {
 export function renderHome(r, cfg) {
   const events = loadEvents();
   const now = Date.now();
-  const since = weekSince(now);
-  const seconds = Object.fromEntries(cfg.chapters.filter(c => c.bank).map(c => [c.prefix, c.bank.SECONDS]));
-  const recent = statsOf(events, { since });
-  const stat = (v, label) => el('span', {}, [el('b', { text: v }), label]);
 
   // mọi chương trong MỘT thẻ tự cuộn (~5 hàng): chương chưa làm vẫn hiện, không phải gập
   const chapters = cfg.chapters.filter(c => c.bank).map(c => {
@@ -123,13 +119,10 @@ export function renderHome(r, cfg) {
         goalRow(events),
         el('h2', { class: 'section-label', text: T('home.today') }),
         today(cfg, events, now),
-        el('div', { class: 'stats-row' }, [petBlock({ get: () => load('pet', null), set: v => save('pet', v) },
-          { on: T('pet.on'), off: T('pet.offBtn'), cat: T('pet.cat'), owl: T('pet.owl'), plant: T('pet.plant'), aria: T('pet.aria') }),
-        el('div', { class: 'stats-line', title: T('home.statNote') }, [
-          stat(String(minutesSince(events, seconds, since)), T('home.statMin')),
-          stat(recent.accuracy === null ? '—' : `${Math.round(recent.accuracy * 100)}%`, T('home.statAcc')),
-          stat(String(recent.attempts), T('home.statQ')),
-        ])]),
+        petBlock({ get: () => load('pet', null), set: v => save('pet', v) }, {
+          on: T('pet.on'), off: T('pet.offBtn'), aria: T('pet.aria'), settings: T('pet.settings'), say: [T('pet.say1'), T('pet.say2'), T('pet.say3')],
+          cat: T('pet.cat'), owl: T('pet.owl'), plant: T('pet.plant'),
+        }),
         chapters.length ? el('h2', { class: 'section-label', text: T('home.byChapter') }) : '',
         chapters.length ? el('div', { class: 'list home-chapters' }, chapters) : '',
       ]),
