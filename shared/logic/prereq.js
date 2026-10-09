@@ -10,7 +10,7 @@
    --------------------------------------------------------------- */
 
 import { splitCards, pointTags } from './cards.js';
-import { parseKey, isPassed } from './knowledge.js';
+import { parseKey, isPassed, cardPassed } from './knowledge.js';
 
 /**
  * @param {{ ch: string, md: string }[]} lessons  bài học của mọi chương (cùng một ngôn ngữ)
@@ -125,4 +125,30 @@ export function weakestPrereq(g, key, events) {
 /** Điểm nên học tiếp: đầu tiên theo thứ tự tô-pô mà chưa nắm và mọi điểm cần đã nắm. */
 export function nextPoint(g, events) {
   return topoOrder(g).find(k => !isPassed(events, k) && g.get(k).needs.every(n => !g.has(n) || isPassed(events, n))) ?? null;
+}
+
+/** Thẻ đã xong: có điểm kiến thức ⇒ phải nắm điểm; KHÔNG có bài tập (cardPassed = null) ⇒ đã đọc (xem thẻ) là xong. */
+export const cardDone = (events, body, isRead) => { const p = cardPassed(events, body); return p === null ? !!isRead : p; };
+
+/**
+ * Thẻ nên học tiếp = sớm hơn trong hai ứng viên: (a) điểm kiến thức kế theo thứ tự tiên quyết (nextPoint);
+ * (b) thẻ KHÔNG có bài tập đầu tiên chưa đọc, theo thứ tự chương/thẻ. Hoà ⇒ (a).
+ * @param {{ ch: string, cards: { body: string, title: string }[] }[]} chapters
+ * @param {(ch: string) => Set<number>} readOf  các thẻ đã xem của chương
+ * @returns {{ ch: string, card: number, title: string } | null}
+ */
+export function nextLearn(chapters, g, events, readOf) {
+  const pt = nextPoint(g, events);
+  const a = pt && g.get(pt);
+  let b = null;
+  for (const { ch, cards } of chapters) {
+    const read = readOf(ch);
+    const k = cards.findIndex((c, i) => cardPassed(events, c.body) === null && !read.has(i));
+    if (k >= 0) { b = { ch, card: k, title: cards[k].title }; break; }
+  }
+  if (!a) return b;
+  if (!b) return { ch: a.ch, card: a.card, title: a.title };
+  const at = x => [chapters.findIndex(c => c.ch === x.ch), x.card];
+  const [ac, ak] = at(a), [bc, bk] = at(b);
+  return bc < ac || (bc === ac && bk < ak) ? b : { ch: a.ch, card: a.card, title: a.title };
 }

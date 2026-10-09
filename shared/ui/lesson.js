@@ -4,7 +4,7 @@ import { mountPoint } from './kpoint.js';
 import { t as T } from '../i18n/index.js';
 import { load, save, loadEvents } from './store.js';
 import { pointKeys, isPassed, cardPassed } from '../logic/knowledge.js';
-import { buildGraph, weakestPrereq } from '../logic/prereq.js';
+import { buildGraph, weakestPrereq, cardDone } from '../logic/prereq.js';
 import { getLang } from '../i18n/index.js';
 import { h } from './dom.js';
 import { mathSpan } from './question.js';
@@ -28,6 +28,10 @@ export function seekLesson(chapter, i) {
   const st = BY_CHAPTER[chapter];
   if (st) { st.i = i; st.all = false; st.redraw?.(); }
 }
+
+/** Các thẻ đã XEM của chương (thẻ không có bài tập chỉ cần xem là tính đã học). Lưu `read-<chương>`. */
+export const readOf = chapter => new Set(load('read-' + chapter, []));
+const markRead = (chapter, idx) => { const r = readOf(chapter); if (idx.every(i => r.has(i))) return; idx.forEach(i => r.add(i)); save('read-' + chapter, [...r].sort((a, b) => a - b)); };
 
 /** Đồ thị tiên quyết của cả môn (dựng từ bài học các chương, nhớ theo ngôn ngữ) — shared/logic/prereq.js. */
 const GRAPHS = new Map();
@@ -132,8 +136,10 @@ export function mountLesson(host, md, opts = {}) {
   st.i = Math.min(st.i, cards.length - 1);
   const ctx = { banks: opts.banks || {}, figures: opts.figures || {}, widgets: opts.widgets || {} };
 
+  const shown = () => location.hash.startsWith(`#/learn/${opts.chapter}/theory`);
   const draw = () => {
     save('lesson-' + opts.chapter, st.i);
+    if (shown()) markRead(opts.chapter, st.all ? cards.map((_, k) => k) : [st.i]);   // chỉ khi bài học của chương đang hiện (các chương khác dựng sẵn nhưng ẩn)
     st.runners.forEach(r => r.dispose());
     st.runners = [];
     host.classList.add('lesson');
@@ -145,10 +151,11 @@ export function mountLesson(host, md, opts = {}) {
     introEl && introEl.append(...mdNodes(intro));
     const steps = h('ol', 'lesson-steps');
     const events = loadEvents();
+    const read = readOf(opts.chapter);
     cards.forEach((c, k) => {
       const li = h('li');
       const b = h('button', k === st.i && !st.all ? 'on' : k < st.i && !st.all ? 'done' : '');
-      if (cardPassed(events, c.body)) b.classList.add('passed');
+      if (cardDone(events, c.body, read.has(k))) b.classList.add('passed');
       b.type = 'button';
       b.title = c.title;
       b.setAttribute('aria-label', `${k + 1}. ${c.title}`);
@@ -217,5 +224,6 @@ export function mountLesson(host, md, opts = {}) {
   }
   st.count = cards.length;
   st.redraw = draw;
+  if (!st.bound) { st.bound = true; addEventListener('hashchange', () => { if (shown()) draw(); }); }   // mở bài học của chương ⇒ thẻ đang xem tính là đã xem
   draw();
 }

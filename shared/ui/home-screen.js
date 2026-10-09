@@ -5,8 +5,9 @@ import { weekOf, WEEKS, EXAM_WEEKS, daysToMidterm } from '../logic/syllabus.js';
 import { loadEvents, load, save, savePet, subjectOf } from './store.js';
 import { targetOf } from '../logic/exam-target.js';
 import { chapterTitle, roundMinutes, rankedKinds, accCell, row, leadCard, studied } from './choices.js';
-import { nextPoint } from '../logic/prereq.js';
-import { seekLesson, lessonGraph } from './lesson.js';
+import { nextLearn } from '../logic/prereq.js';
+import { splitCards } from '../logic/cards.js';
+import { seekLesson, lessonGraph, readOf } from './lesson.js';
 import { petBlock } from './pet.js';
 
 /* ---------------------------------------------------------------
@@ -91,8 +92,7 @@ function weekBlock(events, now, ctx) {
 
 function side(cfg, events, now) {
   const g = lessonGraph(cfg);
-  const nx = nextPoint(g, events);
-  const n = nx && g.get(nx);
+  const n = nextLearn(cfg.chapters.map(c => ({ ch: c.id, cards: splitCards(cfg.lesson?.(c.id) ?? '').cards })), g, events, readOf);
   const days = daysToMidterm(new Date(now));
   return el('div', { class: 'home-side' }, [
     el('h2', { class: 'section-label', text: T('nav.learn') }),

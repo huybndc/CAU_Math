@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { buildGraph, danglingNeeds, findCycle, topoOrder, prereqLayers, pointAccuracy, weakestPrereq, nextPoint } from '../logic/prereq.js';
+import { splitCards } from '../logic/cards.js';
+import { buildGraph, danglingNeeds, findCycle, topoOrder, prereqLayers, pointAccuracy, weakestPrereq, nextPoint, nextLearn, cardDone } from '../logic/prereq.js';
 
 /* Đồ thị nhỏ:  a ← b ← d ,  a ← c ← d  (d cần b và c; b, c cần a) ; e độc lập */
 const md = [
@@ -65,5 +66,25 @@ describe('đồ thị tiên quyết', () => {
     expect(nextPoint(g, [ev('a', true), ev('a', true)])).toBe('p:b');
     const done = ['a', 'b', 'c', 'd', 'e'].flatMap(k => [ev(k, true), ev(k, true)]);
     expect(nextPoint(g, done)).toBeNull();
+  });
+});
+
+describe('thẻ chỉ đọc (không có bài tập) tính là đã học khi đã xem', () => {
+  const mdr = ['## Đọc 1', 'chỉ chữ', '## A', '<div data-check="p:a"></div>', '## Đọc 2', 'chỉ chữ'].join('\n');
+  const cards = splitCards(mdr).cards;
+  const gr = buildGraph([{ ch: 'c1', md: mdr }]);
+  const chapters = [{ ch: 'c1', cards }];
+  const none = () => new Set();
+  it('cardDone: thẻ không điểm xong khi đã đọc; thẻ có điểm chỉ xong khi nắm điểm', () => {
+    expect(cardDone([], cards[0].body, false)).toBe(false);
+    expect(cardDone([], cards[0].body, true)).toBe(true);
+    expect(cardDone([], cards[1].body, true)).toBe(false);                    // đọc không đủ cho thẻ có bài tập
+  });
+  it('học tiếp: thẻ chỉ-đọc chưa xem đứng trước điểm ở phía sau; đã đọc thì chuyển sang điểm; hết thì tiếp thẻ đọc sau', () => {
+    expect(nextLearn(chapters, gr, [], none)).toMatchObject({ ch: 'c1', card: 0 });
+    expect(nextLearn(chapters, gr, [], () => new Set([0]))).toMatchObject({ ch: 'c1', card: 1 });
+    const passed = [{ prefix: 'p', kind: 'a', ok: true }, { prefix: 'p', kind: 'a', ok: true }];
+    expect(nextLearn(chapters, gr, passed, () => new Set([0]))).toMatchObject({ ch: 'c1', card: 2 });
+    expect(nextLearn(chapters, gr, passed, () => new Set([0, 2]))).toBeNull();
   });
 });

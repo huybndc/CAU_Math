@@ -82,3 +82,20 @@ describe('mọi chế độ ghi cùng hình dạng sự kiện (answerEvent) —
     expect(isPassed(old, 'c1q:convert:toDec')).toBe(false);
   });
 });
+
+describe('điểm có nhãn: làm bài ở đâu cũng tính (4 câu đúng liền của dạng, bất kể nhãn)', () => {
+  const ev = (tags, ok = true) => tags.map(tag => ({ prefix: 'c1q', kind: 'convert', ok, mode: 'practice', tag }));
+  it('4 câu đúng liền với nhãn lẫn lộn ⇒ qua điểm toDec dù chưa có 2 câu toDec liền nhau', () => {
+    expect(isPassed(ev(['group', 'fromDec', 'group', 'fromDec']), 'c1q:convert:toDec')).toBe(true);
+    expect(isPassed(ev(['group', 'fromDec', 'group']), 'c1q:convert:toDec')).toBe(false);   // mới 3 câu
+  });
+  it('một câu sai làm lại chuỗi; 2 câu đúng đúng nhãn vẫn qua như cũ', () => {
+    const e = [...ev(['group', 'fromDec']), ...ev(['group'], false), ...ev(['fromDec', 'group'])];
+    expect(isPassed(e, 'c1q:convert:toDec')).toBe(false);
+    expect(isPassed(ev(['toDec', 'toDec']), 'c1q:convert:toDec')).toBe(true);
+  });
+  it('điểm không nhãn và dạng khác không bị ảnh hưởng', () => {
+    expect(isPassed(ev(['a', 'b', 'c', 'd']), 'c1q:gray')).toBe(false);
+    expect(isPassed(ev([undefined, undefined]), 'c1q:convert')).toBe(true);
+  });
+});

@@ -8,6 +8,8 @@
    --------------------------------------------------------------- */
 
 export const PASS_STREAK = 2;
+/** Điểm có nhãn (vd toDec/fromDec/group): luyện tập ngẫu nhiên chỉ ra đúng nhãn ~25% số câu nên chuỗi đúng-nhãn khó đủ; đủ chừng này câu đúng liền của dạng thì coi là nắm. */
+export const ANY_TAG_STREAK = PASS_STREAK * 2;
 
 /** 'c1q:convert:toDec' → { prefix, kind, tag } */
 export function parseKey(key) {
@@ -34,13 +36,17 @@ export function streakOf(results) {
 /**
  * Đã nắm điểm `key` chưa: trong nhật ký, các câu của đúng dạng (và đúng nhãn nếu có)
  * từng có PASS_STREAK câu đúng liền nhau. Mọi chế độ đều tính (làm đúng liền 2 câu
- * ở Luyện tập cũng là đã nắm).
+ * ở Luyện tập cũng là đã nắm). Điểm có nhãn còn qua khi có ANY_TAG_STREAK câu đúng liền của dạng, bất kể nhãn.
  */
 export function isPassed(events, key) {
   const { prefix, kind, tag } = parseKey(key);
-  let run = 0;
+  let run = 0, anyRun = 0;
   for (const e of events) {
-    if (e.prefix !== prefix || e.kind !== kind || (tag && e.tag !== tag)) continue;
+    if (e.prefix !== prefix || e.kind !== kind) continue;
+    // điểm có nhãn: làm bài ở đâu cũng tính — ngoài chuỗi đúng nhãn, đủ ANY_TAG_STREAK câu đúng liền của dạng (bất kể nhãn) cũng qua
+    anyRun = e.ok ? anyRun + 1 : 0;
+    if (tag && anyRun >= ANY_TAG_STREAK) return true;
+    if (tag && e.tag !== tag) continue;
     run = e.ok ? run + 1 : 0;
     if (run >= PASS_STREAK) return true;
   }
