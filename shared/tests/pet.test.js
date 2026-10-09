@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest';
+import { createHash } from 'node:crypto';
 import { readFileSync, existsSync } from 'node:fs';
 import { KINDS, petOf, normalizePet, petSvg, label } from '../logic/pet.js';
 import { RULES, mood, shyBurst } from '../logic/pet-rules.js';
@@ -41,6 +42,11 @@ describe('bạn đồng hành (design-pets.json của Study_Hub)', () => {
     expect(mood({ now: noon, lastTs: null })).toBe('neutral');
     expect(mood({ now: new Date(2026, 9, 9, 23).getTime() })).toBe('sleepy');
     const t = []; expect([0, 500, 1000].map(x => shyBurst(t, x))).toEqual([false, false, true]);
+  });
+  it('version = sha256 nội dung (bỏ trường version) — cùng cách tính với Hub', () => {
+    const { version, ...content } = DESIGN;
+    expect(version).toMatch(/^[0-9a-f]{64}$/);
+    expect(version).toBe(createHash('sha256').update(JSON.stringify(content)).digest('hex'));
   });
   it('bản chép khớp Study_Hub khi repo Hub nằm cạnh (chạy máy bạn; CI không có thì bỏ qua)', () => {
     const p = new URL('../../../Study_Hub/design-pets.json', import.meta.url);

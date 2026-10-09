@@ -96,9 +96,22 @@ export function fromDecimal(x, r, maxFrac = MAX_FRAC_STEPS) {
   return fracDigits ? intDigits + '.' + fracDigits : intDigits;
 }
 
-/** Đổi trực tiếp giữa hai cơ số bất kỳ (đi qua thập phân). */
+/**
+ * Đổi trực tiếp giữa hai cơ số bất kỳ. Phần nguyên đi qua BigInt (chính xác với số lớn hơn 2^53);
+ * phần lẻ đổi bằng "nhân lấy phần nguyên" như fromDecimal. Nhận dấu '-' ở đầu.
+ */
 export function convertBase(text, from, to, maxFrac = MAX_FRAC_STEPS) {
-  return fromDecimal(toDecimal(text, from), to, maxFrac);
+  if (from < 2 || from > 16 || to < 2 || to > 16) fail('err.radixRange');
+  const t = text.trim(), neg = t.startsWith('-');
+  const { intPart, fracPart } = splitNumber(neg ? t.slice(1) : t);
+  if (intPart === '' && fracPart === '') fail('err.emptyString');
+  let n = 0n;
+  for (const ch of intPart) n = n * BigInt(from) + BigInt(digitValue(ch, from));
+  let f = 0, w = 1 / from;
+  for (const ch of fracPart) { f += digitValue(ch, from) * w; w /= from; }
+  const frac = fracToBaseSteps(f, to, maxFrac).digits;
+  const out = n.toString(to).toUpperCase() + (frac ? '.' + frac : '');
+  return neg && /[1-9A-F]/.test(out) ? '-' + out : out;
 }
 
 /**
