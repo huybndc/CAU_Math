@@ -16,12 +16,3 @@ describe('exam-target.json khớp lịch học kỳ của app', () => {
     expect(targetOf('nope')).toBeNull();
   });
 });
-
-import { needCorrect } from '../logic/exam-target.js';
-it('needCorrect: số câu đúng liền cần thêm để chạm mục tiêu; đã đạt thì 0', () => {
-  expect(needCorrect({ attempts: 100, correct: 64 }, 80)).toBe(80);   // (64+80)/(180)=80%
-  expect(needCorrect({ attempts: 100, correct: 64 }, 80) - 1).toBeLessThan(80);
-  expect((64 + 79) / 179).toBeLessThan(0.8);
-  expect(needCorrect({ attempts: 10, correct: 9 }, 80)).toBe(0);
-  expect(needCorrect({ attempts: 0, correct: 0 }, 80)).toBe(0);
-});

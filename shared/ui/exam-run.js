@@ -7,6 +7,8 @@ import { load, save, record, subjectOf, markMistake } from './store.js';
 import { go } from './router.js';
 import { questionView, explainBlock, answerHtml, tp } from './question.js';
 import { chNo } from './choices.js';
+import { loadFlags } from './flags.js';
+import { withoutFlagged } from '../logic/flags.js';
 
 /* ---------------------------------------------------------------
    PHÒNG THI (#/exam/run) — menu trái ẩn (body.exam-focus), bấm nhầm không rời bài.
@@ -24,13 +26,14 @@ const store = st => save('exam', st);
 /** Chương đưa vào đề, kèm trọng số = số tuần học theo syllabus. */
 export function examChapters(cfg, ids) {
   const weeks = chapterWeeks(subjectOf());
-  return cfg.chapters.filter(c => c.bank && ids.includes(c.id)).map(c => ({ ...c, weight: weeks[c.id] ?? 1 }));
+  const flags = loadFlags();     // dạng bị cờ "không quan trọng" không vào đề trộn
+  return cfg.chapters.filter(c => c.bank && ids.includes(c.id)).map(c => ({ ...c, weight: weeks[c.id] ?? 1, bank: { ...c.bank, KINDS: withoutFlagged(c.bank.KINDS, c.prefix, flags) } }));
 }
 
 let cache = { key: '', items: [] };
 /** Câu hỏi của bài — giữ nguyên đối tượng giữa các lần vẽ (widget K-map nhớ lựa chọn theo đối tượng). */
 export function itemsOf(cfg, st) {
-  const key = `${st.seed}|${st.minutes}|${st.chapters}|${st.order}`;
+  const key = `${st.seed}|${st.minutes}|${st.chapters}|${st.order}|${[...loadFlags()]}`;
   if (cache.key !== key) cache = { key, items: buildExam(examChapters(cfg, st.chapters), st) };
   return cache.items;
 }

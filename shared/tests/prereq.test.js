@@ -75,10 +75,17 @@ describe('thẻ chỉ đọc (không có bài tập) tính là đã học khi đ
   const gr = buildGraph([{ ch: 'c1', md: mdr }]);
   const chapters = [{ ch: 'c1', cards }];
   const none = () => new Set();
-  it('cardDone: thẻ không điểm xong khi đã đọc; thẻ có điểm chỉ xong khi nắm điểm', () => {
+  it('cardDone: đọc qua là xong (kể cả thẻ có bài tập); chưa đọc thì xong khi đã nắm điểm', () => {
     expect(cardDone([], cards[0].body, false)).toBe(false);
     expect(cardDone([], cards[0].body, true)).toBe(true);
-    expect(cardDone([], cards[1].body, true)).toBe(false);                    // đọc không đủ cho thẻ có bài tập
+    expect(cardDone([], cards[1].body, true)).toBe(true);                     // đọc là đủ; luyện tập chấm phần còn lại
+    expect(cardDone([], cards[1].body, false)).toBe(false);
+    const passed2 = [{ prefix: 'p', kind: 'a', ok: true }, { prefix: 'p', kind: 'a', ok: true }];
+    expect(cardDone(passed2, cards[1].body, false)).toBe(true);
+  });
+  it('nextPoint: thẻ đã đọc hoặc dạng bị cờ thì coi như xong', () => {
+    expect(nextPoint(gr, [], (ch, card) => card === 1)).toBeNull();
+    expect(nextPoint(gr, [], undefined, new Set(['p:a']))).toBeNull();
   });
   it('học tiếp: thẻ chỉ-đọc chưa xem đứng trước điểm ở phía sau; đã đọc thì chuyển sang điểm; hết thì tiếp thẻ đọc sau', () => {
     expect(nextLearn(chapters, gr, [], none)).toMatchObject({ ch: 'c1', card: 0 });
@@ -86,5 +93,6 @@ describe('thẻ chỉ đọc (không có bài tập) tính là đã học khi đ
     const passed = [{ prefix: 'p', kind: 'a', ok: true }, { prefix: 'p', kind: 'a', ok: true }];
     expect(nextLearn(chapters, gr, passed, () => new Set([0]))).toMatchObject({ ch: 'c1', card: 2 });
     expect(nextLearn(chapters, gr, passed, () => new Set([0, 2]))).toBeNull();
+    expect(nextLearn(chapters, gr, [], () => new Set([0, 1, 2]))).toBeNull();           // đọc hết ⇒ không còn gì để học
   });
 });

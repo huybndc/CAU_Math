@@ -4,6 +4,7 @@ import { splitCards } from '../logic/cards.js';
 import { pointsSummary, pointKeys } from '../logic/knowledge.js';
 import { nextLearn, cardDone } from '../logic/prereq.js';
 import { loadEvents, load, save } from './store.js';
+import { loadFlags } from './flags.js';
 import { chNo, tag, studied } from './choices.js';
 import { seekLesson, lessonGraph, readOf } from './lesson.js';
 
@@ -20,7 +21,7 @@ export function renderLearn(r, cfg) {
   const events = loadEvents();
   const now = studied(cfg, events)[0];                   // chương đang học = chương làm gần nhất
   const g = lessonGraph(cfg);
-  const nextAt = nextLearn(cfg.chapters.map(c => ({ ch: c.id, cards: splitCards(cfg.lesson?.(c.id) ?? '').cards })), g, events, readOf);   // { ch, card, title } thẻ nên học tiếp
+  const nextAt = nextLearn(cfg.chapters.map(c => ({ ch: c.id, cards: splitCards(cfg.lesson?.(c.id) ?? '').cards })), g, events, readOf, loadFlags());   // { ch, card, title } thẻ nên học tiếp
   const open = new Set(load('learn-open', null) ?? [nextAt?.ch ?? now ?? cfg.chapters[0].id]);
 
   const rows = cfg.chapters.map(c => {
