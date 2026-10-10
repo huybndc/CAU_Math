@@ -1,5 +1,5 @@
 {
- "version": "9bd24d7fac5f6c17c3907be31d2abfbbeebc3162b7f05e003781e9fa3c125a88",
+ "version": "52276f810d03dc2e00197cf89c7cc7cdd95e47583f2a43ca954e3654623993b7",
  "source": "Study_Hub src/pets — chỉ sửa ở đó rồi chạy `npm run pets:export`",
  "format": "pixel-layers-v2",
  "expressions": [
@@ -1912,10 +1912,6 @@
     ]
    }
   },
-  "signatureEveryMs": [
-   7000,
-   13000
-  ],
   "sad": {
    "expression": "sad",
    "minAnswered": 10,
@@ -1976,22 +1972,6 @@
    }
   },
   "acts": {
-   "mood": {
-    "cheer": "hop",
-    "proud": "puff",
-    "final": "puff",
-    "eager": "sway",
-    "wave": "sway",
-    "hungry": "shake",
-    "relieved": "stretch",
-    "yawn": "stretch",
-    "sleepy": "nod",
-    "lazy": "nod"
-   },
-   "everyMs": [
-    4500,
-    8500
-   ],
    "click": "hop",
    "dblclick": "hop",
    "hover": "sway",
@@ -2004,12 +1984,8 @@
     "tilt": "tilt"
    }
   },
-  "breathSeconds": {
-   "calm": 5,
-   "glad": 3,
-   "slow": 7
-  },
-  "reducedMotion": "không chớp/nháy tự động, không đung đưa, không nảy; tâm trạng nền là hình tĩnh, vẫn hiện",
+  "idleMotion": "none",
+  "reducedMotion": "không chớp/nháy tự động, không nảy; tâm trạng nền là hình tĩnh, vẫn hiện",
   "noText": true,
   "noRed": "màu đỏ dành cho Live_Lecture"
  }

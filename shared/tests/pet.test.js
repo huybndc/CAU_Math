@@ -3,7 +3,7 @@ import { createHash } from 'node:crypto';
 import { readFileSync, existsSync } from 'node:fs';
 import { petOf, KIND_IDS, EXPRESSIONS, normalizePet, petSvg } from '../logic/pet.js';
 import { createPet, colorsOf, SIGNATURE, eyeBoxes } from '../logic/pet-engine.js';
-import { RULES, mood, shyBurst, pettedBurst, answerStats, greeting, breathOf } from '../logic/pet-rules.js';
+import { RULES, mood, shyBurst, pettedBurst, answerStats, greeting } from '../logic/pet-rules.js';
 import DESIGN from '../logic/design-pets.json';
 
 /* Bộ pet là BẢN CHÉP của Study_Hub (Hub làm chủ; chép lại khi Hub đổi, không sửa tay). Test này là bản chuyển đường dẫn của tests/pets.test.js của Hub. */
@@ -92,23 +92,34 @@ it('normalizePet: sai hình dạng → mặc định BẬT + nhân vật đầu'
   for (const k of ['cu', 'tho', 'gau']) expect(normalizePet({ on: true, kind: k }).kind).toBe(k);
 });
 
-it('chuyển động nhân vật: keyframes pet (thở ≤2px) + động tác pet-* (≤4px, ≤8°), mỗi động tác trong rules có CSS, dừng khi giảm chuyển động', () => {
-  const css = [['shared/style/pet.css', read('shared/style/pet.css')]];
-  const names = css.flatMap(([, t]) => [...t.matchAll(/@keyframes\s+([\w-]+)/g)].map(m => m[1]));
-  expect(names.every(n => n === 'pet' || n.startsWith('pet-'))).toBe(true);
+it('chuyển động nhân vật: ĐỨNG YÊN khi không tương tác; động tác pet-* chỉ một lần (≤4px, ≤8°), mỗi động tác trong rules có CSS, dừng khi giảm chuyển động', () => {
   const pet = read('shared/style/pet.css');
+  const names = [...pet.matchAll(/@keyframes\s+([\w-]+)/g)].map(m => m[1]);
+  expect(names.every(n => n.startsWith('pet-'))).toBe(true);
   const body = n => pet.match(new RegExp(`@keyframes ${n}\\{(.*)\\}\\n`))[1];
-  for (const m of body('pet').matchAll(/(-?\d+)px/g)) expect(Math.abs(Number(m[1]))).toBeLessThanOrEqual(2);
-  for (const n of names.filter(x => x !== 'pet')) {
+  for (const n of names) {
     for (const m of body(n).matchAll(/(-?\d+)px/g)) expect(Math.abs(Number(m[1])), n).toBeLessThanOrEqual(4);
     for (const m of body(n).matchAll(/(-?\d+)deg/g)) expect(Math.abs(Number(m[1])), n).toBeLessThanOrEqual(8);
   }
-  const used = [...Object.values(RULES.acts.mood), ...['click', 'dblclick', 'hover', 'shy', 'petted', 'greet', 'morning'].map(k => RULES.acts[k])];
+  const used = ['click', 'dblclick', 'hover', 'shy', 'petted', 'greet', 'morning'].map(k => RULES.acts[k]);
   for (const a of used) expect(pet, `thiếu CSS cho động tác ${a}`).toContain(`data-act=${a}]`);
   for (const a of used) expect(names, a).toContain(`pet-${a}`.replace('pet-hop2', 'pet-hop'));
-  expect(Math.min(...Object.values(RULES.breathSeconds))).toBeGreaterThanOrEqual(2.5);
-  expect(pet).toMatch(/\.pet-face\{animation:pet var\(--breath/);
+  // đứng yên: không lặp vô hạn; không động tác tự chạy trong rules; UI không hẹn giờ động tác
+  expect(pet).not.toMatch(/infinite/);
+  expect(RULES.acts).not.toHaveProperty('everyMs');
+  expect(RULES.acts).not.toHaveProperty('mood');
+  expect(RULES).not.toHaveProperty('signatureEveryMs');
+  expect(read('shared/ui/pet.js')).not.toMatch(/everyMs\b.*act\(|signatureEveryMs|RULES\.acts\.mood|--breath/);
   expect(read('shared/style/motion.css')).toMatch(/prefers-reduced-motion:reduce\)\{[^}]*animation:none!important/);
+});
+
+it('engine: không có dao động nền — khung hình tĩnh giống nhau ở mọi thời điểm khi không có động tác (trừ lửa/sao/bong bóng là hiệu ứng nguyên tố)', () => {
+  for (const k of ['cu', 'tho', 'gau', 'meo']) {
+    const pet = createPet(k, () => 0.99);       // rng cao ⇒ không phát hạt
+    const a = pet.render({ t: 0.1, fx: true }), b = pet.render({ t: 3.3, fx: true });
+    let diff = 0; a.forEach((r, y) => r.forEach((c, x) => { if (c !== b[y][x]) diff++; }));
+    expect(diff, k).toBeLessThan(60);
+  }
 });
 
 it('petOf: pet.set cuối cùng thắng; chưa có thì mặc định bật', () => {
@@ -200,12 +211,9 @@ it('greeting: nghỉ ≥2 ngày ⇒ vẫy; trước 8:00 ⇒ ngáp; còn lại k
   expect(greeting({ now: new Date(2026, 9, 7, 7).getTime(), lastTs: new Date(2026, 9, 3, 7).getTime() }).expression).toBe('wave');
 });
 
-it('pettedBurst: đổi chiều chuột ≥4 lần trong 0,9 giây mới vuốt ve; breathOf: vui nhanh, buồn ngủ chậm', () => {
+it('pettedBurst: đổi chiều chuột ≥4 lần trong 0,9 giây mới vuốt ve', () => {
   const t = []; expect([0, 200, 400, 600].map(x => pettedBurst(t, x))).toEqual([false, false, false, true]);
   const u = []; expect([0, 400, 800, 1200].map(x => pettedBurst(u, x))).toEqual([false, false, false, false]);
-  expect(breathOf('cheer')).toBeLessThan(breathOf('neutral'));
-  expect(breathOf('sleepy')).toBeGreaterThan(breathOf('neutral'));
-  for (const m of ['neutral', 'cheer', 'sleepy']) expect(breathOf(m)).toBeGreaterThanOrEqual(2.5);
 });
 
 it('version = sha256 nội dung (bỏ trường version) — cùng cách tính với Hub', () => {

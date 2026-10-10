@@ -142,22 +142,22 @@ function angleOf(kind, part, act, p, t, lull) {
   const sin = Math.sin;
   if (kind === 'cao') {
     const k = part === 'back' ? 1.35 : 1;
-    let a = sin(t * 2 + (part === 'back' ? 1 : 0)) * .05 + .3 * lull;
+    let a = .3 * lull;
     if (act === 'wag') a += sin(p * 15) * .2 * fade(p, 1.6);
     if (act === 'flare') a -= .08 * wave(p, 1.4);
     return a * k;
   }
   if (kind === 'cu') {                       // vỗ cánh
     const s = part === 'wl' ? 1 : -1;
-    return (sin(t * 1.4) * .03 + (act === 'flap' ? Math.abs(sin(p * 13)) * .42 * fade(p, 1.2) : 0) - .1 * lull) * s;
+    return ((act === 'flap' ? Math.abs(sin(p * 13)) * .42 * fade(p, 1.2) : 0) - .1 * lull) * s;
   }
   if (kind === 'tho') {                      // vẫy tai, ngủ thì cụp tai
     const s = part === 'el' ? -1 : 1;
-    return (sin(t * 1.7 + (s > 0 ? .8 : 0)) * .03 + (act === 'ears' ? sin(p * 20 + (s > 0 ? 1.2 : 0)) * .22 * fade(p, 1.1) : 0) + .7 * lull) * s;
+    return ((act === 'ears' ? sin(p * 20 + (s > 0 ? 1.2 : 0)) * .22 * fade(p, 1.1) : 0) + .7 * lull) * s;
   }
-  if (kind === 'gau') return sin(t * 2) * .1 + (act === 'shake' ? sin(p * 40) * .25 * fade(p, 1) : 0) + (act === 'bloom' ? sin(p * 6) * .15 : 0);   // chồi non đung đưa
+  if (kind === 'gau') return (act === 'shake' ? sin(p * 40) * .25 * fade(p, 1) : 0) + (act === 'bloom' ? sin(p * 6) * .15 : 0);   // chồi non đung đưa
   if (kind === 'meo') {
-    if (part === 'tail') { let a = sin(t * 1.8) * .06 + .4 * lull; if (act === 'wag') a += sin(p * 9) * .2 * fade(p, 1.4); if (act === 'bubble') a += sin(p * 5) * .08; return a; }
+    if (part === 'tail') { let a = .4 * lull; if (act === 'wag') a += sin(p * 9) * .2 * fade(p, 1.4); if (act === 'bubble') a += sin(p * 5) * .08; return a; }
     const s = part === 'el' ? -1 : 1;
     return ((act === 'bubble' ? sin(p * 18) * .06 : 0) + .18 * lull) * s;
   }

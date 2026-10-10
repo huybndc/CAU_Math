@@ -8,7 +8,7 @@ const files = dirs.flatMap(d => readdirSync(new URL(`../../${d}/`, import.meta.u
 const css = f => readFileSync(new URL(`../../${f}`, import.meta.url), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '');
 const motion = css('shared/style/motion.css');
 /* keyframes cho phép: `skel` (khung chờ, như Hub) và `pet` — ngoại lệ DUY NHẤT so với Study_Hub, đã thống nhất 3 bên (xem test 'pet' bên dưới). */
-const PET_KF = ['pet', 'pet-hop', 'pet-shake', 'pet-sway', 'pet-nod', 'pet-squish', 'pet-puff', 'pet-stretch'];   // như src/pets/pet.css của Hub (test pets.test.js canh biên độ)
+const PET_KF = ['pet-hop', 'pet-shake', 'pet-sway', 'pet-nod', 'pet-squish', 'pet-puff', 'pet-stretch'];   // như src/pets/pet.css của Hub (test pets.test.js canh biên độ)
 const EXCEPT = { 'shared/style/base.css': ['skel'], 'shared/style/pet.css': PET_KF };
 
 describe('motion giống Study_Hub', () => {
@@ -45,6 +45,6 @@ describe('motion giống Study_Hub', () => {
     const t = css('shared/style/pet.css');
     expect(Object.values(EXCEPT).flat().sort()).toEqual([...PET_KF, 'skel'].sort());
     expect([...t.matchAll(/@keyframes\s+([\w-]+)/g)].map(m => m[1])).toEqual(PET_KF);
-    expect(t).toContain('.pet-face{animation:pet var(--breath');
+    expect(t).not.toContain('infinite');
   });
 });

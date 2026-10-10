@@ -3,7 +3,7 @@
 import { el } from './dom.js';
 import { KIND_IDS, petSvg, petOf, label } from '../logic/pet.js';
 import { createPet, SIGNATURE } from '../logic/pet-engine.js';
-import { RULES, mood, shyBurst, pettedBurst, answerStats, greeting, breathOf } from '../logic/pet-rules.js';
+import { RULES, mood, shyBurst, pettedBurst, answerStats, greeting } from '../logic/pet-rules.js';
 import { weekSummary } from '../logic/stats.js';
 
 const GEAR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>';
@@ -36,7 +36,6 @@ export function petBlock(ctx) {
     const inner = el('span', { class: 'pet-in' }, cv);
     art = el('button', { class: 'pet-face', type: 'button', 'aria-label': label(pet.kind) }, inner);
     art.dataset.mood = base;
-    art.style.setProperty('--breath', `${breathOf(base)}s`);
     // động tác riêng của bộ phận nguyên tố (đuôi, đầu…): một lần, p = giây đã trôi
     const S = { expr: base, sig: null, t0: 0 };
     const lull = base === 'sleepy' ? 0.6 : 0;
@@ -100,19 +99,6 @@ export function petBlock(ctx) {
       const tick = () => later(() => { if (show === base) swap('blink', 140); tick(); }, RULES.blinkEveryMs * (0.5 + Math.random()));
       const idle = () => later(() => { if (show === base) swap(i++ % 2 ? (RULES.persona[pet.kind]?.idle ?? RULES.idle.expression) : RULES.idle.expression, RULES.idle.ms); idle(); }, RULES.idle.everyMs * (0.6 + Math.random() * 0.8));
       tick(); idle();
-    }
-    // thỉnh thoảng bộ phận nguyên tố tự cử động (vẫy đuôi, bùng lửa, rụt đầu…)
-    if (!still) {
-      const [lo, hi] = RULES.signatureEveryMs;
-      const rep = () => later(() => { if (show === base && !S.sig) signature(RULES.persona[pet.kind].sig[(Math.random() * 2) | 0]); rep(); }, lo + Math.random() * (hi - lo));
-      rep();
-    }
-    // động tác theo tâm trạng nền (vui thì nảy, buồn ngủ thì gật…), lặp thưa
-    const moodAct = RULES.acts.mood[base];
-    if (!still && moodAct) {
-      const [lo, hi] = RULES.acts.everyMs;
-      const again = () => later(() => { if (show === base) act(moodAct); again(); }, lo + Math.random() * (hi - lo));
-      later(() => act(moodAct), 900); again();
     }
   }
 
