@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { signature, freshQuestion, poolSize } from '../logic/question-pool.js';
+import { signature, freshQuestion, poolSize, redoByKind } from '../logic/question-pool.js';
 import { conceptQuestion } from '../logic/concepts.js';
 import { seededRandom } from '../logic/shuffle.js';
 import { buildExam } from '../logic/exam.js';
@@ -65,5 +65,31 @@ describe('không lặp câu', () => {
     const a = buildExam(C, { seed: 11, minutes: 90 });
     expect(new Set(a.map(x => signature(x.q))).size).toBe(a.length);
     expect(buildExam(C, { seed: 11, minutes: 90 }).map(x => x.q)).toEqual(a.map(x => x.q));
+  });
+});
+
+describe('redoByKind: ôn lại theo dạng, không lặp lại đúng câu cũ', () => {
+  // dạng 'many': vô số câu; dạng 'few': chỉ 2 câu khác nhau
+  const make = kind => kind === 'few' ? { kind, answer: Math.floor(Math.random() * 2), meta: 0 } : { kind, answer: Math.random(), meta: Math.random() };
+  const mk = (kind, meta) => ({ kind, answer: 0, meta });
+  it('mỗi câu sai ⇒ câu mới cùng dạng, khác chữ ký mọi câu cũ', () => {
+    const wrong = [mk('many', 'a'), mk('many', 'b')];
+    const out = redoByKind(wrong, make);
+    expect(out).toHaveLength(2);
+    expect(out.every(q => q.kind === 'many')).toBe(true);
+    const old = new Set(wrong.map(signature));
+    expect(out.every(q => !old.has(signature(q)))).toBe(true);
+  });
+  it('tối đa 2 câu mỗi dạng và tối đa size câu', () => {
+    const wrong = Array.from({ length: 5 }, (_, i) => mk('many', 'm' + i));
+    expect(redoByKind(wrong, make)).toHaveLength(2);
+    const many = ['a', 'b', 'c', 'd', 'e', 'f'].flatMap(k => [mk(k, 1), mk(k, 2)]);
+    expect(redoByKind(many, kind => ({ kind, answer: Math.random(), meta: Math.random() }), 4)).toHaveLength(4);
+  });
+  it('dạng cạn câu mới thì bỏ; không còn gì thì trả lại danh sách cũ', () => {
+    const few = [mk('few', 0), mk('few', 1)];
+    expect(redoByKind(few, make)).toBe(few);                       // cả 2 câu của dạng đã sai ⇒ không còn câu mới
+    const mixed = redoByKind([mk('few', 0), mk('few', 1), mk('many', 'x')], make);
+    expect(mixed.map(q => q.kind)).toEqual(['many']);
   });
 });

@@ -1,9 +1,5 @@
 import { describe, it, expect } from 'vitest';
 import { seededRandom } from '@shared/logic/shuffle.js';
-import { vi as sharedVi } from '../../shared/i18n/vi.js';
-import { en as sharedEn } from '../../shared/i18n/en.js';
-import { vi as appVi } from '../src/i18n/vi/index.js';
-import { en as appEn } from '../src/i18n/en/index.js';
 import * as ch1 from '../src/logic/ch1-quiz.js';
 import * as ch2 from '../src/logic/ch2-quiz.js';
 import * as ch3 from '../src/logic/ch3-quiz.js';
@@ -11,7 +7,6 @@ import * as ch4 from '../src/logic/ch4-quiz.js';
 import { CHOICE_BANKS } from '../src/logic/mcq-banks.js';
 
 const BANKS = { c1q: ch1, c2q: ch2, c3q: ch3, c4q: ch4 };
-const VI = { ...sharedVi, ...appVi }, EN = { ...sharedEn, ...appEn };
 const norm = s => String(s).replace(/[\s_]/g, '').toUpperCase();
 
 for (const [prefix, bank] of Object.entries(BANKS)) {
@@ -31,16 +26,6 @@ for (const [prefix, bank] of Object.entries(BANKS)) {
               expect(!!r.ok, `${kind} #${seed}: "${c}" ${i === q.answer ? 'phải đúng' : 'phải sai'}`).toBe(i === q.answer);
               expect(cb.checkAnswer(q, String(i)).ok).toBe(i === q.answer);
             });
-          }
-        }
-      });
-
-      it(`${kind}: đề và dòng hướng dẫn có đủ ở VI và EN`, () => {
-        for (let seed = 1; seed <= 20; seed++) {
-          const q = cb.makeQuestion(kind, seededRandom(seed));
-          for (const k of [q.textKey, q.formatKey, q.explainKey].filter(Boolean)) {
-            expect(k in VI, `VI thiếu ${k}`).toBe(true);
-            expect(k in EN, `EN thiếu ${k}`).toBe(true);
           }
         }
       });

@@ -64,3 +64,19 @@ export function parseCode(code) {
   if (!kind || !/^[0-9a-z]+$/.test(seed ?? '') || extra !== undefined || (tn !== undefined && tn !== 'tn')) return null;
   return { subject, prefix, kind, seed: parseInt(seed, 36), mcq: tn === 'tn' };
 }
+
+/**
+ * Ôn lại theo DẠNG: mỗi câu sai ⇒ một câu MỚI cùng dạng (khác chữ ký với mọi câu sai), tối đa `perKind` câu mỗi dạng và `size` câu.
+ * Dạng cạn câu mới thì bỏ; không còn gì thì trả lại chính danh sách cũ.
+ * @param {object[]} wrong  các câu đã sai
+ * @param {(kind: string) => object} make  sinh một câu của dạng (hạt giống mới mỗi lần gọi)
+ */
+export function redoByKind(wrong, make, size = 10, perKind = 2) {
+  const hard = new Set(wrong.map(signature)), per = {}, fresh = [];
+  for (const q of wrong) {
+    if (fresh.length >= size || (per[q.kind] ?? 0) >= perKind) continue;
+    const nq = freshQuestion(() => make(q.kind), hard);
+    if (nq) { per[q.kind] = (per[q.kind] ?? 0) + 1; fresh.push(nq); }
+  }
+  return fresh.length ? fresh : wrong;
+}

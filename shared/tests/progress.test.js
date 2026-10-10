@@ -24,6 +24,7 @@ describe('nhật ký làm bài', () => {
   it('phút học = tổng thời gian chuẩn, dạng lạ tính 60 giây', () => {
     expect(minutesSince(log, { c1q: { convert: 60, gray: 60 } }, NOW - 7 * DAY)).toBe(3);
     expect(minutesSince(log, {}, 0)).toBe(5);
+    expect(minutesSince([{ ts: 100, prefix: 'p', kind: 'k' }], { p: { k: 120 } }, 100)).toBe(2);   // đúng mốc `since` vẫn tính
   });
 
   it('độ cần: chưa làm 70 > mới làm 55; đủ số liệu thì theo % sai', () => {
