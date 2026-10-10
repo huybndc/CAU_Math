@@ -5,6 +5,8 @@ import { loadEvents, load, save } from './store.js';
 import { KIND as CONCEPT } from '../logic/concepts.js';
 import { ROUND, chNo, chapterTitle, roundMinutes, accNote, accCell, rankedKinds, row, tag, leadCard, answerMode, modeBar, practiceTabs, studied } from './choices.js';
 import { mountRunner } from './runner.js';
+import { isFlagged, loadFlags, toggleFlag } from './flags.js';
+import { flagKey, withoutFlagged } from '../logic/flags.js';
 import { reviewOf } from './lesson.js';
 import { renderHome } from './home-screen.js';
 import { renderLearn } from './learn-screen.js';
@@ -54,6 +56,16 @@ function renderTools(r, cfg) {
 /** Số câu trong sổ câu sai của chương (đúng chế độ tự luận / trắc nghiệm đang chọn). */
 const wrongN = c => loadMistakes(c.prefix, !!c.choiceBank && answerMode() === 'choice').length;
 
+/** Mục gập "Đã bỏ qua": các dạng gắn cờ không quan trọng của chương, bấm để bỏ cờ. */
+function flagFold(r, cfg, c) {
+  const flags = loadFlags(), kinds = c.bank.KINDS.filter(k => flags.has(flagKey(c.prefix, k)));
+  if (!kinds.length) return [];
+  return [el('details', { class: 'flag-fold' }, [
+    el('summary', { text: T('practice.flagged', { n: kinds.length }) }),
+    ...kinds.map(k => el('button', { type: 'button', class: 'link', onClick: () => { toggleFlag(c.prefix, k); renderPractice(r, cfg); }, text: `${T(`${c.prefix}.${k}`)} · ${T('run.unflag')}` })),
+  ])];
+}
+
 function renderPractice(r, cfg) {
   const events = loadEvents();
   const now = Date.now();
@@ -94,6 +106,7 @@ function renderPractice(r, cfg) {
           tag: top && top.prefix === c.prefix && g.kinds.includes(top.kind) && Object.assign(tag(T('practice.need')), { title: T('practice.needWhy') }),
         })),
       ]),
+      ...flagFold(r, cfg, c),
     ];
   }
   $('#screen-practice').replaceChildren(
@@ -139,7 +152,7 @@ function renderRun(r, cfg, c) {
     runKey = key;
     runner = mountRunner($('#run-host'), {
       bank: choice ? c.choiceBank : c.bank, prefix: c.prefix, figures: cfg.figures, widgets: cfg.widgets,
-      kinds: pick?.kinds, chips: false, review: (k, tag) => reviewOf(cfg, c.prefix, k, tag),
+      kinds: pick?.kinds ?? (wrong ? undefined : withoutFlagged(c.bank.KINDS, c.prefix, loadFlags())), flag: { is: k => isFlagged(c.prefix, k), toggle: k => toggleFlag(c.prefix, k) }, chips: false, review: (k, tag) => reviewOf(cfg, c.prefix, k, tag),
       queue: wrong ? loadMistakes(c.prefix, choice) : null,
     });
   }

@@ -31,7 +31,7 @@ import { h } from './dom.js';
 export const rootState = acc => (acc == null ? T('run.rootNew') : acc < 0.5 ? T('run.rootShaky') : T('run.rootAcc', { p: Math.round(acc * 100) }));   // <50%: "chưa vững" thay vì "đúng 0%" nghe như chê
 
 export function mountRunner(host, { bank, prefix, figures = {}, widgets = {}, size = 10, kinds, chips = true, autofocus = true, mode = 'practice', review,
-  goal = 0, make, onPass, onExample, passLabel, onResult, queue = null }) {
+  goal = 0, make, onPass, onExample, passLabel, onResult, queue = null, flag = null }) {
   // seen: chữ ký các câu trong lượt này (không lặp); recent: các câu ở lượt trước (tránh nếu còn cách)
   const S = { kinds: [...(kinds || bank.KINDS)], size, round: [], phase: 'ask', hint: false, last: null, seen: new Set(), recent: new Set(), redo: null };
   // Lượt luyện tập chính (không nhúng trong thẻ học, không chuỗi, không hàm sinh riêng) được nhớ: tải lại trang thì tiếp tục đúng câu đang làm.
@@ -168,6 +168,12 @@ export function mountRunner(host, { bank, prefix, figures = {}, widgets = {}, si
         const chip = Object.assign(h('button', 'run-code', '#' + code.split('-').pop()), { type: 'button', title: `${T('run.code')}: ${code}` });
         chip.addEventListener('click', () => navigator.clipboard?.writeText(code).catch(() => {}));
         head.append(chip);
+      }
+      if (flag) {                                  // cờ "không quan trọng": gắn cho cả dạng (shared/logic/flags.js)
+        const on = flag.is(q.kind);
+        const fl = Object.assign(h('button', 'link run-flag', T(on ? 'run.unflag' : 'run.flag')), { type: 'button', title: T('run.flagNote') });
+        fl.addEventListener('click', () => { flag.toggle(q.kind); draw(); });
+        head.append(fl);
       }
     }
 

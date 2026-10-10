@@ -11,6 +11,7 @@
 
 import { splitCards, pointTags } from './cards.js';
 import { parseKey, isPassed, cardPassed } from './knowledge.js';
+import { flagKeyOfPoint } from './flags.js';
 
 /**
  * @param {{ ch: string, md: string }[]} lessons  bài học của mọi chương (cùng một ngôn ngữ)
@@ -122,23 +123,28 @@ export function weakestPrereq(g, key, events) {
   return null;
 }
 
-/** Điểm nên học tiếp: đầu tiên theo thứ tự tô-pô mà chưa nắm và mọi điểm cần đã nắm. */
-export function nextPoint(g, events) {
-  return topoOrder(g).find(k => !isPassed(events, k) && g.get(k).needs.every(n => !g.has(n) || isPassed(events, n))) ?? null;
+/**
+ * Điểm nên học tiếp: đầu tiên theo thứ tự tô-pô mà chưa xong và mọi điểm cần đã xong.
+ * Điểm xong = đã nắm, HOẶC thẻ dạy nó đã đọc (`isRead(ch, card)`), HOẶC dạng bị cờ "không quan trọng" (`flags`).
+ */
+export function nextPoint(g, events, isRead, flags) {
+  const done = k => isPassed(events, k) || !!isRead?.(g.get(k).ch, g.get(k).card) || !!flags?.has(flagKeyOfPoint(k));
+  return topoOrder(g).find(k => !done(k) && g.get(k).needs.every(n => !g.has(n) || done(n))) ?? null;
 }
 
-/** Thẻ đã xong: có điểm kiến thức ⇒ phải nắm điểm; KHÔNG có bài tập (cardPassed = null) ⇒ đã đọc (xem thẻ) là xong. */
-export const cardDone = (events, body, isRead) => { const p = cardPassed(events, body); return p === null ? !!isRead : p; };
+/** Thẻ đã xong: đã đọc (xem thẻ) là xong; chưa đọc mà đã nắm hết điểm (làm bài ở Luyện tập) cũng xong. Việc nắm vững do phần Luyện tập chấm. */
+export const cardDone = (events, body, isRead) => !!isRead || cardPassed(events, body) === true;
 
 /**
  * Thẻ nên học tiếp = sớm hơn trong hai ứng viên: (a) điểm kiến thức kế theo thứ tự tiên quyết (nextPoint);
  * (b) thẻ KHÔNG có bài tập đầu tiên chưa đọc, theo thứ tự chương/thẻ. Hoà ⇒ (a).
  * @param {{ ch: string, cards: { body: string, title: string }[] }[]} chapters
  * @param {(ch: string) => Set<number>} readOf  các thẻ đã xem của chương
+ * @param {Set<string>} [flags]  dạng bị cờ "không quan trọng" (bỏ qua)
  * @returns {{ ch: string, card: number, title: string } | null}
  */
-export function nextLearn(chapters, g, events, readOf) {
-  const pt = nextPoint(g, events);
+export function nextLearn(chapters, g, events, readOf, flags) {
+  const pt = nextPoint(g, events, (ch, card) => readOf(ch).has(card), flags);
   const a = pt && g.get(pt);
   let b = null;
   for (const { ch, cards } of chapters) {

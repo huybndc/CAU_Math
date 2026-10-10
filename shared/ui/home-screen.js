@@ -3,7 +3,11 @@ import { t as T } from '../i18n/index.js';
 import { statsOf, recentStats, weekSince } from '../logic/progress.js';
 import { weekOf, WEEKS, EXAM_WEEKS, daysToMidterm } from '../logic/syllabus.js';
 import { loadEvents, load, save, savePet, subjectOf } from './store.js';
-import { targetOf, needCorrect } from '../logic/exam-target.js';
+import { targetOf } from '../logic/exam-target.js';
+import { scoreOf } from '../logic/score.js';
+import { cardDone } from '../logic/prereq.js';
+import { pointKeys } from '../logic/knowledge.js';
+import { loadFlags } from './flags.js';
 import { chapterTitle, roundMinutes, rankedKinds, accCell, row, leadCard, studied } from './choices.js';
 import { nextLearn } from '../logic/prereq.js';
 import { splitCards } from '../logic/cards.js';
@@ -55,16 +59,20 @@ function today(cfg, events, now) {
   });
 }
 
-/** Mục tiêu thi: thanh % đúng hiện tại + vạch mục tiêu (cùng số với Study_Hub: exam-target.json). */
-function goalRow(events) {
+/** Mục tiêu thi: thanh điểm (80% luyện tập gần đây + 20% đã đọc — logic/score.js) + vạch mục tiêu (cùng số với Study_Hub: exam-target.json). */
+function goalRow(events, cfg) {
   const t = targetOf(subjectOf());
   if (t == null) return '';
-  const st = statsOf(events), { accuracy } = st, need = needCorrect(st, t);   // quá 200 câu thì không nêu số: trung bình mọi lần gần như không nhúc nhích
-  const p = accuracy === null ? null : Math.round(accuracy * 100);
+  const cards = cfg.chapters.flatMap(c => {
+    const read = readOf(c.id);
+    return splitCards(cfg.lesson?.(c.id) ?? '').cards.map((card, i) => ({ done: cardDone(events, card.body, read.has(i)), keys: pointKeys(card.body) }));
+  });
+  const { score } = scoreOf({ events, flags: loadFlags(), cards });
+  const p = events.length ? score : null;
   return el('div', { class: 'goal-row' }, [
     el('h2', { class: 'section-label' }, [
       el('span', { text: T('home.goalLabel', { t }) }),
-      el('span', { class: 'goal-help', tabindex: '0', title: T('home.goalHelp') + (need > 0 && need <= 200 ? ' ' + T('home.goalNeed', { x: need, t }) : ''), text: '?' }),
+      el('span', { class: 'goal-help', tabindex: '0', title: T('home.goalHelp'), text: '?' }),
     ]),
     el('div', { class: 'goal-line' }, [
       el('span', { class: 'goal-bar', role: 'img', 'aria-label': T('home.goalNow', { p: p ?? 0, n: Math.max(0, t - (p ?? 0)) }) }, [
@@ -95,7 +103,7 @@ function weekBlock(events, now, ctx) {
 
 function side(cfg, events, now) {
   const g = lessonGraph(cfg);
-  const n = nextLearn(cfg.chapters.map(c => ({ ch: c.id, cards: splitCards(cfg.lesson?.(c.id) ?? '').cards })), g, events, readOf);
+  const n = nextLearn(cfg.chapters.map(c => ({ ch: c.id, cards: splitCards(cfg.lesson?.(c.id) ?? '').cards })), g, events, readOf, loadFlags());
   const days = daysToMidterm(new Date(now));
   return el('div', { class: 'home-side' }, [
     el('h2', { class: 'section-label', text: T('nav.learn') }),
@@ -134,7 +142,7 @@ export function renderHome(r, cfg) {
     termBlock(now),
     el('div', { class: 'home-cols' }, [
       el('div', { class: 'home-main' }, [
-        goalRow(events),
+        goalRow(events, cfg),
         el('h2', { class: 'section-label', text: T('home.today') }),
         today(cfg, events, now),
         ...weekBlock(events, now, petCtx),

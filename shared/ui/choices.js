@@ -2,6 +2,8 @@ import { el } from './dom.js';
 import { t as T } from '../i18n/index.js';
 import { rankNeeds, studiedChapters } from '../logic/progress.js';
 import { load, save } from './store.js';
+import { loadFlags } from './flags.js';
+import { flagKey } from '../logic/flags.js';
 
 /* ---------------------------------------------------------------
    KHỐI DÙNG CHUNG cho Tổng quan / Học / Luyện tập / Thi thử (D19):
@@ -42,10 +44,11 @@ export const studied = (cfg, events) => studiedChapters(cfg.chapters, events);
 
 /** Mọi dạng của các chương ĐÃ HỌC (chưa đụng chương nào thì mọi chương), xếp theo độ cần luyện (toeic D52). */
 export function rankedKinds(cfg, events, now = Date.now()) {
-  const taught = studied(cfg, events);
+  const taught = studied(cfg, events), flags = loadFlags();
   const items = cfg.chapters
     .filter(c => c.bank && (!taught.length || taught.includes(c.id)))
-    .flatMap(c => c.bank.KINDS.map(kind => ({ ch: c.id, prefix: c.prefix, kind, bank: c.bank })));
+    .flatMap(c => c.bank.KINDS.map(kind => ({ ch: c.id, prefix: c.prefix, kind, bank: c.bank })))
+    .filter(it => !flags.has(flagKey(it.prefix, it.kind)));      // dạng bị cờ "không quan trọng" không xếp vào "cần luyện"
   return rankNeeds(events, items, now);
 }
 
