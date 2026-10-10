@@ -38,6 +38,12 @@ describe('đồ thị tiên quyết', () => {
     expect(prereqLayers(g, 'p:a')).toEqual([]);
   });
 
+  it('pointAccuracy: khoá không nhãn tính cả câu có nhãn của dạng', () => {
+    const log = [{ prefix: 'p', kind: 'a', ok: true, tag: 'x' }, { prefix: 'p', kind: 'a', ok: false }];
+    expect(pointAccuracy(log, 'p:a')).toEqual({ acc: 0.5, n: 2 });
+    expect(pointAccuracy(log, 'p:a:x')).toEqual({ acc: 1, n: 1 });
+  });
+
   it('pointAccuracy: 10 câu gần nhất của đúng dạng', () => {
     expect(pointAccuracy([], 'p:a')).toBeNull();
     const log = [...Array(12)].map((_, i) => ev('a', i >= 2));
@@ -94,5 +100,22 @@ describe('thẻ chỉ đọc (không có bài tập) tính là đã học khi đ
     expect(nextLearn(chapters, gr, passed, () => new Set([0]))).toMatchObject({ ch: 'c1', card: 2 });
     expect(nextLearn(chapters, gr, passed, () => new Set([0, 2]))).toBeNull();
     expect(nextLearn(chapters, gr, [], () => new Set([0, 1, 2]))).toBeNull();           // đọc hết ⇒ không còn gì để học
+  });
+});
+
+describe('nextLearn: chọn sớm hơn giữa điểm kế tiếp và thẻ chỉ-đọc theo thứ tự chương', () => {
+  const mk = (...parts) => parts.join('\n');
+  const c1pt = mk('## P1', '<div data-check="p:a"></div>');                 // chương 1: có điểm
+  const c2read = mk('## R2', 'chỉ chữ');                                     // chương 2: thẻ chỉ-đọc
+  const none = () => new Set();
+  it('thẻ chỉ-đọc ở chương sau không chen trước điểm ở chương trước', () => {
+    const lessons = [{ ch: 'c1', md: c1pt }, { ch: 'c2', md: c2read }];
+    const chapters = lessons.map(l => ({ ch: l.ch, cards: splitCards(l.md).cards }));
+    expect(nextLearn(chapters, buildGraph(lessons), [], none)).toMatchObject({ ch: 'c1', card: 0 });
+  });
+  it('điểm ở chương sau không chen trước thẻ chỉ-đọc ở chương trước', () => {
+    const lessons = [{ ch: 'c1', md: c2read }, { ch: 'c2', md: c1pt }];
+    const chapters = lessons.map(l => ({ ch: l.ch, cards: splitCards(l.md).cards }));
+    expect(nextLearn(chapters, buildGraph(lessons), [], none)).toMatchObject({ ch: 'c1', card: 0 });
   });
 });

@@ -17,6 +17,9 @@ describe('điểm kiến thức', () => {
 
   it('streakOf đếm số câu đúng liền nhau ở cuối', () => {
     expect(streakOf([])).toBe(0);
+    expect(streakOf([true])).toBe(1);                          // phần tử đầu mảng cũng tính
+    expect(streakOf([true, true])).toBe(2);
+    expect(streakOf([false])).toBe(0);
     expect(streakOf([true, false, true, true])).toBe(2);
     expect(streakOf([true, true, false])).toBe(0);
   });

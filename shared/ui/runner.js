@@ -1,7 +1,7 @@
 import { t as T, onLangChange, offLangChange } from '../i18n/index.js';
 import { questionView, explainBlock, answerHtml, tp } from './question.js';
 import { record, subjectOf, load, save, drop, markMistake } from './store.js';
-import { freshQuestion, poolSize, seededQuestion, newSeed, questionCode, signature } from '../logic/question-pool.js';
+import { freshQuestion, redoByKind, poolSize, seededQuestion, newSeed, questionCode, signature } from '../logic/question-pool.js';
 import { streakOf } from '../logic/knowledge.js';
 import { answerEvent } from '../logic/progress.js';
 import { h } from './dom.js';
@@ -114,13 +114,7 @@ export function mountRunner(host, { bank, prefix, figures = {}, widgets = {}, si
 
   /** Ôn lại các DẠNG vừa sai: mỗi câu sai ⇒ một câu MỚI cùng dạng (đề, số, thứ tự đáp án đổi), tối đa 2 câu mỗi dạng. Dạng cạn câu mới thì bỏ; không còn gì thì dùng lại câu cũ. */
   function redoWrong(list) {
-    const hard = new Set(list.map(signature)), per = {}, fresh = [];
-    for (const q of list) {
-      if (fresh.length >= size || (per[q.kind] ?? 0) >= 2) continue;
-      const nq = freshQuestion(() => seededQuestion(bank, q.kind, newSeed()), hard);
-      if (nq) { per[q.kind] = (per[q.kind] ?? 0) + 1; fresh.push(nq); }
-    }
-    const pool = fresh.length ? fresh : list;
+    const pool = redoByKind(list, kind => seededQuestion(bank, kind, newSeed()), size);
     S.redo = pool; S.round = []; S.size = pool.length;
     ask();
   }
