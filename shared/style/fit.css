@@ -59,6 +59,7 @@
 /* Mục tiêu thi: thanh % đúng + vạch mục tiêu (--goal, cùng màu với Study_Hub) */
 .goal-row .section-label{margin:.2rem 0 .4rem}
 .goal-line{display:flex;align-items:center;gap:.9rem;margin-bottom:.2rem}
+.goal-help{display:inline-grid;place-items:center;width:1.1em;height:1.1em;margin-left:.45em;border-radius:50%;box-shadow:inset 0 0 0 1px var(--line);font-size:.75em;color:var(--ink-dim);cursor:help;vertical-align:middle}
 .goal-bar{position:relative;flex:1;height:8px;border-radius:4px;background:var(--panel2);box-shadow:inset 0 0 0 1px var(--line)}
 .goal-bar i{position:absolute;inset:0 auto 0 0;border-radius:4px;background:var(--accent)}
 .goal-bar u{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--goal)}
