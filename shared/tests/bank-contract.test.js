@@ -75,3 +75,15 @@ describe('hợp đồng chung của mọi ngân hàng câu', () => {
     }
   }
 });
+
+describe('ngân hàng trắc nghiệm không mất im lặng', () => {
+  // Chương có `bank` mà không có `choiceBank` bị vòng kiểm trên bỏ qua. Discrete cố ý chưa có bản trắc nghiệm
+  // (đa số dạng vốn là câu chọn — isChoiceKind); logic và linalg thì chương nào cũng phải có.
+  const NO_MCQ = { discrete: ['ch1', 'ch2', 'ch3', 'ch4', 'ch5', 'ch6', 'ch7', 'ch8'] };
+  for (const [app, { chapters }] of Object.entries(APPS)) {
+    it(`${app}: chương không có choiceBank phải nằm trong danh sách ngoại lệ`, () => {
+      const missing = chapters.filter(c => c.bank && !c.choiceBank).map(c => c.id);
+      expect(missing).toEqual(NO_MCQ[app] ?? []);
+    });
+  }
+});
