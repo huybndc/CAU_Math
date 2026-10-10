@@ -154,6 +154,8 @@ export const en = {
   'home.actExamSoon': 'Midterm in {n} days',
   'home.goalLabel': 'Exam goal · blue mark = {t}%',
   'home.goalNow': 'Now {p}% · {n} points to go',
+  'home.goalHelp': 'Score = correct answers ÷ answers given (all time, all modes). Right raises it, wrong lowers it; the more you answer, the less each one moves it. To raise it: answer correctly in a row.',
+  'home.goalNeed': 'About {x} more correct answers in a row to reach {t}%.',
   'home.goalDone': 'Now {p}% · goal reached',
   'home.week': 'This week',
   'home.wkDone': 'answered',

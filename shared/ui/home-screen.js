@@ -3,7 +3,7 @@ import { t as T } from '../i18n/index.js';
 import { statsOf, recentStats, weekSince } from '../logic/progress.js';
 import { weekOf, WEEKS, EXAM_WEEKS, daysToMidterm } from '../logic/syllabus.js';
 import { loadEvents, load, save, savePet, subjectOf } from './store.js';
-import { targetOf } from '../logic/exam-target.js';
+import { targetOf, needCorrect } from '../logic/exam-target.js';
 import { chapterTitle, roundMinutes, rankedKinds, accCell, row, leadCard, studied } from './choices.js';
 import { nextLearn } from '../logic/prereq.js';
 import { splitCards } from '../logic/cards.js';
@@ -59,10 +59,13 @@ function today(cfg, events, now) {
 function goalRow(events) {
   const t = targetOf(subjectOf());
   if (t == null) return '';
-  const { accuracy } = statsOf(events);
+  const st = statsOf(events), { accuracy } = st, need = needCorrect(st, t);   // quá 200 câu thì không nêu số: trung bình mọi lần gần như không nhúc nhích
   const p = accuracy === null ? null : Math.round(accuracy * 100);
   return el('div', { class: 'goal-row' }, [
-    el('h2', { class: 'section-label', text: T('home.goalLabel', { t }) }),
+    el('h2', { class: 'section-label' }, [
+      el('span', { text: T('home.goalLabel', { t }) }),
+      el('span', { class: 'goal-help', tabindex: '0', title: T('home.goalHelp') + (need > 0 && need <= 200 ? ' ' + T('home.goalNeed', { x: need, t }) : ''), text: '?' }),
+    ]),
     el('div', { class: 'goal-line' }, [
       el('span', { class: 'goal-bar', role: 'img', 'aria-label': T('home.goalNow', { p: p ?? 0, n: Math.max(0, t - (p ?? 0)) }) }, [
         el('i', { style: `width:${p ?? 0}%` }), el('u', { style: `left:${t}%` })]),

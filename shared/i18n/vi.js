@@ -153,6 +153,8 @@ export const vi = {
   'home.actExamSoon': 'Giữa kỳ còn {n} ngày',
   'home.goalLabel': 'Mục tiêu thi · vạch xanh = {t}%',
   'home.goalNow': 'Hiện {p}% · còn {n} điểm',
+  'home.goalHelp': 'Điểm = số câu đúng ÷ số câu đã làm (mọi lần, mọi chế độ). Đúng thì tăng, sai thì giảm; làm càng nhiều, mỗi câu càng ít đổi điểm. Muốn tăng: làm đúng liên tiếp.',
+  'home.goalNeed': 'Còn ~{x} câu đúng liên tiếp để chạm {t}%.',
   'home.goalDone': 'Hiện {p}% · đã đạt mục tiêu',
   'home.week': 'Tuần này',
   'home.wkDone': 'câu đã làm',
