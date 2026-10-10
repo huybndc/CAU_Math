@@ -70,7 +70,7 @@ describe('hợp đồng chung của mọi ngân hàng câu', () => {
               if (keyLike(q.answerText) && (q.answerText in vi || q.answerText in en)) expect([q.answerText in vi, q.answerText in en]).toEqual([true, true]);
             }
           }
-        });
+        }, 30000);      // nặng (40 hạt giống × mọi dạng): 2–5 s đơn lẻ, hơn nữa khi chạy song song
       }
     }
   }

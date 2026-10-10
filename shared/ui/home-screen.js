@@ -4,7 +4,7 @@ import { statsOf, recentStats, weekSince } from '../logic/progress.js';
 import { weekOf, WEEKS, EXAM_WEEKS, daysToMidterm } from '../logic/syllabus.js';
 import { loadEvents, load, save, savePet, subjectOf } from './store.js';
 import { targetOf } from '../logic/exam-target.js';
-import { scoreOf } from '../logic/score.js';
+import { goalOf } from '../logic/score.js';
 import { cardDone } from '../logic/prereq.js';
 import { pointKeys } from '../logic/knowledge.js';
 import { loadFlags } from './flags.js';
@@ -67,17 +67,16 @@ function goalRow(events, cfg) {
     const read = readOf(c.id);
     return splitCards(cfg.lesson?.(c.id) ?? '').cards.map((card, i) => ({ done: cardDone(events, card.body, read.has(i)), keys: pointKeys(card.body) }));
   });
-  const { score } = scoreOf({ events, flags: loadFlags(), cards });
-  const p = events.length ? score : null;
+  const { p, left, done } = goalOf({ events, flags: loadFlags(), cards, target: t });
   return el('div', { class: 'goal-row' }, [
     el('h2', { class: 'section-label' }, [
       el('span', { text: T('home.goalLabel', { t }) }),
       el('span', { class: 'goal-help', tabindex: '0', title: T('home.goalHelp'), text: '?' }),
     ]),
     el('div', { class: 'goal-line' }, [
-      el('span', { class: 'goal-bar', role: 'img', 'aria-label': T('home.goalNow', { p: p ?? 0, n: Math.max(0, t - (p ?? 0)) }) }, [
+      el('span', { class: 'goal-bar', role: 'img', 'aria-label': T('home.goalNow', { p: p ?? 0, n: left }) }, [
         el('i', { style: `width:${p ?? 0}%` }), el('u', { style: `left:${t}%` })]),
-      el('span', { class: 'small', text: p === null ? T('practice.none') : p >= t ? T('home.goalDone', { p }) : T('home.goalNow', { p, n: t - p }) }),
+      el('span', { class: 'small', text: p === null ? T('practice.none') : done ? T('home.goalDone', { p }) : T('home.goalNow', { p, n: left }) }),
     ]),
   ]);
 }

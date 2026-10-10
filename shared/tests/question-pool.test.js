@@ -93,3 +93,19 @@ describe('redoByKind: ôn lại theo dạng, không lặp lại đúng câu cũ'
     expect(mixed.map(q => q.kind)).toEqual(['many']);
   });
 });
+
+describe('signature và freshQuestion: các nhánh biên', () => {
+  it('signature: câu có tham số/hình thì so thứ người học THẤY, không so chỉ số đáp án (xáo phương án vẫn là lặp)', () => {
+    const a = { kind: 'k', textKey: 't', textParams: { n: 1 }, answer: 0 }, b = { ...a, answer: 2 };
+    expect(signature(a)).toBe(signature(b));
+    const f1 = { kind: 'k', figure: 'f', answer: 1 }, f2 = { kind: 'k', figure: 'f', answer: 3 };
+    expect(signature(f1)).toBe(signature(f2));
+    expect(signature({ kind: 'k', answer: 1 })).not.toBe(signature({ kind: 'k', answer: 2 }));   // không tham số/hình: so đáp án
+  });
+  it('freshQuestion: câu chưa gặp ở đâu thì lấy ngay lần sinh đầu (không sinh thừa)', () => {
+    let calls = 0;
+    const q = freshQuestion(() => ({ kind: 'k', answer: ++calls }), new Set(), new Set());
+    expect(q.answer).toBe(1);
+    expect(calls).toBe(1);
+  });
+});

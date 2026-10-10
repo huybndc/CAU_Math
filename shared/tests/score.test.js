@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { scoreOf, RECENT, MIN_N } from '../logic/score.js';
+import { scoreOf, goalOf, RECENT, MIN_N } from '../logic/score.js';
 import { flagKey, withoutFlagged } from '../logic/flags.js';
 
 const ev = (i, ok, kind = 'k', prefix = 'p') => ({ ts: i, prefix, kind, ok });
@@ -34,4 +34,16 @@ describe('scoreOf: 80% luyện tập gần đây + 20% đã đọc', () => {
 it('withoutFlagged: bỏ dạng bị cờ, bỏ hết thì giữ nguyên', () => {
   expect(withoutFlagged(['a', 'b'], 'p', new Set(['p:a']))).toEqual(['b']);
   expect(withoutFlagged(['a'], 'p', new Set(['p:a']))).toEqual(['a']);
+});
+
+describe('goalOf: số trên thanh mục tiêu', () => {
+  const g = (events, target = 80) => goalOf({ events, flags: none, cards: [], target });
+  it('chưa làm câu nào ⇒ p = null, chưa đạt, còn đủ target', () => {
+    expect(g([])).toEqual({ p: null, left: 80, done: false });
+  });
+  it('dưới mục tiêu ⇒ còn bao nhiêu điểm; đúng mục tiêu hoặc hơn ⇒ đã đạt, còn 0', () => {
+    expect(g(run(20, true).map((e, i) => (i < 4 ? { ...e, ok: false } : e)))).toEqual({ p: 80, left: 0, done: true });   // 16/20 = 80
+    expect(g(run(20, true).map((e, i) => (i < 5 ? { ...e, ok: false } : e)))).toEqual({ p: 75, left: 5, done: false });
+    expect(g(run(30, true))).toEqual({ p: 100, left: 0, done: true });
+  });
 });

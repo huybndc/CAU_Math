@@ -86,3 +86,17 @@ describe('đồ thị: dãy bậc, đẳng cấu', () => {
     expect(triangles(TT)).toBe(2);
   });
 });
+
+describe('đẳng cấu: cùng dãy bậc vẫn có thể không đẳng cấu', () => {
+  it('C6 và hai tam giác rời: cùng 6 đỉnh, 6 cạnh, mọi bậc 2 nhưng không đẳng cấu', () => {
+    const C6 = parseEdges('ab, bc, cd, de, ef, fa'), T2 = parseEdges('ab, bc, ca, de, ef, fd');
+    expect(isomorphism(C6, T2)).toBeNull();
+  });
+  it('đẳng cấu thật: ánh xạ là song ánh giữ cạnh; khác số đỉnh thì null', () => {
+    const G = parseEdges('ab, bc, cd, de, ea'), H = parseEdges('ac, ce, eb, bd, da');
+    const f = isomorphism(G, H);
+    expect(new Set(f).size).toBe(5);
+    expect(G.edges.every(([a, b]) => H.edges.some(([x, y]) => (x === Math.min(f[a], f[b]) && y === Math.max(f[a], f[b]))))).toBe(true);
+    expect(isomorphism(parseEdges('ab, bc'), parseEdges('ab, bc, cd'))).toBeNull();
+  });
+});

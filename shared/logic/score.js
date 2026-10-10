@@ -24,3 +24,9 @@ export function scoreOf({ events, flags, cards }) {
   const total = learn === null ? practice : W_PRACTICE * practice + (1 - W_PRACTICE) * learn;
   return { score: Math.round(total * 100), practice, learn };
 }
+
+/** Số hiện trên thanh mục tiêu: p = điểm (null nếu chưa làm câu nào), còn bao nhiêu điểm tới mục tiêu t, đã đạt chưa. */
+export function goalOf({ events, flags, cards, target }) {
+  const p = events.length ? scoreOf({ events, flags, cards }).score : null;
+  return { p, left: Math.max(0, target - (p ?? 0)), done: p !== null && p >= target };
+}
