@@ -1,9 +1,7 @@
-/* Chuyển động nhân vật: keyframes `pet` (thở ≤2px; lặp) và các động tác một lần `pet-*` (≤4px, ≤8°); chu kỳ theo tâm trạng 3/5/7s, đặt qua --breath) trên nút .pet-face, nên đổi khung hình không làm hoạt ảnh giật lại. Đung đưa/nảy dùng transition trên .pet-in. Tất cả dừng khi giảm chuyển động (motion.css) hoặc khi người dùng tắt. */
+/* Chuyển động nhân vật: KHÔNG có chuyển động tự chạy khi không tương tác (Huy 2026-10-10: đứng yên). Chỉ phản hồi người dùng kích hoạt: động tác một lần `pet-*` (≤4px, ≤8°) đặt bằng data-act trên .pet-in (bấm, rê, vuốt ve, chào đầu ngày), và tư thế giữ (buồn chùng, bấm giữ nghiêng). Tất cả dừng khi giảm chuyển động (motion.css). */
 .pet-art{image-rendering:pixelated}
 canvas.pet-art{display:block}
-.pet-face{animation:pet var(--breath,5s) ease-in-out infinite}
 .pet-in{display:block;width:100%;height:100%;transition:transform 380ms var(--ease-out,ease-out)}
-@keyframes pet{0%,100%{transform:translateY(0)}50%{transform:translateY(2px)}}
 /* Động tác thân: một lần, đặt bằng data-act trên .pet-in (JS gỡ khi animationend). Biên độ ≤4px, ≤8°. */
 @keyframes pet-hop{0%,100%{transform:none}30%{transform:translateY(-4px) scale(.96,1.05)}62%{transform:translateY(0) scale(1.05,.94)}}
 @keyframes pet-shake{0%,100%{transform:none}20%{transform:translateX(-2px) rotate(-3deg)}40%{transform:translateX(2px) rotate(3deg)}60%{transform:translateX(-2px) rotate(-3deg)}80%{transform:translateX(2px) rotate(3deg)}}

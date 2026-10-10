@@ -12,7 +12,6 @@ export const RULES = {
   dblclick: { expression: 'happy' },                                   // bấm đôi: nảy một nhịp
   idle: { expression: 'wink', everyMs: 11000, ms: 500 },               // thỉnh thoảng tự nháy mắt
   persona: { cao: { idle: 'wink', sig: ['wag', 'flare'] }, cu: { idle: 'wink', sig: ['flap', 'shoot'] }, tho: { idle: 'wag', sig: ['ears', 'rain'] }, gau: { idle: 'wink', sig: ['bloom', 'shake'] }, rua: { idle: 'squint', sig: ['glow', 'hide'] }, meo: { idle: 'wink', sig: ['bubble', 'wag'] } },   // cá tính: nét mặt thay nháy mắt + động tác bộ phận nguyên tố thỉnh thoảng tự chạy (engine SIGNATURE)
-  signatureEveryMs: [7000, 13000],
   sad: { expression: 'sad', minAnswered: 10, maxAccuracy: 0.5 },       // tuần này trả lời ≥10 câu mà đúng <50%
   cheer: { expression: 'cheer', streak: 5, withinMs: 12 * 36e5, todayAnswered: 10, todayAccuracy: 0.8 },   // 5 câu đúng liền (trong 12 giờ) hoặc hôm nay ≥10 câu đúng ≥80%
   proud: { expression: 'proud', days: 3 },                             // 3 ngày liên tiếp có hoạt động (tính cả hôm nay)
@@ -23,20 +22,14 @@ export const RULES = {
   lazy: { expression: 'lazy', days: [0, 6] },                          // thứ Bảy, Chủ nhật, chưa làm câu nào
   sleepy: { expression: 'sleepy', idleDays: 3, quietHours: [23, 5] },  // ≥3 ngày không có hoạt động nào, hoặc 23:00–04:59
   greet: { back: { expression: 'wave', idleDays: 2, ms: 2500 }, morning: { expression: 'yawn', beforeHour: 8, ms: 2500 } },   // lần mở đầu tiên trong ngày
-  // Động tác thân (CSS keyframes pet-*, một lần, ≤4px / ≤8°, tắt khi giảm chuyển động): tâm trạng nền thỉnh thoảng làm lại sau everyMs [ngắn, dài].
-  acts: { mood: { cheer: 'hop', proud: 'puff', final: 'puff', eager: 'sway', wave: 'sway', hungry: 'shake', relieved: 'stretch', yawn: 'stretch', sleepy: 'nod', lazy: 'nod' },
-    everyMs: [4500, 8500], click: 'hop', dblclick: 'hop', hover: 'sway', shy: 'shake', petted: 'squish', greet: 'sway', morning: 'stretch',
+  // Động tác thân (CSS keyframes pet-*, một lần, ≤4px / ≤8°, tắt khi giảm chuyển động). CHỈ do người dùng kích hoạt (bấm, rê, vuốt ve) hoặc lời chào đầu ngày; không có động tác tự chạy khi không tương tác.
+  acts: { click: 'hop', dblclick: 'hop', hover: 'sway', shy: 'shake', petted: 'squish', greet: 'sway', morning: 'stretch',
     poses: { sad: 'droop', tilt: 'tilt' } },                           // tư thế giữ nguyên (không lặp): buồn thì chùng xuống, bấm giữ thì nghiêng
-  breathSeconds: { calm: 5, glad: 3, slow: 7 },                        // chu kỳ thở (CSS đọc từ data-mood); ≥2,5 giây
-  reducedMotion: 'không chớp/nháy tự động, không đung đưa, không nảy; tâm trạng nền là hình tĩnh, vẫn hiện',
+  idleMotion: 'none',                                                  // đứng yên khi không tương tác: không thở, không đung đưa, không tự nảy (chỉ nháy mắt = đổi nét mặt)
+  reducedMotion: 'không chớp/nháy tự động, không nảy; tâm trạng nền là hình tĩnh, vẫn hiện',
 };
 
 const DAY = 864e5;
-const GLAD = new Set(['cheer', 'proud', 'eager', 'wave']);
-const SLOW = new Set(['sleepy', 'lazy', 'yawn', 'relieved']);
-
-/** Chu kỳ thở theo tâm trạng: vui nhanh, buồn ngủ chậm. */
-export const breathOf = m => (GLAD.has(m) ? RULES.breathSeconds.glad : SLOW.has(m) ? RULES.breathSeconds.slow : RULES.breathSeconds.calm);
 
 const dayNo = ts => { const d = new Date(ts); return Math.floor(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) / DAY); };
 
