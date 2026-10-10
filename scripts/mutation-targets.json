@@ -45,5 +45,9 @@
     "discrete/tests/solution-oracle-d6-d8.test.js",
     "discrete/tests/solution-oracle.test.js",
     "discrete/tests/quiz.test.js"
+  ],
+  "shared/logic/exam.js": [
+    "shared/tests/exam.test.js",
+    "shared/tests/exam-real.test.js"
   ]
 }

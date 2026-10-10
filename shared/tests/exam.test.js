@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { planExam, buildExam, gradeItem, tally, secondsLeft, clock, examKinds, maxPerKind, FILL } from '../logic/exam.js';
+import { spreadKinds, MIN_SECONDS, planExam, buildExam, gradeItem, tally, secondsLeft, clock, examKinds, maxPerKind, FILL } from '../logic/exam.js';
 import { seededRandom } from '../logic/shuffle.js';
 
 /* ngân hàng giả: câu "cộng hai số", thời gian chuẩn theo dạng */
@@ -170,5 +170,17 @@ describe('đề kiểu TOPIK', () => {
     const rnd = buildExam(FIX, { seed: 7, minutes: 90, order: 'random' });
     expect(rnd.filter(it => it.q.format === 'choice').length).toBe(Math.round(45 * MCQ_SHARE));
     expect(rnd.some(it => it.part !== undefined)).toBe(false);
+  });
+});
+
+describe('đề: biên và độ phân tán', () => {
+  it('examKinds: dạng đúng bằng MIN_SECONDS tính là dạng dài (biên ≥)', () => {
+    expect(examKinds(bank(['a', 'b'], { a: MIN_SECONDS, b: MIN_SECONDS - 1 }))).toEqual(['a']);
+  });
+  it('spreadKinds: giữ đủ mọi câu và không để hai câu cùng dạng liền nhau khi còn cách', () => {
+    const slots = ['x', 'x', 'x', 'y', 'y', 'z', 'z', 'z'].map((kind, i) => ({ ci: 0, kind, i }));
+    const out = spreadKinds(slots);
+    expect(out.map(s => s.i).sort((a, b) => a - b)).toEqual(slots.map(s => s.i));
+    for (let k = 1; k < out.length; k++) expect(out[k].kind === out[k - 1].kind).toBe(false);
   });
 });

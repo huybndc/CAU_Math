@@ -109,3 +109,16 @@ describe('signature và freshQuestion: các nhánh biên', () => {
     expect(calls).toBe(1);
   });
 });
+
+describe('redoByKind: các câu mới đôi một khác nhau (pool nhỏ)', () => {
+  it('dạng chỉ có 3 câu khác nhau, 2 sai ⇒ chỉ còn 1 câu mới, không lặp', () => {
+    const pool = [0, 1, 2].map(i => ({ kind: 'k', answer: 0, meta: i }));
+    const wrong = [pool[0], pool[1]];
+    let n = 0;
+    const out = redoByKind(wrong, () => pool[n++ % 3], 10, 2);
+    const sigs = out.map(signature);
+    expect(new Set(sigs).size).toBe(sigs.length);
+    expect(out).toHaveLength(1);
+    expect(out[0].meta).toBe(2);
+  });
+});
