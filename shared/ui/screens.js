@@ -7,6 +7,7 @@ import { ROUND, chNo, chapterTitle, roundMinutes, accNote, accCell, rankedKinds,
 import { mountRunner } from './runner.js';
 import { isFlagged, loadFlags, toggleFlag } from './flags.js';
 import { flagKey, withoutFlagged } from '../logic/flags.js';
+import { kindCount } from '../logic/mistakes.js';
 import { reviewOf } from './lesson.js';
 import { renderHome } from './home-screen.js';
 import { renderLearn } from './learn-screen.js';
@@ -54,7 +55,7 @@ function renderTools(r, cfg) {
 
 /* ---------------- Luyện tập: một chương một lúc ---------------- */
 /** Số câu trong sổ câu sai của chương (đúng chế độ tự luận / trắc nghiệm đang chọn). */
-const wrongN = c => loadMistakes(c.prefix, !!c.choiceBank && answerMode() === 'choice').length;
+const wrongN = c => kindCount(loadMistakes(c.prefix, !!c.choiceBank && answerMode() === 'choice'));
 
 /** Mục gập "Đã bỏ qua": các dạng gắn cờ không quan trọng của chương, bấm để bỏ cờ. */
 function flagFold(r, cfg, c) {

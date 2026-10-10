@@ -112,9 +112,16 @@ export function mountRunner(host, { bank, prefix, figures = {}, widgets = {}, si
     drawKinds(); ask();
   }
 
-  /** Làm lại đúng các câu vừa sai (giữ nguyên đề, phương án). */
+  /** Ôn lại các DẠNG vừa sai: mỗi câu sai ⇒ một câu MỚI cùng dạng (đề, số, thứ tự đáp án đổi), tối đa 2 câu mỗi dạng. Dạng cạn câu mới thì bỏ; không còn gì thì dùng lại câu cũ. */
   function redoWrong(list) {
-    S.redo = list; S.round = []; S.size = list.length;
+    const hard = new Set(list.map(signature)), per = {}, fresh = [];
+    for (const q of list) {
+      if (fresh.length >= size || (per[q.kind] ?? 0) >= 2) continue;
+      const nq = freshQuestion(() => seededQuestion(bank, q.kind, newSeed()), hard);
+      if (nq) { per[q.kind] = (per[q.kind] ?? 0) + 1; fresh.push(nq); }
+    }
+    const pool = fresh.length ? fresh : list;
+    S.redo = pool; S.round = []; S.size = pool.length;
     ask();
   }
 
