@@ -124,7 +124,7 @@ export const examSize = (chapters, minutes) => partSizes(chapters, examTotal(min
 
 const choiceMemo = new WeakMap();
 /** Dạng này vốn là câu trắc nghiệm (phân loại nghiệm, khái niệm…)? Đo bằng một câu mẫu, nhớ theo ngân hàng. */
-function isChoiceKind(bank, kind) {
+export function isChoiceKind(bank, kind) {
   const m = choiceMemo.get(bank) ?? choiceMemo.set(bank, {}).get(bank);
   return (m[kind] ??= bank.makeQuestion(kind, seededRandom(1)).format === 'choice');
 }

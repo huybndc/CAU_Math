@@ -68,14 +68,14 @@ export const HELP = {
   practice: {
     vi: { title: 'Luyện tập', rows: [
       ['Theo dạng', 'Luyện một dạng bài. Mỗi dạng ghi % đúng (mọi lần) và thời gian ước tính.'],
-      ['Tự luận / Trắc nghiệm', 'Tự luận: xem lời giải rồi tự đánh giá. Trắc nghiệm: chọn đáp án, chấm ngay.'],
+      ['Gõ đáp án / Chọn 1 trong 4', 'Gõ đáp án: tự gõ rồi chấm. Chọn 1 trong 4: phương án sai là lỗi hay gặp. Dạng vốn là câu chọn thì hai bên giống nhau nên không hiện thanh này.'],
       ['Trộn cả chương', 'Mười câu lẫn các dạng của chương.'],
       ['Bài dài 60–90 phút', 'Một lượt luyện dài liên tục (khác với từng dạng ngắn).'],
       ['Nhắc nhở', 'Dạng ghi "cần nhất" là dạng bạn đang sai nhiều.'],
     ] },
     en: { title: 'Practice', rows: [
       ['By type', 'Practise one question type. Each shows % correct (all time) and estimated time.'],
-      ['Free response / MCQ', 'Free response: read the solution and rate yourself. MCQ: pick an answer, graded at once.'],
+      ['Type answer / Pick 1 of 4', 'Type answer: type it, then it is graded. Pick 1 of 4: wrong options are common mistakes. Types that are already pick-one look the same, so the bar is hidden.'],
       ['Mix a chapter', 'Ten questions mixing the chapter\'s types.'],
       ['Long 60–90 min', 'One long continuous practice run (unlike the short per-type rounds).'],
       ['Hint', 'A type marked "most needed" is where you are missing most.'],

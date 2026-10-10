@@ -2,7 +2,7 @@ import { $, el } from './dom.js';
 import { t as T } from '../i18n/index.js';
 import { recentStats } from '../logic/progress.js';
 import { loadEvents, load, save } from './store.js';
-import { KIND as CONCEPT } from '../logic/concepts.js';
+import { isChoiceKind } from '../logic/exam.js';
 import { ROUND, chNo, chapterTitle, roundMinutes, accNote, accCell, rankedKinds, row, tag, leadCard, answerMode, modeBar, practiceTabs, studied } from './choices.js';
 import { mountRunner } from './runner.js';
 import { isFlagged, loadFlags, toggleFlag } from './flags.js';
@@ -146,7 +146,7 @@ function renderRun(r, cfg, c) {
   const rv = kind && reviewOf(cfg, c.prefix, kind);
   if (rv) $('#run-head').append(el('a', { class: 'run-learn', href: rv.href, onClick: rv.open, text: T('run.learnKind', { title: rv.title }) }));
   const choice = !!c.choiceBank && answerMode() === 'choice';
-  if (c.choiceBank && kind !== CONCEPT) $('#run-head').append(el('div', { class: 'run-modebar' }, modeBar(() => renderRun(r, cfg, c))));
+  if (c.choiceBank && !(pick?.kinds ?? c.bank.KINDS).every(k => isChoiceKind(c.bank, k))) $('#run-head').append(el('div', { class: 'run-modebar' }, modeBar(() => renderRun(r, cfg, c))));
   const key = `${c.id}/${r.kind ?? ''}/${choice}`;
   if (key !== runKey) {        // đổi ngôn ngữ chỉ vẽ lại tiêu đề — không mất lượt đang làm
     stopRunner();

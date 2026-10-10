@@ -89,7 +89,7 @@ export function modeBar(onChange) {
   const cur = answerMode();
   return el('div', { class: 'chapter-bar mode-bar', role: 'group', 'aria-label': T('practice.mode') },
     ['write', 'choice'].map(m => el('button', {
-      type: 'button', 'aria-pressed': String(m === cur),
+      type: 'button', 'aria-pressed': String(m === cur), title: T('practice.modeNote_' + m),
       onClick: () => { if (m !== cur) { save('answer-mode', m); onChange(); } },
     }, T('practice.mode_' + m))));
 }
