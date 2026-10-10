@@ -88,7 +88,7 @@ export const HELP = {
       ['Xem đáp án', 'Tính là chưa làm đúng câu này.', 'warn'],
       ['Đúng liên tiếp', 'Đúng liên tiếp đủ số lần thì điểm kiến thức được tính là đã nắm (chấm xanh ở tab Học).'],
       ['Mã câu', 'Bấm để sao chép; gửi kèm khi báo câu sai để tái hiện đúng câu đó.'],
-      ['Hết lượt', 'Xem kết quả rồi Luyện lại dạng còn sai hoặc Làm lại các câu sai.'],
+      ['Hết lượt', 'Xem kết quả rồi Luyện lại dạng còn sai, hoặc làm câu mới cùng dạng đã sai (đề và thứ tự đáp án đổi).'],
     ] },
     en: { title: 'Question', rows: [
       ['Check', 'Fill in the answer and press Check. If a field is missing, the filled ones are kept.'],
@@ -96,7 +96,7 @@ export const HELP = {
       ['Show answer', 'Counts as not having answered this question correctly.', 'warn'],
       ['Streak', 'Enough correct answers in a row marks the knowledge point as mastered (green dot in Learn).'],
       ['Question code', 'Click to copy; send it when reporting a wrong question so it can be reproduced.'],
-      ['End of round', 'See the result, then practise the weak type again or redo the wrong questions.'],
+      ['End of round', 'See the result, then practise the weak type again, or get new questions of the types you missed (new numbers, shuffled answers).'],
     ] },
   },
   free: {

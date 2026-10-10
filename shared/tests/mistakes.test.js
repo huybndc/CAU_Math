@@ -1,5 +1,14 @@
 import { describe, it, expect } from 'vitest';
-import { addMistake, dropMistake, MAX } from '../logic/mistakes.js';
+import { addMistake, dropMistake, dropKind, kindCount, MAX } from '../logic/mistakes.js';
+
+describe('ôn lại theo dạng', () => {
+  it('dropKind gỡ mọi câu của dạng (đúng chế độ); kindCount đếm dạng khác nhau', () => {
+    const l = [{ kind: 'a', seed: 1 }, { kind: 'a', seed: 2 }, { kind: 'a', seed: 3, tn: true }, { kind: 'b', seed: 4 }];
+    expect(dropKind(l, { kind: 'a', seed: 99 }).map(x => x.seed)).toEqual([3, 4]);
+    expect(dropKind(l, { kind: 'a', seed: 99, tn: true }).map(x => x.seed)).toEqual([1, 2, 4]);
+    expect(kindCount(l)).toBe(2);
+  });
+});
 
 describe('sổ câu sai', () => {
   it('thêm lên đầu, không trùng, gỡ được, có trần', () => {
