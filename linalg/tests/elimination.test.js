@@ -154,3 +154,22 @@ describe('nhận dạng', () => {
     expect(nonZeroRows([[0, 0, 5]], 3)).toBe(1);
   });
 });
+
+describe('số hàng/cột trong lời giải tính từ 1 (người học thấy)', () => {
+  it('forward: đổi chỗ, khử, cột tự do', () => {
+    const { steps } = forward([[0, 1, 2], [1, 1, 3]]);
+    expect(steps[0]).toMatchObject({ reasonKey: 'c2.whySwap', reasonParams: { row: 2, col: 1 } });
+    const e = forward([[1, 2, 3], [2, 5, 4], [3, 1, 0]]).steps.filter(x => x.reasonKey === 'c2.whyEliminate');
+    expect(e.map(x => x.reasonParams)).toEqual([{ target: 2, col: 1 }, { target: 3, col: 1 }, { target: 3, col: 2 }]);
+    const free = forward([[0, 1, 2], [0, 3, 4]]).steps.find(x => x.reasonKey === 'c2.whyFreeCol');
+    expect(free.reasonParams).toEqual({ col: 1 });
+  });
+  it('backward: chia hàng cho trụ, khử phía trên trụ — hàng/cột 1-based, và duyệt cả trụ đầu tiên', () => {
+    const f = forward([[1, 2, 3], [0, 2, 4]]);
+    const b = backward(f.matrix, f.pivots).steps;
+    expect(b.find(x => x.reasonKey === 'c2.whyNormalize').reasonParams).toMatchObject({ row: 2, col: 2 });
+    expect(b.find(x => x.reasonKey === 'c2.whyClearAbove').reasonParams).toEqual({ target: 1, col: 2 });
+    const single = backward([[2, 4]], [{ row: 0, col: 0 }]);
+    expect(single.matrix).toEqual([[1, 2]]);                              // trụ duy nhất (p = 0) vẫn được chuẩn hoá
+  });
+});

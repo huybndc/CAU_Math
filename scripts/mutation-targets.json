@@ -1,0 +1,49 @@
+{
+  "shared/logic/score.js": [
+    "shared/tests/score.test.js"
+  ],
+  "shared/logic/flags.js": [
+    "shared/tests/score.test.js"
+  ],
+  "shared/logic/mistakes.js": [
+    "shared/tests/mistakes.test.js"
+  ],
+  "shared/logic/knowledge.js": [
+    "shared/tests/knowledge.test.js",
+    "shared/tests/prereq.test.js"
+  ],
+  "shared/logic/prereq.js": [
+    "shared/tests/prereq.test.js"
+  ],
+  "shared/logic/progress.js": [
+    "shared/tests/progress.test.js",
+    "shared/tests/sync.test.js",
+    "shared/tests/merge-events.test.js",
+    "shared/tests/math-answer-contract.test.js"
+  ],
+  "shared/logic/question-pool.js": [
+    "shared/tests/question-pool.test.js",
+    "shared/tests/no-repeat.test.js",
+    "shared/tests/question-code.test.js"
+  ],
+  "linalg/src/logic/elimination.js": [
+    "linalg/tests/elimination.test.js",
+    "linalg/tests/solution-oracle.test.js",
+    "linalg/tests/quiz.test.js"
+  ],
+  "logic/src/logic/quine-mccluskey.js": [
+    "logic/tests/quine-mccluskey.test.js",
+    "logic/tests/solution-oracle-ch1.test.js",
+    "logic/tests/solution-oracle-ch3.test.js",
+    "logic/tests/solution-oracle-ch4.test.js",
+    "logic/tests/solution-oracle.test.js",
+    "logic/tests/generators.test.js"
+  ],
+  "discrete/src/logic/graph.js": [
+    "discrete/tests/graph.test.js",
+    "discrete/tests/solution-oracle-d2-d5.test.js",
+    "discrete/tests/solution-oracle-d6-d8.test.js",
+    "discrete/tests/solution-oracle.test.js",
+    "discrete/tests/quiz.test.js"
+  ]
+}

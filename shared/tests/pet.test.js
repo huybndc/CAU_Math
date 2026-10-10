@@ -24,7 +24,7 @@ it('6 nhân vật × mọi biểu cảm: khung đúng cỡ, mọi ô là màu h�
     for (const c of colorsOf(k)) { const [r, g, b] = [1, 3, 5].map(i => parseInt(c.slice(i, i + 2), 16)); expect(r > 200 && g < 80 && b < 80, `${k} ${c} quá đỏ`).toBe(false); }
   }
   expect(petSvg('cao')).not.toMatch(/<text/);
-}, 20000);   // ~1s đơn lẻ; song song với cả bộ có lúc chạm trần 5s mặc định
+}, 30000);   // ~1s đơn lẻ, tới 10s khi chạy song song với cả bộ
 
 it('engine: mỗi nhân vật chạy đủ động tác riêng + hiệu ứng nhiều khung không lỗi', () => {
   for (const k of KIND_IDS) {
@@ -38,7 +38,7 @@ it('engine: mỗi nhân vật chạy đủ động tác riêng + hiệu ứng nh
   }
   const a = createPet('cao', () => 0.5).render({ t: 1, fx: false }), b = createPet('cao', () => 0.5).render({ t: 1, fx: false });
   expect(a).toEqual(b);          // hình tĩnh xác định
-});
+}, 30000);
 
 it('mọi nhân vật cùng một khung (đổi nhân vật không lệch bố cục)', () => {
   const sizes = KIND_IDS.map(k => { const p = createPet(k); return [p.w, p.h]; });
