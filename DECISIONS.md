@@ -3,7 +3,7 @@
 Mỗi quyết định: nội dung, lý do, đánh đổi chấp nhận. Muốn đổi → thêm mục mới "Thay D0x", không xoá mục cũ.
 Khuôn học theo `toeic-app` (chỉ tham khảo, không dùng chung code hay repo).
 
-Quyết định cũ vẫn còn hiệu lực của từng app: `logic/PLAN_v3.md` (tên biến theo Mano, kết quả trước
+Quyết định cũ vẫn còn hiệu lực của từng app: `logic/PLAN.md` (tên biến theo Mano, kết quả trước
 dữ liệu thô, giải thích từng bước là một dòng `F = …`), `linalg/PLAN.md` (tự vẽ 3D trên Canvas 2D,
 không dùng Three.js).
 
