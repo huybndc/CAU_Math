@@ -81,35 +81,30 @@ function renderPractice(r, cfg) {
       onClick: () => { save('practice-ch', x.id); renderPractice(r, cfg); },
     }, [el('b', { text: chNo(x.id) }), T('nav.' + x.id)])));
 
-  let body;
-  if (!c.bank) {
-    body = leadCard({ title: T('practice.old'), note: T('practice.oldNote'), href: `#/practice/${c.id}`, cta: T('practice.open') });
-  } else {
-    const { KINDS } = c.bank;
-    // theo NHÓM chủ đề (D30): 3–4 dòng thay 8–10; tên các dạng trong nhóm ghi nhỏ bên dưới
-    body = [
-      leadCard({
-        title: T('practice.mixCh', { n: chNo(c.id) }),
-        note: `${T('practice.meta', { n: ROUND, m: roundMinutes(c.bank, KINDS) })} · ${accNote(recentStats(events, { prefix: c.prefix }, now))}`,
-        href: `#/practice/${c.id}`, cta: T('practice.start'),
-      }),
-      ...(wrongN(c) ? [leadCard({ title: T('practice.wrong'), note: T('practice.wrongNote', { n: wrongN(c) }), href: `#/practice/${c.id}/wrong`, cta: T('practice.wrongCta') })] : []),
-      el('div', { class: 'list mods' }, [
-        el('div', { class: 'list-head' }, [
-          el('span', { text: T('practice.kinds') }), el('span', { class: 'row-num', text: T('practice.time') }),
-          el('span', { text: T('practice.acc') }), el('span'),
-        ]),
-        ...groupsOf(c.bank).map(g => row({
-          href: `#/practice/${c.id}/${g.id}`, title: T(`${c.prefix}.${g.id}`),
-          sub: g.kinds.length < 2 ? '' : g.kinds.map(k => T(`${c.prefix}.${k}`)).join(' · '),
-          num: T('practice.mins', { m: roundMinutes(c.bank, g.kinds) }),
-          acc: accCell(recentStats(events, { prefix: c.prefix, kinds: g.kinds }, now)),
-          tag: top && top.prefix === c.prefix && g.kinds.includes(top.kind) && Object.assign(tag(T('practice.need')), { title: T('practice.needWhy') }),
-        })),
+  const { KINDS } = c.bank;
+  // theo NHÓM chủ đề (D30): 3–4 dòng thay 8–10; tên các dạng trong nhóm ghi nhỏ bên dưới
+  const body = [
+    leadCard({
+      title: T('practice.mixCh', { n: chNo(c.id) }),
+      note: `${T('practice.meta', { n: ROUND, m: roundMinutes(c.bank, KINDS) })} · ${accNote(recentStats(events, { prefix: c.prefix }, now))}`,
+      href: `#/practice/${c.id}`, cta: T('practice.start'),
+    }),
+    ...(wrongN(c) ? [leadCard({ title: T('practice.wrong'), note: T('practice.wrongNote', { n: wrongN(c) }), href: `#/practice/${c.id}/wrong`, cta: T('practice.wrongCta') })] : []),
+    el('div', { class: 'list mods' }, [
+      el('div', { class: 'list-head' }, [
+        el('span', { text: T('practice.kinds') }), el('span', { class: 'row-num', text: T('practice.time') }),
+        el('span', { text: T('practice.acc') }), el('span'),
       ]),
-      ...flagFold(r, cfg, c),
-    ];
-  }
+      ...groupsOf(c.bank).map(g => row({
+        href: `#/practice/${c.id}/${g.id}`, title: T(`${c.prefix}.${g.id}`),
+        sub: g.kinds.length < 2 ? '' : g.kinds.map(k => T(`${c.prefix}.${k}`)).join(' · '),
+        num: T('practice.mins', { m: roundMinutes(c.bank, g.kinds) }),
+        acc: accCell(recentStats(events, { prefix: c.prefix, kinds: g.kinds }, now)),
+        tag: top && top.prefix === c.prefix && g.kinds.includes(top.kind) && Object.assign(tag(T('practice.need')), { title: T('practice.needWhy') }),
+      })),
+    ]),
+    ...flagFold(r, cfg, c),
+  ];
   $('#screen-practice').replaceChildren(
     el('h1', { text: T('nav.practice') }),
     practiceTabs('practice'),
@@ -162,9 +157,9 @@ function renderRun(r, cfg, c) {
 
 /* ---------------- một khung có sẵn của trang chương ---------------- */
 function renderPane(r, cfg, c) {
-  const sub = r.view === 'practice' ? 'practice' : ($(`#pane-${c.id}-${r.sub}`) ? r.sub : 'theory');
-  const back = r.view === 'practice' ? 'practice' : r.at != null ? 'tools' : 'learn';
-  const label = sub === 'practice' ? T('practice.old') : T('learn.' + sub);
+  const sub = $(`#pane-${c.id}-${r.sub}`) ? r.sub : 'theory';
+  const back = r.at != null ? 'tools' : 'learn';
+  const label = T('learn.' + sub);
   $('#pane-head').replaceChildren(
     el('a', { class: 'back', href: '#/' + back, 'data-icon': 'prev', text: T('nav.' + back) }),
     el('p', { class: 'crumb', text: `${T('shell.chapter', { n: chNo(c.id) })} · ${label}` }),
@@ -194,7 +189,7 @@ export function showRoute(r, cfg) {
   const c = r.ch && cfg.chapters.find(x => x.id === r.ch);
   let screen = r.view;
   if (r.view === 'learn' && c) screen = 'pane';
-  if (r.view === 'practice' && c) screen = c.bank ? 'run' : 'pane';
+  if (r.view === 'practice' && c) screen = 'run';
   if (screen !== 'run') stopRunner();
   document.body.classList.toggle('exam-focus', r.view === 'exam' && r.step === 'run');
   document.querySelectorAll('#app > .screen').forEach(s => s.classList.toggle('active', s.dataset.screen === screen));

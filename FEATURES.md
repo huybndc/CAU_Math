@@ -1,13 +1,10 @@
 # FEATURES — CAU_Math (bản đồ tính năng cho Agent)
 
-Cập nhật file này trong cùng PR khi đổi UI. Một server (Vite) phục vụ 4 trang: `/` (Tổng quan), `/logic/`, `/linalg/`, `/discrete/`.
-Chạy: `npm run dev` (http://localhost:5180, cổng cố định vì trạng thái nằm trong localStorage theo origin). Test: `npm test` (vitest, glob `{shared,home,logic,linalg,discrete}/tests/**`). Chưa có test cho `home/home.js`.
+Cập nhật file này trong cùng PR khi đổi UI. Một server (Vite) phục vụ 3 trang: `/logic/`, `/linalg/`, `/discrete/`.
+Chạy: `npm run dev` (http://localhost:5180, cổng cố định vì trạng thái nằm trong localStorage theo origin). Test: `npm test` (vitest, glob `{shared,logic,linalg,discrete}/tests/**`).
 Chưa có `data-testid`. Hook hiện có = `data-nav`, `data-screen`, `data-subject`, `data-lang`, `data-i18n`, `aria-label`, id. Ô nhập của câu hỏi dựng bằng JS, không có id: dùng class.
 
-## Trang Tổng quan `/` (`home/home.js`, `home/home.css`)
-- Tuần X/16, đếm ngược giữa kỳ, dải 16 tuần `ol.strip[aria-label="16 tuần của học kỳ"] > li.wk(.past|.now|.exam)`.
-- 3 thẻ môn `article.subject[data-subject=logic|linalg|discrete]`: độ đúng 7 ngày, nút "Học" (`/<môn>/#/learn`), "Luyện tập" (`/<môn>/#/practice`).
-- `#theme-toggle`. Logic ngày/tuần: `shared/logic/syllabus.js`, `progress.js`.
+`/` chỉ chuyển hướng tới `/logic/` (không còn trang tổng quan chung — thay D01; tổng hợp 3 môn do Study_Hub làm).
 
 ## Khung chung của 3 môn (`shared/ui/`, `shared/logic/`)
 - Thanh bên `aside.appnav`: `a.nav-brand`, `a.tab[data-nav=home|learn|tools|practice]` (+ Thi thử, Tự luận), `#lang-switch button[data-lang=vi|en]`, `#theme-toggle`, `button.nav-search`, thu gọn (`study-nav`).

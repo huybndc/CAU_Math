@@ -20,5 +20,5 @@ export default defineConfig(({ mode }) => ({
   resolve: { alias: { '@shared': fileURLToPath(new URL('./shared', import.meta.url)), '@host': fileURLToPath(new URL('./shared/host.js', import.meta.url)) } },
   server: { port: 5180, strictPort: true },
   build: { rollupOptions: { input: { home: page('index.html'), logic: page('logic/index.html'), linalg: page('linalg/index.html'), discrete: page('discrete/index.html') } } },
-  test: { testTimeout: 15000, include: ['{shared,home,logic,linalg,discrete}/tests/**/*.test.js'] },
+  test: { testTimeout: 15000, include: ['{shared,logic,linalg,discrete}/tests/**/*.test.js'] },
 }));

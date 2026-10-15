@@ -118,7 +118,6 @@ export const vi = {
   'learn.continue': 'Học tiếp',
   'practice.mixCh': 'Trộn cả chương {n}',
   'practice.start': 'Bắt đầu',
-  'practice.open': 'Mở',
   'practice.kinds': 'Dạng bài',
   'practice.time': 'Thời gian',
   'practice.acc': 'Đúng · 7 ngày',
@@ -127,8 +126,6 @@ export const vi = {
   'practice.none': 'chưa làm câu nào',
   'practice.needWhy': 'Xếp theo độ ưu tiên ôn lại (sai gần đây, lâu chưa làm), không chỉ theo % đúng.',
   'practice.need': 'cần luyện nhất',
-  'practice.old': 'Bài luyện của chương',
-  'practice.oldNote': 'bài tập tự chấm (chưa có ngân hàng câu tự sinh)',
   /* Tổng quan */
   'home.midShort': 'Giữa kỳ',
   'home.finalShort': 'Cuối kỳ',

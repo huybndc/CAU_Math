@@ -27,7 +27,7 @@
 - Nên gói khoảng 2 milestone mỗi phiên (khuyến nghị, không bắt buộc); không sang milestone mới khi test đang fail.
 
 ## Kiến trúc (D01, D02)
-- Một máy chủ Vite ở gốc: `npm run dev` → `localhost:5180` (`/`, `/logic/`, `/linalg/`, `/discrete/`).
+- Một máy chủ Vite ở gốc: `npm run dev` → `localhost:5180` (`/logic/`, `/linalg/`, `/discrete/`; `/` chuyển hướng tới `/logic/`).
 - `shared/` = phần dùng chung, import bằng `@shared/...`. Chỉ đưa vào `shared/` thứ ít nhất 2 app dùng.
 - Mỗi app: `index.html` (shell) + `src/{logic,ui,pages,content,i18n}` + `tests/`.
 - `src/logic/` là hàm thuần, không đụng `document`/`window`; `logic/` không import từ `ui/`.
