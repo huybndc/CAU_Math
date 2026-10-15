@@ -16,13 +16,13 @@
 .boardrow .board{flex:1 1 320px;min-width:0;max-width:480px}
 .boardrow .side{flex:1 1 240px;min-width:0}
 .hint-drag{
-  position:absolute;left:8px;bottom:6px;font-size:.76rem;color:var(--ink-dim);
+  position:absolute;left:8px;bottom:6px;font-size:var(--fs-xs);color:var(--ink-dim);
   background:color-mix(in srgb,var(--panel) 78%,transparent);border-radius:6px;padding:2px 7px;
   pointer-events:none;
 }
 
 /* ===================== Bảng số đọc nhanh ===================== */
-.readout{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:.9rem;align-items:baseline}
+.readout{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:var(--fs-md);align-items:baseline}
 .readout dt{color:var(--ink-dim)}
 .readout dd{margin:0;font-family:var(--mono);font-weight:600}
 .readout dd.v1{color:var(--accent)}
@@ -32,7 +32,7 @@
 
 /* ===================== Slider hệ số ===================== */
 .sliders{display:flex;flex-direction:column;gap:8px}
-.slider{display:grid;grid-template-columns:auto 1fr auto;gap:9px;align-items:center;font-size:.9rem}
+.slider{display:grid;grid-template-columns:auto 1fr auto;gap:9px;align-items:center;font-size:var(--fs-md)}
 .slider label{font-family:var(--mono);font-weight:600}
 .slider input[type=range]{width:100%;accent-color:var(--accent)}
 .slider output{font-family:var(--mono);min-width:3.4em;text-align:right;font-weight:600}
@@ -63,19 +63,19 @@
   border-radius:0 10px 10px 0;padding:9px 12px;
 }
 .pane .step.done{border-left-color:var(--ok)}
-.step .opline{font-family:var(--mono);font-weight:700;color:var(--accent);font-size:.95rem}
-.step .why{font-size:.86rem;color:var(--ink-dim);margin:2px 0 8px}
+.step .opline{font-family:var(--mono);font-weight:700;color:var(--accent);font-size:var(--fs-md)}
+.step .why{font-size:var(--fs-sm);color:var(--ink-dim);margin:2px 0 8px}
 .step .why:last-child{margin-bottom:0}
 .step-nav{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.step-nav .pos{font-family:var(--mono);font-size:.86rem;color:var(--ink-dim)}
+.step-nav .pos{font-family:var(--mono);font-size:var(--fs-sm);color:var(--ink-dim)}
 .badge{
-  display:inline-block;font-size:.78rem;font-weight:700;padding:2px 8px;border-radius:999px;
+  display:inline-block;font-size:var(--fs-xs);font-weight:700;padding:2px 8px;border-radius:999px;
   background:var(--panel2);border:1px solid var(--line-strong);color:var(--ink-dim);
 }
 .badge.ok{background:var(--ok-bg);color:var(--ok);border-color:var(--ok)}
 .badge.bad{background:var(--bad-bg);color:var(--bad);border-color:var(--bad)}
 .badge.warn{background:var(--warn-bg);color:var(--warn);border-color:var(--warn)}
-.eqline{font-family:var(--mono);font-size:.95rem;margin:2px 0}
+.eqline{font-family:var(--mono);font-size:var(--fs-md);margin:2px 0}
 .eqline.l1{color:var(--accent)}
 .eqline.l2{color:var(--warn)}
 
@@ -88,16 +88,16 @@
 
 /* ===================== Câu tự sinh: hình ma trận, hệ phương trình, lưới nhập ===================== */
 .q-mats{display:flex;flex-wrap:wrap;gap:22px;align-items:center}
-.q-mat{display:flex;align-items:center;gap:8px;font-size:1.05rem}
-.q-mat-name{font-size:1.2rem}
-.q-system{display:inline-flex;flex-direction:column;gap:4px;padding:4px 0 4px 14px;border-left:2px solid var(--line-strong);font-size:1.12rem}
-.w-matrix .matgrid input{width:4.4em;font-size:1.05rem;padding:8px 4px}
+.q-mat{display:flex;align-items:center;gap:8px;font-size:var(--fs-lg)}
+.q-mat-name{font-size:var(--fs-lg)}
+.q-system{display:inline-flex;flex-direction:column;gap:4px;padding:4px 0 4px 14px;border-left:2px solid var(--line-strong);font-size:var(--fs-lg)}
+.w-matrix .matgrid input{width:4.4em;font-size:var(--fs-lg);padding:8px 4px}
 .w-matrix .matgrid input.good{border-color:var(--ok);background:var(--ok-bg)}
 .w-matrix .matgrid input.bad{border-color:var(--bad);background:var(--bad-bg)}
 
 /* ô trả lời vector: cột có ngoặc, hàng có nhãn */
 .w-vecbox{display:inline-block;max-width:100%}
-.w-vec input{width:5.2em;font-size:1.05rem;padding:8px 4px;text-align:center}
+.w-vec input{width:5.2em;font-size:var(--fs-lg);padding:8px 4px;text-align:center}
 .w-vec .matlab{align-self:center;text-align:right}
 .w-vec input.good{border-color:var(--ok);background:var(--ok-bg)}
 .w-vec input.bad{border-color:var(--bad);background:var(--bad-bg)}

@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { describe, it, expect } from 'vitest';
 import { render } from '../style/render-tokens.mjs';
 
@@ -29,5 +29,12 @@ describe('token chung với Study_Hub', () => {
     expect(css).toContain(`transform:${m.active}`);
     expect(css).toContain(`transform:${m.hover}`);
     expect(css).toContain(`transition-duration:${m.reducedMotion.transitionDuration}`);
+  });
+
+  it('cỡ chữ trong shared/style dùng thang --fs-* của Hub, không còn rem lẻ', () => {
+    const dir = new URL('../style/', import.meta.url);
+    const bad = readdirSync(dir).filter(f => f.endsWith('.css') && !f.startsWith('tokens'))
+      .flatMap(f => (read(f).match(/font-size:[\d.]+rem/g) || []).map(m => `${f}: ${m}`));
+    expect(bad).toEqual([]);
   });
 });

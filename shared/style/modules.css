@@ -14,7 +14,7 @@
 
 /* ---------- Công cụ: mỗi chương một module, mỗi công cụ một ô lớn ---------- */
 .tool-ch{margin:0 0 .9rem;padding:1rem 1.1rem 1.1rem;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--panel)}
-.tool-ch h2{display:flex;align-items:center;gap:.7rem;margin:0 0 .8rem;font-size:1.05rem}
+.tool-ch h2{display:flex;align-items:center;gap:.7rem;margin:0 0 .8rem;font-size:var(--fs-lg)}
 .tool-chips{display:grid;grid-template-columns:repeat(auto-fill,minmax(14rem,1fr));gap:.6rem}
 .tool-chip{display:flex;align-items:center;justify-content:space-between;gap:.6rem;min-height:3.4rem;padding:.7rem .9rem;
   border:1px solid color-mix(in srgb,var(--accent) 40%,var(--line-strong));border-radius:var(--r-md);background:var(--panel2);
@@ -92,7 +92,7 @@
   .appnav{backdrop-filter:none;-webkit-backdrop-filter:none;background:var(--side)}   /* backdrop-filter làm con `fixed` dính theo thanh dưới */
   .appnav-foot{display:flex;position:fixed;top:calc(8px + env(safe-area-inset-top));right:10px;z-index:15;gap:6px;padding:0}
   #app{padding-top:2.9rem}
-  .term-track li span{font-size:.68rem}
+  .term-track li span{font-size:var(--fs-xs)}
   .term-track li.now span{transform:translateX(-68%)}      /* "Tuần 5" không dính "Giữa kỳ" */
 }
 

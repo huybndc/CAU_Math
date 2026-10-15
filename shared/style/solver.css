@@ -14,7 +14,7 @@
 .sv-empty{margin:0;color:var(--ink-dim);font-size:var(--fs-sm)}
 .sv-err{margin:0;padding:10px 13px;border-radius:var(--r-md);background:var(--bad-bg);color:var(--bad);font-size:var(--fs-sm)}
 .sv-answer{padding:14px 16px;border:1px solid color-mix(in srgb,var(--accent) 40%,var(--line));border-left:4px solid var(--accent);border-radius:var(--r-md);background:var(--accent-soft);display:grid;gap:4px}
-.sv .sv-answer .step{font-size:1.12rem;line-height:1.5}
+.sv .sv-answer .step{font-size:var(--fs-lg);line-height:1.5}
 .sv-reveal{justify-self:start}
 .sv-steps{display:grid;gap:6px}
 .sv-step{border:1px solid var(--line);border-radius:var(--r-md);background:var(--panel)}
@@ -23,7 +23,7 @@
 .sv-step > summary::after{content:"";margin-left:auto;width:7px;height:7px;border-right:2px solid var(--ink-dim);border-bottom:2px solid var(--ink-dim);transform:rotate(45deg);transition:transform .15s}
 .sv-step[open] > summary::after{transform:rotate(-135deg)}
 .sv-step > summary:hover{background:var(--panel2);border-radius:var(--r-md)}
-.sv-n{color:var(--accent);font-size:1.05rem}
+.sv-n{color:var(--accent);font-size:var(--fs-lg)}
 .sv-body{padding:2px 14px 12px 40px;display:grid;gap:5px;overflow-x:auto}
 .sv-tools{display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;font-size:var(--fs-sm);color:var(--ink-dim)}
 .sv-hide{display:inline-flex!important;grid-auto-flow:column;align-items:center;gap:6px!important;cursor:pointer}
@@ -54,7 +54,7 @@
 
 /* chữ trong phần diễn giải to hơn một chút, các dòng thoáng hơn */
 .sv .sv-body,.sv .sv-solo{gap:10px}
-.sv .sv-body .step,.sv .sv-solo .step{font-size:1.04rem;line-height:1.65}
+.sv .sv-body .step,.sv .sv-solo .step{font-size:var(--fs-lg);line-height:1.65}
 .sv .sv-body .mat,.sv .sv-solo .mat{font-size:1.04em;margin-inline:.2em}
 .sv-body{padding:6px 14px 14px 40px}
 .sv-step > summary{font-size:var(--fs-md)}
