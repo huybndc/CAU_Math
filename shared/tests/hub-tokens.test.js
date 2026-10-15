@@ -21,4 +21,13 @@ describe('token chung với Study_Hub', () => {
     const hub = new Set([...Object.keys(snap.light), ...Object.keys(snap.dark)]);
     expect(own.filter(k => hub.has(k) && !OWN.has(k))).toEqual([]);
   });
+
+  it('motion.css khớp khối motion của snapshot (cùng 120/200/340ms, easing, hover, nhấn)', () => {
+    const css = read('motion.css');
+    const m = snap.motion;
+    for (const k of ['dur-fast', 'dur', 'dur-slow', 'ease-out']) expect(css, k).toContain(`--${k}:${m[k]}`);
+    expect(css).toContain(`transform:${m.active}`);
+    expect(css).toContain(`transform:${m.hover}`);
+    expect(css).toContain(`transition-duration:${m.reducedMotion.transitionDuration}`);
+  });
 });

@@ -18,8 +18,8 @@ Study_Hub is not a dependency for standalone local math development.
 
 ## Current priority
 
-- [ ] P0 Repo split: finish the math progress/event bridge currently present on the Study_Hub side.
-- [ ] P0 Integration handoff: define a small, stable course/export contract so Study_Hub can consume this repo without copying source.
+- [x] P0 Repo split: `math.answer`/`pet.set` đi qua adapter `shared/host.js` (Study_Hub cấp bản thật); tiến độ xuất bằng `shared/logic/progress-export.js`.
+- [x] P0 Integration handoff: Study_Hub tiêu thụ repo này bằng mirror một chiều ghim commit (`math.lock`), CI Hub chặn sửa tay mirror.
 - [ ] P1 Midterm: validate the current syllabus scope and user experience for all three courses.
 - [ ] P1 Content: continue concrete gaps only; preserve independent solution-oracle tests.
 - [ ] P2 Post-midterm: expand later chapters only as the course reaches them.
@@ -35,5 +35,5 @@ Study_Hub is not a dependency for standalone local math development.
 - This repo owns math behavior and content.
 - Study_Hub owns generic Hub behavior.
 - Cross-repo communication uses contracts/events.
-- No source import/copy cycle between repos.
+- Mirror một chiều: Study_Hub chép mã toán theo `math.lock` (không sửa tay). Chiều ngược chỉ có tệp chép từ Hub (`shared/logic/pet-*.js`, `design-pets.json`, `design-tokens.json`, `exam-target.json`), canh bằng `hub-mirror.lock` và test.
 - Every new computational question type gets an independent oracle test.

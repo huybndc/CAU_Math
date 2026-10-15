@@ -51,9 +51,8 @@
 
 ## In progress
 
-- [ ] Repo split bridge: move the math.answer writer/integration adapter from Study_Hub into CAU_Math_App.
-- [ ] Define a stable course/export contract for Study_Hub so it does not need duplicated math source.
-- [ ] After the bridge is validated, remove/stop shipping the math mirror from Study_Hub.
+- Đã xong: cầu nối `math.answer`/`pet.set` qua `shared/host.js`; Study_Hub dùng mirror một chiều theo `math.lock`. Bỏ hướng "ngừng chép mirror" (mirror là mô hình hiện hành).
+- 2026-10-16: thêm `features-sync.test.js` (đổi UI phải sửa FEATURES.md; danh sách tính năng đã gỡ), `npm run check` đếm dòng code + `scripts/size-baseline.json`, snapshot token có `motion` (+ test), sửa REPO_BOUNDARY/PLAN/AGENTS cho khớp mirror thật.
 
 ## Current next work
 
@@ -66,7 +65,7 @@
 
 - Math-specific code/content → this repo.
 - Hub/account/vault/Today/stats → Study_Hub.
-- No direct source imports or copy cycles between repos.
+- Không import mã trực tiếp giữa hai repo; chỉ có mirror một chiều (Hub ← repo này, `math.lock`) và tệp chép từ Hub canh bằng `hub-mirror.lock`.
 - Do not commit class-only PDFs, slides, private syllabus files, secrets, or personal data.
 
 ## Tự soi
