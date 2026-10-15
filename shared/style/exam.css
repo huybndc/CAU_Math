@@ -88,7 +88,7 @@
 /* ---------------- kết quả ---------------- */
 .exam-score{display:flex;align-items:center;gap:1.4rem;margin:.8rem 0 .4rem;padding:0 0 1.4rem;border-bottom:1px solid var(--line)}
 .exam-score > b{font:600 3.4rem/1 var(--mono);letter-spacing:-.04em}
-.exam-score > b span{font-size:1.6rem;color:var(--ink-dim)}
+.exam-score > b span{font-size:var(--fs-xl);color:var(--ink-dim)}
 .exam-score strong{display:block;font-size:var(--fs-xl);font-weight:650}
 .exam-score small{display:block;font-size:var(--fs-sm);color:var(--ink-dim)}
 .tag.bad{color:var(--bad);background:var(--bad-bg)}
@@ -100,7 +100,7 @@
 .review summary b{min-width:1.8rem;color:var(--ink-dim);font-weight:500}
 .review summary .tag{margin-left:auto}
 .review-body{padding:.4rem .75rem 1.4rem 3.45rem}
-.review-body .run-q{font-size:1.05rem}
+.review-body .run-q{font-size:var(--fs-lg)}
 
 /* ---------------- responsive exam ---------------- */
 @media (max-width: 1100px) and (min-width: 761px){
@@ -111,7 +111,7 @@
   #app:has(> #screen-exam.active .exam-body){max-width:none}
   .exam-bar{gap:.65rem;flex-wrap:wrap;padding-bottom:.8rem;margin-bottom:1rem}
   .exam-name{flex:1 1 auto;min-width:0}
-  .exam-clock{order:3;min-width:0;width:auto;font-size:1.15rem}
+  .exam-clock{order:3;min-width:0;width:auto;font-size:var(--fs-lg)}
   .exam-nav{position:sticky;bottom:calc(4.25rem + env(safe-area-inset-bottom));z-index:4;margin-top:1rem;padding:10px 0;background:color-mix(in srgb,var(--panel) 94%,transparent);backdrop-filter:blur(10px)}
   .exam-nav .btn{min-width:5.5rem}
   .exam-modes{grid-template-columns:1fr}

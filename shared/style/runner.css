@@ -22,7 +22,7 @@
 .run-code{font:12px/1 var(--mono);color:var(--ink-dim);border:0;background:none;padding:2px 4px;cursor:copy}
 .run-code:hover{color:var(--accent)}
 
-.run-q{font-size:1.25rem;font-weight:500;line-height:1.5;margin:0 0 18px;max-width:62ch}
+.run-q{font-size:var(--fs-lg);font-weight:500;line-height:1.5;margin:0 0 18px;max-width:62ch}
 .run-q .mono,.run-q code{font-family:var(--mono);font-size:.95em}
 .run-format{margin:-.7rem 0 1.1rem;font-size:var(--fs-sm);color:var(--ink-dim);max-width:62ch}
 .run-work{display:flex;flex-wrap:wrap;align-items:flex-start;gap:12px 40px}
@@ -31,7 +31,7 @@
 .run-work > .run-widget{flex:1 1 auto}
 .run-fig{margin:0 0 8px;overflow-x:auto;max-width:100%}
 .run-answer{display:flex;gap:10px;flex-wrap:wrap}
-.run-answer input{flex:1 1 260px;font-size:1.05rem;padding:11px 13px}
+.run-answer input{flex:1 1 260px;font-size:var(--fs-lg);padding:11px 13px}
 .run-choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px}
 .run-choices.rows{grid-template-columns:1fr}
 .run-choices.rows .choice{justify-content:flex-start;text-align:left}
@@ -54,7 +54,7 @@
 .run-choices.mcq{grid-template-columns:1fr;max-width:34rem}
 .run-choices.mcq .choice{padding:.7rem .9rem}
 .choice-text.mono{font:500 var(--fs-md) var(--mono);letter-spacing:.02em;word-break:break-word}
-.choice-text.step-math{font-size:1.15rem}
+.choice-text.step-math{font-size:var(--fs-lg)}
 .run-tools{display:flex;gap:18px;margin-top:12px}
 button.link{font:inherit;font-size:var(--fs-sm);font-weight:500;background:none;border:0;padding:0;cursor:pointer;color:var(--ink);text-decoration:underline;text-underline-offset:3px}
 button.link:hover{color:var(--accent)}
@@ -75,7 +75,7 @@ button.link:hover{color:var(--accent)}
 .run-learn:hover{text-decoration:underline}
 
 .run-score{font:700 3.2rem/1 var(--font);letter-spacing:-.03em;margin:4px 0 6px}
-.run-score span{font-size:1.6rem;color:var(--ink-dim);font-weight:600}
+.run-score span{font-size:var(--fs-xl);color:var(--ink-dim);font-weight:600}
 .run-summary{list-style:none;padding:0;margin:18px 0 20px;display:grid;gap:6px;max-width:520px}
 .run-summary li{display:flex;justify-content:space-between;gap:12px;padding:9px 12px;border-radius:var(--r-sm);background:var(--panel2);font-size:var(--fs-sm)}
 .run-summary li b{font-family:var(--mono)}
@@ -105,7 +105,7 @@ button.link:hover{color:var(--accent)}
 
 @media (max-width:900px){
   .run-card{padding:18px 16px}
-  .run-q{font-size:1.1rem}
+  .run-q{font-size:var(--fs-lg)}
   .run-dots li{width:14px}
 }
 
@@ -180,7 +180,7 @@ button.link:hover{color:var(--accent)}
 .choice.visual:not(:disabled) .choice-label{visibility:hidden}
 
 @media (max-width:560px){
-  .w-bit{width:34px;height:44px;font-size:1.15rem}
+  .w-bit{width:34px;height:44px;font-size:var(--fs-lg)}
   .w-numset{grid-template-columns:repeat(auto-fill,minmax(40px,1fr));width:100%}
   .w-truth th,.w-truth td{padding:5px 12px}
 }
@@ -212,5 +212,5 @@ button.link:hover{color:var(--accent)}
 .frac > span:last-child{padding:0 .15em}
 
 .run-flag{margin-left:auto;font-size:12px;color:var(--ink-dim)}
-.flag-fold{margin:.6rem 0;font-size:.85rem;color:var(--ink-dim)}
+.flag-fold{margin:.6rem 0;font-size:var(--fs-sm);color:var(--ink-dim)}
 .flag-fold button{display:block;margin:.25rem 0}
