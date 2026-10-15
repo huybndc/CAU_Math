@@ -27,7 +27,7 @@ function repoState() {
     return {
       added: [...ns.filter((r) => r[0][0] === 'A' || r[0][0] === 'R').map((r) => r[r.length - 1]), ...untracked],
       changed: [...ns.map((r) => r[r.length - 1]), ...untracked],
-      patch: git('diff', '-U0', base),
+      patch: git('diff', '-U0', base, '--', '*.js', '*.html', ':(exclude)*/tests/*'), // bỏ test và tài liệu: chỉ mã giao diện
     };
   } catch { return null; }
 }
