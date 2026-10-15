@@ -63,7 +63,7 @@ thay vì cam kết một thư viện duy nhất từ đầu.
 
 ## Nguyên tắc kế thừa từ project_kmap (giữ nguyên)
 
-- Mỗi file một trách nhiệm, mục tiêu dưới ~300 dòng (`check_file_sizes.sh`).
+- Mỗi file một trách nhiệm, mục tiêu dưới ~300 dòng (`npm run check`).
 - `src/logic/` là hàm thuần (nhận input, trả output), không đụng
   `document`/`window`. `src/ui/` đọc/ghi DOM và gọi `logic/`. `logic/` không
   bao giờ import từ `ui/`.
@@ -121,13 +121,13 @@ project_linalg/
 │   ├── i18n/{vi,en}/{common,ch1,ch2,...}.js
 │   └── content/theory-chN.{vi,en}.md
 ├── tests/
-└── scripts/check_file_sizes.sh  # copy nguyên
+└── scripts/check-file-sizes.mjs  # `npm run check`
 ```
 
 ## Lộ trình theo chương (Strang) — mỗi chương là 1 milestone lớn
 
 ### Milestone 0 — Khung sườn dự án — ĐÃ XONG
-- Bootstrap Vite, copy `vite-plugin-include.js`, `check_file_sizes.sh`,
+- Bootstrap Vite, copy `vite-plugin-include.js`, `npm run check`,
   cấu trúc i18n rỗng, `chapter-nav.js`, `theory-page.js` (tái dùng gần như
   nguyên bản từ project_kmap).
 - `src/logic/matrix.js` + `src/logic/vector.js`: các phép toán nền tảng
@@ -274,7 +274,7 @@ tuyến tính cơ bản).*
 
 **Chung (mọi chương)**
 - [ ] `npm test` pass
-- [ ] `check_file_sizes.sh` không báo file nào
+- [ ] `npm run check` không báo file nào
 - [ ] `npm run build` ra `dist/index.html` mở được bằng `file://`
 - [ ] Light/dark mode đúng
 - [ ] VI/EN đổi hết chuỗi, không sót

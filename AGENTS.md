@@ -3,7 +3,7 @@
 ## Bối cảnh
 - Trả lời người học bằng **tiếng Việt**.
 - Người học giao toàn quyền quyết định: tự cân nhắc, chọn cách làm, ghi lý do vào `DECISIONS.md`, không hỏi lại.
-- Ba app ôn tập chạy localhost:5180; bản online do **Study Hub** deploy — hiện build từ bản mirror trong Study_Hub (`math.lock` ghim commit repo này mới là kế hoạch, chưa có; xem PROGRESS "Tự soi"). Giáo trình theo syllabus từng môn (`PLAN.md`).
+- Ba app ôn tập chạy localhost:5180; bản online do **Study Hub** deploy — build từ bản mirror một chiều trong Study_Hub (`math.lock` ở Study_Hub ghim commit repo này; `sync-math.sh` chép `logic/ linalg/ discrete/ shared/`). Giáo trình theo syllabus từng môn (`PLAN.md`).
 - Tài liệu gốc: `PLAN.md` (lộ trình), `DECISIONS.md` (quyết định + lý do), `PROGRESS.md` (bàn giao).
 - Repo `toeic-app` chỉ để tham khảo cách tổ chức/UX. Không import chéo, không commit vào đó.
 
@@ -16,7 +16,7 @@
 
 **Sau mỗi bước con:**
 1. `npm test` pass ở gốc repo (test cả 3 app).
-2. `npm run check` — không file nào vượt 450 dòng.
+2. `npm run check` — đếm dòng code (bỏ dòng trống và dòng chỉ có chú thích). Đỏ khi file mới vượt 450 hoặc file trong `scripts/size-baseline.json` tăng; file cũ vượt chỉ cảnh báo.
 3. Tắt máy chủ dev/tiến trình nền không còn cần.
 4. Cập nhật `PROGRESS.md`: vừa xong gì, bước tiếp theo cụ thể, vướng mắc.
 5. `git remote -v` phải là `https://github.com/huybndc/CAU_Math_App.git` → rồi mới commit. Push lên nhánh làm việc của phiên; không push thẳng `main` hay nhánh người khác; gộp vào `main` qua PR.
@@ -34,9 +34,10 @@
 - Cùng một origin cho cả 3 app → khoá localStorage phải có tiền tố app hoặc trường `subject`.
 
 ## Quy tắc code
-- Một file một việc; mục tiêu khoảng 400 dòng, trần 450.
+- Một file một việc; mục tiêu khoảng 400 dòng code, trần 450 cho file mới. Không tách file chỉ vì con số.
 - Hàm sinh ra phải dùng được ở nhiều nơi; hàm chỉ gọi một chỗ thì viết thẳng tại chỗ. Thấy hai nơi làm cùng một việc thì gom lại.
 - Trước khi tạo file mới: đã có helper chưa? nhét vào module đang có được không?
+- Đổi UI (thêm file `src/ui`/`shared/ui`, đổi `data-testid`) thì sửa `FEATURES.md` trong cùng PR — `shared/tests/features-sync.test.js` canh. Gỡ tính năng thì thêm chuỗi vào danh sách `REMOVED` trong test đó.
 - Code và tên biến tiếng Anh; comment và tài liệu `.md` tiếng Việt.
 - Commit dạng `type: mô tả ngắn` (feat, fix, test, docs, chore, refactor, content, style).
 

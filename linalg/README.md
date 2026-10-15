@@ -92,7 +92,7 @@ Kế hoạch đầy đủ ở `PLAN.md`.
 
 **Chung (mọi chương)**
 - [x] `npm test` pass (252 test)
-- [x] `check_file_sizes.sh` không báo file nào
+- [x] `npm run check` (cỡ file) xanh
 - [x] Light/dark mode đúng
 - [x] VI/EN đổi hết chuỗi, không sót
 - [x] Lựa chọn ngôn ngữ nhớ sau khi tải lại

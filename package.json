@@ -9,7 +9,7 @@
     "build": "vite build",
     "test": "vitest run",
     "test:watch": "vitest",
-    "check": "bash scripts/check_file_sizes.sh .",
+    "check": "node scripts/check-file-sizes.mjs .",
     "launcher": "bash scripts/make-launcher.sh",
     "gen": "vite-node scripts/gen/generate.js",
     "gen:review": "vite-node scripts/gen/review.js",

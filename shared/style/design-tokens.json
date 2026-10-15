@@ -94,5 +94,17 @@
     "viz-2": "#1d5a47",
     "viz-3": "#2a8a6b",
     "viz-4": "#3fb592"
+  },
+  "motion": {
+    "dur-fast": "120ms",
+    "dur": "200ms",
+    "dur-slow": "340ms",
+    "ease-out": "cubic-bezier(.22,1,.36,1)",
+    "hover": "translateY(-1px)",
+    "active": "scale(.96)",
+    "reducedMotion": {
+      "transitionDuration": ".01ms",
+      "animation": "none"
+    }
   }
 }

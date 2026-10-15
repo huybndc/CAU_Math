@@ -58,39 +58,6 @@ Thêm khoá vào **cả hai** `src/i18n/vi/*.js` và `src/i18n/en/*.js`, rồi d
 3. `src/content/theory-ch4.md` + `mountTheory('#theory-ch4-body', md)` trong `main.js`.
 4. Logic mới vào `src/logic/`, UI vào `src/ui/`, test vào `tests/`.
 
-## Checklist đối chiếu với sách/slide
+## Kiểm nghiệm
+`npm test` và `npm run check` ở gốc repo; đối chiếu nội dung với sách đã xong theo từng milestone (xem `PLAN.md` ở đây và `DECISIONS.md`).
 
-**Chương 1 — Hệ đếm & mã nhị phân**
-- [ ] Lý thuyết: đủ 10 mục (§1.1–1.11), bảng và khối code render đúng
-- [ ] Ví dụ: chia lấy dư (Ex 1.1–1.2), nhân lấy phần nguyên (Ex 1.3), gộp nhóm bit (§1.4)
-- [ ] Ví dụ: bảng mã BCD/2421/Excess-3 + đánh dấu mã tự bù, cộng BCD có hiệu chỉnh +6
-- [ ] Ví dụ: parity — lật 1 bit thì phát hiện được, lật 2 bit thì không
-- [ ] Tương tác: đổi cơ số nhiều chiều, complement & trừ bằng complement có kiểm chứng ngược
-- [ ] Tương tác: bảng 3 dạng số có dấu, cộng/trừ 2's complement chỉ rõ tràn số
-- [ ] Luyện tập: sinh + chấm được cả 4 dạng, gợi ý đúng, đếm điểm
-
-**Chương 2 — Đại số Boolean & cổng logic**
-- [ ] Lý thuyết: đủ 8 mục (§2.1–2.8), có bảng Huntington và bảng định lý
-- [ ] Ví dụ: 5 lời giải Example 2.1 (a–e), mỗi bước được kiểm chứng tự động
-- [ ] Ví dụ: hai cách lấy hàm bù cho cùng kết quả, kèm bảng chân trị F/F′
-- [ ] Tương tác: 8 cổng phản ứng theo (x, y); bảng 16 hàm highlight đúng dòng/cột
-- [ ] Tương tác: bảng NAND/NOR đánh dấu 4/8 dòng lệch ⇒ không kết hợp
-- [ ] Tương tác: SOP → toàn NAND, đếm đúng số cổng mỗi tầng, bảng chân trị khớp
-- [ ] Luyện tập: 3 dạng; câu biểu thức chấm theo bảng chân trị (viết khác vẫn đúng)
-
-**Chương 3 — Gray code & K-map**
-- [ ] Ví dụ: bảng Gray đổi theo n = 1..5, reflect&prefix, bộ chuyển đổi hai chiều
-- [ ] Biến đặt tên w, x, y, z (n=4) đúng quy ước Mano
-- [ ] Thứ tự card: K-map → Kết quả rút gọn → Giải thích → Truth table
-- [ ] Giải thích từng bước: mỗi bước một dòng `F = …` + một câu lý do
-- [ ] Tương tác: K-map n = 2..5, click ô/hàng truth table, spec Σm/ΠM/d
-- [ ] Tương tác: hover chip term làm sáng đúng nhóm trên K-map
-- [ ] Luyện tập: kéo chọn vùng, nhóm wrap-around, chấm nhóm và biểu thức, xem đáp án
-- [ ] Lý thuyết: 6 mục render đủ
-
-**Chung**
-- [ ] `npm test` pass
-- [ ] `bash scripts/check_file_sizes.sh .` không báo file nào
-- [ ] Hiển thị đúng ở cả light mode và dark mode
-- [ ] Chuyển VI/EN đổi hết chuỗi, không sót tiếng Việt ở bản EN
-- [ ] Lựa chọn ngôn ngữ được nhớ sau khi tải lại trang
