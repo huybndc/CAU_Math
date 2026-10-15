@@ -34,7 +34,6 @@ Chi tiết: REPO_BOUNDARY.md.
     ├── linalg/      Linear Algebra
     ├── discrete/    Discrete Math
     ├── shared/      framework dùng chung cho 3 app toán
-    ├── home/        tổng quan riêng của bộ 3 môn
     └── scripts/     tooling / content generation
 
 Mỗi app có logic thuần, UI, content, i18n và tests. shared chỉ chứa code thật sự dùng chung cho từ hai app trở lên.

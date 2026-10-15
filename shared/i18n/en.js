@@ -119,7 +119,6 @@ export const en = {
   'learn.continue': 'Continue',
   'practice.mixCh': 'Mix all of chapter {n}',
   'practice.start': 'Start',
-  'practice.open': 'Open',
   'practice.kinds': 'Question type',
   'practice.time': 'Time',
   'practice.acc': 'Correct · 7 days',
@@ -128,8 +127,6 @@ export const en = {
   'practice.none': 'not tried yet',
   'practice.needWhy': 'Ranked by review priority (recent mistakes, long since practised), not just by % correct.',
   'practice.need': 'most needed',
-  'practice.old': 'Chapter exercises',
-  'practice.oldNote': 'self-checked exercises (no generated question bank yet)',
   /* Overview */
   'home.midShort': 'Midterm',
   'home.finalShort': 'Final',

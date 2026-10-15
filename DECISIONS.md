@@ -563,3 +563,5 @@ khác syllabus, lịch học bắt đầu từ 2026/09/01".)
 **D-no-billing (2026-10-03).** Không bật billing ở bất kỳ dịch vụ nào của dự án (Supabase, Cloudflare, project Google của key Gemini dùng cho Live_Lecture); user xác nhận. Hard $0 giữ nguyên: thấy dấu hiệu bị tính tiền thì dừng và báo. Ghi chú đồng bộ ở Study_Hub/DECISIONS.md và Live_Lecture/DECISIONS.md (D18).
 
 **D-help (2026-10-03).** Trợ giúp theo màn hình: nút `?` (phím `?`) ở mọi màn, thẻ nhỏ vi/en, nội dung ở `shared/ui/screen-help.js`. Không làm trang hướng dẫn riêng; mỗi màn phải vừa một khung nhìn (Tổng quan còn cuộn nhẹ ở 720px — chưa sửa).
+
+**D62. Bỏ trang Tổng quan chung `/` (2026-10-15, thay phần "có trang Tổng quan chung" của D01).** Host + người học giao tinh gọn theo hướng học tập. Lý do: tổng hợp liên môn là việc của Study Hub (REPO_BOUNDARY); Hub không chép `home/`; mỗi môn đã có Tổng quan riêng (điểm, Học tiếp, tuần). `/` chuyển hướng tới `/logic/`; ba môn vẫn chung origin nên dữ liệu localStorage không đổi. Đánh đổi: tại máy local không còn một màn xem 3 môn cạnh nhau (xem ở Hub). Lui: khôi phục `home/` và `index.html` từ commit trước.
