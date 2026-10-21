@@ -105,7 +105,6 @@ export const en = {
   'mock.printExam': 'Print exam',
   'mock.printKey': 'Print answer key',
   'mock.book': 'Book',
-  'mock.source': 'Source',
   'mock.none': 'No exam practice for this course yet',
   'mock.noneNote': 'Available for Linear Algebra for now. This course uses Free response.',
   /* Learn */

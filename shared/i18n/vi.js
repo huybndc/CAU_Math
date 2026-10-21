@@ -104,7 +104,6 @@ export const vi = {
   'mock.printExam': 'In đề',
   'mock.printKey': 'In đáp án',
   'mock.book': 'Sách',
-  'mock.source': 'Nguồn',
   'mock.none': 'Môn này chưa có Đề như thật',
   'mock.noneNote': 'Hiện có cho Linear Algebra. Môn này dùng Tự luận.',
   /* Học */
