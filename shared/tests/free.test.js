@@ -22,3 +22,13 @@ describe('tự luận: kiểm dữ liệu', () => {
     expect(nextUp(ps, { a: { r: 'ok' } }, 'a').id).toBe('b');
   });
 });
+
+describe('freeEvent (math.answer của tự luận)', () => {
+  it('prefix theo chương, kind free-<id>, ok khi tự đánh giá ok, mode free', async () => {
+    const { freeEvent } = await import('../logic/free.js');
+    expect(freeEvent({ ch: 'ch2', id: 'l-singular-plane' }, 'ok')).toEqual({ prefix: 'c2q', kind: 'free-l-singular-plane', ok: true, mode: 'free' });
+    expect(freeEvent({ ch: 'ch3', id: 'x1' }, 'near').ok).toBe(false);
+    expect(freeEvent({ ch: 'ch1', id: 'x1' }, 'bad').ok).toBe(false);
+    expect(freeEvent({ ch: 'ch2', id: 'abc-9' }, 'ok').kind).toMatch(/^free-[a-z0-9-]+$/);
+  });
+});

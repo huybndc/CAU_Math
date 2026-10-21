@@ -21,6 +21,7 @@ export function statusOf(attempts, accuracy) {
 export function buildItems(subject, events, labelOf = (p, k) => `${p}.${k}`) {
   const groups = new Map();
   for (const e of [...events].sort((a, b) => a.ts - b.ts)) {
+    if (e.mode === 'mock' || e.mode === 'free') continue;   // đề và tự luận: Hub vẫn tính % đúng, nhưng không thành mục "cần luyện" (link /practice/chN/<dạng> sẽ chết)
     const id = `${e.prefix}.${e.kind}`;
     const g = groups.get(id) ?? { prefix: e.prefix, kind: e.kind, attempts: 0, correct: 0, lastTs: 0, recent: [], wrongTags: {} };
     g.attempts++;
