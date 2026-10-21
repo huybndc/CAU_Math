@@ -171,3 +171,22 @@ describe('giờ và tự chấm', () => {
     expect(scoreSummary(ex, {}).total).toBe(0);
   });
 });
+
+describe('sự kiện math.answer của đề', () => {
+  it('mỗi ý đã nhập điểm một sự kiện: prefix theo chương mục sách, kind mock-q<câu><ý>, ok từ 60% điểm, bỏ ý để trống', async () => {
+    const { mockEvents } = await import('@shared/logic/mock-exam.js');
+    const ex = buildMock(LINALG_MOCK, 11);
+    const g = { '3-a': '6', '3-b': '4', '3-c': '', '1-a': '5' };          // 3a: 6/10 = 60% ⇒ đúng; 3b: 4/7 < 60% ⇒ sai; 3c trống ⇒ bỏ
+    const evs = mockEvents(ex, g);
+    expect(evs).toEqual([
+      { prefix: 'c1q', kind: 'mock-q1a', ok: true, mode: 'mock' },
+      { prefix: 'c2q', kind: 'mock-q3a', ok: true, mode: 'mock' },
+      { prefix: 'c2q', kind: 'mock-q3b', ok: false, mode: 'mock' },
+    ]);
+    expect(mockEvents(ex, {})).toEqual([]);
+    for (const e of mockEvents(ex, Object.fromEntries(ex.questions.flatMap(q => q.parts.map(p => [`${q.no}-${p.label}`, '1']))))) {
+      expect(e.kind).toMatch(/^mock-q\d+[a-z]$/);
+      expect(e.prefix).toMatch(/^c[123]q$/);
+    }
+  });
+});

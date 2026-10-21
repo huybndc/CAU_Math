@@ -1,9 +1,9 @@
 import { $, el } from './dom.js';
 import { t as T, getLang } from '../i18n/index.js';
-import { load, save } from './store.js';
+import { load, save, record } from './store.js';
 import { chNo, chapterTitle, row, leadCard, practiceTabs, tag } from './choices.js';
 import { mdNodes } from './lesson.js';
-import { RATINGS, summarize, nextUp, following } from '../logic/free.js';
+import { RATINGS, summarize, nextUp, following, freeEvent } from '../logic/free.js';
 
 /* ---------------------------------------------------------------
    TỰ LUẬN (đề giống bộ đề giáo trình): máy chỉ đưa đề, gợi ý theo thang, lời giải mẫu chia ý và các ý chấm;
@@ -87,7 +87,7 @@ function problem(host, p, all, cfg) {
     mod(T('free.pitfalls'), el('ul', { class: 'free-pit' }, t.pitfalls.map(x => el('li', {}, md(x)))), false),
     mod(T('free.rate'), el('div', { class: 'free-rate', role: 'group' }, [...RATINGS.map(k => el('button', {
       type: 'button', class: 'btn' + (cur === k ? ' primary' : ''), 'aria-pressed': String(cur === k),
-      onClick: () => { save(RATE_KEY, { ...ratings(), [p.id]: { r: k, t: Date.now() } }); redraw(); },
+      onClick: () => { const prev = ratings()[p.id]?.r; save(RATE_KEY, { ...ratings(), [p.id]: { r: k, t: Date.now() } }); if (prev !== k) record(freeEvent(p, k)); redraw(); },
     }, T('free.rate_' + k))), nx && el('a', { class: 'btn', href: `#/free/${nx.id}`, 'data-icon': 'next' }, el('span', { text: T('free.next') }))])),
   ] : [el('div', { class: 'card free-mod free-wait' }, [
     el('p', { class: 'subtitle', text: T('free.tryFirst') }),

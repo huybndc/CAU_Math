@@ -1,10 +1,10 @@
 import { $, el } from './dom.js';
 import { t as T } from '../i18n/index.js';
-import { load, save } from './store.js';
+import { load, save, record } from './store.js';
 import { leadCard, practiceTabs } from './choices.js';
 import { mathSpan } from './question.js';
 import { splitMatrices } from '../logic/steps.js';
-import { buildMock, newSeed, parseSeed, secondsLeft, scoreSummary } from '../logic/mock-exam.js';
+import { buildMock, newSeed, parseSeed, secondsLeft, scoreSummary, mockEvents } from '../logic/mock-exam.js';
 
 /* ---------------------------------------------------------------
    ĐỀ NHƯ THẬT: chọn mã seed → xem tóm tắt (câu · điểm · mục sách) → In đề / In đáp án (A4, hai file riêng cùng mã)
@@ -106,10 +106,10 @@ function grading(host, head, ex, run, again) {
     }),
   ]));
   const finish = save_ => {
-    const sum = scoreSummary(ex, Object.fromEntries(inputs.map(([k, inp]) => [k, inp.value])));
+    const raw = Object.fromEntries(inputs.map(([k, inp]) => [k, inp.value])), sum = scoreSummary(ex, raw);
     const used = Math.min(ex.minutes, Math.max(1, Math.round(((run.endedAt ?? Date.now()) - run.startedAt) / 60000)));
     const entry = { seed: ex.seed, code: ex.code, at: Date.now(), usedMin: used, ...sum };
-    if (save_) save(HIST, [entry, ...load(HIST, [])].slice(0, HIST_MAX));
+    if (save_) { save(HIST, [entry, ...load(HIST, [])].slice(0, HIST_MAX)); const evs = mockEvents(ex, raw); if (evs.length) record(evs); }
     save(RUN, null);
     result(host, head, ex, entry, again);
   };

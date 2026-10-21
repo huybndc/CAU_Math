@@ -59,3 +59,24 @@ export function scoreSummary(ex, grades) {
     bySection: [...sections.values()].sort((a, b) => a.got / a.max - b.got / b.max),   // yếu nhất lên đầu
   };
 }
+
+/** Ý đạt từ ngưỡng này (so với điểm của ý) tính là đúng khi gửi sang Hub (đã thống nhất với Study_Hub). */
+export const MOCK_OK_RATIO = 0.6;
+
+/**
+ * Sự kiện math.answer cho các ý đã nhập điểm: prefix `c<chương>q` theo chương của mục sách chính của câu
+ * (Hub chỉ tính topic dạng ^c\d+q\.), kind `mock-q<câu><ý>`. Ý để trống không ghi (như câu bỏ trống ở Thi thử).
+ */
+export function mockEvents(ex, grades) {
+  const out = [];
+  for (const q of ex.questions) {
+    const chapter = q.refs[0]?.sec.split('.')[0];
+    if (!chapter) continue;
+    for (const p of q.parts) {
+      const raw = grades[`${q.no}-${p.label}`];
+      if (raw === undefined || raw === null || String(raw).trim() === '') continue;
+      out.push({ prefix: `c${chapter}q`, kind: `mock-q${q.no}${p.label}`, ok: clampPts(raw, p.pts) >= MOCK_OK_RATIO * p.pts, mode: 'mock' });
+    }
+  }
+  return out;
+}

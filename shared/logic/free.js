@@ -9,6 +9,9 @@
 export const RATINGS = ['ok', 'near', 'bad'];
 const TEXT_FIELDS = { title: 1, q: 1, hints: 2, solution: 2, rubric: 3, pitfalls: 1 };
 
+/** Sự kiện math.answer khi người học tự đánh giá một bài tự luận (đã thống nhất với Study_Hub): đúng = tự đánh giá 'ok'. */
+export const freeEvent = (p, rating) => ({ prefix: `c${p.ch.replace(/^ch/, '')}q`, kind: `free-${p.id}`, ok: rating === 'ok', mode: 'free' });
+
 /** Danh sách lỗi của một bài (rỗng = hợp lệ). */
 export function validateProblem(p) {
   const errs = [];

@@ -9,6 +9,10 @@ describe('progress-export', () => {
     expect(it).toMatchObject({ subject: 'logic', topic: 'ch4.mux', label: 'MUX', attempts: 4, correct: 1, accuracy: 0.25, status: 'weak', stuck: true, wrongTags: { 'z-dao': 1 } });
     expect(it.recent).toEqual([1, 0, 0, 0]);
   });
+  it('sự kiện đề (mode mock) và tự luận (mode free) không thành mục "cần luyện" (Hub biến mục thành link /practice/chN/<dạng>)', () => {
+    const events = [ev(1, false, { mode: 'mock', kind: 'mock-q3a' }), ev(2, true, { mode: 'free', kind: 'free-abc' }), ev(3, false)];
+    expect(buildItems('linalg', events).map(i => i.topic)).toEqual(['ch4.mux']);
+  });
   it('ít câu thì "few", không stuck nếu chưa sai 3 liền', () => {
     expect(buildItems('logic', [ev(1, false)])[0]).toMatchObject({ status: 'few', stuck: false });
     expect(statusOf(5, 0.9)).toBe('strong');
