@@ -1,4 +1,5 @@
 import { $, el } from './dom.js';
+import { PRACTICE_HIDDEN } from '../logic/visibility.js';
 import { t as T } from '../i18n/index.js';
 import { statsOf, recentStats, weekSince } from '../logic/progress.js';
 import { weekOf, WEEKS, EXAM_WEEKS, daysToMidterm } from '../logic/syllabus.js';
@@ -46,7 +47,8 @@ function termBlock(now) {
 }
 
 function today(cfg, events, now) {
-  const ranked = rankedKinds(cfg, events, now);
+  const ranked = PRACTICE_HIDDEN ? [] : rankedKinds(cfg, events, now);
+  if (PRACTICE_HIDDEN && cfg.mock) return leadCard({ title: T('nav.mock'), note: T('mock.homeNote'), href: '#/mock', cta: T('mock.open') });
   if (!ranked.length) {                    // môn chưa có ngân hàng câu: mời học tiếp chương đang học
     const ch = studied(cfg, events)[0] ?? cfg.chapters[0].id;
     return leadCard({ title: T('home.learnNow'), note: chapterTitle(ch), href: `#/learn/${ch}/theory`, cta: T('learn.start') });
@@ -109,10 +111,11 @@ function side(cfg, events, now) {
     n ? act({ href: `#/learn/${n.ch}/theory`, title: T('learn.nextCard', { title: n.title }), note: chapterTitle(n.ch), onClick: () => seekLesson(n.ch, n.card) })
       : act({ href: '#/learn', title: T('home.actToc'), note: T('home.actTocNote', { n: cfg.chapters.length }) }),
     act({ href: '#/tools', title: T('nav.tools'), note: T('home.actToolsNote') }),
-    el('h2', { class: 'section-label', text: T('nav.practice') }),
-    act({ href: '#/practice', title: T('practice.tabKinds'), note: T('home.actKindsNote') }),
+    el('h2', { class: 'section-label', text: T('nav.mock') }),
+    ...(cfg.mock ? [act({ href: '#/mock', title: T('nav.mock'), note: T('mock.homeNote') })] : []),
+    ...(PRACTICE_HIDDEN ? [] : [act({ href: '#/practice', title: T('practice.tabKinds'), note: T('home.actKindsNote') })]),
     act({ href: '#/free', title: T('practice.tabFree'), note: T('home.actFreeNote') }),
-    act({ href: '#/exam', title: T('nav.exam'), note: days >= 0 && days <= 21 ? T('home.actExamSoon', { n: days }) : T('home.actExamNote') }),
+    ...(PRACTICE_HIDDEN ? [] : [act({ href: '#/exam', title: T('nav.exam'), note: days >= 0 && days <= 21 ? T('home.actExamSoon', { n: days }) : T('home.actExamNote') })]),
   ]);
 }
 
@@ -124,7 +127,7 @@ export function renderHome(r, cfg) {
   const petCtx = { acts: events, data: { hub: saved == null ? [] : [{ type: 'pet.set', payload: saved }] }, add: (_type, payload) => savePet(payload), render: () => renderHome(r, cfg) };
 
   // mọi chương trong MỘT thẻ tự cuộn (~5 hàng): chương chưa làm vẫn hiện, không phải gập
-  const chapters = cfg.chapters.filter(c => c.bank).map(c => {
+  const chapters = (PRACTICE_HIDDEN ? [] : cfg.chapters.filter(c => c.bank)).map(c => {
     const tried = c.bank.KINDS.filter(k => statsOf(events, { prefix: c.prefix, kind: k }).attempts > 0).length;
     const a = row({
       href: '#/practice', title: chapterTitle(c.id),

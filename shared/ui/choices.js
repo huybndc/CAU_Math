@@ -1,4 +1,5 @@
 import { el } from './dom.js';
+import { PRACTICE_HIDDEN } from '../logic/visibility.js';
 import { t as T } from '../i18n/index.js';
 import { rankNeeds, studiedChapters } from '../logic/progress.js';
 import { load, save } from './store.js';
@@ -74,10 +75,13 @@ export const leadCard = ({ title, note, href, cta, alt }) => el('div', {
   el('a', { class: 'btn primary', href, 'data-icon': 'next' }, el('span', { text: cta })),
 ]);
 
-/** Hai thẻ đầu mục Luyện tập: luyện theo dạng | bài full 60–90 phút (Thi thử gộp vào đây — D30). */
-export const practiceTabs = active => el('nav', { class: 'page-tabs', 'aria-label': T('nav.practice') }, [
-  el('a', { href: '#/practice', 'aria-current': active === 'practice' ? 'page' : null, text: T('practice.tabKinds') }),
-  el('a', { href: '#/exam', 'aria-current': active === 'exam' ? 'page' : null, text: T('practice.tabFull') }),
+/** Các thẻ đầu mục "Đề thi": Đề như thật | Tự luận (Luyện theo dạng, Thi thử chỉ hiện khi PRACTICE_HIDDEN = false). */
+export const practiceTabs = active => el('nav', { class: 'page-tabs', 'aria-label': T('nav.mock') }, [
+  el('a', { href: '#/mock', 'aria-current': active === 'mock' ? 'page' : null, text: T('nav.mock') }),
+  ...(PRACTICE_HIDDEN ? [] : [
+    el('a', { href: '#/practice', 'aria-current': active === 'practice' ? 'page' : null, text: T('practice.tabKinds') }),
+    el('a', { href: '#/exam', 'aria-current': active === 'exam' ? 'page' : null, text: T('practice.tabFull') }),
+  ]),
   el('a', { href: '#/free', 'aria-current': active === 'free' ? 'page' : null, text: T('practice.tabFree') }),
 ]);
 

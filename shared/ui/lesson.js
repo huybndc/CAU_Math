@@ -1,4 +1,5 @@
 import { marked } from 'marked';
+import { PRACTICE_HIDDEN } from '../logic/visibility.js';
 import { splitCards, kindCards } from '../logic/cards.js';
 import { mountPoint } from './kpoint.js';
 import { t as T } from '../i18n/index.js';
@@ -186,16 +187,15 @@ export function mountLesson(host, md, opts = {}) {
         return b;
       };
       // thẻ cuối: mời sang luyện tập của đúng chương này
-      const end = h('a', 'btn primary', T('lesson.toPractice'));
-      end.href = `#/practice/${opts.chapter}`;
-      end.dataset.icon = 'next';
+      const end = PRACTICE_HIDDEN ? h('span') : h('a', 'btn primary', T('lesson.toPractice'));
+      if (!PRACTICE_HIDDEN) { end.href = `#/practice/${opts.chapter}`; end.dataset.icon = 'next'; }
       nav.append(prev ? go(-1, prev, 'prev') : h('span'), next ? go(1, next, 'next') : end);
     }
     host.replaceChildren(...[introEl, top, body, nav].filter(Boolean));
     // qua điểm kiến thức: nút "Thẻ tiếp" ngay trong khối (thẻ cuối: sang Luyện tập chương); tô xanh chấm tiến độ
     const next = cards[st.i + 1];
     const toNext = () => {
-      if (!next) { location.hash = `#/practice/${opts.chapter}`; return; }
+      if (!next) { if (!PRACTICE_HIDDEN) location.hash = `#/practice/${opts.chapter}`; return; }
       st.i += 1; draw(); host.scrollIntoView({ block: 'start' });
     };
     const onResult = () => {

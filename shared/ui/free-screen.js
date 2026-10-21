@@ -31,9 +31,9 @@ export function renderFree(r, cfg) {
 function list(host, all, cfg) {
   const rt = ratings();
   const chapters = cfg.chapters.filter(c => all.some(p => p.ch === c.id));
-  const head = [el('h1', { text: T('nav.practice') }), practiceTabs('free')];
+  const head = [el('h1', { text: T('nav.mock') }), practiceTabs('free')];
   if (!all.length) {
-    host.replaceChildren(...head, leadCard({ title: T('free.none'), note: T('free.noneNote'), href: '#/practice', cta: T('nav.practice') }));
+    host.replaceChildren(...head, leadCard({ title: T('free.none'), note: T('free.noneNote'), href: '#/mock', cta: T('nav.mock') }));
     return T('free.title');
   }
   const cur = chapters.find(c => c.id === load('free-ch', null)) ?? chapters[0];
