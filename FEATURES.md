@@ -7,9 +7,10 @@ Chưa có `data-testid`. Hook hiện có = `data-nav`, `data-screen`, `data-subj
 `/` chỉ chuyển hướng tới `/logic/` (không còn trang tổng quan chung — thay D01; tổng hợp 3 môn do Study_Hub làm).
 
 ## Khung chung của 3 môn (`shared/ui/`, `shared/logic/`)
-- Thanh bên `aside.appnav`: `a.nav-brand`, `a.tab[data-nav=home|learn|tools|practice]` (+ Thi thử, Tự luận), `#lang-switch button[data-lang=vi|en]`, `#theme-toggle`, `button.nav-search`, thu gọn (`study-nav`).
+- Thanh bên `aside.appnav`: `a.nav-brand`, `a.tab[data-nav=home|learn|tools|mock]` (mục "Đề như thật" chứa thêm thẻ Tự luận), `#lang-switch button[data-lang=vi|en]`, `#theme-toggle`, `button.nav-search`, thu gọn (`study-nav`).
 - Màn: `section.screen[data-screen]` (`#screen-home|learn|tools|practice|run|exam|free|pane`).
 - Route (hash, `shared/logic/route.js`): `#/`, `#/learn`, `#/learn/chN/(theory|example|interactive)[/n]`, `#/tools`, `#/practice`, `#/practice/chN[/kind]`, `#/free[/id]`, `#/exam`, `#/exam/run`, `#/exam/result`.
+- Đề như thật (`#/mock`, `shared/ui/mock-screen.js`, `shared/logic/mock-exam.js`; Linear Algebra có mẫu `linalg/src/logic/mock-*.js`): chọn mã seed (`input.mock-seed`), `button` Đề mới / In đề / In đáp án (A4, `body[data-print]`), danh sách câu kèm mục sách. Luyện tập theo dạng và Thi thử bị ẩn bằng `PRACTICE_HIDDEN` (`shared/logic/visibility.js`): `#/practice…` và `#/exam…` vẫn mở được qua URL.
 - Tính năng: Học (thẻ Bài học / Ví dụ giải sẵn / Công cụ tương tác), Công cụ, Luyện tập ("Luyện theo dạng", "Bài tập dài 60–90 phút", "Trộn cả chương", "Ôn lại dạng đã sai"), Tự luận, Thi thử (cài đặt/làm/kết quả, lịch sử), Sổ câu sai, Nháp (ghi chú, máy tính, bảng, vẽ), pet, cờ đánh dấu, thuật ngữ, trợ giúp màn hình.
 - Phím: Ctrl/Cmd+K hoặc `/` mở tìm nhanh (`dialog.palette`, `li.pal-row`); `?` trợ giúp màn hình; Esc đóng; `1..N` chọn đáp án trắc nghiệm; mũi tên trái/phải chuyển thẻ bài học.
 - Hook chung: `.runner`, `.run-widget`, `.flag-fold`, `.pet-*`, `.tab[data-tab]`, `data-check`, `data-tool`, `data-goto`.

@@ -1,4 +1,5 @@
 import { el } from './dom.js';
+import { PRACTICE_HIDDEN } from '../logic/visibility.js';
 import { t as T, onLangChange } from '../i18n/index.js';
 import { stepLine } from './question.js';
 import { decorateTerms } from './terms.js';
@@ -76,7 +77,7 @@ export function createSolver(host, { practice = null, examples = [], random = nu
         el('input', { type: 'checkbox', checked: hide ? '' : null, onChange: e => { save(HIDE_KEY, e.target.checked); revealed = false; draw(); } }),
         T('solver.hide'),
       ]),
-      practice && el('a', { class: 'sv-link', href: practice, text: T('solver.similar') }),
+      practice && !PRACTICE_HIDDEN && el('a', { class: 'sv-link', href: practice, text: T('solver.similar') }),
       !masked && el('button', { type: 'button', class: 'sv-link', text: T(copied ? 'solver.copied' : 'solver.copy'), onClick: () => {
         try { navigator.clipboard.writeText(plain(last.result)); copied = true; draw(); setTimeout(() => { copied = false; draw(); }, 1500); } catch { /* không có clipboard: bỏ qua */ }
       } }),

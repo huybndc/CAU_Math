@@ -23,6 +23,15 @@ describe('khung đề', () => {
     expect(ex.questions.map(q => q.pts)).toEqual([15, 10, 25, 20, 20, 12, 15, 25, 20]);
     expect([ex.total, ex.minutes]).toEqual([162, 97]);
   });
+  it('mỗi câu ghi mục sách (chương khớp số đầu của mục) và có tên sách', () => {
+    const ex = buildMock(LINALG_MOCK, 9);
+    expect(ex.book).toMatch(/Strang/);
+    expect(LINALG_MOCK.refs).toHaveLength(LINALG_MOCK.makers.length);
+    for (const q of ex.questions) {
+      expect(q.refs.length).toBeGreaterThan(0);
+      for (const r of q.refs) { expect(r.sec).toMatch(/^[123]\.\d$/); expect(r.title.length).toBeGreaterThan(3); }
+    }
+  });
   it('mã seed: chuyển qua lại, từ chối mã sai', () => {
     for (const s of [0, 1, 35, 60466175]) expect(parseSeed(seedCode(s))).toBe(s);
     expect(seedCode(newSeed(() => 0.999999))).toHaveLength(5);

@@ -7,12 +7,25 @@ import { getLang } from '../i18n/index.js';
    --------------------------------------------------------------- */
 
 export const HELP = {
+  mock: {
+    vi: { title: 'Đề như thật', rows: [
+      ['Mã đề', 'Mỗi mã sinh đúng một đề. Đề và đáp án dùng chung mã, nên in lúc nào cũng khớp.'],
+      ['In đề · In đáp án', 'Mở hộp thoại in của trình duyệt (chọn A4, in hai mặt, hoặc Lưu thành PDF). Đề chừa chỗ viết theo điểm.'],
+      ['Nguồn', 'Mỗi câu ghi chương và mục trong sách để tìm lại mà làm thêm. Số mục theo bản 4th.'],
+      ['Thời gian', 'Số phút tính theo tỉ lệ đề thật (0,6 phút mỗi điểm). Không dùng máy tính, không xem ghi chú.'],
+    ] },
+    en: { title: 'Exam practice', rows: [
+      ['Exam code', 'Each code makes exactly one exam. The exam and its answer key share the code, so they always match.'],
+      ['Print exam · Print key', 'Opens the browser print dialog (A4, two-sided, or Save as PDF). Writing space follows the points.'],
+      ['Source', 'Each question names the book chapter and section so you can find more to practise. Section numbers follow the 4th edition.'],
+      ['Time', 'Minutes follow the real exam rate (0.6 min per point). No calculator, no notes.'],
+    ] },
+  },
   home: {
     vi: { title: 'Tổng quan', rows: [
       ['Hôm nay', 'Bài gợi ý cho bạn lúc này. Bấm Bắt đầu để làm ngay.'],
       ['Mục tiêu thi', 'Điểm = phần lớn từ các câu luyện tập gần đây + một phần nhỏ từ thẻ đã đọc. Rê vào dấu ? để xem. Trong Luyện tập, nút "Không quan trọng" gắn cờ một dạng để bỏ khỏi điểm và đề trộn.'],
-      ['Theo chương', 'Bấm một chương để vào luyện đúng chương đó; danh sách dài thì cuộn trong khung.'],
-      ['Học · Luyện tập', 'Cột bên phải: học tiếp thẻ kế, công cụ, luyện theo dạng, tự luận, thi thử. Khối trái, dưới "Hôm nay": bánh răng nhỏ cạnh nhân vật mở bảng chọn Cáo lửa, Cú tinh tú, Thỏ mây, Gấu rêu, Rùa kim cương hoặc Mèo nước và công tắc bật/tắt (mặc định bật, lưu theo tài khoản); bấm vào nhân vật để nó phản ứng.'],
+      ['Học · Đề thi', 'Cột bên phải: học tiếp thẻ kế, công cụ, đề như thật, tự luận. Luyện theo dạng và thi thử trắc nghiệm đang ẩn. Khối trái, dưới "Hôm nay": bánh răng nhỏ cạnh nhân vật mở cài đặt nhân vật.'],
       ['Ctrl K', 'Tìm nhanh trong app (gõ không dấu cũng được), Enter mở đúng bài.'],
       ['Nháp', 'Nút nổi góc dưới phải, mở ở mọi màn: ghi chú, máy tính, bảng chân trị, bìa K, vẽ.'],
       ['Đám mây', 'Trạng thái đồng bộ tiến độ với Study Hub. Số khác Hub thì chờ vài giây rồi tải lại.', 'warn'],
@@ -20,8 +33,7 @@ export const HELP = {
     en: { title: 'Overview', rows: [
       ['Today', 'The suggested task right now. Press Start to do it now.'],
       ['Exam goal', 'Score = mostly recent practice + a small part for cards read. Hover the ? to see. In Practice, "Not important" flags a type so it is left out of the score and mixed sets.'],
-      ['By chapter', 'Open a chapter to practise exactly that chapter; a long list scrolls inside its frame.'],
-      ['Learn · Practice', 'Right column: next lesson card, tools, practice by type, free-response, mock exam. Left block, under "Today": the small gear by the character opens a picker for Fire Fox, Star Owl, Cloud Bunny, Moss Bear, Diamond Turtle or Water Cat plus an on/off switch (on by default, saved to your account); click the character to make it react.'],
+      ['Learn · Exams', 'Right column: next lesson card, tools, exam practice, free-response. Practice by type and the multiple-choice mock exam are hidden. Left block, under "Today": the small gear by the character opens its settings.'],
       ['Ctrl K', 'Quick search in the app; press Enter to open the result.'],
       ['Scratch', 'Floating button at the bottom right on every screen: notes, calculator, truth table, K-map, draw.'],
       ['Cloud', 'Progress sync status with Study Hub. If numbers differ from the Hub, wait a few seconds and reload.', 'warn'],

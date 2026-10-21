@@ -10,6 +10,7 @@
      #/practice/ch3/sop        một dạng
      #/free  ·  #/free/<id>    Tự luận: danh sách · một bài (tự chấm theo lời giải)
      #/exam                    Thi thử: chọn đề ; #/exam/run · #/exam/result
+     #/mock                    Đề như thật: chọn mã seed, in đề và đáp án (shared/ui/mock-screen.js)
    Địa chỉ cũ #/ch3/<mục con> (link trong bài học, bản trước) vẫn đọc được.
    Thuần (không đụng window) để test được; ui/router.js dùng.
    --------------------------------------------------------------- */
@@ -47,6 +48,8 @@ export function parseRoute(hash, chapters) {
       return b ? { view: 'practice', ch: a, kind: b } : { view: 'practice', ch: a };
     case 'free':
       return !a ? { view: 'free' } : /^[a-z0-9-]+$/.test(a) && !b ? { view: 'free', id: a } : null;
+    case 'mock':
+      return a ? null : { view: 'mock' };
     case 'exam':
       return EXAM_STEPS.includes(a ?? 'setup') ? { view: 'exam', step: a ?? 'setup' } : null;
     default:
@@ -61,6 +64,7 @@ export function routeOf(r) {
     case 'tools': return '#/tools';
     case 'practice': return '#/practice' + (r.ch ? `/${r.ch}` : '') + (r.kind ? `/${r.kind}` : '');
     case 'free': return r.id ? `#/free/${r.id}` : '#/free';
+    case 'mock': return '#/mock';
     case 'exam': return r.step && r.step !== 'setup' ? `#/exam/${r.step}` : '#/exam';
     default: return '#/';
   }

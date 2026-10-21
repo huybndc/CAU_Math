@@ -5,6 +5,7 @@ import { mountVectorSolver, mountComboSolver, mountSystemSolver, mountMatrixSolv
 import { mountLesson } from '@shared/ui/lesson.js';
 import { foldCards } from '@shared/ui/fold-cards.js';
 import { CHAPTERS } from './logic/chapters.js';
+import { LINALG_MOCK } from './logic/mock-exam.js';
 import { FIGURES, WIDGETS } from './ui/quiz-figures.js';
 import { setupCh1ExamplePage } from './ui/ch1-example-page.js';
 import { setupCh2ExamplePage } from './ui/ch2-example-page.js';
@@ -27,7 +28,7 @@ const banks = Object.fromEntries(CHAPTERS.map(c => [c.prefix, c.bank]));
 const FREE = freeFromGlob(import.meta.glob('./content/free/*.json', { eager: true }));
 
 window.addEventListener('DOMContentLoaded', () => {
-  setupShell({ chapters: CHAPTERS, figures: FIGURES, widgets: WIDGETS, free: FREE, lesson: ch => THEORY[getLang()][ch] });
+  setupShell({ chapters: CHAPTERS, figures: FIGURES, widgets: WIDGETS, free: FREE, mock: LINALG_MOCK, lesson: ch => THEORY[getLang()][ch] });
   setupCh1ExamplePage();
   shellReady.then(() => {                      // sau khi tài khoản gắn xong (đọc được ô nhập đã nhớ)
     mountVectorSolver(document.getElementById('tool-vec'));

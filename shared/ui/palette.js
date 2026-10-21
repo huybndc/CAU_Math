@@ -1,4 +1,5 @@
 import { $, el } from './dom.js';
+import { PRACTICE_HIDDEN } from '../logic/visibility.js';
 import { t as T } from '../i18n/index.js';
 import { splitCards } from '../logic/cards.js';
 import { seekLesson } from './lesson.js';
@@ -26,7 +27,7 @@ function buildIndex(cfg) {
       kind: 'tool', title: [...h.childNodes].filter(n => n.nodeType === 3).map(n => n.textContent).join('').trim(), sub: chap, hay: '',
       open: () => { location.hash = `#/learn/${id}/interactive/${i}`; },
     }));
-    items.push({ kind: 'practice', title: chap, sub: '', hay: '', open: () => { location.hash = `#/practice/${id}`; } });
+    if (!PRACTICE_HIDDEN) items.push({ kind: 'practice', title: chap, sub: '', hay: '', open: () => { location.hash = `#/practice/${id}`; } });
   });
   return items;
 }

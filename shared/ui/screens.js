@@ -13,6 +13,7 @@ import { renderHome } from './home-screen.js';
 import { renderLearn } from './learn-screen.js';
 import { renderExam } from './exam-screen.js';
 import { renderFree } from './free-screen.js';
+import { renderMock } from './mock-screen.js';
 import { groupsOf, kindsFor } from '../logic/groups.js';
 import { loadMistakes } from './store.js';
 
@@ -194,10 +195,10 @@ export function showRoute(r, cfg) {
   document.body.classList.toggle('exam-focus', r.view === 'exam' && r.step === 'run');
   document.querySelectorAll('#app > .screen').forEach(s => s.classList.toggle('active', s.dataset.screen === screen));
   // Thi thử nằm trong Luyện tập (D30): menu sáng mục Luyện tập
-  const nav = r.view === 'learn' && r.at != null ? 'tools' : ['exam', 'free'].includes(r.view) ? 'practice' : r.view;
+  const nav = r.view === 'learn' && r.at != null ? 'tools' : ['exam', 'free', 'mock'].includes(r.view) ? 'mock' : r.view;
   document.querySelectorAll('.tab').forEach(t => {
     if (t.dataset.nav === nav) t.setAttribute('aria-current', 'page'); else t.removeAttribute('aria-current');
   });
-  const render = { home: renderHome, learn: renderLearn, tools: renderTools, practice: renderPractice, run: renderRun, pane: renderPane, exam: renderExam, free: renderFree }[screen];
+  const render = { home: renderHome, learn: renderLearn, tools: renderTools, practice: renderPractice, run: renderRun, pane: renderPane, exam: renderExam, free: renderFree, mock: renderMock }[screen];
   document.title = `${render(r, cfg, c)} · ${T('app.short')}`;
 }
