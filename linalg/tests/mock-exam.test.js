@@ -147,3 +147,27 @@ describe('đáp án đúng với phép tính riêng', () => {
     }
   });
 });
+
+describe('giờ và tự chấm', () => {
+  it('secondsLeft: đếm ngược, không âm', async () => {
+    const { secondsLeft } = await import('@shared/logic/mock-exam.js');
+    const run = { startedAt: 1000, minutes: 2 };
+    expect(secondsLeft(run, 1000)).toBe(120);
+    expect(secondsLeft(run, 1000 + 61000)).toBe(59);
+    expect(secondsLeft(run, 1000 + 999999)).toBe(0);
+  });
+  it('scoreSummary: kẹp điểm vào [0, tối đa], cộng đúng, mục yếu nhất lên đầu', async () => {
+    const { scoreSummary } = await import('@shared/logic/mock-exam.js');
+    const ex = buildMock(LINALG_MOCK, 11), g = {};
+    for (const q of ex.questions) for (const p of q.parts) g[`${q.no}-${p.label}`] = p.pts;   // đủ điểm
+    expect(scoreSummary(ex, g)).toMatchObject({ total: 162, max: 162 });
+    g['3-a'] = 999; g['3-b'] = -5; g['3-c'] = 'x';                                           // quá, âm, không phải số
+    const s = scoreSummary(ex, g);
+    expect(s.byQuestion[2]).toEqual({ no: 3, max: 25, got: 10 });
+    expect(s.total).toBe(162 - 15);
+    expect(s.bySection.reduce((t, x) => t + x.got, 0)).toBe(s.total);
+    expect(s.bySection.reduce((t, x) => t + x.max, 0)).toBe(162);
+    expect(s.bySection[0].sec).toBe('2.2');                                                   // câu 3 mất điểm ⇒ mục chính của nó yếu nhất
+    expect(scoreSummary(ex, {}).total).toBe(0);
+  });
+});

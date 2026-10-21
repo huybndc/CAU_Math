@@ -12,13 +12,15 @@ export const HELP = {
       ['Mã đề', 'Mỗi mã sinh đúng một đề. Đề và đáp án dùng chung mã, nên in lúc nào cũng khớp.'],
       ['In đề · In đáp án', 'Mở hộp thoại in của trình duyệt (chọn A4, in hai mặt, hoặc Lưu thành PDF). Đề chừa chỗ viết theo điểm.'],
       ['Nguồn', 'Mỗi câu ghi chương và mục trong sách để tìm lại mà làm thêm. Số mục theo bản 4th.'],
-      ['Thời gian', 'Số phút tính theo tỉ lệ đề thật (0,6 phút mỗi điểm). Không dùng máy tính, không xem ghi chú.'],
+      ['Thời gian', 'Số phút tính theo tỉ lệ đề thật (0,6 phút mỗi điểm). Bấm Bắt đầu tính giờ khi cầm bút; tải lại trang vẫn giữ giờ. Hết giờ tự chuyển sang chấm.'],
+      ['Tự chấm', 'In đáp án, đối chiếu bài trên giấy, nhập điểm từng ý. Kết quả cho thấy mục sách yếu nhất ở trên cùng.'],
     ] },
     en: { title: 'Exam practice', rows: [
       ['Exam code', 'Each code makes exactly one exam. The exam and its answer key share the code, so they always match.'],
       ['Print exam · Print key', 'Opens the browser print dialog (A4, two-sided, or Save as PDF). Writing space follows the points.'],
       ['Source', 'Each question names the book chapter and section so you can find more to practise. Section numbers follow the 4th edition.'],
-      ['Time', 'Minutes follow the real exam rate (0.6 min per point). No calculator, no notes.'],
+      ['Time', 'Minutes follow the real exam rate (0.6 min per point). Press Start timer when you pick up the pen; reloading keeps the time. When time is up you go to marking.'],
+      ['Marking', 'Print the key, compare it with your paper, enter points for each part. The result shows the weakest book section first.'],
     ] },
   },
   home: {
