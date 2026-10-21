@@ -31,3 +31,31 @@ export function buildMock(template, seed) {
     minutes: Math.round(total * template.minutesPerPoint),
   };
 }
+
+/* ---------- giờ làm bài và tự chấm (thuần) ---------- */
+
+/** Giây còn lại; run = { startedAt, minutes }. Không âm. */
+export const secondsLeft = (run, now) => Math.max(0, Math.ceil((run.startedAt + run.minutes * 60000 - now) / 1000));
+
+const clampPts = (v, max) => Math.min(max, Math.max(0, Math.round(Number(v) || 0)));
+
+/**
+ * Điểm tự chấm → tổng, theo câu, theo mục sách. grades = { 'no-label': điểm }.
+ * Điểm của câu tính vào mục sách đầu tiên của câu (câu nhiều mục: mục chính).
+ */
+export function scoreSummary(ex, grades) {
+  const byQuestion = ex.questions.map(q => ({
+    no: q.no, max: q.pts, got: q.parts.reduce((s, p) => s + clampPts(grades[`${q.no}-${p.label}`], p.pts), 0),
+  }));
+  const sections = new Map();
+  ex.questions.forEach((q, i) => {
+    const r = q.refs[0] ?? { sec: '—', title: '' };
+    const cur = sections.get(r.sec) ?? { sec: r.sec, title: r.title, got: 0, max: 0 };
+    cur.got += byQuestion[i].got; cur.max += byQuestion[i].max;
+    sections.set(r.sec, cur);
+  });
+  return {
+    total: byQuestion.reduce((s, q) => s + q.got, 0), max: ex.total, byQuestion,
+    bySection: [...sections.values()].sort((a, b) => a.got / a.max - b.got / b.max),   // yếu nhất lên đầu
+  };
+}
