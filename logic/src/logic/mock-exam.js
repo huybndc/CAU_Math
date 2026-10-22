@@ -34,7 +34,7 @@ export function makeSevenSeg() {
         a: segs.flatMap(([k, v]) => [r`Segment $${k}$: $${kmap(v, names4)}$`, r`$${k} = ${S[k].expr}$`]), facts: { sop: { a: S.a.expr, f: S.f.expr, e: S.e.expr }, names: names4 },
         checks: segs.map(([k, v]) => check(`Segment ${k}`, names4, v, S[k].lits)) },
     ],
-    refs: [['4.4', 'Design procedure (cf. Problem 4.9)'], ['3.6', "Don't-care conditions"], ['3.3', 'Four-variable map']],
+    refs: [['4.4', 'Design procedure (cf. Problem 4.9)'], ['3.5', "Don't-care conditions"], ['3.3', 'Four-variable map']],
   };
 }
 
@@ -50,7 +50,7 @@ export function makeExcess3() {
         a: outs.flatMap(([k, v]) => [r`$${k}$: $${kmap(v, names4)}$`, r`$${k} = ${S[k].expr}$`]), facts: { sop: Object.fromEntries(outs.map(([k]) => [k, S[k].expr])), names: names4 },
         checks: outs.map(([k, v]) => check(k, names4, v, S[k].lits)) },
     ],
-    refs: [['4.4', 'Design procedure'], ['3.6', "Don't-care conditions"], ['3.3', 'Four-variable map']],
+    refs: [['4.4', 'Design procedure'], ['3.5', "Don't-care conditions"], ['3.3', 'Four-variable map']],
   };
 }
 

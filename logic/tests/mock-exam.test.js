@@ -78,6 +78,17 @@ describe('đề Logic', () => {
   });
 });
 
+describe('mục sách trích dẫn khớp mục lục Mano 6th', () => {
+  // Chép tay từ mục lục sách (chương 3–4) để bắt số mục sai như §3.6 cho don't-care (đúng là §3.5).
+  const TOC = { '3.2': 'map method', '3.3': 'four-variable', '3.5': "don't-care", '4.4': 'design procedure', '4.5': 'adder', '4.6': 'decimal adder', '4.9': 'decoder', '4.11': 'multiplexer' };
+  it('mỗi ref có số mục trong mục lục và tên khớp', () => {
+    for (const s of [1, 2, 3]) buildMock(LOGIC_MOCK, s).questions.forEach(q => q.refs.forEach(r => {
+      expect(TOC[r.sec], `§${r.sec}`).toBeTruthy();
+      expect(r.title.toLowerCase(), `§${r.sec}`).toContain(TOC[r.sec]);
+    }));
+  });
+});
+
 describe('gradeCircuit (mạch vẽ tay)', () => {
   const spec = { names: ['x', 'y', 'z'], values: [0, 0, 1, 1, 0, 1, 2, 1], refLits: 4 };   // m2,m3,m5,m7 =1; m6 = don't-care
   it('đúng hàm + tối giản ⇒ đúng; don\'t-care tuỳ ý', () => {
