@@ -1,9 +1,12 @@
 # Test + kiểm cỡ file + build cho mọi PR và main (trước đây CAU_Math không có CI, merge dựa vào chạy tay).
 name: ci
 on:
+  # PR/push chỉ sửa tài liệu thì không chạy CI (tiết kiệm phút Actions; code vẫn chạy đủ)
   pull_request:
+    paths-ignore: ['**/*.md', 'docs/**']
   push:
     branches: [main]
+    paths-ignore: ['**/*.md', 'docs/**']
 jobs:
   ci:
     runs-on: ubuntu-latest
