@@ -20,7 +20,6 @@ function solved(values, n) {
   const sop = minimizeSOP(values, n);
   return { expr: sop.terms.map(t => t.text).join(' + ') || '0', terms: sop.terms.map(t => [...t.text.matchAll(/[a-z]'?/g)].map(m => m[0])), lits: sop.terms.reduce((s, t) => s + literalCount(t.imp, n), 0) };
 }
-const check = (label, names, values, lits) => ({ label, names, values, refLits: lits });
 
 export function makeSevenSeg() {
   const segs = Object.entries(ON).map(([k, d]) => [k, vals(d)]), S = Object.fromEntries(segs.map(([k, v]) => [k, solved(v, 4)]));
@@ -31,8 +30,7 @@ export function makeSevenSeg() {
         a: [r`A segment is $1$ when the digit uses it: $a$ for $0,2,3,5,6,7,8,9$; $f$ for $0,4,5,6,8,9$; $e$ for $0,2,6,8$.`,
           r`$${table(['w', 'x', 'y', 'z', 'a', 'f', 'e'], rowsOf(4, segs.map(([, v]) => v)))}$`], facts: { a: vals(ON.a), f: vals(ON.f), e: vals(ON.e) } },
       { pts: 25, q: r`Using your truth table, draw a Karnaugh map for each segment and find its minimal sum of products (use the don't-cares).`,
-        a: segs.flatMap(([k, v]) => [r`Segment $${k}$: $${kmap(v, names4)}$`, r`$${k} = ${S[k].expr}$`]), facts: { sop: { a: S.a.expr, f: S.f.expr, e: S.e.expr }, names: names4 },
-        checks: segs.map(([k, v]) => check(`Segment ${k}`, names4, v, S[k].lits)) },
+        a: segs.flatMap(([k, v]) => [r`Segment $${k}$: $${kmap(v, names4)}$`, r`$${k} = ${S[k].expr}$`]), facts: { sop: { a: S.a.expr, f: S.f.expr, e: S.e.expr }, names: names4 } },
     ],
     refs: [['4.4', 'Design procedure (cf. Problem 4.9)'], ['3.5', "Don't-care conditions"], ['3.3', 'Four-variable map']],
   };
@@ -47,8 +45,7 @@ export function makeExcess3() {
       { pts: 15, q: r`Write the truth table of $E_3, E_2, E_1, E_0$.`,
         a: [r`Excess-$3$ of a digit $d$ is the $4$-bit binary number $d + 3$.`, r`$${table(['w', 'x', 'y', 'z', 'E_3', 'E_2', 'E_1', 'E_0'], rowsOf(4, outs.map(([, v]) => v)))}$`], facts: { outs: Object.fromEntries(outs) } },
       { pts: 25, q: r`Using your truth table, draw a Karnaugh map for each output and find its minimal sum of products (use the don't-cares).`,
-        a: outs.flatMap(([k, v]) => [r`$${k}$: $${kmap(v, names4)}$`, r`$${k} = ${S[k].expr}$`]), facts: { sop: Object.fromEntries(outs.map(([k]) => [k, S[k].expr])), names: names4 },
-        checks: outs.map(([k, v]) => check(k, names4, v, S[k].lits)) },
+        a: outs.flatMap(([k, v]) => [r`$${k}$: $${kmap(v, names4)}$`, r`$${k} = ${S[k].expr}$`]), facts: { sop: Object.fromEntries(outs.map(([k]) => [k, S[k].expr])), names: names4 } },
     ],
     refs: [['4.4', 'Design procedure'], ['3.5', "Don't-care conditions"], ['3.3', 'Four-variable map']],
   };
@@ -64,7 +61,7 @@ export function makeBcdAdder() {
         a: [r`$${table(['K', 'Z_8', 'Z_4', 'Z_2', 'Z_1', 'C', 'S_8', 'S_4', 'S_2', 'S_1'], rows)}$`,
           r`The sum must be corrected (add $6 = 0110$) exactly when it is above $9$, so $C = 1$ exactly for the binary sums $10$ to $19$.`,
           r`Sums $16$ to $19$ have $K = 1$. Sums $10$ to $15$ have $K = 0$ and $Z_8 = 1$ with $Z_4 = 1$ or $Z_2 = 1$. Hence $C = v + wx + wy$ (that is $K + Z_8Z_4 + Z_8Z_2$).`],
-        checks: [check('C = f(K, Z8, Z4, Z2, Z1)', ['v', 'w', 'x', 'y', 'z'], corr, 5)], facts: { corr, expr: 'v + wx + wy' } },
+        facts: { corr, expr: 'v + wx + wy' } },
       { pts: 40, q: r`Draw the complete BCD adder as one circuit, using two $4$-bit binary adders (as blocks) and the gates for $C$.`,
         a: [r`The first adder adds $A + B + C_{in}$ and gives $K$ and $Z$. Gates give $C = K + Z_8Z_4 + Z_8Z_2$. The second adder adds $Z$ and $0CC0$ (so $+6$ when $C = 1$); its carry out is ignored and $C$ is the BCD carry out.`],
         figs: [bcdAdder()], facts: {} },

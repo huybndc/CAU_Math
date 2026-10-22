@@ -23,12 +23,8 @@ body[data-print]{background:#fff}
 #mock-print .mp-figs figure{margin:0;break-inside:avoid;max-width:48%}
 #mock-print .mp-figs svg{width:100%;height:auto;color:#000}
 #mock-print .mp-figs .lit{fill:#000;font:11px 'Source Sans 3',sans-serif}
-.mock-check{margin:.8rem 0}
-.mock-check[open]{max-height:12rem;overflow:auto}
-.mock-checkrow{display:grid;grid-template-columns:9rem 16rem 1fr;gap:.6rem;align-items:center;margin:.3rem 0}
-.mock-expr{font:inherit;font-family:ui-monospace,monospace;padding:.3rem .5rem;border:1px solid var(--line);border-radius:var(--r-md);background:var(--panel);color:inherit}
-.mock-verdict.ok{color:var(--ok,#2d7a4f)}.mock-verdict.bad{color:var(--bad,#b3423a)}
 #mock-print .mp-figs figure:has(.fig-block){max-width:92%}
 #mock-print .mp-figs .fig-block .lit{font-size:18px}
 #mock-print .mp-figs.stack{flex-direction:column;gap:14px}
 #mock-print .mp-figs.stack figure{max-width:60%}
+.mock-qs{margin:.6rem 0}.mock-qs summary{cursor:pointer;color:var(--muted)}

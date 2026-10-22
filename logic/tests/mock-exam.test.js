@@ -3,7 +3,6 @@ import { describe, it, expect } from 'vitest';
 import katex from 'katex';
 import { buildMock } from '@shared/logic/mock-exam.js';
 import { LOGIC_MOCK } from '../src/logic/mock-exam.js';
-import { gradeCircuit } from '../src/logic/mock-check.js';
 
 const ex = buildMock(LOGIC_MOCK, 9);
 const part = (q, p) => ex.questions[q].parts[p];
@@ -65,16 +64,10 @@ describe('đề Logic', () => {
       expect(data.includes('z') && data.includes("z'")).toBe(true);
     }
   });
-  it('đúng 2 câu K-map (7 đoạn, Excess-3; không vẽ) và 2 câu vẽ một mạch (bộ cộng BCD, MUX); đáp án chuẩn tự chấm ĐÚNG', () => {
+  it('đúng 2 câu K-map (7 đoạn, Excess-3; không vẽ) và 2 câu vẽ một mạch (bộ cộng BCD, MUX)', () => {
     const text = ex.questions.flatMap(q => q.parts.flatMap(p => p.a)).join(' ');
     expect(text.match(/\\begin\{array\}\{c\|cccc\}/g).length).toBe(3 + 4);
     expect(ex.questions.map(q => q.parts.filter(p => p.figs).length)).toEqual([0, 0, 1, 1]);
-    expect(gradeCircuit(part(2, 0).checks[0], 'v + wx + wy').ok).toBe(true);
-    expect(gradeCircuit(part(2, 0).checks[0], 'v + wx').ok).toBe(false);
-    for (const [q, p, keys] of [[0, 1, 'afe'], [1, 1, ['E_3', 'E_2', 'E_1', 'E_0']]]) {
-      const pt = part(q, p);
-      pt.checks.forEach((c, i) => expect(gradeCircuit(c, pt.facts.sop[keys[i]]).ok, c.label).toBe(true));
-    }
   });
 });
 
@@ -86,25 +79,5 @@ describe('mục sách trích dẫn khớp mục lục Mano 6th', () => {
       expect(TOC[r.sec], `§${r.sec}`).toBeTruthy();
       expect(r.title.toLowerCase(), `§${r.sec}`).toContain(TOC[r.sec]);
     }));
-  });
-});
-
-describe('gradeCircuit (mạch vẽ tay)', () => {
-  const spec = { names: ['x', 'y', 'z'], values: [0, 0, 1, 1, 0, 1, 2, 1], refLits: 4 };   // m2,m3,m5,m7 =1; m6 = don't-care
-  it('đúng hàm + tối giản ⇒ đúng; don\'t-care tuỳ ý', () => {
-    expect(gradeCircuit(spec, "x'y + xz").ok).toBe(true);
-    expect(gradeCircuit(spec, "x'y + xz + xy").functional).toBe(true);    // phủ m6 (don't-care) vẫn đúng hàm
-  });
-  it('thiếu hay thừa một ô bắt buộc ⇒ sai, nêu ô sai', () => {
-    const miss = gradeCircuit(spec, "x'y");
-    expect(miss.ok).toBe(false); expect(miss.wrong).toEqual([5, 7]);
-    const extra = gradeCircuit(spec, "x'y + xz + x'y'z'");
-    expect(extra.ok).toBe(false); expect(extra.wrong).toEqual([0]);
-  });
-  it('đúng hàm nhưng không tối giản ⇒ không đạt chuẩn; rỗng/sai cú pháp được báo riêng', () => {
-    const big = gradeCircuit(spec, "x'yz + x'yz' + xy'z + xyz");
-    expect(big.functional).toBe(true); expect(big.minimal).toBe(false); expect(big.ok).toBe(false);
-    expect(gradeCircuit(spec, '  ').empty).toBe(true);
-    expect(gradeCircuit(spec, "x'y +").error).toBeTruthy();
   });
 });
