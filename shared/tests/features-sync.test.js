@@ -60,6 +60,10 @@ const REMOVED = [
   ['freeEvent', 'Tự luận tự đánh giá + math.answer mode free (2026-10-22)'],
   ['free-rubric', 'Tự luận: ý chấm tự tích (2026-10-22)'],
   ['free.rate', 'Tự luận: nút tự đánh giá (2026-10-22)'],
+  ['PRACTICE_HIDDEN', 'cờ ẩn Luyện tập (đã gỡ hẳn, 2026-10-22)'],
+  ['screen-practice', 'màn Luyện tập (2026-10-22)'],
+  ['screen-exam', 'màn Thi thử (2026-10-22)'],
+  ['markMistake', 'Sổ câu sai (2026-10-22)'],
   ['gradeCircuit', 'Đề như thật: ô Kiểm mạch đã vẽ (2026-10-22)'],
   ['mock.check', 'Đề như thật: ô Kiểm mạch đã vẽ (2026-10-22)'],
 ];

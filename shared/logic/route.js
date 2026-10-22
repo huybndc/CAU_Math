@@ -5,23 +5,18 @@
      #/learn/ch3/interactive   một khung của chương (theory | example | interactive)
      #/learn/ch3/interactive/1 … và cuộn tới công cụ thứ 2 trong khung (mở từ màn Công cụ)
      #/tools                   Công cụ: mọi công cụ bấm thử + ví dụ giải sẵn của các chương
-     #/practice                Luyện tập: danh sách dạng
-     #/practice/ch3            trộn cả chương (app chưa có ngân hàng câu: bài luyện cũ)
-     #/practice/ch3/sop        một dạng
-     #/free  ·  #/free/<id>    Tự luận: danh sách · một bài (tự chấm theo lời giải)
-     #/exam                    Thi thử: chọn đề ; #/exam/run · #/exam/result
+     #/free  ·  #/free/<id>    Tự luận: danh sách · một bài
      #/mock                    Đề như thật: chọn mã seed, in đề và đáp án (shared/ui/mock-screen.js)
    Địa chỉ cũ #/ch3/<mục con> (link trong bài học, bản trước) vẫn đọc được.
    Thuần (không đụng window) để test được; ui/router.js dùng.
    --------------------------------------------------------------- */
 
 export const LEARN_SUBS = ['theory', 'example', 'interactive'];
-const EXAM_STEPS = ['setup', 'run', 'result'];
 
 /**
  * @param {string} hash
  * @param {string[]} chapters - vd ['ch1','ch2','ch3']
- * @returns {{view:string, ch?:string, sub?:string, kind?:string, step?:string} | null}
+ * @returns {{view:string, ch?:string, sub?:string, at?:number, id?:string} | null}
  *   null = địa chỉ không có thật ⇒ nơi gọi về Tổng quan, không mở trang trống.
  */
 export function parseRoute(hash, chapters) {
@@ -30,7 +25,6 @@ export function parseRoute(hash, chapters) {
   if (!head) return { view: 'home' };
   if (chapters.includes(head)) {                       // địa chỉ cũ
     const sub = a ?? 'theory';
-    if (sub === 'practice') return { view: 'practice', ch: head };
     return LEARN_SUBS.includes(sub) ? { view: 'learn', ch: head, sub } : null;
   }
   switch (head) {
@@ -42,16 +36,10 @@ export function parseRoute(hash, chapters) {
       return /^\d+$/.test(c) ? { view: 'learn', ch: a, sub: b, at: Number(c) } : null;
     case 'tools':
       return a ? null : { view: 'tools' };
-    case 'practice':
-      if (!a) return { view: 'practice' };
-      if (!chapters.includes(a)) return null;
-      return b ? { view: 'practice', ch: a, kind: b } : { view: 'practice', ch: a };
     case 'free':
       return !a ? { view: 'free' } : /^[a-z0-9-]+$/.test(a) && !b ? { view: 'free', id: a } : null;
     case 'mock':
       return a ? null : { view: 'mock' };
-    case 'exam':
-      return EXAM_STEPS.includes(a ?? 'setup') ? { view: 'exam', step: a ?? 'setup' } : null;
     default:
       return null;
   }
@@ -62,10 +50,8 @@ export function routeOf(r) {
   switch (r.view) {
     case 'learn': return r.ch ? `#/learn/${r.ch}/${r.sub ?? 'theory'}${r.at != null ? `/${r.at}` : ''}` : '#/learn';
     case 'tools': return '#/tools';
-    case 'practice': return '#/practice' + (r.ch ? `/${r.ch}` : '') + (r.kind ? `/${r.kind}` : '');
     case 'free': return r.id ? `#/free/${r.id}` : '#/free';
     case 'mock': return '#/mock';
-    case 'exam': return r.step && r.step !== 'setup' ? `#/exam/${r.step}` : '#/exam';
     default: return '#/';
   }
 }

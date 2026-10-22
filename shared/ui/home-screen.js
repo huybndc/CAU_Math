@@ -1,15 +1,10 @@
 import { $, el } from './dom.js';
-import { PRACTICE_HIDDEN } from '../logic/visibility.js';
 import { t as T } from '../i18n/index.js';
-import { statsOf, recentStats, weekSince } from '../logic/progress.js';
+import { statsOf, weekSince } from '../logic/progress.js';
 import { weekOf, WEEKS, EXAM_WEEKS, daysToMidterm } from '../logic/syllabus.js';
-import { loadEvents, load, save, savePet, subjectOf } from './store.js';
-import { targetOf } from '../logic/exam-target.js';
-import { goalOf } from '../logic/score.js';
-import { cardDone } from '../logic/prereq.js';
-import { pointKeys } from '../logic/knowledge.js';
+import { loadEvents, load, savePet } from './store.js';
 import { loadFlags } from './flags.js';
-import { chapterTitle, roundMinutes, rankedKinds, accCell, row, leadCard, studied } from './choices.js';
+import { chapterTitle, leadCard, studied } from './choices.js';
 import { nextLearn } from '../logic/prereq.js';
 import { splitCards } from '../logic/cards.js';
 import { seekLesson, lessonGraph, readOf } from './lesson.js';
@@ -22,10 +17,6 @@ import { petBlock } from './pet.js';
      số liệu 7 ngày viết thành một dòng, không đóng hộp;
    - không streak: nghỉ vài hôm quay lại không bị "phạt" (toeic D51).
    --------------------------------------------------------------- */
-
-const why = x => (x.reason === 'new' ? T('home.whyNew')
-  : x.reason === 'few' ? T('home.whyFew', { n: x.stats.attempts })
-    : T('home.whyWeak', { p: Math.round(x.stats.accuracy * 100) }));
 
 function termBlock(now) {
   const week = weekOf(new Date(now));
@@ -46,41 +37,10 @@ function termBlock(now) {
   ]);
 }
 
-function today(cfg, events, now) {
-  const ranked = PRACTICE_HIDDEN ? [] : rankedKinds(cfg, events, now);
-  if (PRACTICE_HIDDEN && cfg.mock) return leadCard({ title: T('nav.mock'), note: T('mock.homeNote'), href: '#/mock', cta: T('mock.open') });
-  if (!ranked.length) {                    // môn chưa có ngân hàng câu: mời học tiếp chương đang học
-    const ch = studied(cfg, events)[0] ?? cfg.chapters[0].id;
-    return leadCard({ title: T('home.learnNow'), note: chapterTitle(ch), href: `#/learn/${ch}/theory`, cta: T('learn.start') });
-  }
-  const [first] = ranked;
-  return leadCard({
-    title: T(`${first.prefix}.${first.kind}`),
-    note: `${chapterTitle(first.ch)} · ${why(first)} · ~${roundMinutes(first.bank, [first.kind])} ${T('home.min')}`,
-    href: `#/practice/${first.ch}/${first.kind}`, cta: T('practice.start'),
-  });
-}
-
-/** Mục tiêu thi: thanh điểm (80% luyện tập gần đây + 20% đã đọc — logic/score.js) + vạch mục tiêu (cùng số với Study_Hub: exam-target.json). */
-function goalRow(events, cfg) {
-  const t = targetOf(subjectOf());
-  if (t == null) return '';
-  const cards = cfg.chapters.flatMap(c => {
-    const read = readOf(c.id);
-    return splitCards(cfg.lesson?.(c.id) ?? '').cards.map((card, i) => ({ done: cardDone(events, card.body, read.has(i)), keys: pointKeys(card.body) }));
-  });
-  const { p, left, done } = goalOf({ events, flags: loadFlags(), cards, target: t });
-  return el('div', { class: 'goal-row' }, [
-    el('h2', { class: 'section-label' }, [
-      el('span', { text: T('home.goalLabel', { t }) }),
-      el('span', { class: 'goal-help', tabindex: '0', title: T('home.goalHelp'), text: '?' }),
-    ]),
-    el('div', { class: 'goal-line' }, [
-      el('span', { class: 'goal-bar', role: 'img', 'aria-label': T('home.goalNow', { p: p ?? 0, n: left }) }, [
-        el('i', { style: `width:${p ?? 0}%` }), el('u', { style: `left:${t}%` })]),
-      el('span', { class: 'small', text: p === null ? T('practice.none') : done ? T('home.goalDone', { p }) : T('home.goalNow', { p, n: left }) }),
-    ]),
-  ]);
+function today(cfg, events) {
+  if (cfg.mock) return leadCard({ title: T('nav.mock'), note: T('mock.homeNote'), href: '#/mock', cta: T('mock.open') });
+  const ch = studied(cfg, events)[0] ?? cfg.chapters[0].id;     // môn chưa có đề mẫu: mời học tiếp chương đang học
+  return leadCard({ title: T('home.learnNow'), note: chapterTitle(ch), href: `#/learn/${ch}/theory`, cta: T('learn.start') });
 }
 
 /** Thẻ hành động nhẹ (viền mảnh, hover đổi nền): tên đậm + một dòng phụ + nút mũi tên tròn. */
@@ -89,7 +49,6 @@ const act = ({ href, title, note, onClick }) => el('a', { class: 'act', href, on
   el('span', { class: 'act-go', 'aria-hidden': 'true', text: '→' }),
 ]);
 
-/** Cột phải: Học (2 thẻ) và Luyện tập (3 thẻ) — những việc không trùng khối "Hôm nay". */
 /** "Tuần này" như Hub: nhân vật + 3 số của 7 ngày qua (số câu, % đúng, số ngày có học). */
 function weekBlock(events, now, ctx) {
   const since = weekSince(now), w = statsOf(events, { since });
@@ -105,7 +64,6 @@ function weekBlock(events, now, ctx) {
 function side(cfg, events, now) {
   const g = lessonGraph(cfg);
   const n = nextLearn(cfg.chapters.map(c => ({ ch: c.id, cards: splitCards(cfg.lesson?.(c.id) ?? '').cards })), g, events, readOf, loadFlags());
-  const days = daysToMidterm(new Date(now));
   return el('div', { class: 'home-side' }, [
     el('h2', { class: 'section-label', text: T('nav.learn') }),
     n ? act({ href: `#/learn/${n.ch}/theory`, title: T('learn.nextCard', { title: n.title }), note: chapterTitle(n.ch), onClick: () => seekLesson(n.ch, n.card) })
@@ -113,9 +71,7 @@ function side(cfg, events, now) {
     act({ href: '#/tools', title: T('nav.tools'), note: T('home.actToolsNote') }),
     el('h2', { class: 'section-label', text: T('nav.mock') }),
     ...(cfg.mock ? [act({ href: '#/mock', title: T('nav.mock'), note: T('mock.homeNote') })] : []),
-    ...(PRACTICE_HIDDEN ? [] : [act({ href: '#/practice', title: T('practice.tabKinds'), note: T('home.actKindsNote') })]),
     act({ href: '#/free', title: T('practice.tabFree'), note: T('home.actFreeNote') }),
-    ...(PRACTICE_HIDDEN ? [] : [act({ href: '#/exam', title: T('nav.exam'), note: days >= 0 && days <= 21 ? T('home.actExamSoon', { n: days }) : T('home.actExamNote') })]),
   ]);
 }
 
@@ -126,30 +82,15 @@ export function renderHome(r, cfg) {
   const saved = load('pet', null);
   const petCtx = { acts: events, data: { hub: saved == null ? [] : [{ type: 'pet.set', payload: saved }] }, add: (_type, payload) => savePet(payload), render: () => renderHome(r, cfg) };
 
-  // mọi chương trong MỘT thẻ tự cuộn (~5 hàng): chương chưa làm vẫn hiện, không phải gập
-  const chapters = (PRACTICE_HIDDEN ? [] : cfg.chapters.filter(c => c.bank)).map(c => {
-    const tried = c.bank.KINDS.filter(k => statsOf(events, { prefix: c.prefix, kind: k }).attempts > 0).length;
-    const a = row({
-      href: '#/practice', title: chapterTitle(c.id),
-      num: T('home.tried', { a: tried, b: c.bank.KINDS.length }),
-      acc: accCell(recentStats(events, { prefix: c.prefix }, now)),
-    });
-    a.addEventListener('click', () => save('practice-ch', c.id));   // mở Luyện tập đúng chương này
-    return a;
-  });
-
   $('#screen-home').replaceChildren(
     el('h1', { text: T('app.short') }),
     el('p', { class: 'subtitle', text: T('app.book') }),
     termBlock(now),
     el('div', { class: 'home-cols' }, [
       el('div', { class: 'home-main' }, [
-        ...(PRACTICE_HIDDEN ? [] : [goalRow(events, cfg)]),
         el('h2', { class: 'section-label', text: T('home.today') }),
-        today(cfg, events, now),
+        today(cfg, events),
         ...weekBlock(events, now, petCtx),
-        chapters.length ? el('h2', { class: 'section-label', text: T('home.byChapter') }) : '',
-        chapters.length ? el('div', { class: 'list home-chapters' }, chapters) : '',
       ]),
       side(cfg, events, now),
     ]),

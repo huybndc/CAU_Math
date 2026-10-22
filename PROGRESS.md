@@ -16,18 +16,11 @@
 - Discrete: thêm đa dạng câu (định nghĩa, bổ đề, quy nạp).
 - Tự luận đã gọn (PR #104): đề · gợi ý · lời giải từng bước; không tự chấm, không phát `math.answer`. Hiện KHÔNG còn màn nào phát `math.answer` (Luyện tập, Thi thử ẩn).
 
-## Kế hoạch gỡ dần tính năng không dùng (2026-10-22, người học chọn "tổng hợp rồi xoá dần")
-Không dùng nữa (đang ẩn hoặc số đứng yên):
-- Luyện tập theo dạng, Bài tập dài, Trộn chương, Ôn dạng sai (`screens.js` practice, `PRACTICE_HIDDEN`).
-- Thi thử trắc nghiệm + lịch sử (`exam-screen.js`, `exam-run.js`, `logic/exam.js`).
-- Sổ câu sai (`logic/mistakes.js`, `store.markMistake`).
-- Điểm mục tiêu ở Tổng quan (`logic/score.js` `goalOf`, `home-screen.js` `goalRow`): luyện tập ẩn nên số đứng yên.
-Còn dùng, KHÔNG gỡ: `runner.js` + ngân hàng câu (điểm kiến thức trong bài học, `kpoint.js`), `flags.js` (thẻ đã đọc ở Học), máy giải, Đề như thật, Tự luận.
-Bước:
-1. (Xong, theo `PRACTICE_HIDDEN`) Ẩn dòng điểm mục tiêu.
-2. Study_Hub bỏ link `/practice/chN/<dạng>` và `/exam` (buildItems) và chốt không cần `math.answer` từ app toán → gỡ route + màn Luyện tập/Thi thử/Sổ câu sai + test của chúng, thêm vào `REMOVED` (features-sync).
-3. Khi ôn cuối kỳ (~2026-11-20): quyết luyện tập mới quanh câu Tự luận/Đề như thật hay bỏ hẳn.
-- Backlog thấp: ~26 đột biến sống sót ở elimination/quine-mccluskey/graph (`npm run mutate`); `checkNumber` chưa đọc "1e-3", "33%"; `checkVector` chưa đọc "x=1, y=2"; ngưỡng EPS tuyệt đối khi khử.
+## Đã gỡ Luyện tập, Thi thử, Sổ câu sai, Điểm mục tiêu (2026-10-22, PR chờ merge)
+- Gỡ: route `#/practice…` và `#/exam…` (về Tổng quan), màn + `exam-screen`, `exam-run`, `logic/exam`, `mistakes`, `score`, `groups`, cờ `PRACTICE_HIDDEN`, `exam.css`, ~110 chuỗi i18n, trợ giúp của các màn đó, link "Luyện tập chương này" trong bài học Logic. Có test `REMOVED` canh.
+- Giữ: `runner.js` + ngân hàng câu (điểm kiến thức `kpoint` trong bài học), `flags.js` (thẻ đã đọc), `progress.js` (số liệu Tuần này), máy giải, Đề như thật, Tự luận.
+- Còn thừa, chưa gỡ (không gấp): `shared/logic/exam-target.js` + `.json` (bản chụp từ Hub, UI không còn dùng), `stats`/`rankNeeds` dùng ít.
+- Khi ôn cuối kỳ (~2026-11-20): quyết có làm luyện tập mới quanh Tự luận/Đề như thật hay không.
 
 ## Quy tắc còn hiệu lực
 - Toán, câu hỏi, bộ giải, oracle → repo này. Hub, tài khoản, vault, thống kê liên môn → Study_Hub. Không import chéo; mirror một chiều theo `math.lock`.

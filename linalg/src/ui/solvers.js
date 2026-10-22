@@ -34,7 +34,6 @@ export function mountVectorSolver(host) {
   const holder = el('div');
   const s = createSolver(host, {
     terms: glossary,
-    practice: '#/practice/ch1',
     random: () => mi.set(randVectorPair()),
     examples: [[[3, 4], [4, 3]], [[1, 2, 2], [2, -1, 0]], [[1, 0], [1, 1]], [[1, 2], [2, 4]]].map(([a, b]) => ({
       label: `(${a}) · (${b})`, apply: () => mi.set(a.map((x, i) => [x, b[i]])),
@@ -58,7 +57,6 @@ export function mountComboSolver(host) {
   const holder = el('div');
   const s = createSolver(host, {
     terms: glossary,
-    practice: '#/practice/ch1',
     random: () => mi.set(randCombo()),
     examples: [
       { label: 'w = 2v₁ − v₂', apply: () => mi.set([[1, 0, 2], [0, 1, -1], [1, 1, 1]]) },
@@ -84,7 +82,6 @@ export function mountSystemSolver(host) {
   const holder = el('div');
   const s = createSolver(host, {
     terms: glossary,
-    practice: '#/practice/ch2',
     random: () => mi.set(randSystem(3)),
     examples: [
       { label: '3×3 (Strang)', apply: () => mi.set([[2, 1, 1, 5], [4, -6, 0, -2], [-2, 7, 2, 9]]) },
@@ -120,7 +117,6 @@ export function mountMatrixSolver(host) {
   }
   const s = createSolver(host, {
     terms: glossary,
-    practice: '#/practice/ch2',
     random: randomize,
     examples: [
       { label: 'A·B', apply: () => { pick('mul'); A.set([[1, 2], [3, 4]]); B.set([[5, 6], [7, 8]]); } },
@@ -152,7 +148,6 @@ export function mountSpaceSolver(host) {
   const holder = el('div');
   const s = createSolver(host, {
     terms: glossary,
-    practice: '#/practice/ch3',
     random: () => mi.set(randLowRank(3, 4)),
     examples: [
       { label: '3×3 hạng 2', apply: () => mi.set([[1, 2, 3], [2, 4, 6], [1, 0, 1]]) },

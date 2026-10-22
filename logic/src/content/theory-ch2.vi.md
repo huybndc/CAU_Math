@@ -212,5 +212,3 @@ Mạch AND–OR hai mức thành **NAND–NAND** với đúng số cổng như c
 - Nhầm quy ước dấu ′ giữa minterm và maxterm (chúng **ngược nhau**).
 - Tưởng NAND 3 ngõ là ghép hai NAND 2 ngõ.
 - Dừng ở dạng chuẩn Σm và tưởng đó là đáp án tối giản.
-
-[Luyện tập chương này](#/practice/ch2)

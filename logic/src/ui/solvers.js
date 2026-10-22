@@ -23,9 +23,9 @@ const pick = a => a[rnd(0, a.length - 1)];
 const baseOpts = () => [2, 8, 10, 16].map(r => ({ v: r, t: T(`c1.base${r}`) }));
 
 /** Ghép máy giải: specs → fieldRow, run() đọc ô rồi gọi report. read() trả null nếu chưa đủ dữ liệu. */
-function mount(host, { key, specs, examples = [], random, report, practice }) {
+function mount(host, { key, specs, examples = [], random, report }) {
   let fr;
-  const s = createSolver(host, { terms: glossary, practice, random: random && (() => fr.set(random())), examples: examples.map(([label, vals]) => ({ label, apply: () => fr.set(vals) })) });
+  const s = createSolver(host, { terms: glossary, random: random && (() => fr.set(random())), examples: examples.map(([label, vals]) => ({ label, apply: () => fr.set(vals) })) });
   const run = () => {
     try {
       const out = report(fr.get);
@@ -40,7 +40,6 @@ function mount(host, { key, specs, examples = [], random, report, practice }) {
 export function mountBaseSolver(host) {
   mount(host, {
     key: 'base',
-    practice: '#/practice/ch1',
     specs: () => [{ id: 'x', label: T('ln.number'), value: '1101.1', size: 14 }, { id: 'from', label: T('ln.fromBase'), value: 2, options: baseOpts() }],
     random: () => { const from = pick([2, 8, 10, 16]); const v = rnd(5, 400) + (Math.random() < 0.4 ? pick([0.5, 0.25, 0.75, 0.125]) : 0); return { x: v.toString(from).toUpperCase(), from }; },
     examples: [['1101.1₂', { x: '1101.1', from: 2 }], ['255₁₀', { x: '255', from: 10 }], ['3F.8₁₆', { x: '3F.8', from: 16 }]],
@@ -51,7 +50,6 @@ export function mountBaseSolver(host) {
 export function mountComplementSolver(host) {
   mount(host, {
     key: 'compl',
-    practice: '#/practice/ch1',
     specs: () => [{ id: 'm', label: 'M', value: '1010100', size: 12 }, { id: 'n', label: 'N', value: '1000011', size: 12 }, { id: 'r', label: T('ln.base'), value: 2, options: baseOpts() }],
     random: () => { const r = pick([2, 10, 16]); const a = rnd(10, 200), b = rnd(10, 200); return { m: a.toString(r).toUpperCase(), n: b.toString(r).toUpperCase(), r }; },
     examples: [['1010100 − 1000011', { m: '1010100', n: '1000011', r: 2 }], ['72532 − 13250', { m: '72532', n: '13250', r: 10 }], ['3250 − 72532', { m: '3250', n: '72532', r: 10 }]],
@@ -62,7 +60,6 @@ export function mountComplementSolver(host) {
 export function mountSignedSolver(host) {
   mount(host, {
     key: 'signed',
-    practice: '#/practice/ch1',
     specs: () => [
       { id: 'a', label: 'A', value: '5', size: 8 }, { id: 'b', label: 'B', value: '-3', size: 8 },
       { id: 'op', label: T('ln.op'), value: 'add', options: [{ v: 'add', t: 'A + B' }, { v: 'sub', t: 'A − B' }] },
@@ -83,7 +80,6 @@ export function mountSignedSolver(host) {
 export function mountExprSolver(host) {
   mount(host, {
     key: 'expr',
-    practice: '#/practice/ch2',
     specs: () => [
       { id: 'f', label: 'F =', value: "wx + yz + w'y'z'", size: 28, ph: "xy' + z   |   Σm(1,3,5) + d(0)" },
       { id: 'n', label: T('ln.vars'), value: 'a', options: [{ v: 'a', t: T('ln.auto') }, ...[2, 3, 4, 5].map(v => ({ v, t: String(v) }))] },
@@ -101,7 +97,6 @@ export function mountExprSolver(host) {
 export function mountCodesSolver(host) {
   mount(host, {
     key: 'codes',
-    practice: '#/practice/ch1',
     specs: () => [
       { id: 'op', label: T('ln.opLabel'), value: 'bcdAdd', options: CODE_OPS.map(v => ({ v, t: T(`cd.op.${v}`) })) },
       { id: 'x', label: T('cd.input'), value: '478', size: 14 },
@@ -122,7 +117,6 @@ export function mountRippleSolver(host) {
   const bin = n => Array.from({ length: n }, () => rnd(0, 1)).join('');
   mount(host, {
     key: 'ripple',
-    practice: '#/practice/ch4',
     specs: () => [{ id: 'a', label: T('cc.a'), value: '0111', size: 10 }, { id: 'b', label: T('cc.b'), value: '0110', size: 10 },
       { id: 'op', label: T('cc.op'), value: 'add', options: [{ v: 'add', t: 'A + B' }, { v: 'sub', t: 'A − B' }] }],
     random: () => { const n = pick([4, 4, 6, 8]); return { a: bin(n), b: bin(n), op: pick(['add', 'sub']) }; },
@@ -134,7 +128,6 @@ export function mountRippleSolver(host) {
 export function mountImplSolver(host) {
   mount(host, {
     key: 'impl',
-    practice: '#/practice/ch4',
     specs: () => [{ id: 'f', label: T('cc.func'), value: 'Σm(1,2,6,7)', size: 26 }],
     random: () => ({ f: formatSpec(randomValues(pick([3, 3, 4]), false)) }),
     examples: [['Σm(1,2,4,7)  (tổng FA)', { f: 'Σm(1,2,4,7)' }], ['Σm(3,5,6,7)  (nhớ FA)', { f: 'Σm(3,5,6,7)' }], ['Σm(0,1,3,7,9,12)', { f: 'Σm(0,1,3,7,9,12)' }]],

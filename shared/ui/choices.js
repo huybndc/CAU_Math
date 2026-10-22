@@ -1,57 +1,18 @@
 import { el } from './dom.js';
-import { PRACTICE_HIDDEN } from '../logic/visibility.js';
 import { t as T } from '../i18n/index.js';
-import { rankNeeds, studiedChapters } from '../logic/progress.js';
-import { load, save } from './store.js';
-import { loadFlags } from './flags.js';
-import { flagKey } from '../logic/flags.js';
+import { studiedChapters } from '../logic/progress.js';
 
 /* ---------------------------------------------------------------
-   KHỐI DÙNG CHUNG cho Tổng quan / Học / Luyện tập / Thi thử (D19):
+   KHỐI DÙNG CHUNG cho Tổng quan / Học / Đề như thật / Tự luận (D19):
    danh sách kẻ dòng thay lưới thẻ; mỗi dòng nói trước giá phải trả
    (~phút, % đúng) như toeic R1, nhưng gọn thành cột số bên phải.
    --------------------------------------------------------------- */
 
-export const ROUND = 10;
 export const chNo = id => id.replace('ch', '');
 export const chapterTitle = id => `${T('shell.chapter', { n: chNo(id) })} · ${T('nav.' + id)}`;
 
-/** Phút cho một lượt 10 câu gồm các dạng này (trung bình thời gian chuẩn). */
-export function roundMinutes(bank, kinds) {
-  const avg = kinds.reduce((s, k) => s + (bank.SECONDS?.[k] ?? 60), 0) / kinds.length;
-  return Math.max(1, Math.round((ROUND * avg) / 60));
-}
-
-/** "đúng 78% (12 câu, 7 ngày qua)" / "chưa làm câu nào". */
-export function accNote(stats) {
-  if (stats.accuracy === null) return T('practice.none');
-  return T(stats.scope === 'week' ? 'practice.accWeek' : 'practice.accAll',
-    { p: Math.round(stats.accuracy * 100), n: stats.attempts });
-}
-
-/** Cột % đúng gọn: thanh nhỏ + số, chưa làm thì "—". */
-export function accCell(stats) {
-  const p = stats.accuracy === null ? null : Math.round(stats.accuracy * 100);
-  return el('span', { class: 'row-acc', title: accNote(stats) }, [
-    el('span', { class: 'meter' }, p !== null && el('i', { style: `width:${p}%` })),
-    el('span', { text: p === null ? '—' : `${p}%` }),
-    // nói rõ số này tính trên 7 ngày hay mọi lần — Study Hub (Thống kê) tính mọi lần nên hai nơi dễ tưởng lệch
-    p !== null && stats.scope && el('small', { class: 'acc-scope', text: T(stats.scope === 'week' ? 'practice.scopeWeek' : 'practice.scopeAll') }),
-  ]);
-}
-
 /** Chương người học đã học (đã làm câu), mới nhất trước — không đoán theo syllabus (D43). */
 export const studied = (cfg, events) => studiedChapters(cfg.chapters, events);
-
-/** Mọi dạng của các chương ĐÃ HỌC (chưa đụng chương nào thì mọi chương), xếp theo độ cần luyện (toeic D52). */
-export function rankedKinds(cfg, events, now = Date.now()) {
-  const taught = studied(cfg, events), flags = loadFlags();
-  const items = cfg.chapters
-    .filter(c => c.bank && (!taught.length || taught.includes(c.id)))
-    .flatMap(c => c.bank.KINDS.map(kind => ({ ch: c.id, prefix: c.prefix, kind, bank: c.bank })))
-    .filter(it => !flags.has(flagKey(it.prefix, it.kind)));      // dạng bị cờ "không quan trọng" không xếp vào "cần luyện"
-  return rankNeeds(events, items, now);
-}
 
 /** Một dòng bấm được: tên (+ nhãn) · cột số · cột % · mũi tên. */
 export const row = ({ href, title, sub, num, acc, tag }) => el('a', { class: 'entry', href }, [
@@ -75,25 +36,8 @@ export const leadCard = ({ title, note, href, cta, alt }) => el('div', {
   el('a', { class: 'btn primary', href, 'data-icon': 'next' }, el('span', { text: cta })),
 ]);
 
-/** Các thẻ đầu mục "Đề thi": Đề như thật | Tự luận (Luyện theo dạng, Thi thử chỉ hiện khi PRACTICE_HIDDEN = false). */
+/** Các thẻ đầu mục "Đề thi": Đề như thật | Tự luận. */
 export const practiceTabs = active => el('nav', { class: 'page-tabs', 'aria-label': T('nav.mock') }, [
   el('a', { href: '#/mock', 'aria-current': active === 'mock' ? 'page' : null, text: T('nav.mock') }),
-  ...(PRACTICE_HIDDEN ? [] : [
-    el('a', { href: '#/practice', 'aria-current': active === 'practice' ? 'page' : null, text: T('practice.tabKinds') }),
-    el('a', { href: '#/exam', 'aria-current': active === 'exam' ? 'page' : null, text: T('practice.tabFull') }),
-  ]),
   el('a', { href: '#/free', 'aria-current': active === 'free' ? 'page' : null, text: T('practice.tabFree') }),
 ]);
-
-/** Cách trả lời đang chọn ở Luyện tập: 'write' (tự luận) | 'choice' (trắc nghiệm) — nhớ theo môn. */
-export const answerMode = () => (load('answer-mode', 'write') === 'choice' ? 'choice' : 'write');
-
-/** Thanh chọn Tự luận / Trắc nghiệm (cùng kiểu thanh chọn chương). */
-export function modeBar(onChange) {
-  const cur = answerMode();
-  return el('div', { class: 'chapter-bar mode-bar', role: 'group', 'aria-label': T('practice.mode') },
-    ['write', 'choice'].map(m => el('button', {
-      type: 'button', 'aria-pressed': String(m === cur), title: T('practice.modeNote_' + m),
-      onClick: () => { if (m !== cur) { save('answer-mode', m); onChange(); } },
-    }, T('practice.mode_' + m))));
-}

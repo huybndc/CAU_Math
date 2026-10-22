@@ -272,5 +272,3 @@ The key idea of the chapter: **the meaning of bits comes from how we agree to re
 - Subtracting with complements without checking for the **end carry**.
 - Confusing **BCD with binary**; forgetting the **+6** correction when a BCD sum exceeds 9.
 - Believing parity catches **every** error.
-
-[Practise this chapter](#/practice/ch1)

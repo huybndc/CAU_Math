@@ -1,6 +1,5 @@
 import { describe, it, expect } from 'vitest';
 import { seededQuestion, questionCode, parseCode, signature } from '../logic/question-pool.js';
-import { buildExam } from '../logic/exam.js';
 import { CHAPTERS as LOGIC } from '../../logic/src/logic/chapters.js';
 import { CHAPTERS as LINALG } from '../../linalg/src/logic/chapters.js';
 import { CHAPTERS as DISCRETE } from '../../discrete/src/logic/chapters.js';
@@ -40,13 +39,4 @@ describe('mã câu', () => {
       }
     }
   }
-
-  it('câu trong đề thi thử cũng có mã sinh lại đúng câu', () => {
-    for (const [subject, chapters] of Object.entries(APPS)) {
-      for (const it of buildExam(chapters, { seed: 20260926, minutes: 60, order: 'mixed' })) {
-        const code = questionCode(subject, it.prefix, it.q);
-        expect(same(fromCode(code), it.q), code).toBe(true);
-      }
-    }
-  });
 });

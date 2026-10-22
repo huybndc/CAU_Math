@@ -11,11 +11,8 @@ describe('trợ giúp theo màn hình', () => {
   });
   it('chọn thẻ theo route', () => {
     expect(helpKey({ view: 'home' })).toBe('home');
-    expect(helpKey({ view: 'practice' })).toBe('practice');
-    expect(helpKey({ view: 'practice', ch: 'ch1', kind: 'sop' })).toBe('run');
     expect(helpKey({ view: 'learn', ch: 'ch1', sub: 'theory' })).toBe('lesson');
     expect(helpKey({ view: 'learn' })).toBe('learn');
-    expect(helpKey({ view: 'exam', step: 'run' })).toBe('exam');
     expect(helpKey({ view: 'free' })).toBe('free');
     expect(helpKey(null)).toBeNull();
   });

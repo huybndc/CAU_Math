@@ -1,6 +1,5 @@
 import { describe, it, expect } from 'vitest';
 import { seededRandom } from '@shared/logic/shuffle.js';
-import { buildExam } from '@shared/logic/exam.js';
 import { signature } from '@shared/logic/question-pool.js';
 import { vi as sharedVi } from '../../shared/i18n/vi.js';
 import { en as sharedEn } from '../../shared/i18n/en.js';
@@ -135,22 +134,6 @@ describe('thời gian chuẩn từng dạng (cho "~M phút" và bài full 60–9
       for (const k of bank.KINDS) expect(bank.SECONDS[k], `${prefix}.${k}`).toBeGreaterThanOrEqual(10);
       for (const k of bank.KINDS) expect(bank.SECONDS[k], `${prefix}.${k}`).toBeLessThanOrEqual(300);
     }
-  });
-});
-
-describe('bài full: dựng lại đúng đề từ hạt giống', () => {
-  const CH = Object.entries(BANKS).map(([prefix, bank], i) => ({ id: `ch${i + 1}`, prefix, bank }));
-  it('cùng hạt giống ⇒ cùng câu (makeQuestion không dùng Math.random)', () => {
-    for (const seed of [1, 99, 123456]) {
-      const a = buildExam(CH, { seed, minutes: 90 }).map(x => x.q);
-      expect(JSON.stringify(buildExam(CH, { seed, minutes: 90 }).map(x => x.q))).toBe(JSON.stringify(a));
-    }
-  });
-  it('đề 60 phút có 15–40 câu, đủ cả 4 chương', () => {
-    const items = buildExam(CH, { seed: 7, minutes: 60 });
-    expect(items.length).toBeGreaterThanOrEqual(15);
-    expect(items.length).toBeLessThanOrEqual(40);
-    expect(new Set(items.map(x => x.ch)).size).toBe(4);
   });
 });
 

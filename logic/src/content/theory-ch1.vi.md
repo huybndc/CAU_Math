@@ -272,5 +272,3 @@ Parity chỉ **phát hiện** lỗi ở **số lẻ bit**; lỗi 2 bit thì lọ
 - Trừ bằng số bù mà quên xét **có nhớ tràn** hay không.
 - Nhầm **BCD với nhị phân**; quên hiệu chỉnh **+6** khi tổng BCD vượt 9.
 - Tưởng parity bắt được **mọi** lỗi.
-
-[Luyện tập chương này](#/practice/ch1)
