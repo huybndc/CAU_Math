@@ -144,7 +144,7 @@ export function renderHome(r, cfg) {
     termBlock(now),
     el('div', { class: 'home-cols' }, [
       el('div', { class: 'home-main' }, [
-        goalRow(events, cfg),
+        ...(PRACTICE_HIDDEN ? [] : [goalRow(events, cfg)]),
         el('h2', { class: 'section-label', text: T('home.today') }),
         today(cfg, events, now),
         ...weekBlock(events, now, petCtx),

@@ -24,7 +24,7 @@ Không dùng nữa (đang ẩn hoặc số đứng yên):
 - Điểm mục tiêu ở Tổng quan (`logic/score.js` `goalOf`, `home-screen.js` `goalRow`): luyện tập ẩn nên số đứng yên.
 Còn dùng, KHÔNG gỡ: `runner.js` + ngân hàng câu (điểm kiến thức trong bài học, `kpoint.js`), `flags.js` (thẻ đã đọc ở Học), máy giải, Đề như thật, Tự luận.
 Bước:
-1. Ẩn dòng điểm mục tiêu (đổi nhỏ, chờ người học gật).
+1. (Xong, theo `PRACTICE_HIDDEN`) Ẩn dòng điểm mục tiêu.
 2. Study_Hub bỏ link `/practice/chN/<dạng>` và `/exam` (buildItems) và chốt không cần `math.answer` từ app toán → gỡ route + màn Luyện tập/Thi thử/Sổ câu sai + test của chúng, thêm vào `REMOVED` (features-sync).
 3. Khi ôn cuối kỳ (~2026-11-20): quyết luyện tập mới quanh câu Tự luận/Đề như thật hay bỏ hẳn.
 - Backlog thấp: ~26 đột biến sống sót ở elimination/quine-mccluskey/graph (`npm run mutate`); `checkNumber` chưa đọc "1e-3", "33%"; `checkVector` chưa đọc "x=1, y=2"; ngưỡng EPS tuyệt đối khi khử.
