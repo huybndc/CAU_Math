@@ -84,31 +84,9 @@ function draw(host, head, cfg, seed) {
       ]),
     ]),
     el('p', { class: 'muted small', text: `${T('mock.book')}: ${ex.book}` }),
-    el('div', { class: 'list mock-list' }, ex.questions.map(q => el('div', { class: 'row mock-row' }, [
+    el('details', { class: 'mock-qs' }, [el('summary', { text: T('mock.list', { n: ex.questions.length }) }), el('div', { class: 'list mock-list' }, ex.questions.map(q => el('div', { class: 'row mock-row' }, [
       el('b', { text: `${q.no}. ${q.pts}` }),
       el('span', {}, math(q.stem)),
       el('small', { class: 'muted', text: q.refs.map(x => `§${x.sec} ${x.title}`).join(' · ') }),
-    ]))),
-    ...(cfg.mockTools?.grade ? [checkPanel(ex, cfg.mockTools.grade)] : []));
-}
-
-/** Kiểm mạch vẽ tay: gõ biểu thức đọc từ mạch của mình cho từng đầu ra; chỉ ĐÚNG/SAI (giáo không chấm điểm từng phần). */
-function checkPanel(ex, grade) {
-  const rows = ex.questions.flatMap(q => q.parts.flatMap(p => (p.checks ?? []).map(c => [q.no, c])));
-  if (!rows.length) return el('span');
-  return el('details', { class: 'mock-check' }, [
-    el('summary', { text: T('mock.check') }),
-    el('p', { class: 'muted small', text: T('mock.checkHint') }),
-    ...rows.map(([no, c]) => {
-      const out = el('span', { class: 'mock-verdict' });
-      const input = el('input', { class: 'mock-expr', placeholder: "vd: w'x + yz", spellcheck: 'false', 'aria-label': `${no}. ${c.label}` });
-      input.addEventListener('input', () => {
-        const g = grade(c, input.value);
-        out.className = `mock-verdict ${g.empty ? '' : g.ok ? 'ok' : 'bad'}`;
-        out.textContent = g.empty ? '' : g.error ? T('mock.checkErr') : g.ok ? T('mock.checkOk', { n: g.lits })
-          : !g.functional ? T('mock.checkWrong', { m: g.wrong.slice(0, 4).join(', ') }) : T('mock.checkBig', { n: g.lits, ref: c.refLits });
-      });
-      return el('label', { class: 'mock-checkrow' }, [el('b', { text: `${no}. ${c.label}` }), input, out]);
-    }),
-  ]);
+    ])))]));
 }
