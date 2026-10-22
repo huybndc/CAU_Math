@@ -1,7 +1,8 @@
 /* Đề như thật (Linear Algebra): kiểm đáp án bằng phép tính viết riêng (không dùng lại bộ giải của app). */
 import { describe, it, expect } from 'vitest';
 import { buildMock, seedCode, parseSeed, newSeed } from '@shared/logic/mock-exam.js';
-import { fmtMat } from '../src/logic/quiz-kit.js';
+import { mat } from '../src/logic/mock-tex.js';
+import katex from 'katex';
 import { LINALG_MOCK } from '../src/logic/mock-exam.js';
 
 const mm = (A, B) => A.map(r => B[0].map((_, j) => r.reduce((s, x, k) => s + x * B[k][j], 0)));
@@ -30,6 +31,24 @@ describe('khung đề', () => {
     for (const q of ex.questions) {
       expect(q.refs.length).toBeGreaterThan(0);
       for (const r of q.refs) { expect(r.sec).toMatch(/^[123]\.\d$/); expect(r.title.length).toBeGreaterThan(3); }
+    }
+  });
+  it('công thức: dấu $ cặp đủ và KaTeX dựng được mọi đoạn (không lỗi cú pháp)', () => {
+    for (const s of SEEDS.slice(0, 60)) {
+      const ex = buildMock(LINALG_MOCK, s);
+      const strings = ex.questions.flatMap(q => [q.stem, ...q.parts.flatMap(p => [p.q, ...p.a])]);
+      for (const str of strings) {
+        const pieces = str.split('$');
+        expect(pieces.length % 2, `seed ${s}: ${str.slice(0, 60)}`).toBe(1);
+        pieces.forEach((m, i) => { if (i % 2) katex.renderToString(m, { throwOnError: true }); });
+      }
+    }
+  });
+  it('lời giải khử của câu 3(a) theo đúng thứ tự sách: không đổi hàng, ba phép cộng ứng với ℓ21, ℓ31, ℓ32', () => {
+    for (const s of SEEDS) {
+      const lines = buildMock(LINALG_MOCK, s).questions[2].parts[0].a.filter(l => l.includes('quad'));
+      expect(lines.some(l => l.includes('leftrightarrow')), `seed ${s}`).toBe(false);
+      expect(lines).toHaveLength(3);
     }
   });
   it('mã seed: chuyển qua lại, từ chối mã sai', () => {
@@ -143,7 +162,7 @@ describe('đáp án đúng với phép tính riêng', () => {
     const SHOWN = [[2, 1, 'E'], [3, 0, 'inverse'], [3, 2, 'PAinv'], [4, 0, 'U'], [4, 1, 'U'], [4, 1, 'L'], [4, 1, 'P'], [6, 0, 'A2'], [6, 1, 'A10'], [7, 0, 'U'], [7, 0, 'R']];
     for (const s of SEEDS.slice(0, 40)) {
       const ex = buildMock(LINALG_MOCK, s);
-      for (const [q, p, key] of SHOWN) expect(ex.questions[q].parts[p].a.join('\n'), `${q}.${p}.${key}`).toContain(fmtMat(ex.questions[q].parts[p].facts[key]));
+      for (const [q, p, key] of SHOWN) expect(ex.questions[q].parts[p].a.join('\n'), `${q}.${p}.${key}`).toContain(mat(ex.questions[q].parts[p].facts[key]));
     }
   });
 });
