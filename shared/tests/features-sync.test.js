@@ -57,6 +57,9 @@ const REMOVED = [
   ['practice.old', 'bài luyện chương cũ (PR #91)'],
   ['/practice`', 'route #/learn/chN/practice (PR #91)'],
   ['home/index.html', 'trang tổng quan chung / (PR #91)'],
+  ['freeEvent', 'Tự luận tự đánh giá + math.answer mode free (2026-10-22)'],
+  ['free-rubric', 'Tự luận: ý chấm tự tích (2026-10-22)'],
+  ['free.rate', 'Tự luận: nút tự đánh giá (2026-10-22)'],
 ];
 function srcFiles(dir, out = []) {
   for (const n of readdirSync(dir)) {

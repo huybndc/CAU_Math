@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { validateProblem, summarize, nextUp } from '../logic/free.js';
+import { validateProblem, following } from '../logic/free.js';
 
 const t = () => ({ title: 'T', q: 'Q', hints: ['a', 'b'], solution: ['s1', 's2'], rubric: ['r1', 'r2', 'r3'], pitfalls: ['p'] });
 const good = () => ({ id: 'x-1', ch: 'ch1', level: 2, source: { name: 'MIT', license: 'CC BY-NC-SA 3.0' }, vi: t(), en: t() });
@@ -13,22 +13,9 @@ describe('tự luận: kiểm dữ liệu', () => {
     const d = good(); d.source = { name: 'x' }; expect(validateProblem(d).join()).toMatch(/nguồn/);
     expect(validateProblem({ id: 'Bad Id' })[0]).toMatch(/id/);
   });
-  it('tóm tắt và chọn bài tiếp theo', () => {
-    const ps = ['a', 'b', 'c', 'd'].map(id => ({ ...good(), id }));
-    const rt = { a: { r: 'ok' }, b: { r: 'bad' }, c: { r: 'near' } };
-    expect(summarize(ps, rt)).toEqual({ n: 4, ok: 1, near: 1, bad: 1, todo: 1 });
-    expect(nextUp(ps, rt).id).toBe('b');
-    expect(nextUp(ps, rt, 'b').id).toBe('c');
-    expect(nextUp(ps, { a: { r: 'ok' } }, 'a').id).toBe('b');
-  });
-});
-
-describe('freeEvent (math.answer của tự luận)', () => {
-  it('prefix theo chương, kind free-<id>, ok khi tự đánh giá ok, mode free', async () => {
-    const { freeEvent } = await import('../logic/free.js');
-    expect(freeEvent({ ch: 'ch2', id: 'l-singular-plane' }, 'ok')).toEqual({ prefix: 'c2q', kind: 'free-l-singular-plane', ok: true, mode: 'free' });
-    expect(freeEvent({ ch: 'ch3', id: 'x1' }, 'near').ok).toBe(false);
-    expect(freeEvent({ ch: 'ch1', id: 'x1' }, 'bad').ok).toBe(false);
-    expect(freeEvent({ ch: 'ch2', id: 'abc-9' }, 'ok').kind).toMatch(/^free-[a-z0-9-]+$/);
+  it('bài tiếp theo trong cùng danh sách; hết thì null', () => {
+    const ps = ['a', 'b'].map(id => ({ ...good(), id }));
+    expect(following(ps, 'a').id).toBe('b');
+    expect(following(ps, 'b')).toBe(null);
   });
 });

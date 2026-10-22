@@ -113,12 +113,10 @@ export const HELP = {
   },
   free: {
     vi: { title: 'Tự luận', rows: [
-      ['Đề → lời giải', 'Làm nháp trước, bấm hiện lời giải, rồi tự đánh giá đúng/sai.'],
-      ['Lưu', 'Kết quả tự đánh giá lưu theo môn trên máy này (không đổi số liệu Thống kê).'],
+      ['Đề → lời giải', 'Làm nháp trước, mở gợi ý nếu kẹt, rồi bấm hiện lời giải từng bước để đối chiếu.'],
     ] },
     en: { title: 'Free response', rows: [
-      ['Problem → solution', 'Work it out first, reveal the solution, then rate yourself.'],
-      ['Saved', 'Your self-rating is saved per course on this device (it does not change the stats).'],
+      ['Problem → solution', 'Work it out first, open a hint if stuck, then reveal the step-by-step solution to compare.'],
     ] },
   },
   exam: {

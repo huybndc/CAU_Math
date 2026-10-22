@@ -6,11 +6,9 @@
             rubric[3–6], pitfalls[1+] }
    --------------------------------------------------------------- */
 
-export const RATINGS = ['ok', 'near', 'bad'];
 const TEXT_FIELDS = { title: 1, q: 1, hints: 2, solution: 2, rubric: 3, pitfalls: 1 };
 
 /** Sự kiện math.answer khi người học tự đánh giá một bài tự luận (đã thống nhất với Study_Hub): đúng = tự đánh giá 'ok'. */
-export const freeEvent = (p, rating) => ({ prefix: `c${p.ch.replace(/^ch/, '')}q`, kind: `free-${p.id}`, ok: rating === 'ok', mode: 'free' });
 
 /** Danh sách lỗi của một bài (rỗng = hợp lệ). */
 export function validateProblem(p) {
@@ -33,24 +31,10 @@ export function validateProblem(p) {
   return errs;
 }
 
-/** Tóm tắt tự đánh giá: ratings = { [id]: { r } }. */
-export function summarize(problems, ratings) {
-  const out = { n: problems.length, ok: 0, near: 0, bad: 0, todo: 0 };
-  for (const p of problems) { const r = ratings[p.id]?.r; if (RATINGS.includes(r)) out[r]++; else out.todo++; }
-  return out;
-}
-
-/** Bài ngay sau bài hiện tại trong cùng danh sách (hết danh sách thì quay về bài nên làm tiếp). */
+/** Bài ngay sau bài hiện tại trong cùng danh sách (hết danh sách thì null). */
 export function following(problems, id) {
   const i = problems.findIndex(p => p.id === id);
   return problems[i + 1] ?? null;
-}
-
-/** Bài nên làm tiếp: bài tự đánh giá "chưa đúng" → "gần đúng" → chưa làm (theo thứ tự đề); bỏ bài đang xem. */
-export function nextUp(problems, ratings, currentId = null) {
-  const rest = problems.filter(p => p.id !== currentId);
-  const rank = p => ({ bad: 0, near: 1, undefined: 2, ok: 3 })[ratings[p.id]?.r];
-  return [...rest].sort((a, b) => rank(a) - rank(b))[0] ?? null;
 }
 
 /** Gộp kết quả import.meta.glob('./content/free/*.json') thành một mảng bài (theo tên file rồi thứ tự trong file). */
