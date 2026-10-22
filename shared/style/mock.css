@@ -3,28 +3,29 @@
 .mock-bar label{display:flex;align-items:center;gap:.5rem}
 .mock-seed{font:inherit;font-family:ui-monospace,monospace;text-transform:uppercase;padding:.3rem .5rem;width:9ch;border:1px solid var(--line);border-radius:var(--r-md);background:var(--panel);color:inherit}
 .mock-actions{margin-left:auto;display:flex;gap:.5rem}
-.mock-list{max-height:calc(100vh - 24rem);min-height:7rem;overflow:auto}
-.mock-row{display:grid;grid-template-columns:4.5rem 1fr 1.3fr;gap:.8rem;align-items:baseline;padding:.45rem .8rem}
 #mock-print{display:none}
 @page{size:A4;margin:14mm}
 body[data-print] > :not(#mock-print){display:none!important}
 body[data-print] #mock-print{display:block;color:#000;background:#fff;font:11pt/1.4 'Source Sans 3',system-ui,sans-serif;padding:0 1mm}
 body[data-print]{background:#fff}
-#mock-print .mp-head h1{font-size:15pt;margin:0 0 .2em}
-#mock-print .mp-head p{margin:0 0 .8em;font-size:10pt}
-#mock-print .mp-q{margin:0 0 .8em}
-#mock-print .mp-q h2{font-size:11.5pt;margin:.6em 0 .3em}
-#mock-print .mp-part{break-inside:avoid;margin:.3em 0}
-#mock-print .mp-ask{margin:0}
-#mock-print .mp-space{min-height:calc(var(--pts,4) * 2.4mm)}
-#mock-print .mp-ans{margin:.15em 0 .15em 1.2em}
-#mock-print .mp-src{font-size:8.5pt;color:#444;margin:.2em 0 0}
-#mock-print .mp-figs{display:flex;flex-wrap:wrap;gap:.4em 1em;margin:.3em 0 .3em 1.2em}
-#mock-print .mp-figs figure{margin:0;break-inside:avoid;max-width:48%}
-#mock-print .mp-figs svg{width:100%;height:auto;color:#000}
-#mock-print .mp-figs .lit{fill:#000;font:11px 'Source Sans 3',sans-serif}
-#mock-print .mp-figs figure:has(.fig-block){max-width:92%}
-#mock-print .mp-figs .fig-block .lit{font-size:18px}
-#mock-print .mp-figs.stack{flex-direction:column;gap:14px}
-#mock-print .mp-figs.stack figure{max-width:60%}
-.mock-qs{margin:.6rem 0}.mock-qs summary{cursor:pointer;color:var(--muted)}
+:is(#mock-print,.mock-sheet) .mp-head h1{font-size:15pt;margin:0 0 .2em}
+:is(#mock-print,.mock-sheet) .mp-head p{margin:0 0 .8em;font-size:10pt}
+:is(#mock-print,.mock-sheet) .mp-q{margin:0 0 .8em}
+:is(#mock-print,.mock-sheet) .mp-q h2{font-size:11.5pt;margin:.6em 0 .3em}
+:is(#mock-print,.mock-sheet) .mp-part{break-inside:avoid;margin:.3em 0}
+:is(#mock-print,.mock-sheet) .mp-ask{margin:0}
+:is(#mock-print,.mock-sheet) .mp-space{min-height:calc(var(--pts,4) * 2.4mm)}
+:is(#mock-print,.mock-sheet) .mp-ans{margin:.15em 0 .15em 1.2em}
+:is(#mock-print,.mock-sheet) .mp-src{font-size:8.5pt;color:#444;margin:.2em 0 0}
+:is(#mock-print,.mock-sheet) .mp-figs{display:flex;flex-wrap:wrap;gap:.4em 1em;margin:.3em 0 .3em 1.2em}
+:is(#mock-print,.mock-sheet) .mp-figs figure{margin:0;break-inside:avoid;max-width:48%}
+:is(#mock-print,.mock-sheet) .mp-figs svg{width:100%;height:auto;color:#000}
+:is(#mock-print,.mock-sheet) .mp-figs .lit{fill:#000;font:11px 'Source Sans 3',sans-serif}
+:is(#mock-print,.mock-sheet) .mp-figs figure:has(.fig-block){max-width:92%}
+:is(#mock-print,.mock-sheet) .mp-figs .fig-block .lit{font-size:18px}
+:is(#mock-print,.mock-sheet) .mp-figs.stack{flex-direction:column;gap:14px}
+:is(#mock-print,.mock-sheet) .mp-figs.stack figure{max-width:60%}
+/* Xem trước ngay trên màn: tờ giấy trắng cuộn trong khung của nó (màn không cuộn cả trang) */
+.mock-sheet{max-height:calc(100vh - 17rem);min-height:12rem;overflow:auto;max-width:210mm;margin:.4rem auto 0;padding:14mm;background:#fff;color:#000;border:1px solid var(--line);border-radius:var(--r-md);box-shadow:0 2px 10px rgb(0 0 0 / .12);font:11pt/1.4 'Source Sans 3',system-ui,sans-serif}
+.mock-sheet:focus-visible{outline:2px solid var(--accent)}
+.mock-actions .mode-bar{margin:0}

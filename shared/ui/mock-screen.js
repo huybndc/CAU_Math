@@ -68,25 +68,24 @@ export function renderMock(r, cfg) {
   return T('nav.mock');
 }
 
+let showKey = false;     // đang xem đề hay đáp án (không lưu)
+
 function draw(host, head, cfg, seed) {
   save(KEY, seed);
   const ex = buildMock(cfg.mock, seed);
+  const redraw = () => draw(host, head, cfg, seed);
   const input = el('input', { class: 'mock-seed', value: ex.code, maxlength: 5, size: 6, 'aria-label': T('mock.seed'), spellcheck: 'false' });
   input.addEventListener('change', () => { const s = parseSeed(input.value); if (s == null) input.value = ex.code; else draw(host, head, cfg, s); });
+  const tab = (key, label) => el('button', { type: 'button', 'aria-pressed': String(showKey === key), onClick: () => { showKey = key; redraw(); } }, label);
   host.replaceChildren(...head,
     el('div', { class: 'mock-bar' }, [
       el('label', {}, [el('span', { text: T('mock.seed') }), input]),
       el('button', { class: 'btn', type: 'button', onClick: () => draw(host, head, cfg, newSeed()), text: T('mock.new') }),
       el('span', { class: 'muted', text: T('mock.summary', { n: ex.questions.length, pts: ex.total, min: ex.minutes }) }),
       el('span', { class: 'mock-actions' }, [
-        el('button', { class: 'btn primary', type: 'button', onClick: () => print(ex, false, cfg.mockTools), text: T('mock.printExam') }),
-        el('button', { class: 'btn', type: 'button', onClick: () => print(ex, true, cfg.mockTools), text: T('mock.printKey') }),
+        el('span', { class: 'chapter-bar mode-bar', role: 'group', 'aria-label': T('nav.mock') }, [tab(false, T('mock.tabExam')), tab(true, T('mock.tabKey'))]),
+        el('button', { class: 'btn primary', type: 'button', title: T('mock.printNote'), onClick: () => print(ex, showKey, cfg.mockTools), text: T('mock.print') }),
       ]),
     ]),
-    el('p', { class: 'muted small', text: `${T('mock.book')}: ${ex.book}` }),
-    el('details', { class: 'mock-qs' }, [el('summary', { text: T('mock.list', { n: ex.questions.length }) }), el('div', { class: 'list mock-list' }, ex.questions.map(q => el('div', { class: 'row mock-row' }, [
-      el('b', { text: `${q.no}. ${q.pts}` }),
-      el('span', {}, math(q.stem)),
-      el('small', { class: 'muted', text: q.refs.map(x => `§${x.sec} ${x.title}`).join(' · ') }),
-    ])))]));
+    el('div', { class: 'mock-sheet', tabindex: '0', 'aria-label': T(showKey ? 'mock.tabKey' : 'mock.tabExam') }, paper(ex, showKey, cfg.mockTools)));
 }

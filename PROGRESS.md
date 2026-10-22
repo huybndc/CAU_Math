@@ -4,7 +4,7 @@
 
 ## Trạng thái (2026-10-22)
 - `main` = a1aa863. Đề như thật có mẫu cho cả 3 môn (Logic, Linear Algebra, Discrete). Deploy bản online do Study_Hub làm (bump `math.lock`).
-- Đề như thật: chọn mã đề → in đề / in đáp án A4 (KaTeX, bước giải). Màn chỉ còn mã đề, Đề mới, In đề, In đáp án (danh sách câu gập). Đáp án Logic có hình mạch mẫu. Ôn từng phần thuộc Luyện tập, không đặt ở đây.
+- Đề như thật: chọn mã đề → in đề / in đáp án A4 (KaTeX, bước giải). Màn: mã đề, Đề mới, thẻ Đề | Đáp án, bản xem trước nguyên tờ trên màn, nút In / lưu PDF. Đáp án Logic có hình mạch mẫu. Ôn từng phần thuộc Luyện tập, không đặt ở đây.
 - Mẫu đề là PHỎNG ĐOÁN theo mô tả của người học (đề giữa kỳ). Người học bắt đầu ôn sau ~1 tháng; đề cuối kỳ sẽ khác:
   - Logic: 4 câu, 200 điểm, 60 phút — 7 đoạn a/f/e (K-map), Excess-3 (K-map), bộ cộng BCD (vẽ 1 mạch), MUX 4×1 thực hiện hàm (vẽ 1 mạch).
   - Discrete: 3 câu 7 ý, 200 điểm, 60 phút, đúng 2 gợi ý nhỏ. Người học đã duyệt; sau này chỉ cần thêm đa dạng câu.
