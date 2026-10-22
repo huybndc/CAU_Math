@@ -13,8 +13,8 @@ const evalSop = (expr, names, bits) => expr.split(' + ').some(t => [...t.matchAl
 const SEG = { a: '0235 6789', f: '0456 89', e: '0268' };           // bảng chuẩn chép tay: đoạn nào sáng ở chữ số nào
 
 describe('đề Logic', () => {
-  it('3 câu, 200 điểm, 60 phút; chương 3–4; cùng seed ⇒ cùng đề', () => {
-    expect(ex.questions.map(q => q.parts.length)).toEqual([2, 3, 3]);
+  it('4 câu, 200 điểm, 60 phút; chương 3–4; cùng seed ⇒ cùng đề', () => {
+    expect(ex.questions.map(q => q.parts.length)).toEqual([2, 2, 2, 3]);
     expect([ex.total, ex.minutes]).toEqual([200, 60]);
     ex.questions.forEach(q => q.refs.forEach(x => expect(x.sec).toMatch(/^[34]\./)));
     expect(buildMock(LOGIC_MOCK, 9)).toEqual(ex);
@@ -35,20 +35,8 @@ describe('đề Logic', () => {
       f[k].forEach((v, m) => { if (v !== 2) expect(evalSop(s.sop[k], s.names, bitsOf(m, 4)) ? 1 : 0, `${k} m${m}`).toBe(v); });
     }
   });
-  it('mạch cộng: S và C khớp phép cộng bit; SOP đúng; mạch mẫu XOR tính ra đúng S và C', () => {
-    const f = part(1, 0).facts, s = part(1, 1).facts, g = part(1, 2);
-    for (let m = 0; m < 8; m++) {
-      const [x, y, z] = bitsOf(m, 3), sum = x + y + z;
-      expect(f.S[m]).toBe(sum & 1); expect(f.C[m]).toBe(sum >> 1);
-      expect(evalSop(s.sopS, s.names, [x, y, z]) ? 1 : 0).toBe(sum & 1);
-      expect(evalSop(s.sopC, s.names, [x, y, z]) ? 1 : 0).toBe(sum >> 1);
-      expect((x ^ y) ^ z, 'S = (x⊕y)⊕z').toBe(f.S[m]);
-      expect((z & (x ^ y)) | (x & y), 'C = z(x⊕y) + xy').toBe(f.C[m]);
-    }
-    expect(g.figs[0].gates.map(q => q.op).sort()).toEqual(['AND', 'AND', 'OR', 'XOR', 'XOR']);
-  });
   it('excess-3: đầu ra = chữ số + 3 (4 bit); SOP đúng mọi ô bắt buộc', () => {
-    const f = part(2, 0).facts.outs, s = part(2, 1).facts;
+    const f = part(1, 0).facts.outs, s = part(1, 1).facts;
     for (let d = 0; d < 10; d++) {
       const code = ['E_3', 'E_2', 'E_1', 'E_0'].map(k => f[k][d]).join('');
       expect(parseInt(code, 2), `d${d}`).toBe(d + 3);
@@ -56,18 +44,37 @@ describe('đề Logic', () => {
     }
     for (let m = 10; m < 16; m++) expect(f.E_3[m]).toBe(2);
   });
-  it('đúng 2 câu có K-map và 2 câu vẽ (mỗi câu một mạch); đáp án chuẩn tự chấm ĐÚNG', () => {
+  it('bộ cộng BCD: C = v + wx + wy đúng trên mọi cặp chữ số và cin (cộng thập phân độc lập), cộng 0110 ra đúng BCD', () => {
+    const { expr, corr } = part(2, 0).facts;
+    for (let a = 0; a <= 9; a++) for (let b = 0; b <= 9; b++) for (let cin = 0; cin <= 1; cin++) {
+      const z = a + b + cin, c = evalSop(expr, ['v', 'w', 'x', 'y', 'z'], bitsOf(z, 5)) ? 1 : 0;
+      expect(corr[z], `sum ${z}`).toBe(z >= 10 ? 1 : 0);
+      expect(c, `${a}+${b}+${cin}`).toBe(z >= 10 ? 1 : 0);
+      expect(c * 10 + ((z + (c ? 6 : 0)) & 15), `${a}+${b}+${cin}`).toBe(z);
+    }
+    expect(part(2, 1).figs[0].boxes.length).toBe(2);
+  });
+  it('MUX: dữ liệu I0..I3 tái dựng đúng hàm F trên 60 mã đề, có cả z và z\'', () => {
+    for (let s = 1; s <= 60; s++) {
+      const { mins, data, f } = buildMock(LOGIC_MOCK, s * 977).questions[3].parts[1].facts;
+      for (let m = 0; m < 8; m++) {
+        const d = data[m >> 1], z = m & 1;
+        expect(d === '0' ? 0 : d === '1' ? 1 : d === 'z' ? z : 1 - z, `seed ${s} m${m}`).toBe(f[m]);
+        expect(mins.includes(m)).toBe(f[m] === 1);
+      }
+      expect(data.includes('z') && data.includes("z'")).toBe(true);
+    }
+  });
+  it('đúng 2 câu K-map (7 đoạn, Excess-3; không vẽ) và 2 câu vẽ một mạch (bộ cộng BCD, MUX); đáp án chuẩn tự chấm ĐÚNG', () => {
     const text = ex.questions.flatMap(q => q.parts.flatMap(p => p.a)).join(' ');
-    expect(text.match(/\\begin\{array\}\{c\|cccc\}/g).length).toBe(3 + 4);          // K-map: 3 đoạn + 4 đầu ra Excess-3 (hai câu)
-    expect(ex.questions.filter(q => q.parts.some(p => p.figs)).length).toBe(2);
-    expect(ex.questions.map(q => q.parts.filter(p => p.figs).length)).toEqual([0, 1, 1]);
-    const draws = ex.questions.flatMap(q => q.parts.filter(p => p.checks));
-    for (const p of draws) p.checks.forEach((c, i) => {
-      const t = p.figs?.[i]?.terms;
-      if (t) expect(gradeCircuit(c, t.map(x => x.join('')).join(' + ')).ok, c.label).toBe(true);
-    });
-    const seg = part(0, 1);
-    seg.checks.forEach((c, i) => expect(gradeCircuit(c, seg.facts.sop['afe'[i]]).ok, c.label).toBe(true));
+    expect(text.match(/\\begin\{array\}\{c\|cccc\}/g).length).toBe(3 + 4);
+    expect(ex.questions.map(q => q.parts.filter(p => p.figs).length)).toEqual([0, 0, 1, 1]);
+    expect(gradeCircuit(part(2, 0).checks[0], 'v + wx + wy').ok).toBe(true);
+    expect(gradeCircuit(part(2, 0).checks[0], 'v + wx').ok).toBe(false);
+    for (const [q, p, keys] of [[0, 1, 'afe'], [1, 1, ['E_3', 'E_2', 'E_1', 'E_0']]]) {
+      const pt = part(q, p);
+      pt.checks.forEach((c, i) => expect(gradeCircuit(c, pt.facts.sop[keys[i]]).ok, c.label).toBe(true));
+    }
   });
 });
 
