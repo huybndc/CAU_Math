@@ -5,12 +5,6 @@
 .mock-actions{margin-left:auto;display:flex;gap:.5rem}
 .mock-list{max-height:calc(100vh - 17rem);overflow:auto}
 .mock-row{display:grid;grid-template-columns:4.5rem 1fr 1.3fr;gap:.8rem;align-items:baseline;padding:.45rem .8rem}
-.mock-run{display:flex;flex-direction:column;gap:.6rem;margin-top:1rem}
-.mock-left{display:flex;align-items:baseline;gap:.8rem;margin:0;font-size:var(--fs-lg)}
-.mock-clock{font:600 2.25rem ui-monospace,monospace}
-.mock-grade{max-height:calc(100vh - 19rem);overflow:auto}
-.mock-grade-row{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem 1rem;padding:.45rem .8rem}
-.mock-grade-row input{width:4.2em;font:inherit;padding:.2rem .3rem;border:1px solid var(--line);border-radius:var(--r-md);background:var(--panel);color:inherit}
 #mock-print{display:none}
 @page{size:A4;margin:14mm}
 body[data-print] > :not(#mock-print){display:none!important}
