@@ -46,7 +46,7 @@ export function gateFigure({ gate, n = 2 }) {
  * Mạch AND–OR hai mức từ một SOP: { terms: [['x', "y'"], ['z']] }.
  * Mỗi term một cổng AND (term 1 literal thì nối thẳng), gom vào một cổng OR ra F.
  */
-export function circuitFigure({ terms }) {
+export function circuitFigure({ terms, out = 'F' }) {
   const GAP = 58, top = 14;
   const h = top * 2 + terms.length * GAP;
   const orY = h / 2 - 20;
@@ -68,7 +68,7 @@ export function circuitFigure({ terms }) {
     g += `<path d="M176 ${cy} H196 V${ty} H214"/>`;
   });
   g += `<path d="${body('OR', 212, orY).d}"/><path d="M254 ${orY + 20} H290"/>`;
-  g += `<text x="298" y="${orY + 20}" dominant-baseline="middle" class="lit out">F</text>`;
+  g += `<text x="298" y="${orY + 20}" dominant-baseline="middle" class="lit out">${esc(out.replace(/_(\d)/, "$1"))}</text>`;
   return svg(320, h, `<g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">${g}</g>`, 'fig-circuit');
 }
 
@@ -104,4 +104,13 @@ export function netFigure({ gates }) {
 export function gateSymbol(op, x, y) {
   const b = body(BASE[op], x, y), bub = BUBBLE.has(op);
   return { d: `<path d="${b.d}"/>${bub ? `<circle cx="${b.out + 4.5}" cy="${y + 20}" r="4"/>` : ''}`, out: b.out + (bub ? 9 : 0) };
+}
+
+/** Sơ đồ khối + cổng + dây tự khai báo (mock-figs.js): hộp có chữ giữa, cổng AND/OR, đường nét, chữ. */
+export function blockFigure({ w, h, boxes, gates, paths, texts, dots = [] }) {
+  const fix = t => esc(t.replace(/'/g, '′'));
+  const g = boxes.map(b => `<rect x="${b.x}" y="${b.y}" width="${b.w}" height="${b.h}" rx="3"/><text x="${b.x + b.w / 2}" y="${b.y + b.h / 2}" text-anchor="middle" dominant-baseline="middle" class="lit" stroke="none" fill="currentColor" font-size="18">${fix(b.t)}</text>`).join('')
+    + gates.map(q => gateSymbol(q.op, q.x, q.y).d).join('') + `<path d="${paths.join(' ')}"/>` + dots.map(([x, y]) => `<circle cx="${x}" cy="${y}" r="3" fill="currentColor"/>`).join('');
+  const tx = texts.map(t => `<text x="${t.x}" y="${t.y}" text-anchor="${t.a ?? 'start'}" dominant-baseline="middle" class="lit" font-size="18">${fix(t.t)}</text>`).join('');
+  return svg(w, h, `<g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">${g}</g>${tx}`, 'fig-circuit fig-block');
 }

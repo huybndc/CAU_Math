@@ -26,10 +26,10 @@ const math = s => {
   return e;
 };
 const srcLine = (ex, q) => q.refs.length
-  ? `Source: ${ex.book} — Ch. ${q.refs[0].sec[0]}, ${q.refs.map(r => `§${r.sec} ${r.title}`).join('; ')}`
+  ? `Source: ${ex.book} — Ch. ${q.refs[0].sec.split(/[.–]/)[0]}, ${q.refs.map(r => `§${r.sec} ${r.title}`).join('; ')}`
   : '';
 
-function paper(ex, key) {
+function paper(ex, key, tools) {
   const head = el('header', { class: 'mp-head' }, [
     el('h1', { text: `${ex.title}${key ? ' — Answer key' : ''}` }),
     el('p', { text: `Code: ${ex.code} · Time: ${ex.minutes} min · Total: ${ex.total} points${key ? '' : ' · No calculator, no notes'}` }),
@@ -39,16 +39,17 @@ function paper(ex, key) {
     ...q.parts.map(p => el('div', { class: 'mp-part', style: key ? '' : `--pts:${p.pts}` }, [
       el('p', { class: 'mp-ask' }, [el('b', { text: `(${p.label}) [${p.pts}] ` }), math(p.q)]),
       ...(key ? p.a.map(line => el('p', { class: 'mp-ans' }, math(line))) : [el('div', { class: 'mp-space' })]),
+      ...(key && tools?.figure && p.figs ? [el('div', { class: `mp-figs${p.stack ? ' stack' : ''}` }, p.figs.map(f => el('figure', {}, [tools.figure(f)])))] : []),
     ])),
     el('p', { class: 'mp-src', text: srcLine(ex, q) }),
   ]));
   return el('div', {}, [head, ...qs]);
 }
 
-function print(ex, key) {
+function print(ex, key, tools) {
   let root = $('#mock-print');
   if (!root) { root = el('div', { id: 'mock-print' }); document.body.append(root); }
-  root.replaceChildren(paper(ex, key));
+  root.replaceChildren(paper(ex, key, tools));
   document.body.dataset.print = key ? 'key' : 'exam';
   const done = () => { delete document.body.dataset.print; root.replaceChildren(); window.removeEventListener('afterprint', done); };
   window.addEventListener('afterprint', done);
@@ -78,8 +79,8 @@ function draw(host, head, cfg, seed) {
       el('button', { class: 'btn', type: 'button', onClick: () => draw(host, head, cfg, newSeed()), text: T('mock.new') }),
       el('span', { class: 'muted', text: T('mock.summary', { n: ex.questions.length, pts: ex.total, min: ex.minutes }) }),
       el('span', { class: 'mock-actions' }, [
-        el('button', { class: 'btn primary', type: 'button', onClick: () => print(ex, false), text: T('mock.printExam') }),
-        el('button', { class: 'btn', type: 'button', onClick: () => print(ex, true), text: T('mock.printKey') }),
+        el('button', { class: 'btn primary', type: 'button', onClick: () => print(ex, false, cfg.mockTools), text: T('mock.printExam') }),
+        el('button', { class: 'btn', type: 'button', onClick: () => print(ex, true, cfg.mockTools), text: T('mock.printKey') }),
       ]),
     ]),
     el('p', { class: 'muted small', text: `${T('mock.book')}: ${ex.book}` }),
@@ -87,5 +88,27 @@ function draw(host, head, cfg, seed) {
       el('b', { text: `${q.no}. ${q.pts}` }),
       el('span', {}, math(q.stem)),
       el('small', { class: 'muted', text: q.refs.map(x => `§${x.sec} ${x.title}`).join(' · ') }),
-    ]))));
+    ]))),
+    ...(cfg.mockTools?.grade ? [checkPanel(ex, cfg.mockTools.grade)] : []));
+}
+
+/** Kiểm mạch vẽ tay: gõ biểu thức đọc từ mạch của mình cho từng đầu ra; chỉ ĐÚNG/SAI (giáo không chấm điểm từng phần). */
+function checkPanel(ex, grade) {
+  const rows = ex.questions.flatMap(q => q.parts.flatMap(p => (p.checks ?? []).map(c => [q.no, c])));
+  if (!rows.length) return el('span');
+  return el('details', { class: 'mock-check' }, [
+    el('summary', { text: T('mock.check') }),
+    el('p', { class: 'muted small', text: T('mock.checkHint') }),
+    ...rows.map(([no, c]) => {
+      const out = el('span', { class: 'mock-verdict' });
+      const input = el('input', { class: 'mock-expr', placeholder: "vd: w'x + yz", spellcheck: 'false', 'aria-label': `${no}. ${c.label}` });
+      input.addEventListener('input', () => {
+        const g = grade(c, input.value);
+        out.className = `mock-verdict ${g.empty ? '' : g.ok ? 'ok' : 'bad'}`;
+        out.textContent = g.empty ? '' : g.error ? T('mock.checkErr') : g.ok ? T('mock.checkOk', { n: g.lits })
+          : !g.functional ? T('mock.checkWrong', { m: g.wrong.slice(0, 4).join(', ') }) : T('mock.checkBig', { n: g.lits, ref: c.refLits });
+      });
+      return el('label', { class: 'mock-checkrow' }, [el('b', { text: `${no}. ${c.label}` }), input, out]);
+    }),
+  ]);
 }

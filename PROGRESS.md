@@ -53,6 +53,7 @@
 
 - Đã xong: cầu nối `math.answer`/`pet.set` qua `shared/host.js`; Study_Hub dùng mirror một chiều theo `math.lock`. Bỏ hướng "ngừng chép mirror" (mirror là mô hình hiện hành).
 - 2026-10-16 (nhánh style/font-token-snap, chờ người học duyệt): đưa 71 cỡ chữ rem lẻ trong CSS về thang --fs-* của Hub (test canh). Chưa merge.
+- 2026-10-22 (đề Logic/Discrete): MẪU phỏng đoán theo mô tả của người học (chưa có đề thật; người học chỉ dùng gần cuối kỳ nên đề, chương, kiến thức sẽ đổi): Discrete 3 câu 7 ý (định nghĩa, bổ đề + Fermat + RSA, quy nạp trên cây); Logic 3 câu chương 3–4 (K-map SOP/POS, thiết kế decoder/MUX/NAND, bộ cộng–trừ). 100 điểm, 60 phút. Chưa merge, chờ người học xem chất lượng.
 - 2026-10-22: Đề như thật chỉ còn mã đề + in đề/đáp án (người học tự bấm giờ, tự chấm); đã gỡ đồng hồ, tự chấm, lịch sử và sự kiện `mock`. Tự luận vẫn phát `math.answer` mode `free`. KaTeX dựng công thức, đáp án có bước giải (D64). Việc kế: mẫu đề Logic/Discrete cần cấu trúc đề thật.
 - 2026-10-22: màn `#/mock` (chọn mã seed, in đề/đáp án A4, mục sách từng câu); Luyện tập theo dạng và Thi thử bị ẩn bằng `PRACTICE_HIDDEN` (`shared/logic/visibility.js`, URL cũ vẫn chạy cho link của Study_Hub). Việc kế: đồng hồ + rubric tự chấm; mẫu đề Logic/Discrete; thử KaTeX trên Tự luận.
 - 2026-10-21: khung "Đề như thật" + bộ sinh Linear Algebra (9 câu, 162 điểm, 97 phút, tiếng Anh) và test đối chiếu độc lập; D63. Việc kế: màn chọn mã seed + in đề/đáp án (CSS print), rồi đồng hồ + rubric. Kế hoạch gỡ dần Luyện tập đã gửi Study_Hub (HANDOFF).
@@ -108,3 +109,8 @@
 - Test: `npm run mutate` (scripts/mutation-check.mjs + mutation-targets.json) thử đột biến các file logic chính; bộ giải elimination/quine-mccluskey/graph còn ~26 biến thể sống sót chưa phân loại (việc sau: số hàng trong `err.rowRange`, `used[v]` của đẳng cấu, ngưỡng EPS). Chưa đột biến: vite-plugin-sync, i18n.test/theory-render.test còn lặp giữa app.
 - Tinh gọn 2026-10-15 (PR #91): bỏ trang `/` (D62), bỏ nhánh bài luyện chương cũ; giữ tab Vẽ (D56).
 - CSP của host (Hub, `public/_headers`): script nội tuyến chọn sáng/tối trong index.html của 3 app được cho phép bằng hash sha256 — sửa đoạn script đó thì hash lệch và trang bị chặn (test `headers.test.js` của Hub bắt khi bump:math). Đổi script nội tuyến hoặc thêm nguồn ngoài (font, CDN, fetch tới host khác) ⇒ báo Study_Hub.
+
+- Đề mẫu Logic dựng lại theo mô tả (7 đoạn a/f/e, mạch cộng FA, BCD→Excess-3; 200 điểm, 60 phút) kèm hình mạch mẫu trong đáp án và ô Kiểm mạch (`mock-check.js`: đúng hàm trên ô bắt buộc + không nhiều literal hơn đáp án tối giản). Discrete scale 200 điểm, đúng 2 gợi ý. PR #101 vẫn nháp, chờ người học duyệt chất lượng.
+- Đề Logic làm lại lần 2: 3 câu = 7 đoạn (60) · bộ cộng BCD từ FA → 4 bit → hiệu chỉnh → mạch đủ (80) · MUX/DEMUX (60); có sơ đồ khối mẫu (`mock-figs.js`, `blockFigure`). Sửa in đề trống: `.mp-space` 4.2→2.4 mm/điểm (200 điểm làm Chrome báo lỗi in).
+- Đề Logic làm lại lần 3 theo mô tả đề thật: 3 câu, đúng 2 K-map (7 đoạn, Excess-3) và 2 câu vẽ một mạch (FA dạng XOR chung cổng, Excess-3 bốn đầu ra); bỏ bộ cộng BCD/MUX/DEMUX (mock-figs.js còn FA).
+- Đề Logic lần 4: 4 câu = 7 đoạn (K-map) 40 · Excess-3 (K-map) 40 · bộ cộng BCD, vẽ 1 mạch 65 · MUX 4×1 thực hiện hàm, vẽ 1 mạch 55. Mạch AND–OR nhỏ đã bỏ. Chỉ là bộ khung: đề cuối kỳ sẽ khác, người học bắt đầu ôn sau ~1 tháng.
