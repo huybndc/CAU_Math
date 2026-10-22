@@ -96,7 +96,7 @@ export function netFigure({ gates }) {
   g += `<path d="M${outs[1].x} ${outs[1].y} H176 V${ins3.at(-1)} H232"/>`;
   if (three) g += lab(206, ins3[1], last.ins[2]) + `<path d="M211 ${ins3[1]} H232"/>`;
   const { d, out } = gate(last.op, 230, y3);
-  g += d + `<path d="M${out} ${y3 + 20} H312"/><text x="318" y="${y3 + 20}" dominant-baseline="middle" class="lit out">${esc(out.replace(/_(\d)/, "$1"))}</text>`;
+  g += d + `<path d="M${out} ${y3 + 20} H312"/><text x="318" y="${y3 + 20}" dominant-baseline="middle" class="lit out">F</text>`;
   return svg(340, 146, `<g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">${g}</g>`, 'fig-circuit');
 }
 
@@ -104,4 +104,13 @@ export function netFigure({ gates }) {
 export function gateSymbol(op, x, y) {
   const b = body(BASE[op], x, y), bub = BUBBLE.has(op);
   return { d: `<path d="${b.d}"/>${bub ? `<circle cx="${b.out + 4.5}" cy="${y + 20}" r="4"/>` : ''}`, out: b.out + (bub ? 9 : 0) };
+}
+
+/** Sơ đồ khối + cổng + dây tự khai báo (mock-figs.js): hộp có chữ giữa, cổng AND/OR, đường nét, chữ. */
+export function blockFigure({ w, h, boxes, gates, paths, texts }) {
+  const fix = t => esc(t.replace(/'/g, '′'));
+  const g = boxes.map(b => `<rect x="${b.x}" y="${b.y}" width="${b.w}" height="${b.h}" rx="3"/><text x="${b.x + b.w / 2}" y="${b.y + b.h / 2}" text-anchor="middle" dominant-baseline="middle" class="lit" stroke="none" fill="currentColor" font-size="18">${fix(b.t)}</text>`).join('')
+    + gates.map(q => gateSymbol(q.op, q.x, q.y).d).join('') + `<path d="${paths.join(' ')}"/>`;
+  const tx = texts.map(t => `<text x="${t.x}" y="${t.y}" text-anchor="${t.a ?? 'start'}" dominant-baseline="middle" class="lit" font-size="18">${fix(t.t)}</text>`).join('');
+  return svg(w, h, `<g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">${g}</g>${tx}`, 'fig-circuit fig-block');
 }

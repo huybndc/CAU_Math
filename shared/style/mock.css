@@ -16,7 +16,7 @@ body[data-print]{background:#fff}
 #mock-print .mp-q h2{font-size:11.5pt;margin:.6em 0 .3em}
 #mock-print .mp-part{break-inside:avoid;margin:.3em 0}
 #mock-print .mp-ask{margin:0}
-#mock-print .mp-space{min-height:calc(var(--pts,4) * 4.2mm)}
+#mock-print .mp-space{min-height:calc(var(--pts,4) * 2.4mm)}
 #mock-print .mp-ans{margin:.15em 0 .15em 1.2em}
 #mock-print .mp-src{font-size:8.5pt;color:#444;margin:.2em 0 0}
 #mock-print .mp-figs{display:flex;flex-wrap:wrap;gap:.4em 1em;margin:.3em 0 .3em 1.2em}
@@ -28,3 +28,5 @@ body[data-print]{background:#fff}
 .mock-checkrow{display:grid;grid-template-columns:9rem 16rem 1fr;gap:.6rem;align-items:center;margin:.3rem 0}
 .mock-expr{font:inherit;font-family:ui-monospace,monospace;padding:.3rem .5rem;border:1px solid var(--line);border-radius:var(--r-md);background:var(--panel);color:inherit}
 .mock-verdict.ok{color:var(--ok,#2d7a4f)}.mock-verdict.bad{color:var(--bad,#b3423a)}
+#mock-print .mp-figs figure:has(.fig-block){max-width:92%}
+#mock-print .mp-figs .fig-block .lit{font-size:18px}

@@ -111,3 +111,4 @@
 - CSP của host (Hub, `public/_headers`): script nội tuyến chọn sáng/tối trong index.html của 3 app được cho phép bằng hash sha256 — sửa đoạn script đó thì hash lệch và trang bị chặn (test `headers.test.js` của Hub bắt khi bump:math). Đổi script nội tuyến hoặc thêm nguồn ngoài (font, CDN, fetch tới host khác) ⇒ báo Study_Hub.
 
 - Đề mẫu Logic dựng lại theo mô tả (7 đoạn a/f/e, mạch cộng FA, BCD→Excess-3; 200 điểm, 60 phút) kèm hình mạch mẫu trong đáp án và ô Kiểm mạch (`mock-check.js`: đúng hàm trên ô bắt buộc + không nhiều literal hơn đáp án tối giản). Discrete scale 200 điểm, đúng 2 gợi ý. PR #101 vẫn nháp, chờ người học duyệt chất lượng.
+- Đề Logic làm lại lần 2: 3 câu = 7 đoạn (60) · bộ cộng BCD từ FA → 4 bit → hiệu chỉnh → mạch đủ (80) · MUX/DEMUX (60); có sơ đồ khối mẫu (`mock-figs.js`, `blockFigure`). Sửa in đề trống: `.mp-space` 4.2→2.4 mm/điểm (200 điểm làm Chrome báo lỗi in).
