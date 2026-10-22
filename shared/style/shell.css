@@ -150,8 +150,6 @@ a.entry:hover .row-go{background:var(--accent)}
 /* chuyển màn: mờ rất ngắn (chỉ khi ĐỔI màn) */
 
 /* phòng thi: ẩn menu — bấm nhầm menu là rời bài */
-body.exam-focus{padding-left:0}
-body.exam-focus .appnav{display:none}
 
 /* ===================== Nháp (shared/ui/scratch.js) ===================== */
 .scratch-btn{
@@ -357,8 +355,6 @@ body.exam-focus .appnav{display:none}
   /* Nháp: nút nằm TRÊN thanh tab (không đè chữ), mở ra thành ngăn nửa dưới để còn thấy câu hỏi */
   .scratch-btn{right:12px;bottom:calc(4.25rem + env(safe-area-inset-bottom) + 10px);width:44px;height:44px;padding:0;display:grid;place-items:center;font-size:var(--fs-lg);opacity:.94}
   .scratch-btn .sb-t{display:none}
-  body.exam-focus .scratch-btn{bottom:calc(12px + env(safe-area-inset-bottom))}
-  body.exam-focus #app{padding-bottom:calc(4.6rem + env(safe-area-inset-bottom))}     /* hàng Câu trước / Câu sau nằm trên nút Nháp, không bị đè */
   .scratch{top:auto;left:8px;right:8px;width:auto;bottom:calc(4.25rem + env(safe-area-inset-bottom) + 8px);height:min(48vh,26rem)}
   .scratch-rs{display:none}
   .scratch-btn[aria-expanded="true"]{display:none}          /* ngăn đang mở: nút Nháp không đè lên ngăn, đóng bằng ×. */

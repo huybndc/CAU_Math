@@ -166,5 +166,3 @@ On a K-map the odd function is a **checkerboard**: no two 1 cells touch, so ANDâ
 - Forcing don't-care cells to be covered (they are optional).
 - Doing POS and forgetting the final complement.
 - Stopping at a correct answer that is **not minimal**.
-
-[Practise this chapter](#/practice/ch3)

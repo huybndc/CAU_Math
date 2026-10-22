@@ -1,7 +1,6 @@
 import { pushProgress } from './progress-push.js';
 import { mergeEvents } from '../logic/progress.js';
 import { normalizePet } from '../logic/pet.js';
-import { addMistake, dropKind } from '../logic/mistakes.js';
 import { currentUser, loadMathAnswerEvents, loadPetEvents, pushHubEvents, accountStorageKey, adoptAccount } from '@host';
 
 /* ---------------------------------------------------------------
@@ -21,17 +20,6 @@ export function load(key, fallback, subject = subjectOf()) {
 
 export function save(key, value, subject = subjectOf()) {
   try { localStorage.setItem(accountStorageKey(`${key}:${subject}`), JSON.stringify(value)); } catch { /* riêng tư / đầy */ }
-}
-
-/** Sổ câu sai của một chương theo chế độ (tự luận / trắc nghiệm) — shared/logic/mistakes.js. */
-export const loadMistakes = (prefix, tn = false) => load(`mistakes-${prefix}`, []).filter(m => !!m.tn === !!tn);
-
-/** Ghi kết quả một câu vào sổ câu sai: sai ⇒ thêm; đúng ⇒ gỡ cả dạng đó khỏi sổ. Câu không có hạt giống (thẻ học) bỏ qua. */
-export function markMistake(prefix, q, ok, tn = false) {
-  if (q.seed == null) return;
-  const m = { kind: q.kind, seed: q.seed, ...(tn && { tn: true }) };
-  const list = load(`mistakes-${prefix}`, []);
-  save(`mistakes-${prefix}`, ok ? dropKind(list, m) : addMistake(list, m));
 }
 
 export function drop(key, subject = subjectOf()) {

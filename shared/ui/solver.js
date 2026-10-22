@@ -1,5 +1,4 @@
 import { el } from './dom.js';
-import { PRACTICE_HIDDEN } from '../logic/visibility.js';
 import { t as T, onLangChange } from '../i18n/index.js';
 import { stepLine } from './question.js';
 import { decorateTerms } from './terms.js';
@@ -15,7 +14,7 @@ import { load, save } from './store.js';
    - Bước có thể kèm `why: { key, params }` — một câu "vì sao làm thế" hiện đầu bước.
    - Kết quả có thể kèm `expect: string[]` (các cách viết đáp án chấp nhận) hoặc `check(chữ) → boolean` (so theo ý nghĩa, vd hai
      biểu thức tương đương): khi đang che, hiện ô "Đáp án của bạn" để đối chiếu đúng/sai mà chưa lộ lời giải.
-   Dùng: const s = createSolver(host, { practice: '#/practice/ch1', examples: [{ label, apply }] });
+   Dùng: const s = createSolver(host, { examples: [{ label, apply }] });
          s.inputs.append(…ô nhập…);  s.show(kết quả)  |  s.error('thông báo')  |  s.clear()
    --------------------------------------------------------------- */
 
@@ -29,7 +28,7 @@ const plain = ({ answer, steps }) => [
   ...steps.flatMap((st, i) => ['', `${i + 1}. ${T(st.head.key, st.head.params)}`, ...(st.why ? [T(st.why.key, st.why.params)] : []), ...st.lines.map(l => '   ' + lineText(l))]),
 ].join('\n');
 
-export function createSolver(host, { practice = null, examples = [], random = null, terms = null } = {}) {
+export function createSolver(host, { examples = [], random = null, terms = null } = {}) {
   const exRow = el('div', { class: 'sv-ex' });
   const inputs = el('div', { class: 'sv-in' });
   const out = el('div', { class: 'sv-out', 'aria-live': 'polite' });
@@ -77,7 +76,6 @@ export function createSolver(host, { practice = null, examples = [], random = nu
         el('input', { type: 'checkbox', checked: hide ? '' : null, onChange: e => { save(HIDE_KEY, e.target.checked); revealed = false; draw(); } }),
         T('solver.hide'),
       ]),
-      practice && !PRACTICE_HIDDEN && el('a', { class: 'sv-link', href: practice, text: T('solver.similar') }),
       !masked && el('button', { type: 'button', class: 'sv-link', text: T(copied ? 'solver.copied' : 'solver.copy'), onClick: () => {
         try { navigator.clipboard.writeText(plain(last.result)); copied = true; draw(); setTimeout(() => { copied = false; draw(); }, 1500); } catch { /* không có clipboard: bỏ qua */ }
       } }),

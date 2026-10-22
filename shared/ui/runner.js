@@ -1,6 +1,6 @@
 import { t as T, onLangChange, offLangChange } from '../i18n/index.js';
 import { questionView, explainBlock, answerHtml, tp } from './question.js';
-import { record, subjectOf, load, save, drop, markMistake } from './store.js';
+import { record, subjectOf, load, save, drop } from './store.js';
 import { freshQuestion, redoByKind, poolSize, seededQuestion, newSeed, questionCode, signature } from '../logic/question-pool.js';
 import { streakOf } from '../logic/knowledge.js';
 import { answerEvent } from '../logic/progress.js';
@@ -38,7 +38,6 @@ export function mountRunner(host, { bank, prefix, figures = {}, widgets = {}, si
   // Mỗi câu lưu bằng (dạng, hạt giống) rồi sinh lại — cùng hạt giống luôn ra đúng câu đó.
   const SESSION = `run-session-${prefix}-${(kinds || []).join('+') || 'all'}${bank.mcq ? '-tn' : ''}`, resumable = autofocus && !goal && !make && mode === 'practice';
   // Sổ câu sai: câu sai ở luyện tập chính được nhớ (dạng, hạt giống); làm lại đúng (ở "Ôn lại câu đã sai" hoặc "Làm lại câu sai") thì gỡ.
-  const trackMistake = e => { if (resumable) markMistake(prefix, e.q, !!e.ok, !!bank.mcq); };
   const persist = () => {
     if (!resumable) return;
     if (S.phase === 'done' || S.redo || !S.round.length || S.round.some(e => e.q.seed == null)) { drop(SESSION); return; }
@@ -284,7 +283,6 @@ export function mountRunner(host, { bank, prefix, figures = {}, widgets = {}, si
     e.detail = r.detailKey ? T(r.detailKey, tp(r.detailParams)) : '';
     S.phase = 'answered';
     if (!S.redo) record(answerEvent(prefix, e.q, e.ok, mode));
-    trackMistake(e);
     onResult?.(e.ok);
     persist();
     draw();
@@ -297,7 +295,6 @@ export function mountRunner(host, { bank, prefix, figures = {}, widgets = {}, si
     e.revealed = true;
     S.phase = 'answered';
     if (!S.redo) record(answerEvent(prefix, e.q, false, mode));
-    trackMistake(e);
     onResult?.(false);
     persist();
     draw();

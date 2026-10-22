@@ -166,5 +166,3 @@ Trên K-map, hàm lẻ là **bàn cờ**: không hai ô 1 nào kề nhau, nên k
 - Bắt buộc phủ ô don't care (chúng chỉ là tuỳ chọn).
 - Làm POS mà quên lấy bù ở bước cuối.
 - Dừng ở đáp án đúng nhưng **chưa tối giản**.
-
-[Luyện tập chương này](#/practice/ch3)

@@ -212,5 +212,3 @@ A two-level AND–OR circuit becomes **NAND–NAND** with the same number of gat
 - Mixing up the ′ convention of minterms and maxterms (they are **opposite**).
 - Thinking a 3-input NAND is two chained 2-input NANDs.
 - Stopping at the canonical Σm and calling it minimal.
-
-[Practise this chapter](#/practice/ch2)

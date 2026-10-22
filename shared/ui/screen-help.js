@@ -24,16 +24,14 @@ export const HELP = {
   home: {
     vi: { title: 'Tổng quan', rows: [
       ['Hôm nay', 'Bài gợi ý cho bạn lúc này. Bấm Bắt đầu để làm ngay.'],
-      ['Mục tiêu thi', 'Điểm = phần lớn từ các câu luyện tập gần đây + một phần nhỏ từ thẻ đã đọc. Rê vào dấu ? để xem. Trong Luyện tập, nút "Không quan trọng" gắn cờ một dạng để bỏ khỏi điểm và đề trộn.'],
-      ['Học · Đề thi', 'Cột bên phải: học tiếp thẻ kế, công cụ, đề như thật, tự luận. Luyện theo dạng và thi thử trắc nghiệm đang ẩn. Khối trái, dưới "Hôm nay": bánh răng nhỏ cạnh nhân vật mở cài đặt nhân vật.'],
+      ['Học · Đề thi', 'Cột bên phải: học tiếp thẻ kế, công cụ, đề như thật, tự luận. Khối trái, dưới "Hôm nay": bánh răng nhỏ cạnh nhân vật mở cài đặt nhân vật.'],
       ['Ctrl K', 'Tìm nhanh trong app (gõ không dấu cũng được), Enter mở đúng bài.'],
       ['Nháp', 'Nút nổi góc dưới phải, mở ở mọi màn: ghi chú, máy tính, bảng chân trị, bìa K, vẽ.'],
       ['Đám mây', 'Trạng thái đồng bộ tiến độ với Study Hub. Số khác Hub thì chờ vài giây rồi tải lại.', 'warn'],
     ] },
     en: { title: 'Overview', rows: [
       ['Today', 'The suggested task right now. Press Start to do it now.'],
-      ['Exam goal', 'Score = mostly recent practice + a small part for cards read. Hover the ? to see. In Practice, "Not important" flags a type so it is left out of the score and mixed sets.'],
-      ['Learn · Exams', 'Right column: next lesson card, tools, exam practice, free-response. Practice by type and the multiple-choice mock exam are hidden. Left block, under "Today": the small gear by the character opens its settings.'],
+      ['Learn · Exams', 'Right column: next lesson card, tools, exam practice, free-response. Left block, under "Today": the small gear by the character opens its settings.'],
       ['Ctrl K', 'Quick search in the app; press Enter to open the result.'],
       ['Scratch', 'Floating button at the bottom right on every screen: notes, calculator, truth table, K-map, draw.'],
       ['Cloud', 'Progress sync status with Study Hub. If numbers differ from the Hub, wait a few seconds and reload.', 'warn'],
@@ -77,40 +75,6 @@ export const HELP = {
       ['Hands-on', 'Some tools let you drag and click directly (truth table, K-map, circuits).'],
     ] },
   },
-  practice: {
-    vi: { title: 'Luyện tập', rows: [
-      ['Theo dạng', 'Luyện một dạng bài. Mỗi dạng ghi % đúng (mọi lần) và thời gian ước tính.'],
-      ['Gõ đáp án / Chọn 1 trong 4', 'Gõ đáp án: tự gõ rồi chấm. Chọn 1 trong 4: phương án sai là lỗi hay gặp. Dạng vốn là câu chọn thì hai bên giống nhau nên không hiện thanh này.'],
-      ['Trộn cả chương', 'Mười câu lẫn các dạng của chương.'],
-      ['Bài dài 60–90 phút', 'Một lượt luyện dài liên tục (khác với từng dạng ngắn).'],
-      ['Nhắc nhở', 'Dạng ghi "cần nhất" là dạng bạn đang sai nhiều.'],
-    ] },
-    en: { title: 'Practice', rows: [
-      ['By type', 'Practise one question type. Each shows % correct (all time) and estimated time.'],
-      ['Type answer / Pick 1 of 4', 'Type answer: type it, then it is graded. Pick 1 of 4: wrong options are common mistakes. Types that are already pick-one look the same, so the bar is hidden.'],
-      ['Mix a chapter', 'Ten questions mixing the chapter\'s types.'],
-      ['Long 60–90 min', 'One long continuous practice run (unlike the short per-type rounds).'],
-      ['Hint', 'A type marked "most needed" is where you are missing most.'],
-    ] },
-  },
-  run: {
-    vi: { title: 'Làm bài', rows: [
-      ['Kiểm tra', 'Điền đáp án rồi bấm Kiểm tra. Điền thiếu ô thì các ô đã điền vẫn được giữ.'],
-      ['Gợi ý', 'Mở dần từng gợi ý trước khi xem đáp án.'],
-      ['Xem đáp án', 'Tính là chưa làm đúng câu này.', 'warn'],
-      ['Đúng liên tiếp', 'Đúng liên tiếp đủ số lần thì điểm kiến thức được tính là đã nắm (chấm xanh ở tab Học).'],
-      ['Mã câu', 'Bấm để sao chép; gửi kèm khi báo câu sai để tái hiện đúng câu đó.'],
-      ['Hết lượt', 'Xem kết quả rồi Luyện lại dạng còn sai, hoặc làm câu mới cùng dạng đã sai (đề và thứ tự đáp án đổi).'],
-    ] },
-    en: { title: 'Question', rows: [
-      ['Check', 'Fill in the answer and press Check. If a field is missing, the filled ones are kept.'],
-      ['Hint', 'Open hints gradually before looking at the answer.'],
-      ['Show answer', 'Counts as not having answered this question correctly.', 'warn'],
-      ['Streak', 'Enough correct answers in a row marks the knowledge point as mastered (green dot in Learn).'],
-      ['Question code', 'Click to copy; send it when reporting a wrong question so it can be reproduced.'],
-      ['End of round', 'See the result, then practise the weak type again, or get new questions of the types you missed (new numbers, shuffled answers).'],
-    ] },
-  },
   free: {
     vi: { title: 'Tự luận', rows: [
       ['Đề → lời giải', 'Làm nháp trước, mở gợi ý nếu kẹt, rồi bấm hiện lời giải từng bước để đối chiếu.'],
@@ -119,22 +83,11 @@ export const HELP = {
       ['Problem → solution', 'Work it out first, open a hint if stuck, then reveal the step-by-step solution to compare.'],
     ] },
   },
-  exam: {
-    vi: { title: 'Thi thử', rows: [
-      ['Điểm cả đề', 'Điểm tính trên cả đề. Câu bỏ trống không ghi vào lịch sử luyện (nên % luyện tập khác điểm đề).'],
-      ['Tập trung', 'Khi đang thi, menu ẩn đi để bạn không bị phân tâm.'],
-    ] },
-    en: { title: 'Mock exam', rows: [
-      ['Whole-exam score', 'The score is over the whole exam. Blank answers are not recorded in practice history (so practice % differs from the exam score).'],
-      ['Focus', 'While you take the exam the menu is hidden to avoid distraction.'],
-    ] },
-  },
 };
 
 /** Màn nào của route nào có thẻ trợ giúp. */
 export function helpKey(r) {
   if (!r) return null;
-  if (r.view === 'practice' && r.kind) return 'run';
   if (r.view === 'learn' && r.ch) return 'lesson';
   return r.view in HELP ? r.view : null;
 }

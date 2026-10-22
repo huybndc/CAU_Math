@@ -2,7 +2,6 @@ import { describe, it, expect } from 'vitest';
 import { signature, freshQuestion, poolSize, redoByKind } from '../logic/question-pool.js';
 import { conceptQuestion } from '../logic/concepts.js';
 import { seededRandom } from '../logic/shuffle.js';
-import { buildExam } from '../logic/exam.js';
 
 
 /* ngân hàng giả chỉ có `n` câu khác nhau, chọn ngẫu nhiên có lặp */
@@ -58,13 +57,6 @@ describe('không lặp câu', () => {
     const q = (fig, ch) => ({ kind: 'g', textKey: 'k', textParams: {}, figure: { edges: fig }, choices: ch });
     expect(signature(q([1, 2], ['a', 'b']))).toBe(signature(q([1, 2], ['b', 'a'])));
     expect(signature(q([1, 2], ['a', 'b']))).not.toBe(signature(q([1, 3], ['a', 'b'])));
-  });
-
-  it('bài full: không trùng câu và vẫn dựng lại đúng từ hạt giống', () => {
-    const C = [{ id: 'ch1', prefix: 'a', bank: bank(500) }];
-    const a = buildExam(C, { seed: 11, minutes: 90 });
-    expect(new Set(a.map(x => signature(x.q))).size).toBe(a.length);
-    expect(buildExam(C, { seed: 11, minutes: 90 }).map(x => x.q)).toEqual(a.map(x => x.q));
   });
 });
 

@@ -1,7 +1,7 @@
 import { parseRoute, routeOf } from '../logic/route.js';
 
 /* ---------------------------------------------------------------
-   ĐIỀU HƯỚNG: trạng thái nằm trên địa chỉ (#/practice/ch3/sop) nên Back/Forward,
+   ĐIỀU HƯỚNG: trạng thái nằm trên địa chỉ (#/learn/ch3/theory) nên Back/Forward,
    tải lại trang và link chép ra đều mở đúng chỗ. Địa chỉ cũ (#/ch3/interactive)
    được đổi sang dạng mới; địa chỉ lạ thì về Tổng quan. Nút nhảy chéo trong
    trang chương vẫn khai báo bằng data-goto="ch3:interactive".
