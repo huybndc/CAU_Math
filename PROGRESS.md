@@ -33,5 +33,6 @@ Bước:
 - Toán, câu hỏi, bộ giải, oracle → repo này. Hub, tài khoản, vault, thống kê liên môn → Study_Hub. Không import chéo; mirror một chiều theo `math.lock`.
 - Tệp chép từ Hub (không sửa tay): `shared/style/design-tokens.json` (+ `node shared/style/render-tokens.mjs`), `shared/logic/exam-target.json`, pet (`hub-mirror.lock`, 7 file). Hub đổi → chép bản mới.
 - CSP của Hub cho phép script nội tuyến chọn sáng/tối bằng hash: sửa script đó, thêm nguồn ngoài (font, CDN, fetch host khác) ⇒ báo Study_Hub.
+- Gỡ/đổi UI mà e2e của Hub chạm tới (route /practice, /exam, nút tự đánh giá Tự luận, `.free-rate`…): báo Study_Hub TRƯỚC khi merge để Hub sửa e2e cùng PR bump (#104 làm CI Hub đỏ 3 e2e Tự luận, treo 10 phút).
 - Trích sách: Logic theo Mano 6th (test so mục lục chương 3–4), Linear Algebra theo Strang 4th, Discrete theo MCS 2017.
 - Không commit slide, PDF, syllabus riêng, bí mật, dữ liệu cá nhân.
