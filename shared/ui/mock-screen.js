@@ -39,7 +39,7 @@ function paper(ex, key, tools) {
     ...q.parts.map(p => el('div', { class: 'mp-part', style: key ? '' : `--pts:${p.pts}` }, [
       el('p', { class: 'mp-ask' }, [el('b', { text: `(${p.label}) [${p.pts}] ` }), math(p.q)]),
       ...(key ? p.a.map(line => el('p', { class: 'mp-ans' }, math(line))) : [el('div', { class: 'mp-space' })]),
-      ...(key && tools?.figure && p.figs ? [el('div', { class: 'mp-figs' }, p.figs.map(f => el('figure', {}, [tools.figure(f)])))] : []),
+      ...(key && tools?.figure && p.figs ? [el('div', { class: `mp-figs${p.stack ? ' stack' : ''}` }, p.figs.map(f => el('figure', {}, [tools.figure(f)])))] : []),
     ])),
     el('p', { class: 'mp-src', text: srcLine(ex, q) }),
   ]));

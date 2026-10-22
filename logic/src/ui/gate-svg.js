@@ -107,10 +107,10 @@ export function gateSymbol(op, x, y) {
 }
 
 /** Sơ đồ khối + cổng + dây tự khai báo (mock-figs.js): hộp có chữ giữa, cổng AND/OR, đường nét, chữ. */
-export function blockFigure({ w, h, boxes, gates, paths, texts }) {
+export function blockFigure({ w, h, boxes, gates, paths, texts, dots = [] }) {
   const fix = t => esc(t.replace(/'/g, '′'));
   const g = boxes.map(b => `<rect x="${b.x}" y="${b.y}" width="${b.w}" height="${b.h}" rx="3"/><text x="${b.x + b.w / 2}" y="${b.y + b.h / 2}" text-anchor="middle" dominant-baseline="middle" class="lit" stroke="none" fill="currentColor" font-size="18">${fix(b.t)}</text>`).join('')
-    + gates.map(q => gateSymbol(q.op, q.x, q.y).d).join('') + `<path d="${paths.join(' ')}"/>`;
+    + gates.map(q => gateSymbol(q.op, q.x, q.y).d).join('') + `<path d="${paths.join(' ')}"/>` + dots.map(([x, y]) => `<circle cx="${x}" cy="${y}" r="3" fill="currentColor"/>`).join('');
   const tx = texts.map(t => `<text x="${t.x}" y="${t.y}" text-anchor="${t.a ?? 'start'}" dominant-baseline="middle" class="lit" font-size="18">${fix(t.t)}</text>`).join('');
   return svg(w, h, `<g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">${g}</g>${tx}`, 'fig-circuit fig-block');
 }

@@ -30,3 +30,5 @@ body[data-print]{background:#fff}
 .mock-verdict.ok{color:var(--ok,#2d7a4f)}.mock-verdict.bad{color:var(--bad,#b3423a)}
 #mock-print .mp-figs figure:has(.fig-block){max-width:92%}
 #mock-print .mp-figs .fig-block .lit{font-size:18px}
+#mock-print .mp-figs.stack{flex-direction:column;gap:14px}
+#mock-print .mp-figs.stack figure{max-width:60%}

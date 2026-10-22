@@ -112,3 +112,4 @@
 
 - Đề mẫu Logic dựng lại theo mô tả (7 đoạn a/f/e, mạch cộng FA, BCD→Excess-3; 200 điểm, 60 phút) kèm hình mạch mẫu trong đáp án và ô Kiểm mạch (`mock-check.js`: đúng hàm trên ô bắt buộc + không nhiều literal hơn đáp án tối giản). Discrete scale 200 điểm, đúng 2 gợi ý. PR #101 vẫn nháp, chờ người học duyệt chất lượng.
 - Đề Logic làm lại lần 2: 3 câu = 7 đoạn (60) · bộ cộng BCD từ FA → 4 bit → hiệu chỉnh → mạch đủ (80) · MUX/DEMUX (60); có sơ đồ khối mẫu (`mock-figs.js`, `blockFigure`). Sửa in đề trống: `.mp-space` 4.2→2.4 mm/điểm (200 điểm làm Chrome báo lỗi in).
+- Đề Logic làm lại lần 3 theo mô tả đề thật: 3 câu, đúng 2 K-map (7 đoạn, Excess-3) và 2 câu vẽ một mạch (FA dạng XOR chung cổng, Excess-3 bốn đầu ra); bỏ bộ cộng BCD/MUX/DEMUX (mock-figs.js còn FA).
