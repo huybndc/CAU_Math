@@ -2,8 +2,6 @@ import { $, el } from './dom.js';
 import { t as T } from '../i18n/index.js';
 import { load, save } from './store.js';
 import { leadCard, practiceTabs } from './choices.js';
-import { mathSpan } from './question.js';
-import { splitMatrices } from '../logic/steps.js';
 import { buildMock, newSeed, parseSeed } from '../logic/mock-exam.js';
 
 /* ---------------------------------------------------------------
@@ -14,11 +12,17 @@ import { buildMock, newSeed, parseSeed } from '../logic/mock-exam.js';
    --------------------------------------------------------------- */
 
 const KEY = 'mock-seed';
-/** Chữ thường + ma trận '[1 2; 3 4]' vẽ thành lưới (mathSpan chỉ hợp chuỗi toán thuần, câu hỏi có chữ sẽ bị in nghiêng). */
-const matStr = ({ rows, bar }) => `[${rows.map(r => (bar >= 0 ? [...r.slice(0, bar), '|', ...r.slice(bar)] : r).join(' ')).join('; ')}]`;
+/** KaTeX nạp một lần, chỉ khi mở màn này (không làm nặng các màn khác); công thức nằm giữa $…$ trong chuỗi đề/đáp án. */
+let katex = null;
+const loadKatex = async () => { if (!katex) { const [m] = await Promise.all([import('katex'), import('katex/dist/katex.min.css')]); katex = m.default; } };
 const math = s => {
   const e = el('span');
-  for (const p of splitMatrices(String(s))) e.append(typeof p === 'string' ? document.createTextNode(p) : mathSpan(matStr(p)));
+  String(s).split('$').forEach((part, i) => {            // chỉ số lẻ = công thức
+    if (!(i % 2)) { e.append(document.createTextNode(part)); return; }
+    const m = el('span');
+    m.innerHTML = katex.renderToString(part, { throwOnError: false });
+    e.append(m);
+  });
   return e;
 };
 const srcLine = (ex, q) => q.refs.length
@@ -31,7 +35,7 @@ function paper(ex, key) {
     el('p', { text: `Code: ${ex.code} · Time: ${ex.minutes} min · Total: ${ex.total} points${key ? '' : ' · No calculator, no notes'}` }),
   ]);
   const qs = ex.questions.map(q => el('section', { class: 'mp-q' }, [
-    el('h2', { text: `${q.no}. [${q.pts}] ${q.stem}` }),
+    el('h2', {}, [`${q.no}. [${q.pts}] `, math(q.stem)]),
     ...q.parts.map(p => el('div', { class: 'mp-part', style: key ? '' : `--pts:${p.pts}` }, [
       el('p', { class: 'mp-ask' }, [el('b', { text: `(${p.label}) [${p.pts}] ` }), math(p.q)]),
       ...(key ? p.a.map(line => el('p', { class: 'mp-ans' }, math(line))) : [el('div', { class: 'mp-space' })]),
@@ -58,7 +62,8 @@ export function renderMock(r, cfg) {
     host.replaceChildren(...head, leadCard({ title: T('mock.none'), note: T('mock.noneNote'), href: '#/free', cta: T('practice.tabFree') }));
     return T('nav.mock');
   }
-  draw(host, head, cfg, load(KEY, null) ?? newSeed());
+  const go = () => draw(host, head, cfg, load(KEY, null) ?? newSeed());
+  if (katex) go(); else loadKatex().then(go);
   return T('nav.mock');
 }
 
