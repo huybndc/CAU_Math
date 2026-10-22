@@ -6,6 +6,7 @@ import { truthFigure } from '@shared/ui/figures.js';
 import { mountTruthSolver, mountEuclidSolver, mountCongruenceSolver, mountDiophantineSolver, mountPowSolver, mountSetSolver, mountGraphSolver } from './ui/solvers.js';
 import { graphFigure } from './ui/graph-figure.js';
 import { CHAPTERS } from './logic/chapters.js';
+import { DISCRETE_MOCK } from './logic/mock-exam.js';
 import theoryCh1Vi from './content/theory-ch1.vi.md?raw';
 import theoryCh1En from './content/theory-ch1.en.md?raw';
 import theoryCh2Vi from './content/theory-ch2.vi.md?raw';
@@ -34,7 +35,7 @@ const FIGURES = { truth: truthFigure, graph: graphFigure };
 const FREE = freeFromGlob(import.meta.glob('./content/free/*.json', { eager: true }));
 
 window.addEventListener('DOMContentLoaded', () => {
-  setupShell({ chapters: CHAPTERS, figures: FIGURES, widgets: {}, free: FREE, lesson: ch => THEORY[getLang()][ch] });
+  setupShell({ chapters: CHAPTERS, figures: FIGURES, widgets: {}, free: FREE, mock: DISCRETE_MOCK, lesson: ch => THEORY[getLang()][ch] });
   const mountAllTheory = () => {
     const d = THEORY[getLang()];
     Object.keys(d).forEach(ch => mountLesson(document.querySelector(`#theory-${ch}-body`), d[ch], { chapter: ch, banks, figures: FIGURES }));

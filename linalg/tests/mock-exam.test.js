@@ -166,3 +166,12 @@ describe('đáp án đúng với phép tính riêng', () => {
     }
   });
 });
+
+describe('chuỗi đề không có ký tự thừa do thoát sai (\\; bị nuốt thành ;)', () => {
+  it('không có ",;" hay ";;" trong đề và đáp án', () => {
+    for (const s of SEEDS.slice(0, 40)) {
+      const text = JSON.stringify(buildMock(LINALG_MOCK, s), (k, v) => (k === 'facts' ? undefined : v));
+      expect(text, `seed ${s}`).not.toMatch(/,;|;;/);
+    }
+  });
+});

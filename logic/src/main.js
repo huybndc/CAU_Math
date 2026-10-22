@@ -6,6 +6,7 @@ import { kmapFigure } from './ui/kmap-figure.js';
 import { gateFigure, circuitFigure, netFigure } from './ui/gate-svg.js';
 import { kmapGroup, kmapPick } from './ui/kmap-widgets.js';
 import { CHAPTERS as chapters } from './logic/chapters.js';
+import { LOGIC_MOCK } from './logic/mock-exam.js';
 import { setupGrayPage } from './ui/gray-page.js';
 import { setupKmapPage } from './ui/kmap-page.js';
 import { mountLesson } from '@shared/ui/lesson.js';
@@ -33,7 +34,7 @@ const FREE = freeFromGlob(import.meta.glob('./content/free/*.json', { eager: tru
 window.addEventListener('DOMContentLoaded', () => {
   const figures = { truth: truthFigure, kmap: kmapFigure, gate: gateFigure, circuit: circuitFigure, net: netFigure };
   const widgets = { kmapGroup, kmapPick };
-  setupShell({ chapters, figures, widgets, free: FREE, lesson: ch => THEORY[getLang()][ch] });
+  setupShell({ chapters, figures, widgets, free: FREE, mock: LOGIC_MOCK, lesson: ch => THEORY[getLang()][ch] });
   setupGrayPage();
   setupKmapPage();
   setupCh1ExamplePage();

@@ -53,6 +53,7 @@
 
 - Đã xong: cầu nối `math.answer`/`pet.set` qua `shared/host.js`; Study_Hub dùng mirror một chiều theo `math.lock`. Bỏ hướng "ngừng chép mirror" (mirror là mô hình hiện hành).
 - 2026-10-16 (nhánh style/font-token-snap, chờ người học duyệt): đưa 71 cỡ chữ rem lẻ trong CSS về thang --fs-* của Hub (test canh). Chưa merge.
+- 2026-10-22 (đề Logic/Discrete): MẪU phỏng đoán theo mô tả của người học (chưa có đề thật; người học chỉ dùng gần cuối kỳ nên đề, chương, kiến thức sẽ đổi): Discrete 3 câu 7 ý (định nghĩa, bổ đề + Fermat + RSA, quy nạp trên cây); Logic 3 câu chương 3–4 (K-map SOP/POS, thiết kế decoder/MUX/NAND, bộ cộng–trừ). 100 điểm, 60 phút. Chưa merge, chờ người học xem chất lượng.
 - 2026-10-22: Đề như thật chỉ còn mã đề + in đề/đáp án (người học tự bấm giờ, tự chấm); đã gỡ đồng hồ, tự chấm, lịch sử và sự kiện `mock`. Tự luận vẫn phát `math.answer` mode `free`. KaTeX dựng công thức, đáp án có bước giải (D64). Việc kế: mẫu đề Logic/Discrete cần cấu trúc đề thật.
 - 2026-10-22: màn `#/mock` (chọn mã seed, in đề/đáp án A4, mục sách từng câu); Luyện tập theo dạng và Thi thử bị ẩn bằng `PRACTICE_HIDDEN` (`shared/logic/visibility.js`, URL cũ vẫn chạy cho link của Study_Hub). Việc kế: đồng hồ + rubric tự chấm; mẫu đề Logic/Discrete; thử KaTeX trên Tự luận.
 - 2026-10-21: khung "Đề như thật" + bộ sinh Linear Algebra (9 câu, 162 điểm, 97 phút, tiếng Anh) và test đối chiếu độc lập; D63. Việc kế: màn chọn mã seed + in đề/đáp án (CSS print), rồi đồng hồ + rubric. Kế hoạch gỡ dần Luyện tập đã gửi Study_Hub (HANDOFF).

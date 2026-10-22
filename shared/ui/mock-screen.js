@@ -26,7 +26,7 @@ const math = s => {
   return e;
 };
 const srcLine = (ex, q) => q.refs.length
-  ? `Source: ${ex.book} — Ch. ${q.refs[0].sec[0]}, ${q.refs.map(r => `§${r.sec} ${r.title}`).join('; ')}`
+  ? `Source: ${ex.book} — Ch. ${q.refs[0].sec.split(/[.–]/)[0]}, ${q.refs.map(r => `§${r.sec} ${r.title}`).join('; ')}`
   : '';
 
 function paper(ex, key) {
