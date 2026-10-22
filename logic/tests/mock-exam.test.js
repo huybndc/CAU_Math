@@ -1,79 +1,86 @@
-/* Đề như thật (Logic, phỏng đoán): đáp án kiểm bằng phép tính viết riêng (đánh giá biểu thức, cộng bit), công thức dựng được. */
+/* Đề như thật (Logic, phỏng đoán): đáp án kiểm bằng phép tính viết riêng (bảng 7 đoạn, cộng bit, mã excess-3), công thức dựng được. */
 import { describe, it, expect } from 'vitest';
 import katex from 'katex';
 import { buildMock } from '@shared/logic/mock-exam.js';
 import { LOGIC_MOCK } from '../src/logic/mock-exam.js';
+import { gradeCircuit } from '../src/logic/mock-check.js';
 
-const SEEDS = Array.from({ length: 120 }, (_, i) => i * 7727 + 11);
-const part = (ex, q, p) => ex.questions[q].parts[p].facts;
+const ex = buildMock(LOGIC_MOCK, 9);
+const part = (q, p) => ex.questions[q].parts[p];
 const bitsOf = (m, n) => Array.from({ length: n }, (_, k) => (m >> (n - 1 - k)) & 1);
 const lit = (s, names, bits) => { const v = bits[names.indexOf(s[0])]; return s.endsWith("'") ? 1 - v : v; };
 const evalSop = (expr, names, bits) => expr.split(' + ').some(t => [...t.matchAll(/[a-z]'?/g)].every(m => lit(m[0], names, bits)));
-const evalPos = (expr, names, bits) => [...expr.matchAll(/\(([^)]*)\)/g)].every(g => g[1].split(' + ').some(l => lit(l.trim(), names, bits)));
-const care = (values, i) => values[i] !== 2;
+const SEG = { a: '0235 6789', f: '0456 89', e: '0268' };           // bảng chuẩn chép tay: đoạn nào sáng ở chữ số nào
 
 describe('đề Logic', () => {
-  it('3 câu, 100 điểm, 60 phút; chương 3–4 (không có chương 1–2); cùng seed ⇒ cùng đề', () => {
-    const ex = buildMock(LOGIC_MOCK, 9);
-    expect(ex.questions.map(q => q.parts.length)).toEqual([3, 4, 3]);
-    expect([ex.total, ex.minutes]).toEqual([100, 60]);
+  it('3 câu, 200 điểm, 60 phút; chương 3–4; cùng seed ⇒ cùng đề', () => {
+    expect(ex.questions.map(q => q.parts.length)).toEqual([3, 3, 3]);
+    expect([ex.total, ex.minutes]).toEqual([200, 60]);
     ex.questions.forEach(q => q.refs.forEach(x => expect(x.sec).toMatch(/^[34]\./)));
     expect(buildMock(LOGIC_MOCK, 9)).toEqual(ex);
   });
-  it('mọi công thức KaTeX dựng được, dấu $ cặp đủ, không NaN/undefined', () => {
-    for (const s of SEEDS) {
-      const ex = buildMock(LOGIC_MOCK, s);
-      for (const str of ex.questions.flatMap(q => [q.stem, ...q.parts.flatMap(p => [p.q, ...p.a])])) {
-        expect(str).not.toMatch(/undefined|NaN/);
-        const pieces = str.split('$');
-        expect(pieces.length % 2, str.slice(0, 50)).toBe(1);
-        pieces.forEach((m, i) => { if (i % 2) katex.renderToString(m, { throwOnError: true }); });
-      }
+  it('mọi công thức KaTeX dựng được, dấu $ cặp đủ, không NaN/undefined, không ",;"', () => {
+    for (const str of ex.questions.flatMap(q => [q.stem, ...q.parts.flatMap(p => [p.q, ...p.a])])) {
+      expect(str).not.toMatch(/undefined|NaN|,;|;;/);
+      const pieces = str.split('$');
+      expect(pieces.length % 2, str.slice(0, 50)).toBe(1);
+      pieces.forEach((m, i) => { if (i % 2) katex.renderToString(m, { throwOnError: true }); });
     }
   });
-  it('câu 1: SOP và POS tối giản đúng hàm trên mọi ô bắt buộc (không gán sai ô 1/0), không đụng ô don\'t-care sai', () => {
-    for (const s of SEEDS) {
-      const ex = buildMock(LOGIC_MOCK, s), { values, pis } = part(ex, 0, 0), b = part(ex, 0, 1), c = part(ex, 0, 2);
-      expect(pis.length).toBeGreaterThan(0);
-      values.forEach((v, i) => {
-        if (!care(values, i)) return;
-        expect(evalSop(b.sop, b.names, bitsOf(i, 4)) ? 1 : 0, `sop seed ${s} m${i}`).toBe(v);
-        expect(evalPos(c.pos, c.names, bitsOf(i, 4)) ? 1 : 0, `pos seed ${s} m${i}`).toBe(v);
-      });
+  it('7 đoạn: bảng đúng chuẩn (6 sáng a, 9 sáng d→f không đổi), 10–15 là don\'t-care; SOP đúng mọi ô bắt buộc', () => {
+    const f = part(0, 0).facts, s = part(0, 1).facts;
+    for (const k of ['a', 'f', 'e']) {
+      const on = [...SEG[k].replace(' ', '')].map(Number);
+      f[k].forEach((v, m) => expect(v, `${k}${m}`).toBe(m >= 10 ? 2 : on.includes(m) ? 1 : 0));
+      f[k].forEach((v, m) => { if (v !== 2) expect(evalSop(s.sop[k], s.names, bitsOf(m, 4)) ? 1 : 0, `${k} m${m}`).toBe(v); });
     }
   });
-  it('câu 2: SOP đúng hàm; decoder = các minterm 1; MUX tái dựng đúng bảng chân trị', () => {
-    for (const s of SEEDS) {
-      const ex = buildMock(LOGIC_MOCK, s), a = part(ex, 1, 0), d = part(ex, 1, 1), m = part(ex, 1, 2);
-      a.values.forEach((v, i) => expect(evalSop(a.sop, a.names, bitsOf(i, 3)) ? 1 : 0).toBe(v));
-      expect(d.ones).toEqual(a.values.map((v, i) => (v === 1 ? i : -1)).filter(i => i >= 0));
-      a.values.forEach((v, i) => {                                     // chọn I_(xy), ngõ dữ liệu theo z
-        const sel = m.mux[i >> 1], z = i & 1;
-        expect(sel === '0' ? 0 : sel === '1' ? 1 : sel === 'z' ? z : 1 - z, `mux seed ${s} m${i}`).toBe(v);
-      });
+  it('mạch cộng: S và C khớp phép cộng bit; SOP đúng', () => {
+    const f = part(1, 0).facts, s = part(1, 1).facts;
+    for (let m = 0; m < 8; m++) {
+      const [x, y, z] = bitsOf(m, 3), sum = x + y + z;
+      expect(f.S[m]).toBe(sum & 1); expect(f.C[m]).toBe(sum >> 1);
+      expect(evalSop(s.sopS, s.names, [x, y, z]) ? 1 : 0).toBe(sum & 1);
+      expect(evalSop(s.sopC, s.names, [x, y, z]) ? 1 : 0).toBe(sum >> 1);
     }
   });
-  it('câu 3: cộng, tràn số và trừ khớp phép tính số học riêng', () => {
-    const sg = x => (x >= 8 ? x - 16 : x);
-    for (const s of SEEDS) {
-      const ex = buildMock(LOGIC_MOCK, s), a = part(ex, 2, 0), b = part(ex, 2, 1), c = part(ex, 2, 2);
-      const sumVal = parseInt(a.sum, 2), tot = a.a + a.b;
-      expect(sumVal).toBe(tot % 16);
-      expect(a.carries[4]).toBe(tot >= 16 ? 1 : 0);
-      const trueSigned = sg(a.a) + sg(a.b);
-      expect(b.v).toBe(trueSigned < -8 || trueSigned > 7 ? 1 : 0);
-      const diff = (a.a - a.b + 16) % 16, trueDiff = sg(a.a) - sg(a.b);
-      expect(parseInt(c.sum, 2)).toBe(diff);
-      expect(c.v).toBe(trueDiff < -8 || trueDiff > 7 ? 1 : 0);
+  it('excess-3: đầu ra = chữ số + 3 (4 bit); SOP đúng mọi ô bắt buộc', () => {
+    const f = part(2, 0).facts.outs, s = part(2, 1).facts;
+    for (let d = 0; d < 10; d++) {
+      const code = ['E_3', 'E_2', 'E_1', 'E_0'].map(k => f[k][d]).join('');
+      expect(parseInt(code, 2), `d${d}`).toBe(d + 3);
+      for (const k of ['E_3', 'E_2', 'E_1', 'E_0']) expect(evalSop(s.sop[k], s.names, bitsOf(d, 4)) ? 1 : 0).toBe(f[k][d]);
     }
+    for (let m = 10; m < 16; m++) expect(f.E_3[m]).toBe(2);
+  });
+  it('mọi đầu ra có hình mẫu và spec kiểm mạch; đáp án chuẩn tự chấm ĐÚNG', () => {
+    const outs = ex.questions.flatMap(q => q.parts.filter(p => p.checks));
+    expect(outs.length).toBe(3);
+    outs.forEach(p => { expect(p.figs.length).toBe(p.checks.length); p.figs.forEach(g => expect(g.terms.length).toBeGreaterThan(0)); });
+    for (const p of outs) p.checks.forEach((c, i) => {
+      const text = p.figs[i].terms.map(t => t.join('')).join(' + ');
+      const g = gradeCircuit(c, text);
+      expect(g.ok, `${c.label}: ${text}`).toBe(true);
+    });
   });
 });
 
-describe('chuỗi đề không có ký tự thừa do thoát sai (\\; bị nuốt thành ;)', () => {
-  it('không có ",;" hay ";;" trong đề và đáp án', () => {
-    for (const s of SEEDS.slice(0, 40)) {
-      const text = JSON.stringify(buildMock(LOGIC_MOCK, s), (k, v) => (k === 'facts' ? undefined : v));
-      expect(text, `seed ${s}`).not.toMatch(/,;|;;/);
-    }
+describe('gradeCircuit (mạch vẽ tay)', () => {
+  const spec = { names: ['x', 'y', 'z'], values: [0, 0, 1, 1, 0, 1, 2, 1], refLits: 4 };   // m2,m3,m5,m7 =1; m6 = don't-care
+  it('đúng hàm + tối giản ⇒ đúng; don\'t-care tuỳ ý', () => {
+    expect(gradeCircuit(spec, "x'y + xz").ok).toBe(true);
+    expect(gradeCircuit(spec, "x'y + xz + xy").functional).toBe(true);    // phủ m6 (don't-care) vẫn đúng hàm
+  });
+  it('thiếu hay thừa một ô bắt buộc ⇒ sai, nêu ô sai', () => {
+    const miss = gradeCircuit(spec, "x'y");
+    expect(miss.ok).toBe(false); expect(miss.wrong).toEqual([5, 7]);
+    const extra = gradeCircuit(spec, "x'y + xz + x'y'z'");
+    expect(extra.ok).toBe(false); expect(extra.wrong).toEqual([0]);
+  });
+  it('đúng hàm nhưng không tối giản ⇒ không đạt chuẩn; rỗng/sai cú pháp được báo riêng', () => {
+    const big = gradeCircuit(spec, "x'yz + x'yz' + xy'z + xyz");
+    expect(big.functional).toBe(true); expect(big.minimal).toBe(false); expect(big.ok).toBe(false);
+    expect(gradeCircuit(spec, '  ').empty).toBe(true);
+    expect(gradeCircuit(spec, "x'y +").error).toBeTruthy();
   });
 });

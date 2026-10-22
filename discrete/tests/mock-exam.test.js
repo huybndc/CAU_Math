@@ -8,14 +8,22 @@ import { DEFINITIONS } from '../src/logic/mock-proofs.js';
 const SEEDS = Array.from({ length: 80 }, (_, i) => i * 104729 + 7);
 
 describe('đề Discrete', () => {
-  it('3 câu, 7 ý, 100 điểm, 60 phút; câu 1 có 3 định nghĩa khác nhau, mỗi ý 5 điểm', () => {
+  it('3 câu, 7 ý, 200 điểm, 60 phút; câu 1 có 3 định nghĩa khác nhau, mỗi ý 10 điểm', () => {
     for (const s of SEEDS) {
       const ex = buildMock(DISCRETE_MOCK, s);
       expect(ex.questions.map(q => q.parts.length)).toEqual([3, 3, 1]);
-      expect([ex.total, ex.minutes]).toEqual([100, 60]);
-      expect(ex.questions[0].parts.every(p => p.pts === 5)).toBe(true);
+      expect([ex.total, ex.minutes]).toEqual([200, 60]);
+      expect(ex.questions[0].parts.every(p => p.pts === 10)).toBe(true);
       expect(new Set(ex.questions[0].parts.map(p => p.facts.id)).size).toBe(3);
       ex.questions.forEach(q => expect(q.refs.length).toBeGreaterThan(0));
+    }
+  });
+  it('cả đề chỉ có 2 gợi ý nhỏ: "previous ones" (câu 2) và "by induction" (câu 3); không có gợi ý khác', () => {
+    for (const s of SEEDS) {
+      const ex = buildMock(DISCRETE_MOCK, s), text = ex.questions.flatMap(q => [q.stem, ...q.parts.map(p => p.q)]).join(' ');
+      expect(text.match(/previous ones/g)?.length).toBe(1);
+      expect(text.match(/by induction/g)?.length).toBe(1);
+      expect(text).not.toMatch(/\b[Hh]int\b|\bUse\b|\bRecall\b/);
     }
   });
   it('cùng seed ⇒ cùng đề; khác seed ⇒ khác', () => {

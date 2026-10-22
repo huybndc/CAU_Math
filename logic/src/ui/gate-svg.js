@@ -46,7 +46,7 @@ export function gateFigure({ gate, n = 2 }) {
  * Mạch AND–OR hai mức từ một SOP: { terms: [['x', "y'"], ['z']] }.
  * Mỗi term một cổng AND (term 1 literal thì nối thẳng), gom vào một cổng OR ra F.
  */
-export function circuitFigure({ terms }) {
+export function circuitFigure({ terms, out = 'F' }) {
   const GAP = 58, top = 14;
   const h = top * 2 + terms.length * GAP;
   const orY = h / 2 - 20;
@@ -68,7 +68,7 @@ export function circuitFigure({ terms }) {
     g += `<path d="M176 ${cy} H196 V${ty} H214"/>`;
   });
   g += `<path d="${body('OR', 212, orY).d}"/><path d="M254 ${orY + 20} H290"/>`;
-  g += `<text x="298" y="${orY + 20}" dominant-baseline="middle" class="lit out">F</text>`;
+  g += `<text x="298" y="${orY + 20}" dominant-baseline="middle" class="lit out">${esc(out.replace(/_(\d)/, "$1"))}</text>`;
   return svg(320, h, `<g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">${g}</g>`, 'fig-circuit');
 }
 
@@ -96,7 +96,7 @@ export function netFigure({ gates }) {
   g += `<path d="M${outs[1].x} ${outs[1].y} H176 V${ins3.at(-1)} H232"/>`;
   if (three) g += lab(206, ins3[1], last.ins[2]) + `<path d="M211 ${ins3[1]} H232"/>`;
   const { d, out } = gate(last.op, 230, y3);
-  g += d + `<path d="M${out} ${y3 + 20} H312"/><text x="318" y="${y3 + 20}" dominant-baseline="middle" class="lit out">F</text>`;
+  g += d + `<path d="M${out} ${y3 + 20} H312"/><text x="318" y="${y3 + 20}" dominant-baseline="middle" class="lit out">${esc(out.replace(/_(\d)/, "$1"))}</text>`;
   return svg(340, 146, `<g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">${g}</g>`, 'fig-circuit');
 }
 

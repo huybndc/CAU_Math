@@ -109,3 +109,5 @@
 - Test: `npm run mutate` (scripts/mutation-check.mjs + mutation-targets.json) thử đột biến các file logic chính; bộ giải elimination/quine-mccluskey/graph còn ~26 biến thể sống sót chưa phân loại (việc sau: số hàng trong `err.rowRange`, `used[v]` của đẳng cấu, ngưỡng EPS). Chưa đột biến: vite-plugin-sync, i18n.test/theory-render.test còn lặp giữa app.
 - Tinh gọn 2026-10-15 (PR #91): bỏ trang `/` (D62), bỏ nhánh bài luyện chương cũ; giữ tab Vẽ (D56).
 - CSP của host (Hub, `public/_headers`): script nội tuyến chọn sáng/tối trong index.html của 3 app được cho phép bằng hash sha256 — sửa đoạn script đó thì hash lệch và trang bị chặn (test `headers.test.js` của Hub bắt khi bump:math). Đổi script nội tuyến hoặc thêm nguồn ngoài (font, CDN, fetch tới host khác) ⇒ báo Study_Hub.
+
+- Đề mẫu Logic dựng lại theo mô tả (7 đoạn a/f/e, mạch cộng FA, BCD→Excess-3; 200 điểm, 60 phút) kèm hình mạch mẫu trong đáp án và ô Kiểm mạch (`mock-check.js`: đúng hàm trên ô bắt buộc + không nhiều literal hơn đáp án tối giản). Discrete scale 200 điểm, đúng 2 gợi ý. PR #101 vẫn nháp, chờ người học duyệt chất lượng.
