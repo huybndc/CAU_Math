@@ -1,18 +1,16 @@
 import { $, el } from './dom.js';
 import { t as T, getLang } from '../i18n/index.js';
-import { load, save, record } from './store.js';
+import { load, save } from './store.js';
 import { chNo, chapterTitle, row, leadCard, practiceTabs, tag } from './choices.js';
 import { mdNodes } from './lesson.js';
-import { RATINGS, summarize, nextUp, following, freeEvent } from '../logic/free.js';
+import { following } from '../logic/free.js';
 
 /* ---------------------------------------------------------------
-   TỰ LUẬN (đề giống bộ đề giáo trình): máy chỉ đưa đề, gợi ý theo thang, lời giải mẫu chia ý và các ý chấm;
-   NGƯỜI HỌC tự đối chiếu và tự đánh giá — không có bộ chấm. Đánh giá lưu theo môn (khoá 'free'), chỉ để xếp bài ôn.
+   TỰ LUẬN (đề giống bộ đề giáo trình): máy chỉ đưa đề, gợi ý theo thang và lời giải mẫu từng bước.
+   Người học tự đối chiếu trên giấy; app không lưu đánh giá, không phát sự kiện (bỏ tự chấm 2026-10-22).
    cfg.free = mảng bài (shared/logic/free.js). #/free = danh sách · #/free/<id> = một bài.
    --------------------------------------------------------------- */
 
-const RATE_KEY = 'free';
-const ratings = () => load(RATE_KEY, {});
 const text = p => p[getLang()] ?? p.vi;
 const stars = n => '●'.repeat(n) + '○'.repeat(3 - n);
 const md = s => el('div', { class: 'free-md' }, mdNodes(s.replace(/\n/g, '  \n')));    // xuống dòng đơn trong đề giữ nguyên
@@ -29,7 +27,6 @@ export function renderFree(r, cfg) {
 
 /* ---------------- danh sách ---------------- */
 function list(host, all, cfg) {
-  const rt = ratings();
   const chapters = cfg.chapters.filter(c => all.some(p => p.ch === c.id));
   const head = [el('h1', { text: T('nav.mock') }), practiceTabs('free')];
   if (!all.length) {
@@ -38,8 +35,6 @@ function list(host, all, cfg) {
   }
   const cur = chapters.find(c => c.id === load('free-ch', null)) ?? chapters[0];
   const mine = all.filter(p => p.ch === cur.id);
-  const s = summarize(mine, rt);
-  const next = nextUp(mine, rt);
   const bar = el('div', { class: 'chapter-bar', role: 'group', 'aria-label': T('shell.chapters') },
     chapters.map(c => el('button', {
       type: 'button', 'aria-pressed': String(c.id === cur.id),
@@ -50,13 +45,12 @@ function list(host, all, cfg) {
     el('p', { class: 'subtitle', text: T('free.sub') }),
     el('div', { class: 'practice-bars' }, bar),
     leadCard({
-      title: T(s.todo === s.n ? 'free.startTitle' : 'free.nextTitle'), note: T('free.stat', { n: s.n, ok: s.ok, near: s.near, bad: s.bad }),
-      href: `#/free/${next.id}`, cta: T(s.todo === s.n ? 'free.start' : 'free.next'),
+      title: T('free.startTitle'), note: T('free.count', { n: mine.length }),
+      href: `#/free/${mine[0].id}`, cta: T('free.start'),
     }),
     el('div', { class: 'list mods' }, mine.map(q => row({
       href: `#/free/${q.id}`, title: text(q).title, sub: q.source.name,
       num: stars(q.level), acc: '',
-      tag: rt[q.id] && tag(T('free.rate_' + rt[q.id].r), rt[q.id].r === 'ok' ? 'ok' : 'hi'),
     }))),
   );
   return T('free.title');
@@ -67,9 +61,6 @@ function problem(host, p, all, cfg) {
   if (sess.id !== p.id) sess = { id: p.id, hints: 0, shown: false };
   const t = text(p);
   const redraw = () => renderFree({ view: 'free', id: p.id }, cfg);
-  const rt = ratings();
-  const cur = rt[p.id]?.r;
-
   const mod = (title, body, open = true, cls = '') => el('details', { class: `card free-mod ${cls}`, open: open ? '' : null }, [el('summary', {}, el('h2', { text: title })), ...[body].flat()]);
 
   const hints = [
@@ -80,15 +71,10 @@ function problem(host, p, all, cfg) {
     }),
   ];
 
-  const nx = following(all.filter(x => x.ch === p.ch), p.id) ?? nextUp(all.filter(x => x.ch === p.ch), rt, p.id);
+  const nx = following(all.filter(x => x.ch === p.ch), p.id);
   const right = sess.shown ? [
     mod(T('free.solution'), el('ol', { class: 'free-sol' }, t.solution.map(x => el('li', {}, md(x))))),
-    mod(T('free.rubric'), [el('p', { class: 'subtitle', text: T('free.rubricNote') }), el('ul', { class: 'free-rubric' }, t.rubric.map(x => el('li', {}, el('label', {}, [el('input', { type: 'checkbox' }), md(x)]))))]),
-    mod(T('free.pitfalls'), el('ul', { class: 'free-pit' }, t.pitfalls.map(x => el('li', {}, md(x)))), false),
-    mod(T('free.rate'), el('div', { class: 'free-rate', role: 'group' }, [...RATINGS.map(k => el('button', {
-      type: 'button', class: 'btn' + (cur === k ? ' primary' : ''), 'aria-pressed': String(cur === k),
-      onClick: () => { const prev = ratings()[p.id]?.r; save(RATE_KEY, { ...ratings(), [p.id]: { r: k, t: Date.now() } }); if (prev !== k) record(freeEvent(p, k)); redraw(); },
-    }, T('free.rate_' + k))), nx && el('a', { class: 'btn', href: `#/free/${nx.id}`, 'data-icon': 'next' }, el('span', { text: T('free.next') }))])),
+    nx && el('a', { class: 'btn', href: `#/free/${nx.id}`, 'data-icon': 'next' }, el('span', { text: T('free.next') })),
   ] : [el('div', { class: 'card free-mod free-wait' }, [
     el('p', { class: 'subtitle', text: T('free.tryFirst') }),
     el('button', { type: 'button', class: 'btn primary', text: T('free.show'), onClick: () => { sess.shown = true; redraw(); } }),
