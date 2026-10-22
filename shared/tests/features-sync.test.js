@@ -64,6 +64,8 @@ const REMOVED = [
   ['screen-practice', 'màn Luyện tập (2026-10-22)'],
   ['screen-exam', 'màn Thi thử (2026-10-22)'],
   ['markMistake', 'Sổ câu sai (2026-10-22)'],
+  ['mock.list', 'Đề như thật: danh sách câu gập, thay bằng xem trước nguyên tờ (2026-10-22)'],
+  ['mock-qs', 'Đề như thật: danh sách câu gập (2026-10-22)'],
   ['gradeCircuit', 'Đề như thật: ô Kiểm mạch đã vẽ (2026-10-22)'],
   ['mock.check', 'Đề như thật: ô Kiểm mạch đã vẽ (2026-10-22)'],
 ];
