@@ -1,12 +1,9 @@
-# Test + kiểm cỡ file + build cho mọi PR và main (trước đây CAU_Math không có CI, merge dựa vào chạy tay).
+# Test + kiểm cỡ file + build (giống `npm run gate`), chạy tay khi cần một máy sạch.
 name: ci
+# Từ 2026-10-26 (người học quyết): kiểm tra chạy trên máy bằng `npm run gate` trước merge; CI chỉ chạy tay.
+# Đường lui: trả `on:` về pull_request + push main như lịch sử git.
 on:
-  # PR/push chỉ sửa tài liệu thì không chạy CI (tiết kiệm phút Actions; code vẫn chạy đủ)
-  pull_request:
-    paths-ignore: ['**/*.md', 'docs/**']
-  push:
-    branches: [main]
-    paths-ignore: ['**/*.md', 'docs/**']
+  workflow_dispatch:
 jobs:
   ci:
     runs-on: ubuntu-latest
