@@ -24,14 +24,14 @@ export const HELP = {
   home: {
     vi: { title: 'Tổng quan', rows: [
       ['Hôm nay', 'Bài gợi ý cho bạn lúc này. Bấm Bắt đầu để làm ngay.'],
-      ['Học · Đề thi', 'Cột bên phải: học tiếp thẻ kế, công cụ, đề như thật, tự luận. Khối trái, dưới "Hôm nay": bánh răng nhỏ cạnh nhân vật mở cài đặt nhân vật.'],
+      ['Học · Đề thi', 'Cột bên phải: học tiếp thẻ kế, công cụ, đề như thật, tự luận.'],
       ['Ctrl K', 'Tìm nhanh trong app (gõ không dấu cũng được), Enter mở đúng bài.'],
       ['Nháp', 'Nút nổi góc dưới phải, mở ở mọi màn: ghi chú, máy tính, bảng chân trị, bìa K, vẽ.'],
       ['Đám mây', 'Trạng thái đồng bộ tiến độ với Study Hub. Số khác Hub thì chờ vài giây rồi tải lại.', 'warn'],
     ] },
     en: { title: 'Overview', rows: [
       ['Today', 'The suggested task right now. Press Start to do it now.'],
-      ['Learn · Exams', 'Right column: next lesson card, tools, exam practice, free-response. Left block, under "Today": the small gear by the character opens its settings.'],
+      ['Learn · Exams', 'Right column: next lesson card, tools, exam practice, free-response.'],
       ['Ctrl K', 'Quick search in the app; press Enter to open the result.'],
       ['Scratch', 'Floating button at the bottom right on every screen: notes, calculator, truth table, K-map, draw.'],
       ['Cloud', 'Progress sync status with Study Hub. If numbers differ from the Hub, wait a few seconds and reload.', 'warn'],

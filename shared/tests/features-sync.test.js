@@ -66,6 +66,9 @@ const REMOVED = [
   ['markMistake', 'Sổ câu sai (2026-10-22)'],
   ['mock.list', 'Đề như thật: danh sách câu gập, thay bằng xem trước nguyên tờ (2026-10-22)'],
   ['mock-qs', 'Đề như thật: danh sách câu gập (2026-10-22)'],
+  ['petBlock', 'bạn đồng hành pet (2026-10-26)'],
+  ['pet.css', 'bạn đồng hành pet (2026-10-26)'],
+  ['home-week', 'khối Tuần này ở Tổng quan (2026-10-26)'],
   ['gradeCircuit', 'Đề như thật: ô Kiểm mạch đã vẽ (2026-10-22)'],
   ['mock.check', 'Đề như thật: ô Kiểm mạch đã vẽ (2026-10-22)'],
 ];
