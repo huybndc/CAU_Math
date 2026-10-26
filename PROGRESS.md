@@ -31,7 +31,7 @@
 - Tệp chép từ Hub (không sửa tay): `shared/style/design-tokens.json` (+ `node shared/style/render-tokens.mjs`), `shared/logic/exam-target.json`, pet (`hub-mirror.lock`, 7 file). Hub đổi → chép bản mới.
 - CSP của Hub cho phép script nội tuyến chọn sáng/tối bằng hash: sửa script đó, thêm nguồn ngoài (font, CDN, fetch host khác) ⇒ báo Study_Hub.
 - Gỡ/đổi UI mà e2e của Hub chạm tới (route /practice, /exam, nút tự đánh giá Tự luận, `.free-rate`…): báo Study_Hub TRƯỚC khi merge để Hub sửa e2e cùng PR bump (#104 làm CI Hub đỏ 3 e2e Tự luận, treo 10 phút).
-- CI bỏ qua PR/push chỉ sửa `.md` hoặc `docs/` (PR #110): PR chỉ tài liệu không có check; hook merge cho qua khi "no checks". Báo "xong" chỉ khi bản deploy chạy đúng (quyết định chung 2026-10-22, HANDOFF).
+- Kiểm tra chạy trên máy: `npm run gate` (test + check + design:check + build) trước mỗi merge; CI chỉ chạy tay (`workflow_dispatch`, 2026-10-26). PR không có check ⇒ hook merge cho qua. Sau deploy vẫn chạy verify-deploy. Báo "xong" chỉ khi bản deploy chạy đúng (quyết định chung 2026-10-22, HANDOFF).
 - Deploy bản riêng: `npm run deploy` (build + `wrangler deploy`, Worker `cau-math`, cấu hình `wrangler.jsonc`, header `public/_headers` + test `headers.test.js`). Chạy từ `main` sau mỗi merge có code; chưa nối Workers Builds (tự deploy theo repo cần bật trong bảng Cloudflare).
 - Đã gỡ cầu nối Hub chết (2026-10-26, chọn B): gửi/đọc math.answer, xuất tiến độ cho Hub, nút về Hub. Giữ `@host` (khoá lưu + đồng bộ thư mục ở máy dev) vì vô hại, gỡ sẽ chạm Nháp.
 - Trích sách: Logic theo Mano 6th (test so mục lục chương 3–4), Linear Algebra theo Strang 4th, Discrete theo MCS 2017.
