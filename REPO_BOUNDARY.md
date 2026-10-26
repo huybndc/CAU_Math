@@ -31,7 +31,7 @@ CAU_Math_App không chứa:
 - Course-agnostic planning engine.
 
 Study_Hub không tự viết:
-- Math algorithms (chỉ có bản mirror chỉ-đọc, xem dưới).
+- Math algorithms.
 - Math question banks.
 - Math-specific lessons/tools.
 - Detailed syllabus của từng môn.
@@ -39,8 +39,8 @@ Study_Hub không tự viết:
 ## Integration contract
 
 Không import source trực tiếp từ repo kia. Có đúng hai đường chép tệp:
-- Study_Hub ← CAU_Math_App: `sync-math.sh` chép `logic/ linalg/ discrete/ shared/` ở commit ghi trong `math.lock` của Study_Hub. Không sửa tay mirror.
-- CAU_Math_App ← Study_Hub: pet (`shared/logic/pet*.js`, `design-pets.json`, `pet-art.json`, `shared/ui/pet.js`, `pet.css`), `design-tokens.json`, `exam-target.json`. Canh bằng `shared/logic/hub-mirror.lock` và test; không sửa tay.
+- Study_Hub → CAU_Math_App: chỉ link (thanh bên, thẻ "Ôn cuối kỳ" mở `/<môn>/#/learn/chN` trên Worker `cau-math`). Không còn mirror/`math.lock` (gỡ 2026-10-26).
+- CAU_Math_App ← Study_Hub: chép `design-tokens.json`, `exam-target.json` (bản chụp, không sửa tay). Pet đã gỡ ở cả hai (2026-10-26).
 
 Event hiện tại:
 - type: math.answer — required: subject, prefix, kind, ok, mode; optional: tag
@@ -54,4 +54,4 @@ Nếu một thay đổi liên quan đến kiến thức/cách giải/câu hỏi/
 
 Nếu liên quan đến Hub/account/vault/Today/cross-course aggregation → Study_Hub.
 
-Nếu cần cả hai → đổi contract/adapter ở cả hai repo; mã toán chỉ chép theo `math.lock`, không copy tay qua lại.
+Nếu cần cả hai → đổi contract/adapter ở cả hai repo; không copy mã tay qua lại.

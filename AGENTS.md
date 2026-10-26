@@ -3,7 +3,7 @@
 ## Bối cảnh
 - Trả lời người học bằng **tiếng Việt**.
 - Người học giao toàn quyền quyết định: tự cân nhắc, chọn cách làm, ghi lý do vào `DECISIONS.md`, không hỏi lại.
-- Ba app ôn tập chạy localhost:5180; bản online do **Study Hub** deploy — build từ bản mirror một chiều trong Study_Hub (`math.lock` ở Study_Hub ghim commit repo này; `sync-math.sh` chép `logic/ linalg/ discrete/ shared/`). Giáo trình theo syllabus từng môn (`PLAN.md`).
+- Ba app ôn tập chạy localhost:5180; bản online chạy riêng ở Worker `cau-math`, deploy bằng `npm run deploy` từ `main` sau mỗi merge có code, kiểm bằng `verify-deploy.sh CAU_Math` ("ĐÃ LÊN"). Không đăng nhập, không đồng bộ giữa máy. Study Hub chỉ link sang (bỏ mirror từ 2026-10-26). Giáo trình theo syllabus từng môn (`PLAN.md`).
 - Tài liệu gốc: `PLAN.md` (lộ trình), `DECISIONS.md` (quyết định + lý do), `PROGRESS.md` (bàn giao).
 - Repo `toeic-app` chỉ để tham khảo cách tổ chức/UX. Không import chéo, không commit vào đó.
 
@@ -52,7 +52,7 @@ Quy tắc riêng của môn: `logic/AGENTS.md`, `linalg/AGENTS.md`, `discrete/AG
 
 ## Phạm vi repo và quy trình
 - Đọc `REPO_BOUNDARY.md` trước khi sửa. CAU_Math_App là nguồn chuẩn cho syllabus/nội dung toán, câu hỏi, bộ giải, oracle và UI toán; Study_Hub sở hữu Hub, tài khoản, vault và tổng hợp liên môn.
-- Không thêm logic Hub vào CAU_Math_App, không sửa toán trong bản mirror ở Study_Hub, và không import source trực tiếp giữa hai repo.
+- Không thêm logic Hub vào CAU_Math_App, và không import source trực tiếp giữa hai repo.
 - Tài liệu lịch sử có thể mô tả kiến trúc repo cũ; xem đó là lịch sử trừ khi mâu thuẫn với `REPO_BOUNDARY.md`.
 - Tích hợp qua contract/event; sự kiện `math.answer` gồm `subject`, `prefix`, `kind`, `ok`, `mode`, có thể có `tag`. Không thay đổi phạm vi này nếu không có yêu cầu contract rõ ràng.
 - Đầu việc: đọc `REPO_BOUNDARY.md` và `PROGRESS.md`, xem status và commit gần nhất. Giữ thay đổi nhỏ, chạy test phần ảnh hưởng rồi `npm test` và `npm run check`; cập nhật `PROGRESS.md` sau thay đổi có ý nghĩa.
