@@ -40,7 +40,7 @@ describe('đề Discrete', () => {
         pieces.forEach((m, i) => { if (i % 2) katex.renderToString(m, { throwOnError: true }); });
       }
     }
-  });
+  }, 30_000);   // KaTeX trên 80 đề: máy chậm có thể quá 5 s mặc định
 });
 
 describe('các phát biểu được chứng minh trong đáp án đúng trên ví dụ (kiểm riêng bằng đếm)', () => {
