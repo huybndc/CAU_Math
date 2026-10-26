@@ -1,4 +1,4 @@
-/* Mẫu "Đề như thật" của Linear Algebra, theo cấu trúc đề giữa kỳ thật bỏ phần Đúng/Sai (162/200 điểm). */
+/* Mẫu "Đề thi thử" của Linear Algebra, theo cấu trúc đề giữa kỳ thật bỏ phần Đúng/Sai (162/200 điểm). */
 import { makeDot, makeCombo, makePlane, makeRankOne } from './mock-vectors.js';
 import { makeParam, makeInverse, makeLdl, makeRref, makeSolvable } from './mock-systems.js';
 

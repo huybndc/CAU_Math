@@ -1,4 +1,4 @@
-/* Đề như thật (Discrete, phỏng đoán): cấu trúc, công thức dựng được, và các phát biểu về cây/Fermat/RSA đúng trên ví dụ. */
+/* Đề thi thử (Discrete, phỏng đoán): cấu trúc, công thức dựng được, và các phát biểu về cây/Fermat/RSA đúng trên ví dụ. */
 import { describe, it, expect } from 'vitest';
 import katex from 'katex';
 import { buildMock } from '@shared/logic/mock-exam.js';

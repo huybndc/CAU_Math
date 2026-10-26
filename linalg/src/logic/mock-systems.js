@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------
-   ĐỀ NHƯ THẬT (Linear Algebra) — câu về khử Gauss, E, nghịch đảo, LU, hạng và nghiệm (thuần, chữ Anh, LaTeX $…$).
+   ĐỀ THI THỬ (Linear Algebra) — câu về khử Gauss, E, nghịch đảo, LU, hạng và nghiệm (thuần, chữ Anh, LaTeX $…$).
    Số liệu và đáp án dùng lại elimination / ldu / linear-system; lời giải liệt kê từng phép biến đổi hàng.
    Test đối chiếu bằng phép nhân viết riêng.
    --------------------------------------------------------------- */

@@ -6,7 +6,7 @@
      #/learn/ch3/interactive/1 … và cuộn tới công cụ thứ 2 trong khung (mở từ màn Công cụ)
      #/tools                   Công cụ: mọi công cụ bấm thử + ví dụ giải sẵn của các chương
      #/free  ·  #/free/<id>    Tự luận: danh sách · một bài
-     #/mock                    Đề như thật: chọn mã seed, in đề và đáp án (shared/ui/mock-screen.js)
+     #/mock                    Đề thi thử: chọn mã seed, in đề và đáp án (shared/ui/mock-screen.js)
    Địa chỉ cũ #/ch3/<mục con> (link trong bài học, bản trước) vẫn đọc được.
    Thuần (không đụng window) để test được; ui/router.js dùng.
    --------------------------------------------------------------- */

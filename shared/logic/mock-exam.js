@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------
-   ĐỀ NHƯ THẬT — khung dùng chung (thuần, không đụng DOM).
+   ĐỀ THI THỬ — khung dùng chung (thuần, không đụng DOM).
    Mẫu đề (template) = { id, title, book, minutesPerPoint, makers[], refs[] }  (refs[i] = các mục sách của câu i: [['2.6', 'tên mục'], …]); mỗi maker(rnd) trả một câu:
      { stem, parts: [{ pts, q, a: string[], facts }] }   q = đề, a = các dòng đáp án, facts = số liệu thô để test.
    Một mã seed dựng lại đúng cả đề lẫn đáp án (in cùng mã trên hai file). Mỗi câu có bộ ngẫu nhiên riêng,

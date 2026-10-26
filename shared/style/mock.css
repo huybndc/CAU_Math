@@ -1,4 +1,4 @@
-/* Màn Đề như thật + bản in A4 (đề và đáp án). Quy tắc in đặt theo body[data-print] để xem thử được trên màn hình. */
+/* Màn Đề thi thử + bản in A4 (đề và đáp án). Quy tắc in đặt theo body[data-print] để xem thử được trên màn hình. */
 .mock-bar{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem 1rem;margin:.8rem 0}
 .mock-bar label{display:flex;align-items:center;gap:.5rem}
 .mock-seed{font:inherit;font-family:ui-monospace,monospace;text-transform:uppercase;padding:.3rem .5rem;width:9ch;border:1px solid var(--line);border-radius:var(--r-md);background:var(--panel);color:inherit}

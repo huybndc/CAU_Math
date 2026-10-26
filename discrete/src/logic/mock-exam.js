@@ -1,4 +1,4 @@
-/* Mẫu "Đề như thật" của Discrete (phỏng đoán theo mô tả của người học, chưa có đề thật): 3 câu, 7 ý, 200 điểm, 60 phút. Cả đề chỉ có 2 gợi ý nhỏ: "Each part may use the previous ones" (câu 2) và "by induction" (câu 3, nêu phương pháp). */
+/* Mẫu "Đề thi thử" của Discrete (phỏng đoán theo mô tả của người học, chưa có đề thật): 3 câu, 7 ý, 200 điểm, 60 phút. Cả đề chỉ có 2 gợi ý nhỏ: "Each part may use the previous ones" (câu 2) và "by induction" (câu 3, nêu phương pháp). */
 import { shuffle } from '@shared/logic/shuffle.js';
 import { DEFINITIONS, LEMMAS, FERMAT, RSA, TREE_CLAIMS } from './mock-proofs.js';
 

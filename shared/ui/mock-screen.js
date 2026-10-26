@@ -5,7 +5,7 @@ import { leadCard, practiceTabs } from './choices.js';
 import { buildMock, newSeed, parseSeed } from '../logic/mock-exam.js';
 
 /* ---------------------------------------------------------------
-   ĐỀ NHƯ THẬT: chọn mã seed → xem tóm tắt (câu · điểm · mục sách) → In đề / In đáp án (A4, hai file riêng cùng mã)
+   ĐỀ THI THỬ: chọn mã seed → xem tóm tắt (câu · điểm · mục sách) → In đề / In đáp án (A4, hai file riêng cùng mã)
    Người học làm trên giấy, tự bấm giờ và tự chấm bằng đáp án in ra; app không giữ giờ hay điểm.
    cfg.mock = mẫu đề của môn (shared/logic/mock-exam.js). In: gắn body[data-print] rồi window.print(); mock.css ẩn mọi thứ khác.
    Chữ của đề tiếng Anh (như đề thi thật); chữ của màn hình theo VI/EN.

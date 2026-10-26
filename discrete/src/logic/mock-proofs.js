@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------
-   KHO NỘI DUNG của "Đề như thật" Discrete (thuần, chữ Anh, LaTeX $…$): định nghĩa, bổ đề, Fermat, RSA, quy nạp trên cây.
+   KHO NỘI DUNG của "Đề thi thử" Discrete (thuần, chữ Anh, LaTeX $…$): định nghĩa, bổ đề, Fermat, RSA, quy nạp trên cây.
    Mỗi mục: { id, name, ref: [mục MCS, tên], q, a[] } — a là lời giải mẫu từng bước. Số mục theo MCS (MIT 6.042J, 2017) như các
    chương khác của app; riêng "cây" ghi theo chương Simple Graphs vì chưa kiểm số mục.
    --------------------------------------------------------------- */

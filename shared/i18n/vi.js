@@ -1,5 +1,7 @@
 /* Chuỗi của phần khung dùng chung (rail, topbar, nút gợi ý). */
 export const vi = {
+  'shell.hub': 'Study Hub',
+  'shell.live': 'Live Lecture',
   'shell.home': 'Về trang chủ (tất cả môn)',
   'shell.chapter': 'Chương {n}',
   'shell.theme': 'Đổi giao diện sáng / tối',
@@ -84,7 +86,7 @@ export const vi = {
   'nav.tools': 'Công cụ',
   'tools.sub': 'Bấm thử trực tiếp, mỗi chương vài công cụ.',
   'tools.examples': 'Ví dụ giải sẵn ({n}) →',
-  'nav.mock': 'Đề như thật',
+  'nav.mock': 'Đề thi thử',
   'mock.homeNote': 'Đề tự luận in ra giấy, làm như đi thi, kèm đáp án và mục sách để xem lại',
   'mock.open': 'Mở đề',
   'mock.seed': 'Mã đề',
@@ -95,7 +97,7 @@ export const vi = {
   'mock.print': 'In / lưu PDF',
   'mock.printNote': 'Mở hộp thoại in; chọn "Lưu dưới dạng PDF" để tải về',
   'mock.book': 'Sách',
-  'mock.none': 'Môn này chưa có Đề như thật',
+  'mock.none': 'Môn này chưa có Đề thi thử',
   'mock.noneNote': 'Hiện có cho Linear Algebra. Môn này dùng Tự luận.',
   /* Học */
   'learn.sub': 'Bấm một chương để mở danh sách thẻ. Chấm xanh là đã nắm.',

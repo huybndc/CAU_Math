@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------
-   ĐỀ NHƯ THẬT (Logic Circuit) — PHỎNG ĐOÁN theo mô tả của người học (đề giữa kỳ, chưa có đề thật): chương 3–4, 3 câu,
+   ĐỀ THI THỬ (Logic Circuit) — PHỎNG ĐOÁN theo mô tả của người học (đề giữa kỳ, chưa có đề thật): chương 3–4, 3 câu,
    200 điểm, 60 phút, đúng 2 K-map (7 đoạn a/f/e, BCD → Excess-3; không vẽ mạch) và 2 câu vẽ, mỗi câu MỘT mạch cỡ sơ đồ giáo trình:
    bộ cộng BCD (Fig. 4.14) và mạch MUX 4×1 thực hiện một hàm.
    Đề cuối kỳ nhiều khả năng khác. Thuần, chữ Anh, LaTeX $…$; part.figs = hình mẫu, part.checks = đầu ra để kiểm mạch.

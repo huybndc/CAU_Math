@@ -1,4 +1,4 @@
-/* Đề như thật (Linear Algebra): kiểm đáp án bằng phép tính viết riêng (không dùng lại bộ giải của app). */
+/* Đề thi thử (Linear Algebra): kiểm đáp án bằng phép tính viết riêng (không dùng lại bộ giải của app). */
 import { describe, it, expect } from 'vitest';
 import { buildMock, seedCode, parseSeed, newSeed } from '@shared/logic/mock-exam.js';
 import { mat } from '../src/logic/mock-tex.js';
