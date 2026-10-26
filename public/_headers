@@ -1,0 +1,7 @@
+# Cloudflare Workers Assets: header bảo mật cho mọi trang của CAU_Math chạy riêng (không đăng nhập, không gọi máy chủ ngoài).
+# sha256 = script nội tuyến: đặt sáng/tối trong logic|linalg|discrete/index.html, và chuyển hướng ở index.html gốc.
+# Sửa các đoạn đó ⇒ tính lại hash (shared/tests/headers.test.js báo lệch). style 'unsafe-inline': KaTeX dùng style gắn trực tiếp.
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'sha256-34jWaVqrOQMZUITDONYk5JkaJBctDr/Wo/gD9jAObAE=' 'sha256-rBvbEgGXNn9CaE6E6cMMYSB7ahFio0R/MxxL2MY7Za0='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: no-referrer

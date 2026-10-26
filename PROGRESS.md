@@ -31,5 +31,6 @@
 - CSP của Hub cho phép script nội tuyến chọn sáng/tối bằng hash: sửa script đó, thêm nguồn ngoài (font, CDN, fetch host khác) ⇒ báo Study_Hub.
 - Gỡ/đổi UI mà e2e của Hub chạm tới (route /practice, /exam, nút tự đánh giá Tự luận, `.free-rate`…): báo Study_Hub TRƯỚC khi merge để Hub sửa e2e cùng PR bump (#104 làm CI Hub đỏ 3 e2e Tự luận, treo 10 phút).
 - CI bỏ qua PR/push chỉ sửa `.md` hoặc `docs/` (PR #110): PR chỉ tài liệu không có check; hook merge cho qua khi "no checks". Báo "xong" chỉ khi bản deploy chạy đúng (quyết định chung 2026-10-22, HANDOFF).
+- Deploy bản riêng: `npm run deploy` (build + `wrangler deploy`, Worker `cau-math`, cấu hình `wrangler.jsonc`, header `public/_headers` + test `headers.test.js`). Chạy từ `main` sau mỗi merge có code; chưa nối Workers Builds (tự deploy theo repo cần bật trong bảng Cloudflare).
 - Trích sách: Logic theo Mano 6th (test so mục lục chương 3–4), Linear Algebra theo Strang 4th, Discrete theo MCS 2017.
 - Không commit slide, PDF, syllabus riêng, bí mật, dữ liệu cá nhân.
