@@ -127,9 +127,6 @@ export const vi = {
   'home.actToolsNote': 'Máy giải và công cụ bấm thử',
   'home.actFreeNote': 'Đề, gợi ý, lời giải từng bước',
   'home.week': 'Tuần này',
-  'home.wkDone': 'câu đã làm',
-  'home.wkAcc': 'trả lời đúng',
-  'home.wkDays': 'ngày đã học',
   /* bộ chạy luyện tập */
   'run.allKinds': 'Tất cả dạng',
   'run.shortRound': 'Phần này chỉ có {n} câu khác nhau, nên lượt này {n} câu.',

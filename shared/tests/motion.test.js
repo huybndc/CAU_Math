@@ -7,9 +7,8 @@ const dirs = ['shared/style', 'logic/src', 'linalg/src', 'discrete/src'];
 const files = dirs.flatMap(d => readdirSync(new URL(`../../${d}/`, import.meta.url)).filter(f => f.endsWith('.css')).map(f => `${d}/${f}`));
 const css = f => readFileSync(new URL(`../../${f}`, import.meta.url), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '');
 const motion = css('shared/style/motion.css');
-/* keyframes cho phép: `skel` (khung chờ, như Hub) và `pet` — ngoại lệ DUY NHẤT so với Study_Hub, đã thống nhất 3 bên (xem test 'pet' bên dưới). */
-const PET_KF = ['pet-hop', 'pet-shake', 'pet-sway', 'pet-nod', 'pet-squish', 'pet-puff', 'pet-stretch'];   // như src/pets/pet.css của Hub (test pets.test.js canh biên độ)
-const EXCEPT = { 'shared/style/base.css': ['skel'], 'shared/style/pet.css': PET_KF };
+/* keyframes cho phép: chỉ `skel` (khung chờ, như Hub). */
+const EXCEPT = { 'shared/style/base.css': ['skel'] };
 
 describe('motion giống Study_Hub', () => {
   it('motion.css có đúng token và quy tắc của Hub', () => {
@@ -20,7 +19,7 @@ describe('motion giống Study_Hub', () => {
     expect(motion).not.toMatch(/@keyframes/);
   });
   const others = files.filter(f => f !== 'shared/style/motion.css');
-  const generic = others.filter(f => f !== 'shared/style/pet.css');   // pet.css: động tác nhân vật (scale nhẹ, chuyển 380ms) có test riêng trong pet.test.js
+  const generic = others;
   it('chỉ có keyframes của khung chờ (skel), không nảy/rung/trượt', () => {
     for (const f of others) expect([...css(f).matchAll(/@keyframes\s+([\w-]+)/g)].map(m => m[1]), f).toEqual(EXCEPT[f] ?? []);
   });
@@ -40,11 +39,5 @@ describe('motion giống Study_Hub', () => {
         expect(ms, `${f}: ${m[0]}`).toBeLessThanOrEqual(200);
       }
     }
-  });
-  it("ngoại lệ DUY NHẤT: keyframes của nhân vật (`pet`, `pet-*`) trong shared/style/pet.css — biên độ và giảm chuyển động do pet.test.js canh", () => {
-    const t = css('shared/style/pet.css');
-    expect(Object.values(EXCEPT).flat().sort()).toEqual([...PET_KF, 'skel'].sort());
-    expect([...t.matchAll(/@keyframes\s+([\w-]+)/g)].map(m => m[1])).toEqual(PET_KF);
-    expect(t).not.toContain('infinite');
   });
 });

@@ -43,8 +43,3 @@
   #screen-free .list.mods{max-height:calc(100vh - 26rem);overflow:auto}
 }
 
-/* Tổng quan: bạn đồng hành ở khối TRÁI (dưới "Hôm nay"); bật nhân vật thì khung chương co bớt để không cuộn trang */
-#screen-home .home-week{display:flex;align-items:flex-end;gap:2.5rem;padding:.2rem .6rem;color:var(--ink-dim);font-size:var(--fs-sm)}
-#screen-home .home-week .pet-face{margin-right:1rem}
-.wk{display:flex;align-items:center;gap:.4rem}
-#screen-home .home-week .num{display:block;font-size:var(--fs-xl);line-height:1.15;color:var(--ink);font-weight:600}

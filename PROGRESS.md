@@ -22,6 +22,9 @@
 - Còn thừa, chưa gỡ (không gấp): `shared/logic/exam-target.js` + `.json` (bản chụp từ Hub, UI không còn dùng), `stats`/`rankNeeds` dùng ít.
 - Khi ôn cuối kỳ (~2026-11-20): quyết có làm luyện tập mới quanh Tự luận/Đề như thật hay không.
 
+## Tách CAU_Math khỏi Hub (họp 2026-10-26, Huy duyệt, làm ngay)
+1. (PR này) Gỡ "Tuần này" + pet (+ hub-mirror.lock pet, stats.js). 2–3. Hub gỡ số liệu toán/pet, thêm exam-scope.json + thẻ "Ôn cuối kỳ". 4. CAU_Math: Worker tĩnh `cau-math` (workers.dev), CSP riêng, Cloudflare Workers Builds, không đăng nhập. 6. Hub đổi link sang cau-math ngay khi ĐÃ LÊN; lỗi ⇒ 1 commit trả link về mirror. 7. Hub gỡ mirror. Không đồng bộ dữ liệu giữa máy; Nháp cũ: Huy tự chép tay.
+
 ## Quy tắc còn hiệu lực
 - Toán, câu hỏi, bộ giải, oracle → repo này. Hub, tài khoản, vault, thống kê liên môn → Study_Hub. Không import chéo; mirror một chiều theo `math.lock`.
 - Tệp chép từ Hub (không sửa tay): `shared/style/design-tokens.json` (+ `node shared/style/render-tokens.mjs`), `shared/logic/exam-target.json`, pet (`hub-mirror.lock`, 7 file). Hub đổi → chép bản mới.
