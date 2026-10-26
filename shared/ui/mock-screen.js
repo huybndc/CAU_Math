@@ -33,6 +33,7 @@ function paper(ex, key, tools) {
   const head = el('header', { class: 'mp-head' }, [
     el('h1', { text: `${ex.title}${key ? ' — Answer key' : ''}` }),
     el('p', { text: `Code: ${ex.code} · Time: ${ex.minutes} min · Total: ${ex.total} points${key ? '' : ' · No calculator, no notes'}` }),
+    ...(key ? [el('p', { class: 'mp-grade', text: `To grade: send a photo of your work and this sheet (code ${ex.code}) to Claude.` })] : []),
   ]);
   const qs = ex.questions.map(q => el('section', { class: 'mp-q' }, [
     el('h2', {}, [`${q.no}. [${q.pts}] `, math(q.stem)]),
@@ -40,6 +41,7 @@ function paper(ex, key, tools) {
       el('p', { class: 'mp-ask' }, [el('b', { text: `(${p.label}) [${p.pts}] ` }), math(p.q)]),
       ...(key ? p.a.map(line => el('p', { class: 'mp-ans' }, math(line))) : [el('div', { class: 'mp-space' })]),
       ...(key && tools?.figure && p.figs ? [el('div', { class: `mp-figs${p.stack ? ' stack' : ''}` }, p.figs.map(f => el('figure', {}, [tools.figure(f)])))] : []),
+      ...(key && p.rubric ? [el('p', { class: 'mp-rubric' }, math(`Marking: ${p.rubric.map(([n, s]) => `${s} [${n}]`).join(' · ')}`))] : []),
     ])),
     el('p', { class: 'mp-src', text: srcLine(ex, q) }),
   ]));

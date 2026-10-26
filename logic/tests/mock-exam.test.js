@@ -81,3 +81,13 @@ describe('mục sách trích dẫn khớp mục lục Mano 6th', () => {
     }));
   });
 });
+
+describe('thang chấm theo bước (chấm bài làm giấy)', () => {
+  it('mọi ý có thang, tổng thang = điểm của ý, ở nhiều mã đề', () => {
+    for (let seed = 0; seed < 30; seed++) for (const q of buildMock(LOGIC_MOCK, seed).questions) for (const p of q.parts) {
+      expect(p.rubric?.length, `${seed} ${q.no}${p.label}`).toBeGreaterThan(1);
+      expect(p.rubric.reduce((s, [n]) => s + n, 0), `${seed} ${q.no}${p.label}`).toBe(p.pts);
+      for (const [, s] of p.rubric) for (const f of s.split('$').filter((_, i) => i % 2)) expect(() => katex.renderToString(f, { throwOnError: true })).not.toThrow();
+    }
+  });
+});

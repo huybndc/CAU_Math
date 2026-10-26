@@ -16,6 +16,8 @@ body[data-print]{background:#fff}
 :is(#mock-print,.mock-sheet) .mp-ask{margin:0}
 :is(#mock-print,.mock-sheet) .mp-space{min-height:calc(var(--pts,4) * 2.4mm)}
 :is(#mock-print,.mock-sheet) .mp-ans{margin:.15em 0 .15em 1.2em}
+:is(#mock-print,.mock-sheet) .mp-rubric{font-size:9pt;color:#444;margin:.3em 0 .2em 1.2em}
+:is(#mock-print,.mock-sheet) .mp-grade{font-size:9pt;color:#444}
 :is(#mock-print,.mock-sheet) .mp-src{font-size:8.5pt;color:#444;margin:.2em 0 0}
 :is(#mock-print,.mock-sheet) .mp-figs{display:flex;flex-wrap:wrap;gap:.4em 1em;margin:.3em 0 .3em 1.2em}
 :is(#mock-print,.mock-sheet) .mp-figs figure{margin:0;break-inside:avoid;max-width:48%}
