@@ -3,16 +3,17 @@
 > Đọc đầu phiên. Chỉ giữ việc đang mở và quy tắc còn hiệu lực. Lịch sử đã xong: `PROGRESS-archive.md` (không cần đọc). Ranh giới repo: `REPO_BOUNDARY.md`.
 
 ## Trạng thái (2026-10-22)
-- `main` = a1aa863. Đề thi thử có mẫu cho cả 3 môn (Logic, Linear Algebra, Discrete). Deploy bản online do Study_Hub làm (bump `math.lock`).
+- `main` = 652413a. Đề thi thử có mẫu cho cả 3 môn. Deploy bản riêng bằng `npm run deploy` (Worker `cau-math`).
 - Đề thi thử: chọn mã đề → in đề / in đáp án A4 (KaTeX, bước giải). Màn: mã đề, Đề mới, thẻ Đề | Đáp án, bản xem trước nguyên tờ trên màn, nút In / lưu PDF. Đáp án Logic có hình mạch mẫu. Ôn từng phần thuộc Luyện tập, không đặt ở đây.
 - Mẫu đề là PHỎNG ĐOÁN theo mô tả của người học (đề giữa kỳ). Người học bắt đầu ôn sau ~1 tháng; đề cuối kỳ sẽ khác:
-  - Logic: 4 câu, 200 điểm, 60 phút — 7 đoạn a/f/e (K-map), Excess-3 (K-map), bộ cộng BCD (vẽ 1 mạch), MUX 4×1 thực hiện hàm (vẽ 1 mạch).
+  - Logic: 4 câu, 200 điểm, 60 phút — 7 đoạn a/f/e (K-map); chuyển mã Excess-3/Gray/2421 (K-map); bộ cộng BCD hoặc so sánh 2 bit (vẽ 1 mạch); MUX 4×1 hoặc decoder + OR (vẽ 1 mạch). Đáp án có thang chấm theo bước (#120–#121).
+  - Cách ôn đã chốt (2026-10-26): người học làm đề in trên giấy, gửi ảnh bài + tờ đáp án cho Claude chấm theo thang (skill huy-de-thi-thu, cham-bai.md). Không có đề thật: đừng đề xuất dùng đề thật.
   - Discrete: 3 câu 7 ý, 200 điểm, 60 phút, đúng 2 gợi ý nhỏ. Người học đã duyệt; sau này chỉ cần thêm đa dạng câu.
   - Linear Algebra: 9 câu, 162 điểm, 97 phút (D63).
 - Luyện tập theo dạng và Thi thử bị ẩn (`PRACTICE_HIDDEN`, `shared/logic/visibility.js`); URL cũ vẫn chạy cho link của Hub. Tự luận vẫn phát `math.answer` mode `free`.
 
 ## Việc mở (chờ người học chọn)
-- Khi gần cuối kỳ: dựng lại mẫu đề theo chương và dạng đề cuối kỳ thật.
+- Có thể làm tiếp: thang chấm + thêm dạng cho Discrete, Linear Algebra (cùng cách Logic).
 - Discrete: thêm đa dạng câu (định nghĩa, bổ đề, quy nạp).
 - Tự luận đã gọn (PR #104): đề · gợi ý · lời giải từng bước; không tự chấm, không phát `math.answer`. Hiện KHÔNG còn màn nào phát `math.answer` (Luyện tập, Thi thử ẩn).
 
