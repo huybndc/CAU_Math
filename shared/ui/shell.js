@@ -112,11 +112,11 @@ function addAppLinks() {
   const tabs = document.querySelector('.appnav .tabs');
   if (!tabs || tabs.querySelector('.app-link')) return;
   const env = import.meta.env ?? {};
-  for (const [url, key] of [[env.VITE_HUB_URL, 'shell.hub'], [env.VITE_LIVE_URL, 'shell.live']]) {
+  for (const [url, key, app] of [[env.VITE_HUB_URL, 'shell.hub', 'hub'], [env.VITE_LIVE_URL, 'shell.live', 'live']]) {
     if (!url) continue;
     const a = document.createElement('a');
     Object.assign(a, { className: 'tab app-link', href: url, textContent: T(key) });
-    a.dataset.i18n = key;
+    Object.assign(a.dataset, { i18n: key, app });
     tabs.append(a);
   }
 }
