@@ -6,7 +6,6 @@ export const vi = {
   'shell.hint': 'Giải thích',
   'shell.scratch': 'Nháp',
   'shell.scratchHint': 'Nháp: ghi chú, máy tính, bảng, vẽ',
-  'shell.hub': 'Study Hub',
   'shell.scratchClear': 'Xoá hết',
   'shell.scratchPh': 'Tính tay ở đây: cộng cột bit, ghi các bước… Tự lưu.',
   'scratch.matrix': 'Ma trận',
@@ -41,7 +40,6 @@ export const vi = {
   /* đồng bộ giữa các máy (D37) — chữ trong tooltip nút mây */
   'sync.wait': 'Đang đồng bộ…',
   'sync.ok': 'Đã đồng bộ lúc {time}. Bấm để đồng bộ lại.',
-  'sync.hub': 'Tiến độ lưu trên tài khoản Study Hub.',
   'sync.off': 'Chưa đồng bộ giữa các máy (kiểm tra thư mục iCloud/Drive hoặc đăng nhập).',
   'sync.err': 'Đồng bộ lỗi ({msg}). Bấm để thử lại.',
   /* menu theo việc */

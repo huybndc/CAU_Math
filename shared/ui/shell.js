@@ -7,8 +7,7 @@ import { startRouter, currentRoute } from './router.js';
 import { showRoute } from './screens.js';
 import { startSync } from './sync.js';
 import { setupScreenHelp } from './screen-help.js';
-import { hydrateProgress, syncProgress } from './store.js';
-import { hubHref } from '@host';
+import { syncProgress } from './store.js';
 
 /* ---------------------------------------------------------------
    KHUNG CHUNG của mỗi app: menu theo việc (Tổng quan · Học · Luyện tập ·
@@ -107,26 +106,12 @@ function labelHints() {
   });
 }
 
-/** Chạy dưới Study Hub: thêm tab "Study Hub" để quay về trang chủ Hub (app chạy riêng thì không có). */
-function addHubLink() {
-  const tabs = document.querySelector('.appnav .tabs');
-  if (!hubHref || !tabs || tabs.querySelector('.hub-back')) return;
-  const a = document.createElement('a');
-  a.className = 'tab hub-back';
-  a.href = hubHref;
-  a.dataset.nav = 'hub';
-  a.dataset.i18n = 'shell.hub';
-  a.textContent = T('shell.hub');
-  tabs.append(a);
-}
-
 /**
  * @param {{ chapters: {id:string, bank?:object, prefix?:string}[], figures?:object,
  *           widgets?:object, lesson?:(chId:string)=>string }} cfg
  */
 let markReady;
-/** Xong khi tài khoản đã gắn và tiến độ đã nạp (cuối setupShell): các máy giải đọc ô nhập đã nhớ SAU mốc này —
- *  trước đó khoá lưu còn là "khách" (Hub gắn tài khoản trong hydrateProgress), nên đọc sớm sẽ không thấy gì. */
+/** Xong ở cuối setupShell: các máy giải đọc ô nhập đã nhớ SAU mốc này (đồng bộ thư mục ở máy dev có thể vừa nạp dữ liệu). */
 export const shellReady = new Promise(r => { markReady = r; });
 
 export async function setupShell(cfg) {
@@ -136,14 +121,8 @@ export async function setupShell(cfg) {
   upgradeHints();
   setupTips();
   setupScratch();
-  addHubLink();
-  try {
-    await hydrateProgress();
-  } catch (e) {
-    console.warn('Math progress hydrate failed:', e?.message || e);
-  }
   startSync();
-  await syncProgress();
+  syncProgress();
   const help = setupScreenHelp();
   startRouter(cfg.chapters.map(c => c.id), r => { showRoute(r, cfg); help.set(r); });
   setupPalette(cfg);

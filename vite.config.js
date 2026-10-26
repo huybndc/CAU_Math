@@ -2,7 +2,6 @@ import { defineConfig, loadEnv } from 'vite';
 import { fileURLToPath } from 'node:url';
 import { htmlInclude } from './shared/vite-plugin-include.js';
 import { syncPlugin } from './shared/vite-plugin-sync.js';
-import { progressSink } from './shared/vite-plugin-progress.js';
 
 /*
  * MỘT máy chủ Vite cho cả 3 app (quyết định D01 — phương án B):
@@ -16,7 +15,7 @@ import { progressSink } from './shared/vite-plugin-progress.js';
  */
 const page = p => fileURLToPath(new URL(p, import.meta.url));
 export default defineConfig(({ mode }) => ({
-  plugins: [htmlInclude(), syncPlugin({ ...process.env, ...loadEnv(mode, process.cwd(), 'STUDY_') }), progressSink()],
+  plugins: [htmlInclude(), syncPlugin({ ...process.env, ...loadEnv(mode, process.cwd(), 'STUDY_') })],
   resolve: { alias: { '@shared': fileURLToPath(new URL('./shared', import.meta.url)), '@host': fileURLToPath(new URL('./shared/host.js', import.meta.url)) } },
   server: { port: 5180, strictPort: true },
   build: { rollupOptions: { input: { home: page('index.html'), logic: page('logic/index.html'), linalg: page('linalg/index.html'), discrete: page('discrete/index.html') } } },

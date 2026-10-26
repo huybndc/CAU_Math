@@ -6,7 +6,6 @@ export const en = {
   'shell.hint': 'Explanation',
   'shell.scratch': 'Scratch',
   'shell.scratchHint': 'Scratch pad: notes, calculator, tables, drawing',
-  'shell.hub': 'Study Hub',
   'shell.scratchClear': 'Clear',
   'shell.scratchPh': 'Work by hand here: bit columns, your steps… Saved automatically.',
   'scratch.matrix': 'Matrices',
@@ -41,7 +40,6 @@ export const en = {
   /* sync between machines (D37) — cloud button tooltip */
   'sync.wait': 'Syncing…',
   'sync.ok': 'Synced at {time}. Click to sync again.',
-  'sync.hub': 'Progress is saved to your Study Hub account.',
   'sync.off': 'Not syncing between machines (check the iCloud/Drive folder or sign in).',
   'sync.err': 'Sync failed ({msg}). Click to retry.',
   /* bộ chạy luyện tập */
