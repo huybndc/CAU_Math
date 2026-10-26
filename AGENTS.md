@@ -54,7 +54,7 @@ Quy tắc riêng của môn: `logic/AGENTS.md`, `linalg/AGENTS.md`, `discrete/AG
 - Đọc `REPO_BOUNDARY.md` trước khi sửa. CAU_Math_App là nguồn chuẩn cho syllabus/nội dung toán, câu hỏi, bộ giải, oracle và UI toán; Study_Hub sở hữu Hub, tài khoản, vault và tổng hợp liên môn.
 - Không thêm logic Hub vào CAU_Math_App, và không import source trực tiếp giữa hai repo.
 - Tài liệu lịch sử có thể mô tả kiến trúc repo cũ; xem đó là lịch sử trừ khi mâu thuẫn với `REPO_BOUNDARY.md`.
-- Tích hợp qua contract/event; sự kiện `math.answer` gồm `subject`, `prefix`, `kind`, `ok`, `mode`, có thể có `tag`. Không thay đổi phạm vi này nếu không có yêu cầu contract rõ ràng.
+- Không còn tích hợp event với Study_Hub (2026-10-26): Hub chỉ link sang bản chạy riêng. Muốn nối lại ⇒ cần contract mới, hỏi Study_Hub trước.
 - Đầu việc: đọc `REPO_BOUNDARY.md` và `PROGRESS.md`, xem status và commit gần nhất. Giữ thay đổi nhỏ, chạy test phần ảnh hưởng rồi `npm test` và `npm run check`; cập nhật `PROGRESS.md` sau thay đổi có ý nghĩa.
 - Không commit tài liệu môn học riêng, bí mật hoặc dữ liệu cá nhân.
 

@@ -1,4 +1,4 @@
-import { currentUser, adoptAccount, accountStorageKey, accountDataEntries, hubHref } from '@host';
+import { currentUser, adoptAccount, accountStorageKey, accountDataEntries } from '@host';
 import { reconcile, trackLocal, validEntries, isSyncKey, isSyncableKey, folderSyncPossible } from '../logic/sync.js';
 import { t as T, onLangChange } from '../i18n/index.js';
 
@@ -49,7 +49,7 @@ function setInfo(next) {
   btn.dataset.state = info.state;
   const time = info.at ? new Date(info.at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '–';
   const text = info.state === 'ok' ? T('sync.ok', { label: info.label, dir: info.dir, time, n: info.devices })
-    : info.state === 'off' ? T(hubHref ? 'sync.hub' : 'sync.off')
+    : info.state === 'off' ? T('sync.off')
       : info.state === 'err' ? T('sync.err', { msg: info.msg }) : T('sync.wait');
   btn.title = text;
   btn.setAttribute('aria-label', text);
@@ -101,7 +101,7 @@ async function pull() {
     setInfo({ state: 'off' });
     return false;
   }
-  if (!folderSyncPossible(!!hubHref, location.hostname)) { setInfo({ state: 'off' }); return false; }
+  if (!folderSyncPossible(false, location.hostname)) { setInfo({ state: 'off' }); return false; }
   const res = await fetch('/__sync?scope=' + encodeURIComponent(scope), { cache: 'no-store' });
   const data = res.ok ? await res.json().catch(() => null) : null;
   if (!data?.dir) { setInfo({ state: 'off' }); return false; }

@@ -25,7 +25,7 @@ Chưa có `data-testid`. Hook hiện có = `data-nav`, `data-screen`, `data-subj
 Nội dung: `<môn>/src/content/` (`theory-chN.vi|en.md`, `free/chN.json`, `concepts.json`); trang: `<môn>/src/pages/chN.html`. Tên chương đầy đủ: `i18n/vi/common.js` (`nav.chN`).
 
 ## Lưu trữ
-localStorage theo môn, dạng `<khoá>:<môn>` qua `shared/ui/store.js` (`progress`, `flags`, `scratch:*`, `calc`). Chung: `study-theme`, `study-nav`. Cầu nối sang Study_Hub: `shared/host.js` (sự kiện `math.answer`).
+localStorage theo môn, dạng `<khoá>:<môn>` qua `shared/ui/store.js` (`progress`, `flags`, `scratch:*`, `calc`). Chung: `study-theme`, `study-nav`. Không gửi gì sang Study_Hub (tách app 2026-10-26); `shared/host.js` chỉ còn khoá lưu + namespace đồng bộ thư mục ở máy dev.
 
 ## Khoảng trống hook
 Thẻ và nút ở Tổng quan chỉ có class + `data-subject`; giao diện câu hỏi không có id. Thêm `data-testid` khi đụng tới màn đó.

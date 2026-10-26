@@ -69,6 +69,9 @@ const REMOVED = [
   ['petBlock', 'bạn đồng hành pet (2026-10-26)'],
   ['pet.css', 'bạn đồng hành pet (2026-10-26)'],
   ['home-week', 'khối Tuần này ở Tổng quan (2026-10-26)'],
+  ['pushHubEvents', 'gửi math.answer sang Study_Hub (bỏ khi tách app, 2026-10-26)'],
+  ['hub-back', 'nút quay về Study Hub (2026-10-26)'],
+  ['progress-export', 'xuất tiến độ cho Hub (2026-10-26)'],
   ['gradeCircuit', 'Đề như thật: ô Kiểm mạch đã vẽ (2026-10-22)'],
   ['mock.check', 'Đề như thật: ô Kiểm mạch đã vẽ (2026-10-22)'],
 ];

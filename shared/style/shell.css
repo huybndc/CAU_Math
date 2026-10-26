@@ -33,8 +33,6 @@ body{padding-left:var(--nav-width)}
 .tab[data-nav="tools"]{--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.9' stroke-linecap='round'%3E%3Cpath d='M4 7h9M17 7h3M4 17h3M11 17h9'/%3E%3Ccircle cx='15' cy='7' r='2'/%3E%3Ccircle cx='9' cy='17' r='2'/%3E%3C/svg%3E")}
 .tab[data-nav="practice"]{--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15.5 4.5l4 4L9 19H5v-4z M13 7l4 4'/%3E%3C/svg%3E")}
 .tab[data-nav="hub"]{--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 6l-6 6 6 6M8 12h12'/%3E%3C/svg%3E")}
-.tab.hub-back{margin-top:.6rem;border-top:1px solid var(--line);border-radius:0 0 var(--r-md) var(--r-md)}
-@media (max-width:760px){.tab.hub-back{margin-top:0;border-top:0}}
 .tab[data-nav="exam"]{--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='13' r='7.5'/%3E%3Cpath d='M12 9v4l2.5 2.5M9.5 3h5'/%3E%3C/svg%3E")}
 .appnav-foot{display:flex;align-items:center;gap:8px;padding:0 .6rem}
 /* tiêu đề app = về trang tất cả môn (/): mũi tên nhỏ hiện khi rê chuột */

@@ -7,9 +7,6 @@
      accountDataEntries()     { khoá: giá trị } dữ liệu của tài khoản đang dùng (riêng: toàn bộ localStorage)
      adoptAccount(id)         gắn localStorage với tài khoản mới đăng nhập
      currentUser()            { id } | null — id dùng làm namespace đồng bộ thư mục đám mây
-     loadMathAnswerEvents()   sự kiện math.answer từ máy chủ (riêng: không có)
-     pushHubEvents(list, deviceId)  đẩy sự kiện math.answer lên máy chủ (riêng: không làm gì)
-     hubHref                  địa chỉ trang chủ Hub để hiện nút quay về (riêng: null = không hiện)
    --------------------------------------------------------------- */
 
 export const accountStorageKey = key => key;
@@ -25,6 +22,3 @@ export function accountDataEntries() {
 export const adoptAccount = () => false;
 /** App chạy riêng không có tài khoản: một namespace cố định để đồng bộ giữa các máy qua thư mục đám mây vẫn chạy. */
 export const currentUser = async () => ({ id: 'standalone' });
-export const loadMathAnswerEvents = async () => [];
-export const pushHubEvents = async () => {};
-export const hubHref = null;
