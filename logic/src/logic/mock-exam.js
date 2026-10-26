@@ -2,7 +2,7 @@
    ĐỀ THI THỬ (Logic Circuit) — PHỎNG ĐOÁN theo mô tả của người học (đề giữa kỳ, chưa có đề thật): chương 3–4, 3 câu,
    200 điểm, 60 phút, đúng 2 K-map (7 đoạn a/f/e, BCD → Excess-3; không vẽ mạch) và 2 câu vẽ, mỗi câu MỘT mạch cỡ sơ đồ giáo trình:
    bộ cộng BCD (Fig. 4.14) và mạch MUX 4×1 thực hiện một hàm.
-   Đề cuối kỳ nhiều khả năng khác. Thuần, chữ Anh, LaTeX $…$; part.figs = hình mẫu, part.checks = đầu ra để kiểm mạch.
+   Đề cuối kỳ nhiều khả năng khác. Thuần, chữ Anh, LaTeX $…$; part.rubric = thang chấm [điểm, bước]; part.figs = hình mẫu, part.checks = đầu ra để kiểm mạch.
    --------------------------------------------------------------- */
 import { minimizeSOP, varNames, literalCount } from './quine-mccluskey.js';
 import { kmap, table } from './mock-tex.js';
@@ -15,6 +15,8 @@ const cell = v => (v === 2 ? '\\times' : String(v));
 const bits = (m, n) => m.toString(2).padStart(n, '0').split('');
 const rowsOf = (n, cols) => Array.from({ length: 1 << n }, (_, m) => [...bits(m, n), ...cols.map(c => cell(c[m]))]);
 const names4 = varNames(4);
+// thang chấm theo bước, in trên tờ đáp án; tổng = điểm của ý (test canh)
+const KMAP_RUBRIC = [[6, r`each map filled from the table`], [9, r`prime implicants that use the don't-cares`], [10, r`minimal sum of products for each output`]];
 
 function solved(values, n) {
   const sop = minimizeSOP(values, n);
@@ -26,10 +28,10 @@ export function makeSevenSeg() {
   return {
     stem: r`A BCD-to-seven-segment decoder has inputs $w, x, y, z$ (the BCD digit $0$ to $9$, $w$ most significant). Codes $10$ to $15$ never occur. Design the segments $a$ (top), $f$ (upper left) and $e$ (lower left). Digits are drawn the standard way: $6$ lights $a$ and $9$ lights $d$.`,
     parts: [
-      { pts: 15, q: r`Write the truth table of $a$, $f$, $e$ for the inputs $wxyz$ (use $\times$ for the codes that never occur).`,
+      { pts: 15, q: r`Write the truth table of $a$, $f$, $e$ for the inputs $wxyz$ (use $\times$ for the codes that never occur).`, rubric: [[5, r`column $a$ correct`], [5, r`column $f$ correct`], [5, r`column $e$ correct, codes $10$ to $15$ as $\times$`]],
         a: [r`A segment is $1$ when the digit uses it: $a$ for $0,2,3,5,6,7,8,9$; $f$ for $0,4,5,6,8,9$; $e$ for $0,2,6,8$.`,
           r`$${table(['w', 'x', 'y', 'z', 'a', 'f', 'e'], rowsOf(4, segs.map(([, v]) => v)))}$`], facts: { a: vals(ON.a), f: vals(ON.f), e: vals(ON.e) } },
-      { pts: 25, q: r`Using your truth table, draw a Karnaugh map for each segment and find its minimal sum of products (use the don't-cares).`,
+      { pts: 25, q: r`Using your truth table, draw a Karnaugh map for each segment and find its minimal sum of products (use the don't-cares).`, rubric: KMAP_RUBRIC,
         a: segs.flatMap(([k, v]) => [r`Segment $${k}$: $${kmap(v, names4)}$`, r`$${k} = ${S[k].expr}$`]), facts: { sop: { a: S.a.expr, f: S.f.expr, e: S.e.expr }, names: names4 } },
     ],
     refs: [['4.4', 'Design procedure (cf. Problem 4.9)'], ['3.5', "Don't-care conditions"], ['3.3', 'Four-variable map']],
@@ -42,9 +44,9 @@ export function makeExcess3() {
   return {
     stem: r`A combinational circuit converts a BCD digit $wxyz$ (digits $0$ to $9$; codes $10$ to $15$ never occur) to the excess-$3$ code $E_3E_2E_1E_0$ (the digit plus $3$).`,
     parts: [
-      { pts: 15, q: r`Write the truth table of $E_3, E_2, E_1, E_0$.`,
+      { pts: 15, q: r`Write the truth table of $E_3, E_2, E_1, E_0$.`, rubric: [[10, r`rows $0$ to $9$ give digit $+3$ (all four columns)`], [5, r`codes $10$ to $15$ as don't-cares`]],
         a: [r`Excess-$3$ of a digit $d$ is the $4$-bit binary number $d + 3$.`, r`$${table(['w', 'x', 'y', 'z', 'E_3', 'E_2', 'E_1', 'E_0'], rowsOf(4, outs.map(([, v]) => v)))}$`], facts: { outs: Object.fromEntries(outs) } },
-      { pts: 25, q: r`Using your truth table, draw a Karnaugh map for each output and find its minimal sum of products (use the don't-cares).`,
+      { pts: 25, q: r`Using your truth table, draw a Karnaugh map for each output and find its minimal sum of products (use the don't-cares).`, rubric: KMAP_RUBRIC,
         a: outs.flatMap(([k, v]) => [r`$${k}$: $${kmap(v, names4)}$`, r`$${k} = ${S[k].expr}$`]), facts: { sop: Object.fromEntries(outs.map(([k]) => [k, S[k].expr])), names: names4 } },
     ],
     refs: [['4.4', 'Design procedure'], ['3.5', "Don't-care conditions"], ['3.3', 'Four-variable map']],
@@ -61,9 +63,11 @@ export function makeBcdAdder() {
         a: [r`$${table(['K', 'Z_8', 'Z_4', 'Z_2', 'Z_1', 'C', 'S_8', 'S_4', 'S_2', 'S_1'], rows)}$`,
           r`The sum must be corrected (add $6 = 0110$) exactly when it is above $9$, so $C = 1$ exactly for the binary sums $10$ to $19$.`,
           r`Sums $16$ to $19$ have $K = 1$. Sums $10$ to $15$ have $K = 0$ and $Z_8 = 1$ with $Z_4 = 1$ or $Z_2 = 1$. Hence $C = v + wx + wy$ (that is $K + Z_8Z_4 + Z_8Z_2$).`],
+        rubric: [[10, r`table of sums $0$ to $19$ with the BCD result`], [5, r`add $0110$ exactly when the sum is above $9$`], [10, r`$C = K + Z_8Z_4 + Z_8Z_2$`]],
         facts: { corr, expr: 'v + wx + wy' } },
       { pts: 40, q: r`Draw the complete BCD adder as one circuit, using two $4$-bit binary adders (as blocks) and the gates for $C$.`,
         a: [r`The first adder adds $A + B + C_{in}$ and gives $K$ and $Z$. Gates give $C = K + Z_8Z_4 + Z_8Z_2$. The second adder adds $Z$ and $0CC0$ (so $+6$ when $C = 1$); its carry out is ignored and $C$ is the BCD carry out.`],
+        rubric: [[8, r`first adder: inputs $A$, $B$, carry in; outputs $K$, $Z$`], [10, r`gates for $C$`], [12, r`second adder adds $0CC0$ to $Z$`], [10, r`outputs $S_8S_4S_2S_1$ and carry out $C$ labelled`]],
         figs: [bcdAdder()], facts: {} },
     ],
     refs: [['4.5', 'Binary adder–subtractor (4-bit parallel adder)'], ['4.6', 'Decimal adder (BCD adder)']],
@@ -82,13 +86,13 @@ export function makeMux(rnd) {
     parts: [
       { pts: 15, q: r`Write the function table of the multiplexer and its Boolean equation for $Y$.`,
         a: [r`$${table(['S_1', 'S_0', 'Y'], [['0', '0', 'I_0'], ['0', '1', 'I_1'], ['1', '0', 'I_2'], ['1', '1', 'I_3']])}$`,
-          r`$Y = S_1'S_0'I_0 + S_1'S_0I_1 + S_1S_0'I_2 + S_1S_0I_3$`], facts: {} },
+          r`$Y = S_1'S_0'I_0 + S_1'S_0I_1 + S_1S_0'I_2 + S_1S_0I_3$`], rubric: [[7, r`function table`], [8, r`equation of $Y$`]], facts: {} },
       { pts: 25, q: r`Implement $F(x,y,z) = \sum m(${mins.join(',')})$ with one $4$-to-$1$ multiplexer, $x, y$ on the selects ($S_1 = x$, $S_0 = y$). Write the truth table of $F$ and find what each data input must be ($0$, $1$, $z$ or $\bar z$).`,
         a: [r`$${table(['x', 'y', 'z', 'F'], rowsOf(3, [f]))}$`,
           r`For each $xy$, read $F$ for $z = 0, 1$: $F = 0, 0 \Rightarrow I = 0$; $1, 1 \Rightarrow I = 1$; $0, 1 \Rightarrow I = z$; $1, 0 \Rightarrow I = \bar z$.`,
-          r`$I_0 = ${tx(data[0])},\; I_1 = ${tx(data[1])},\; I_2 = ${tx(data[2])},\; I_3 = ${tx(data[3])}$`], facts: { mins, data, f } },
+          r`$I_0 = ${tx(data[0])},\; I_1 = ${tx(data[1])},\; I_2 = ${tx(data[2])},\; I_3 = ${tx(data[3])}$`], rubric: [[9, r`truth table of $F$`], [16, r`each data input $I_0$ to $I_3$ ($4$ each)`]], facts: { mins, data, f } },
       { pts: 15, q: r`Draw the complete circuit of $F$: the multiplexer as a block with all its inputs connected (use an inverter where you need $\bar z$).`,
-        a: [r`Connect $x, y$ to $S_1, S_0$, and each data input as found above (sample below).`], figs: [muxBox(data)], facts: {} },
+        a: [r`Connect $x, y$ to $S_1, S_0$, and each data input as found above (sample below).`], figs: [muxBox(data)], rubric: [[4, r`$x, y$ on $S_1, S_0$`], [8, r`data inputs connected as found`], [3, r`inverter for $\bar z$`]], facts: {} },
     ],
     refs: [['4.11', 'Multiplexers (implementing a Boolean function)']],
   };
