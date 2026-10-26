@@ -1,5 +1,7 @@
 /* Strings of the shared shell (rail, top bar, hint button). */
 export const en = {
+  'shell.hub': 'Study Hub',
+  'shell.live': 'Live Lecture',
   'shell.home': 'Back to the home page (all subjects)',
   'shell.chapter': 'Chapter {n}',
   'shell.theme': 'Switch light / dark theme',

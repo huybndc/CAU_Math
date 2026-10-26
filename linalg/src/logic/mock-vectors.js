@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------
-   ĐỀ NHƯ THẬT (Linear Algebra) — câu về vector và phép nhân ma trận (thuần, chữ Anh: đề thi bằng tiếng Anh).
+   ĐỀ THI THỬ (Linear Algebra) — câu về vector và phép nhân ma trận (thuần, chữ Anh: đề thi bằng tiếng Anh).
    Mỗi maker(rnd) → { stem, parts: [{ pts, q, a, facts }] }; công thức LaTeX giữa $…$ (xem mock-tex.js).
    --------------------------------------------------------------- */
 import { int, pick } from '@shared/logic/shuffle.js';

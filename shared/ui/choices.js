@@ -3,7 +3,7 @@ import { t as T } from '../i18n/index.js';
 import { studiedChapters } from '../logic/progress.js';
 
 /* ---------------------------------------------------------------
-   KHỐI DÙNG CHUNG cho Tổng quan / Học / Đề như thật / Tự luận (D19):
+   KHỐI DÙNG CHUNG cho Tổng quan / Học / Đề thi thử / Tự luận (D19):
    danh sách kẻ dòng thay lưới thẻ; mỗi dòng nói trước giá phải trả
    (~phút, % đúng) như toeic R1, nhưng gọn thành cột số bên phải.
    --------------------------------------------------------------- */
@@ -36,7 +36,7 @@ export const leadCard = ({ title, note, href, cta, alt }) => el('div', {
   el('a', { class: 'btn primary', href, 'data-icon': 'next' }, el('span', { text: cta })),
 ]);
 
-/** Các thẻ đầu mục "Đề thi": Đề như thật | Tự luận. */
+/** Các thẻ đầu mục "Đề thi": Đề thi thử | Tự luận. */
 export const practiceTabs = active => el('nav', { class: 'page-tabs', 'aria-label': T('nav.mock') }, [
   el('a', { href: '#/mock', 'aria-current': active === 'mock' ? 'page' : null, text: T('nav.mock') }),
   el('a', { href: '#/free', 'aria-current': active === 'free' ? 'page' : null, text: T('practice.tabFree') }),

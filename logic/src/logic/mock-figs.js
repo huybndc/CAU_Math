@@ -1,4 +1,4 @@
-/* Hình khối mạch lớn cho "Đề như thật" (dữ liệu thuần, UI vẽ bằng blockFigure): { w, h, boxes:[{x,y,w,h,t}], gates:[{op,x,y}], paths:[d], texts:[{x,y,t,a}] }. */
+/* Hình khối mạch lớn cho "Đề thi thử" (dữ liệu thuần, UI vẽ bằng blockFigure): { w, h, boxes:[{x,y,w,h,t}], gates:[{op,x,y}], paths:[d], texts:[{x,y,t,a}] }. */
 const sub = i => '₀₁₂₃₄₅₆₇₈'[i];
 const T = (x, y, t, a = 'start') => ({ x, y, t, a });
 

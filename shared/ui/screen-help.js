@@ -8,7 +8,7 @@ import { getLang } from '../i18n/index.js';
 
 export const HELP = {
   mock: {
-    vi: { title: 'Đề như thật', rows: [
+    vi: { title: 'Đề thi thử', rows: [
       ['Mã đề', 'Mỗi mã sinh đúng một đề. Đề và đáp án dùng chung mã, nên in lúc nào cũng khớp.'],
       ['In đề · In đáp án', 'Mở hộp thoại in của trình duyệt (chọn A4, in hai mặt, hoặc Lưu thành PDF). Đề chừa chỗ viết theo điểm.'],
       ['Nguồn', 'Mỗi câu ghi chương và mục trong sách để tìm lại mà làm thêm. Số mục theo bản 4th.'],
@@ -24,17 +24,19 @@ export const HELP = {
   home: {
     vi: { title: 'Tổng quan', rows: [
       ['Hôm nay', 'Bài gợi ý cho bạn lúc này. Bấm Bắt đầu để làm ngay.'],
-      ['Học · Đề thi', 'Cột bên phải: học tiếp thẻ kế, công cụ, đề như thật, tự luận.'],
+      ['Học · Đề thi', 'Cột bên phải: học tiếp thẻ kế, công cụ, đề thi thử, tự luận.'],
+      ['Study Hub · Live Lecture', 'Cuối menu bên trái: link sang hai app kia.'],
       ['Ctrl K', 'Tìm nhanh trong app (gõ không dấu cũng được), Enter mở đúng bài.'],
       ['Nháp', 'Nút nổi góc dưới phải, mở ở mọi màn: ghi chú, máy tính, bảng chân trị, bìa K, vẽ.'],
-      ['Đám mây', 'Trạng thái đồng bộ tiến độ với Study Hub. Số khác Hub thì chờ vài giây rồi tải lại.', 'warn'],
+      ['Đám mây', 'Bản online không đồng bộ giữa các máy; dữ liệu lưu trong trình duyệt này.'],
     ] },
     en: { title: 'Overview', rows: [
       ['Today', 'The suggested task right now. Press Start to do it now.'],
       ['Learn · Exams', 'Right column: next lesson card, tools, exam practice, free-response.'],
+      ['Study Hub · Live Lecture', 'Bottom of the left menu: links to the other two apps.'],
       ['Ctrl K', 'Quick search in the app; press Enter to open the result.'],
       ['Scratch', 'Floating button at the bottom right on every screen: notes, calculator, truth table, K-map, draw.'],
-      ['Cloud', 'Progress sync status with Study Hub. If numbers differ from the Hub, wait a few seconds and reload.', 'warn'],
+      ['Cloud', 'The online version does not sync between devices; data stays in this browser.'],
     ] },
   },
   learn: {

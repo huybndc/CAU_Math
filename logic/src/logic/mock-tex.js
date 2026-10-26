@@ -1,4 +1,4 @@
-/* LaTeX cho "Đề như thật" của Logic (thuần): bản đồ Karnaugh, bảng, chuỗi nhị phân. Công thức nằm giữa $…$. */
+/* LaTeX cho "Đề thi thử" của Logic (thuần): bản đồ Karnaugh, bảng, chuỗi nhị phân. Công thức nằm giữa $…$. */
 export const M = s => `$${s}$`;
 export const bin = (x, n = 4) => x.toString(2).padStart(n, '0');
 const GRAY = [0, 1, 3, 2];

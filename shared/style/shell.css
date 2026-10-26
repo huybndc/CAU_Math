@@ -431,3 +431,5 @@ a.entry:hover .row-go{background:var(--accent)}
 
 /* nút Nháp nổi không che nội dung cuối trang */
 #app{padding-bottom:max(3rem,5.5rem)}
+.tab.app-link{font-size:var(--fs-sm);color:var(--ink-dim)}
+.tabs .tab:not(.app-link) + .tab.app-link{margin-top:.6rem;border-top:1px solid var(--line);padding-top:.6rem}

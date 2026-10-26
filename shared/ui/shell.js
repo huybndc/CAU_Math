@@ -106,6 +106,21 @@ function labelHints() {
   });
 }
 
+/** Link sang Study Hub và Live Lecture ở cuối menu. Địa chỉ lấy lúc build từ .env.local (VITE_HUB_URL, VITE_LIVE_URL),
+ *  không ghi trong repo công khai; thiếu biến thì không hiện link đó. */
+function addAppLinks() {
+  const tabs = document.querySelector('.appnav .tabs');
+  if (!tabs || tabs.querySelector('.app-link')) return;
+  const env = import.meta.env ?? {};
+  for (const [url, key] of [[env.VITE_HUB_URL, 'shell.hub'], [env.VITE_LIVE_URL, 'shell.live']]) {
+    if (!url) continue;
+    const a = document.createElement('a');
+    Object.assign(a, { className: 'tab app-link', href: url, textContent: T(key) });
+    a.dataset.i18n = key;
+    tabs.append(a);
+  }
+}
+
 /**
  * @param {{ chapters: {id:string, bank?:object, prefix?:string}[], figures?:object,
  *           widgets?:object, lesson?:(chId:string)=>string }} cfg
@@ -121,6 +136,7 @@ export async function setupShell(cfg) {
   upgradeHints();
   setupTips();
   setupScratch();
+  addAppLinks();
   startSync();
   syncProgress();
   const help = setupScreenHelp();

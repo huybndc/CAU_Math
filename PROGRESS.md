@@ -3,8 +3,8 @@
 > Đọc đầu phiên. Chỉ giữ việc đang mở và quy tắc còn hiệu lực. Lịch sử đã xong: `PROGRESS-archive.md` (không cần đọc). Ranh giới repo: `REPO_BOUNDARY.md`.
 
 ## Trạng thái (2026-10-22)
-- `main` = a1aa863. Đề như thật có mẫu cho cả 3 môn (Logic, Linear Algebra, Discrete). Deploy bản online do Study_Hub làm (bump `math.lock`).
-- Đề như thật: chọn mã đề → in đề / in đáp án A4 (KaTeX, bước giải). Màn: mã đề, Đề mới, thẻ Đề | Đáp án, bản xem trước nguyên tờ trên màn, nút In / lưu PDF. Đáp án Logic có hình mạch mẫu. Ôn từng phần thuộc Luyện tập, không đặt ở đây.
+- `main` = a1aa863. Đề thi thử có mẫu cho cả 3 môn (Logic, Linear Algebra, Discrete). Deploy bản online do Study_Hub làm (bump `math.lock`).
+- Đề thi thử: chọn mã đề → in đề / in đáp án A4 (KaTeX, bước giải). Màn: mã đề, Đề mới, thẻ Đề | Đáp án, bản xem trước nguyên tờ trên màn, nút In / lưu PDF. Đáp án Logic có hình mạch mẫu. Ôn từng phần thuộc Luyện tập, không đặt ở đây.
 - Mẫu đề là PHỎNG ĐOÁN theo mô tả của người học (đề giữa kỳ). Người học bắt đầu ôn sau ~1 tháng; đề cuối kỳ sẽ khác:
   - Logic: 4 câu, 200 điểm, 60 phút — 7 đoạn a/f/e (K-map), Excess-3 (K-map), bộ cộng BCD (vẽ 1 mạch), MUX 4×1 thực hiện hàm (vẽ 1 mạch).
   - Discrete: 3 câu 7 ý, 200 điểm, 60 phút, đúng 2 gợi ý nhỏ. Người học đã duyệt; sau này chỉ cần thêm đa dạng câu.
@@ -18,9 +18,9 @@
 
 ## Đã gỡ Luyện tập, Thi thử, Sổ câu sai, Điểm mục tiêu (2026-10-22, PR chờ merge)
 - Gỡ: route `#/practice…` và `#/exam…` (về Tổng quan), màn + `exam-screen`, `exam-run`, `logic/exam`, `mistakes`, `score`, `groups`, cờ `PRACTICE_HIDDEN`, `exam.css`, ~110 chuỗi i18n, trợ giúp của các màn đó, link "Luyện tập chương này" trong bài học Logic. Có test `REMOVED` canh.
-- Giữ: `runner.js` + ngân hàng câu (điểm kiến thức `kpoint` trong bài học), `flags.js` (thẻ đã đọc), `progress.js` (số liệu Tuần này), máy giải, Đề như thật, Tự luận.
+- Giữ: `runner.js` + ngân hàng câu (điểm kiến thức `kpoint` trong bài học), `flags.js` (thẻ đã đọc), `progress.js` (số liệu Tuần này), máy giải, Đề thi thử, Tự luận.
 - Còn thừa, chưa gỡ (không gấp): `shared/logic/exam-target.js` + `.json` (bản chụp từ Hub, UI không còn dùng), `stats`/`rankNeeds` dùng ít.
-- Khi ôn cuối kỳ (~2026-11-20): quyết có làm luyện tập mới quanh Tự luận/Đề như thật hay không.
+- Khi ôn cuối kỳ (~2026-11-20): quyết có làm luyện tập mới quanh Tự luận/Đề thi thử hay không.
 
 ## Tách CAU_Math khỏi Hub (họp 2026-10-26, Huy duyệt, làm ngay)
 1. (Xong #112) Gỡ "Tuần này" + pet (+ hub-mirror.lock pet, stats.js). 2–3. Hub gỡ số liệu toán/pet, thêm exam-scope.json + thẻ "Ôn cuối kỳ". 4. (Xong #113–#115, ĐÃ LÊN) CAU_Math: Worker tĩnh `cau-math`, CSP riêng, deploy bằng `npm run deploy`, không đăng nhập. 6. Hub đổi link sang cau-math ngay khi ĐÃ LÊN; lỗi ⇒ 1 commit trả link về mirror. 7. Hub gỡ mirror. Không đồng bộ dữ liệu giữa máy; Nháp cũ: Huy tự chép tay.

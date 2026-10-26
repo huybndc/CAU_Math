@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------
-   LaTeX cho "Đề như thật" (thuần): số, ma trận, phép biến đổi hàng và các dòng giải từng bước.
+   LaTeX cho "Đề thi thử" (thuần): số, ma trận, phép biến đổi hàng và các dòng giải từng bước.
    Chuỗi của đề và đáp án chứa công thức giữa dấu $…$; mock-screen dựng bằng KaTeX.
    --------------------------------------------------------------- */
 import { toFraction, clean } from './num-format.js';

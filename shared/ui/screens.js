@@ -13,7 +13,7 @@ import { renderMock } from './mock-screen.js';
      pane      một khung có sẵn của trang chương (ví dụ, công cụ, bài luyện cũ)
      tools     Công cụ: mọi công cụ bấm thử + ví dụ giải sẵn, gom theo chương (đọc từ các khung)
      free      Tự luận: đề · gợi ý · lời giải từng bước (free-screen.js)
-     mock      Đề như thật: mã đề, in đề / đáp án (mock-screen.js)
+     mock      Đề thi thử: mã đề, in đề / đáp án (mock-screen.js)
    cfg = { chapters: [{ id, bank?, prefix? }], figures, widgets, lesson(chId) → md }
    --------------------------------------------------------------- */
 
