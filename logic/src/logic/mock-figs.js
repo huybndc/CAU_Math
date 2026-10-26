@@ -43,3 +43,49 @@ export function muxBox(data) {
   const texts = ys.map((y, k) => T(16, y + 4, data[k], 'end')).concat(T(80, 210, 'x', 'middle'), T(110, 210, 'y', 'middle'), T(196, 99, 'F'));
   return { w: 220, h: 220, boxes: [{ x: 60, y: 20, w: 70, h: 150, t: '4×1 MUX' }], gates: [], paths, texts };
 }
+
+/** Mạch cổng nối theo nhãn: gates = [{ op, ins:[nhãn], out, col, row }]; nhãn vào cách nhau GAP rồi dây chụm vào thân cổng. */
+function labeledGates(gates, { colW = 210, rowH = 62, ox = 0, oy = 0 } = {}) {
+  const OUT = { AND: 42, OR: 42, XOR: 42, XNOR: 51 }, GAP = 22;
+  const paths = [], texts = [], gs = [];
+  let w = 0, h = 0;
+  for (const g of gates) {
+    const x = ox + 100 + g.col * colW, y = Math.round(oy + 14 + g.row * rowH), out = x + OUT[g.op], n = g.ins.length;
+    const pin = g.op === 'XOR' || g.op === 'XNOR' ? x - 4 : x + 2;
+    gs.push({ op: g.op, x, y });
+    g.ins.forEach((t, k) => {
+      const yy = Math.round(y + 20 + (k - (n - 1) / 2) * GAP), yg = Math.round(y + (40 * (k + 1)) / (n + 1));
+      paths.push(`M${x - 56} ${yy} H${x - 20} L${pin} ${yg}`);
+      texts.push(T(x - 60, yy, t, 'end'));
+      h = Math.max(h, yy + 16);
+    });
+    paths.push(`M${out} ${y + 20} H${out + 18}`);
+    texts.push(T(out + 22, y + 20, g.out));
+    w = Math.max(w, out + 90); h = Math.max(h, y + 54);
+  }
+  return { w, h, boxes: [], gates: gs, paths, texts };
+}
+
+/** Bộ so sánh 2 bit (§4.8): xᵢ = (Aᵢ ⊙ Bᵢ), E = x₁x₀, G = A₁B₁′ + x₁A₀B₀′, L = A₁′B₁ + x₁A₀′B₀. */
+export function comparator2() {
+  return labeledGates([
+    { op: 'XNOR', ins: ['A₁', 'B₁'], out: 'x₁', col: 0, row: 0 },
+    { op: 'XNOR', ins: ['A₀', 'B₀'], out: 'x₀', col: 0, row: 1 },
+    { op: 'AND', ins: ['x₁', 'x₀'], out: 'E (A=B)', col: 1, row: 0 },
+    { op: 'AND', ins: ["A₁", "B₁'"], out: 'g₁', col: 1, row: 1 },
+    { op: 'AND', ins: ['x₁', 'A₀', "B₀'"], out: 'g₀', col: 1, row: 2 },
+    { op: 'AND', ins: ["A₁'", 'B₁'], out: 'l₁', col: 1, row: 3 },
+    { op: 'AND', ins: ['x₁', "A₀'", 'B₀'], out: 'l₀', col: 1, row: 4 },
+    { op: 'OR', ins: ['g₁', 'g₀'], out: 'G (A>B)', col: 2, row: 1.5 },
+    { op: 'OR', ins: ['l₁', 'l₀'], out: 'L (A<B)', col: 2, row: 3.5 },
+  ], { rowH: 74 });
+}
+
+/** Decoder 3×8 + một cổng OR cho mỗi hàm (§4.9): fns = [[tên, [minterm…]], …]. */
+export function decoderOr(fns) {
+  const ys = Array.from({ length: 8 }, (_, k) => 26 + k * 26);
+  const paths = ['M20 70 H60', 'M20 110 H60', 'M20 150 H60', ...ys.map(y => `M150 ${y} H172`)];
+  const texts = [T(16, 70, 'x', 'end'), T(16, 110, 'y', 'end'), T(16, 150, 'z', 'end'), ...ys.map((y, k) => T(176, y, `D${sub(k)}`))];
+  const g = labeledGates(fns.map(([name, mins], i) => ({ op: 'OR', ins: mins.map(m => `D${sub(m)}`), out: name, col: 0, row: i })), { ox: 220, oy: 30, rowH: 130 });
+  return { w: g.w, h: Math.max(g.h, 240), boxes: [{ x: 60, y: 14, w: 90, h: 212, t: '3×8 DEC' }], gates: g.gates, paths: [...paths, ...g.paths], texts: [...texts, ...g.texts] };
+}
