@@ -41,13 +41,13 @@
 .tool-card:hover{border-color:var(--accent)}
 .tool-ico{grid-row:span 2;width:2.6rem;height:2.6rem;border-radius:var(--r-md);background:var(--accent-soft);position:relative}
 .tool-ico::before{content:"";position:absolute;inset:.6rem;background:var(--accent-ink-soft);-webkit-mask:var(--ico) center/contain no-repeat;mask:var(--ico) center/contain no-repeat;
-  --ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.9' stroke-linecap='round'%3E%3Cpath d='M4 7h9M17 7h3M4 17h3M11 17h9'/%3E%3Ccircle cx='15' cy='7' r='2'/%3E%3Ccircle cx='9' cy='17' r='2'/%3E%3C/svg%3E")}
+  --ico:var(--i-sliders)}
 .tool-main{min-width:0;display:flex;flex-direction:column;gap:.15rem}
 .tool-main b{font-size:var(--fs-lg);font-weight:600}
 .tool-main small{font-size:var(--fs-sm);color:var(--ink-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tool-go{grid-column:2;display:flex;align-items:center;gap:.4rem;font-size:var(--fs-sm);font-weight:600;color:var(--accent-ink-soft)}
 .tool-go i{width:.9rem;height:.9rem;background:currentColor;-webkit-mask:var(--c) center/contain no-repeat;mask:var(--c) center/contain no-repeat;transition:transform var(--dur-fast);
-  --c:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E")}
+  --c:var(--i-arrow-right)}
 .tool-card:hover .tool-go i{transform:translateX(2px)}
 
 /* ---------- Tổng quan: chương chưa làm gộp thành một dải ---------- */
@@ -66,12 +66,14 @@
   .nav-collapse:hover{background:color-mix(in srgb,var(--ink) 7%,transparent);color:var(--ink)}
   .nav-collapse::before{content:"";width:16px;height:16px;background:currentColor;
     -webkit-mask:var(--chev) center/contain no-repeat;mask:var(--chev) center/contain no-repeat;
-    --chev:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M11 6l-6 6 6 6M19 6l-6 6 6 6'/%3E%3C/svg%3E")}
+    --chev:var(--i-chevrons-left)}
   :root[data-nav="min"]{--nav-width:4.2rem}
   :root[data-nav="min"] .nav-collapse::before{transform:scaleX(-1)}
   :root[data-nav="min"] .appnav{padding-inline:.6rem}
   :root[data-nav="min"] .appnav-foot{flex-direction:column;padding:0}
   :root[data-nav="min"] .appnav-foot .nav-collapse{margin:0;order:-1}
+  /* menu mở: hàng nút trên cùng không đủ chỗ cho nút thu gọn (tràn đè tiêu đề) ⇒ đặt ở góc dưới thanh bên */
+  :root:not([data-nav="min"]) .nav-collapse{position:absolute;left:1rem;bottom:1rem;margin:0}
   :root[data-nav="min"] .appnav-foot .seg{display:none}
   :root[data-nav="min"] :is(.nav-brand b,.tab){font-size:0}
   :root[data-nav="min"] .nav-brand{padding:0}
