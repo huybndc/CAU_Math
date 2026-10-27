@@ -60,20 +60,20 @@
 
 /* ---------- thu gọn menu trái thành cột icon (chỉ ≥761px; shell.js setupNavCollapse) ---------- */
 .nav-collapse{display:none}
+.nav-head{display:flex;align-items:flex-start;gap:2px}
+.nav-head .nav-brand{flex:1;min-width:0;padding-left:0;padding-top:7px}
 @media (min-width:761px){
-  .nav-collapse{display:grid;place-items:center;flex:0 0 32px;width:32px;height:32px;margin-left:auto;padding:0;border:0;border-radius:var(--r-md);
+  /* như Live_Lecture: ☰ 34px đầu hàng tên app; thu gọn còn 56px, ẩn tên app */
+  .nav-collapse{display:grid;place-items:center;flex:0 0 34px;width:34px;height:34px;padding:0;border:0;border-radius:var(--r-md);
     background:none;color:var(--ink-dim);cursor:pointer}
   .nav-collapse:hover{background:color-mix(in srgb,var(--ink) 7%,transparent);color:var(--ink)}
-  .nav-collapse::before{content:"";width:16px;height:16px;background:currentColor;
-    -webkit-mask:var(--chev) center/contain no-repeat;mask:var(--chev) center/contain no-repeat;
-    --chev:var(--i-chevrons-left)}
-  :root[data-nav="min"]{--nav-width:4.2rem}
-  :root[data-nav="min"] .nav-collapse::before{transform:scaleX(-1)}
-  :root[data-nav="min"] .appnav{padding-inline:.6rem}
+  .nav-collapse::before{content:"";width:18px;height:18px;background:currentColor;
+    -webkit-mask:var(--i-menu) center/contain no-repeat;mask:var(--i-menu) center/contain no-repeat}
+  :root[data-nav="min"]{--nav-width:56px}
+  :root[data-nav="min"] .appnav{padding-inline:11px}
   :root[data-nav="min"] .appnav-foot{flex-direction:column;padding:0}
-  :root[data-nav="min"] .appnav-foot .nav-collapse{margin:0;order:-1}
-  /* menu mở: hàng nút trên cùng không đủ chỗ cho nút thu gọn (tràn đè tiêu đề) ⇒ đặt ở góc dưới thanh bên */
-  :root:not([data-nav="min"]) .nav-collapse{position:absolute;left:1rem;bottom:1rem;margin:0}
+  :root[data-nav="min"] .nav-head .nav-brand{display:none}
+  :root[data-nav="min"] .nav-head{order:-1}   /* như Live: ☰ trên cùng khi thu gọn */
   :root[data-nav="min"] .appnav-foot .seg{display:none}
   :root[data-nav="min"] :is(.nav-brand b,.tab){font-size:0}
   :root[data-nav="min"] .nav-brand{padding:0}

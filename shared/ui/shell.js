@@ -31,11 +31,11 @@ export function setupTheme() {
 
 /**
  * Thu gọn menu trái thành cột icon (≥761px). Nhớ theo trình duyệt, chung khoá `study-nav` với Hub (cùng origin).
- * Nút nằm trong .appnav-foot; CSS ở shell.css.
+ * Nút ☰ đứng đầu hàng tên app (giống Live_Lecture); CSS ở modules.css.
  */
 export function setupNavCollapse() {
-  const foot = $('.appnav-foot');
-  if (!foot) return;
+  const brand = $('.nav-brand');
+  if (!brand) return;
   const btn = Object.assign(document.createElement('button'), { type: 'button', className: 'nav-collapse' });
   const set = min => {
     document.documentElement.dataset.nav = min ? 'min' : '';
@@ -56,7 +56,9 @@ export function setupNavCollapse() {
     const a = e.target.closest('.tab');
     if (a) a.title = document.documentElement.dataset.nav === 'min' ? a.textContent.trim() : '';
   });
-  foot.append(btn);
+  const head = Object.assign(document.createElement('div'), { className: 'nav-head' });
+  brand.before(head);
+  head.append(btn, brand);
 }
 
 /* ---------------- gợi ý: đoạn .hint → nút ⓘ mở popover ---------------- */
