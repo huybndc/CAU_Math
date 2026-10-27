@@ -14,7 +14,7 @@ body{padding-left:var(--nav-width)}
 }
 .nav-brand{display:block;padding:0 .6rem;text-decoration:none;color:var(--ink)}
 .nav-brand b{display:flex;align-items:center;gap:.55rem;font-weight:650;font-size:var(--fs-md);letter-spacing:-.01em}
-.nav-brand b::before{content:"";width:16px;height:16px;background:var(--accent);flex:0 0 auto;-webkit-mask:var(--i-sigma) center/contain no-repeat;mask:var(--i-sigma) center/contain no-repeat}
+.nav-brand b::before{content:"";width:16px;height:16px;background:var(--accent);flex:0 0 auto;-webkit-mask:var(--i-flask) center/contain no-repeat;mask:var(--i-flask) center/contain no-repeat}   /* icon app Exlab */
 .nav-brand small{display:block;margin:.3rem 0 0 1.15rem;font-size:var(--fs-xs);color:var(--ink-dim);line-height:1.35}
 .tabs{display:flex;flex-direction:column;gap:2px}
 .tab{
