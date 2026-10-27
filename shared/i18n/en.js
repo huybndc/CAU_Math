@@ -118,6 +118,7 @@ export const en = {
   /* Overview */
   'home.midShort': 'Midterm',
   'home.finalShort': 'Final',
+  'home.break': 'Break · {n} days until the next term',
   'home.weekN': 'Week {w}',
   'home.daysToMid': 'days to the midterm',
   'home.weekOf': 'week of {n}',

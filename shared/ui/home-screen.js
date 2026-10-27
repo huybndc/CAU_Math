@@ -1,6 +1,6 @@
 import { $, el } from './dom.js';
 import { t as T } from '../i18n/index.js';
-import { weekOf, WEEKS, EXAM_WEEKS, daysToMidterm } from '../logic/syllabus.js';
+import { weekOf, WEEKS, EXAM_WEEKS, daysToMidterm, breakDays } from '../logic/syllabus.js';
 import { loadEvents } from './store.js';
 import { loadFlags } from './flags.js';
 import { chapterTitle, leadCard, studied } from './choices.js';
@@ -17,6 +17,8 @@ import { seekLesson, lessonGraph, readOf } from './lesson.js';
    --------------------------------------------------------------- */
 
 function termBlock(now) {
+  const rest = breakDays(new Date(now));     // kỳ nghỉ: một dòng thay dải 16 ô tuần (người học chốt 2026-10-27)
+  if (rest != null) return el('p', { class: 'semester term-break' }, T('home.break', { n: rest }));
   const week = weekOf(new Date(now));
   const days = daysToMidterm(new Date(now));
   const cells = [];

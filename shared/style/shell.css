@@ -134,6 +134,7 @@ a.entry:hover .row-go{background:var(--accent)}
 .meter > i{display:block;height:100%;background:var(--accent);border-radius:3px}
 
 /* ---------------- Tổng quan: dải học kỳ là điểm nhấn duy nhất ---------------- */
+.term-break{font-size:var(--fs-lg);color:var(--ink-dim)}
 .semester{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:end;gap:2rem;margin:0 0 1.5rem}
 .term-count{line-height:1}
 .term-count b{display:block;font:600 3.4rem/1 var(--mono);letter-spacing:-.04em;color:var(--ink)}

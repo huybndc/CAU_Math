@@ -118,6 +118,7 @@ export const vi = {
   'home.midShort': 'Giữa kỳ',
   'home.finalShort': 'Cuối kỳ',
   'home.weekN': 'Tuần {w}',
+  'home.break': 'Kỳ nghỉ · còn {n} ngày đến kỳ học',
   'home.daysToMid': 'ngày tới giữa kỳ',
   'home.weekOf': 'tuần / {n}',
   'home.term': 'Các tuần của học kỳ',

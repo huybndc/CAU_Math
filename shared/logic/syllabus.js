@@ -1,18 +1,23 @@
 /* ---------------------------------------------------------------
-   LỊCH HỌC KỲ (CAU, học kỳ 2 năm 2026). Tuần 1 bắt đầu thứ Ba 01/09/2026 (người học xác nhận), mỗi tuần 7 ngày
-   tính từ ngày đó. Chủ đề từng tuần chép TÊN theo syllabus, chỉ dùng làm trọng số độ dài chương (chapterWeeks):
+   LỊCH HỌC KỲ. Ngày bắt đầu kỳ theo quy tắc chung 3 app (semester.js, chép từ Study_Hub): xuân 1/3, thu 1/9, 16 tuần.
+   Chủ đề từng tuần chép TÊN theo syllabus, chỉ dùng làm trọng số độ dài chương (chapterWeeks):
    giảng viên dạy khác thứ tự syllabus nên app KHÔNG suy "đang học chương nào" từ đây — xem studiedChapters (D43).
    --------------------------------------------------------------- */
+import { semesterInfo, WEEKS } from './semester.js';
 
-export const SEMESTER_START = '2026-09-01';
-export const WEEKS = 16;
+export { WEEKS };
 export const EXAM_WEEKS = { 8: 'mid', 16: 'final' };
 
-/** Tuần học (1…16) của một ngày; trước học kỳ = 0, sau = 17. */
-export function weekOf(date, start = SEMESTER_START) {
-  const days = Math.floor((new Date(date) - new Date(start + 'T00:00:00')) / 86400000);
-  if (days < 0) return 0;
-  return Math.min(WEEKS + 1, Math.floor(days / 7) + 1);
+/** Tuần học (1…16) của một ngày; kỳ nghỉ sau tuần 16 = 17. */
+export function weekOf(date) {
+  const s = semesterInfo(date);
+  return s.term === 'break' ? WEEKS + 1 : s.week;
+}
+
+/** Kỳ nghỉ: số ngày tới kỳ học kế tiếp; đang trong kỳ: null. */
+export function breakDays(date) {
+  const s = semesterInfo(date), d0 = new Date(date); d0.setHours(0, 0, 0, 0);
+  return s.term === 'break' ? Math.round((s.next - d0) / 86400000) : null;
 }
 
 /** Chủ đề theo tuần: [tên, ...chương của app học tuần đó]; `chapters` = các chương app đã có. */
@@ -51,18 +56,18 @@ export const SUBJECTS = [
   },
 ];
 
-/** Ngày bắt đầu một tuần học (cùng thứ với SEMESTER_START). */
-export function weekStart(week, start = SEMESTER_START) {
-  const d = new Date(start + 'T00:00:00');
+/** Ngày bắt đầu một tuần học của kỳ chứa `date` (cùng thứ với ngày bắt đầu kỳ). */
+export function weekStart(week, date = Date.now()) {
+  const d = new Date(semesterInfo(date).start);
   d.setDate(d.getDate() + (week - 1) * 7);
   return d;
 }
 
 /** Số ngày từ `date` tới đầu tuần thi giữa kỳ (âm = đã qua). */
-export function daysToMidterm(date, start = SEMESTER_START) {
+export function daysToMidterm(date) {
   const mid = Number(Object.keys(EXAM_WEEKS).find(w => EXAM_WEEKS[w] === 'mid'));
   const d0 = new Date(date); d0.setHours(0, 0, 0, 0);
-  return Math.round((weekStart(mid, start) - d0) / 86400000);
+  return Math.round((weekStart(mid, date) - d0) / 86400000);
 }
 
 /** Số tuần học của mỗi chương (theo syllabus) — trọng số chia thời gian trong bài full. */

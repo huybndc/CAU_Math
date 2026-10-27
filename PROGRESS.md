@@ -20,7 +20,6 @@
 ## Đã gỡ Luyện tập, Thi thử, Sổ câu sai, Điểm mục tiêu (2026-10-22, PR chờ merge)
 - Gỡ: route `#/practice…` và `#/exam…` (về Tổng quan), màn + `exam-screen`, `exam-run`, `logic/exam`, `mistakes`, `score`, `groups`, cờ `PRACTICE_HIDDEN`, `exam.css`, ~110 chuỗi i18n, trợ giúp của các màn đó, link "Luyện tập chương này" trong bài học Logic. Có test `REMOVED` canh.
 - Giữ: `runner.js` + ngân hàng câu (điểm kiến thức `kpoint` trong bài học), `flags.js` (thẻ đã đọc), `progress.js` (số liệu Tuần này), máy giải, Đề thi thử, Tự luận.
-- Còn thừa, chưa gỡ (không gấp): `shared/logic/exam-target.js` + `.json` (bản chụp từ Hub, UI không còn dùng), `stats`/`rankNeeds` dùng ít.
 - Khi ôn cuối kỳ (~2026-11-20): quyết có làm luyện tập mới quanh Tự luận/Đề thi thử hay không.
 
 ## Tách CAU_Math khỏi Hub (họp 2026-10-26, Huy duyệt, làm ngay)
@@ -28,7 +27,7 @@
 
 ## Quy tắc còn hiệu lực
 - Toán, câu hỏi, bộ giải, oracle → repo này. Hub, tài khoản, vault, thống kê liên môn → Study_Hub. Không import chéo; mirror một chiều theo `math.lock`.
-- Tệp chép từ Hub (không sửa tay): `shared/style/design-tokens.json` (+ `node shared/style/render-tokens.mjs`), `shared/logic/exam-target.json`, pet (`hub-mirror.lock`, 7 file). Hub đổi → chép bản mới.
+- Tệp chép từ Hub (không sửa tay): `shared/style/design-tokens.json` (+ `node shared/style/render-tokens.mjs`), `shared/logic/semester.js` (quy tắc kỳ học, `npm run semester:export` ở Hub), pet (`hub-mirror.lock`, 7 file). Hub đổi → chép bản mới.
 - CSP của Hub cho phép script nội tuyến chọn sáng/tối bằng hash: sửa script đó, thêm nguồn ngoài (font, CDN, fetch host khác) ⇒ báo Study_Hub.
 - Gỡ/đổi UI mà e2e của Hub chạm tới (route /practice, /exam, nút tự đánh giá Tự luận, `.free-rate`…): báo Study_Hub TRƯỚC khi merge để Hub sửa e2e cùng PR bump (#104 làm CI Hub đỏ 3 e2e Tự luận, treo 10 phút).
 - Kiểm tra chạy trên máy: `npm run gate` (test + check + design:check + build) trước mỗi merge; CI chỉ chạy tay (`workflow_dispatch`, 2026-10-26). PR không có check ⇒ hook merge cho qua. Sau deploy vẫn chạy verify-deploy. Báo "xong" chỉ khi bản deploy chạy đúng (quyết định chung 2026-10-22, HANDOFF).
