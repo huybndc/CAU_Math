@@ -40,7 +40,7 @@ Study_Hub không tự viết:
 
 Không import source trực tiếp từ repo kia. Có đúng hai đường chép tệp:
 - Study_Hub → CAU_Math_App: chỉ link (thanh bên, thẻ "Ôn cuối kỳ" mở `/<môn>/#/learn/chN` trên Worker `cau-math`). Không còn mirror/`math.lock` (gỡ 2026-10-26).
-- CAU_Math_App ← Study_Hub: chép `design-tokens.json`, `exam-target.json` (bản chụp, không sửa tay). Pet đã gỡ ở cả hai (2026-10-26).
+- CAU_Math_App ← Study_Hub: chép `design-tokens.json`, `semester.js` (bản chụp, không sửa tay). Pet đã gỡ ở cả hai (2026-10-26).
 
 Event: không còn (2026-10-26). App toán chạy riêng, không gửi `math.answer` hay `pet.set` sang Study_Hub; Hub giữ hợp đồng cũ trong hub.sql cho dữ liệu cũ.
 
