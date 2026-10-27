@@ -6,3 +6,5 @@ dist/
 scripts/gen/out/
 .vite/
 .env*.local
+test-results/
+playwright-report/

@@ -61,7 +61,7 @@
 /* ---------- thu gọn menu trái thành cột icon (chỉ ≥761px; shell.js setupNavCollapse) ---------- */
 .nav-collapse{display:none}
 @media (min-width:761px){
-  .nav-collapse{display:grid;place-items:center;width:32px;height:32px;margin-left:auto;padding:0;border:0;border-radius:var(--r-md);
+  .nav-collapse{display:grid;place-items:center;flex:0 0 32px;width:32px;height:32px;margin-left:auto;padding:0;border:0;border-radius:var(--r-md);
     background:none;color:var(--ink-dim);cursor:pointer}
   .nav-collapse:hover{background:color-mix(in srgb,var(--ink) 7%,transparent);color:var(--ink)}
   .nav-collapse::before{content:"";width:16px;height:16px;background:currentColor;

@@ -26,6 +26,7 @@
 
   /* màu nhấn = màu môn của Hub (--viz-*); ngoại lệ có chủ ý so với Hub (Hub dùng --accent làm màu mực) */
   --accent:var(--viz-logic); --accent-ink:#ffffff;
+  --accent-btn:color-mix(in srgb,var(--accent) 72%,#000); /* nền nút chính: chữ trắng đạt AA (màu môn gốc chỉ ~3.5:1) */
   --accent-soft:color-mix(in srgb,var(--accent) 8%,var(--panel));
   --accent-ink-soft:color-mix(in srgb,var(--accent) 70%,var(--ink)); /* chữ màu nhấn trên nền --accent-soft, đạt AA */
   --cell-1:color-mix(in srgb,var(--accent) 15%,var(--panel));
@@ -39,6 +40,7 @@
   --warn:#e0a64a; --warn-bg:#2e2412;
   --cell-x:#33301f; --proj:#c39bff;
   --grp-l:66%; --grp-s:85%; --grp-a:.20;
+  --accent-btn:var(--accent);
   --accent:var(--viz-logic); --accent-ink:#12171f;   /* khai lại: khối tối của Hub đặt --accent thành màu mực */
 }
 :root[data-theme="dark"][data-subject="linalg"]{--accent:var(--viz-linalg)}
