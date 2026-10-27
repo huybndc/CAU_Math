@@ -37,7 +37,7 @@ body{padding-left:var(--nav-width)}
 .tab[data-app="live"]{--ico:var(--i-mic)}
 .tab[data-app="hub"]::before{color:#5b6fa8}
 .tab[data-app="live"]::before{color:#d93a3a}
-.appnav-foot{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:0 .6rem}   /* thanh bên hẹp (≈1024px) thì xuống dòng, không tràn đè tiêu đề */
+.appnav-foot{display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:0 .4rem}   /* thanh bên hẹp (≈1024px) thì xuống dòng, không tràn đè tiêu đề */
 /* tiêu đề app = về trang tất cả môn (/): mũi tên nhỏ hiện khi rê chuột */
 .nav-brand b::after{content:'↗';margin-left:auto;font-size:.8em;color:var(--ink-dim);opacity:0;transition:opacity .12s}
 .nav-brand:hover b::after{opacity:1}
