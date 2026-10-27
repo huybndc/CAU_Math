@@ -81,5 +81,5 @@ export function showRoute(r, cfg) {
     if (t.dataset.nav === nav) t.setAttribute('aria-current', 'page'); else t.removeAttribute('aria-current');
   });
   const render = { home: renderHome, learn: renderLearn, tools: renderTools, pane: renderPane, free: renderFree, mock: renderMock }[screen];
-  document.title = `${render(r, cfg, c)} · ${T('app.short')}`;
+  document.title = `${render(r, cfg, c)} · ${T('app.short')} · ${T('app.brand')}`;
 }

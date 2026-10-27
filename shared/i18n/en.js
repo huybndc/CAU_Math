@@ -1,5 +1,6 @@
 /* Strings of the shared shell (rail, top bar, hint button). */
 export const en = {
+  'app.brand': 'Exlab',
   'shell.hub': 'Study Hub',
   'shell.live': 'Live Lecture',
   'shell.home': 'Back to the home page (all subjects)',
