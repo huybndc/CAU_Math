@@ -55,3 +55,18 @@ describe('icon menu', () => {
     for (const a of apps) expect(css, a).toContain(`.tab[data-app="${a}"]{--ico:`);
   });
 });
+
+describe('bộ icon chung (icons.css)', () => {
+  it('mọi var(--i-…) được dùng đều có trong icons.css; không còn SVG dán thẳng ngoài icons.css', async () => {
+    const { readFileSync, readdirSync } = await import('node:fs');
+    const dir = new URL('../style/', import.meta.url);
+    const icons = readFileSync(new URL('icons.css', dir), 'utf8');
+    const defined = new Set([...icons.matchAll(/--i-([\w-]+):/g)].map(m => m[1]));
+    for (const f of readdirSync(dir).filter(f => f.endsWith('.css') && f !== 'icons.css')) {
+      const css = readFileSync(new URL(f, dir), 'utf8');
+      expect(css, f).not.toContain('data:image/svg');
+      for (const [, n] of css.matchAll(/var\(--i-([\w-]+)\)/g)) expect(defined.has(n), `${f}: --i-${n}`).toBe(true);
+    }
+    expect(icons).toContain("stroke-width='1.5'");
+  });
+});

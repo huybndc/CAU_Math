@@ -56,7 +56,6 @@ function side(cfg, events, now) {
       : act({ href: '#/learn', title: T('home.actToc'), note: T('home.actTocNote', { n: cfg.chapters.length }) }),
     act({ href: '#/tools', title: T('nav.tools'), note: T('home.actToolsNote') }),
     el('h2', { class: 'section-label', text: T('nav.mock') }),
-    ...(cfg.mock ? [act({ href: '#/mock', title: T('nav.mock'), note: T('mock.homeNote') })] : []),
     act({ href: '#/free', title: T('practice.tabFree'), note: T('home.actFreeNote') }),
   ]);
 }

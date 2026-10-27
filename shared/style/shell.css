@@ -14,7 +14,7 @@ body{padding-left:var(--nav-width)}
 }
 .nav-brand{display:block;padding:0 .6rem;text-decoration:none;color:var(--ink)}
 .nav-brand b{display:flex;align-items:center;gap:.55rem;font-weight:650;font-size:var(--fs-md);letter-spacing:-.01em}
-.nav-brand b::before{content:"";width:.6rem;height:.6rem;border-radius:2px;background:var(--accent);flex:0 0 auto}
+.nav-brand b::before{content:"";width:16px;height:16px;background:var(--accent);flex:0 0 auto;-webkit-mask:var(--i-sigma) center/contain no-repeat;mask:var(--i-sigma) center/contain no-repeat}
 .nav-brand small{display:block;margin:.3rem 0 0 1.15rem;font-size:var(--fs-xs);color:var(--ink-dim);line-height:1.35}
 .tabs{display:flex;flex-direction:column;gap:2px}
 .tab{
@@ -28,16 +28,16 @@ body{padding-left:var(--nav-width)}
 .tab:hover{color:var(--ink);background:color-mix(in srgb,var(--ink) 5%,transparent)}
 .tab[aria-current="page"]{color:var(--ink);font-weight:600;background:var(--panel);box-shadow:0 0 0 1px var(--line)}
 .tab[aria-current="page"]::before{color:var(--accent)}
-.tab[data-nav="home"]{--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.9' stroke-linejoin='round'%3E%3Crect x='3.5' y='3.5' width='7' height='7' rx='1.5'/%3E%3Crect x='13.5' y='3.5' width='7' height='7' rx='1.5'/%3E%3Crect x='3.5' y='13.5' width='7' height='7' rx='1.5'/%3E%3Crect x='13.5' y='13.5' width='7' height='7' rx='1.5'/%3E%3C/svg%3E")}
-.tab[data-nav="learn"]{--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.9' stroke-linejoin='round'%3E%3Cpath d='M3 5.5c3-1.3 6-1.3 9 .5 3-1.8 6-1.8 9-.5V19c-3-1.3-6-1.3-9 .5-3-1.8-6-1.8-9-.5zM12 6v13.5'/%3E%3C/svg%3E")}
-.tab[data-nav="tools"]{--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.9' stroke-linecap='round'%3E%3Cpath d='M4 7h9M17 7h3M4 17h3M11 17h9'/%3E%3Ccircle cx='15' cy='7' r='2'/%3E%3Ccircle cx='9' cy='17' r='2'/%3E%3C/svg%3E")}
-.tab[data-nav="mock"]{--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M16 3.5l4.5 4.5L9 19.5 3.5 20.5 4.5 15z M13.5 6l4.5 4.5'/%3E%3C/svg%3E")}
+.tab[data-nav="home"]{--ico:var(--i-grid)}
+.tab[data-nav="learn"]{--ico:var(--i-book)}
+.tab[data-nav="tools"]{--ico:var(--i-sliders)}
+.tab[data-nav="mock"]{--ico:var(--i-pencil)}
 /* link sang app khác: nét như menu, màu nhẹ theo favicon của app đó */
-.tab[data-app="hub"]{--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='4' y='4' width='15' height='4.5' rx='1'/%3E%3Crect x='5.5' y='9.75' width='14' height='4.5' rx='1'/%3E%3Crect x='4' y='15.5' width='15' height='4.5' rx='1'/%3E%3C/svg%3E")}
-.tab[data-app="live"]{--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='9' y='3' width='6' height='11' rx='3'/%3E%3Cpath d='M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M9 21h6'/%3E%3C/svg%3E")}
+.tab[data-app="hub"]{--ico:var(--i-library)}
+.tab[data-app="live"]{--ico:var(--i-mic)}
 .tab[data-app="hub"]::before{color:#5b6fa8}
 .tab[data-app="live"]::before{color:#d93a3a}
-.appnav-foot{display:flex;align-items:center;gap:8px;padding:0 .6rem}
+.appnav-foot{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:0 .6rem}   /* thanh bên hẹp (≈1024px) thì xuống dòng, không tràn đè tiêu đề */
 /* tiêu đề app = về trang tất cả môn (/): mũi tên nhỏ hiện khi rê chuột */
 .nav-brand b::after{content:'↗';margin-left:auto;font-size:.8em;color:var(--ink-dim);opacity:0;transition:opacity .12s}
 .nav-brand:hover b::after{opacity:1}
@@ -49,10 +49,10 @@ body{padding-left:var(--nav-width)}
 .theme-toggle::after{
   content:"";width:16px;height:16px;background:currentColor;
   -webkit-mask:var(--ico) center/contain no-repeat;mask:var(--ico) center/contain no-repeat;
-  --ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 14.5A8.5 8.5 0 1 1 9.5 4 6.5 6.5 0 0 0 20 14.5z'/%3E%3C/svg%3E");
+  --ico:var(--i-moon);
 }
 :root[data-theme="dark"] .theme-toggle::after{
-  --ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'%3E%3Ccircle cx='12' cy='12' r='4'/%3E%3Cpath d='M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4'/%3E%3C/svg%3E");
+  --ico:var(--i-sun);
 }
 
 /* ---------------- cột nội dung ---------------- */
@@ -86,7 +86,7 @@ a.entry:hover{background:var(--panel2)}
 .row-acc .meter{flex:1;margin:0}
 .row-go{width:1.2rem;height:1.2rem;background:var(--line-strong);
   -webkit-mask:var(--chev) center/12px no-repeat;mask:var(--chev) center/12px no-repeat;
-  --chev:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 5l7 7-7 7'/%3E%3C/svg%3E")}
+  --chev:var(--i-chevron-right)}
 a.entry:hover .row-go{background:var(--accent)}
 .tag{display:inline-block;margin-left:.55rem;font-size:var(--fs-xs);font-weight:600;padding:1px 7px;border-radius:999px;vertical-align:1px}
 .tag.hi{color:var(--hi-ink);background:var(--hi-bg)}
@@ -286,7 +286,7 @@ a.entry:hover .row-go{background:var(--accent)}
 .sync-btn::before{
   content:"";width:17px;height:17px;background:currentColor;
   -webkit-mask:var(--ico) center/contain no-repeat;mask:var(--ico) center/contain no-repeat;
-  --ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.9' stroke-linejoin='round'%3E%3Cpath d='M7 18.5h10.5a4 4 0 0 0 .6-7.95A6 6 0 0 0 6.6 9.1 4.7 4.7 0 0 0 7 18.5z'/%3E%3C/svg%3E");
+  --ico:var(--i-cloud);
 }
 /* chấm trạng thái: xanh = đã đồng bộ, đỏ = lỗi, không chấm = chưa bật / đang chờ */
 .sync-btn::after{content:"";position:absolute;right:4px;bottom:4px;width:7px;height:7px;border-radius:50%;

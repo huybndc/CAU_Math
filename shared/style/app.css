@@ -1,6 +1,7 @@
 /* Điểm vào CSS chung của mỗi app: token → thành phần → khung. */
 @import './tokens.css';
 @import './base.css';
+@import './icons.css';
 @import './shell.css';
 @import './help.css';
 @import './fit.css';
