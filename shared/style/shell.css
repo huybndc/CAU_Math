@@ -139,10 +139,12 @@ a.entry:hover .row-go{background:var(--accent)}
 .term-count b{display:block;font:600 3.4rem/1 var(--mono);letter-spacing:-.04em;color:var(--ink)}
 .term-count span{display:block;margin-top:.45rem;font-size:var(--fs-sm);color:var(--ink-dim)}
 .term-track{list-style:none;margin:0;padding:0 0 1.4rem;display:grid;grid-template-columns:repeat(16,1fr);gap:3px;position:relative}
-.term-track li{position:relative;height:30px;border-radius:3px;background:var(--panel2)}
-.term-track li.past{background:color-mix(in srgb,var(--accent) 35%,var(--panel2))}
-.term-track li.now{background:var(--accent)}
-.term-track li.exam{background:repeating-linear-gradient(135deg,var(--hi-bg) 0 4px,color-mix(in srgb,var(--hi) 30%,var(--hi-bg)) 4px 7px);box-shadow:inset 0 0 0 1.5px var(--hi)}
+/* màu ô vẽ ở ::before: nhãn tuần nằm dưới ô (ngoài li) nên li không mang nền, đo tương phản đúng nền thẻ */
+.term-track li{position:relative;height:30px}
+.term-track li::before{content:"";position:absolute;inset:0;border-radius:3px;background:var(--panel2)}
+.term-track li.past::before{background:color-mix(in srgb,var(--accent) 35%,var(--panel2))}
+.term-track li.now::before{background:var(--accent)}
+.term-track li.exam::before{background:repeating-linear-gradient(135deg,var(--hi-bg) 0 4px,color-mix(in srgb,var(--hi) 30%,var(--hi-bg)) 4px 7px);box-shadow:inset 0 0 0 1.5px var(--hi)}
 .term-track li span{position:absolute;left:50%;transform:translateX(-50%);top:calc(100% + 6px);white-space:nowrap;font-size:var(--fs-xs);color:var(--ink-dim)}
 .term-track li:last-child span{left:auto;right:0;transform:none}
 .term-track li.now span{color:var(--ink);font-weight:700}

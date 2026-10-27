@@ -15,10 +15,12 @@
     "gen:review": "vite-node scripts/gen/review.js",
     "design:check": "node scripts/design-check.mjs index.html home shared logic/index.html discrete/index.html linalg/index.html",
     "mutate": "node scripts/mutation-check.mjs",
-    "gate": "npm test && npm run check && npm run design:check && npm run build",
+    "gate": "npm test && npm run check && npm run design:check && npm run build && npm run ui:audit",
+    "ui:audit": "playwright test",
     "deploy": "npm run build && npx --yes wrangler@4 deploy"
   },
   "devDependencies": {
+    "@playwright/test": "1.63.0",
     "vite": "^7.1.5",
     "vitest": "^3.2.4"
   },
