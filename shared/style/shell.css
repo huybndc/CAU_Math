@@ -319,7 +319,7 @@ a.entry:hover .row-go{background:var(--accent)}
     background:color-mix(in srgb,var(--side) 94%,transparent);
     backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
   }
-  .nav-brand,.appnav-foot{display:none}
+  .nav-brand,.appnav-foot,.nav-apps{display:none}
   .tabs{display:flex;flex:1;min-width:0;height:100%;flex-direction:row;align-items:stretch;justify-content:space-around;gap:2px}
   .tab{
     flex:1 1 0;min-width:0;min-height:48px;flex-direction:column;justify-content:center;gap:3px;
@@ -437,4 +437,5 @@ a.entry:hover .row-go{background:var(--accent)}
 /* nút Nháp nổi không che nội dung cuối trang */
 #app{padding-bottom:max(3rem,5.5rem)}
 .tab.app-link{font-size:var(--fs-sm);color:var(--ink-dim)}
-.tabs .tab:not(.app-link) + .tab.app-link{margin-top:.6rem;border-top:1px solid var(--line);padding-top:.6rem}
+/* nhóm link sang 2 app kia ghim đáy thanh bên, như Live_Lecture */
+.nav-apps{margin-top:auto;display:flex;flex-direction:column;gap:2px;border-top:1px solid var(--line);padding-top:.6rem}
