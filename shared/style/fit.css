@@ -31,6 +31,15 @@
   #screen-home .home-cols{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:1.5rem;align-items:start}
   #screen-home .home-side .section-label:first-child{margin-top:.8rem}
 }
+/* Tổng quan không dồn lên nửa trên: ô tuần cao hơn, khoảng cách khối và thẻ giãn theo chiều cao màn (vh, có sàn/trần). Cỡ chữ giữ nguyên. */
+@media (min-width:1000px) and (min-height:640px){
+  #screen-home .term-track li{height:clamp(30px,6.5vh,48px)}
+  #screen-home .semester{margin-bottom:clamp(1.5rem,7vh,3.5rem)}
+  #screen-home .section-label{margin:clamp(.8rem,3.4vh,1.7rem) 0 clamp(.4rem,1.2vh,.7rem)}
+  #screen-home .home-main .section-label:first-child,#screen-home .home-side .section-label:first-child{margin-top:0}
+  #screen-home .act{padding:clamp(.55rem,2vh,1.05rem) .95rem;margin-bottom:clamp(.4rem,1.4vh,.8rem)}
+  #screen-home .lead-card{padding:clamp(1.1rem,3.6vh,1.9rem) 1.3rem}
+}
 .act{display:flex;justify-content:space-between;align-items:center;gap:.8rem;padding:.55rem .85rem;margin-bottom:.4rem;border:1px solid var(--line);border-radius:var(--r-lg);color:var(--ink);text-decoration:none}
 .act:hover{background:var(--panel2)}
 .act b{display:block;font-weight:600}
