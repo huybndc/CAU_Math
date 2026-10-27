@@ -15,3 +15,22 @@ for (const theme of ['light', 'dark']) for (const w of [1280]) test(`hàng công
     return f.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight) - kids.reduce((s, e) => s + e.getBoundingClientRect().width, 0) - parseFloat(cs.columnGap) * (kids.length - 1); });
   expect(slack).toBeGreaterThanOrEqual(8);
 });
+
+/* Thứ tự thanh bên như Live_Lecture: ☰ + tên app · công cụ · mục chính · (trống) · link 2 app kia ghim đáy. */
+for (const min of [false, true]) test(`thứ tự thanh bên, link app ở đáy${min ? ' (thu gọn)' : ''}`, async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 720 });
+  await page.addInitScript(m => localStorage.setItem('study-nav', m ? 'min' : ''), min);
+  await page.goto('/logic/');
+  await page.waitForSelector('.nav-apps .app-link');
+  const r = await page.evaluate(() => {
+    const top = s => document.querySelector(s).getBoundingClientRect().top;
+    const nav = document.querySelector('.appnav').getBoundingClientRect();
+    return { head: top('.nav-head'), tools: top('.appnav-foot'), tabs: top('.tabs'), apps: top('.nav-apps'), mid: nav.top + nav.height / 2,
+      appsBottom: document.querySelector('.nav-apps').getBoundingClientRect().bottom, navBottom: nav.bottom };
+  });
+  expect(r.head).toBeLessThan(r.tools);
+  expect(r.tools).toBeLessThan(r.tabs);
+  expect(r.tabs).toBeLessThan(r.apps);
+  expect(r.apps, 'nhóm link ở nửa dưới').toBeGreaterThan(r.mid);
+  expect(r.navBottom - r.appsBottom, 'ghim sát đáy').toBeLessThan(40);
+});
