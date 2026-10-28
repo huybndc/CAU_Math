@@ -1,6 +1,11 @@
 /* Strings of the shared shell (rail, top bar, hint button). */
 export const en = {
   'app.brand': 'Exlab',
+  'shell.subject': 'Choose subject',
+  'subj.logic': 'Logic Circuit',
+  'subj.linalg': 'Linear Algebra',
+  'subj.discrete': 'Discrete Math',
+  'subj.prog': 'C Programming',
   'shell.hub': 'Study Hub',
   'shell.live': 'Live Lecture',
   'shell.home': 'Back to the home page (all subjects)',

@@ -1,6 +1,11 @@
 /* Chuỗi của phần khung dùng chung (rail, topbar, nút gợi ý). */
 export const vi = {
   'app.brand': 'Exlab',
+  'shell.subject': 'Chọn môn',
+  'subj.logic': 'Logic Circuit',
+  'subj.linalg': 'Linear Algebra',
+  'subj.discrete': 'Discrete Math',
+  'subj.prog': 'Lập trình C',
   'shell.hub': 'Study Hub',
   'shell.live': 'Live Lecture',
   'shell.home': 'Về trang chủ (tất cả môn)',

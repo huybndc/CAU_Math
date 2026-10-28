@@ -25,6 +25,7 @@ export const HELP = {
     vi: { title: 'Tổng quan', rows: [
       ['Hôm nay', 'Bài gợi ý cho bạn lúc này. Bấm Bắt đầu để làm ngay.'],
       ['Học · Đề thi', 'Cột bên phải: học tiếp thẻ kế, công cụ, đề thi thử, tự luận.'],
+      ['Chọn môn', 'Nút ▾ cạnh tên môn: mở danh sách 4 môn, bấm để chuyển môn.'],
       ['Study Hub · Live Lecture', 'Cuối menu bên trái: link sang hai app kia.'],
       ['Ctrl K', 'Tìm nhanh trong app (gõ không dấu cũng được), Enter mở đúng bài.'],
       ['Nháp', 'Nút nổi góc dưới phải, mở ở mọi màn: ghi chú, máy tính, bảng chân trị, bìa K, vẽ.'],
@@ -33,6 +34,7 @@ export const HELP = {
     en: { title: 'Overview', rows: [
       ['Today', 'The suggested task right now. Press Start to do it now.'],
       ['Learn · Exams', 'Right column: next lesson card, tools, exam practice, free-response.'],
+      ['Choose subject', 'The ▾ button next to the subject name lists the 4 subjects; click one to switch.'],
       ['Study Hub · Live Lecture', 'Bottom of the left menu: links to the other two apps.'],
       ['Ctrl K', 'Quick search in the app; press Enter to open the result.'],
       ['Scratch', 'Floating button at the bottom right on every screen: notes, calculator, truth table, K-map, draw.'],

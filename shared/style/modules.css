@@ -61,6 +61,16 @@
 /* ---------- thu gọn menu trái thành cột icon (chỉ ≥761px; shell.js setupNavCollapse) ---------- */
 .nav-collapse{display:none}
 .nav-head{display:flex;align-items:flex-start;gap:2px;order:-1}   /* như Live, Hub: hàng ☰ + tên app trên cùng, hàng công cụ ở dưới */
+.nav-head{position:relative}
+.subject-switch{flex:0 0 28px;width:28px;height:28px;margin-top:3px;padding:0;border:0;border-radius:var(--r-md);background:none;color:var(--ink-dim);cursor:pointer;display:grid;place-items:center}
+.subject-switch:hover,.subject-switch[aria-expanded="true"]{background:color-mix(in srgb,var(--ink) 7%,transparent);color:var(--ink)}
+.subject-switch::before{content:"";width:16px;height:16px;background:currentColor;-webkit-mask:var(--i-chevron-down) center/contain no-repeat;mask:var(--i-chevron-down) center/contain no-repeat}
+.subject-menu{position:absolute;top:calc(100% + 4px);left:0;right:0;z-index:30;list-style:none;margin:0;padding:4px;background:var(--panel);border:1px solid var(--line);border-radius:var(--r-md);box-shadow:0 6px 18px rgb(0 0 0 / .12)}
+.subject-menu[hidden]{display:none}
+.subject-menu a{display:block;padding:.5rem .7rem;border-radius:var(--r-sm);color:var(--ink);text-decoration:none;font-size:var(--fs-md)}
+.subject-menu a:hover{background:var(--panel2)}
+.subject-menu a[aria-current="page"]{font-weight:600;color:var(--accent-ink-soft)}
+:root[data-nav="min"] .subject-switch{display:none}
 .nav-head .nav-brand{flex:1;min-width:0;padding-left:0;padding-top:7px}
 @media (min-width:761px){
   /* như Live_Lecture: ☰ 34px đầu hàng tên app; thu gọn còn 56px, ẩn tên app */
