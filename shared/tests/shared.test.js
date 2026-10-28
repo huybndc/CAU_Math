@@ -45,7 +45,7 @@ describe('icon menu', () => {
   it('mọi mục menu (data-nav ở index.html, data-app ở shell.js) có icon trong shell.css', async () => {
     const { readFileSync } = await import('node:fs');
     const css = readFileSync(new URL('../style/shell.css', import.meta.url), 'utf8');
-    const html = ['logic', 'linalg', 'discrete'].map(a => readFileSync(new URL(`../../${a}/index.html`, import.meta.url), 'utf8')).join('');
+    const html = ['logic', 'linalg', 'discrete', 'prog'].map(a => readFileSync(new URL(`../../${a}/index.html`, import.meta.url), 'utf8')).join('');
     const js = readFileSync(new URL('../ui/shell.js', import.meta.url), 'utf8');
     const navs = [...new Set([...html.matchAll(/data-nav="(\w+)"/g)].map(m => m[1]))];
     const apps = [...js.matchAll(/'shell\.\w+', '(\w+)'\]/g)].map(m => m[1]);

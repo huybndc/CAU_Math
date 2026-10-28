@@ -17,6 +17,7 @@ Chưa có `data-testid`. Hook hiện có = `data-nav`, `data-screen`, `data-subj
 - Code: `shared/ui/{shell,screens,learn-screen,runner,solver,lesson,palette,scratch*}.js`, `shared/logic/{free,question-pool,calc*}.js`.
 
 ## Môn
+- Lập trình C (`/prog/`, lô thử tuần 7: struct, union, typedef): bài học `prog/src/content/theory-ch7.*.md`; Đề thi thử 20 câu × 5 điểm, 120 phút, mã nguồn có số dòng (`.mp-code`). Câu đoán kết quả / tìm lỗi sinh từ `prog/src/logic/c-templates.js`, đáp án do clang thật tạo lúc build (`npm run gen:c` → `c-bank.json`); test chạy lại clang. Tỉ lệ phạm vi `SCOPE` (80% tuần ≥ 9, 20% nền). Không có Công cụ; thẻ Tự luận ẩn khi môn chưa có tự luận.
 | Môn | Chương | Code chính |
 |---|---|---|
 | `/logic/` (Mano) | ch1 Hệ đếm & mã nhị phân, ch2 Đại số Boolean & cổng logic, ch3 Gray code & K-map, ch4 (tên chưa kiểm) | `logic/src/ui/`, `logic/src/logic/` (`expr-parser`, `kmap-*`, `quine-mccluskey`) |

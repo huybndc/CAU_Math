@@ -12,6 +12,9 @@
   - Linear Algebra: 9 câu, 162 điểm, 97 phút (D63).
 - Luyện tập theo dạng và Thi thử bị ẩn (`PRACTICE_HIDDEN`, `shared/logic/visibility.js`); URL cũ vẫn chạy cho link của Hub. Tự luận vẫn phát `math.answer` mode `free`.
 
+## Lập trình C (2026-10-28, lô thử)
+- App `/prog/`: bài tuần 7 + Đề thi thử 20 câu, đáp án từ clang (`npm run gen:c`). Thêm lô: viết mẫu trong `c-templates.js` (week = tuần), chạy `npm run gen:c`, test tự kiểm. Lô tuần 9 khi có slide. Chưa có luyện trong bài, chưa có tự đánh dấu Đúng/Sai.
+
 ## Việc mở (chờ người học chọn)
 - Có thể làm tiếp: thang chấm + thêm dạng cho Discrete, Linear Algebra (cùng cách Logic).
 - Discrete: thêm đa dạng câu (định nghĩa, bổ đề, quy nạp).

@@ -1,0 +1,371 @@
+[
+ {
+  "id": "struct-byval-0",
+  "template": "struct-byval",
+  "kind": "predict",
+  "topic": "struct",
+  "week": 7,
+  "hash": "7082f1729ced377b",
+  "out": "1 6\n"
+ },
+ {
+  "id": "struct-byval-1",
+  "template": "struct-byval",
+  "kind": "predict",
+  "topic": "struct",
+  "week": 7,
+  "hash": "fe5d3cd533739125",
+  "out": "5 8\n"
+ },
+ {
+  "id": "struct-byval-2",
+  "template": "struct-byval",
+  "kind": "predict",
+  "topic": "struct",
+  "week": 7,
+  "hash": "2f752593c6c908de",
+  "out": "10 23\n"
+ },
+ {
+  "id": "struct-byval-3",
+  "template": "struct-byval",
+  "kind": "predict",
+  "topic": "struct",
+  "week": 7,
+  "hash": "30b5261685905ed3",
+  "out": "0 15\n"
+ },
+ {
+  "id": "struct-byval-4",
+  "template": "struct-byval",
+  "kind": "predict",
+  "topic": "struct",
+  "week": 7,
+  "hash": "2b831a1d744bc44b",
+  "out": "7 9\n"
+ },
+ {
+  "id": "struct-byval-5",
+  "template": "struct-byval",
+  "kind": "predict",
+  "topic": "struct",
+  "week": 7,
+  "hash": "e4da777c3f2672de",
+  "out": "2 13\n"
+ },
+ {
+  "id": "struct-copy-array-0",
+  "template": "struct-copy-array",
+  "kind": "predict",
+  "topic": "struct",
+  "week": 7,
+  "hash": "46d49fb471b19062",
+  "out": "Kim 3 Zim 4\n"
+ },
+ {
+  "id": "struct-copy-array-1",
+  "template": "struct-copy-array",
+  "kind": "predict",
+  "topic": "struct",
+  "week": 7,
+  "hash": "91daedf906e0082b",
+  "out": "Lee 5 Pee 6\n"
+ },
+ {
+  "id": "struct-copy-array-2",
+  "template": "struct-copy-array",
+  "kind": "predict",
+  "topic": "struct",
+  "week": 7,
+  "hash": "9407ea829992cdff",
+  "out": "Park 1 Dark 2\n"
+ },
+ {
+  "id": "struct-copy-array-3",
+  "template": "struct-copy-array",
+  "kind": "predict",
+  "topic": "struct",
+  "week": 7,
+  "hash": "00995dbb37c54d9c",
+  "out": "Choi 9 Hhoi 10\n"
+ },
+ {
+  "id": "struct-copy-array-4",
+  "template": "struct-copy-array",
+  "kind": "predict",
+  "topic": "struct",
+  "week": 7,
+  "hash": "3e48e60f7f9d4cff",
+  "out": "Han 0 Ban 1\n"
+ },
+ {
+  "id": "struct-array-ptr-0",
+  "template": "struct-array-ptr",
+  "kind": "predict",
+  "topic": "struct",
+  "week": 7,
+  "hash": "328c5baaf5388903",
+  "out": "8 c 11\n"
+ },
+ {
+  "id": "struct-array-ptr-1",
+  "template": "struct-array-ptr",
+  "kind": "predict",
+  "topic": "struct",
+  "week": 7,
+  "hash": "f170845a3bbeb0af",
+  "out": "4 z 5\n"
+ },
+ {
+  "id": "struct-array-ptr-2",
+  "template": "struct-array-ptr",
+  "kind": "predict",
+  "topic": "struct",
+  "week": 7,
+  "hash": "78fd70ec884385e5",
+  "out": "2 k 8\n"
+ },
+ {
+  "id": "struct-array-ptr-3",
+  "template": "struct-array-ptr",
+  "kind": "predict",
+  "topic": "struct",
+  "week": 7,
+  "hash": "061ab14de4dcaa88",
+  "out": "20 r 30\n"
+ },
+ {
+  "id": "typedef-nested-0",
+  "template": "typedef-nested",
+  "kind": "predict",
+  "topic": "typedef",
+  "week": 7,
+  "hash": "e7a974d753e8fb30",
+  "out": "10:05 T\n"
+ },
+ {
+  "id": "typedef-nested-1",
+  "template": "typedef-nested",
+  "kind": "predict",
+  "topic": "typedef",
+  "week": 7,
+  "hash": "9a55e705f9e9ed4f",
+  "out": "11:15 T\n"
+ },
+ {
+  "id": "typedef-nested-2",
+  "template": "typedef-nested",
+  "kind": "predict",
+  "topic": "typedef",
+  "week": 7,
+  "hash": "4ec353f597883446",
+  "out": "24:01 T\n"
+ },
+ {
+  "id": "typedef-nested-3",
+  "template": "typedef-nested",
+  "kind": "predict",
+  "topic": "typedef",
+  "week": 7,
+  "hash": "a03314d075f535c5",
+  "out": "07:25 T\n"
+ },
+ {
+  "id": "typedef-nested-4",
+  "template": "typedef-nested",
+  "kind": "predict",
+  "topic": "typedef",
+  "week": 7,
+  "hash": "7261a13c7b0a4917",
+  "out": "13:15 T\n"
+ },
+ {
+  "id": "union-overlay-0",
+  "template": "union-overlay",
+  "kind": "predict",
+  "topic": "union",
+  "week": 7,
+  "hash": "b6391011437cbe1e",
+  "out": "65 0 4\n"
+ },
+ {
+  "id": "union-overlay-1",
+  "template": "union-overlay",
+  "kind": "predict",
+  "topic": "union",
+  "week": 7,
+  "hash": "0de2243ba11a8c67",
+  "out": "2 1 4\n"
+ },
+ {
+  "id": "union-overlay-2",
+  "template": "union-overlay",
+  "kind": "predict",
+  "topic": "union",
+  "week": 7,
+  "hash": "bf0b791f0ffcdfe1",
+  "out": "1 2 4\n"
+ },
+ {
+  "id": "union-overlay-3",
+  "template": "union-overlay",
+  "kind": "predict",
+  "topic": "union",
+  "week": 7,
+  "hash": "68323000ae9604bf",
+  "out": "66 3 4\n"
+ },
+ {
+  "id": "union-overlay-4",
+  "template": "union-overlay",
+  "kind": "predict",
+  "topic": "union",
+  "week": 7,
+  "hash": "bf0b791f0ffcdfe1",
+  "out": "1 2 4\n"
+ },
+ {
+  "id": "struct-strcmp-0",
+  "template": "struct-strcmp",
+  "kind": "predict",
+  "topic": "struct",
+  "week": 7,
+  "hash": "de213d27c31adb1c",
+  "out": "second 3\n"
+ },
+ {
+  "id": "struct-strcmp-1",
+  "template": "struct-strcmp",
+  "kind": "predict",
+  "topic": "struct",
+  "week": 7,
+  "hash": "98bd6fe24f592335",
+  "out": "same 3\n"
+ },
+ {
+  "id": "struct-strcmp-2",
+  "template": "struct-strcmp",
+  "kind": "predict",
+  "topic": "struct",
+  "week": 7,
+  "hash": "8ade718edded7dd1",
+  "out": "first 3\n"
+ },
+ {
+  "id": "struct-strcmp-3",
+  "template": "struct-strcmp",
+  "kind": "predict",
+  "topic": "struct",
+  "week": 7,
+  "hash": "821a1d87e12767d2",
+  "out": "second 4\n"
+ },
+ {
+  "id": "err-assign-array-0",
+  "template": "err-assign-array",
+  "kind": "find",
+  "topic": "struct",
+  "week": 7,
+  "hash": "413723a40443615d",
+  "line": 6
+ },
+ {
+  "id": "err-assign-array-1",
+  "template": "err-assign-array",
+  "kind": "find",
+  "topic": "struct",
+  "week": 7,
+  "hash": "5aaffecca86a065e",
+  "line": 6
+ },
+ {
+  "id": "err-assign-array-2",
+  "template": "err-assign-array",
+  "kind": "find",
+  "topic": "struct",
+  "week": 7,
+  "hash": "efaf000f47d2c536",
+  "line": 6
+ },
+ {
+  "id": "err-arrow-on-value-0",
+  "template": "err-arrow-on-value",
+  "kind": "find",
+  "topic": "struct",
+  "week": 7,
+  "hash": "c65726205caac130",
+  "line": 6
+ },
+ {
+  "id": "err-arrow-on-value-1",
+  "template": "err-arrow-on-value",
+  "kind": "find",
+  "topic": "struct",
+  "week": 7,
+  "hash": "6269fd7dbe8736af",
+  "line": 6
+ },
+ {
+  "id": "err-arrow-on-value-2",
+  "template": "err-arrow-on-value",
+  "kind": "find",
+  "topic": "struct",
+  "week": 7,
+  "hash": "a726d71f4045c591",
+  "line": 6
+ },
+ {
+  "id": "err-compare-struct-0",
+  "template": "err-compare-struct",
+  "kind": "find",
+  "topic": "struct",
+  "week": 7,
+  "hash": "07da8de01cf149ce",
+  "line": 5
+ },
+ {
+  "id": "err-compare-struct-1",
+  "template": "err-compare-struct",
+  "kind": "find",
+  "topic": "struct",
+  "week": 7,
+  "hash": "a1766e0efea5d5c8",
+  "line": 5
+ },
+ {
+  "id": "err-compare-struct-2",
+  "template": "err-compare-struct",
+  "kind": "find",
+  "topic": "struct",
+  "week": 7,
+  "hash": "9db8ba57924681c0",
+  "line": 5
+ },
+ {
+  "id": "err-missing-struct-0",
+  "template": "err-missing-struct",
+  "kind": "find",
+  "topic": "typedef",
+  "week": 7,
+  "hash": "70a60bd00ae07e5b",
+  "line": 4
+ },
+ {
+  "id": "err-missing-struct-1",
+  "template": "err-missing-struct",
+  "kind": "find",
+  "topic": "typedef",
+  "week": 7,
+  "hash": "09237036b31f198b",
+  "line": 4
+ },
+ {
+  "id": "err-missing-struct-2",
+  "template": "err-missing-struct",
+  "kind": "find",
+  "topic": "typedef",
+  "week": 7,
+  "hash": "9f8a3450674c5cc7",
+  "line": 4
+ }
+]

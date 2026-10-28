@@ -16,6 +16,7 @@ body[data-print]{background:#fff}
 :is(#mock-print,.mock-sheet) .mp-ask{margin:0}
 :is(#mock-print,.mock-sheet) .mp-space{min-height:calc(var(--pts,4) * 2.4mm)}
 :is(#mock-print,.mock-sheet) .mp-ans{margin:.15em 0 .15em 1.2em}
+:is(#mock-print,.mock-sheet) .mp-code{font:9.5pt/1.35 var(--mono);white-space:pre;margin:.3em 0 .4em;padding:.4em .6em;border:1px solid #ccc;border-radius:3px;overflow-x:auto}
 :is(#mock-print,.mock-sheet) .mp-rubric{font-size:9pt;color:#444;margin:.3em 0 .2em 1.2em}
 :is(#mock-print,.mock-sheet) .mp-grade{font-size:9pt;color:#444}
 :is(#mock-print,.mock-sheet) .mp-src{font-size:8.5pt;color:#444;margin:.2em 0 0}

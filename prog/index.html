@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="vi" data-subject="prog">
+<head>
+<meta charset="utf-8">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect width='16' height='16' rx='4' fill='%235a6ab8'/><svg x='2' y='2' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.8' stroke-linecap='round' stroke-linejoin='round'><path d='M14 2v6a2 2 0 0 0 .245.96l5.51 10.08A2 2 0 0 1 18 22H6a2 2 0 0 1-1.755-2.96l5.51-10.08A2 2 0 0 0 10 8V2'/><path d='M6.453 15h11.094'/><path d='M8.5 2h7'/></svg></svg>">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lập trình C · Exlab</title>
+<script>
+  /* đặt sáng/tối TRƯỚC lần vẽ đầu để không nháy trắng (theo lựa chọn đã lưu, không có thì theo máy) */
+  try {
+    const t = localStorage.getItem('study-theme');
+    document.documentElement.dataset.theme = t || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  } catch { document.documentElement.dataset.theme = 'light'; }
+</script>
+<link rel="stylesheet" href="/shared/style/app.css">
+<link rel="stylesheet" href="./src/style.css">
+</head>
+<body>
+<aside class="appnav">
+  <div class="appnav-foot">
+    <div class="seg" id="lang-switch" role="group" data-i18n-title="shell.lang">
+      <button data-lang="vi" aria-pressed="true">VI</button>
+      <button data-lang="en" aria-pressed="false">EN</button>
+    </div>
+    <button class="theme-toggle" id="theme-toggle" type="button" data-i18n-title="shell.theme"></button>
+  </div>
+  <a class="nav-brand" href="/" data-i18n-title="shell.home"><b data-i18n="app.short"></b><small data-i18n="app.book"></small></a>
+  <nav class="tabs" data-i18n-title="shell.menu">
+    <a class="tab" href="#/" data-nav="home" data-i18n="nav.home"></a>
+    <a class="tab" href="#/learn" data-nav="learn" data-i18n="nav.learn"></a>
+    <a class="tab" href="#/mock" data-nav="mock" data-i18n="nav.mock"></a>
+  </nav>
+</aside>
+
+<main id="app">
+  <section class="screen" data-screen="home" id="screen-home"></section>
+  <section class="screen" data-screen="learn" id="screen-learn"></section>
+  <section class="screen" data-screen="free" id="screen-free"></section>
+  <section class="screen" data-screen="mock" id="screen-mock"></section>
+  <section class="screen wide" data-screen="pane" id="screen-pane">
+    <header id="pane-head"></header>
+<!--#include src/pages/ch7.html -->
+  </section>
+</main>
+
+<script type="module" src="./src/main.js"></script>
+</body>
+</html>

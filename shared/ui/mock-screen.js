@@ -37,8 +37,9 @@ function paper(ex, key, tools) {
   ]);
   const qs = ex.questions.map(q => el('section', { class: 'mp-q' }, [
     el('h2', {}, [`${q.no}. [${q.pts}] `, math(q.stem)]),
+    ...(q.code ? [el('pre', { class: 'mp-code', text: q.code })] : []),
     ...q.parts.map(p => el('div', { class: 'mp-part', style: key ? '' : `--pts:${p.pts}` }, [
-      el('p', { class: 'mp-ask' }, [el('b', { text: `(${p.label}) [${p.pts}] ` }), math(p.q)]),
+      ...(p.q || q.parts.length > 1 ? [el('p', { class: 'mp-ask' }, [el('b', { text: `(${p.label}) [${p.pts}] ` }), math(p.q)])] : []),
       ...(key ? p.a.map(line => el('p', { class: 'mp-ans' }, math(line))) : [el('div', { class: 'mp-space' })]),
       ...(key && tools?.figure && p.figs ? [el('div', { class: `mp-figs${p.stack ? ' stack' : ''}` }, p.figs.map(f => el('figure', {}, [tools.figure(f)])))] : []),
       ...(key && p.rubric ? [el('p', { class: 'mp-rubric' }, math(`Marking: ${p.rubric.map(([n, s]) => `${s} [${n}]`).join(' · ')}`))] : []),
