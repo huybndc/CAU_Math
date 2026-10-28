@@ -141,6 +141,7 @@ export async function setupShell(cfg) {
   setupTips();
   setupScratch();
   addAppLinks();
+  addSubjectSwitch();
   startSync();
   syncProgress();
   const help = setupScreenHelp();
@@ -151,4 +152,26 @@ export async function setupShell(cfg) {
   window.addEventListener('scroll', () => {
     document.querySelectorAll('.hint:popover-open').forEach(h => h.hidePopover());
   }, { passive: true });
+}
+
+/** Nút chọn môn (chỉ trong Exlab): ▾ cạnh tên môn mở danh sách 4 môn, môn đang mở đánh dấu. */
+const SUBJECTS = ['logic', 'linalg', 'discrete', 'prog'];
+function addSubjectSwitch() {
+  const head = document.querySelector('.nav-head');
+  if (!head || head.querySelector('.subject-switch')) return;
+  const cur = document.documentElement.dataset.subject;
+  const btn = Object.assign(document.createElement('button'), { type: 'button', className: 'subject-switch' });
+  const menu = Object.assign(document.createElement('ul'), { className: 'subject-menu', hidden: true });
+  const label = () => { btn.title = btn.ariaLabel = T('shell.subject'); };
+  const fill = () => menu.replaceChildren(...SUBJECTS.map(id => {
+    const a = Object.assign(document.createElement('a'), { href: `/${id}/`, textContent: T(`subj.${id}`) });
+    if (id === cur) a.setAttribute('aria-current', 'page');
+    const li = document.createElement('li'); li.append(a); return li;
+  }));
+  const open = on => { menu.hidden = !on; btn.setAttribute('aria-expanded', String(on)); if (on) fill(); };
+  btn.addEventListener('click', e => { e.stopPropagation(); open(menu.hidden); });
+  document.addEventListener('click', e => { if (!menu.contains(e.target)) open(false); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') open(false); });
+  label(); open(false); onLangChange(label);
+  head.append(btn, menu);
 }

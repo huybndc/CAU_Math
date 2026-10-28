@@ -34,3 +34,20 @@ for (const min of [false, true]) test(`thứ tự thanh bên, link app ở đáy
   expect(r.apps, 'nhóm link ở nửa dưới').toBeGreaterThan(r.mid);
   expect(r.navBottom - r.appsBottom, 'ghim sát đáy').toBeLessThan(40);
 });
+
+test('nút chọn môn: mở danh sách 4 môn, đánh dấu môn đang mở, bấm chuyển môn', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 720 });
+  await page.goto('/logic/');
+  await page.waitForSelector('#screen-home h1');
+  await expect(page.locator('.subject-menu')).toBeHidden();
+  await page.click('.subject-switch');
+  const links = page.locator('.subject-menu a');
+  await expect(links).toHaveCount(4);
+  await expect(page.locator('.subject-menu a[aria-current="page"]')).toHaveAttribute('href', '/logic/');
+  await page.keyboard.press('Escape');
+  await expect(page.locator('.subject-menu')).toBeHidden();
+  await page.click('.subject-switch');
+  await page.click('.subject-menu a[href="/prog/"]');
+  await page.waitForURL('**/prog/**');
+  await expect(page.locator('html')).toHaveAttribute('data-subject', 'prog');
+});
