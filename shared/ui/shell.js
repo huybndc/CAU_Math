@@ -1,5 +1,6 @@
 import { $ } from './dom.js';
-import { setupLangSwitch, onLangChange, t as T } from '../i18n/index.js';
+import { setupLangSwitch, onLangChange, getLang, t as T } from '../i18n/index.js';
+import SUBJECTS from '../subjects.json';
 import { setupScratch } from './scratch.js';
 import { setupTips } from './tip.js';
 import { setupPalette } from './palette.js';
@@ -154,8 +155,7 @@ export async function setupShell(cfg) {
   }, { passive: true });
 }
 
-/** Nút chọn môn (chỉ trong Exlab): ▾ cạnh tên môn mở danh sách 4 môn, môn đang mở đánh dấu. */
-const SUBJECTS = ['logic', 'linalg', 'discrete', 'prog'];
+/** Nút chọn môn (chỉ trong Exlab): ▾ cạnh tên môn mở danh sách các môn KHÁC (môn đang mở đã hiện ở tên app). Danh sách: shared/subjects.json. */
 function addSubjectSwitch() {
   const head = document.querySelector('.nav-head');
   if (!head || head.querySelector('.subject-switch')) return;
@@ -163,9 +163,8 @@ function addSubjectSwitch() {
   const btn = Object.assign(document.createElement('button'), { type: 'button', className: 'subject-switch' });
   const menu = Object.assign(document.createElement('ul'), { className: 'subject-menu', hidden: true });
   const label = () => { btn.title = btn.ariaLabel = T('shell.subject'); };
-  const fill = () => menu.replaceChildren(...SUBJECTS.map(id => {
-    const a = Object.assign(document.createElement('a'), { href: `/${id}/`, textContent: T(`subj.${id}`) });
-    if (id === cur) a.setAttribute('aria-current', 'page');
+  const fill = () => menu.replaceChildren(...SUBJECTS.filter(s => s.id !== cur).map(s => {
+    const a = Object.assign(document.createElement('a'), { href: `/${s.id}/`, textContent: s[getLang()] ?? s.vi });
     const li = document.createElement('li'); li.append(a); return li;
   }));
   const open = on => { menu.hidden = !on; btn.setAttribute('aria-expanded', String(on)); if (on) fill(); };

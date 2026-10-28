@@ -2,6 +2,7 @@ import { defineConfig, loadEnv } from 'vite';
 import { fileURLToPath } from 'node:url';
 import { htmlInclude } from './shared/vite-plugin-include.js';
 import { syncPlugin } from './shared/vite-plugin-sync.js';
+import { readFileSync } from 'node:fs';
 
 /*
  * MỘT máy chủ Vite cho cả 3 app (quyết định D01 — phương án B):
@@ -14,10 +15,12 @@ import { syncPlugin } from './shared/vite-plugin-sync.js';
  * Build: 4 trang (D47) — Study Hub tải repo này khi deploy, lấy /logic/ /linalg/ /discrete/ đặt vào cùng worker.
  */
 const page = p => fileURLToPath(new URL(p, import.meta.url));
+// danh sách môn: một nguồn duy nhất (shared/subjects.json); thêm/bỏ môn chỉ sửa file đó + thư mục app
+const SUBJECTS = JSON.parse(readFileSync(new URL('./shared/subjects.json', import.meta.url), 'utf8'));
 export default defineConfig(({ mode }) => ({
   plugins: [htmlInclude(), syncPlugin({ ...process.env, ...loadEnv(mode, process.cwd(), 'STUDY_') })],
   resolve: { alias: { '@shared': fileURLToPath(new URL('./shared', import.meta.url)), '@host': fileURLToPath(new URL('./shared/host.js', import.meta.url)) } },
   server: { port: 5180, strictPort: true },
-  build: { rollupOptions: { input: { home: page('index.html'), logic: page('logic/index.html'), linalg: page('linalg/index.html'), discrete: page('discrete/index.html'), prog: page('prog/index.html') } } },
-  test: { testTimeout: 15000, include: ['{shared,logic,linalg,discrete,prog}/tests/**/*.test.js'] },
+  build: { rollupOptions: { input: { home: page('index.html'), ...Object.fromEntries(SUBJECTS.map(s => [s.id, page(`${s.id}/index.html`)])) } } },
+  test: { testTimeout: 15000, include: [`{shared,${SUBJECTS.map(s => s.id).join(',')}}/tests/**/*.test.js`] },
 }));
