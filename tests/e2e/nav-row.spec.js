@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import SUBJECTS from '../../shared/subjects.json' with { type: 'json' };
 
 /* Hàng công cụ thanh bên (tìm kiếm, VI/EN, sáng/tối, mây) nằm trên một dòng khi menu mở (lỗi: mây rớt dòng ở giao diện tối). */
 for (const theme of ['light', 'dark']) for (const w of [1280]) test(`hàng công cụ một dòng ${theme} ${w}`, async ({ page }) => {
@@ -35,15 +36,15 @@ for (const min of [false, true]) test(`thứ tự thanh bên, link app ở đáy
   expect(r.navBottom - r.appsBottom, 'ghim sát đáy').toBeLessThan(40);
 });
 
-test('nút chọn môn: mở danh sách 4 môn, đánh dấu môn đang mở, bấm chuyển môn', async ({ page }) => {
+test('nút chọn môn: danh sách các môn khác (không có môn đang mở), bấm chuyển môn', async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 720 });
   await page.goto('/logic/');
   await page.waitForSelector('#screen-home h1');
   await expect(page.locator('.subject-menu')).toBeHidden();
   await page.click('.subject-switch');
   const links = page.locator('.subject-menu a');
-  await expect(links).toHaveCount(4);
-  await expect(page.locator('.subject-menu a[aria-current="page"]')).toHaveAttribute('href', '/logic/');
+  await expect(links).toHaveCount(SUBJECTS.length - 1);
+  await expect(page.locator('.subject-menu a[href="/logic/"]')).toHaveCount(0);
   await page.keyboard.press('Escape');
   await expect(page.locator('.subject-menu')).toBeHidden();
   await page.click('.subject-switch');

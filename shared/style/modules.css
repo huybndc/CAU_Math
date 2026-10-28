@@ -69,7 +69,6 @@
 .subject-menu[hidden]{display:none}
 .subject-menu a{display:block;padding:.5rem .7rem;border-radius:var(--r-sm);color:var(--ink);text-decoration:none;font-size:var(--fs-md)}
 .subject-menu a:hover{background:var(--panel2)}
-.subject-menu a[aria-current="page"]{font-weight:600;color:var(--accent-ink-soft)}
 :root[data-nav="min"] .subject-switch{display:none}
 .nav-head .nav-brand{flex:1;min-width:0;padding-left:0;padding-top:7px}
 @media (min-width:761px){

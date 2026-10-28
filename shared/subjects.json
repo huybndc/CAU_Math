@@ -1,0 +1,6 @@
+[
+  { "id": "logic", "vi": "Logic Circuit", "en": "Logic Circuit" },
+  { "id": "linalg", "vi": "Linear Algebra", "en": "Linear Algebra" },
+  { "id": "discrete", "vi": "Discrete Math", "en": "Discrete Math" },
+  { "id": "prog", "vi": "Lập trình C", "en": "C Programming" }
+]
