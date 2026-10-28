@@ -56,9 +56,9 @@ function side(cfg, events, now) {
     el('h2', { class: 'section-label', text: T('nav.learn') }),
     n ? act({ href: `#/learn/${n.ch}/theory`, title: T('learn.nextCard', { title: n.title }), note: chapterTitle(n.ch), onClick: () => seekLesson(n.ch, n.card) })
       : act({ href: '#/learn', title: T('home.actToc'), note: T('home.actTocNote', { n: cfg.chapters.length }) }),
-    act({ href: '#/tools', title: T('nav.tools'), note: T('home.actToolsNote') }),
-    el('h2', { class: 'section-label', text: T('nav.mock') }),
-    act({ href: '#/free', title: T('practice.tabFree'), note: T('home.actFreeNote') }),
+    ...($('#screen-tools') ? [act({ href: '#/tools', title: T('nav.tools'), note: T('home.actToolsNote') })] : []),   // môn không có công cụ (Lập trình C)
+    ...(cfg.free?.length ? [el('h2', { class: 'section-label', text: T('nav.mock') }),
+      act({ href: '#/free', title: T('practice.tabFree'), note: T('home.actFreeNote') })] : []),   // môn chưa có tự luận: ẩn
   ]);
 }
 

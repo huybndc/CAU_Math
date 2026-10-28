@@ -18,6 +18,6 @@ export default defineConfig(({ mode }) => ({
   plugins: [htmlInclude(), syncPlugin({ ...process.env, ...loadEnv(mode, process.cwd(), 'STUDY_') })],
   resolve: { alias: { '@shared': fileURLToPath(new URL('./shared', import.meta.url)), '@host': fileURLToPath(new URL('./shared/host.js', import.meta.url)) } },
   server: { port: 5180, strictPort: true },
-  build: { rollupOptions: { input: { home: page('index.html'), logic: page('logic/index.html'), linalg: page('linalg/index.html'), discrete: page('discrete/index.html') } } },
-  test: { testTimeout: 15000, include: ['{shared,logic,linalg,discrete}/tests/**/*.test.js'] },
+  build: { rollupOptions: { input: { home: page('index.html'), logic: page('logic/index.html'), linalg: page('linalg/index.html'), discrete: page('discrete/index.html'), prog: page('prog/index.html') } } },
+  test: { testTimeout: 15000, include: ['{shared,logic,linalg,discrete,prog}/tests/**/*.test.js'] },
 }));
