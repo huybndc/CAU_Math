@@ -150,6 +150,22 @@ export const TEMPLATES = [
       '    return 0;',
       '}'),
   },
+  {
+    // Lỗi chạy (clang không báo): gen chạy bản sai với AddressSanitizer, phải sập; bản sửa chạy sạch.
+    id: 'find-oob', kind: 'multi', type: 'findrun', topic: 'array', week: 3, san: true,
+    params: [[[1, 2, 3]], [[4, 8, 15, 16]], [[7, 9]], [[2, 4, 6, 8, 10]]],
+    src: ([xs], fix = false) => lines(
+      '#include <stdio.h>',
+      'int main(void) {',
+      '    int i;',
+      `    int a[${xs.length}] = {${xs.join(', ')}};`,
+      `    for (i = 0; ${fix ? `i < ${xs.length}` : `i <= ${xs.length}`}; i++)`,
+      '        printf("%d ", a[i]);',
+      '    return 0;',
+      '}'),
+    parts: ([xs], r) => [{ pts: 4, q: 'Find the wrong line, explain the error, and rewrite that line correctly.',
+      a: [`Line 5: i <= ${xs.length} reads a[${xs.length}], outside the array (last index is ${xs.length - 1}).`, `Fix: for (i = 0; i < ${xs.length}; i++)  (prints ${r.out.trim()})`] }],
+  },
   // ---- nhiều ý (khuôn đề 2026-10-30): src = chương trình đúng clang chạy; show = bản người học thấy; parts(p, r) dựng ý từ kết quả clang r ----
   {
     id: 'mcq-bitops', kind: 'multi', type: 'mcq', topic: 'operators', week: 2,
@@ -193,13 +209,13 @@ export const TEMPLATES = [
       '}'),
     show: function ([xs]) { return this.src([xs], ['( A )', '( B )']); },
     parts: ([xs], r) => [
-      { pts: 3, q: `The loop must add every element of arr to sum (program prints ${r.out.trim()}). Fill in ( A ).`, a: [`arr + ${xs.length}  (or &arr[${xs.length}])`] },
-      { pts: 3, q: 'Fill in ( B ).', a: ['*p'] },
+      { pts: 3, q: `The loop must add every element of arr to sum (program prints ${r.out.trim()}). Fill in ( A ).`, a: [`arr + ${xs.length}  (also OK: &arr[${xs.length}], arr + sizeof(arr) / sizeof(arr[0]))`] },
+      { pts: 3, q: 'Fill in ( B ).', a: ['*p  (also OK: arr[p - arr])'] },
     ],
   },
   {
     id: 'compile-check', kind: 'multi', type: 'compile', topic: 'pointer', week: 5,
-    params: [['const int n = 5;', 'n = 6;', 'n'], ['int a[3] = {1, 2, 3};', 'a[0] = 9;', 'a[0]'], ['char s[] = "hi";', 's = "ok";', 's[0]'], ['int x = 4; int *p = &x;', '*p = 7;', 'x']],
+    params: [['const int n = 5;', 'n = 6;', 'n', 'n is const, so it cannot change'], ['int a[3] = {1, 2, 3};', 'a[0] = 9;', 'a[0]'], ['char s[] = "hi";', 's = "ok";', 's[0]', 'you cannot assign to an array name (use strcpy)'], ['int x = 4; int *p = &x;', '*p = 7;', 'x']],
     src: ([decl, stmt, val]) => lines(
       '#include <stdio.h>',
       'int main(void) {',
@@ -209,7 +225,7 @@ export const TEMPLATES = [
       '    return 0;',
       '}'),
     parts: (p, r) => [{ pts: 3, q: 'Does this program compile? If yes, what does it print? If no, which line is wrong and why?',
-      a: [r.ok ? `Yes. Prints ${r.out.trim()}` : `No. Line ${r.line}: ${r.why}`] }],
+      a: [r.ok ? `Yes. Prints ${r.out.trim()}` : `No. Line ${r.line}: ${p[3]}. (clang: ${r.why})`] }],
   },
   {
     id: 'write-count-char', kind: 'multi', type: 'write', topic: 'string', week: 6,
@@ -228,8 +244,8 @@ export const TEMPLATES = [
     show: function (p) { return this.src(p, ['    ( A )   /* write the body */']); },
     parts: (p, r) => [
       { pts: 4, q: 'count_char returns how many times c appears in s. Write the body at ( A ).',
-        a: ['int n = 0; for (; *s; s++) if (*s == c) n++; return n;', '(many correct ways; ask Chat to check your code)'] },
-      { pts: 2, q: 'With your function, what does the program print?', a: [r.out.trim()] },
+        a: ['int n = 0; for (; *s; s++) if (*s == c) n++; return n;', '(Many correct ways. Compare with this model answer, or send your code to Claude to check.)'] },
+      { pts: 2, q: 'With your function, does the program compile? If yes, what does it print?', a: [`Yes. Prints ${r.out.trim()}`] },
     ],
   },
   {
@@ -261,5 +277,6 @@ export const TEMPLATES = [
 export const variants = () => TEMPLATES.flatMap(t => t.params.map((p, i) => ({
   id: `${t.id}-${i}`, template: t.id, kind: t.kind, topic: t.topic, week: t.week, src: t.src(p),
   ...(t.kind === 'find' ? { fixSrc: t.src(p, true) } : {}),
-  ...(t.kind === 'multi' ? { type: t.type, show: t.show ? t.show(p) : t.src(p), parts: r => t.parts(p, r, i) } : {}),
+  ...(t.kind === 'multi' ? { type: t.type, show: t.show ? t.show(p) : t.src(p), parts: r => t.parts(p, r, i),
+    ...(t.san ? { badSrc: t.src(p), src: t.src(p, true) } : {}) } : {}),
 })));

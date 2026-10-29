@@ -46,7 +46,14 @@ function paper(ex, key, tools) {
     ])),
     el('p', { class: 'mp-src', text: srcLine(ex, q) }),
   ]));
-  return el('div', {}, [head, ...qs]);
+  // Phiếu tự chấm (chỉ ở bản đáp án): sai là 0 cả ý nên mỗi ý một dòng.
+  const rows = ex.questions.flatMap(q => q.parts.map(p => [q.parts.length > 1 ? `${q.no}${p.label}` : `${q.no}`, p.pts]));
+  const sheet = key ? [el('section', { class: 'mp-q mp-sheet' }, [el('h2', { text: 'Self-check sheet' }), el('table', {}, [
+    el('tr', {}, ['Part', 'Max', 'Mine'].map(t => el('th', { text: t }))),
+    ...rows.map(([n, m]) => el('tr', {}, [el('td', { text: n }), el('td', { text: String(m) }), el('td', { text: '' })])),
+    el('tr', {}, [el('th', { text: 'Total' }), el('th', { text: String(ex.total) }), el('th', { text: '' })]),
+  ])])] : [];
+  return el('div', {}, [head, ...qs, ...sheet]);
 }
 
 function print(ex, key, tools) {

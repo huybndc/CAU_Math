@@ -12,17 +12,18 @@ const FLAGS = ['-std=c11', '-Wall', '-o'];
 export const hashSrc = s => createHash('sha256').update(s).digest('hex').slice(0, 16);
 
 /** { ok, out?, line? } — dùng chung cho script này và test kiểm lại. */
-export function runC(src) {
+export function runC(src, { san = false } = {}) {
   const dir = mkdtempSync(join(tmpdir(), 'cbank-'));
   try {
     const file = join(dir, 'main.c'), bin = join(dir, 'a.out');
     writeFileSync(file, src);
-    const cc = spawnSync('clang', [file, ...FLAGS, bin], { encoding: 'utf8' });
+    const cc = spawnSync('clang', [file, ...(san ? ['-g', '-fsanitize=address'] : []), ...FLAGS, bin], { encoding: 'utf8' });
     if (cc.status !== 0) {
       const m = cc.stderr.match(/main\.c:(\d+):\d+: error/);
       const why = cc.stderr.match(/error: ([^\n]*)/);
       return { ok: false, line: m ? Number(m[1]) : null, why: why ? why[1] : '', err: cc.stderr };
     }
+    if (san) { const run = spawnSync(bin, { encoding: 'utf8', timeout: 5000 }); return { ok: true, crashed: run.status !== 0, out: run.stdout }; }
     return { ok: true, out: execFileSync(bin, { encoding: 'utf8', timeout: 5000 }) };
   } finally { rmSync(dir, { recursive: true, force: true }); }
 }
@@ -30,6 +31,7 @@ export function runC(src) {
 export function build() {
   return variants().map(v => {
     const r = runC(v.src);
+    if (v.badSrc && !runC(v.badSrc, { san: true }).crashed) throw new Error(`${v.id}: bản sai phải sập khi chạy`);
     if (v.kind === 'multi') {
       if (!r.ok && !r.line) throw new Error(`${v.id}: lỗi không rõ dòng\n${r.err}`);
       const res = r.ok ? { ok: true, out: r.out } : { ok: false, line: r.line, why: r.why };
