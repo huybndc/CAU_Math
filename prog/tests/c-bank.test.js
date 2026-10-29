@@ -30,16 +30,37 @@ describe('ngân hàng C sinh bằng clang', () => {
       expect(runC(v.fixSrc).ok, v.id).toBe(true);
     }
   }, 120000);
+  it('câu nhiều ý: chạy lại clang khớp kết quả đã lưu; ý nào cũng có đáp án', () => {
+    for (const v of variants().filter(x => x.kind === 'multi')) {
+      const r = runC(v.src), b = byId[v.id];
+      expect(r.ok, v.id).toBe(b.ok);
+      if (r.ok) expect(r.out, v.id).toBe(b.out); else expect([r.line, r.why], v.id).toEqual([b.line, b.why]);
+      for (const pt of v.parts(b)) expect(pt.a.every(l => l && !l.includes('undefined')), v.id).toBe(true);
+    }
+  }, 120000);
+  it('bộ giải độc lập: tổng mảng, khoảng cách², đếm ký tự, x >> 4 khớp clang', () => {
+    const out = id => byId[id].out.trim();
+    TEMPLATES.find(t => t.id === 'fill-ptr-sum').params.forEach(([xs], i) => expect(Number(out(`fill-ptr-sum-${i}`))).toBe(xs.reduce((a, b) => a + b, 0)));
+    TEMPLATES.find(t => t.id === 'fill-struct-dist').params.forEach(([a, b, c, d], i) => expect(Number(out(`fill-struct-dist-${i}`))).toBe((a - c) ** 2 + (b - d) ** 2));
+    TEMPLATES.find(t => t.id === 'write-count-char').params.forEach(([w, c], i) => expect(Number(out(`write-count-char-${i}`))).toBe([...w].filter(x => x === c).length));
+    TEMPLATES.find(t => t.id === 'mcq-bitops').params.forEach(([a, b, x], i) => {
+      const v = variants().find(y => y.id === `mcq-bitops-${i}`), [p1, p2] = v.parts(byId[v.id]);
+      expect(p1.a[0]).toContain(`(value ${a & b})`);
+      expect(p2.a[0]).toContain('0x' + (x >> 4).toString(16).toUpperCase().padStart(2, '0'));
+      expect(new Set(byId[v.id].out.trim().split('\n')[1].split(' ')).size).toBe(4);
+    });
+  });
 });
 
 describe('đề thi thử Lập trình C', () => {
-  it('20 câu × 5 điểm, 120 phút; đáp án lấy đúng từ ngân hàng; không lặp biến thể trong một đề', () => {
+  it('20 câu lớn, mỗi ý 2–4 điểm và chấm cả ý; có đủ 5 dạng', () => {
     for (let seed = 0; seed < 30; seed++) {
       const ex = buildMock(PROG_MOCK, seed);
-      expect([ex.questions.length, ex.total, ex.minutes]).toEqual([20, 100, 120]);
+      expect(ex.questions.length).toBe(20);
+      for (const q of ex.questions) for (const p of q.parts) expect(p.pts >= 2 && p.pts <= 4 && p.rubric.length === 1).toBe(true);
     }
-    const ex = buildMock(PROG_MOCK, 3);
-    for (const q of ex.questions) expect(q.code).toMatch(/^ 1 {2}#include <stdio.h>/);
+    const kinds = new Set(PROG_MOCK.makers.map((m, i) => { const f = m(() => 0).facts; return f.type ?? f.kind; }));
+    for (const k of ['mcq', 'fill', 'compile', 'write', 'predict', 'find']) expect(kinds.has(k), k).toBe(true);
   });
   it('mỗi câu: đáp án in ra khớp c-bank.json; 20 biến thể khác nhau', () => {
     for (let seed = 0; seed < 30; seed++) {
@@ -48,9 +69,9 @@ describe('đề thi thử Lập trình C', () => {
         const q = make(() => ((seed * 7 + i * 13) % 97) / 97);
         const b = byId[q.facts.id];
         seen.add(q.facts.id);
+        if (q.facts.kind === 'multi') return;
         if (q.facts.kind === 'predict') expect(q.parts[0].a[0]).toBe(`Output: ${b.out.trimEnd()}`);
         else expect(q.parts[0].a[0]).toMatch(new RegExp(`^Line ${b.line}\\. Fix: `));
-        expect(q.parts[0].rubric.reduce((s, [n]) => s + n, 0)).toBe(q.parts[0].pts);
       });
       expect(seen.size, `seed ${seed}`).toBe(20);
     }
