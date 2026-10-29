@@ -31,6 +31,7 @@ const STEM = {
   fill: 'Fill in the blanks so the program works as described.',
   compile: 'Read the program carefully (no compiler in the exam).',
   write: 'The main function is given. Write the missing part.',
+  findrun: 'This program compiles, but it has one error when it runs.',
   predict: 'What does this program print? Write the exact output.',
   find: 'This program has exactly one compile error. Give the line number and rewrite that line correctly.',
 };
@@ -52,10 +53,10 @@ function question({ template, half }, rnd) {
     parts: [{ pts: 4, q: '', a: [`Line ${b.line}. Fix: ${fixLine}`], rubric: [[4, ALL]] }] };
 }
 
-const TOPIC = { struct: 'Structures', union: 'Unions', typedef: 'typedef', operators: 'Operators', pointer: 'Pointers', string: 'Strings' };
+const TOPIC = { struct: 'Structures', union: 'Unions', typedef: 'typedef', operators: 'Operators', pointer: 'Pointers', array: 'Arrays', string: 'Strings' };
 
 export const PROG_MOCK = {
-  id: 'prog', title: 'C Programming — Practice Exam',
+  id: 'prog', title: 'C Programming — Practice Exam (trial batch)',
   book: 'Perfect C (Korean ed.); questions written for this app, answers checked with clang',
   minutesPerPoint: 120 / 100,
   makers: plan().map(slot => rnd => question(slot, rnd)),

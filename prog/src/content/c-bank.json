@@ -369,6 +369,50 @@
   "line": 4
  },
  {
+  "id": "find-oob-0",
+  "template": "find-oob",
+  "kind": "multi",
+  "type": "findrun",
+  "topic": "array",
+  "week": 3,
+  "hash": "ef35b0e1bfcbb36d",
+  "ok": true,
+  "out": "1 2 3 "
+ },
+ {
+  "id": "find-oob-1",
+  "template": "find-oob",
+  "kind": "multi",
+  "type": "findrun",
+  "topic": "array",
+  "week": 3,
+  "hash": "86fbaa1b958372eb",
+  "ok": true,
+  "out": "4 8 15 16 "
+ },
+ {
+  "id": "find-oob-2",
+  "template": "find-oob",
+  "kind": "multi",
+  "type": "findrun",
+  "topic": "array",
+  "week": 3,
+  "hash": "880100b9ce5b4c6d",
+  "ok": true,
+  "out": "7 9 "
+ },
+ {
+  "id": "find-oob-3",
+  "template": "find-oob",
+  "kind": "multi",
+  "type": "findrun",
+  "topic": "array",
+  "week": 3,
+  "hash": "983e0209d392a766",
+  "ok": true,
+  "out": "2 4 6 8 10 "
+ },
+ {
   "id": "mcq-bitops-0",
   "template": "mcq-bitops",
   "kind": "multi",

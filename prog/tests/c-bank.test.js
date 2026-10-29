@@ -33,6 +33,7 @@ describe('ngân hàng C sinh bằng clang', () => {
   it('câu nhiều ý: chạy lại clang khớp kết quả đã lưu; ý nào cũng có đáp án', () => {
     for (const v of variants().filter(x => x.kind === 'multi')) {
       const r = runC(v.src), b = byId[v.id];
+      if (v.badSrc) expect(runC(v.badSrc, { san: true }).crashed, v.id).toBe(true);
       expect(r.ok, v.id).toBe(b.ok);
       if (r.ok) expect(r.out, v.id).toBe(b.out); else expect([r.line, r.why], v.id).toEqual([b.line, b.why]);
       for (const pt of v.parts(b)) expect(pt.a.every(l => l && !l.includes('undefined')), v.id).toBe(true);
