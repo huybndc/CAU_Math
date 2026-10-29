@@ -1,5 +1,5 @@
 // Biên dịch + chạy mọi biến thể trong prog/src/logic/c-templates.js bằng clang thật, ghi prog/src/content/c-bank.json.
-// predict: out = stdout. find: line = dòng clang báo lỗi ở bản sai; bản sửa phải biên dịch được.
+// predict: out = stdout. multi: { ok, out } hoặc { ok:false, line, why }. find: line = dòng clang báo lỗi ở bản sai; bản sửa phải biên dịch được.
 // Chạy: npm run gen:c  (cần clang trên máy; không chạy mã trong trình duyệt).
 import { execFileSync, spawnSync } from 'node:child_process';
 import { mkdtempSync, writeFileSync, rmSync } from 'node:fs';
@@ -20,7 +20,8 @@ export function runC(src) {
     const cc = spawnSync('clang', [file, ...FLAGS, bin], { encoding: 'utf8' });
     if (cc.status !== 0) {
       const m = cc.stderr.match(/main\.c:(\d+):\d+: error/);
-      return { ok: false, line: m ? Number(m[1]) : null, err: cc.stderr };
+      const why = cc.stderr.match(/error: ([^\n]*)/);
+      return { ok: false, line: m ? Number(m[1]) : null, why: why ? why[1] : '', err: cc.stderr };
     }
     return { ok: true, out: execFileSync(bin, { encoding: 'utf8', timeout: 5000 }) };
   } finally { rmSync(dir, { recursive: true, force: true }); }
@@ -29,6 +30,11 @@ export function runC(src) {
 export function build() {
   return variants().map(v => {
     const r = runC(v.src);
+    if (v.kind === 'multi') {
+      if (!r.ok && !r.line) throw new Error(`${v.id}: lỗi không rõ dòng\n${r.err}`);
+      const res = r.ok ? { ok: true, out: r.out } : { ok: false, line: r.line, why: r.why };
+      return { id: v.id, template: v.template, kind: v.kind, type: v.type, topic: v.topic, week: v.week, hash: hashSrc(v.src), ...res };
+    }
     if (v.kind === 'predict') {
       if (!r.ok) throw new Error(`${v.id}: không biên dịch được\n${r.err}`);
       return { id: v.id, template: v.template, kind: v.kind, topic: v.topic, week: v.week, hash: hashSrc(v.src), out: r.out };

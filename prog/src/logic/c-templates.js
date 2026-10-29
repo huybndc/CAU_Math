@@ -150,10 +150,116 @@ export const TEMPLATES = [
       '    return 0;',
       '}'),
   },
+  // ---- nhiều ý (khuôn đề 2026-10-30): src = chương trình đúng clang chạy; show = bản người học thấy; parts(p, r) dựng ý từ kết quả clang r ----
+  {
+    id: 'mcq-bitops', kind: 'multi', type: 'mcq', topic: 'operators', week: 2,
+    params: [[6, 3, 0xA4], [12, 10, 0xB8], [7, 5, 0xD2], [14, 6, 0x9C]],
+    src: ([a, b, x]) => lines(
+      '#include <stdio.h>',
+      'int main(void) {',
+      `    int a = ${a}, b = ${b};`,
+      `    unsigned char x = 0x${x.toString(16).toUpperCase()};`,
+      '    printf("%d %d %d %d\\n", a > b, a && b, a & b, !a);',
+      '    printf("%d %d %d %d\\n", x >> 4, x, x >> 2, x >> 1);',
+      '    return 0;',
+      '}'),
+    show: ([a, b, x]) => `int a = ${a}, b = ${b};\nunsigned char x = 0x${x.toString(16).toUpperCase()};\n`,
+    parts: (p, r, k) => {
+      const [bool, sh] = r.out.trim().split('\n').map(l => l.split(' ').map(Number));
+      const exprs = ['a > b', 'a && b', 'a & b', '!a'], hex = n => '0x' + n.toString(16).toUpperCase().padStart(2, '0');
+      const opts = [0, 1, 2, 3].map(i => sh[(i + k) % 4]);
+      const mark = ['①', '②', '③', '④'];
+      return [
+        { pts: 2, q: `Which expression does NOT give a Boolean value (0 or 1)? ${exprs.map((e, i) => `${mark[i]} ${e}`).join('  ')}`,
+          a: [`${mark[bool.findIndex(v => v !== 0 && v !== 1)]} (value ${bool.find(v => v !== 0 && v !== 1)})`] },
+        { pts: 2, q: `The value of x >> 4 is? ${opts.map((v, i) => `${mark[i]} ${hex(v)}`).join('  ')}`,
+          a: [`${mark[opts.indexOf(sh[0])]} ${hex(sh[0])}`] },
+      ];
+    },
+  },
+  {
+    id: 'fill-ptr-sum', kind: 'multi', type: 'fill', topic: 'pointer', week: 5,
+    params: [[[1, 2, 3, 4, 5]], [[2, 4, 6, 8]], [[5, 1, 9]], [[3, 3, 1, 7, 2, 4]]],
+    src: ([xs], fill = ['arr + ' + xs.length, '*p']) => lines(
+      '#include <stdio.h>',
+      'int main(void) {',
+      `    int arr[${xs.length}] = {${xs.join(', ')}};`,
+      '    int sum = 0;',
+      '    int *p;',
+      `    for (p = arr; p < ${fill[0]}; p++)`,
+      `        sum += ${fill[1]};`,
+      '    printf("%d\\n", sum);',
+      '    return 0;',
+      '}'),
+    show: function ([xs]) { return this.src([xs], ['( A )', '( B )']); },
+    parts: ([xs], r) => [
+      { pts: 3, q: `The loop must add every element of arr to sum (program prints ${r.out.trim()}). Fill in ( A ).`, a: [`arr + ${xs.length}  (or &arr[${xs.length}])`] },
+      { pts: 3, q: 'Fill in ( B ).', a: ['*p'] },
+    ],
+  },
+  {
+    id: 'compile-check', kind: 'multi', type: 'compile', topic: 'pointer', week: 5,
+    params: [['const int n = 5;', 'n = 6;', 'n'], ['int a[3] = {1, 2, 3};', 'a[0] = 9;', 'a[0]'], ['char s[] = "hi";', 's = "ok";', 's[0]'], ['int x = 4; int *p = &x;', '*p = 7;', 'x']],
+    src: ([decl, stmt, val]) => lines(
+      '#include <stdio.h>',
+      'int main(void) {',
+      `    ${decl}`,
+      `    ${stmt}`,
+      `    printf("%d\\n", ${val});`,
+      '    return 0;',
+      '}'),
+    parts: (p, r) => [{ pts: 3, q: 'Does this program compile? If yes, what does it print? If no, which line is wrong and why?',
+      a: [r.ok ? `Yes. Prints ${r.out.trim()}` : `No. Line ${r.line}: ${r.why}`] }],
+  },
+  {
+    id: 'write-count-char', kind: 'multi', type: 'write', topic: 'string', week: 6,
+    params: [['banana', 'a'], ['mississippi', 's'], ['letter', 't'], ['programming', 'g']],
+    src: ([w, c], body = ['    int n = 0;', '    for (; *s; s++)', '        if (*s == c) n++;', '    return n;']) => lines(
+      '#include <stdio.h>',
+      'int count_char(const char *s, char c) {',
+      ...body,
+      '}',
+      'int main(void) {',
+      `    char word[] = "${w}";`,
+      `    int n = count_char(word, '${c}');`,
+      '    printf("%d\\n", n);',
+      '    return 0;',
+      '}'),
+    show: function (p) { return this.src(p, ['    ( A )   /* write the body */']); },
+    parts: (p, r) => [
+      { pts: 4, q: 'count_char returns how many times c appears in s. Write the body at ( A ).',
+        a: ['int n = 0; for (; *s; s++) if (*s == c) n++; return n;', '(many correct ways; ask Chat to check your code)'] },
+      { pts: 2, q: 'With your function, what does the program print?', a: [r.out.trim()] },
+    ],
+  },
+  {
+    id: 'fill-struct-dist', kind: 'multi', type: 'fill', topic: 'struct', week: 7,
+    params: [[3, 4, 0, 0], [5, 1, 2, 5], [7, 2, 1, -6], [0, 9, 4, 6]],
+    src: ([x1, y1, x2, y2], fill = ['struct Point { int x; int y; };', '    int dy = a.y - b.y;']) => lines(
+      '#include <stdio.h>',
+      fill[0],
+      'int dist2(struct Point a, struct Point b) {',
+      '    int dx = a.x - b.x;',
+      fill[1],
+      '    return dx * dx + dy * dy;',
+      '}',
+      'int main(void) {',
+      `    struct Point p = {${x1}, ${y1}};`,
+      `    struct Point o = {${x2}, ${y2}};`,
+      '    printf("%d\\n", dist2(p, o));',
+      '    return 0;',
+      '}'),
+    show: function (p) { return this.src(p, ['( A )   /* struct Point with int x and y */', '    ( B )   /* compute dy */']); },
+    parts: (p, r) => [
+      { pts: 3, q: 'Write the declaration at ( A ).', a: ['struct Point { int x; int y; };'] },
+      { pts: 3, q: `Write the line at ( B ). (The program then prints ${r.out.trim()}.)`, a: ['int dy = a.y - b.y;'] },
+    ],
+  },
 ];
 
 /** Mọi biến thể: { id: 'struct-byval-0', template, kind, topic, week, src, fixSrc? }. */
 export const variants = () => TEMPLATES.flatMap(t => t.params.map((p, i) => ({
   id: `${t.id}-${i}`, template: t.id, kind: t.kind, topic: t.topic, week: t.week, src: t.src(p),
   ...(t.kind === 'find' ? { fixSrc: t.src(p, true) } : {}),
+  ...(t.kind === 'multi' ? { type: t.type, show: t.show ? t.show(p) : t.src(p), parts: r => t.parts(p, r, i) } : {}),
 })));
