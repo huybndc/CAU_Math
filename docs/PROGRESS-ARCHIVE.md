@@ -1,4 +1,4 @@
-# PROGRESS-archive.md — lịch sử đã xong (không cần đọc đầu phiên)
+# PROGRESS-ARCHIVE.md — lịch sử đã xong (không cần đọc đầu phiên)
 
 Chuyển từ PROGRESS.md ngày 2026-10-22. Tra khi cần lý do cũ; quyết định còn hiệu lực ở DECISIONS.md.
 
