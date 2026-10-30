@@ -1,1 +1,10 @@
-{}
+{
+  "_caps": {
+    "_note": "Trần = số đo 2026-10-30 + 20% (quy chế repo v1). Tài liệu agent đọc giữ 8 KB. Nâng trần: ghi lý do vào DECISIONS.",
+    "codeLines": 450,
+    "docBytes": 8192,
+    "contentJsonBytes": 183770,
+    "repoBytes": 3679890
+  },
+  "linalg/PLAN.md": 17926
+}

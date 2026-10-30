@@ -1,11 +1,11 @@
-# Quy tắc chung của repo (3 app ôn tập)
+# Quy tắc chung của repo
 
 ## Bối cảnh
 - Trả lời người học bằng **tiếng Việt**.
-- Người học giao toàn quyền quyết định: tự cân nhắc, chọn cách làm, ghi lý do vào `DECISIONS.md`, không hỏi lại.
+- Người học giao toàn quyền quyết định: tự cân nhắc, chọn cách làm, sửa/commit/merge, ghi lý do vào `DECISIONS.md`, không hỏi lại. Việc khó hoàn tác: chuẩn bị đường lui và báo.
 - Ba app ôn tập chạy localhost:5180; bản online chạy riêng ở Worker `cau-math`, deploy bằng `npm run deploy` từ `main` sau mỗi merge có code, kiểm bằng `verify-deploy.sh CAU_Math` ("ĐÃ LÊN"). Không đăng nhập, không đồng bộ giữa máy. Study Hub chỉ link sang (bỏ mirror từ 2026-10-26). Giáo trình theo syllabus từng môn (`PLAN.md`).
 - Tài liệu gốc: `PLAN.md` (lộ trình), `DECISIONS.md` (quyết định + lý do), `PROGRESS.md` (bàn giao).
-- Repo `toeic-app` chỉ để tham khảo cách tổ chức/UX. Không import chéo, không commit vào đó.
+- `toeic-app` chỉ để tham khảo UX; không import, không commit vào đó.
 
 ## Repo công khai — không để lộ thông tin cá nhân
 - Không ghi tên thật, email, trường/lớp, đường dẫn trên máy (`/Users/…`, `~/Desktop/…`), tên máy, link riêng (worker, Supabase, Study Hub) vào code, tài liệu, commit hay PR. Gọi chủ repo là "người học". Dữ liệu test dùng `user@example.com`.
@@ -14,17 +14,9 @@
 ## Giao thức phiên làm việc
 **Đầu phiên:** đọc `PROGRESS.md` → `git status` + `git log --oneline -5` → tóm tắt 3–5 dòng: đang ở đâu, hôm nay làm gì.
 
-**Sau mỗi bước con:**
-1. `npm test` pass ở gốc repo (test cả 3 app).
-2. `npm run check` — đếm dòng code (bỏ dòng trống và dòng chỉ có chú thích). Đỏ khi file mới vượt 450 hoặc file trong `scripts/size-baseline.json` tăng; file cũ vượt chỉ cảnh báo.
-3. Tắt máy chủ dev/tiến trình nền không còn cần.
-4. Cập nhật `PROGRESS.md`: vừa xong gì, bước tiếp theo cụ thể, vướng mắc.
-5. `git remote -v` phải là `https://github.com/huybndc/CAU_Math_App.git` → rồi mới commit. Push lên nhánh làm việc của phiên; không push thẳng `main` hay nhánh người khác; gộp vào `main` qua PR.
+**Sau mỗi bước con:** `npm test` và `npm run check` (trần cỡ file: `scripts/size-baseline.json`) xanh → tắt máy chủ dev thừa → cập nhật `PROGRESS.md` (vừa xong, bước tiếp, vướng mắc) → `git remote -v` phải là `https://github.com/huybndc/CAU_Math_App.git` rồi mới commit. Push nhánh làm việc; vào `main` chỉ qua PR.
 
-**Chống mất việc khi phiên dừng đột ngột:**
-- Usage chạm ~95% ⇒ dừng việc, commit ngay (kể cả dở dang: `wip: …`) và push lên nhánh làm việc; cập nhật `PROGRESS.md` một dòng "đang dở ở đâu". Nếu phiên đã dừng, người học tự commit phần còn lại.
-- Không tự đo được % usage ⇒ commit sau mỗi bước con đã test xong, đừng dồn nhiều việc vào một commit.
-- Nên gói khoảng 2 milestone mỗi phiên (khuyến nghị, không bắt buộc); không sang milestone mới khi test đang fail.
+**Chống mất việc:** commit sau mỗi bước con đã test xong. Usage ~95% ⇒ commit ngay (`wip: …`), push nhánh làm việc, ghi 1 dòng "đang dở ở đâu" vào `PROGRESS.md`. Không sang milestone mới khi test đang fail.
 
 ## Kiến trúc (D01, D02)
 - Một máy chủ Vite ở gốc: `npm run dev` → `localhost:5180` (`/logic/`, `/linalg/`, `/discrete/`; `/` chuyển hướng tới `/logic/`).
@@ -48,15 +40,11 @@
 - Chữ trên màn hình ngắn: một thẻ một ý; chữ dài bỏ vào "Xem thêm".
 - Lời giải phải dò lại được: dạng có bảng chân trị thì vẽ bảng (`tableLine`), không chỉ in chuỗi bit. Đáp án + lời giải của dạng tính toán được kiểm bằng một bộ tính độc lập viết riêng trong test (`tests/solution-oracle*.test.js`), đọc đúng chữ/hình người học thấy và dò từng dòng lời giải (D41). Cả 3 app đã phủ mọi dạng tính toán (D44–D46): thêm dạng mới thì thêm kiểm độc lập cùng lúc và thử đột biến để chắc test đỏ.
 
-Quy tắc riêng của môn: `logic/AGENTS.md`, `linalg/AGENTS.md`, `discrete/AGENTS.md`.
-
 ## Phạm vi repo và quy trình
 - Đọc `REPO_BOUNDARY.md` trước khi sửa. CAU_Math_App là nguồn chuẩn cho syllabus/nội dung toán, câu hỏi, bộ giải, oracle và UI toán; Study_Hub sở hữu Hub, tài khoản, vault và tổng hợp liên môn.
 - Không thêm logic Hub vào CAU_Math_App, và không import source trực tiếp giữa hai repo.
-- Tài liệu lịch sử có thể mô tả kiến trúc repo cũ; xem đó là lịch sử trừ khi mâu thuẫn với `REPO_BOUNDARY.md`.
+- Tài liệu lưu trữ (`docs/*-ARCHIVE.md`) là lịch sử; mâu thuẫn thì theo `REPO_BOUNDARY.md`.
 - Không còn tích hợp event với Study_Hub (2026-10-26): Hub chỉ link sang bản chạy riêng. Muốn nối lại ⇒ cần contract mới, hỏi Study_Hub trước.
-- Đầu việc: đọc `REPO_BOUNDARY.md` và `PROGRESS.md`, xem status và commit gần nhất. Giữ thay đổi nhỏ, chạy test phần ảnh hưởng rồi `npm test` và `npm run check`; cập nhật `PROGRESS.md` sau thay đổi có ý nghĩa.
-- Không commit tài liệu môn học riêng, bí mật hoặc dữ liệu cá nhân.
 
 ## Thêm môn mới (đo 2026-10-30)
 - Bản chép từ Study_Hub (token, kỳ học, môn practice): `npm run sync:hub`; test `hub-sync` đỏ khi lệch. Môn có luyện riêng: `npm run sync:subjects` thêm môn thiếu với `app: false` (chưa có thư mục, mọi nơi bỏ qua). Có thư mục rồi thì bỏ `app: false`, điền màu + ngăn nháp.
@@ -67,13 +55,6 @@ Quy tắc riêng của môn: `logic/AGENTS.md`, `linalg/AGENTS.md`, `discrete/AG
 ## Đề thi thử (D53)
 - Kiểu TOPIK: chia theo Part (mỗi chương một Part, số câu cố định, dễ → khó) hoặc trộn ngẫu nhiên không hiện tên chương; 80% tự luận · 20% trắc nghiệm, áp dụng cho mọi môn. Môn mới: ngân hàng phải có `choiceBank` và đủ dạng tự luận.
 
-## Layout and help rules
-- Each screen must fit one viewport (about 1280×720). Do not add page-level vertical scroll. A long list scrolls inside its own card.
-- Do not remove information to avoid scroll. Use layout, collapse, or in-card scroll.
-- Put help on the screen where the problem occurs, as the `?` button (`shared/ui/screen-help.js`). Do not add a separate help page or help link.
-- When you add a feature, add one row to the `HELP` entry of its screen, in Vietnamese and English.
-
-## Autonomy
-- You may edit, commit, and merge without asking.
-- Before you act, review the change as a senior engineer and as the user. Do not cause serious harm.
-- Before an action that is hard to undo, prepare a way back and report it.
+## Bố cục và trợ giúp
+- Mỗi màn vừa một khung (~1280×720), không cuộn cả trang; danh sách dài cuộn trong thẻ của nó. Không bỏ thông tin để né cuộn: dùng bố cục, thu gọn, cuộn trong thẻ.
+- Trợ giúp là nút `?` ngay trên màn đó (`shared/ui/screen-help.js`), không làm trang/link trợ giúp riêng. Thêm tính năng ⇒ thêm 1 dòng vi + en vào `HELP` của màn.
