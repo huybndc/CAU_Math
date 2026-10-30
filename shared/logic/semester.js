@@ -1,4 +1,4 @@
-// Nguồn: Study_Hub/semester.js (npm run semester:export), chép vào CAU_Math 2026-10-27. Không sửa tay: Hub đổi thì chép lại.
+// Nguồn: Study_Hub/semester.js (npm run semester:export). Không sửa tay: Hub đổi thì npm run sync:hub.
 // BẢN SAO SINH TỰ ĐỘNG từ Study_Hub src/logic/semester.js (`npm run semester:export`). Không sửa tay.
 /* ---------------------------------------------------------------
    QUY TẮC KỲ HỌC dùng chung 3 app (Huy 2026-10-27). Thuần, không import: CAU_Math và Live_Lecture chép

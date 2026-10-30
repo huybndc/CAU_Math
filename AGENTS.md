@@ -59,7 +59,7 @@ Quy tắc riêng của môn: `logic/AGENTS.md`, `linalg/AGENTS.md`, `discrete/AG
 - Không commit tài liệu môn học riêng, bí mật hoặc dữ liệu cá nhân.
 
 ## Thêm môn mới (đo 2026-10-30)
-- Môn có luyện lấy từ Study_Hub: `npm run sync:subjects` thêm môn thiếu với `app: false` (chưa có thư mục, mọi nơi bỏ qua). Có thư mục rồi thì bỏ `app: false`, điền màu + ngăn nháp.
+- Bản chép từ Study_Hub (token, kỳ học, môn practice): `npm run sync:hub`; test `hub-sync` đỏ khi lệch. Môn có luyện riêng: `npm run sync:subjects` thêm môn thiếu với `app: false` (chưa có thư mục, mọi nơi bỏ qua). Có thư mục rồi thì bỏ `app: false`, điền màu + ngăn nháp.
 - Thêm 1 dòng vào `shared/subjects.json` (id, tên vi/en, `accent` sáng/tối, `tabs` nháp) → `npm run gen:subjects` (màu trong tokens.css, link ở index.html gốc).
 - Tạo thư mục `<id>/` theo mẫu một môn có sẵn (index.html có `data-subject`, `src/{i18n,logic,content}`, `tests/`). Vite, nút chọn môn, design:check, Playwright tự đọc danh sách.
 - Chỉ cần thêm code khi môn có bộ giải riêng (vd `scripts/gen-c-bank.mjs` cho C). Cập nhật `FEATURES.md`.
