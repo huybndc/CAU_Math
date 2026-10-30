@@ -3,7 +3,7 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 
 const root = new URL('../', import.meta.url);
-const SUBJECTS = JSON.parse(readFileSync(new URL('shared/subjects.json', root), 'utf8'));
+const SUBJECTS = JSON.parse(readFileSync(new URL('shared/subjects.json', root), 'utf8')).filter(s => s.app !== false);
 const BEGIN = '/* gen:subjects — sinh từ shared/subjects.json, đừng sửa tay */', END = '/* end gen:subjects */';
 
 export const tokensBlock = (subs = SUBJECTS) => [BEGIN,

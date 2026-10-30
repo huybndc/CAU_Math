@@ -16,7 +16,7 @@ import { readFileSync } from 'node:fs';
  */
 const page = p => fileURLToPath(new URL(p, import.meta.url));
 // danh sách môn: một nguồn duy nhất (shared/subjects.json); thêm/bỏ môn chỉ sửa file đó + thư mục app
-const SUBJECTS = JSON.parse(readFileSync(new URL('./shared/subjects.json', import.meta.url), 'utf8'));
+const SUBJECTS = JSON.parse(readFileSync(new URL('./shared/subjects.json', import.meta.url), 'utf8')).filter(s => s.app !== false);
 export default defineConfig(({ mode }) => ({
   plugins: [htmlInclude(), syncPlugin({ ...process.env, ...loadEnv(mode, process.cwd(), 'STUDY_') })],
   resolve: { alias: { '@shared': fileURLToPath(new URL('./shared', import.meta.url)), '@host': fileURLToPath(new URL('./shared/host.js', import.meta.url)) } },

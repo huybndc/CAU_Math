@@ -12,7 +12,7 @@ const bi = argv.indexOf('--baseline');
 const baselineFile = bi >= 0 ? argv[bi + 1] : 'design-baseline.json';
 const paths = argv.filter((a, i) => !a.startsWith('--') && (bi < 0 || i !== bi + 1)); // bi = -1 khi không có --baseline: đừng bỏ phần tử đầu
 // --subjects: thêm <môn>/index.html cho mọi môn trong shared/subjects.json
-if (flag('--subjects')) paths.push(...JSON.parse(readFileSync('shared/subjects.json', 'utf8')).map(x => `${x.id}/index.html`));
+if (flag('--subjects')) paths.push(...JSON.parse(readFileSync('shared/subjects.json', 'utf8')).filter(x => x.app !== false).map(x => `${x.id}/index.html`));
 const targets = (paths.length ? paths : ['index.html', 'src']).filter(existsSync);
 
 let out = '[]';

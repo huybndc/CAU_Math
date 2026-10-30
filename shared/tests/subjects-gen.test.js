@@ -2,7 +2,8 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { files } from '../../scripts/gen-subjects.mjs';
-import SUBJECTS from '../subjects.json';
+import ALL from '../subjects.json';
+const SUBJECTS = ALL.filter(s => s.app !== false);
 
 describe('cấu hình môn một nguồn', () => {
   it('tokens.css và index.html gốc khớp subjects.json', () => {

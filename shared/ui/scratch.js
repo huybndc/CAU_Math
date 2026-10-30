@@ -29,7 +29,7 @@ const EXTRA = {};
 export const addScratchTab = (subject, name, mount) => { (EXTRA[subject] ??= {})[name] = mount; };
 const LIST_CALC = ['linalg', 'calculus'];             // môn dùng máy tính dạng danh sách; Logic / Discrete cần đổi cơ số
 const SYMBOLS = ['Σm(', 'ΠM(', '′', '⊕', '·', '→', '≠'];
-const TABS = Object.fromEntries(SUBJECTS.map(s => [s.id, s.tabs]));   // ngăn theo môn: shared/subjects.json
+const TABS = Object.fromEntries(SUBJECTS.filter(s => s.tabs).map(s => [s.id, s.tabs]));   // ngăn theo môn: shared/subjects.json
 const SUGGEST = {
   logic: { ch1: 'calc', ch2: 'table', ch3: 'kmap', ch4: 'table' },     // ch1 cơ số/bù 2 · ch2, ch4 bảng chân trị · ch3 bìa K
   discrete: { ch1: 'table', ch6: 'calc', ch7: 'calc' },                // ch1 mệnh đề · ch6, ch7 số học modulo
