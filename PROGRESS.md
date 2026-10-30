@@ -16,6 +16,7 @@
 - App `/prog/`: bài tuần 7 + Đề thi thử 20 câu, đáp án từ clang (`npm run gen:c`). Thêm lô: viết mẫu trong `c-templates.js` (week = tuần), chạy `npm run gen:c`, test tự kiểm. Lô tuần 9 khi có slide. Chưa có luyện trong bài, chưa có tự đánh dấu Đúng/Sai.
 - (2026-10-30) Khuôn đề nhiều ý (mẫu `kind: multi`, dạng mcq/fill/compile/write; `parts(p, r)` dựng ý từ kết quả clang; chấm cả ý). Lô nhỏ 5 mẫu để thử khuôn. Tổng điểm đề chưa cố định 100: chỉnh khi có lô tuần 9.
 - (2026-10-30) Sửa theo nghiệm thu Chatbot: ý b viết hàm hỏi "biên dịch được không"; phiếu tự chấm cuối bản đáp án (dùng chung 4 môn); mẫu tìm lỗi lúc chạy `find-oob` (gen chạy AddressSanitizer). Nhịp mới: không ra lô đề mới trước tuần 12 (mọi môn).
+- (2026-10-30) Cấu hình môn một nguồn: màu + ngăn nháp trong `shared/subjects.json`; `npm run gen:subjects` sinh màu (tokens.css) và link gốc; design:check `--subjects`. Quy trình thêm môn: AGENTS.md.
 
 ## Việc mở (chờ người học chọn)
 - Có thể làm tiếp: thang chấm + thêm dạng cho Discrete, Linear Algebra (cùng cách Logic).

@@ -58,6 +58,11 @@ Quy tắc riêng của môn: `logic/AGENTS.md`, `linalg/AGENTS.md`, `discrete/AG
 - Đầu việc: đọc `REPO_BOUNDARY.md` và `PROGRESS.md`, xem status và commit gần nhất. Giữ thay đổi nhỏ, chạy test phần ảnh hưởng rồi `npm test` và `npm run check`; cập nhật `PROGRESS.md` sau thay đổi có ý nghĩa.
 - Không commit tài liệu môn học riêng, bí mật hoặc dữ liệu cá nhân.
 
+## Thêm môn mới (đo 2026-10-30)
+- Thêm 1 dòng vào `shared/subjects.json` (id, tên vi/en, `accent` sáng/tối, `tabs` nháp) → `npm run gen:subjects` (màu trong tokens.css, link ở index.html gốc).
+- Tạo thư mục `<id>/` theo mẫu một môn có sẵn (index.html có `data-subject`, `src/{i18n,logic,content}`, `tests/`). Vite, nút chọn môn, design:check, Playwright tự đọc danh sách.
+- Chỉ cần thêm code khi môn có bộ giải riêng (vd `scripts/gen-c-bank.mjs` cho C). Cập nhật `FEATURES.md`.
+
 ## Đề thi thử (D53)
 - Kiểu TOPIK: chia theo Part (mỗi chương một Part, số câu cố định, dễ → khó) hoặc trộn ngẫu nhiên không hiện tên chương; 80% tự luận · 20% trắc nghiệm, áp dụng cho mọi môn. Môn mới: ngân hàng phải có `choiceBank` và đủ dạng tự luận.
 
