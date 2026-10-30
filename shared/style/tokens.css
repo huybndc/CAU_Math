@@ -47,9 +47,9 @@
 [data-subject="logic"]{ --accent:var(--viz-logic); }
 [data-subject="linalg"]{ --accent:var(--viz-linalg); }
 [data-subject="discrete"]{ --accent:var(--viz-discrete); }
-[data-subject="prog"]{ --accent:#3f7a80; }
+[data-subject="prog"]{ --accent:var(--viz-prog); }
 :root[data-theme="dark"][data-subject="logic"]{--accent:var(--viz-logic)}
 :root[data-theme="dark"][data-subject="linalg"]{--accent:var(--viz-linalg)}
 :root[data-theme="dark"][data-subject="discrete"]{--accent:var(--viz-discrete)}
-:root[data-theme="dark"][data-subject="prog"]{--accent:#7fb6ba}
+:root[data-theme="dark"][data-subject="prog"]{--accent:var(--viz-prog)}
 /* end gen:subjects */

@@ -2,6 +2,6 @@
   {"id":"logic","vi":"Logic Circuit","en":"Logic Circuit","accent":{"light":"var(--viz-logic)","dark":"var(--viz-logic)"},"tabs":["notes","calc","table","kmap"]},
   {"id":"linalg","vi":"Linear Algebra","en":"Linear Algebra","accent":{"light":"var(--viz-linalg)","dark":"var(--viz-linalg)"},"tabs":["notes","calc","matrix"]},
   {"id":"discrete","vi":"Discrete Math","en":"Discrete Math","accent":{"light":"var(--viz-discrete)","dark":"var(--viz-discrete)"},"tabs":["notes","calc","table"]},
-  {"id":"prog","vi":"Lập trình C","en":"C Programming","accent":{"light":"#3f7a80","dark":"#7fb6ba"},"tabs":["notes"]},
+  {"id":"prog","vi":"Lập trình C","en":"C Programming","accent":{"light":"var(--viz-prog)","dark":"var(--viz-prog)"},"tabs":["notes"]},
   {"id":"calculus","vi":"Calculus","en":"Calculus","app":false}
 ]
