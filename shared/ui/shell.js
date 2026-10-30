@@ -1,6 +1,7 @@
 import { $ } from './dom.js';
 import { setupLangSwitch, onLangChange, getLang, t as T } from '../i18n/index.js';
-import SUBJECTS from '../subjects.json';
+import ALL_SUBJECTS from '../subjects.json';
+const SUBJECTS = ALL_SUBJECTS.filter(s => s.app !== false);   // app:false = môn Hub có luyện nhưng Exlab chưa có thư mục
 import { setupScratch } from './scratch.js';
 import { setupTips } from './tip.js';
 import { setupPalette } from './palette.js';

@@ -43,7 +43,7 @@ test('nút chọn môn: danh sách các môn khác (không có môn đang mở),
   await expect(page.locator('.subject-menu')).toBeHidden();
   await page.click('.subject-switch');
   const links = page.locator('.subject-menu a');
-  await expect(links).toHaveCount(SUBJECTS.length - 1);
+  await expect(links).toHaveCount(SUBJECTS.filter(s => s.app !== false).length - 1);
   await expect(page.locator('.subject-menu a[href="/logic/"]')).toHaveCount(0);
   await page.keyboard.press('Escape');
   await expect(page.locator('.subject-menu')).toBeHidden();

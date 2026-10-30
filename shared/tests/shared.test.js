@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import SUBJECTS from '../subjects.json';
+import ALL from '../subjects.json';
+const SUBJECTS = ALL.filter(s => s.app !== false);
 import { vi } from '../i18n/vi.js';
 import { en } from '../i18n/en.js';
 import { parseRoute, routeOf } from '../logic/route.js';
