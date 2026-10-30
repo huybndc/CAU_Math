@@ -15,6 +15,7 @@
     "gen:review": "vite-node scripts/gen/review.js",
     "design:check": "node scripts/design-check.mjs --subjects index.html home shared",
     "mutate": "node scripts/mutation-check.mjs",
+    "sync:hub": "node scripts/sync-hub.mjs",
     "sync:subjects": "node scripts/sync-subjects.mjs",
     "gen:subjects": "node scripts/gen-subjects.mjs",
     "gen:c": "node scripts/gen-c-bank.mjs",
