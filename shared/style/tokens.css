@@ -32,10 +32,6 @@
   --cell-1:color-mix(in srgb,var(--accent) 15%,var(--panel));
 }
 
-[data-subject="logic"]{ --accent:var(--viz-logic); }
-[data-subject="linalg"]{ --accent:var(--viz-linalg); }
-[data-subject="discrete"]{ --accent:var(--viz-discrete); }
-[data-subject="prog"]{ --accent:#3f7a80; }   /* Lập trình C: màu riêng (Hub chưa có token môn này) */
 
 :root[data-theme="dark"]{
   --warn:#e0a64a; --warn-bg:#2e2412;
@@ -44,8 +40,16 @@
   --accent-btn:var(--accent);
   --accent:var(--viz-logic); --accent-ink:#12171f;   /* khai lại: khối tối của Hub đặt --accent thành màu mực */
 }
+
+@media (min-width:761px){html{font-size:107%}}   /* cùng cỡ gốc với Study_Hub */
+
+/* gen:subjects — sinh từ shared/subjects.json, đừng sửa tay */
+[data-subject="logic"]{ --accent:var(--viz-logic); }
+[data-subject="linalg"]{ --accent:var(--viz-linalg); }
+[data-subject="discrete"]{ --accent:var(--viz-discrete); }
+[data-subject="prog"]{ --accent:#3f7a80; }
+:root[data-theme="dark"][data-subject="logic"]{--accent:var(--viz-logic)}
 :root[data-theme="dark"][data-subject="linalg"]{--accent:var(--viz-linalg)}
 :root[data-theme="dark"][data-subject="discrete"]{--accent:var(--viz-discrete)}
 :root[data-theme="dark"][data-subject="prog"]{--accent:#7fb6ba}
-
-@media (min-width:761px){html{font-size:107%}}   /* cùng cỡ gốc với Study_Hub */
+/* end gen:subjects */
