@@ -3,7 +3,7 @@
 > Đọc đầu phiên. Chỉ giữ việc đang mở và quy tắc còn hiệu lực. Lịch sử đã xong: `docs/PROGRESS-ARCHIVE.md` (không cần đọc). Ranh giới repo: `REPO_BOUNDARY.md`.
 
 ## Trạng thái (2026-10-22)
-- `main` = 652413a. Đề thi thử có mẫu cho cả 3 môn. Deploy bản riêng bằng `npm run deploy` (Worker `cau-math`).
+- `main` = 652413a. Đề thi thử có mẫu cho cả 3 môn. Deploy bản riêng bằng `npm run deploy` (Worker `exlab`).
 - Đề thi thử: chọn mã đề → in đề / in đáp án A4 (KaTeX, bước giải). Màn: mã đề, Đề mới, thẻ Đề | Đáp án, bản xem trước nguyên tờ trên màn, nút In / lưu PDF. Đáp án Logic có hình mạch mẫu. Ôn từng phần thuộc Luyện tập, không đặt ở đây.
 - Mẫu đề là PHỎNG ĐOÁN theo mô tả của người học (đề giữa kỳ). Người học bắt đầu ôn sau ~1 tháng; đề cuối kỳ sẽ khác:
   - Logic: 4 câu, 200 điểm, 60 phút — 7 đoạn a/f/e (K-map); chuyển mã Excess-3/Gray/2421 (K-map); bộ cộng BCD hoặc so sánh 2 bit (vẽ 1 mạch); MUX 4×1 hoặc decoder + OR (vẽ 1 mạch). Đáp án có thang chấm theo bước (#120–#121).
@@ -42,7 +42,7 @@
 - CSP của Hub cho phép script nội tuyến chọn sáng/tối bằng hash: sửa script đó, thêm nguồn ngoài (font, CDN, fetch host khác) ⇒ báo Study_Hub.
 - Gỡ/đổi UI mà e2e của Hub chạm tới (route /practice, /exam, nút tự đánh giá Tự luận, `.free-rate`…): báo Study_Hub TRƯỚC khi merge để Hub sửa e2e cùng PR bump (#104 làm CI Hub đỏ 3 e2e Tự luận, treo 10 phút).
 - Kiểm tra chạy trên máy: `npm run gate` (test + check + design:check + build) trước mỗi merge; CI chỉ chạy tay (`workflow_dispatch`, 2026-10-26). PR không có check ⇒ hook merge cho qua. Sau deploy vẫn chạy verify-deploy. Báo "xong" chỉ khi bản deploy chạy đúng (quyết định chung 2026-10-22, HANDOFF).
-- Deploy bản riêng: `npm run deploy` (build + `wrangler deploy`, Worker `cau-math`, cấu hình `wrangler.jsonc`, header `public/_headers` + test `headers.test.js`). Chạy từ `main` sau mỗi merge có code; chưa nối Workers Builds (tự deploy theo repo cần bật trong bảng Cloudflare).
+- Deploy bản riêng: `npm run deploy` (build + `wrangler deploy`, Worker `exlab`, cấu hình `wrangler.jsonc`, header `public/_headers` + test `headers.test.js`). Chạy từ `main` sau mỗi merge có code; chưa nối Workers Builds (tự deploy theo repo cần bật trong bảng Cloudflare).
 - Đã gỡ cầu nối Hub chết (2026-10-26, chọn B): gửi/đọc math.answer, xuất tiến độ cho Hub, nút về Hub. Giữ `@host` (khoá lưu + đồng bộ thư mục ở máy dev) vì vô hại, gỡ sẽ chạm Nháp.
 - Trích sách: Logic theo Mano 6th (test so mục lục chương 3–4), Linear Algebra theo Strang 4th, Discrete theo MCS 2017.
 - Không commit slide, PDF, syllabus riêng, bí mật, dữ liệu cá nhân.
