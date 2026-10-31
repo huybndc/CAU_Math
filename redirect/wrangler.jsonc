@@ -1,0 +1,7 @@
+// Địa chỉ ngắn exlab: chỉ chuyển hướng 302 sang Worker cau-math (app thật, giữ dữ liệu theo origin cũ).
+// Deploy tay trong thư mục này: `npx wrangler deploy --var TARGET:https://cau-math.<tài khoản>.workers.dev`. Đường lui: `npx wrangler delete --name exlab`.
+{
+  "name": "exlab",
+  "main": "index.js",
+  "compatibility_date": "2026-09-20"
+}
