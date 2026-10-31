@@ -3,7 +3,7 @@
 ## Bối cảnh
 - Trả lời người học bằng **tiếng Việt**.
 - Người học giao toàn quyền quyết định: tự cân nhắc, chọn cách làm, sửa/commit/merge, ghi lý do vào `DECISIONS.md`, không hỏi lại. Việc khó hoàn tác: chuẩn bị đường lui và báo.
-- Ba app ôn tập chạy localhost:5180; bản online chạy riêng ở Worker `cau-math`, deploy bằng `npm run deploy` từ `main` sau mỗi merge có code, kiểm bằng `verify-deploy.sh CAU_Math` ("ĐÃ LÊN"). Không đăng nhập, không đồng bộ giữa máy. Study Hub chỉ link sang (bỏ mirror từ 2026-10-26). Giáo trình theo syllabus từng môn (`PLAN.md`).
+- Ba app ôn tập chạy localhost:5180; bản online chạy riêng ở Worker `exlab`, deploy bằng `npm run deploy` từ `main` sau mỗi merge có code, kiểm bằng `verify-deploy.sh CAU_Math` ("ĐÃ LÊN"). Không đăng nhập, không đồng bộ giữa máy. Study Hub chỉ link sang (bỏ mirror từ 2026-10-26). Giáo trình theo syllabus từng môn (`PLAN.md`).
 - Tài liệu gốc: `PLAN.md` (lộ trình), `DECISIONS.md` (quyết định + lý do), `PROGRESS.md` (bàn giao).
 - `toeic-app` chỉ để tham khảo UX; không import, không commit vào đó.
 

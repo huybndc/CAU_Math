@@ -114,6 +114,6 @@ describe('đồng bộ thư mục chỉ chạy khi có điểm cuối', () => {
     expect(folderSyncPossible(true, 'hub.example.workers.dev')).toBe(false);
     expect(folderSyncPossible(true, 'localhost')).toBe(true);
     expect(folderSyncPossible(false, 'localhost')).toBe(true);
-    expect(folderSyncPossible(false, 'cau-math.example.workers.dev')).toBe(false);   // bản chạy riêng online: không có /__sync
+    expect(folderSyncPossible(false, 'exlab.example.workers.dev')).toBe(false);   // bản chạy riêng online: không có /__sync
   });
 });
