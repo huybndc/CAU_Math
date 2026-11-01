@@ -12,9 +12,9 @@
   - Linear Algebra: 9 câu, 162 điểm, 97 phút (D63).
 - Luyện tập theo dạng và Thi thử bị ẩn (`PRACTICE_HIDDEN`, `shared/logic/visibility.js`); URL cũ vẫn chạy cho link của Hub. Tự luận vẫn phát `math.answer` mode `free`.
 
-## Exlab: công việc mở (2026-11-01)
+## Exlab: trạng thái handoff (2026-11-02)
 - Paper PR #149 merged và deploy `315f7cd` đã lên; các app trả HTTP 200.
-- Interactive PR #148 draft; full test + UI audit xanh, chờ Huy thử trước khi mở rộng môn khác.
+- Dự án tương tác khám phá phép hàng Ax=b đã bị hủy ngày 2026-11-02 vì cả trải nghiệm vector ở PR #148 lẫn mockup ma trận tiếp theo không đạt kỳ vọng tương tác. PR #148 đã đóng; không tiếp tục code, mở rộng hay deploy. Xem D65 trong `DECISIONS.md` + `docs/DECISIONS-ARCHIVE.md`, cùng `tasks/plan.md` và `tasks/todo.md` để biết lý do/phạm vi đã dừng.
 - Tự kiểm bài W09: đủ LA và Logic ôn mã/mạch; còn thiếu Programming W09, Logic tuần tự và Discrete Butterfly/Beneš. Tạo lô mới theo lịch tuần 12/slide mới.
 
 ## Lập trình C (2026-10-28, lô thử)

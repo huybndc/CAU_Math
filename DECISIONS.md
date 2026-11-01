@@ -70,3 +70,4 @@ Quyết định riêng từng app: `logic/PLAN.md`, `linalg/PLAN.md`.
 - D62. Bỏ trang Tổng quan chung `/` (2026-10-15, thay phần "có trang Tổng quan chung" của D01)
 - D63. "Đề như thật" (2026-10-21)
 - D64. Đề như thật dựng công thức bằng KaTeX; đáp án có lời giải từng bước (2026-10-22)
+- D65. Hủy dự án tương tác khám phá phép hàng Ax=b sau khi mockup không đạt kỳ vọng (2026-11-02; chi tiết và tham chiếu ở `docs/DECISIONS-ARCHIVE.md`)
