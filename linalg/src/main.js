@@ -8,6 +8,8 @@ import { CHAPTERS } from './logic/chapters.js';
 import { LINALG_MOCK } from './logic/mock-exam.js';
 import { FIGURES, WIDGETS } from './ui/quiz-figures.js';
 import { setupCh1ExamplePage } from './ui/ch1-example-page.js';
+import { mountVectorExercise } from './ui/vector-exercise.js';
+import { VECTOR_EXERCISES } from './content/interactive-exercises.js';
 import { setupCh2ExamplePage } from './ui/ch2-example-page.js';
 import { setupCh2LinesPage } from './ui/ch2-lines-page.js';
 import { setupCh3ExamplePage } from './ui/ch3-example-page.js';
@@ -30,6 +32,7 @@ const FREE = freeFromGlob(import.meta.glob('./content/free/*.json', { eager: tru
 window.addEventListener('DOMContentLoaded', () => {
   setupShell({ chapters: CHAPTERS, figures: FIGURES, widgets: WIDGETS, free: FREE, mock: LINALG_MOCK, lesson: ch => THEORY[getLang()][ch] });
   setupCh1ExamplePage();
+  mountVectorExercise(document.getElementById('vector-exercise'), VECTOR_EXERCISES[0]);
   shellReady.then(() => {                      // sau khi tài khoản gắn xong (đọc được ô nhập đã nhớ)
     mountVectorSolver(document.getElementById('tool-vec'));
     mountComboSolver(document.getElementById('tool-combo'));
