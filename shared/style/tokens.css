@@ -19,6 +19,7 @@
 /* Chỉ còn token RIÊNG của CAU_Math; mọi token trùng tên với Study_Hub nằm trong tokens-hub.css (test canh). */
 :root{
   --math:"STIX Two Text",Georgia,"Times New Roman",serif;
+  --paper:#faf9f6;
   --warn:#9a6414; --warn-bg:#fbf1e0;
   --cell-x:#f3ead6;
   --proj:#8a4fd8;
@@ -34,6 +35,7 @@
 
 
 :root[data-theme="dark"]{
+  --paper:#1f2227;
   --warn:#e0a64a; --warn-bg:#2e2412;
   --cell-x:#33301f; --proj:#c39bff;
   --grp-l:66%; --grp-s:85%; --grp-a:.20;
