@@ -12,6 +12,11 @@
   - Linear Algebra: 9 câu, 162 điểm, 97 phút (D63).
 - Luyện tập theo dạng và Thi thử bị ẩn (`PRACTICE_HIDDEN`, `shared/logic/visibility.js`); URL cũ vẫn chạy cho link của Hub. Tự luận vẫn phát `math.answer` mode `free`.
 
+## Exlab: công việc mở (2026-11-01)
+- Nhánh `feat/exlab-paper-reader`: nền paper cho phần đọc dài, gate + ảnh 1280×720 sáng/tối đã kiểm; còn PR/merge/deploy.
+- Nhánh `feat/interactive-vector-exercise`: prototype bài đoán vector trước, mở hình, kéo/nhập đáp án và gợi ý dần; full test + UI audit xanh. Chờ Huy thử trước khi mở rộng sang môn khác.
+- Tự kiểm bài W09: đủ LA và Logic ôn mã/mạch; còn thiếu Programming W09, Logic tuần tự và Discrete Butterfly/Beneš. Tạo lô mới theo lịch tuần 12/slide mới.
+
 ## Lập trình C (2026-10-28, lô thử)
 - App `/prog/`: bài tuần 7 + Đề thi thử 20 câu, đáp án từ clang (`npm run gen:c`). Thêm lô: viết mẫu trong `c-templates.js` (week = tuần), chạy `npm run gen:c`, test tự kiểm. Lô tuần 9 khi có slide. Chưa có luyện trong bài, chưa có tự đánh dấu Đúng/Sai.
 - (2026-10-30) Khuôn đề nhiều ý (mẫu `kind: multi`, dạng mcq/fill/compile/write; `parts(p, r)` dựng ý từ kết quả clang; chấm cả ý). Lô nhỏ 5 mẫu để thử khuôn. Tổng điểm đề chưa cố định 100: chỉnh khi có lô tuần 9.
