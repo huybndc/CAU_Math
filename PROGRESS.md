@@ -13,8 +13,8 @@
 - Luyện tập theo dạng và Thi thử bị ẩn (`PRACTICE_HIDDEN`, `shared/logic/visibility.js`); URL cũ vẫn chạy cho link của Hub. Tự luận vẫn phát `math.answer` mode `free`.
 
 ## Exlab: công việc mở (2026-11-01)
-- Nhánh `feat/exlab-paper-reader`: nền paper cho phần đọc dài, gate + ảnh 1280×720 sáng/tối đã kiểm; còn PR/merge/deploy.
-- Nhánh `feat/interactive-vector-exercise`: prototype bài đoán vector trước, mở hình, kéo/nhập đáp án và gợi ý dần; full test + UI audit xanh. Chờ Huy thử trước khi mở rộng sang môn khác.
+- Paper PR #149 merged; gate + ảnh sáng/tối xanh, deploy chờ Host_study.
+- Interactive PR #148 draft; full test + UI audit xanh, chờ Huy thử trước khi mở rộng môn khác.
 - Tự kiểm bài W09: đủ LA và Logic ôn mã/mạch; còn thiếu Programming W09, Logic tuần tự và Discrete Butterfly/Beneš. Tạo lô mới theo lịch tuần 12/slide mới.
 
 ## Lập trình C (2026-10-28, lô thử)
