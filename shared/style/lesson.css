@@ -20,7 +20,7 @@
 .lesson-card{padding:30px 34px;max-width:820px;min-width:0}
 .kp-steps li,.kp-example{min-width:0;overflow-x:auto}
 .lesson-card > h2{font-size:var(--fs-xl);font-weight:700;letter-spacing:-.02em;margin:0 0 16px}
-.lesson-body{font-size:var(--fs-lg);line-height:1.7;max-width:66ch}
+.lesson-body{font-size:var(--fs-lg);line-height:1.7;max-width:66ch;background:var(--paper);border-radius:var(--r-md);padding:1rem 1.25rem}
 .lesson-body > :first-child{margin-top:0}
 .lesson-body > :last-child{margin-bottom:0}
 .lesson-body p{margin:.7em 0}
