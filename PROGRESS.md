@@ -13,7 +13,7 @@
 - Luyện tập theo dạng và Thi thử bị ẩn (`PRACTICE_HIDDEN`, `shared/logic/visibility.js`); URL cũ vẫn chạy cho link của Hub. Tự luận vẫn phát `math.answer` mode `free`.
 
 ## Exlab: công việc mở (2026-11-01)
-- Paper PR #149 merged; gate + ảnh sáng/tối xanh, deploy chờ Host_study.
+- Paper PR #149 merged và deploy `315f7cd` đã lên; các app trả HTTP 200.
 - Interactive PR #148 draft; full test + UI audit xanh, chờ Huy thử trước khi mở rộng môn khác.
 - Tự kiểm bài W09: đủ LA và Logic ôn mã/mạch; còn thiếu Programming W09, Logic tuần tự và Discrete Butterfly/Beneš. Tạo lô mới theo lịch tuần 12/slide mới.
 
