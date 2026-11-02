@@ -20,28 +20,6 @@
   background:color-mix(in srgb,var(--panel) 78%,transparent);border-radius:6px;padding:2px 7px;
   pointer-events:none;
 }
-.ix-prediction{display:flex;align-items:end;gap:10px;flex-wrap:wrap}
-.ix-field{display:grid;gap:5px;font-size:var(--fs-sm);font-weight:600}
-.ix-field input{font:500 var(--fs-md) var(--mono);width:9.5em;padding:7px 9px;border:1px solid var(--line-strong);border-radius:var(--r-sm);background:var(--panel);color:var(--ink)}
-.ix-field input:focus{outline:2px solid var(--accent);outline-offset:1px}
-.ix-feedback{min-height:1.4em;margin:.35rem 0}
-.ix-feedback.ok{color:var(--ok);font-weight:650}
-.ix-feedback.bad{color:var(--bad)}
-.ix-stage{margin-top:.25rem;padding-top:.25rem;border-top:1px solid var(--line)}
-.ix-row{align-items:start}
-.ix-row .ix-board{flex:1 1 200px;min-width:0;max-width:200px}
-.ix-side{display:grid;grid-template-columns:auto minmax(0,1fr);gap:2px 10px;align-content:start;align-items:center}
-.ix-side > :nth-child(-n+4){grid-column:1/-1}
-.ix-side > :nth-child(5){grid-column:1}
-.ix-side > :nth-child(6){grid-column:2}
-.ix-side .ix-readout{grid-template-columns:repeat(4,max-content);gap:4px 8px;font-size:var(--fs-sm)}
-.ix-side .ix-field{display:flex;align-items:center;justify-content:space-between;gap:8px}
-.ix-side .ix-field input{width:7em}
-.ix-side .ix-feedback{margin:0}
-#pane-ch1-interactive > .card:has(#vector-exercise){padding:16px 18px 12px}
-#pane-ch1-interactive > .card:has(#vector-exercise) > h2{margin-bottom:8px}
-#app:has(#vector-exercise){padding-bottom:12px}
-#app:has(#vector-exercise) .chapter-bar{margin-bottom:1.1rem}
 
 /* ===================== Bảng số đọc nhanh ===================== */
 .readout{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:var(--fs-md);align-items:baseline}

@@ -18,24 +18,6 @@ export const ch1 = {
   'c1.whyNeg': 'Hình chiếu của v ngược chiều w, nên tích vô hướng âm.',
 
   /* Tương tác — kéo vector */
-  'c1.exercise.title': 'Bài tương tác: tìm phần vector còn thiếu',
-  'c1.exercise.prompt': 'Cho u = (2, 1) và đích t = (3, 3). Hãy đoán v sao cho u + v = t. Ghi dự đoán trước khi xem hình.',
-  'c1.exercise.guess': 'Dự đoán v',
-  'c1.exercise.show': 'So sánh dự đoán và mở hình',
-  'c1.exercise.invalid': 'Nhập đúng hai tọa độ, ví dụ 1, 2.',
-  'c1.exercise.guessCorrect': 'Dự đoán đúng. Giờ thử dựng vector trên lưới.',
-  'c1.exercise.guessWrong': 'Dự đoán chưa đúng. Bạn có thể thử kéo vector hoặc xem gợi ý.',
-  'c1.exercise.dragHint': 'Kéo đầu mũi tên xanh hoặc nhập tọa độ bên dưới.',
-  'c1.exercise.answer': 'Tọa độ của v',
-  'c1.exercise.check': 'Kiểm tra vector',
-  'c1.exercise.correct': 'Đúng: u + v = t.',
-  'c1.exercise.mistakeAdd': 'Bạn cộng u với đích. Muốn tìm phần còn lại, hãy lấy đích trừ u.',
-  'c1.exercise.wrong': 'Chưa khớp. So sánh từng tọa độ của u + v với đích.',
-  'c1.exercise.hint': 'Gợi ý',
-  'c1.exercise.hint1': 'Xem u + v = t như một hành trình: u đã đi được một đoạn.',
-  'c1.exercise.hint2': 'Lấy phần còn lại bằng cách trừ: v = t − u.',
-  'c1.exercise.hint3': 'Tính từng tọa độ: v = (3 − 2, 3 − 1).',
-  'c1.exercise.hintsDone': 'Đã hiện hết gợi ý.',
 
   /* Tương tác — tổ hợp tuyến tính */
 

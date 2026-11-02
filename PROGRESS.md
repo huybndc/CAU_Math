@@ -15,6 +15,7 @@
 ## Exlab: trạng thái handoff (2026-11-02)
 - Paper PR #149 merged và deploy `315f7cd` đã lên; các app trả HTTP 200.
 - Dự án tương tác khám phá phép hàng Ax=b đã bị hủy ngày 2026-11-02 vì cả trải nghiệm vector ở PR #148 lẫn mockup ma trận tiếp theo không đạt kỳ vọng tương tác. PR #148 đã đóng; không tiếp tục code, mở rộng hay deploy. Xem D65 trong `DECISIONS.md` + `docs/DECISIONS-ARCHIVE.md`, cùng `tasks/plan.md` và `tasks/todo.md` để biết lý do/phạm vi đã dừng.
+- Đã gỡ prototype vector cùng UI, chuỗi dịch, test và mô tả tính năng khỏi nhánh; không có trong `main` hay bản deploy.
 - Tự kiểm bài W09: đủ LA và Logic ôn mã/mạch; còn thiếu Programming W09, Logic tuần tự và Discrete Butterfly/Beneš. Tạo lô mới theo lịch tuần 12/slide mới.
 
 ## Lập trình C (2026-10-28, lô thử)

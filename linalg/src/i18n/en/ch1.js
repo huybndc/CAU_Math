@@ -18,24 +18,6 @@ export const ch1 = {
   'c1.whyNeg': 'The projection of v points opposite to w, so the dot product is negative.',
 
   /* Interactive — dragging */
-  'c1.exercise.title': 'Interactive exercise: find the missing vector',
-  'c1.exercise.prompt': 'Given u = (2, 1) and target t = (3, 3), predict v so that u + v = t. Write your prediction before viewing the figure.',
-  'c1.exercise.guess': 'Predict v',
-  'c1.exercise.show': 'Compare prediction and open figure',
-  'c1.exercise.invalid': 'Enter exactly two coordinates, for example 1, 2.',
-  'c1.exercise.guessCorrect': 'Correct prediction. Now build the vector on the grid.',
-  'c1.exercise.guessWrong': 'Not quite. You can drag the vector or reveal a hint.',
-  'c1.exercise.dragHint': 'Drag the blue arrow tip or enter its coordinates below.',
-  'c1.exercise.answer': 'Coordinates of v',
-  'c1.exercise.check': 'Check vector',
-  'c1.exercise.correct': 'Correct: u + v = t.',
-  'c1.exercise.mistakeAdd': 'You added u to the target. Find the missing part by subtracting u from the target.',
-  'c1.exercise.wrong': 'Not yet. Compare each coordinate of u + v with the target.',
-  'c1.exercise.hint': 'Hint',
-  'c1.exercise.hint1': 'Think of u + v = t as a route: u has already covered part of it.',
-  'c1.exercise.hint2': 'Find the remaining part by subtracting: v = t − u.',
-  'c1.exercise.hint3': 'Subtract each coordinate: v = (3 − 2, 3 − 1).',
-  'c1.exercise.hintsDone': 'All hints are visible.',
 
   /* Interactive — linear combinations */
 
