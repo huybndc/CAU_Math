@@ -2,4 +2,4 @@
 
 @AGENTS.md
 
-Quy tắc riêng theo môn nằm trong `logic/AGENTS.md`, `linalg/AGENTS.md` và `discrete/AGENTS.md`.
+For course-specific rules, read `logic/AGENTS.md`, `linalg/AGENTS.md`, or `discrete/AGENTS.md`.

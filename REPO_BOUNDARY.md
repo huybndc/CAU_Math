@@ -1,53 +1,34 @@
-# REPO_BOUNDARY.md
+# Repository Boundary
 
-## CAU_Math_App
+## CAU_Math_App owns
 
-Source of truth cho:
-- Logic Circuit.
-- Linear Algebra.
-- Discrete Math.
-- Math syllabus/content/concepts.
-- Question generation + answer checking.
-- Solution oracles.
-- Math lesson/practice/exam UI và tools.
-- Math progress event emission.
+- Logic Circuit, Linear Algebra, and Discrete Math content.
+- Course syllabi, concepts, lessons, and question generators.
+- Answer checkers, solution oracles, and math-specific tools.
+- Math lesson, practice, exam, and progress behavior.
 
-## Study_Hub
+## Study_Hub owns
 
-Source of truth cho:
-- Hub navigation.
-- Today / queue / stats.
-- Notes / Obsidian / vault.
-- Auth / Supabase / RLS.
-- Cross-course aggregation.
-- Integration adapters.
+- Hub navigation, Today, queues, and cross-course statistics.
+- Notes, Obsidian, and vault access.
+- Authentication, Supabase, row-level security, and Hub sync.
+- Course registration and integration adapters.
 
-## Không làm chéo
+## Do not cross this boundary
 
-CAU_Math_App không chứa:
-- Hub Today/Stats.
-- Vault reader.
-- Hub auth/RLS.
-- Course-agnostic planning engine.
-
-Study_Hub không tự viết:
-- Math algorithms.
-- Math question banks.
-- Math-specific lessons/tools.
-- Detailed syllabus của từng môn.
+Do not add Hub behavior to CAU_Math_App. Do not add math algorithms, question banks, lessons, tools, or detailed syllabi to Study_Hub.
 
 ## Integration contract
 
-Không import source trực tiếp từ repo kia. Có đúng hai đường chép tệp:
-- Study_Hub → CAU_Math_App: chỉ link (thanh bên, thẻ "Ôn cuối kỳ" mở `/<môn>/#/learn/chN` trên Worker `cau-math`). Không còn mirror/`math.lock` (gỡ 2026-10-26).
-- CAU_Math_App ← Study_Hub: chép `design-tokens.json`, `semester.js` (bản chụp, không sửa tay). Pet đã gỡ ở cả hai (2026-10-26).
+Do not import source files from the other repository. The repositories use these file paths:
 
-Event: không còn (2026-10-26). App toán chạy riêng, không gửi `math.answer` hay `pet.set` sang Study_Hub; Hub giữ hợp đồng cũ trong hub.sql cho dữ liệu cũ.
+- Study_Hub links to the math apps. Its course links open `/<subject>/#/learn/chN` on the `cau-math` Worker. The math mirror and `math.lock` were removed on 2026-10-26.
+- CAU_Math_App copies `design-tokens.json` and `semester.js` from Study_Hub as snapshots. Do not edit these copies by hand. Pet files were removed from both repositories on 2026-10-26.
 
-## Quy tắc source
+The apps no longer send `math.answer` or `pet.set` events to Study_Hub. Study_Hub keeps the old contract in `hub.sql` for existing data.
 
-Nếu một thay đổi liên quan đến kiến thức/cách giải/câu hỏi/UI toán → CAU_Math_App.
+## Change ownership
 
-Nếu liên quan đến Hub/account/vault/Today/cross-course aggregation → Study_Hub.
-
-Nếu cần cả hai → đổi contract/adapter ở cả hai repo; không copy mã tay qua lại.
+- Change course content, math methods, questions, or math UI in CAU_Math_App.
+- Change Hub accounts, vault, Today, or cross-course data in Study_Hub.
+- For a change that affects both repositories, update the contract or adapter in both repositories. Do not copy source code by hand.

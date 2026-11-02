@@ -1,72 +1,72 @@
-# DECISIONS.md — Mục lục quyết định
+# Decisions
 
-Mỗi quyết định một dòng. Lý do, đánh đổi, chi tiết: `docs/DECISIONS-ARCHIVE.md` (tìm theo mã Dxx).
-Quyết định mới: thêm một dòng ở đây + đoạn đầy đủ ở cuối file lưu trữ. Đổi quyết định: thêm mục "Thay D0x", không xoá mục cũ.
-Quyết định riêng từng app: `logic/PLAN.md`, `linalg/PLAN.md`.
+This file lists active decisions. Find reasons and trade-offs in [`docs/DECISIONS-ARCHIVE.md`](docs/DECISIONS-ARCHIVE.md) by decision ID. Add each new decision here and add its full record to the archive. Change a decision by adding a replacement record. Do not delete the old record.
 
-- D01. Ba app riêng, MỘT máy chủ, có trang Tổng quan chung (phương án B)
-- D02. Phần dùng chung ở `shared/`, một `package.json` ở gốc
-- D03. Chỉ chạy localhost — bỏ `vite-plugin-singlefile` và cách mở bằng `file://`
-- D04. Plugin include tính đường dẫn theo thư mục của file HTML
-- D05. Nội dung bám syllabus từng môn; tự diễn đạt lại, ghi nguồn; không commit tài liệu môn học
-- D06. Không làm
-- D07. Chỉ commit/push trong repo này
-- D08. Giao diện làm lại theo ý "bàn thí nghiệm" (S1, người học: "đổi mạnh về giao diện")
-- D09. Chữ hướng dẫn thành nút ⓘ + popover (Popover API có sẵn của trình duyệt)
-- D10. Địa chỉ trong app: `#/<chương>/<mục con>`
-- D11. Ưu tiên NỘI DUNG trước phần khung còn lại
-- D12. Luyện tập = một bộ chạy dùng chung + "ngân hàng" câu tự sinh mỗi chương
-- D13. Lý thuyết = THẺ HỌC, mỗi mục `##` một thẻ, tối đa 120 chữ hiển thị
-- D14. Trả lời bằng THAO TÁC khi đáp án có hình dạng tự nhiên
-- D15. Nháp = ô chữ, chưa có bút vẽ
-- D16. Menu THEO VIỆC: Tổng quan · Học · Luyện tập · Thi thử (Phase 1)
-- D17. Nhật ký làm bài append-only, mọi con số tính lại từ nhật ký
-- D18. Mỗi dạng câu có THỜI GIAN CHUẨN (`SECONDS`)
-- D19. Không chép 100% toeic-app: ít lựa chọn hơn, giao diện "tài liệu kỹ thuật", chỉ làm bản máy tính
-- D20. Bài full 60–90 phút: đề dựng từ hạt giống, thời gian chia theo tuần học, bỏ câu nhận diện nhanh
-- D21. Sai thì phải biết SAI Ở ĐÂU và LÀM THẾ NÀO — không chỉ "đáp án là X"
-- D22. Đề rõ ràng theo kiểu giáo trình, không lặp câu, có trắc nghiệm ngang tự luận
-- D23. Lời giải từng bước cho MỌI câu, đúng hay sai
-- D24. Ngân hàng câu Linear Algebra: tự luận + trắc nghiệm cùng lúc
-- D25. Mục "Công cụ" trên menu
-- D26. Phase 3 — Bài học theo điểm kiến thức (RESEARCH U-R6)
-- D27. Câu khái niệm do Gemini soạn theo lô, máy kiểm + người học duyệt rồi mới vào app
-- D28. Công cụ K-map: bản đồ và các bước đặt cạnh nhau; trang Công cụ gọn
-- D29. Cây cho mục lục, đồ thị cho quan hệ tiên quyết
-- D30. Gộp những gì liên quan: menu 4 mục, Luyện tập theo nhóm chủ đề
-- D31. Đo độ trùng lặp trước khi refactor
-- D32. Discrete Math: làm trước các chương TÍNH ĐƯỢC (D1, D6, D7)
-- D33. Discrete đủ D1–D7 trước giữa kỳ — kể cả chương "lập luận" vẫn tìm được phần máy tính được
-- D34. Công cụ bấm thử cho Discrete (mục Công cụ, như D25)
-- D35. Discrete D8 Đồ thị — làm ngay khi trên lớp học tới
-- D36. Câu khái niệm Discrete soạn tay + luật "đáp án không dài hơn hẳn"
-- D37. Đồng bộ tiến độ giữa 2 laptop qua thư mục đám mây — không deploy
-- D38. Xuất tiến độ ra ~/study-progress/math.json
-- D39. Logic Ch4 Mạch tổ hợp — đủ dạng câu trước giữa kỳ, công cụ để sau
-- D40. Không ra câu lặp: sửa chống lặp tận gốc + lượt tự ngắn lại + kho câu lớn hơn
-- D41. Lời giải có bảng chân trị thật + bộ kiểm độc lập trước khi ra đề
-- D42. Gõ căn kiểu sqrt(x) ở mọi ô số + đề thi thử trộn câu
-- D43. Lịch học kỳ từ 01/09 + "đang học chương nào" suy từ việc người học làm, không từ syllabus
-- D44. Bộ kiểm độc lập cho cả 25 dạng tính toán LinAlg (D41 mở rộng)
-- D45. Bộ kiểm độc lập cho Logic Ch1, Ch3, Ch4 (D41 mở rộng)
-- D46. Bộ kiểm độc lập cho Discrete D2–D8 — xong phủ mọi dạng tính toán của cả 3 app
-- D47. Bản online qua worker của Study Hub, repo vẫn riêng (2026-09-26)
-- D48. Câu khái niệm lấy từ đề/bài có lời giải bên ngoài, không phụ thuộc AI phái sinh (2026-09-26)
-- D49. Bài luyện Discrete chỉ lấy cấu trúc kiến thức, không chép handout (2026-09-29)
-- D51. Giao diện làm bài LinAlg bớt cuộn, ô trả lời đúng dạng toán (2026-10-01)
-- D52. `shared/` thuần, nối với nơi chứa app qua `@host`; Nháp theo ngăn là bản chuẩn (2026-10-01)
-- D53. Đề thi thử kiểu TOPIK; 80% tự luận · 20% trắc nghiệm cho MỌI môn (2026-10-01)
-- D54. Máy tính kiểu Desmos scientific; không xây thêm "Công cụ" (2026-10-01)
-- D55. Nháp → "Giải Ax = b" (Gauss + PA = LDU); máy tính cho mọi môn toán về sau (2026-10-01)
-- D56. Nháp kéo thả / đổi cỡ + ngăn Vẽ (2026-10-01)
-- D57. Discrete: thêm dạng tự luận thật để tiến tới 80/20 (2026-10-01)
-- D56b. Nháp là cửa sổ nổi, không đẩy nội dung (2026-10-01)
-- D58. Sửa theo đợt review người dùng (2026-10-01)
-- D59. Sửa theo review lần 2 (2026-10-01)
-- D60. Nhập lịch sử về đúng tài khoản (2026-10-01)
-- D61. Gộp nhật ký theo số lần (2026-10-01)
-- D-no-billing. (2026-10-03)
-- D-help. (2026-10-03)
-- D62. Bỏ trang Tổng quan chung `/` (2026-10-15, thay phần "có trang Tổng quan chung" của D01)
-- D63. "Đề như thật" (2026-10-21)
-- D64. Đề như thật dựng công thức bằng KaTeX; đáp án có lời giải từng bước (2026-10-22)
+Subject-specific decisions are in `logic/PLAN.md` and `linalg/PLAN.md`.
+
+- D01. Keep three separate apps on one local server. The shared overview was removed by D62.
+- D02. Put shared code in `shared/` and keep one root `package.json`.
+- D03. Run through localhost. Do not build one-file apps or use `file://`.
+- D04. Resolve include paths from each HTML file's directory.
+- D05. Follow each course syllabus. Rewrite learning material and cite sources. Do not commit course materials.
+- D06. Do not add excluded services or features from the archived decision record.
+- D07. Commit and push only in this repository.
+- D08. Use the approved workbench visual design (S1).
+- D09. Show help in an ⓘ popover by using the browser Popover API.
+- D10. Use routes in the form `#/<chapter>/<section>`.
+- D11. Prioritize course content over framework work.
+- D12. Use one shared practice runner and generated question banks per chapter.
+- D13. Show each `##` lesson section as a card. The 120-word display cap applies to lesson cards only.
+- D14. Use an interactive control when the answer has a natural visual form.
+- D15. Use a text scratchpad. Do not add handwriting input.
+- D16. Use task-based navigation: Overview, Learn, Practice, and Mock Exam.
+- D17. Keep practice logs append-only. Derive totals from the log.
+- D18. Give each question type a standard time value in `SECONDS`.
+- D19. Do not copy the TOEIC app. Use fewer options, a technical-document style, and desktop UI.
+- D20. Build full exams from seeds. Use 60–90 minutes, weight topics by course week, and omit quick-recognition questions.
+- D21. Explain where an answer is wrong and how to fix it.
+- D22. Use clear textbook-style exams. Avoid duplicate questions and balance multiple-choice and free-response questions.
+- D23. Give a step-by-step solution for every question, whether the answer is right or wrong.
+- D24. Include both free-response and multiple-choice questions in the Linear Algebra bank.
+- D25. Keep a Tools section in navigation.
+- D26. Phase 3 uses lessons organized by knowledge point (research U-R6).
+- D27. Generate concept questions in batches with Gemini. Validate them by machine and approve them before adding them to the app.
+- D28. Show K-map diagrams beside their solution steps. Keep the Tools page compact.
+- D29. Use a tree for course structure and a graph for prerequisite links.
+- D30. Group related features under four navigation sections. Group practice by topic.
+- D31. Measure duplication before refactoring.
+- D32. Build computable Discrete Math chapters first: D1, D6, and D7.
+- D33. Complete D1–D7 before the midterm, including computable questions for proof-focused chapters.
+- D34. Add interactive Discrete Math tools under Tools.
+- D35. Build Discrete Math D8 when the class reaches graph theory.
+- D36. Write Discrete Math concept questions by hand. Keep answer length close to the question's needs.
+- D37. Sync progress between two laptops through a cloud folder. Do not deploy this feature.
+- D38. Export progress to `~/study-progress/math.json`.
+- D39. Complete Logic Circuit Chapter 4 question types before the midterm. Build tools later.
+- D40. Prevent duplicate questions at the source, shorten practice rounds, and expand the question bank.
+- D41. Show real truth tables in solutions and use an independent oracle before generating questions.
+- D42. Accept `sqrt(x)` in numeric fields and mix question types in mock exams.
+- D43. Start the semester calendar on September 1. Infer the current chapter from learner activity, not the syllabus.
+- D44. Add independent oracle tests for all 25 Linear Algebra computational types.
+- D45. Add independent oracle tests for Logic Circuit Chapters 1, 3, and 4.
+- D46. Add independent oracle tests for Discrete Math D2–D8.
+- D47. Serve the online app through a Study_Hub Worker while keeping this repository independent (2026-09-26).
+- D48. Base concept questions on external problems with worked solutions, not AI-derived content (2026-09-26).
+- D49. Use Discrete Math handouts for topic structure only. Do not copy their content (2026-09-29).
+- D51. Reduce scrolling in Linear Algebra practice and use answer fields that match the math (2026-10-01).
+- D52. Keep `shared/` pure and connect host storage through `@host`. Use tabbed scratch storage as the standard (2026-10-01).
+- D53. Use TOPIK-style mock exams with 80% free-response and 20% multiple-choice questions in every subject (2026-10-01).
+- D54. Use a Desmos-style scientific calculator. Do not add another Tools section (2026-10-01).
+- D55. Add an `Ax = b` solver to the scratchpad and plan math calculators for later subjects (2026-10-01).
+- D56. Add drag, resize, and a drawing tab to the scratchpad (2026-10-01).
+- D57. Add real Discrete Math free-response questions to reach the 80/20 exam mix (2026-10-01).
+- D56b. Make the scratchpad a floating window that does not move page content (2026-10-01).
+- D58. Apply changes from the first user review (2026-10-01).
+- D59. Apply changes from the second user review (2026-10-01).
+- D60. Import history into the correct account (2026-10-01).
+- D61. Merge logs by occurrence count (2026-10-01).
+- D-no-billing. Do not enable billing for project services (2026-10-03).
+- D-help. Put help on each screen. Do not create a separate help page (2026-10-03).
+- D62. Remove the shared overview at `/`. Study_Hub owns cross-course views (2026-10-15).
+- D63. Add realistic printed mock exams (2026-10-21).
+- D64. Render mock-exam formulas with KaTeX and show step-by-step answers (2026-10-22).

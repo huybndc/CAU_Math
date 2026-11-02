@@ -1,88 +1,57 @@
 # CAU Math App
 
-CAU Math App là repo source of truth cho 3 môn toán của học kỳ hiện tại:
+This repository is the source of truth for three math apps:
 
 - Logic Circuit
 - Linear Algebra
 - Discrete Math
 
-Repo này tập trung vào nội dung và công cụ học toán. Study_Hub là repo khác, giữ vai trò khung quản lý học tập.
+The apps provide course content and math tools. Study_Hub is a separate repository for study management.
 
-## Ranh giới với Study_Hub
+## Repository boundary
 
-CAU_Math_App sở hữu:
-- syllabus và nội dung 3 môn;
-- concepts, lessons, question generators;
-- answer checkers và solution oracles;
-- math-specific UI, tools và exam/practice flow;
-- lịch sử/progress của câu toán và bridge event khi integration hoàn chỉnh.
+CAU_Math_App owns course content, concepts, lessons, question generators, answer checkers, solution oracles, math UI, tools, exams, and math progress behavior.
 
-Study_Hub sở hữu:
-- Today / queue / stats tổng hợp;
-- Notes / Obsidian / vault;
-- Auth, Supabase/RLS và Hub sync;
-- course registry và integration adapters.
+Study_Hub owns Today, queues, cross-course statistics, notes, Obsidian, the vault, authentication, Supabase, row-level security, sync, course registration, and integration adapters.
 
-Không thêm Hub logic vào CAU_Math_App. Không sửa thuật toán/content toán trong Study_Hub.
+Do not add Hub behavior here. Do not add math algorithms or course-specific content to Study_Hub. See [REPO_BOUNDARY.md](REPO_BOUNDARY.md).
 
-Chi tiết: REPO_BOUNDARY.md.
+## Structure
 
-## Cấu trúc
+```text
+CAU_Math_App/
+├── logic/       Logic Circuit
+├── linalg/      Linear Algebra
+├── discrete/    Discrete Math
+├── shared/      Code used by at least two math apps
+└── scripts/     Tooling and content generation
+```
 
-    CAU_Math_App/
-    ├── logic/       Logic Circuit
-    ├── linalg/      Linear Algebra
-    ├── discrete/    Discrete Math
-    ├── shared/      framework dùng chung cho 3 app toán
-    └── scripts/     tooling / content generation
+Each app has pure logic, UI, content, translations, and tests.
 
-Mỗi app có logic thuần, UI, content, i18n và tests. shared chỉ chứa code thật sự dùng chung cho từ hai app trở lên.
+## Run and test
 
-## Chạy
+Use Node.js 20 or later.
 
-Yêu cầu Node.js 20+.
+```sh
+git clone https://github.com/huybndc/CAU_Math_App.git
+cd CAU_Math_App
+npm install
+npm run dev
+npm test
+npm run check
+```
 
-    git clone https://github.com/huybndc/CAU_Math_App.git
-    cd CAU_Math_App
-    npm install
-    npm run dev
+The local app uses `http://localhost:5180`.
 
-Mặc định: http://localhost:5180.
+## Study_Hub integration
 
-    npm test
-    npm run check
+The repositories do not import source files from each other. Study_Hub links to the math apps. CAU_Math_App copies the approved design tokens and semester data as snapshots. The apps no longer send `math.answer` or `pet.set` events to Study_Hub.
 
-## Kết hợp với Study_Hub
+Study_Hub owns cross-course views. CAU_Math_App owns math questions, answers, and UI.
 
-Hai repo không import source trực tiếp.
+## Agent documents
 
-Luồng mục tiêu:
+Read `REPO_BOUNDARY.md` for ownership, `AGENTS.md` for repository rules, and `PROGRESS.md`, `PLAN.md`, and `DECISIONS.md` for current work and decisions. Each subject has its own `AGENTS.md`.
 
-    CAU_Math_App
-        ↓
-    math events / course data
-        ↓
-    Study_Hub
-        ↓
-    Today / Progress / Stats
-
-Event lịch sử câu toán chuẩn là math.answer:
-
-    subject, prefix, kind, ok, mode, optional tag
-
-Study_Hub đọc/aggregate. CAU_Math_App quyết định câu hỏi, đáp án và UI.
-
-Trạng thái hiện tại:
-- 3 app toán đang phát triển độc lập trong repo này.
-- Study_Hub đã có phía đọc math.answer.
-- Bridge ghi math.answer từ CAU_Math_App là phần đang tách khỏi Study_Hub.
-- Sau bridge, các bản copy math trong Study_Hub sẽ được loại bỏ.
-
-## Tài liệu cho AI
-
-1. `REPO_BOUNDARY.md` — phạm vi của repo.
-2. `AGENTS.md` — chỉ dẫn chung; quy tắc riêng ở từng môn nằm trong `logic/AGENTS.md`, `linalg/AGENTS.md`, `discrete/AGENTS.md`.
-3. `CLAUDE.md` — tệp tương thích, import chỉ dẫn từ `AGENTS.md`.
-4. `PROGRESS.md`, `PLAN.md`, `DECISIONS.md` — trạng thái, lộ trình và lịch sử quyết định.
-
-Không commit PDF/slide/syllabus riêng của lớp, secret hoặc dữ liệu cá nhân.
+Do not commit class PDFs, slides, syllabi, secrets, or personal data.

@@ -1,48 +1,40 @@
 # Linear Algebra
 
-App ôn tập Đại số tuyến tính (khung Strang / MIT 18.06), menu theo việc (Tổng quan · Học · Luyện tập · Thi thử — D16). Kế thừa nguyên khung của Logic Circuit; khác biệt duy nhất về kiến trúc là có thêm tầng `src/geometry/`.
+This app follows Strang and MIT 18.06. It uses the shared course-app framework and adds a geometry layer.
 
-## Nguyên tắc
-- Mỗi file một trách nhiệm, mục tiêu dưới ~400 dòng, trần 450 (D40 TOEIC) (`npm run check` ở gốc repo).
-- Ba tầng, ranh giới rõ ràng:
-  - `src/logic/` — toán thuần (vector, ma trận, khử Gauss). Nhận số, trả số. Không biết pixel, không đụng `document`/`window`.
-  - `src/geometry/` — "vẽ ở đâu": đổi toạ độ toán ↔ pixel, cắt đường thẳng theo khung nhìn, nội suy animation. Thuần, không đụng DOM, không làm toán tuyến tính (gọi sang `logic/` nếu cần).
-  - `src/ui/` — đọc/ghi DOM và canvas, ráp `logic/` với `geometry/`.
-- `logic/` và `geometry/` không bao giờ import từ `ui/` (`tests/i18n.test.js` canh).
-- Không sang milestone mới khi `npm test` đang fail.
+## Code rules
 
-## Quy ước
-- Test ở `tests/<tên-module>.test.js`, một file test cho một file logic/geometry.
-- Module của chương N: phần sinh/chấm đề đặt `chN-quiz.js`; UI tương ứng là `chN-<mục con>-page.js`.
-- Hàm sinh đề trả về `{ kind, textKey, textParams, answer, hintKey, hintParams, meta }` — `meta` giữ tham số ở dạng có cấu trúc để test kiểm chứng lại mà không phải bóc tách chuỗi đề.
-- Chấm bài theo giá trị số có sai số cho phép (`logic/answer-check.js`), không so chuỗi: `3, -2`, `(3, -2)` và `3 -2` đều phải được chấp nhận.
-- Số hiển thị đi qua `logic/num-format.js` (`fmt`): hệ số kiểu 2/3 viết thành phân số chứ không phải `0.667`.
-- Nội dung học tập dạng văn bản để ở `src/content/*.md`, import bằng `?raw`.
-- Comment và chuỗi hiển thị viết bằng tiếng Việt, bản EN dịch song song.
+- Keep one responsibility in each file. The target is below 400 lines; the hard check is 450 lines. Run `npm run check` at the repository root.
+- Keep `src/logic/` pure. It handles vectors, matrices, and elimination. It must not access the DOM or pixels.
+- Keep `src/geometry/` pure. It maps math coordinates to pixels, clips lines, and computes animation values. It may call `logic/` but must not access the DOM.
+- Keep `src/ui/` responsible for the DOM and canvas. It joins `logic/` and `geometry/`.
+- Never import UI code into `logic/` or `geometry/`.
+- Do not start a new milestone while `npm test` fails.
+- Put tests in `tests/<module>.test.js`. Test each logic or geometry module.
+- Name question modules `chN-quiz.js` and page modules `chN-<section>-page.js`.
+- Return structured question data: `{ kind, textKey, textParams, answer, hintKey, hintParams, meta }`. Keep test values in `meta`.
+- Grade numeric answers by value with an allowed tolerance. Do not compare answer strings.
+- Format displayed values through `logic/num-format.js` (`fmt`). Show simple fractions as fractions.
+- Keep learning text in `src/content/*.md` and import it with Vite `?raw`.
+- Preserve learner content, source text, and UI strings in their original language. Keep existing language style for those strings.
 
-## Tầng hình học
-- Vector là mảng số: `[x, y]` trong R², `[x, y, z]` trong R³.
-- Ma trận là mảng các hàng: `[[a, b], [c, d]]`.
-- Toạ độ "thế giới" (world) là toạ độ toán học, y hướng lên. Toạ độ pixel là toạ độ canvas, y hướng xuống. `createView()` giữ tỉ lệ vuông để góc vuông trên hình đúng là góc vuông.
-- Thư viện đồ hoạ quyết định theo từng chương, ghi lại ở đầu mỗi milestone trong `PLAN.md`. Hiện tại: Canvas 2D thuần cho tất cả, kể cả 3D — dự án không có phụ thuộc đồ hoạ ngoài nào. Lý do và số đo cụ thể ở mục "Quyết định 3D" trong `PLAN.md`.
-- 3D: `geometry/space3d.js` là camera quay quanh điểm ngắm (chiếu phối cảnh, tia chuột, kéo–thả), `geometry/polygon3d.js` cắt đa giác và sắp thứ tự vẽ. Cả hai thuần và có test; `ui/canvas3d.js` chỉ nhận danh sách "vật" rồi vẽ. Muốn đổi sang WebGL sau này thì chỉ phải viết lại `ui/canvas3d.js`.
-- Vẽ 3D bằng thuật toán người thợ sơn: luôn cắt đa giác/đoạn thẳng theo mặt phẳng của nhau trước khi sắp thứ tự, nếu không thì hai mặt cắt nhau sẽ vẽ sai (mặt này đè hẳn lên mặt kia).
+## Geometry
 
-## Song ngữ VI/EN
-- Chuỗi UI lấy qua `T(key, params)` (`src/i18n/index.js`). Bí danh import luôn là `T` — không dùng `t` (đụng biến cục bộ) hay `tr`.
-- Markup tĩnh dùng `data-i18n` / `-html` / `-ph` / `-title`.
-- Từ điển ở `src/i18n/{vi,en}/{common,chN}.js`. Hai bản bắt buộc cùng tập khoá và cùng tham số `{…}` — `tests/i18n.test.js` canh việc này.
-- `logic/` và `geometry/` không được biết ngôn ngữ: ném `AppError(key, params)` (`shared/logic/app-error.js`) hoặc trả về `labelKey/reasonKey/textKey` + params. `ui/` dịch bằng `T()` / `tError()`.
+Use arrays for vectors and row arrays for matrices. World coordinates use an upward y-axis. Canvas pixels use a downward y-axis. `createView()` must preserve equal scale on both axes.
 
-## Điều hướng & markup
-Menu theo việc (D16): Tổng quan · Học · Luyện tập · Thi thử — `shared/ui/{router,screens}.js`, địa chỉ `#/learn/chN/<theory|example|interactive>`, `#/practice/chN[/dạng]`, `#/exam`. Trang chương (`src/pages/chN.html`) chỉ còn các khung `.pane`; router bật đúng một khung. Nút nhảy chéo khai báo bằng `data-goto="ch3:interactive"`, không cần gắn listener riêng. Thêm chương: 1 file partial + 1 dòng include + 1 mục trong `chapters` của `main.js`.
+Use Canvas 2D for current chapters, including 3D. Record a new renderer decision in `PLAN.md` before a chapter needs it. `geometry/space3d.js` owns the camera and projection. `geometry/polygon3d.js` clips and sorts polygons. `ui/canvas3d.js` draws the result. Clip intersecting faces before painter-order sorting.
 
-`index.html` chỉ là shell; markup mỗi chương nằm ở `src/pages/chN.html`, gộp lúc dev bằng `<!--#include src/pages/chN.html -->` (`shared/vite-plugin-include.js`). Thêm chương mới thì thêm 1 file partial + 1 dòng include + 1 nút tab.
+## Vietnamese and English UI
 
-## Tab Lý thuyết
-Mỗi chương có `src/content/theory-chN.{vi,en}.md`, import bằng `?raw` trong `main.js` rồi gắn bằng `mountLesson(host, md, {chapter, banks, figures})`. Hai bản phải cùng số heading cấp 2. Sửa bài học thì sửa file `.md`, không đụng code.
+- Use `T(key, params)` from `src/i18n/index.js`. Import it as `T`.
+- Use `data-i18n` attributes for static text.
+- Keep both dictionaries in `src/i18n/{vi,en}/` aligned. `tests/i18n.test.js` checks keys and parameters.
+- Keep language handling out of `logic/` and `geometry/`. Return structured error and text keys. Translate in `ui/`.
 
-## Chạy & phần dùng chung
-Không còn build một file (`vite-plugin-singlefile` đã bỏ — chỉ chạy localhost, D03). Chạy `npm run dev` ở gốc repo → http://localhost:5180/linalg/.
+## Routes, lessons, and local run
 
-Các file sau nằm ở `shared/` và import qua bí danh `@shared`: `ui/router.js`, `ui/screens.js`, `ui/dom.js` (`$`), `logic/app-error.js`, lõi i18n (`src/i18n/index.js` của app chỉ nạp từ điển rồi re-export), plugin include.
+The shared router owns routes such as `#/learn/chN/<theory|example|interactive>`, `#/practice/chN[/kind]`, and `#/exam`. Keep chapter markup in `src/pages/chN.html`.
+
+Each chapter has `theory-chN.vi.md` and `theory-chN.en.md` with matching level-two headings. Edit Markdown when only lesson text changes.
+
+Run `npm run dev` at the repository root. The app opens at `http://localhost:5180/linalg/`. Use shared modules through `@shared`.

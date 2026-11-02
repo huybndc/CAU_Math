@@ -1,63 +1,52 @@
-# Ôn tập Logic Circuit
+# Logic Circuit Review App
 
-App học theo chương, **song ngữ Việt/Anh**, chạy hoàn toàn offline trong trình duyệt.
-Mỗi chương có 4 mục con: **Lý thuyết → Ví dụ minh hoạ → Tương tác → Luyện tập**.
-Nút VI/EN ở góc trên phải; lựa chọn được nhớ lại giữa các lần mở.
+This bilingual app runs offline in a browser. Each chapter has Learn, Example, Interactive, and Practice sections. The VI/EN control is in the top-right corner and its choice persists between visits.
 
-| Chương | Nội dung | Tương ứng sách |
+| Chapter | Content | Textbook scope |
 |---|---|---|
-| Ch.1 | Hệ đếm, chuyển cơ số, complement, số có dấu, mã BCD/parity | §1.1–1.11 |
-| Ch.2 | Đại số Boolean, định lý, hàm bù, minterm/maxterm, 16 hàm & 8 cổng | §2.1–2.8 |
-| Ch.3 | Gray code, K-map, Quine–McCluskey | Ch.3 |
+| 1 | Number systems, base conversion, complements, signed numbers, BCD and parity | Sections 1.1–1.11 |
+| 2 | Boolean algebra, theorems, complements, minterms, maxterms, 16 functions, and 8 gates | Sections 2.1–2.8 |
+| 3 | Gray code, K-maps, and Quine–McCluskey | Chapter 3 |
 
-> `graycode-kmap.html` ở thư mục gốc repo là **bản build** của project này.
+## Run and test
 
-## Cách chạy, test
+Run these commands at the repository root. One Vite server serves all three math apps.
 
-Chạy ở **gốc repo** (một máy chủ Vite cho cả 3 app — xem `../README.md`):
-
-```bash
+```sh
 npm install
-npm run dev      # http://localhost:5180/logic/
-npm test         # test cả 3 app
+npm run dev
+npm test
 ```
 
-## Cấu trúc
+Open `http://localhost:5180/logic/`.
 
-```
+## Structure
+
+```text
 logic/
-├── index.html            # shell: nav 2 cấp + <!--#include --> từng chương
-├── src/
-│   ├── style.css         # toàn bộ CSS
-│   ├── main.js           # điểm vào: gọi các setup*Page()
-│   ├── pages/chN.html    # markup từng chương (4 mục con)
-│   ├── logic/            # hàm thuần, không đụng DOM — test bằng Node
-│   ├── ui/               # đọc/ghi DOM, gắn sự kiện, gọi logic/
-│   └── content/          # theory-chN.md — nội dung Lý thuyết từng chương
-└── tests/                # test Vitest, mỗi file ứng với một module logic
+├── index.html       app shell and chapter includes
+├── src/style.css    app styles
+├── src/main.js      app setup
+├── src/pages/       chapter markup
+├── src/logic/       pure math logic
+├── src/ui/          DOM and event handling
+├── src/content/     lesson text
+└── tests/           Vitest tests
 ```
 
-Quy tắc: `logic/` **không bao giờ** import từ `ui/`.
+Logic modules must not import UI modules.
 
-## Sửa nội dung Lý thuyết
+## Edit lessons and UI text
 
-Sửa thẳng `src/content/theory-chN.vi.md` (và bản `.en.md` tương ứng — Markdown
-thường, có thể copy từ vault Obsidian `CAU_1st`). Trang tự render lại khi lưu
-(`npm run dev`), không cần đụng code.
+Edit `src/content/theory-chN.vi.md` and its `.en.md` partner. The app reloads the lesson during development. Add UI keys to both `src/i18n/vi/*.js` and `src/i18n/en/*.js`; use `T('key')` or a `data-i18n` attribute. Tests check that both dictionaries use matching keys and parameters.
 
-## Thêm/sửa chuỗi giao diện
+## Add a chapter
 
-Thêm khoá vào **cả hai** `src/i18n/vi/*.js` và `src/i18n/en/*.js`, rồi dùng
-`T('khoá')` trong `src/ui/` hoặc `data-i18n="khoá"` trong markup.
-`npm test` sẽ báo nếu hai từ điển lệch khoá hoặc lệch tham số `{…}`.
+1. Add `src/pages/chN.html` from an existing chapter shell.
+2. Add its include and tab in `index.html`.
+3. Add paired lesson files and register them in `main.js`.
+4. Add logic under `src/logic/`, UI under `src/ui/`, and tests under `tests/`.
 
-## Thêm một chương mới
+## Verify
 
-1. `src/pages/ch4.html` — copy khung 4 mục con từ một chương có sẵn.
-2. Thêm 1 dòng `<!--#include src/pages/ch4.html -->` và 1 nút tab trong `index.html`.
-3. `src/content/theory-ch4.md` + `mountTheory('#theory-ch4-body', md)` trong `main.js`.
-4. Logic mới vào `src/logic/`, UI vào `src/ui/`, test vào `tests/`.
-
-## Kiểm nghiệm
-`npm test` và `npm run check` ở gốc repo; đối chiếu nội dung với sách đã xong theo từng milestone (xem `PLAN.md` ở đây và `DECISIONS.md`).
-
+Run `npm test` and `npm run check` at the repository root. Check content against the textbook and the chapter plan.
