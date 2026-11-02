@@ -1,33 +1,54 @@
-# FEATURES — CAU_Math (bản đồ tính năng cho Agent)
+# Feature Map for Agents
 
-Cập nhật file này trong cùng PR khi đổi UI. Một server (Vite) phục vụ 3 trang: `/logic/`, `/linalg/`, `/discrete/`.
-Chạy: `npm run dev` (http://localhost:5180, cổng cố định vì trạng thái nằm trong localStorage theo origin). Test: `npm test` (vitest, glob `{shared,logic,linalg,discrete}/tests/**`).
-Chưa có `data-testid`. Hook hiện có = `data-nav`, `data-screen`, `data-subject`, `data-lang`, `data-i18n`, `aria-label`, id. Ô nhập của câu hỏi dựng bằng JS, không có id: dùng class.
+Update this file in the same PR when a UI changes. One Vite server serves `/logic/`, `/linalg/`, and `/discrete/`. Run `npm run dev` at the repository root. Run `npm test` for all app tests.
 
-`/` chỉ chuyển hướng tới `/logic/` (không còn trang tổng quan chung — thay D01; tổng hợp 3 môn do Study_Hub làm).
+There are no `data-testid` hooks yet. Use the existing hooks: `data-nav`, `data-screen`, `data-subject`, `data-lang`, `data-i18n`, `aria-label`, and element IDs. Question inputs are created by JavaScript and have no ID; use their class.
 
-## Khung chung của 3 môn (`shared/ui/`, `shared/logic/`)
-- Thanh bên `aside.appnav`: nút chọn môn `button.subject-switch` (▾ cạnh tên môn, mở `ul.subject-menu` các môn khác; danh sách môn ở `shared/subjects.json`, vite build cũng đọc file này); `a.nav-brand`, `a.tab[data-nav=home|learn|tools|mock]` (mục "Đề thi thử" chứa thêm thẻ Tự luận), `#lang-switch button[data-lang=vi|en]`, `#theme-toggle`, `button.nav-search`, thu gọn bằng nút ☰ (`button.nav-collapse`, Lucide menu) đầu hàng tên app như Live_Lecture, thu còn 56px (`study-nav`). Tên hiển thị "Exlab" (`app.brand`, tiêu đề tab: màn · môn · Exlab). Favicon: Lucide flask-conical trắng trên nền #5a6ab8 (data-URI trong 4 trang HTML gốc); tên môn ở thanh bên có icon flask màu môn. Icon: một bộ Lucide nét 1.5 trong `shared/style/icons.css` (`--i-*`), dùng làm mask. Nhóm `nav.nav-apps` ghim đáy thanh bên (như Live_Lecture): `a.tab.app-link` sang Study Hub và Live Lecture (địa chỉ lấy lúc build từ `.env.local`: `VITE_HUB_URL`, `VITE_LIVE_URL`; thiếu thì ẩn).
-- Màn: `section.screen[data-screen]` (`#screen-home|learn|tools|free|mock|pane`). Tổng quan (`#screen-home`): tên môn, dải 16 ô tuần, hai cột Hôm nay | Học + Đề thi thử; kỳ nghỉ (sau tuần 16, quy tắc `shared/logic/semester.js` chép từ Study_Hub) thay dải tuần bằng dòng `.term-break` "Kỳ nghỉ · còn N ngày đến kỳ học"; khoảng cách giãn theo chiều cao màn (`fit.css`, vh có sàn/trần) để không dồn lên nửa trên.
-- Route (hash, `shared/logic/route.js`): `#/`, `#/learn`, `#/learn/chN/(theory|example|interactive)[/n]`, `#/tools`, `#/free[/id]`.
-- Đề thi thử (`#/mock`, `shared/ui/mock-screen.js`, `shared/logic/mock-exam.js`; Linear Algebra có mẫu `linalg/src/logic/mock-*.js`): chọn mã seed (`input.mock-seed`), `button` Đề mới / Đề | Đáp án / In lưu PDF (A4, `body[data-print]`). Công thức dựng bằng KaTeX (`.katex`), đáp án có bước giải từng phép biến đổi. Logic Circuit (K-map: 7 đoạn, chuyển mã BCD sang Excess-3 / Gray / 2421; vẽ một mạch: bộ cộng BCD hoặc bộ so sánh 2 bit, MUX 4×1 hoặc decoder + OR): đáp án in kèm hình mạch mẫu (`.mp-figs`), thang chấm theo bước dưới mỗi ý (`.mp-rubric`) và dòng "To grade" ở đầu tờ (`.mp-grade`): người học làm giấy rồi gửi ảnh bài + tờ đáp án cho Claude chấm. Màn: mã đề, Đề mới, thẻ Đề | Đáp án, nút "In / lưu PDF"; bản xem trước nguyên tờ A4 ngay trên màn (`.mock-sheet`, cuộn trong khung), in qua hộp thoại của trình duyệt (chọn Lưu dưới dạng PDF). Không có đồng hồ hay tự chấm điểm trong app (người học tự bấm giờ và tự chấm bằng đáp án in). Luyện tập theo dạng, Thi thử và Sổ câu sai đã gỡ (2026-10-22); `#/practice…` và `#/exam…` về Tổng quan.
-- Tính năng: Học (thẻ Bài học / Ví dụ giải sẵn / Công cụ tương tác), Công cụ, Tự luận (đề · gợi ý theo thang · lời giải từng bước; không tự chấm, không phát sự kiện từ 2026-10-22), Nháp (ghi chú, máy tính, bảng, vẽ), cờ đánh dấu, thuật ngữ, trợ giúp màn hình.
-- Bài đọc dài (`.lesson-body`) dùng nền giấy ngà riêng: `#faf9f6` sáng, `#1f2227` tối; khung môn giữ màu trung tính hiện tại.
-- Phím: Ctrl/Cmd+K hoặc `/` mở tìm nhanh (`dialog.palette`, `li.pal-row`); `?` trợ giúp màn hình; Esc đóng; `1..N` chọn đáp án trắc nghiệm; mũi tên trái/phải chuyển thẻ bài học.
-- Hook chung: `.runner`, `.run-widget`, `.flag-fold`, `.tab[data-tab]`, `data-check`, `data-tool`, `data-goto`.
-- Code: `shared/ui/{shell,screens,learn-screen,runner,solver,lesson,palette,scratch*}.js`, `shared/logic/{free,question-pool,calc*}.js`.
+`/` redirects to `/logic/`. Study_Hub owns cross-course views. See D62.
 
-## Môn
-- Lập trình C (`/prog/`, lô thử tuần 7: struct, union, typedef): bài học `prog/src/content/theory-ch7.*.md`; Đề thi thử 20 câu × 5 điểm, 120 phút, mã nguồn có số dòng (`.mp-code`). Câu đoán kết quả / tìm lỗi sinh từ `prog/src/logic/c-templates.js`, đáp án do clang thật tạo lúc build (`npm run gen:c` → `c-bank.json`); test chạy lại clang. Tỉ lệ phạm vi `SCOPE` (80% tuần ≥ 9, 20% nền). Không có Công cụ; thẻ Tự luận ẩn khi môn chưa có tự luận.
-| Môn | Chương | Code chính |
+## Shared app framework
+
+Shared UI and logic live in `shared/ui/` and `shared/logic/`.
+
+- The subject switch reads `shared/subjects.json`. The build uses that file too.
+- Navigation includes Overview, Learn, Tools, and Mock Exam. The Mock Exam screen has a Free Response tab.
+- The language switch uses `data-lang=vi|en`. The theme control follows system light or dark mode.
+- The app rail can collapse to 56 pixels. The app name is Exlab. Course icons use each course color.
+- The app rail links to Study_Hub and Live_Lecture when their build URLs exist in `.env.local`.
+- Screens use `section.screen[data-screen]`. The Overview shows course status, a 16-week timeline, Today, Learn, and Mock Exam. During a term break, it shows the next-term date.
+- Routes use the hash router in `shared/logic/route.js`.
+- Mock exams use a seed. The screen can show the exam or answer and can print an A4 copy. KaTeX renders formulas. Printed answers show worked steps. Logic Circuit answers can include a circuit diagram and marking rubric.
+- Mock exams have no app timer or automatic grading. The learner times and grades the printed exam.
+- Type-based Practice, Mock Exam, and Mistakes screens were removed on 2026-10-22. Old practice and exam URLs return to Overview.
+- Current features include lessons, examples, interactive tools, free response, scratchpad, flags, glossary, and screen help.
+- Long lessons use a paper-like background: `#faf9f6` in light mode and `#1f2227` in dark mode.
+- `Ctrl/Cmd+K` or `/` opens quick search. `?` opens screen help. `Esc` closes a dialog. Number keys select multiple-choice answers. Left and right arrows change lesson cards.
+- Shared hooks include `.runner`, `.run-widget`, `.flag-fold`, `.tab[data-tab]`, `data-check`, `data-tool`, and `data-goto`.
+
+Key shared modules include `shared/ui/{shell,screens,learn-screen,runner,solver,lesson,palette,scratch*}.js` and `shared/logic/{free,question-pool,calc*}.js`.
+
+## Course apps
+
+### C programming
+
+`/prog/` contains the week 7 lesson and a 20-question mock exam. `npm run gen:c` uses real `clang` output for answer keys. Add templates to `prog/src/logic/c-templates.js`, set the week, run the generator, and test the generated bank. The week 9 batch waits for class slides.
+
+Multi-part questions support multiple-choice, fill-in, compile, and write tasks. The generator checks compile output, including AddressSanitizer for `find-oob`. Current question batches are paused until week 12. Course color and scratch tabs come from `shared/subjects.json`; `npm run gen:subjects` creates the theme files and links. `npm run sync:subjects` imports practice subjects from Study_Hub. Calculus remains inactive until it has content.
+
+### Course map
+
+| App | Course scope | Main code |
 |---|---|---|
-| `/logic/` (Mano) | ch1 Hệ đếm & mã nhị phân, ch2 Đại số Boolean & cổng logic, ch3 Gray code & K-map, ch4 (tên chưa kiểm) | `logic/src/ui/`, `logic/src/logic/` (`expr-parser`, `kmap-*`, `quine-mccluskey`) |
-| `/linalg/` (Strang) | ch1 Vector, ch2 Giải hệ Ax = b, ch3 Không gian vector | `linalg/src/ui/`, `linalg/src/logic/` (`elimination`, `ldu`, `subspace`) |
-| `/discrete/` (MIT 6.042J) | ch1 Mệnh đề & logic, ch6 Chia hết & gcd, ch7 Đồng dư & RSA; ch2–5, ch8 tên chưa kiểm | `discrete/src/ui/`, `discrete/src/logic/` (`prop-logic`, `number-theory`, `graph`) |
-Nội dung: `<môn>/src/content/` (`theory-chN.vi|en.md`, `free/chN.json`, `concepts.json`); trang: `<môn>/src/pages/chN.html`. Tên chương đầy đủ: `i18n/vi/common.js` (`nav.chN`).
+| `/logic/` | Mano: number systems, Boolean algebra, Gray code, and K-maps | `logic/src/ui/`, `logic/src/logic/` |
+| `/linalg/` | Strang: vectors, `Ax = b`, and vector spaces | `linalg/src/ui/`, `linalg/src/logic/` |
+| `/discrete/` | MIT 6.042J: logic, number theory, and graphs | `discrete/src/ui/`, `discrete/src/logic/` |
 
-## Lưu trữ
-localStorage theo môn, dạng `<khoá>:<môn>` qua `shared/ui/store.js` (`progress`, `flags`, `scratch:*`, `calc`). Chung: `study-theme`, `study-nav`. Không gửi gì sang Study_Hub (tách app 2026-10-26); `shared/host.js` chỉ còn khoá lưu + namespace đồng bộ thư mục ở máy dev.
+Course content lives in `<app>/src/content/`: `theory-chN.vi.md`, `theory-chN.en.md`, `free/chN.json`, and `concepts.json`. Chapter names live in `i18n/vi/common.js` under `nav.chN`.
 
-## Khoảng trống hook
-Thẻ và nút ở Tổng quan chỉ có class + `data-subject`; giao diện câu hỏi không có id. Thêm `data-testid` khi đụng tới màn đó.
+## Storage and integration
+
+Each app stores progress in localStorage with a subject prefix. Shared settings use `study-theme` and `study-nav`. The apps do not send data to Study_Hub. `shared/host.js` keeps local storage keys and the development folder-sync namespace.
+
+## Missing test hooks
+
+Overview cards and buttons use classes and `data-subject`. Question controls have no ID. Add `data-testid` when changing one of these screens.

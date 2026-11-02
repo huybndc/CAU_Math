@@ -1,15 +1,31 @@
-# PRODUCT — CAU Math (Logic Circuit, Linear Algebra, Discrete Math)
+# Product: CAU Math
 
-## Chung của Huy (mọi app)
-- Người dùng: người học (sinh viên năm nhất, viết tiếng Việt). Dùng laptop (desktop-first); mobile/tablet chỉ khi được yêu cầu riêng.
-- Mỗi màn vừa một khung nhìn ≈1280×720; danh sách dài cuộn trong thẻ của nó; bớt cuộn bằng bố cục và gập/mở, KHÔNG bỏ thông tin.
-- Giọng: ngắn, nhiều bảng và mũi tên, ít văn; chữ tiếng Việt, thuật ngữ giữ gốc. Ý chính lên trước.
-- Chỉ dùng thứ miễn phí (font hệ thống, icon mã nguồn mở). Không dịch vụ trả phí.
-- Giữ hệ thiết kế đang có (token của Study_Hub: màu, chữ, bo góc, khoảng cách). Không đổi phong cách khi không được yêu cầu.
+## Shared learner needs
 
-## App này
-- Mục đích: ba app ôn tập toán cho các môn Logic Circuit, Linear Algebra, Discrete Math: học theo thẻ, máy giải có lời giải, luyện tập theo dạng, thi thử.
-- Ai dùng, lúc nào, ở đâu: người học ôn giữa kỳ trên laptop, ngồi lớp hoặc ở nhà; làm từng câu ngắn, cần phản hồi đúng/sai ngay.
-- Việc quan trọng nhất trên màn hình: làm một câu rồi biết đúng/sai và vì sao; mở đúng công cụ; thấy chương nào cần luyện tiếp.
-- Ràng buộc kỹ thuật: Vite + JS thuần, một máy chủ cho cả 3 app; `shared/` dùng chung (Study_Hub build bản sao qua `math.lock`); sáng/tối theo hệ thống; song ngữ VI/EN.
-- Có chủ ý (đừng "sửa"): viền màu bên trái ở thẻ nhấn/callout (`side-tab`: thẻ "hôm nay", thẻ lead, đáp án máy giải, phản hồi đúng/sai, mục "học tiếp") — dùng để chỉ thẻ quan trọng nhất của màn; và mũi tên gập/mở của danh sách (`border-right/bottom` xoay thành chevron, bị quét nhầm là side-tab).
+- The learner is a first-year student who studies in Vietnamese.
+- Design for desktop use. Support mobile and tablet only when asked.
+- Fit each screen in about 1280 × 720 pixels. Let long lists scroll inside their own cards. Use layout and disclosure controls to reduce page scrolling. Keep all useful information.
+- Put the main point first. Use short text, tables, and arrows. Keep technical terms in their standard form.
+- Use free resources, such as system fonts and open-source icons. Do not add paid services.
+- Keep the current Study_Hub design tokens for color, type, radius, and spacing. Change the visual style only when asked.
+
+## Product purpose
+
+CAU Math provides study apps for Logic Circuit, Linear Algebra, and Discrete Math. Learners study with cards, use worked solvers, practice question types, and take mock exams.
+
+The main user is a learner who studies for a midterm on a laptop, in class or at home. The learner needs to answer short questions and see whether the answer is right and why.
+
+The main screen tasks are to answer a question, open the correct tool, and find the next chapter to practice.
+
+## Technical constraints
+
+- Use Vite and plain JavaScript.
+- Serve all three apps from one development server.
+- Keep reusable app code in `shared/`.
+- Use system light and dark themes.
+- Keep Vietnamese and English UI support.
+- Study_Hub is a separate repository. It does not build a math mirror.
+
+## Intentional design details
+
+Keep the colored left border on the main callout cards. It marks the most important card on a screen. Keep the list disclosure chevrons. Some border edges form these chevrons and can look like a side border during a scan.
