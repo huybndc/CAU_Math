@@ -25,7 +25,7 @@ const math = s => {
   });
   return e;
 };
-const srcLine = (ex, q) => q.refs.length
+const srcLine = (ex, q) => q.source ? `Source: ${q.source}` : q.refs.length
   ? `Source: ${ex.book} — Ch. ${q.refs[0].sec.split(/[.–]/)[0]}, ${q.refs.map(r => `§${r.sec} ${r.title}`).join('; ')}`
   : '';
 
@@ -33,6 +33,7 @@ function paper(ex, key, tools) {
   const head = el('header', { class: 'mp-head' }, [
     el('h1', { text: `${ex.title}${key ? ' — Answer key' : ''}` }),
     el('p', { text: `Code: ${ex.code} · Time: ${ex.minutes} min · Total: ${ex.total} points${key ? '' : ' · No calculator, no notes'}` }),
+    ...(ex.note ? [el('p', { class: 'mp-grade', text: ex.note })] : []),
     ...(key ? [el('p', { class: 'mp-grade', text: `To grade: send a photo of your work and this sheet (code ${ex.code}) to Claude.` })] : []),
   ]);
   const qs = ex.questions.map(q => el('section', { class: 'mp-q' }, [

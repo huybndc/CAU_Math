@@ -12,7 +12,7 @@ const FLAGS = ['-std=c11', '-Wall', '-o'];
 export const hashSrc = s => createHash('sha256').update(s).digest('hex').slice(0, 16);
 
 /** { ok, out?, line? } — dùng chung cho script này và test kiểm lại. */
-export function runC(src, { san = false } = {}) {
+export function runC(src, { san = false, input } = {}) {
   const dir = mkdtempSync(join(tmpdir(), 'cbank-'));
   try {
     const file = join(dir, 'main.c'), bin = join(dir, 'a.out');
@@ -24,13 +24,25 @@ export function runC(src, { san = false } = {}) {
       return { ok: false, line: m ? Number(m[1]) : null, why: why ? why[1] : '', err: cc.stderr };
     }
     if (san) { const run = spawnSync(bin, { encoding: 'utf8', timeout: 5000 }); return { ok: true, crashed: run.status !== 0, out: run.stdout }; }
-    return { ok: true, out: execFileSync(bin, { encoding: 'utf8', timeout: 5000 }) };
+    return { ok: true, out: execFileSync(bin, { encoding: 'utf8', timeout: 5000, input }), warn: cc.stderr };
   } finally { rmSync(dir, { recursive: true, force: true }); }
+}
+
+/** Probes are extra programs that clang must judge as the template claims. Returns the failed claims. */
+export function probeProblems(v) {
+  return (v.probes ?? []).flatMap((p, i) => {
+    const r = runC(p.src);
+    if (p.fails !== undefined && r.ok === p.fails) return [`${v.id} probe ${i}: ${p.fails ? 'must not compile' : 'must compile'}`];
+    if (p.warns && !(r.warn ?? '').includes(p.warns)) return [`${v.id} probe ${i}: no warning "${p.warns}"`];
+    return [];
+  });
 }
 
 export function build() {
   return variants().map(v => {
-    const r = runC(v.src);
+    const r = runC(v.src, { input: v.input });
+    const bad = probeProblems(v);
+    if (bad.length) throw new Error(bad.join('\n'));
     if (v.badSrc && !runC(v.badSrc, { san: true }).crashed) throw new Error(`${v.id}: bản sai phải sập khi chạy`);
     if (v.kind === 'multi') {
       if (!r.ok && !r.line) throw new Error(`${v.id}: lỗi không rõ dòng\n${r.err}`);
@@ -43,7 +55,7 @@ export function build() {
     }
     if (r.ok || !r.line) throw new Error(`${v.id}: bản sai phải có lỗi biên dịch`);
     if (!runC(v.fixSrc).ok) throw new Error(`${v.id}: bản sửa không biên dịch được`);
-    return { id: v.id, template: v.template, kind: v.kind, topic: v.topic, week: v.week, hash: hashSrc(v.src), line: r.line };
+    return { id: v.id, template: v.template, kind: v.kind, topic: v.topic, week: v.week, hash: hashSrc(v.src), line: r.line, why: r.why };
   });
 }
 

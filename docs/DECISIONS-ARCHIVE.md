@@ -52,3 +52,14 @@ This file summarizes decisions D01–D64. Active decisions are in `../DECISIONS.
 ## Source note
 
 This English archive keeps the decisions that still guide the code and identifies superseded choices. Git history keeps the original D01–D64 text, detailed measurements, and review notes. Do not restore a superseded choice without a new entry in `../DECISIONS.md`.
+
+**D66. Complete the C mock exam for weeks 2–9 (2026-11-03).**
+
+- The learner told the agent to complete the C course now, before week 12.
+- Each question has 5 points and 2 parts (2 + 3 or 3 + 2). Thus 20 questions always give 100 points and 40 parts, for all template selections.
+- The exam header states the all-or-nothing marking one time. The parts do not repeat it.
+- `BLUEPRINT` sets the question groups: 3 multiple-choice, 5 fill-in, 4 predict, 4 fix, 4 write.
+- The share of weeks 9–15 uses `SCOPE.postMidShare` (80%). The exam uses earlier weeks when a group has too few new templates. Today 11 of 20 questions are from week 9. The share rises when new templates arrive.
+- The foundation templates target the learner's weak areas: pointer arrays vs 2D char arrays, structs with char arrays, `scanf` with strings, and string comparison.
+- The source line shows the course week. The old line printed the week number as a book chapter, which was wrong.
+- Reason for no batches for weeks 10–15: the class slides do not exist yet, and the teacher has not taught these topics.

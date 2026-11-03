@@ -267,7 +267,8 @@
   "topic": "struct",
   "week": 7,
   "hash": "413723a40443615d",
-  "line": 6
+  "line": 6,
+  "why": "array type 'char[10]' is not assignable"
  },
  {
   "id": "err-assign-array-1",
@@ -276,7 +277,8 @@
   "topic": "struct",
   "week": 7,
   "hash": "5aaffecca86a065e",
-  "line": 6
+  "line": 6,
+  "why": "array type 'char[10]' is not assignable"
  },
  {
   "id": "err-assign-array-2",
@@ -285,7 +287,8 @@
   "topic": "struct",
   "week": 7,
   "hash": "efaf000f47d2c536",
-  "line": 6
+  "line": 6,
+  "why": "array type 'char[10]' is not assignable"
  },
  {
   "id": "err-arrow-on-value-0",
@@ -294,7 +297,8 @@
   "topic": "struct",
   "week": 7,
   "hash": "c65726205caac130",
-  "line": 6
+  "line": 6,
+  "why": "member reference type 'struct Box' is not a pointer; did you mean to use '.'?"
  },
  {
   "id": "err-arrow-on-value-1",
@@ -303,7 +307,8 @@
   "topic": "struct",
   "week": 7,
   "hash": "6269fd7dbe8736af",
-  "line": 6
+  "line": 6,
+  "why": "member reference type 'struct Box' is not a pointer; did you mean to use '.'?"
  },
  {
   "id": "err-arrow-on-value-2",
@@ -312,7 +317,8 @@
   "topic": "struct",
   "week": 7,
   "hash": "a726d71f4045c591",
-  "line": 6
+  "line": 6,
+  "why": "member reference type 'struct Box' is not a pointer; did you mean to use '.'?"
  },
  {
   "id": "err-compare-struct-0",
@@ -321,7 +327,8 @@
   "topic": "struct",
   "week": 7,
   "hash": "07da8de01cf149ce",
-  "line": 5
+  "line": 5,
+  "why": "invalid operands to binary expression ('struct P' and 'struct P')"
  },
  {
   "id": "err-compare-struct-1",
@@ -330,7 +337,8 @@
   "topic": "struct",
   "week": 7,
   "hash": "a1766e0efea5d5c8",
-  "line": 5
+  "line": 5,
+  "why": "invalid operands to binary expression ('struct P' and 'struct P')"
  },
  {
   "id": "err-compare-struct-2",
@@ -339,7 +347,8 @@
   "topic": "struct",
   "week": 7,
   "hash": "9db8ba57924681c0",
-  "line": 5
+  "line": 5,
+  "why": "invalid operands to binary expression ('struct P' and 'struct P')"
  },
  {
   "id": "err-missing-struct-0",
@@ -348,7 +357,8 @@
   "topic": "typedef",
   "week": 7,
   "hash": "70a60bd00ae07e5b",
-  "line": 4
+  "line": 4,
+  "why": "must use 'struct' tag to refer to type 'Node'"
  },
  {
   "id": "err-missing-struct-1",
@@ -357,7 +367,8 @@
   "topic": "typedef",
   "week": 7,
   "hash": "09237036b31f198b",
-  "line": 4
+  "line": 4,
+  "why": "must use 'struct' tag to refer to type 'Node'"
  },
  {
   "id": "err-missing-struct-2",
@@ -366,7 +377,8 @@
   "topic": "typedef",
   "week": 7,
   "hash": "9f8a3450674c5cc7",
-  "line": 4
+  "line": 4,
+  "why": "must use 'struct' tag to refer to type 'Node'"
  },
  {
   "id": "find-oob-0",
@@ -633,5 +645,854 @@
   "hash": "989fe0856ad5a1d8",
   "ok": true,
   "out": "25\n"
+ },
+ {
+  "id": "str-eq-0",
+  "template": "str-eq",
+  "kind": "predict",
+  "topic": "string",
+  "week": 6,
+  "hash": "88db2c898418406c",
+  "out": "0 1 0\n"
+ },
+ {
+  "id": "str-eq-1",
+  "template": "str-eq",
+  "kind": "predict",
+  "topic": "string",
+  "week": 6,
+  "hash": "a2490aa6b1f9b713",
+  "out": "0 1 0\n"
+ },
+ {
+  "id": "str-eq-2",
+  "template": "str-eq",
+  "kind": "predict",
+  "topic": "string",
+  "week": 6,
+  "hash": "f6ed136f31a3eaf4",
+  "out": "0 1 0\n"
+ },
+ {
+  "id": "str-eq-3",
+  "template": "str-eq",
+  "kind": "predict",
+  "topic": "string",
+  "week": 6,
+  "hash": "eb59250a6b10cbc6",
+  "out": "0 1 0\n"
+ },
+ {
+  "id": "mcq-scanf-string-0",
+  "template": "mcq-scanf-string",
+  "kind": "multi",
+  "type": "mcq",
+  "topic": "string",
+  "week": 6,
+  "hash": "7ee66500fd0473f7",
+  "ok": true,
+  "out": "My\n"
+ },
+ {
+  "id": "mcq-scanf-string-1",
+  "template": "mcq-scanf-string",
+  "kind": "multi",
+  "type": "mcq",
+  "topic": "string",
+  "week": 6,
+  "hash": "7ee66500fd0473f7",
+  "ok": true,
+  "out": "Hello\n"
+ },
+ {
+  "id": "mcq-scanf-string-2",
+  "template": "mcq-scanf-string",
+  "kind": "multi",
+  "type": "mcq",
+  "topic": "string",
+  "week": 6,
+  "hash": "7ee66500fd0473f7",
+  "ok": true,
+  "out": "Kim\n"
+ },
+ {
+  "id": "mcq-scanf-string-3",
+  "template": "mcq-scanf-string",
+  "kind": "multi",
+  "type": "mcq",
+  "topic": "string",
+  "week": 6,
+  "hash": "7ee66500fd0473f7",
+  "ok": true,
+  "out": "C\n"
+ },
+ {
+  "id": "mcq-ptr-vs-2d-0",
+  "template": "mcq-ptr-vs-2d",
+  "kind": "multi",
+  "type": "mcq",
+  "topic": "string",
+  "week": 6,
+  "hash": "9e77d4bffceadb3f",
+  "ok": true,
+  "out": "24 18\n"
+ },
+ {
+  "id": "mcq-ptr-vs-2d-1",
+  "template": "mcq-ptr-vs-2d",
+  "kind": "multi",
+  "type": "mcq",
+  "topic": "string",
+  "week": 6,
+  "hash": "82673fed7982189c",
+  "ok": true,
+  "out": "24 30\n"
+ },
+ {
+  "id": "mcq-ptr-vs-2d-2",
+  "template": "mcq-ptr-vs-2d",
+  "kind": "multi",
+  "type": "mcq",
+  "topic": "string",
+  "week": 6,
+  "hash": "37f8ddb0bc592131",
+  "ok": true,
+  "out": "24 21\n"
+ },
+ {
+  "id": "mcq-ptr-vs-2d-3",
+  "template": "mcq-ptr-vs-2d",
+  "kind": "multi",
+  "type": "mcq",
+  "topic": "string",
+  "week": 6,
+  "hash": "38d380628c196c53",
+  "ok": true,
+  "out": "24 36\n"
+ },
+ {
+  "id": "fill-scanf-string-0",
+  "template": "fill-scanf-string",
+  "kind": "multi",
+  "type": "fill",
+  "topic": "string",
+  "week": 6,
+  "hash": "22df58b1397a96a4",
+  "ok": true,
+  "out": "Kim 1234\n"
+ },
+ {
+  "id": "fill-scanf-string-1",
+  "template": "fill-scanf-string",
+  "kind": "multi",
+  "type": "fill",
+  "topic": "string",
+  "week": 6,
+  "hash": "22df58b1397a96a4",
+  "ok": true,
+  "out": "Lee 77\n"
+ },
+ {
+  "id": "fill-scanf-string-2",
+  "template": "fill-scanf-string",
+  "kind": "multi",
+  "type": "fill",
+  "topic": "string",
+  "week": 6,
+  "hash": "22df58b1397a96a4",
+  "ok": true,
+  "out": "Park 2026\n"
+ },
+ {
+  "id": "fill-scanf-string-3",
+  "template": "fill-scanf-string",
+  "kind": "multi",
+  "type": "fill",
+  "topic": "string",
+  "week": 6,
+  "hash": "22df58b1397a96a4",
+  "ok": true,
+  "out": "Choi 305\n"
+ },
+ {
+  "id": "fill-ptr-array-0",
+  "template": "fill-ptr-array",
+  "kind": "multi",
+  "type": "fill",
+  "topic": "string",
+  "week": 6,
+  "hash": "6de82825672d0592",
+  "ok": true,
+  "out": "3 10\n"
+ },
+ {
+  "id": "fill-ptr-array-1",
+  "template": "fill-ptr-array",
+  "kind": "multi",
+  "type": "fill",
+  "topic": "string",
+  "week": 6,
+  "hash": "4755a891d622dea2",
+  "ok": true,
+  "out": "2 5\n"
+ },
+ {
+  "id": "fill-ptr-array-2",
+  "template": "fill-ptr-array",
+  "kind": "multi",
+  "type": "fill",
+  "topic": "string",
+  "week": 6,
+  "hash": "86b7b6898854ac9e",
+  "ok": true,
+  "out": "4 16\n"
+ },
+ {
+  "id": "fill-ptr-array-3",
+  "template": "fill-ptr-array",
+  "kind": "multi",
+  "type": "fill",
+  "topic": "string",
+  "week": 6,
+  "hash": "42582243d4ea4f63",
+  "ok": true,
+  "out": "2 8\n"
+ },
+ {
+  "id": "fill-struct-string-0",
+  "template": "fill-struct-string",
+  "kind": "multi",
+  "type": "fill",
+  "topic": "struct",
+  "week": 7,
+  "hash": "546c0ed046cc007d",
+  "ok": true,
+  "out": "same Kim\n"
+ },
+ {
+  "id": "fill-struct-string-1",
+  "template": "fill-struct-string",
+  "kind": "multi",
+  "type": "fill",
+  "topic": "struct",
+  "week": 7,
+  "hash": "c3f9b6c0f0a91a4d",
+  "ok": true,
+  "out": "same Lee\n"
+ },
+ {
+  "id": "fill-struct-string-2",
+  "template": "fill-struct-string",
+  "kind": "multi",
+  "type": "fill",
+  "topic": "struct",
+  "week": 7,
+  "hash": "f9b2fbb93100753c",
+  "ok": true,
+  "out": "same Park\n"
+ },
+ {
+  "id": "fill-struct-string-3",
+  "template": "fill-struct-string",
+  "kind": "multi",
+  "type": "fill",
+  "topic": "struct",
+  "week": 7,
+  "hash": "f14cf960ea9a7951",
+  "ok": true,
+  "out": "same Han\n"
+ },
+ {
+  "id": "write-my-len-0",
+  "template": "write-my-len",
+  "kind": "multi",
+  "type": "write",
+  "topic": "string",
+  "week": 6,
+  "hash": "0e6e78756c57f09d",
+  "ok": true,
+  "out": "6\n"
+ },
+ {
+  "id": "write-my-len-1",
+  "template": "write-my-len",
+  "kind": "multi",
+  "type": "write",
+  "topic": "string",
+  "week": 6,
+  "hash": "5dd845886b93cff4",
+  "ok": true,
+  "out": "7\n"
+ },
+ {
+  "id": "write-my-len-2",
+  "template": "write-my-len",
+  "kind": "multi",
+  "type": "write",
+  "topic": "string",
+  "week": 6,
+  "hash": "ee74212912243d48",
+  "ok": true,
+  "out": "1\n"
+ },
+ {
+  "id": "write-my-len-3",
+  "template": "write-my-len",
+  "kind": "multi",
+  "type": "write",
+  "topic": "string",
+  "week": 6,
+  "hash": "2a8ee9153ff075db",
+  "ok": true,
+  "out": "9\n"
+ },
+ {
+  "id": "write-same-0",
+  "template": "write-same",
+  "kind": "multi",
+  "type": "write",
+  "topic": "string",
+  "week": 6,
+  "hash": "b90e86025d59c375",
+  "ok": true,
+  "out": "1 0\n"
+ },
+ {
+  "id": "write-same-1",
+  "template": "write-same",
+  "kind": "multi",
+  "type": "write",
+  "topic": "string",
+  "week": 6,
+  "hash": "639c2b279362771b",
+  "ok": true,
+  "out": "1 0\n"
+ },
+ {
+  "id": "write-same-2",
+  "template": "write-same",
+  "kind": "multi",
+  "type": "write",
+  "topic": "string",
+  "week": 6,
+  "hash": "5ebb29944d1c4c91",
+  "ok": true,
+  "out": "1 0\n"
+ },
+ {
+  "id": "write-same-3",
+  "template": "write-same",
+  "kind": "multi",
+  "type": "write",
+  "topic": "string",
+  "week": 6,
+  "hash": "7d6690a46bb66bf7",
+  "ok": true,
+  "out": "1 0\n"
+ },
+ {
+  "id": "write-best-0",
+  "template": "write-best",
+  "kind": "multi",
+  "type": "write",
+  "topic": "struct",
+  "week": 7,
+  "hash": "b8b1e3f9c3df5d94",
+  "ok": true,
+  "out": "Lee\n"
+ },
+ {
+  "id": "write-best-1",
+  "template": "write-best",
+  "kind": "multi",
+  "type": "write",
+  "topic": "struct",
+  "week": 7,
+  "hash": "6c83acec4b8502c6",
+  "ok": true,
+  "out": "Cho\n"
+ },
+ {
+  "id": "write-best-2",
+  "template": "write-best",
+  "kind": "multi",
+  "type": "write",
+  "topic": "struct",
+  "week": 7,
+  "hash": "40e1eb30c34da9bf",
+  "ok": true,
+  "out": "Min\n"
+ },
+ {
+  "id": "write-best-3",
+  "template": "write-best",
+  "kind": "multi",
+  "type": "write",
+  "topic": "struct",
+  "week": 7,
+  "hash": "2495bbce1b02c298",
+  "ok": true,
+  "out": "Im\n"
+ },
+ {
+  "id": "callby-0",
+  "template": "callby",
+  "kind": "predict",
+  "topic": "function",
+  "week": 9,
+  "hash": "76ffca5bd4636007",
+  "out": "10 30\n"
+ },
+ {
+  "id": "callby-1",
+  "template": "callby",
+  "kind": "predict",
+  "topic": "function",
+  "week": 9,
+  "hash": "b4146fe282dcf76f",
+  "out": "5 12\n"
+ },
+ {
+  "id": "callby-2",
+  "template": "callby",
+  "kind": "predict",
+  "topic": "function",
+  "week": 9,
+  "hash": "bd15a9e2ed739088",
+  "out": "3 33\n"
+ },
+ {
+  "id": "callby-3",
+  "template": "callby",
+  "kind": "predict",
+  "topic": "function",
+  "week": 9,
+  "hash": "38d4c022bb7e7c98",
+  "out": "15 19\n"
+ },
+ {
+  "id": "callby-4",
+  "template": "callby",
+  "kind": "predict",
+  "topic": "function",
+  "week": 9,
+  "hash": "fb118ba67cd4ec3e",
+  "out": "8 16\n"
+ },
+ {
+  "id": "array-sizeof-0",
+  "template": "array-sizeof",
+  "kind": "predict",
+  "topic": "function",
+  "week": 9,
+  "hash": "4c206a455b18ae47",
+  "out": "24 8 3\n"
+ },
+ {
+  "id": "array-sizeof-1",
+  "template": "array-sizeof",
+  "kind": "predict",
+  "topic": "function",
+  "week": 9,
+  "hash": "8e28477786c8309c",
+  "out": "16 8 2\n"
+ },
+ {
+  "id": "array-sizeof-2",
+  "template": "array-sizeof",
+  "kind": "predict",
+  "topic": "function",
+  "week": 9,
+  "hash": "e4f66c17fd1377d8",
+  "out": "40 8 5\n"
+ },
+ {
+  "id": "array-sizeof-3",
+  "template": "array-sizeof",
+  "kind": "predict",
+  "topic": "function",
+  "week": 9,
+  "hash": "0e10f4a84f66c21f",
+  "out": "32 8 4\n"
+ },
+ {
+  "id": "row-ptr-0",
+  "template": "row-ptr",
+  "kind": "predict",
+  "topic": "pointer",
+  "week": 9,
+  "hash": "2e98b349873f6712",
+  "out": "2 3 16 14\n"
+ },
+ {
+  "id": "row-ptr-1",
+  "template": "row-ptr",
+  "kind": "predict",
+  "topic": "pointer",
+  "week": 9,
+  "hash": "6479709066126dec",
+  "out": "2 3 8 6\n"
+ },
+ {
+  "id": "row-ptr-2",
+  "template": "row-ptr",
+  "kind": "predict",
+  "topic": "pointer",
+  "week": 9,
+  "hash": "a767098a12814ab4",
+  "out": "2 3 13 9\n"
+ },
+ {
+  "id": "row-ptr-3",
+  "template": "row-ptr",
+  "kind": "predict",
+  "topic": "pointer",
+  "week": 9,
+  "hash": "c7ab14fc3e2d9509",
+  "out": "2 3 35 29\n"
+ },
+ {
+  "id": "err-const-0",
+  "template": "err-const",
+  "kind": "find",
+  "topic": "pointer",
+  "week": 9,
+  "hash": "57e6d80f6273169b",
+  "line": 5,
+  "why": "read-only variable is not assignable"
+ },
+ {
+  "id": "err-const-1",
+  "template": "err-const",
+  "kind": "find",
+  "topic": "pointer",
+  "week": 9,
+  "hash": "08d0629f065f98a4",
+  "line": 5,
+  "why": "cannot assign to variable 'p' with const-qualified type 'int *const'"
+ },
+ {
+  "id": "err-const-2",
+  "template": "err-const",
+  "kind": "find",
+  "topic": "pointer",
+  "week": 9,
+  "hash": "c80b15b2f71ff938",
+  "line": 5,
+  "why": "read-only variable is not assignable"
+ },
+ {
+  "id": "err-const-3",
+  "template": "err-const",
+  "kind": "find",
+  "topic": "pointer",
+  "week": 9,
+  "hash": "2db00cbc9efa6e2a",
+  "line": 5,
+  "why": "cannot assign to variable 'p' with const-qualified type 'const int *const'"
+ },
+ {
+  "id": "err-array-inc-0",
+  "template": "err-array-inc",
+  "kind": "find",
+  "topic": "pointer",
+  "week": 9,
+  "hash": "c367315cad591b10",
+  "line": 7,
+  "why": "cannot increment value of type 'int[3]'"
+ },
+ {
+  "id": "err-array-inc-1",
+  "template": "err-array-inc",
+  "kind": "find",
+  "topic": "pointer",
+  "week": 9,
+  "hash": "f735740b9815b3b6",
+  "line": 7,
+  "why": "cannot increment value of type 'int[4]'"
+ },
+ {
+  "id": "err-array-inc-2",
+  "template": "err-array-inc",
+  "kind": "find",
+  "topic": "pointer",
+  "week": 9,
+  "hash": "d1f7055c363f0ebb",
+  "line": 7,
+  "why": "cannot increment value of type 'int[2]'"
+ },
+ {
+  "id": "err-array-inc-3",
+  "template": "err-array-inc",
+  "kind": "find",
+  "topic": "pointer",
+  "week": 9,
+  "hash": "da5d52e54fa6babd",
+  "line": 7,
+  "why": "cannot increment value of type 'int[5]'"
+ },
+ {
+  "id": "dangling-0",
+  "template": "dangling",
+  "kind": "multi",
+  "type": "findrun",
+  "topic": "pointer",
+  "week": 9,
+  "hash": "4d67964d880e0d2d",
+  "ok": true,
+  "out": "8\n"
+ },
+ {
+  "id": "dangling-1",
+  "template": "dangling",
+  "kind": "multi",
+  "type": "findrun",
+  "topic": "pointer",
+  "week": 9,
+  "hash": "75764b1fbedef36d",
+  "ok": true,
+  "out": "42\n"
+ },
+ {
+  "id": "dangling-2",
+  "template": "dangling",
+  "kind": "multi",
+  "type": "findrun",
+  "topic": "pointer",
+  "week": 9,
+  "hash": "4a082b34c3db1d3a",
+  "ok": true,
+  "out": "14\n"
+ },
+ {
+  "id": "dangling-3",
+  "template": "dangling",
+  "kind": "multi",
+  "type": "findrun",
+  "topic": "pointer",
+  "week": 9,
+  "hash": "da1bad192ef3a7ba",
+  "ok": true,
+  "out": "100\n"
+ },
+ {
+  "id": "mcq-variadic-0",
+  "template": "mcq-variadic",
+  "kind": "multi",
+  "type": "mcq",
+  "topic": "function",
+  "week": 9,
+  "hash": "1473dfb428092970",
+  "ok": true,
+  "out": "3.00\n"
+ },
+ {
+  "id": "mcq-variadic-1",
+  "template": "mcq-variadic",
+  "kind": "multi",
+  "type": "mcq",
+  "topic": "function",
+  "week": 9,
+  "hash": "f6c7c34d193ab855",
+  "ok": true,
+  "out": "5.00\n"
+ },
+ {
+  "id": "mcq-variadic-2",
+  "template": "mcq-variadic",
+  "kind": "multi",
+  "type": "mcq",
+  "topic": "function",
+  "week": 9,
+  "hash": "54326d68aedd68e4",
+  "ok": true,
+  "out": "3.00\n"
+ },
+ {
+  "id": "mcq-variadic-3",
+  "template": "mcq-variadic",
+  "kind": "multi",
+  "type": "mcq",
+  "topic": "function",
+  "week": 9,
+  "hash": "1234fc9c9e0a0ab5",
+  "ok": true,
+  "out": "6.00\n"
+ },
+ {
+  "id": "fill-array-len-0",
+  "template": "fill-array-len",
+  "kind": "multi",
+  "type": "fill",
+  "topic": "function",
+  "week": 9,
+  "hash": "ed6597c58fb37f4d",
+  "ok": true,
+  "out": "10.0\n"
+ },
+ {
+  "id": "fill-array-len-1",
+  "template": "fill-array-len",
+  "kind": "multi",
+  "type": "fill",
+  "topic": "function",
+  "week": 9,
+  "hash": "55dddc0c7f29b3be",
+  "ok": true,
+  "out": "16.0\n"
+ },
+ {
+  "id": "fill-array-len-2",
+  "template": "fill-array-len",
+  "kind": "multi",
+  "type": "fill",
+  "topic": "function",
+  "week": 9,
+  "hash": "755938db26656dcd",
+  "ok": true,
+  "out": "14.0\n"
+ },
+ {
+  "id": "fill-array-len-3",
+  "template": "fill-array-len",
+  "kind": "multi",
+  "type": "fill",
+  "topic": "function",
+  "week": 9,
+  "hash": "3adab0e7a71d1765",
+  "ok": true,
+  "out": "12.0\n"
+ },
+ {
+  "id": "fill-swap-0",
+  "template": "fill-swap",
+  "kind": "multi",
+  "type": "fill",
+  "topic": "function",
+  "week": 9,
+  "hash": "d0f6234d0c65b4b9",
+  "ok": true,
+  "out": "8 3\n"
+ },
+ {
+  "id": "fill-swap-1",
+  "template": "fill-swap",
+  "kind": "multi",
+  "type": "fill",
+  "topic": "function",
+  "week": 9,
+  "hash": "5e4f12e10e5b77ad",
+  "ok": true,
+  "out": "2 10\n"
+ },
+ {
+  "id": "fill-swap-2",
+  "template": "fill-swap",
+  "kind": "multi",
+  "type": "fill",
+  "topic": "function",
+  "week": 9,
+  "hash": "b78e86de7104593f",
+  "ok": true,
+  "out": "7 7\n"
+ },
+ {
+  "id": "fill-swap-3",
+  "template": "fill-swap",
+  "kind": "multi",
+  "type": "fill",
+  "topic": "function",
+  "week": 9,
+  "hash": "315a2c8b484884f8",
+  "ok": true,
+  "out": "100 1\n"
+ },
+ {
+  "id": "write-sum-all-0",
+  "template": "write-sum-all",
+  "kind": "multi",
+  "type": "write",
+  "topic": "function",
+  "week": 9,
+  "hash": "8faecdd1914a5c7a",
+  "ok": true,
+  "out": "6\n"
+ },
+ {
+  "id": "write-sum-all-1",
+  "template": "write-sum-all",
+  "kind": "multi",
+  "type": "write",
+  "topic": "function",
+  "week": 9,
+  "hash": "29986fb767d9ea2a",
+  "ok": true,
+  "out": "30\n"
+ },
+ {
+  "id": "write-sum-all-2",
+  "template": "write-sum-all",
+  "kind": "multi",
+  "type": "write",
+  "topic": "function",
+  "week": 9,
+  "hash": "603fe8e22dce6b57",
+  "ok": true,
+  "out": "22\n"
+ },
+ {
+  "id": "write-sum-all-3",
+  "template": "write-sum-all",
+  "kind": "multi",
+  "type": "write",
+  "topic": "function",
+  "week": 9,
+  "hash": "6501dd836d316c68",
+  "ok": true,
+  "out": "9\n"
+ },
+ {
+  "id": "write-raise-0",
+  "template": "write-raise",
+  "kind": "multi",
+  "type": "write",
+  "topic": "struct",
+  "week": 9,
+  "hash": "7a496527c69c9fec",
+  "ok": true,
+  "out": "Python 26000 C 31000\n"
+ },
+ {
+  "id": "write-raise-1",
+  "template": "write-raise",
+  "kind": "multi",
+  "type": "write",
+  "topic": "struct",
+  "week": 9,
+  "hash": "8babdd12888947d6",
+  "ok": true,
+  "out": "Python 150 C 300\n"
+ },
+ {
+  "id": "write-raise-2",
+  "template": "write-raise",
+  "kind": "multi",
+  "type": "write",
+  "topic": "struct",
+  "week": 9,
+  "hash": "a0309d0371d4443b",
+  "ok": true,
+  "out": "Python 7500 C 8500\n"
+ },
+ {
+  "id": "write-raise-3",
+  "template": "write-raise",
+  "kind": "multi",
+  "type": "write",
+  "topic": "struct",
+  "week": 9,
+  "hash": "cebb0e21ce210235",
+  "ok": true,
+  "out": "Python 14 C 36\n"
  }
 ]

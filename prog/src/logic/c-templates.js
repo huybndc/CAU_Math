@@ -5,7 +5,8 @@
    Tự viết theo chủ đề slide tuần 7 (struct, union, typedef; Perfect C ch. 구조체와 공용체). week = tuần đề cương.
    --------------------------------------------------------------- */
 
-const lines = (...xs) => xs.join('\n') + '\n';
+import { lines, BASE_TEMPLATES } from './c-templates-base.js';
+import { W9_TEMPLATES } from './c-templates-w9.js';
 
 export const TEMPLATES = [
   {
@@ -23,6 +24,7 @@ export const TEMPLATES = [
       '    printf("%d %d\\n", pt.x, pt.y);',
       '    return 0;',
       '}'),
+    follow: () => ({ q: 'Which function changes pt in main? Why?', a: ['moveY. It receives the address of pt. moveX changes only a copy.'] }),
   },
   {
     id: 'struct-copy-array', kind: 'predict', topic: 'struct', week: 7,
@@ -38,6 +40,7 @@ export const TEMPLATES = [
       '    printf("%s %d %s %d\\n", a.name, a.score, b.name, b.score);',
       '    return 0;',
       '}'),
+    follow: () => ({ q: 'After struct Student b = a;, does changing b.name change a.name? Why?', a: ['No. Struct assignment copies the whole array member, so a and b have separate arrays.'] }),
   },
   {
     id: 'struct-array-ptr', kind: 'predict', topic: 'struct', week: 7,
@@ -52,6 +55,7 @@ export const TEMPLATES = [
       '    printf("%d %c %d\\n", p->n, (p + 1)->c, (*p).n + arr[0].n);',
       '    return 0;',
       '}'),
+    follow: items => ({ q: 'After p++, which array element does p point to?', a: [`arr[1] (its n is ${items[1][0]})`] }),
   },
   {
     id: 'typedef-nested', kind: 'predict', topic: 'typedef', week: 7,
@@ -67,6 +71,7 @@ export const TEMPLATES = [
       '    printf("%02d:%02d %c\\n", e.t.h, e.t.m, e.tag);',
       '    return 0;',
       '}'),
+    follow: () => ({ q: 'Write the expression that reads the hour from e.', a: ['e.t.h'] }),
   },
   {
     id: 'union-overlay', kind: 'predict', topic: 'union', week: 7,
@@ -80,6 +85,7 @@ export const TEMPLATES = [
       '    printf("%d %d %zu\\n", d.b[0], d.b[1], sizeof(union Data));',
       '    return 0;',
       '}'),
+    follow: () => ({ q: 'Why is sizeof(union Data) equal to 4?', a: ['All members share one block of memory. The block fits the largest member, which has 4 bytes.'] }),
   },
   {
     id: 'struct-strcmp', kind: 'predict', topic: 'struct', week: 7,
@@ -94,6 +100,7 @@ export const TEMPLATES = [
       '    printf("%s %zu\\n", r == 0 ? "same" : (r < 0 ? "first" : "second"), strlen(x.s));',
       '    return 0;',
       '}'),
+    follow: () => ({ q: 'What does strcmp return when the two strings are equal?', a: ['0'] }),
   },
   // ---- tìm lỗi: `bad` có đúng một dòng sai, `fix` là dòng đúng thay vào ----
   {
@@ -163,8 +170,10 @@ export const TEMPLATES = [
       '        printf("%d ", a[i]);',
       '    return 0;',
       '}'),
-    parts: ([xs], r) => [{ pts: 4, q: 'Find the wrong line, explain the error, and rewrite that line correctly.',
-      a: [`Line 5: i <= ${xs.length} reads a[${xs.length}], outside the array (last index is ${xs.length - 1}).`, `Fix: for (i = 0; i < ${xs.length}; i++)  (prints ${r.out.trim()})`] }],
+    parts: ([xs], r) => [
+      { pts: 2, q: 'Which line is wrong? Explain the error.', a: [`Line 5: i <= ${xs.length} reads a[${xs.length}], outside the array (last index is ${xs.length - 1}).`] },
+      { pts: 3, q: 'Rewrite that line correctly.', a: [`for (i = 0; i < ${xs.length}; i++)  (prints ${r.out.trim()})`] },
+    ],
   },
   // ---- nhiều ý (khuôn đề 2026-10-30): src = chương trình đúng clang chạy; show = bản người học thấy; parts(p, r) dựng ý từ kết quả clang r ----
   {
@@ -188,7 +197,7 @@ export const TEMPLATES = [
       return [
         { pts: 2, q: `Which expression does NOT give a Boolean value (0 or 1)? ${exprs.map((e, i) => `${mark[i]} ${e}`).join('  ')}`,
           a: [`${mark[bool.findIndex(v => v !== 0 && v !== 1)]} (value ${bool.find(v => v !== 0 && v !== 1)})`] },
-        { pts: 2, q: `The value of x >> 4 is? ${opts.map((v, i) => `${mark[i]} ${hex(v)}`).join('  ')}`,
+        { pts: 3, q: `The value of x >> 4 is? ${opts.map((v, i) => `${mark[i]} ${hex(v)}`).join('  ')}`,
           a: [`${mark[opts.indexOf(sh[0])]} ${hex(sh[0])}`] },
       ];
     },
@@ -210,7 +219,7 @@ export const TEMPLATES = [
     show: function ([xs]) { return this.src([xs], ['( A )', '( B )']); },
     parts: ([xs], r) => [
       { pts: 3, q: `The loop must add every element of arr to sum (program prints ${r.out.trim()}). Fill in ( A ).`, a: [`arr + ${xs.length}  (also OK: &arr[${xs.length}], arr + sizeof(arr) / sizeof(arr[0]))`] },
-      { pts: 3, q: 'Fill in ( B ).', a: ['*p  (also OK: arr[p - arr])'] },
+      { pts: 2, q: 'Fill in ( B ).', a: ['*p  (also OK: arr[p - arr])'] },
     ],
   },
   {
@@ -224,8 +233,10 @@ export const TEMPLATES = [
       `    printf("%d\\n", ${val});`,
       '    return 0;',
       '}'),
-    parts: (p, r) => [{ pts: 3, q: 'Does this program compile? If yes, what does it print? If no, which line is wrong and why?',
-      a: [r.ok ? `Yes. Prints ${r.out.trim()}` : `No. Line ${r.line}: ${p[3]}. (clang: ${r.why})`] }],
+    parts: (p, r) => [
+      { pts: 2, q: 'Does this program compile?', a: [r.ok ? 'Yes.' : 'No.'] },
+      { pts: 3, q: 'If yes, what does it print? If no, which line is wrong and why?', a: [r.ok ? `Prints ${r.out.trim()}` : `Line ${r.line}: ${p[3]}. (clang: ${r.why})`] },
+    ],
   },
   {
     id: 'write-count-char', kind: 'multi', type: 'write', topic: 'string', week: 6,
@@ -243,7 +254,7 @@ export const TEMPLATES = [
       '}'),
     show: function (p) { return this.src(p, ['    ( A )   /* write the body */']); },
     parts: (p, r) => [
-      { pts: 4, q: 'count_char returns how many times c appears in s. Write the body at ( A ).',
+      { pts: 3, q: 'count_char returns how many times c appears in s. Write the body at ( A ).',
         a: ['int n = 0; for (; *s; s++) if (*s == c) n++; return n;', '(Many correct ways. Compare with this model answer, or send your code to Claude to check.)'] },
       { pts: 2, q: 'With your function, does the program compile? If yes, what does it print?', a: [`Yes. Prints ${r.out.trim()}`] },
     ],
@@ -268,15 +279,20 @@ export const TEMPLATES = [
     show: function (p) { return this.src(p, ['( A )   /* struct Point with int x and y */', '    ( B )   /* compute dy */']); },
     parts: (p, r) => [
       { pts: 3, q: 'Write the declaration at ( A ).', a: ['struct Point { int x; int y; };'] },
-      { pts: 3, q: `Write the line at ( B ). (The program then prints ${r.out.trim()}.)`, a: ['int dy = a.y - b.y;'] },
+      { pts: 2, q: `Write the line at ( B ). (The program then prints ${r.out.trim()}.)`, a: ['int dy = a.y - b.y;'] },
     ],
   },
+  ...BASE_TEMPLATES,
+  ...W9_TEMPLATES,
 ];
 
 /** Mọi biến thể: { id: 'struct-byval-0', template, kind, topic, week, src, fixSrc? }. */
 export const variants = () => TEMPLATES.flatMap(t => t.params.map((p, i) => ({
   id: `${t.id}-${i}`, template: t.id, kind: t.kind, topic: t.topic, week: t.week, src: t.src(p),
   ...(t.kind === 'find' ? { fixSrc: t.src(p, true) } : {}),
+  ...(t.input ? { input: t.input(p) } : {}),
+  ...(t.probes ? { probes: t.probes(p) } : {}),
+  ...(t.follow ? { follow: r => t.follow(p, r) } : {}),
   ...(t.kind === 'multi' ? { type: t.type, show: t.show ? t.show(p) : t.src(p), parts: r => t.parts(p, r, i),
     ...(t.san ? { badSrc: t.src(p), src: t.src(p, true) } : {}) } : {}),
 })));
