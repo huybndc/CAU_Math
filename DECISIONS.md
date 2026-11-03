@@ -70,3 +70,4 @@ Subject-specific decisions are in `logic/PLAN.md` and `linalg/PLAN.md`.
 - D62. Remove the shared overview at `/`. Study_Hub owns cross-course views (2026-10-15).
 - D63. Add realistic printed mock exams (2026-10-21).
 - D64. Render mock-exam formulas with KaTeX and show step-by-step answers (2026-10-22).
+- D65. Cancel the interactive exercise project, which includes Ax=b row operations (2026-11-02; closed 2026-11-03). See `docs/DECISIONS-ARCHIVE.md`.

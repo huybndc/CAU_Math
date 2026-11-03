@@ -47,6 +47,8 @@ This file summarizes decisions D01–D64. Active decisions are in `../DECISIONS.
 - The old Hub event bridge was removed on 2026-10-26. Do not restore it without a new cross-repository contract.
 - Older practice screens and exam event integration were removed. See `../PROGRESS.md` and `../REPO_BOUNDARY.md` before reusing an archived design.
 
+**D65. Cancel the interactive exercise project (2026-11-02; closed 2026-11-03).** The learner rejected two attempts. The first attempt was the vector prototype in [PR #148](https://github.com/huybndc/CAU_Math_App/pull/148). The second attempt was a local 5×5 row-operation mockup. The learner said that these attempts did not give the smooth exploration that the learner wanted. A larger matrix or more operations do not solve this gap. On 2026-11-03 the learner confirmed that the whole interactive direction is dropped. This includes the later phases: Logic bit toggles, Discrete Math graph actions, C code tracing, and prerequisite links. The prototype is not in `main` or in a deployed build. PR #148 keeps its code. Do not restart this work unless the learner proposes a new direction. If the learner does, use these criteria: Ax=b up to 5 rows and 5 unknowns, with cases that have many free variables or no solution.
+
 ## Source note
 
 This English archive keeps the decisions that still guide the code and identifies superseded choices. Git history keeps the original D01–D64 text, detailed measurements, and review notes. Do not restore a superseded choice without a new entry in `../DECISIONS.md`.
