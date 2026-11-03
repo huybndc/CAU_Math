@@ -6,6 +6,7 @@ Read this file at the start of work. Keep open work and active rules here. Compl
 
 - Checked on 2026-11-03: `main` has four courses at `/logic/`, `/linalg/`, `/discrete/`, and `/prog/`. Each course has printed mock exams.
 - The learner dropped the interactive exercise project on 2026-11-03. See D65. Do not restart it without a new learner proposal.
+- Finished courses can be hidden with `app: false`. See D67 and "Change the term" in `AGENTS.md`.
 - The repository code is the source of truth for details.
 
 ## Open work

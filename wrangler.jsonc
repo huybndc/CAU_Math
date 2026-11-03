@@ -1,5 +1,5 @@
 // Deploy Cloudflare: Worker chỉ phục vụ file tĩnh trong `dist` (npm run build), không có mã Worker, không đăng nhập.
-// Đường: / → /logic/, /logic/, /linalg/, /discrete/. Điều hướng trong app dùng hash nên không cần 404 kiểu SPA.
+// Routes: / goes to the first active course. Each active course has its own route. Điều hướng trong app dùng hash nên không cần 404 kiểu SPA.
 {
   "name": "cau-math",
   "compatibility_date": "2026-09-20",

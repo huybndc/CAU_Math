@@ -10,7 +10,7 @@ There are no `data-testid` hooks yet. Use the existing hooks: `data-nav`, `data-
 
 Shared UI and logic live in `shared/ui/` and `shared/logic/`.
 
-- The subject switch reads `shared/subjects.json`. The build uses that file too.
+- The subject switch reads `shared/subjects.json`. The build uses that file too. A course with `app: false` is hidden: it has no route, no build output, and no test run. Its folder and learning data stay. `/` goes to the first active course. See "Change the term" in `AGENTS.md`.
 - Navigation includes Overview, Learn, Tools, and Mock Exam. The Mock Exam screen has a Free Response tab.
 - The language switch uses `data-lang=vi|en`. The theme control follows system light or dark mode.
 - The app rail can collapse to 56 pixels. The app name is Exlab. Course icons use each course color.

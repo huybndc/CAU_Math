@@ -63,3 +63,10 @@ This English archive keeps the decisions that still guide the code and identifie
 - The foundation templates target the learner's weak areas: pointer arrays vs 2D char arrays, structs with char arrays, `scanf` with strings, and string comparison.
 - The source line shows the course week. The old line printed the week number as a book chapter, which was wrong.
 - Reason for no batches for weeks 10–15: the class slides do not exist yet, and the teacher has not taught these topics.
+
+**D67. Hide finished courses with `app: false` (2026-11-03).**
+
+- `app: false` already removed a course from the build, the test list, the course switch, Playwright, and design checks. Thus the repo needs no new flag.
+- A hidden course keeps its folder. Learning data stays in the browser.
+- The root page now goes to the first active course. The old page always went to `/logic/`.
+- The learner rejected the Hub focus control as useless. Hub already changes courses at the term start. Do not propose this control again without a new reason from the learner.

@@ -72,3 +72,4 @@ Subject-specific decisions are in `logic/PLAN.md` and `linalg/PLAN.md`.
 - D64. Render mock-exam formulas with KaTeX and show step-by-step answers (2026-10-22).
 - D65. Cancel the interactive exercise project, which includes Ax=b row operations (2026-11-02; closed 2026-11-03). See `docs/DECISIONS-ARCHIVE.md`.
 - D66. Complete the C mock exam for weeks 2–9: 20 questions of 5 points in 2 parts each, with a fixed mix of question groups (2026-11-03). See `docs/DECISIONS-ARCHIVE.md`.
+- D67. Hide finished courses with `app: false`. Do not add a focus control to Hub (2026-11-03). See `docs/DECISIONS-ARCHIVE.md`.
