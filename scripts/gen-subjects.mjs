@@ -1,4 +1,5 @@
-// Sinh phần theo môn từ shared/subjects.json: màu môn trong tokens.css (giữa hai dấu gen:subjects) và link ở index.html gốc.
+// Generate course parts from shared/subjects.json: course colors in tokens.css (between the gen:subjects marks), and links and the redirect in the root index.html.
+// A course with app: false is hidden: it is not built, and its folder and learning data stay.
 // Chạy: npm run gen:subjects. Test shared/tests/subjects-gen.test.js báo đỏ khi file lệch danh sách.
 import { readFileSync, writeFileSync } from 'node:fs';
 
@@ -11,11 +12,12 @@ export const tokensBlock = (subs = SUBJECTS) => [BEGIN,
   ...subs.map(s => `:root[data-theme="dark"][data-subject="${s.id}"]{--accent:${s.accent.dark}}`),
   END].join('\n');
 export const rootLinks = (subs = SUBJECTS) => `<body>${subs.map(s => `<a href="/${s.id}/">${s.vi}</a>`).join(' · ')}</body>`;
+export const rootRedirect = (page, subs = SUBJECTS) => page.replace(/url=\/[^/]*\//, `url=/${subs[0].id}/`);
 
 const between = (text, a, b, mid) => text.slice(0, text.indexOf(a)) + mid + text.slice(text.indexOf(b) + b.length);
 export const files = () => ({
   'shared/style/tokens.css': t => between(t, BEGIN, END, tokensBlock()),
-  'index.html': t => t.replace(/<body>.*<\/body>/, rootLinks()),
+  'index.html': t => rootRedirect(t).replace(/<body>.*<\/body>/, rootLinks()),
 });
 
 if (import.meta.url === `file://${process.argv[1]}`) {

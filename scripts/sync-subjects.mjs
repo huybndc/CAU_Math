@@ -1,5 +1,5 @@
 // Chép môn có luyện (practice) từ file export của Study_Hub vào shared/subjects.json.
-// Chỉ THÊM môn thiếu (app:false = chưa có thư mục môn); không đổi màu, ngăn nháp, tên của môn đã có.
+// Chỉ THÊM môn thiếu (app:false = course not in this version: no folder yet, or finished and hidden); không đổi màu, ngăn nháp, tên của môn đã có.
 // Chạy: npm run sync:subjects [đường dẫn file Hub]. Mặc định: ../Study_Hub/subjects.json (repo cùng thư mục cha).
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 

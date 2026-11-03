@@ -29,7 +29,7 @@ Commit each tested subtask to prevent data loss. At about 95% context use, commi
 
 ## Architecture (D01, D02)
 
-- One Vite server at the repo root: `npm run dev` → `localhost:5180`. Routes are `/logic/`, `/linalg/`, and `/discrete/`. `/` redirects to `/logic/`.
+- One Vite server at the repo root: `npm run dev` → `localhost:5180`. Each active course has a route, such as `/logic/`. `/` redirects to the first active course.
 - `shared/` holds code used by at least two apps. Import it through `@shared/...`.
 - Each app has `index.html` (shell), `src/{logic,ui,pages,content,i18n}`, and `tests/`.
 - Functions in `src/logic/` are pure. They do not access `document` or `window`. Code in `logic/` does not import from `ui/`.
@@ -65,6 +65,16 @@ Commit each tested subtask to prevent data loss. At about 95% context use, commi
 2. Add one row to `shared/subjects.json` with the ID, Vietnamese and English names, light/dark `accent`, and draft `tabs`. Run `npm run gen:subjects` to update `tokens.css` and the root `index.html` links.
 3. Create `<id>/` from an existing course. Include `index.html` with `data-subject`, `src/{i18n,logic,content}`, and `tests/`. Vite, the course selector, design checks, and Playwright read the course list automatically.
 4. Add course code only when it needs a separate solver, such as `scripts/gen-c-bank.mjs` for C. Update `FEATURES.md`.
+
+## Change the term (D67)
+
+1. The learner gives the course list for the new term.
+2. Study_Hub session: edit `src/logic/subjects.js`, then run `npm run export:subjects`.
+3. Live_Lecture session: run `npm run sync:subjects`, then add the timetable.
+4. This repo: run `npm run sync:subjects` and `npm run sync:hub`. Add `"app": false` to each finished course in `shared/subjects.json`, then run `npm run gen:subjects`. Hide a course only after the learner says that its exams are finished.
+5. Follow "Add a course" for a new course with exercises. Run the gate, merge, and deploy.
+
+A hidden course is not built and its tests do not run. Its URL returns 404. Its folder and localStorage data stay. To show it again, remove the flag, run `npm run gen:subjects`, run the gate, and fix red tests.
 
 ## Practice exams (D53)
 

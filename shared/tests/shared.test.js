@@ -82,6 +82,8 @@ describe('danh sách môn (subjects.json)', () => {
       expect(readFileSync(new URL(`${s.id}/index.html`, root), 'utf8'), s.id).toContain(`data-subject="${s.id}"`);
     }
     const apps = readdirSync(root).filter(d => existsSync(new URL(`${d}/index.html`, root)) && /data-subject="/.test(readFileSync(new URL(`${d}/index.html`, root), 'utf8')));
-    expect(apps.sort()).toEqual(SUBJECTS.map(s => s.id).sort());
+    // A hidden course (app: false) can keep its folder. A folder that is not on the list is an error.
+    const listed = ALL.map(s => s.id);
+    expect(apps.filter(a => !listed.includes(a))).toEqual([]);
   });
 });

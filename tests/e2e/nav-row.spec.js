@@ -1,11 +1,13 @@
 import { test, expect } from '@playwright/test';
 import SUBJECTS from '../../shared/subjects.json' with { type: 'json' };
 
+const FIRST = `/${SUBJECTS.find(s => s.app !== false).id}/`;
+
 /* Hàng công cụ thanh bên (tìm kiếm, VI/EN, sáng/tối, mây) nằm trên một dòng khi menu mở (lỗi: mây rớt dòng ở giao diện tối). */
 for (const theme of ['light', 'dark']) for (const w of [1280]) test(`hàng công cụ một dòng ${theme} ${w}`, async ({ page }) => {
   await page.emulateMedia({ colorScheme: theme });
   await page.setViewportSize({ width: w, height: 720 });
-  await page.goto('/logic/');
+  await page.goto(FIRST);
   await page.waitForSelector('#screen-home h1');
   const tops = await page.evaluate(() => [...document.querySelectorAll('.appnav-foot > *')]
     .filter(e => e.getClientRects().length).map(e => (r => Math.round(r.top + r.height / 2))(e.getBoundingClientRect())));
@@ -21,7 +23,7 @@ for (const theme of ['light', 'dark']) for (const w of [1280]) test(`hàng công
 for (const min of [false, true]) test(`thứ tự thanh bên, link app ở đáy${min ? ' (thu gọn)' : ''}`, async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 720 });
   await page.addInitScript(m => localStorage.setItem('study-nav', m ? 'min' : ''), min);
-  await page.goto('/logic/');
+  await page.goto(FIRST);
   await page.waitForSelector('.nav-apps .app-link');
   const r = await page.evaluate(() => {
     const top = s => document.querySelector(s).getBoundingClientRect().top;
@@ -38,13 +40,13 @@ for (const min of [false, true]) test(`thứ tự thanh bên, link app ở đáy
 
 test('nút chọn môn: danh sách các môn khác (không có môn đang mở), bấm chuyển môn', async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 720 });
-  await page.goto('/logic/');
+  await page.goto(FIRST);
   await page.waitForSelector('#screen-home h1');
   await expect(page.locator('.subject-menu')).toBeHidden();
   await page.click('.subject-switch');
   const links = page.locator('.subject-menu a');
   await expect(links).toHaveCount(SUBJECTS.filter(s => s.app !== false).length - 1);
-  await expect(page.locator('.subject-menu a[href="/logic/"]')).toHaveCount(0);
+  await expect(page.locator(`.subject-menu a[href="${FIRST}"]`)).toHaveCount(0);
   await page.keyboard.press('Escape');
   await expect(page.locator('.subject-menu')).toBeHidden();
   await page.click('.subject-switch');
