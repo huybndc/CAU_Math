@@ -14,7 +14,8 @@ Read this file at the start of work. Keep open work and active rules here. Compl
 - Possible math work: add scoring rubrics and question types for Discrete Math and Linear Algebra.
 - Possible Discrete Math work: add variety for definitions, lemmas, and induction.
 - Around 2026-11-20, review whether to add practice around Free Response and Mock Exam. Do not restore the removed practice screens without a new decision.
-- Add C Programming exam batches only after the course schedule and learner source material support them. Follow the existing batch rules in the archived progress and current `AGENTS.md`.
+- C Programming: add one template batch for each of weeks 10–15 after the class slides exist. The exam already covers weeks 2–9. The share of weeks 9–15 rises to 80% when the new templates arrive.
+- Logic Circuit: move the all-or-nothing marking note to the exam header in the week 12 batch. The C exam already uses `note`.
 
 ## Active rules
 

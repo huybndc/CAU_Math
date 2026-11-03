@@ -23,11 +23,11 @@ export function buildMock(template, seed) {
     const rnd = seededRandom(Math.imul(seed + 1, 2654435761) + i * 40503);
     const q = make(rnd);
     const parts = q.parts.map((p, j) => ({ ...p, label: String.fromCharCode(97 + j) }));
-    return { no: i + 1, stem: q.stem, code: q.code, parts, pts: parts.reduce((s, p) => s + p.pts, 0), refs: (q.refs ?? template.refs?.[i] ?? []).map(([sec, title]) => ({ sec, title })) };
+    return { no: i + 1, stem: q.stem, code: q.code, parts, pts: parts.reduce((s, p) => s + p.pts, 0), source: q.source, refs: (q.refs ?? template.refs?.[i] ?? []).map(([sec, title]) => ({ sec, title })) };
   });
   const total = questions.reduce((s, q) => s + q.pts, 0);
   return {
-    id: template.id, title: template.title, book: template.book ?? '', seed, code: seedCode(seed), questions, total,
+    id: template.id, title: template.title, book: template.book ?? '', note: template.note ?? '', seed, code: seedCode(seed), questions, total,
     minutes: Math.round(total * template.minutesPerPoint),
   };
 }

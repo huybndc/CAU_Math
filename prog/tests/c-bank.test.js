@@ -1,10 +1,10 @@
-/* Ngân hàng C (lô thử tuần 7): đáp án là kết quả clang thật. Test chạy lại clang trên máy và so với c-bank.json. */
+/* Ngân hàng C: đáp án là kết quả clang thật. Test chạy lại clang trên máy và so với c-bank.json. */
 import { describe, it, expect } from 'vitest';
 import { variants, TEMPLATES } from '../src/logic/c-templates.js';
-import { runC, hashSrc } from '../../scripts/gen-c-bank.mjs';
+import { runC, hashSrc, probeProblems } from '../../scripts/gen-c-bank.mjs';
 import BANK from '../src/content/c-bank.json';
 import { buildMock } from '@shared/logic/mock-exam.js';
-import { PROG_MOCK, SCOPE, plan } from '../src/logic/mock-exam.js';
+import { PROG_MOCK, SCOPE, BLUEPRINT, plan, groupOf } from '../src/logic/mock-exam.js';
 
 const byId = Object.fromEntries(BANK.map(b => [b.id, b]));
 
@@ -32,7 +32,8 @@ describe('ngân hàng C sinh bằng clang', () => {
   }, 120000);
   it('câu nhiều ý: chạy lại clang khớp kết quả đã lưu; ý nào cũng có đáp án', () => {
     for (const v of variants().filter(x => x.kind === 'multi')) {
-      const r = runC(v.src), b = byId[v.id];
+      const r = runC(v.src, { input: v.input }), b = byId[v.id];
+      expect(probeProblems(v), v.id).toEqual([]);
       if (v.badSrc) expect(runC(v.badSrc, { san: true }).crashed, v.id).toBe(true);
       expect(r.ok, v.id).toBe(b.ok);
       if (r.ok) expect(r.out, v.id).toBe(b.out); else expect([r.line, r.why], v.id).toEqual([b.line, b.why]);
@@ -53,36 +54,95 @@ describe('ngân hàng C sinh bằng clang', () => {
   });
 });
 
+describe('bộ giải độc lập: lô tuần 6–9 khớp clang', () => {
+  const out = id => byId[id].out.trim();
+  const each = (id, check) => TEMPLATES.find(t => t.id === id).params.forEach((p, i) => expect(out(`${id}-${i}`), `${id}-${i}`).toBe(check(p)));
+  it('tuần 9', () => {
+    each('callby', ([v, k]) => `${v} ${v + k}`);
+    each('array-sizeof', ([xs]) => `${xs.length * 8} 8 ${xs.length}`);
+    each('row-ptr', ([x, k]) => `2 3 ${x[5] + k} ${x[3] + k}`);
+    each('dangling', ([v]) => String(v * 2));
+    each('mcq-variadic', ([a, b, c]) => ((+a + +b + +c) / 3).toFixed(2));
+    each('fill-array-len', ([xs]) => xs.reduce((s, x) => s + x, 0).toFixed(1));
+    each('fill-swap', ([x, y]) => `${y} ${x}`);
+    each('write-sum-all', ([xs]) => String(xs.reduce((s, x) => s + x, 0)));
+    each('write-raise', ([a, b, k]) => `Python ${a + k} C ${b + k}`);
+  });
+  it('tuần 6–7', () => {
+    each('str-eq', ([x, y]) => `0 1 ${x === y ? 1 : 0}`);
+    each('mcq-scanf-string', ([s]) => s.split(' ')[0]);
+    each('mcq-ptr-vs-2d', ([n]) => `24 ${3 * n}`);
+    each('fill-scanf-string', ([n, s]) => `${s} ${n}`);
+    each('fill-ptr-array', ([xs]) => `${xs.length} ${xs.join('').length}`);
+    each('fill-struct-string', ([name]) => `same ${name}`);
+    each('write-my-len', ([w]) => String(w.length));
+    each('write-same', ([x, y, z]) => `${x === y ? 1 : 0} ${x === z ? 1 : 0}`);
+    each('write-best', xs => xs.reduce((m, s) => (s[1] > m[1] ? s : m))[0]);
+  });
+  it('câu trắc nghiệm: bốn lựa chọn khác nhau, đúng một lựa chọn là đáp án', () => {
+    for (const v of variants().filter(x => x.type === 'mcq')) for (const p of v.parts(byId[v.id])) {
+      const opts = p.q.split(/[①②③④]/).slice(1).map(s => s.trim());
+      expect(new Set(opts).size, `${v.id}: ${p.q}`).toBe(4);
+      const [mark, ...rest] = p.a[0].split(' '), text = rest.join(' ');
+      const shown = opts['①②③④'.indexOf(mark)];
+      expect(shown, `${v.id}: ${p.a[0]}`).toBeDefined();
+      if (!text.startsWith('(value')) expect(shown).toBe(text);
+    }
+  });
+});
+
 describe('đề thi thử Lập trình C', () => {
-  it('20 câu lớn, mỗi ý 2–4 điểm và chấm cả ý; có đủ 5 dạng', () => {
-    for (let seed = 0; seed < 30; seed++) {
+  const seeds = Array.from({ length: 30 }, (_, i) => i * 7919);
+  it('20 câu lớn × 5 điểm = 100; 40 ý, mỗi ý 2–3 điểm; không còn ghi "all or nothing" ở từng ý', () => {
+    for (const seed of seeds) {
       const ex = buildMock(PROG_MOCK, seed);
       expect(ex.questions.length).toBe(20);
-      for (const q of ex.questions) for (const p of q.parts) expect(p.pts >= 2 && p.pts <= 4 && p.rubric.length === 1).toBe(true);
+      expect(ex.total).toBe(100);
+      expect(ex.questions.flatMap(q => q.parts).length).toBe(40);
+      for (const q of ex.questions) {
+        expect(q.pts).toBe(5);
+        expect(q.source).toMatch(/^Week \d+, /);
+        for (const p of q.parts) { expect(p.pts >= 2 && p.pts <= 3, q.stem).toBe(true); expect(p.rubric).toBeUndefined(); }
+      }
     }
-    const kinds = new Set(PROG_MOCK.makers.map((m, i) => { const f = m(() => 0).facts; return f.type ?? f.kind; }));
-    for (const k of ['mcq', 'fill', 'compile', 'write', 'predict', 'find']) expect(kinds.has(k), k).toBe(true);
+    expect(buildMock(PROG_MOCK, 1).note).toMatch(/all or nothing/);
   });
-  it('mỗi câu: đáp án in ra khớp c-bank.json; 20 biến thể khác nhau', () => {
-    for (let seed = 0; seed < 30; seed++) {
-      const seen = new Set();
-      PROG_MOCK.makers.forEach((make, i) => {
-        const q = make(() => ((seed * 7 + i * 13) % 97) / 97);
+  it('mọi mẫu đều đủ 5 điểm với mọi biến thể; có đủ các dạng', () => {
+    for (const v of variants()) {
+      const b = byId[v.id];
+      if (v.kind === 'multi') expect(v.parts(b).reduce((s, p) => s + p.pts, 0), v.id).toBe(5);
+      if (v.kind === 'predict') expect(v.follow(b).a.length, v.id).toBeGreaterThan(0);
+    }
+    const types = new Set(TEMPLATES.map(t => t.type ?? t.kind));
+    for (const k of ['mcq', 'fill', 'compile', 'findrun', 'write', 'predict', 'find']) expect(types.has(k), k).toBe(true);
+  });
+  it('đáp án in ra khớp c-bank.json; trong một đề không lặp mẫu; các mã đề khác nhau', () => {
+    for (const seed of seeds) {
+      const ids = PROG_MOCK.makers.map((make, i) => {
+        let n = seed * 31 + i;
+        const q = make(() => { n = (n * 7 + 13) % 97; return n / 97; });
         const b = byId[q.facts.id];
-        seen.add(q.facts.id);
-        if (q.facts.kind === 'multi') return;
         if (q.facts.kind === 'predict') expect(q.parts[0].a[0]).toBe(`Output: ${b.out.trimEnd()}`);
-        else expect(q.parts[0].a[0]).toMatch(new RegExp(`^Line ${b.line}\\. Fix: `));
+        if (q.facts.kind === 'find') expect(q.parts[0].a[0]).toBe(`Line ${b.line}: ${b.why}`);
+        return q.facts.id;
       });
-      expect(seen.size, `seed ${seed}`).toBe(20);
+      expect(new Set(ids.map(id => byId[id].template)).size, `seed ${seed}`).toBe(20);
     }
+    const codes = seeds.map(seed => new Set(buildMock(PROG_MOCK, seed).questions.map(q => q.code)));
+    const shared = codes.slice(1).map(c => [...codes[0]].filter(x => c.has(x)).length);
+    expect(Math.max(...shared)).toBeLessThan(14);
   });
-  it('tỉ lệ phạm vi là hằng số SCOPE: 80% tuần ≥ 9, 20% nền; chưa có lô sau giữa kỳ thì toàn nền', () => {
-    expect(SCOPE).toEqual({ questions: 20, postMidShare: 0.8, postMidFrom: 9 });
-    const fake = [...TEMPLATES, { id: 'w9-a', week: 9 }, { id: 'w10-b', week: 10 }];
-    const p = plan(fake);
-    expect(p.filter(s => s.template.week >= 9).length).toBe(16);
-    expect(p.filter(s => s.template.week < 9).length).toBe(4);
-    expect(plan().every(s => s.template.week < 9)).toBe(true);
+  it('mọi ô có mẫu; đúng số câu theo nhóm; tỉ lệ tuần ≥ 9 là SCOPE khi đủ mẫu, còn lại lấy nền', () => {
+    expect(SCOPE).toEqual({ postMidShare: 0.8, postMidFrom: 9 });
+    expect(Object.values(BLUEPRINT).reduce((a, b) => a + b, 0)).toBe(20);
+    const pools = plan();
+    expect(pools.length).toBe(20);
+    for (const pool of pools) expect(pool.length).toBeGreaterThan(0);
+    for (const [group, n] of Object.entries(BLUEPRINT)) expect(pools.filter(p => groupOf(p[0]) === group).length, group).toBe(n);
+    const week = pools.filter(p => p[0].week >= 9).length;
+    expect(week).toBe(TEMPLATES.filter(t => t.week >= 9).length);
+    const fake = [...TEMPLATES, ...Object.keys(BLUEPRINT).flatMap(g => Array.from({ length: 6 }, (_, i) => ({ id: `${g}-${i}`, kind: 'multi', type: g, week: 10 })))];
+    expect(plan(fake).filter(p => p[0].week >= 9).length).toBe(16);
+    expect(plan(fake.filter(t => t.week < 9)).every(p => p[0].week < 9)).toBe(true);
   });
 });

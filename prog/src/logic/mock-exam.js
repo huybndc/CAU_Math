@@ -1,30 +1,41 @@
 /* ---------------------------------------------------------------
-   ĐỀ THI THỬ Lập trình C (thuần): 20 câu lớn, nhiều ý 2–4 điểm, sai là 0 cả ý (khuôn người học duyệt 2026-10-30).
-   Câu lấy từ ngân hàng c-bank.json: mọi đáp án "đoán kết quả" là stdout thật của clang, "tìm lỗi" là dòng clang báo lỗi.
-   Tỉ lệ phạm vi ở SCOPE (người học chốt 2026-10-27): ~80% tuần 9–15, ~20% nền (tuần ≤ 7). Chưa có lô tuần 9–15 thì lấy nền.
+   C Programming mock exam (pure): 20 questions, 5 points each, two parts each (format the learner approved on 2026-10-30).
+   Questions come from c-bank.json. Every "predict" answer is real clang stdout. Every "find" answer is the line clang reports.
+   SCOPE sets the share of weeks 9–15 (learner decision, 2026-10-27). The share grows when new week batches arrive.
    --------------------------------------------------------------- */
 import { TEMPLATES, variants } from './c-templates.js';
 import BANK from '../content/c-bank.json';
 
-/** Chỉnh khi giảng viên công bố phạm vi thi. */
-export const SCOPE = { questions: 20, postMidShare: 0.8, postMidFrom: 9 };
+/** Edit this when the teacher publishes the exam scope. */
+export const SCOPE = { postMidShare: 0.8, postMidFrom: 9 };
+/** Number of questions for each question group. */
+export const BLUEPRINT = { mcq: 3, fill: 5, predict: 4, fix: 4, write: 4 };
+
+const FIX_TYPES = new Set(['find', 'findrun', 'compile']);
+export const groupOf = t => { const k = t.type ?? t.kind; return FIX_TYPES.has(k) ? 'fix' : k; };
 
 const byId = Object.fromEntries(BANK.map(b => [b.id, b]));
 const VARS = variants();
 const numbered = src => src.trimEnd().split('\n').map((l, i) => `${String(i + 1).padStart(2)}  ${l}`).join('\n');
+const split = (list, n) => Array.from({ length: n }, (_, k) => list.filter((_, j) => j % n === k));
 
-/** Kế hoạch 20 ô: [{ template, half }] — 80% từ mẫu tuần ≥ postMidFrom (thiếu thì lấy nền), còn lại từ nền. */
+/**
+ * Returns one template pool for each question. Pools do not overlap, so one exam never repeats a template.
+ * A slot for weeks 9–15 uses an earlier week when that group has no more new templates.
+ */
 export function plan(templates = TEMPLATES, scope = SCOPE) {
-  const post = templates.filter(t => t.week >= scope.postMidFrom), base = templates.filter(t => t.week < scope.postMidFrom);
-  const nPost = Math.round(scope.questions * scope.postMidShare);
-  const take = (pool, n, from) => Array.from({ length: n }, (_, i) => ({ template: pool[(from + i) % pool.length], half: Math.floor((from + i) / pool.length) % 2 }));
-  const postPart = post.length ? take(post, nPost, 0) : take(base, nPost, 0);
-  const basePart = take(base, scope.questions - nPost, post.length ? 0 : nPost);
-  return [...postPart, ...basePart];
+  const pools = [];
+  let slot = 0;
+  for (const [group, n] of Object.entries(BLUEPRINT)) {
+    let want = 0;
+    for (let k = 0; k < n; k++, slot++) if (Math.floor((slot + 1) * scope.postMidShare) > Math.floor(slot * scope.postMidShare)) want++;
+    const inGroup = templates.filter(t => groupOf(t) === group);
+    const post = inGroup.filter(t => t.week >= scope.postMidFrom), base = inGroup.filter(t => t.week < scope.postMidFrom);
+    const nPost = Math.min(want, post.length);
+    pools.push(...split(post, nPost), ...split(base, n - nPost));
+  }
+  return pools;
 }
-
-/** Khuôn đề: sai là 0 cả ý. */
-const ALL = 'all or nothing';
 
 const STEM = {
   mcq: 'Choose one option for each part.',
@@ -32,33 +43,32 @@ const STEM = {
   compile: 'Read the program carefully (no compiler in the exam).',
   write: 'The main function is given. Write the missing part.',
   findrun: 'This program compiles, but it has one error when it runs.',
-  predict: 'What does this program print? Write the exact output.',
-  find: 'This program has exactly one compile error. Give the line number and rewrite that line correctly.',
+  predict: 'What does this program print?',
+  find: 'This program has exactly one compile error.',
 };
 
-function question({ template, half }, rnd) {
-  const all = VARS.filter(v => v.template === template.id), pool = all.filter((_, i) => i % 2 === half);
-  const v = (pool.length ? pool : all)[Math.floor(rnd() * (pool.length || all.length))];
-  const b = byId[v.id];
+function question(pool, rnd) {
+  const template = pool[Math.floor(rnd() * pool.length)];
+  const all = VARS.filter(v => v.template === template.id);
+  const v = all[Math.floor(rnd() * all.length)];
+  const b = byId[v.id], source = `Week ${template.week}, ${TOPIC[template.topic]}. Written for this app. Answer checked with clang.`;
   if (template.kind === 'multi') {
-    const parts = v.parts(b).map(pt => ({ ...pt, rubric: [[pt.pts, ALL]] }));
-    return { stem: STEM[template.type], code: numbered(v.show), facts: { id: v.id, kind: 'multi', type: template.type }, parts };
+    return { stem: STEM[template.type], code: numbered(v.show), source, facts: { id: v.id, kind: 'multi', type: template.type }, parts: v.parts(b) };
   }
   if (template.kind === 'predict') {
-    return { stem: STEM.predict, code: numbered(v.src), facts: { id: v.id, kind: 'predict', out: b.out },
-      parts: [{ pts: 3, q: '', a: [`Output: ${b.out.trimEnd()}`], rubric: [[3, ALL]] }] };
+    return { stem: STEM.predict, code: numbered(v.src), source, facts: { id: v.id, kind: 'predict', out: b.out },
+      parts: [{ pts: 3, q: 'Write the exact output.', a: [`Output: ${b.out.trimEnd()}`] }, { pts: 2, ...v.follow(b) }] };
   }
   const fixLine = v.fixSrc.split('\n')[b.line - 1].trim();
-  return { stem: STEM.find, code: numbered(v.src), facts: { id: v.id, kind: 'find', line: b.line, fix: fixLine },
-    parts: [{ pts: 4, q: '', a: [`Line ${b.line}. Fix: ${fixLine}`], rubric: [[4, ALL]] }] };
+  return { stem: STEM.find, code: numbered(v.src), source, facts: { id: v.id, kind: 'find', line: b.line, fix: fixLine },
+    parts: [{ pts: 2, q: 'Give the line number and the reason.', a: [`Line ${b.line}: ${b.why}`] }, { pts: 3, q: 'Rewrite that line correctly.', a: [fixLine] }] };
 }
 
-const TOPIC = { struct: 'Structures', union: 'Unions', typedef: 'typedef', operators: 'Operators', pointer: 'Pointers', array: 'Arrays', string: 'Strings' };
+const TOPIC = { struct: 'Structures', union: 'Unions', typedef: 'typedef', operators: 'Operators', pointer: 'Pointers', array: 'Arrays', string: 'Strings', function: 'Functions and pointers' };
 
 export const PROG_MOCK = {
-  id: 'prog', title: 'C Programming — Practice Exam (trial batch)',
-  book: 'Perfect C (Korean ed.); questions written for this app, answers checked with clang',
+  id: 'prog', title: 'C Programming — Practice Exam',
+  note: 'Marking: each part is all or nothing. A correct part gets full points. A wrong part gets 0.',
   minutesPerPoint: 120 / 100,
-  makers: plan().map(slot => rnd => question(slot, rnd)),
-  refs: plan().map(({ template }) => [[String(template.week), TOPIC[template.topic]]]),
+  makers: plan().map(pool => rnd => question(pool, rnd)),
 };
