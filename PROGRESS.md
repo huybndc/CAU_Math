@@ -4,9 +4,9 @@ Read this file at the start of work. Keep open work and active rules here. Compl
 
 ## Current known state
 
-- The last recorded status snapshot is dated 2026-10-22. It listed printed mock exams for all three math apps and deployment to the `cau-math` Worker.
-- The C Programming app and its generated mock exam were added in the 2026-10-28–30 work cycle. See the archive for details.
-- Confirm deployed behavior and the current commit before relying on this snapshot. The repository code is the source of truth.
+- Checked on 2026-11-03: `main` has four courses at `/logic/`, `/linalg/`, `/discrete/`, and `/prog/`. Each course has printed mock exams.
+- The learner dropped the interactive exercise project on 2026-11-03. See D65. Do not restart it without a new learner proposal.
+- The repository code is the source of truth for details.
 
 ## Open work
 

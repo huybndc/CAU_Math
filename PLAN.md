@@ -2,7 +2,7 @@
 
 ## Scope
 
-This repository owns the current-semester apps for Logic Circuit, Linear Algebra, and Discrete Math. Study_Hub is a separate app and is not required for local math development.
+This repository owns the current-semester apps for Logic Circuit, Linear Algebra, Discrete Math, and C Programming. Study_Hub is a separate app and is not required for local math development.
 
 ## Architecture
 
@@ -11,6 +11,7 @@ CAU_Math_App
 ├── Logic Circuit
 ├── Linear Algebra
 ├── Discrete Math
+├── C Programming
 └── shared math-app framework
 ```
 
@@ -20,15 +21,14 @@ Study_Hub links to these apps. The repositories do not import code from each oth
 
 - [x] P0. Separate math-app ownership from Study_Hub.
 - [x] P0. Define the one-way course-link and design-snapshot integration.
-- [ ] P1. Check syllabus scope and user experience for all three courses before the midterm.
+- [x] P1. Prepare printed mock exams for the midterm (week 8).
+- [ ] P1. Prepare for the final exam (week 16). Open items are in the CAU_Math section of `HANDOFF.md`.
 - [ ] P1. Fill confirmed content gaps. Keep independent solution-oracle tests.
 - [ ] P2. Add later chapters when the class reaches them.
 
 ## Course scope
 
-- Logic Circuit: Chapters 1–4 before the midterm. Add later chapters after the midterm.
-- Linear Algebra: Check sections 2.4–2.7 and 3.6 for midterm coverage.
-- Discrete Math: D1–D8 exist. Follow the class schedule for next work.
+Follow the current class schedule for each course. Do not write content for a week before the class source material exists.
 
 ## Invariants
 
