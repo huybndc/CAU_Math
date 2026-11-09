@@ -1,6 +1,7 @@
 import { el } from './dom.js';
 import { t as T } from '../i18n/index.js';
 import { studiedChapters } from '../logic/progress.js';
+import { HIDDEN_VIEWS } from '../logic/route.js';
 
 /* ---------------------------------------------------------------
    KHỐI DÙNG CHUNG cho Tổng quan / Học / Đề thi thử / Tự luận (D19):
@@ -37,7 +38,7 @@ export const leadCard = ({ title, note, href, cta, alt }) => el('div', {
 ]);
 
 /** Các thẻ đầu mục "Đề thi": Đề thi thử | Tự luận. */
-export const practiceTabs = active => el('nav', { class: 'page-tabs', 'aria-label': T('nav.mock') }, [
+export const practiceTabs = active => HIDDEN_VIEWS.includes('free') ? null : el('nav', { class: 'page-tabs', 'aria-label': T('nav.mock') }, [
   el('a', { href: '#/mock', 'aria-current': active === 'mock' ? 'page' : null, text: T('nav.mock') }),
   el('a', { href: '#/free', 'aria-current': active === 'free' ? 'page' : null, text: T('practice.tabFree') }),
 ]);

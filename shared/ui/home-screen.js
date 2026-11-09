@@ -7,6 +7,7 @@ import { chapterTitle, leadCard, studied } from './choices.js';
 import { nextLearn } from '../logic/prereq.js';
 import { splitCards } from '../logic/cards.js';
 import { seekLesson, lessonGraph, readOf } from './lesson.js';
+import { HIDDEN_VIEWS } from '../logic/route.js';
 
 /* ---------------------------------------------------------------
    TỔNG QUAN của một môn (D16, D19):
@@ -75,7 +76,7 @@ export function renderHome(r, cfg) {
         el('h2', { class: 'section-label', text: T('home.today') }),
         today(cfg, events),
       ]),
-      side(cfg, events, now),
+      HIDDEN_VIEWS.includes('learn') ? null : side(cfg, events, now),
     ]),
   );
   return T('nav.home');

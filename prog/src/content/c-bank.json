@@ -381,6 +381,66 @@
   "why": "must use 'struct' tag to refer to type 'Node'"
  },
  {
+  "id": "err-bonus-arrow-0",
+  "template": "err-bonus-arrow",
+  "kind": "find",
+  "topic": "struct",
+  "week": 7,
+  "hash": "a98ffdf7a217963c",
+  "line": 5,
+  "why": "member reference type 'struct Student' is not a pointer; did you mean to use '.'?"
+ },
+ {
+  "id": "err-bonus-arrow-1",
+  "template": "err-bonus-arrow",
+  "kind": "find",
+  "topic": "struct",
+  "week": 7,
+  "hash": "b50817060307545b",
+  "line": 5,
+  "why": "member reference type 'struct Student' is not a pointer; did you mean to use '.'?"
+ },
+ {
+  "id": "err-bonus-arrow-2",
+  "template": "err-bonus-arrow",
+  "kind": "find",
+  "topic": "struct",
+  "week": 7,
+  "hash": "865b6d48de3f203a",
+  "line": 5,
+  "why": "member reference type 'struct Student' is not a pointer; did you mean to use '.'?"
+ },
+ {
+  "id": "err-total-ptr-0",
+  "template": "err-total-ptr",
+  "kind": "find",
+  "topic": "typedef",
+  "week": 7,
+  "hash": "b4057b0e1fac4c7b",
+  "line": 23,
+  "why": "passing 'Student *' to parameter of incompatible type 'Student'; dereference with *"
+ },
+ {
+  "id": "err-total-ptr-1",
+  "template": "err-total-ptr",
+  "kind": "find",
+  "topic": "typedef",
+  "week": 7,
+  "hash": "f3dba25f53b1628d",
+  "line": 23,
+  "why": "passing 'Student *' to parameter of incompatible type 'Student'; dereference with *"
+ },
+ {
+  "id": "err-total-ptr-2",
+  "template": "err-total-ptr",
+  "kind": "find",
+  "topic": "typedef",
+  "week": 7,
+  "hash": "981373eb20b533b3",
+  "line": 23,
+  "why": "passing 'Student *' to parameter of incompatible type 'Student'; dereference with *"
+ },
+ {
   "id": "find-oob-0",
   "template": "find-oob",
   "kind": "multi",
@@ -1232,6 +1292,36 @@
   "why": "cannot increment value of type 'int[5]'"
  },
  {
+  "id": "err-const-param-0",
+  "template": "err-const-param",
+  "kind": "find",
+  "topic": "pointer",
+  "week": 9,
+  "hash": "4d1152814db259f3",
+  "line": 10,
+  "why": "read-only variable is not assignable"
+ },
+ {
+  "id": "err-const-param-1",
+  "template": "err-const-param",
+  "kind": "find",
+  "topic": "pointer",
+  "week": 9,
+  "hash": "5a90939246e817a9",
+  "line": 10,
+  "why": "read-only variable is not assignable"
+ },
+ {
+  "id": "err-const-param-2",
+  "template": "err-const-param",
+  "kind": "find",
+  "topic": "pointer",
+  "week": 9,
+  "hash": "3dc11d094b5177fa",
+  "line": 10,
+  "why": "read-only variable is not assignable"
+ },
+ {
   "id": "dangling-0",
   "template": "dangling",
   "kind": "multi",
@@ -1710,6 +1800,66 @@
   "hash": "63703a1a63e148e5",
   "line": 5,
   "why": "argument type 'void' is incomplete"
+ },
+ {
+  "id": "err-void-func-0",
+  "template": "err-void-func",
+  "kind": "find",
+  "topic": "pointer",
+  "week": 10,
+  "hash": "bbdb257f3919c1f6",
+  "line": 4,
+  "why": "argument type 'void' is incomplete"
+ },
+ {
+  "id": "err-void-func-1",
+  "template": "err-void-func",
+  "kind": "find",
+  "topic": "pointer",
+  "week": 10,
+  "hash": "e3af79b1b65568d5",
+  "line": 4,
+  "why": "argument type 'void' is incomplete"
+ },
+ {
+  "id": "err-void-func-2",
+  "template": "err-void-func",
+  "kind": "find",
+  "topic": "pointer",
+  "week": 10,
+  "hash": "fc83dcc6b8c35207",
+  "line": 4,
+  "why": "argument type 'void' is incomplete"
+ },
+ {
+  "id": "err-calc-menu-0",
+  "template": "err-calc-menu",
+  "kind": "find",
+  "topic": "function",
+  "week": 10,
+  "hash": "4f704700521e23f0",
+  "line": 19,
+  "why": "passing 'double' to parameter of incompatible type 'double *'; take the address with &"
+ },
+ {
+  "id": "err-calc-menu-1",
+  "template": "err-calc-menu",
+  "kind": "find",
+  "topic": "function",
+  "week": 10,
+  "hash": "553baa4dbbdb2e99",
+  "line": 19,
+  "why": "passing 'double' to parameter of incompatible type 'double *'; take the address with &"
+ },
+ {
+  "id": "err-calc-menu-2",
+  "template": "err-calc-menu",
+  "kind": "find",
+  "topic": "function",
+  "week": 10,
+  "hash": "780305e750b07b0d",
+  "line": 19,
+  "why": "passing 'double' to parameter of incompatible type 'double *'; take the address with &"
  },
  {
   "id": "file-log-mode-0",

@@ -4,7 +4,7 @@ import { variants, TEMPLATES } from '../src/logic/c-templates.js';
 import { runC, hashSrc, probeProblems } from '../../scripts/gen-c-bank.mjs';
 import BANK from '../src/content/c-bank.json';
 import { buildMock } from '@shared/logic/mock-exam.js';
-import { PROG_MOCK, SCOPE, BLUEPRINT, plan, groupOf } from '../src/logic/mock-exam.js';
+import { PROG_MOCK, SCOPE, BLUEPRINT, SIZES, sizeOf, plan, groupOf } from '../src/logic/mock-exam.js';
 
 const byId = Object.fromEntries(BANK.map(b => [b.id, b]));
 
@@ -109,6 +109,18 @@ describe('bộ giải độc lập: lô tuần 6–9 khớp clang', () => {
 });
 
 describe('đề thi thử Lập trình C', () => {
+  it('comparison round 1: every exam has 2 short, 2 medium, and 1 long find-the-error program', () => {
+    expect(SIZES.fix).toEqual({ short: 2, medium: 2, long: 1 });
+    expect([9, 10, 19, 20].map(sizeOf)).toEqual(['short', 'medium', 'medium', 'long']);
+    for (let seed = 0; seed < 300; seed += 7) {
+      let n = seed;
+      const qs = PROG_MOCK.makers.map(make => make(() => { n = (n * 7 + 13) % 97; return n / 97; }));
+      const fix = qs.filter(q => ['find', 'findrun'].includes(q.facts.kind === 'multi' ? q.facts.type : q.facts.kind));
+      const count = { short: 0, medium: 0, long: 0 };
+      for (const q of fix) count[sizeOf(q.code.trimEnd().split('\n').length)]++;
+      expect(count, `seed ${seed}`).toEqual({ short: 2, medium: 2, long: 1 });
+    }
+  });
   it('only the four real midterm types: fill, predict, find/fix, write (no mcq, no compile)', () => {
     expect(Object.keys(BLUEPRINT).sort()).toEqual(['fill', 'fix', 'predict', 'write']);
     for (const pool of plan()) for (const t of pool) expect(['fill', 'predict', 'find', 'findrun', 'write']).toContain(t.type ?? t.kind);
@@ -160,8 +172,7 @@ describe('đề thi thử Lập trình C', () => {
     expect(pools.length).toBe(20);
     for (const pool of pools) expect(pool.length).toBeGreaterThan(0);
     for (const [group, n] of Object.entries(BLUEPRINT)) expect(pools.filter(p => groupOf(p[0]) === group).length, group).toBe(n);
-    const want = Object.keys(BLUEPRINT).reduce((s, g) => s + Math.min(4, TEMPLATES.filter(t => groupOf(t) === g && t.week >= 9).length), 0);
-    expect(pools.filter(p => p[0].week >= 9).length).toBe(want);
+    expect(pools.filter(p => p[0].week >= 9).length).toBe(16);
     const fake = [...TEMPLATES, ...Object.keys(BLUEPRINT).flatMap(g => Array.from({ length: 6 }, (_, i) => ({ id: `${g}-${i}`, kind: 'multi', type: g, week: 10 })))];
     expect(plan(fake).filter(p => p[0].week >= 9).length).toBe(16);
     const early = [...TEMPLATES.filter(t => t.week < 9), ...Object.keys(BLUEPRINT).flatMap(g => [0, 1].map(i => ({ id: `${g}-old-${i}`, kind: 'multi', type: g === 'fix' ? 'find' : g, week: 5 })))];

@@ -11,7 +11,7 @@ for (const theme of ['light', 'dark']) for (const w of [1280]) test(`hàng công
   await page.waitForSelector('#screen-home h1');
   const tops = await page.evaluate(() => [...document.querySelectorAll('.appnav-foot > *')]
     .filter(e => e.getClientRects().length).map(e => (r => Math.round(r.top + r.height / 2))(e.getBoundingClientRect())));
-  expect(tops.length).toBeGreaterThanOrEqual(4);
+  expect(tops.length).toBeGreaterThanOrEqual(3);      // search is off while Learn is hidden (D69)
   expect(Math.max(...tops) - Math.min(...tops), `tâm: ${tops}`).toBeLessThanOrEqual(2);
   // còn dư chỗ: font thay thế (chưa tải font web) rộng hơn vài px vẫn không rớt dòng
   const slack = await page.evaluate(() => { const f = document.querySelector('.appnav-foot'), cs = getComputedStyle(f), kids = [...f.children].filter(e => e.getClientRects().length);

@@ -69,7 +69,7 @@ function print(ex, key, tools) {
 
 export function renderMock(r, cfg) {
   const host = $('#screen-mock');
-  const head = [el('h1', { text: T('nav.mock') }), practiceTabs('mock')];
+  const head = [el('h1', { text: T('nav.mock') }), practiceTabs('mock')].filter(Boolean);
   if (!cfg.mock) {
     host.replaceChildren(...head, leadCard({ title: T('mock.none'), note: T('mock.noneNote'), href: '#/free', cta: T('practice.tabFree') }));
     return T('nav.mock');

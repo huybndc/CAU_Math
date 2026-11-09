@@ -16,6 +16,13 @@ export const SCOPE = { postMidShare: 0.8, postMidFrom: 9 };
 export const BLUEPRINT = { fill: 5, predict: 5, fix: 5, write: 5 };
 
 const FIX_TYPES = new Set(['find', 'findrun']);
+/**
+ * Code length mix inside a group (comparison round 1, 2026-11-10: the learner said the real find-the-error
+ * questions had short, medium, and long programs). Lines: short ≤ 9, medium 10–19, long ≥ 20.
+ */
+export const SIZES = { fix: { short: 2, medium: 2, long: 1 } };
+export const sizeOf = lineCount => (lineCount <= 9 ? 'short' : lineCount <= 19 ? 'medium' : 'long');
+const shownLines = t => { const p = t.params?.[0]; if (!p) return 0; const s = t.kind === 'multi' && t.show ? t.show(p) : t.src(p); return s.trimEnd().split('\n').length; };
 export const groupOf = t => { const k = t.type ?? t.kind; return FIX_TYPES.has(k) ? 'fix' : k; };
 
 const byId = Object.fromEntries(BANK.map(b => [b.id, b]));
@@ -34,9 +41,14 @@ export function plan(templates = TEMPLATES, scope = SCOPE) {
     let want = 0;
     for (let k = 0; k < n; k++, slot++) if (Math.floor((slot + 1) * scope.postMidShare) > Math.floor(slot * scope.postMidShare)) want++;
     const inGroup = templates.filter(t => groupOf(t) === group);
-    const post = inGroup.filter(t => t.week >= scope.postMidFrom), base = inGroup.filter(t => t.week < scope.postMidFrom);
-    const nPost = Math.min(want, post.length);
-    pools.push(...split(post, nPost), ...split(base, n - nPost));
+    const parts = SIZES[group] ? Object.entries(SIZES[group]).map(([size, k]) => [inGroup.filter(t => sizeOf(shownLines(t)) === size), k]) : [[inGroup, n]];
+    let left = want;
+    for (const [list, k] of parts) {
+      const post = list.filter(t => t.week >= scope.postMidFrom), base = list.filter(t => t.week < scope.postMidFrom);
+      const nPost = Math.max(k - base.length, Math.min(left, k, post.length));
+      left -= nPost;
+      pools.push(...split(post, nPost), ...split(base, k - nPost));
+    }
   }
   return pools;
 }

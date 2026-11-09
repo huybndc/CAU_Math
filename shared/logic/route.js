@@ -14,6 +14,16 @@
 export const LEARN_SUBS = ['theory', 'example', 'interactive'];
 
 /**
+ * Screens that the app hides (learner decision, 2026-11-10, D69): the learner uses only Overview and Mock Exam.
+ * The content stays. Make this list empty to show the screens again.
+ */
+export const HIDDEN_VIEWS = ['learn', 'tools', 'free'];
+
+/** A route to a hidden screen goes to Mock Exam, or to Overview when the course has no mock exam. */
+export const visibleRoute = (r, { hasMock = true, hidden = HIDDEN_VIEWS } = {}) =>
+  r && hidden.includes(r.view) ? { view: hasMock ? 'mock' : 'home' } : r;
+
+/**
  * @param {string} hash
  * @param {string[]} chapters - vd ['ch1','ch2','ch3']
  * @returns {{view:string, ch?:string, sub?:string, at?:number, id?:string} | null}

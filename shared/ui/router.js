@@ -1,4 +1,4 @@
-import { parseRoute, routeOf } from '../logic/route.js';
+import { parseRoute, routeOf, visibleRoute } from '../logic/route.js';
 
 /* ---------------------------------------------------------------
    ĐIỀU HƯỚNG: trạng thái nằm trên địa chỉ (#/learn/ch3/theory) nên Back/Forward,
@@ -16,10 +16,10 @@ export function go(r) {
 }
 
 /** @param {string[]} chapters  @param {(route: object) => void} onChange */
-export function startRouter(chapters, onChange) {
+export function startRouter(chapters, onChange, { hasMock = true } = {}) {
   let busy = false;
   const apply = animate => {
-    const r = parseRoute(window.location.hash, chapters) ?? { view: 'home' };
+    const r = visibleRoute(parseRoute(window.location.hash, chapters), { hasMock }) ?? { view: 'home' };
     const canon = routeOf(r);
     if (window.location.hash !== canon) history.replaceState(null, '', canon);
     const run = () => { current = r; onChange(r); window.scrollTo(0, 0); };
@@ -34,7 +34,7 @@ export function startRouter(chapters, onChange) {
   document.addEventListener('click', e => {
     const b = e.target.closest?.('[data-goto]');
     if (!b) return;
-    const r = parseRoute('#/' + b.dataset.goto.replace(':', '/'), chapters);
+    const r = visibleRoute(parseRoute('#/' + b.dataset.goto.replace(':', '/'), chapters), { hasMock });
     if (r) go(r);
   });
   apply(false);
