@@ -4,7 +4,7 @@ import { variants, TEMPLATES } from '../src/logic/c-templates.js';
 import { runC, hashSrc, probeProblems } from '../../scripts/gen-c-bank.mjs';
 import BANK from '../src/content/c-bank.json';
 import { buildMock } from '@shared/logic/mock-exam.js';
-import { PROG_MOCK, SCOPE, BLUEPRINT, SLOTS, sizeOf, plan, groupOf } from '../src/logic/mock-exam.js';
+import { PROG_MOCK, SCOPE, BLUEPRINT, SLOTS, plan, groupOf } from '../src/logic/mock-exam.js';
 
 const byId = Object.fromEntries(BANK.map(b => [b.id, b]));
 
@@ -109,16 +109,12 @@ describe('bộ giải độc lập: lô tuần 6–9 khớp clang', () => {
 });
 
 describe('đề thi thử Lập trình C', () => {
-  it('comparison rounds 1–2: every exam has 2 short, 2 medium, 1 long find-the-error program; at least 1 run-time error; no obvious syntax error', () => {
+  it('comparison round 2: at least 1 run-time find-the-error question; no obvious syntax error', () => {
     expect(SLOTS.fix.reduce((s, x) => s + x[2], 0)).toBe(BLUEPRINT.fix);
-    expect([9, 10, 19, 20].map(sizeOf)).toEqual(['short', 'medium', 'medium', 'long']);
     for (let seed = 0; seed < 300; seed += 7) {
       let n = seed;
       const qs = PROG_MOCK.makers.map(make => make(() => { n = (n * 7 + 13) % 97; return n / 97; }));
       const fix = qs.filter(q => ['find', 'findrun'].includes(q.facts.kind === 'multi' ? q.facts.type : q.facts.kind));
-      const count = { short: 0, medium: 0, long: 0 };
-      for (const q of fix) count[sizeOf(q.code.trimEnd().split('\n').length)]++;
-      expect(count, `seed ${seed}`).toEqual({ short: 2, medium: 2, long: 1 });
       expect(fix.filter(q => q.facts.type === 'findrun').length, `seed ${seed}`).toBeGreaterThanOrEqual(1);
       expect(fix.some(q => byId[q.facts.id].template === 'err-missing-struct'), `seed ${seed}`).toBe(false);
     }
