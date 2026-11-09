@@ -68,6 +68,23 @@ describe('bộ giải độc lập: lô tuần 6–9 khớp clang', () => {
     each('write-sum-all', ([xs]) => String(xs.reduce((s, x) => s + x, 0)));
     each('write-raise', ([a, b, k]) => `Python ${a + k} C ${b + k}`);
   });
+  it('tuần 10', () => {
+    const ops = (a, b) => [a + b, a - b, a * b];
+    const tri = n => n * (n + 1) / 2;
+    each('fp-pick', ([a, b, pick]) => pick.map(k => ops(a, b)[k]).join(' '));
+    each('void-cast', ([a, d, k]) => `${a + k} ${(d * 2).toFixed(2)}`);
+    each('file-mode', ([m, n1, n2]) => m === 'a' ? `${n1 + n2} ${tri(n1) + 10 * tri(n2)}` : `${n2} ${10 * tri(n2)}`);
+    each('file-log-mode', ([xs]) => `${xs.length} ${xs.reduce((s, x) => s + x, 0)}`);
+    each('fill-fp-array', ([a, b]) => ops(a, b).join('\n'));
+    each('fill-file-write', ([x, y]) => String(x + y));
+    each('write-add-2d', ([x, k]) => `${x[0] + k} ${x[4] + k} ${x[5] + k}`);
+    each('write-fold', ([xs]) => `${xs.reduce((s, x) => s + x, 0)} ${xs.reduce((s, x) => s * x, 1)}`);
+    // The learner sees the wrong program. It must run and print only the last score, as the question says.
+    TEMPLATES.find(t => t.id === 'file-log-mode').params.forEach(([xs], i) => {
+      const v = variants().find(y => y.id === `file-log-mode-${i}`);
+      expect(runC(v.show).out.trim()).toBe(`1 ${xs.at(-1)}`);
+    });
+  });
   it('tuần 6–7', () => {
     each('str-eq', ([x, y]) => `0 1 ${x === y ? 1 : 0}`);
     each('mcq-scanf-string', ([s]) => s.split(' ')[0]);
@@ -92,6 +109,10 @@ describe('bộ giải độc lập: lô tuần 6–9 khớp clang', () => {
 });
 
 describe('đề thi thử Lập trình C', () => {
+  it('only the four real midterm types: fill, predict, find/fix, write (no mcq, no compile)', () => {
+    expect(Object.keys(BLUEPRINT).sort()).toEqual(['fill', 'fix', 'predict', 'write']);
+    for (const pool of plan()) for (const t of pool) expect(['fill', 'predict', 'find', 'findrun', 'write']).toContain(t.type ?? t.kind);
+  });
   const seeds = Array.from({ length: 30 }, (_, i) => i * 7919);
   it('20 câu lớn × 5 điểm = 100; 40 ý, mỗi ý 2–3 điểm; không còn ghi "all or nothing" ở từng ý', () => {
     for (const seed of seeds) {
@@ -114,7 +135,7 @@ describe('đề thi thử Lập trình C', () => {
       if (v.kind === 'predict') expect(v.follow(b).a.length, v.id).toBeGreaterThan(0);
     }
     const types = new Set(TEMPLATES.map(t => t.type ?? t.kind));
-    for (const k of ['mcq', 'fill', 'compile', 'findrun', 'write', 'predict', 'find']) expect(types.has(k), k).toBe(true);
+    for (const k of ['fill', 'findrun', 'write', 'predict', 'find']) expect(types.has(k), k).toBe(true);
   });
   it('đáp án in ra khớp c-bank.json; trong một đề không lặp mẫu; các mã đề khác nhau', () => {
     for (const seed of seeds) {
@@ -139,10 +160,11 @@ describe('đề thi thử Lập trình C', () => {
     expect(pools.length).toBe(20);
     for (const pool of pools) expect(pool.length).toBeGreaterThan(0);
     for (const [group, n] of Object.entries(BLUEPRINT)) expect(pools.filter(p => groupOf(p[0]) === group).length, group).toBe(n);
-    const week = pools.filter(p => p[0].week >= 9).length;
-    expect(week).toBe(TEMPLATES.filter(t => t.week >= 9).length);
+    const want = Object.keys(BLUEPRINT).reduce((s, g) => s + Math.min(4, TEMPLATES.filter(t => groupOf(t) === g && t.week >= 9).length), 0);
+    expect(pools.filter(p => p[0].week >= 9).length).toBe(want);
     const fake = [...TEMPLATES, ...Object.keys(BLUEPRINT).flatMap(g => Array.from({ length: 6 }, (_, i) => ({ id: `${g}-${i}`, kind: 'multi', type: g, week: 10 })))];
     expect(plan(fake).filter(p => p[0].week >= 9).length).toBe(16);
-    expect(plan(fake.filter(t => t.week < 9)).every(p => p[0].week < 9)).toBe(true);
+    const early = [...TEMPLATES.filter(t => t.week < 9), ...Object.keys(BLUEPRINT).flatMap(g => [0, 1].map(i => ({ id: `${g}-old-${i}`, kind: 'multi', type: g === 'fix' ? 'find' : g, week: 5 })))];
+    expect(plan(early).every(p => p.length > 0 && p[0].week < 9)).toBe(true);
   });
 });

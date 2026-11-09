@@ -8,10 +8,14 @@ import BANK from '../content/c-bank.json';
 
 /** Edit this when the teacher publishes the exam scope. */
 export const SCOPE = { postMidShare: 0.8, postMidFrom: 9 };
-/** Number of questions for each question group. */
-export const BLUEPRINT = { mcq: 3, fill: 5, predict: 4, fix: 4, write: 4 };
+/**
+ * Number of questions for each question group. The real midterm (2026-10-21) had only these four types:
+ * find and fix the error, predict the output, write a struct or function, and fill in the blanks.
+ * Templates of other types (mcq, compile) stay in the bank, but the exam does not use them (D68).
+ */
+export const BLUEPRINT = { fill: 5, predict: 5, fix: 5, write: 5 };
 
-const FIX_TYPES = new Set(['find', 'findrun', 'compile']);
+const FIX_TYPES = new Set(['find', 'findrun']);
 export const groupOf = t => { const k = t.type ?? t.kind; return FIX_TYPES.has(k) ? 'fix' : k; };
 
 const byId = Object.fromEntries(BANK.map(b => [b.id, b]));
@@ -64,7 +68,7 @@ function question(pool, rnd) {
     parts: [{ pts: 2, q: 'Give the line number and the reason.', a: [`Line ${b.line}: ${b.why}`] }, { pts: 3, q: 'Rewrite that line correctly.', a: [fixLine] }] };
 }
 
-const TOPIC = { struct: 'Structures', union: 'Unions', typedef: 'typedef', operators: 'Operators', pointer: 'Pointers', array: 'Arrays', string: 'Strings', function: 'Functions and pointers' };
+const TOPIC = { struct: 'Structures', union: 'Unions', typedef: 'typedef', operators: 'Operators', pointer: 'Pointers', array: 'Arrays', string: 'Strings', function: 'Functions and pointers', file: 'Files' };
 
 export const PROG_MOCK = {
   id: 'prog', title: 'C Programming — Practice Exam',

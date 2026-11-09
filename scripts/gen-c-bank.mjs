@@ -23,8 +23,8 @@ export function runC(src, { san = false, input } = {}) {
       const why = cc.stderr.match(/error: ([^\n]*)/);
       return { ok: false, line: m ? Number(m[1]) : null, why: why ? why[1] : '', err: cc.stderr };
     }
-    if (san) { const run = spawnSync(bin, { encoding: 'utf8', timeout: 5000 }); return { ok: true, crashed: run.status !== 0, out: run.stdout }; }
-    return { ok: true, out: execFileSync(bin, { encoding: 'utf8', timeout: 5000, input }), warn: cc.stderr };
+    if (san) { const run = spawnSync(bin, { cwd: dir, encoding: 'utf8', timeout: 5000 }); return { ok: true, crashed: run.status !== 0, out: run.stdout }; }
+    return { ok: true, out: execFileSync(bin, { cwd: dir, encoding: 'utf8', timeout: 5000, input }), warn: cc.stderr };
   } finally { rmSync(dir, { recursive: true, force: true }); }
 }
 

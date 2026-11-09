@@ -31,9 +31,9 @@ Key shared modules include `shared/ui/{shell,screens,learn-screen,runner,solver,
 
 ### C programming
 
-`/prog/` contains the week 7 lesson and a mock exam with 20 questions of 5 points each (100 points). The exam covers weeks 2–9. `npm run gen:c` uses real `clang` output for answer keys. To add a week, add templates to a `prog/src/logic/c-templates-*.js` file, set the week, run the generator, and test the generated bank. `plan()` then raises the share of weeks 9–15 toward 80% with no other change. The batches for weeks 10–15 wait for class slides.
+`/prog/` contains the week 7 lesson and a mock exam with 20 questions of 5 points each (100 points). The exam covers weeks 2–10 and uses only the four real midterm types: fill in the blanks, predict the output, find and fix the error, and write a function (5 questions each, D68). `npm run gen:c` uses real `clang` output for answer keys. To add a week, add templates to a `prog/src/logic/c-templates-*.js` file, set the week, run the generator, and test the generated bank. `plan()` then raises the share of weeks 9–15 toward 80% with no other change. Week 10 comes from the learner's lesson note. The batches for weeks 11–15 wait for class material.
 
-Multi-part questions support multiple-choice, fill-in, compile, and write tasks. The generator checks compile output, including AddressSanitizer for `find-oob`. Course color and scratch tabs come from `shared/subjects.json`; `npm run gen:subjects` creates the theme files and links. `npm run sync:subjects` imports practice subjects from Study_Hub. Calculus remains inactive until it has content.
+Multi-part questions support multiple-choice, fill-in, compile, and write tasks. The exam does not use multiple-choice or compile tasks. Programs that use files run in a temporary folder. The generator checks compile output, including AddressSanitizer for `find-oob`. Course color and scratch tabs come from `shared/subjects.json`; `npm run gen:subjects` creates the theme files and links. `npm run sync:subjects` imports practice subjects from Study_Hub. Calculus remains inactive until it has content.
 
 ### Course map
 

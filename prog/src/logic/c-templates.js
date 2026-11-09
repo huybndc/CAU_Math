@@ -7,6 +7,7 @@
 
 import { lines, BASE_TEMPLATES } from './c-templates-base.js';
 import { W9_TEMPLATES } from './c-templates-w9.js';
+import { W10_TEMPLATES } from './c-templates-w10.js';
 
 export const TEMPLATES = [
   {
@@ -284,6 +285,7 @@ export const TEMPLATES = [
   },
   ...BASE_TEMPLATES,
   ...W9_TEMPLATES,
+  ...W10_TEMPLATES,
 ];
 
 /** Mọi biến thể: { id: 'struct-byval-0', template, kind, topic, week, src, fixSrc? }. */
