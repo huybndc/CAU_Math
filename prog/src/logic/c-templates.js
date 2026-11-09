@@ -7,6 +7,7 @@
 
 import { lines, BASE_TEMPLATES } from './c-templates-base.js';
 import { W9_TEMPLATES } from './c-templates-w9.js';
+import { W10_TEMPLATES } from './c-templates-w10.js';
 
 export const TEMPLATES = [
   {
@@ -158,6 +159,54 @@ export const TEMPLATES = [
       '}'),
   },
   {
+    id: 'err-bonus-arrow', kind: 'find', topic: 'struct', week: 7,
+    params: [[5, [['Kim', 80], ['Lee', 72], ['Park', 91]]], [3, [['Han', 60], ['Yoon', 88], ['Choi', 75]]], [10, [['Ahn', 55], ['Seo', 90], ['Jung', 70]]]],
+    src: ([k, ss], fix = false) => lines(
+      '#include <stdio.h>',
+      'struct Student { char name[10]; int score; };',
+      'void bonus(struct Student *s, int n) {',
+      '    for (int i = 0; i < n; i++)',
+      `        ${fix ? 's[i].score' : 's[i]->score'} += ${k};`,
+      '}',
+      'int main(void) {',
+      `    struct Student c[3] = {${ss.map(([n, v]) => `{"${n}", ${v}}`).join(', ')}};`,
+      '    bonus(c, 3);',
+      '    for (int i = 0; i < 3; i++)',
+      '        printf("%s %d\\n", c[i].name, c[i].score);',
+      '    return 0;',
+      '}'),
+  },
+  {
+    id: 'err-total-ptr', kind: 'find', topic: 'typedef', week: 7,
+    params: [['Han', [['Kim', 80, 70, 90], ['Lee', 95, 85, 60], ['Park', 70, 90, 95]]], ['Seo', [['Choi', 60, 75, 80], ['Yoon', 90, 90, 70], ['Kang', 85, 65, 95]]], ['Oh', [['Lim', 70, 70, 70], ['Shin', 88, 92, 79], ['Jang', 99, 60, 81]]]],
+    src: ([nm, ss], fix = false) => lines(
+      '#include <stdio.h>',
+      '#include <string.h>',
+      'typedef struct { char name[10]; int kor, eng, math; } Student;',
+      'int total(Student s) { return s.kor + s.eng + s.math; }',
+      'void print_best(Student *s, int n) {',
+      '    int best = 0;',
+      '    for (int i = 1; i < n; i++)',
+      '        if (total(s[i]) > total(s[best]))',
+      '            best = i;',
+      '    printf("best: %s %d\\n", s[best].name, total(s[best]));',
+      '}',
+      'void rename_first(Student *s, const char *name) {',
+      '    strcpy(s->name, name);',
+      '}',
+      'int main(void) {',
+      `    Student cls[3] = {${ss.map(([n, a, b, c]) => `{"${n}", ${a}, ${b}, ${c}}`).join(', ')}};`,
+      '    int n = sizeof(cls) / sizeof(cls[0]);',
+      '    for (int i = 0; i < n; i++)',
+      '        cls[i].math += 5;',
+      `    rename_first(cls, "${nm}");`,
+      '    print_best(cls, n);',
+      '    for (int i = 0; i < n; i++)',
+      `        printf("%s %d\\n", cls[i].name, total(${fix ? 'cls[i]' : 'cls + i'}));`,
+      '    return 0;',
+      '}'),
+  },
+  {
     // Lỗi chạy (clang không báo): gen chạy bản sai với AddressSanitizer, phải sập; bản sửa chạy sạch.
     id: 'find-oob', kind: 'multi', type: 'findrun', topic: 'array', week: 3, san: true,
     params: [[[1, 2, 3]], [[4, 8, 15, 16]], [[7, 9]], [[2, 4, 6, 8, 10]]],
@@ -284,6 +333,7 @@ export const TEMPLATES = [
   },
   ...BASE_TEMPLATES,
   ...W9_TEMPLATES,
+  ...W10_TEMPLATES,
 ];
 
 /** Mọi biến thể: { id: 'struct-byval-0', template, kind, topic, week, src, fixSrc? }. */

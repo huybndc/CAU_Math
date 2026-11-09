@@ -11,7 +11,7 @@ There are no `data-testid` hooks yet. Use the existing hooks: `data-nav`, `data-
 Shared UI and logic live in `shared/ui/` and `shared/logic/`.
 
 - The subject switch reads `shared/subjects.json`. The build uses that file too. A course with `app: false` is hidden: it has no route, no build output, and no test run. Its folder and learning data stay. `/` goes to the first active course. See "Change the term" in `AGENTS.md`.
-- Navigation includes Overview, Learn, Tools, and Mock Exam. The Mock Exam screen has a Free Response tab.
+- Navigation shows Overview and Mock Exam only (D69). `HIDDEN_VIEWS` in `shared/logic/route.js` hides Learn, Tools, and Free Response. Their routes go to Mock Exam. Quick search is off while Learn is hidden. The content stays. Empty the list to show the screens again.
 - The language switch uses `data-lang=vi|en`. The theme control follows system light or dark mode.
 - The app rail can collapse to 56 pixels. The app name is Exlab. Course icons use each course color.
 - The app rail links to Study_Hub and Live_Lecture when their build URLs exist in `.env.local`.
@@ -20,7 +20,7 @@ Shared UI and logic live in `shared/ui/` and `shared/logic/`.
 - Mock exams use a seed. The screen can show the exam or answer and can print an A4 copy. KaTeX renders formulas. Printed answers show worked steps. Logic Circuit answers can include a circuit diagram and marking rubric.
 - Mock exams have no app timer or automatic grading. The learner times and grades the printed exam.
 - Type-based Practice, Mock Exam, and Mistakes screens were removed on 2026-10-22. Old practice and exam URLs return to Overview.
-- Current features include lessons, examples, interactive tools, free response, scratchpad, flags, glossary, and screen help.
+- Current visible features are Overview, Mock Exam, scratchpad, and screen help. Lessons, examples, interactive tools, concept questions, free response, flags, and glossary are hidden.
 - Long lessons use a paper-like background: `#faf9f6` in light mode and `#1f2227` in dark mode.
 - `Ctrl/Cmd+K` or `/` opens quick search. `?` opens screen help. `Esc` closes a dialog. Number keys select multiple-choice answers. Left and right arrows change lesson cards.
 - Shared hooks include `.runner`, `.run-widget`, `.flag-fold`, `.tab[data-tab]`, `data-check`, `data-tool`, and `data-goto`.
@@ -31,9 +31,9 @@ Key shared modules include `shared/ui/{shell,screens,learn-screen,runner,solver,
 
 ### C programming
 
-`/prog/` contains the week 7 lesson and a mock exam with 20 questions of 5 points each (100 points). The exam covers weeks 2–9. `npm run gen:c` uses real `clang` output for answer keys. To add a week, add templates to a `prog/src/logic/c-templates-*.js` file, set the week, run the generator, and test the generated bank. `plan()` then raises the share of weeks 9–15 toward 80% with no other change. The batches for weeks 10–15 wait for class slides.
+`/prog/` contains the week 7 lesson and a mock exam with 20 questions of 5 points each (100 points). The exam covers weeks 2–10 and uses only the four real midterm types: fill in the blanks, predict the output, find and fix the error, and write a function (5 questions each, D68). `npm run gen:c` uses real `clang` output for answer keys. To add a week, add templates to a `prog/src/logic/c-templates-*.js` file, set the week, run the generator, and test the generated bank. `plan()` then raises the share of weeks 9–15 toward 80% with no other change. Week 10 comes from the learner's lesson note. The batches for weeks 11–15 wait for class material.
 
-Multi-part questions support multiple-choice, fill-in, compile, and write tasks. The generator checks compile output, including AddressSanitizer for `find-oob`. Course color and scratch tabs come from `shared/subjects.json`; `npm run gen:subjects` creates the theme files and links. `npm run sync:subjects` imports practice subjects from Study_Hub. Calculus remains inactive until it has content.
+Multi-part questions support multiple-choice, fill-in, compile, and write tasks. The exam does not use multiple-choice or compile tasks. Programs that use files run in a temporary folder. The generator checks compile output, including AddressSanitizer for `find-oob`. Course color and scratch tabs come from `shared/subjects.json`; `npm run gen:subjects` creates the theme files and links. `npm run sync:subjects` imports practice subjects from Study_Hub. Calculus remains inactive until it has content.
 
 ### Course map
 

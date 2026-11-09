@@ -3,7 +3,7 @@ import ALL from '../subjects.json';
 const SUBJECTS = ALL.filter(s => s.app !== false);
 import { vi } from '../i18n/vi.js';
 import { en } from '../i18n/en.js';
-import { parseRoute, routeOf } from '../logic/route.js';
+import { parseRoute, routeOf, visibleRoute, HIDDEN_VIEWS } from '../logic/route.js';
 
 describe('từ điển phần khung', () => {
   it('VI và EN cùng tập khoá, cùng tham số', () => {
@@ -33,6 +33,16 @@ describe('địa chỉ theo việc #/learn · #/tools · #/free · #/mock', () =
     for (const h of ['#/ch9/theory', '#/ch1/nope', '#/learn/ch9', '#/learn/ch1/nope', '#/ch1/practice', '#/practice', '#/practice/ch1', '#/exam', '#/zzz']) {
       expect(parseRoute(h, CH), h).toBeNull();
     }
+  });
+  it('hidden screens (D69): Learn, Tools, and Free Response go to Mock Exam; Overview and Mock Exam stay', () => {
+    expect(HIDDEN_VIEWS).toEqual(['learn', 'tools', 'free']);
+    for (const h of ['#/learn', '#/learn/ch3/interactive/1', '#/ch2', '#/tools', '#/free', '#/free/x1'])
+      expect(visibleRoute(parseRoute(h, CH)), h).toEqual({ view: 'mock' });
+    expect(visibleRoute(parseRoute('#/tools', CH), { hasMock: false })).toEqual({ view: 'home' });
+    expect(visibleRoute(parseRoute('#/', CH))).toEqual({ view: 'home' });
+    expect(visibleRoute(parseRoute('#/mock', CH))).toEqual({ view: 'mock' });
+    expect(visibleRoute(parseRoute('#/learn', CH), { hidden: [] })).toEqual({ view: 'learn' });
+    expect(visibleRoute(null)).toBeNull();
   });
   it('routeOf là nghịch đảo của parseRoute, và đổi địa chỉ cũ sang dạng mới', () => {
     for (const h of ['#/', '#/learn', '#/learn/ch1/example', '#/learn/ch1/example/2', '#/tools', '#/free', '#/free/l-pascal', '#/mock']) {

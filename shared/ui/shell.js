@@ -6,6 +6,7 @@ import { setupScratch } from './scratch.js';
 import { setupTips } from './tip.js';
 import { setupPalette } from './palette.js';
 import { startRouter, currentRoute } from './router.js';
+import { HIDDEN_VIEWS } from '../logic/route.js';
 import { showRoute } from './screens.js';
 import { startSync } from './sync.js';
 import { setupScreenHelp } from './screen-help.js';
@@ -147,8 +148,9 @@ export async function setupShell(cfg) {
   startSync();
   syncProgress();
   const help = setupScreenHelp();
-  startRouter(cfg.chapters.map(c => c.id), r => { showRoute(r, cfg); help.set(r); });
-  setupPalette(cfg);
+  document.querySelectorAll('.tab[data-nav]').forEach(t => { if (HIDDEN_VIEWS.includes(t.dataset.nav)) t.remove(); });
+  startRouter(cfg.chapters.map(c => c.id), r => { showRoute(r, cfg); help.set(r); }, { hasMock: !!cfg.mock });
+  if (!HIDDEN_VIEWS.includes('learn')) setupPalette(cfg);      // quick search finds only lessons and tools
   onLangChange(() => { showRoute(currentRoute(), cfg); labelHints(); help.set(currentRoute()); });
   markReady();
   window.addEventListener('scroll', () => {

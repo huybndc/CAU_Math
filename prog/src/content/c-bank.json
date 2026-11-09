@@ -381,6 +381,66 @@
   "why": "must use 'struct' tag to refer to type 'Node'"
  },
  {
+  "id": "err-bonus-arrow-0",
+  "template": "err-bonus-arrow",
+  "kind": "find",
+  "topic": "struct",
+  "week": 7,
+  "hash": "a98ffdf7a217963c",
+  "line": 5,
+  "why": "member reference type 'struct Student' is not a pointer; did you mean to use '.'?"
+ },
+ {
+  "id": "err-bonus-arrow-1",
+  "template": "err-bonus-arrow",
+  "kind": "find",
+  "topic": "struct",
+  "week": 7,
+  "hash": "b50817060307545b",
+  "line": 5,
+  "why": "member reference type 'struct Student' is not a pointer; did you mean to use '.'?"
+ },
+ {
+  "id": "err-bonus-arrow-2",
+  "template": "err-bonus-arrow",
+  "kind": "find",
+  "topic": "struct",
+  "week": 7,
+  "hash": "865b6d48de3f203a",
+  "line": 5,
+  "why": "member reference type 'struct Student' is not a pointer; did you mean to use '.'?"
+ },
+ {
+  "id": "err-total-ptr-0",
+  "template": "err-total-ptr",
+  "kind": "find",
+  "topic": "typedef",
+  "week": 7,
+  "hash": "b4057b0e1fac4c7b",
+  "line": 23,
+  "why": "passing 'Student *' to parameter of incompatible type 'Student'; dereference with *"
+ },
+ {
+  "id": "err-total-ptr-1",
+  "template": "err-total-ptr",
+  "kind": "find",
+  "topic": "typedef",
+  "week": 7,
+  "hash": "f3dba25f53b1628d",
+  "line": 23,
+  "why": "passing 'Student *' to parameter of incompatible type 'Student'; dereference with *"
+ },
+ {
+  "id": "err-total-ptr-2",
+  "template": "err-total-ptr",
+  "kind": "find",
+  "topic": "typedef",
+  "week": 7,
+  "hash": "981373eb20b533b3",
+  "line": 23,
+  "why": "passing 'Student *' to parameter of incompatible type 'Student'; dereference with *"
+ },
+ {
   "id": "find-oob-0",
   "template": "find-oob",
   "kind": "multi",
@@ -1232,6 +1292,36 @@
   "why": "cannot increment value of type 'int[5]'"
  },
  {
+  "id": "err-const-param-0",
+  "template": "err-const-param",
+  "kind": "find",
+  "topic": "pointer",
+  "week": 9,
+  "hash": "4d1152814db259f3",
+  "line": 10,
+  "why": "read-only variable is not assignable"
+ },
+ {
+  "id": "err-const-param-1",
+  "template": "err-const-param",
+  "kind": "find",
+  "topic": "pointer",
+  "week": 9,
+  "hash": "5a90939246e817a9",
+  "line": 10,
+  "why": "read-only variable is not assignable"
+ },
+ {
+  "id": "err-const-param-2",
+  "template": "err-const-param",
+  "kind": "find",
+  "topic": "pointer",
+  "week": 9,
+  "hash": "3dc11d094b5177fa",
+  "line": 10,
+  "why": "read-only variable is not assignable"
+ },
+ {
   "id": "dangling-0",
   "template": "dangling",
   "kind": "multi",
@@ -1494,5 +1584,501 @@
   "hash": "cebb0e21ce210235",
   "ok": true,
   "out": "Python 14 C 36\n"
+ },
+ {
+  "id": "fp-pick-0",
+  "template": "fp-pick",
+  "kind": "predict",
+  "topic": "function",
+  "week": 10,
+  "hash": "5e4534be8fda8450",
+  "out": "15 8 -2\n"
+ },
+ {
+  "id": "fp-pick-1",
+  "template": "fp-pick",
+  "kind": "predict",
+  "topic": "function",
+  "week": 10,
+  "hash": "5d2e890124efe4d1",
+  "out": "5 14 9\n"
+ },
+ {
+  "id": "fp-pick-2",
+  "template": "fp-pick",
+  "kind": "predict",
+  "topic": "function",
+  "week": 10,
+  "hash": "30ce133566d021d2",
+  "out": "10 24 -2\n"
+ },
+ {
+  "id": "fp-pick-3",
+  "template": "fp-pick",
+  "kind": "predict",
+  "topic": "function",
+  "week": 10,
+  "hash": "7e820e5155cfbcc1",
+  "out": "27 6 12\n"
+ },
+ {
+  "id": "fp-pick-4",
+  "template": "fp-pick",
+  "kind": "predict",
+  "topic": "function",
+  "week": 10,
+  "hash": "a27cd2b2ca277610",
+  "out": "-6 10 16\n"
+ },
+ {
+  "id": "void-cast-0",
+  "template": "void-cast",
+  "kind": "predict",
+  "topic": "pointer",
+  "week": 10,
+  "hash": "c50a92c699348c9b",
+  "out": "15 6.50\n"
+ },
+ {
+  "id": "void-cast-1",
+  "template": "void-cast",
+  "kind": "predict",
+  "topic": "pointer",
+  "week": 10,
+  "hash": "ab8c63bec97b293b",
+  "out": "8 5.00\n"
+ },
+ {
+  "id": "void-cast-2",
+  "template": "void-cast",
+  "kind": "predict",
+  "topic": "pointer",
+  "week": 10,
+  "hash": "448dda28a3774daa",
+  "out": "50 19.50\n"
+ },
+ {
+  "id": "void-cast-3",
+  "template": "void-cast",
+  "kind": "predict",
+  "topic": "pointer",
+  "week": 10,
+  "hash": "8a1462143c679c7e",
+  "out": "5 13.00\n"
+ },
+ {
+  "id": "file-mode-0",
+  "template": "file-mode",
+  "kind": "predict",
+  "topic": "file",
+  "week": 10,
+  "hash": "fa583ffc21df1a35",
+  "out": "5 36\n"
+ },
+ {
+  "id": "file-mode-1",
+  "template": "file-mode",
+  "kind": "predict",
+  "topic": "file",
+  "week": 10,
+  "hash": "88a3a191d66bbcc1",
+  "out": "2 30\n"
+ },
+ {
+  "id": "file-mode-2",
+  "template": "file-mode",
+  "kind": "predict",
+  "topic": "file",
+  "week": 10,
+  "hash": "3d94568314f6593a",
+  "out": "6 103\n"
+ },
+ {
+  "id": "file-mode-3",
+  "template": "file-mode",
+  "kind": "predict",
+  "topic": "file",
+  "week": 10,
+  "hash": "443eaa2464035349",
+  "out": "1 10\n"
+ },
+ {
+  "id": "file-mode-4",
+  "template": "file-mode",
+  "kind": "predict",
+  "topic": "file",
+  "week": 10,
+  "hash": "7c60b57e72fd1176",
+  "out": "4 61\n"
+ },
+ {
+  "id": "err-fp-call-0",
+  "template": "err-fp-call",
+  "kind": "find",
+  "topic": "function",
+  "week": 10,
+  "hash": "5adf65b0b78a85a8",
+  "line": 7,
+  "why": "too few arguments to function call, expected 2, have 0"
+ },
+ {
+  "id": "err-fp-call-1",
+  "template": "err-fp-call",
+  "kind": "find",
+  "topic": "function",
+  "week": 10,
+  "hash": "9ad741a0d23fcba2",
+  "line": 7,
+  "why": "too few arguments to function call, expected 2, have 0"
+ },
+ {
+  "id": "err-fp-call-2",
+  "template": "err-fp-call",
+  "kind": "find",
+  "topic": "function",
+  "week": 10,
+  "hash": "4d132dee0186350a",
+  "line": 7,
+  "why": "too few arguments to function call, expected 2, have 0"
+ },
+ {
+  "id": "err-fp-paren-0",
+  "template": "err-fp-paren",
+  "kind": "find",
+  "topic": "function",
+  "week": 10,
+  "hash": "00d65b7b7ae1d478",
+  "line": 6,
+  "why": "illegal initializer (only variables can be initialized)"
+ },
+ {
+  "id": "err-fp-paren-1",
+  "template": "err-fp-paren",
+  "kind": "find",
+  "topic": "function",
+  "week": 10,
+  "hash": "e75078a444236697",
+  "line": 6,
+  "why": "illegal initializer (only variables can be initialized)"
+ },
+ {
+  "id": "err-fp-paren-2",
+  "template": "err-fp-paren",
+  "kind": "find",
+  "topic": "function",
+  "week": 10,
+  "hash": "f5f918a26bf45e7c",
+  "line": 6,
+  "why": "illegal initializer (only variables can be initialized)"
+ },
+ {
+  "id": "err-void-deref-0",
+  "template": "err-void-deref",
+  "kind": "find",
+  "topic": "pointer",
+  "week": 10,
+  "hash": "406da5e1108f2f21",
+  "line": 5,
+  "why": "argument type 'void' is incomplete"
+ },
+ {
+  "id": "err-void-deref-1",
+  "template": "err-void-deref",
+  "kind": "find",
+  "topic": "pointer",
+  "week": 10,
+  "hash": "aec30d24cf1eba98",
+  "line": 5,
+  "why": "argument type 'void' is incomplete"
+ },
+ {
+  "id": "err-void-deref-2",
+  "template": "err-void-deref",
+  "kind": "find",
+  "topic": "pointer",
+  "week": 10,
+  "hash": "63703a1a63e148e5",
+  "line": 5,
+  "why": "argument type 'void' is incomplete"
+ },
+ {
+  "id": "err-void-func-0",
+  "template": "err-void-func",
+  "kind": "find",
+  "topic": "pointer",
+  "week": 10,
+  "hash": "bbdb257f3919c1f6",
+  "line": 4,
+  "why": "argument type 'void' is incomplete"
+ },
+ {
+  "id": "err-void-func-1",
+  "template": "err-void-func",
+  "kind": "find",
+  "topic": "pointer",
+  "week": 10,
+  "hash": "e3af79b1b65568d5",
+  "line": 4,
+  "why": "argument type 'void' is incomplete"
+ },
+ {
+  "id": "err-void-func-2",
+  "template": "err-void-func",
+  "kind": "find",
+  "topic": "pointer",
+  "week": 10,
+  "hash": "fc83dcc6b8c35207",
+  "line": 4,
+  "why": "argument type 'void' is incomplete"
+ },
+ {
+  "id": "err-calc-menu-0",
+  "template": "err-calc-menu",
+  "kind": "find",
+  "topic": "function",
+  "week": 10,
+  "hash": "4f704700521e23f0",
+  "line": 19,
+  "why": "passing 'double' to parameter of incompatible type 'double *'; take the address with &"
+ },
+ {
+  "id": "err-calc-menu-1",
+  "template": "err-calc-menu",
+  "kind": "find",
+  "topic": "function",
+  "week": 10,
+  "hash": "553baa4dbbdb2e99",
+  "line": 19,
+  "why": "passing 'double' to parameter of incompatible type 'double *'; take the address with &"
+ },
+ {
+  "id": "err-calc-menu-2",
+  "template": "err-calc-menu",
+  "kind": "find",
+  "topic": "function",
+  "week": 10,
+  "hash": "780305e750b07b0d",
+  "line": 19,
+  "why": "passing 'double' to parameter of incompatible type 'double *'; take the address with &"
+ },
+ {
+  "id": "file-log-mode-0",
+  "template": "file-log-mode",
+  "kind": "multi",
+  "type": "findrun",
+  "topic": "file",
+  "week": 10,
+  "hash": "beaba3d246549ea5",
+  "ok": true,
+  "out": "3 245\n"
+ },
+ {
+  "id": "file-log-mode-1",
+  "template": "file-log-mode",
+  "kind": "multi",
+  "type": "findrun",
+  "topic": "file",
+  "week": 10,
+  "hash": "3c69a8d21bec9302",
+  "ok": true,
+  "out": "2 110\n"
+ },
+ {
+  "id": "file-log-mode-2",
+  "template": "file-log-mode",
+  "kind": "multi",
+  "type": "findrun",
+  "topic": "file",
+  "week": 10,
+  "hash": "d5b8038d0bf66d77",
+  "ok": true,
+  "out": "4 350\n"
+ },
+ {
+  "id": "file-log-mode-3",
+  "template": "file-log-mode",
+  "kind": "multi",
+  "type": "findrun",
+  "topic": "file",
+  "week": 10,
+  "hash": "f6769ae166c4d534",
+  "ok": true,
+  "out": "3 90\n"
+ },
+ {
+  "id": "fill-fp-array-0",
+  "template": "fill-fp-array",
+  "kind": "multi",
+  "type": "fill",
+  "topic": "function",
+  "week": 10,
+  "hash": "c915ae138fe563ce",
+  "ok": true,
+  "out": "8\n-2\n15\n"
+ },
+ {
+  "id": "fill-fp-array-1",
+  "template": "fill-fp-array",
+  "kind": "multi",
+  "type": "fill",
+  "topic": "function",
+  "week": 10,
+  "hash": "9789ed18b8d9fd9c",
+  "ok": true,
+  "out": "10\n6\n16\n"
+ },
+ {
+  "id": "fill-fp-array-2",
+  "template": "fill-fp-array",
+  "kind": "multi",
+  "type": "fill",
+  "topic": "function",
+  "week": 10,
+  "hash": "6f2de1b24a476017",
+  "ok": true,
+  "out": "12\n0\n36\n"
+ },
+ {
+  "id": "fill-fp-array-3",
+  "template": "fill-fp-array",
+  "kind": "multi",
+  "type": "fill",
+  "topic": "function",
+  "week": 10,
+  "hash": "dfc35c1cfc9bd509",
+  "ok": true,
+  "out": "5\n-3\n4\n"
+ },
+ {
+  "id": "fill-file-write-0",
+  "template": "fill-file-write",
+  "kind": "multi",
+  "type": "fill",
+  "topic": "file",
+  "week": 10,
+  "hash": "7e61ec553a507f61",
+  "ok": true,
+  "out": "42\n"
+ },
+ {
+  "id": "fill-file-write-1",
+  "template": "fill-file-write",
+  "kind": "multi",
+  "type": "fill",
+  "topic": "file",
+  "week": 10,
+  "hash": "7a4ec28c28f8f6b7",
+  "ok": true,
+  "out": "15\n"
+ },
+ {
+  "id": "fill-file-write-2",
+  "template": "fill-file-write",
+  "kind": "multi",
+  "type": "fill",
+  "topic": "file",
+  "week": 10,
+  "hash": "7ec8d246d0090ac5",
+  "ok": true,
+  "out": "125\n"
+ },
+ {
+  "id": "fill-file-write-3",
+  "template": "fill-file-write",
+  "kind": "multi",
+  "type": "fill",
+  "topic": "file",
+  "week": 10,
+  "hash": "2d40f3d356d5f270",
+  "ok": true,
+  "out": "42\n"
+ },
+ {
+  "id": "write-add-2d-0",
+  "template": "write-add-2d",
+  "kind": "multi",
+  "type": "write",
+  "topic": "pointer",
+  "week": 10,
+  "hash": "2c5289896fec2054",
+  "ok": true,
+  "out": "12 13 18\n"
+ },
+ {
+  "id": "write-add-2d-1",
+  "template": "write-add-2d",
+  "kind": "multi",
+  "type": "write",
+  "topic": "pointer",
+  "week": 10,
+  "hash": "6db0ce111f57005d",
+  "ok": true,
+  "out": "6 10 11\n"
+ },
+ {
+  "id": "write-add-2d-2",
+  "template": "write-add-2d",
+  "kind": "multi",
+  "type": "write",
+  "topic": "pointer",
+  "week": 10,
+  "hash": "1ee3d88dd79478cf",
+  "ok": true,
+  "out": "12 10 4\n"
+ },
+ {
+  "id": "write-add-2d-3",
+  "template": "write-add-2d",
+  "kind": "multi",
+  "type": "write",
+  "topic": "pointer",
+  "week": 10,
+  "hash": "5063a36f23dd9e90",
+  "ok": true,
+  "out": "25 21 21\n"
+ },
+ {
+  "id": "write-fold-0",
+  "template": "write-fold",
+  "kind": "multi",
+  "type": "write",
+  "topic": "function",
+  "week": 10,
+  "hash": "f19b7523ca3c36b9",
+  "ok": true,
+  "out": "10 24\n"
+ },
+ {
+  "id": "write-fold-1",
+  "template": "write-fold",
+  "kind": "multi",
+  "type": "write",
+  "topic": "function",
+  "week": 10,
+  "hash": "6bd683c88717da61",
+  "ok": true,
+  "out": "10 30\n"
+ },
+ {
+  "id": "write-fold-2",
+  "template": "write-fold",
+  "kind": "multi",
+  "type": "write",
+  "topic": "function",
+  "week": 10,
+  "hash": "c0cf76311cad05a8",
+  "ok": true,
+  "out": "9 27\n"
+ },
+ {
+  "id": "write-fold-3",
+  "template": "write-fold",
+  "kind": "multi",
+  "type": "write",
+  "topic": "function",
+  "week": 10,
+  "hash": "9fe21f599e22614a",
+  "ok": true,
+  "out": "11 24\n"
  }
 ]
