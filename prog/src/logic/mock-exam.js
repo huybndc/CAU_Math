@@ -17,10 +17,13 @@ export const BLUEPRINT = { fill: 5, predict: 5, fix: 5, write: 5 };
 
 const FIX_TYPES = new Set(['find', 'findrun']);
 /**
- * Code length mix inside a group (comparison round 1, 2026-11-10: the learner said the real find-the-error
- * questions had short, medium, and long programs). Lines: short ≤ 9, medium 10–19, long ≥ 20.
+ * Slots inside a group, from comparison rounds with the learner (2026-11-10):
+ * - Round 1 (D70): real find-the-error questions had short, medium, and long programs. Lines: short ≤ 9, medium 10–19, long ≥ 20.
+ * - Round 2 (D71): real errors were hard-to-see compile errors and run-time errors. No obvious syntax errors.
+ * Each slot is [size, error kind ('run' = compiles but runs wrong, 'compile', or 'any'), count].
  */
-export const SIZES = { fix: { short: 2, medium: 2, long: 1 } };
+export const SLOTS = { fix: [['short', 'run', 1], ['short', 'compile', 1], ['medium', 'any', 2], ['long', 'any', 1]] };
+const kindOf = t => (t.type === 'findrun' ? 'run' : 'compile');
 export const sizeOf = lineCount => (lineCount <= 9 ? 'short' : lineCount <= 19 ? 'medium' : 'long');
 const shownLines = t => { const p = t.params?.[0]; if (!p) return 0; const s = t.kind === 'multi' && t.show ? t.show(p) : t.src(p); return s.trimEnd().split('\n').length; };
 export const groupOf = t => { const k = t.type ?? t.kind; return FIX_TYPES.has(k) ? 'fix' : k; };
@@ -40,8 +43,10 @@ export function plan(templates = TEMPLATES, scope = SCOPE) {
   for (const [group, n] of Object.entries(BLUEPRINT)) {
     let want = 0;
     for (let k = 0; k < n; k++, slot++) if (Math.floor((slot + 1) * scope.postMidShare) > Math.floor(slot * scope.postMidShare)) want++;
-    const inGroup = templates.filter(t => groupOf(t) === group);
-    const parts = SIZES[group] ? Object.entries(SIZES[group]).map(([size, k]) => [inGroup.filter(t => sizeOf(shownLines(t)) === size), k]) : [[inGroup, n]];
+    const inGroup = templates.filter(t => groupOf(t) === group && !t.obvious);
+    const parts = SLOTS[group]
+      ? SLOTS[group].map(([size, kind, k]) => [inGroup.filter(t => sizeOf(shownLines(t)) === size && (kind === 'any' || kindOf(t) === kind)), k])
+      : [[inGroup, n]];
     let left = want;
     for (const [list, k] of parts) {
       const post = list.filter(t => t.week >= scope.postMidFrom), base = list.filter(t => t.week < scope.postMidFrom);

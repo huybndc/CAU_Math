@@ -147,7 +147,7 @@ export const TEMPLATES = [
       '}'),
   },
   {
-    id: 'err-missing-struct', kind: 'find', topic: 'typedef', week: 7,
+    id: 'err-missing-struct', kind: 'find', topic: 'typedef', week: 7, obvious: true,   // syntax error anyone sees (D71: not in the exam)
     params: [[5], [11], [2]],
     src: ([v], fix = false) => lines(
       '#include <stdio.h>',
