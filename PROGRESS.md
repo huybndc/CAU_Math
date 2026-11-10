@@ -15,7 +15,7 @@ Read this file at the start of work. Keep open work and active rules here. Compl
 - Possible math work: add scoring rubrics and question types for Discrete Math and Linear Algebra.
 - Possible Discrete Math work: add variety for definitions, lemmas, and induction.
 - Around 2026-11-20, review whether to add practice around Free Response and Mock Exam. Do not restore the removed practice screens without a new decision.
-- C Programming (D68–D71, 2026-11-10): the exam uses only the four real midterm types, covers weeks 2–10, and mixes 2 short, 2 medium, and 1 long find-the-error program, with at least 1 run-time error and no obvious syntax error. Learn, Tools, and Free Response are hidden (D69). Next: more comparison rounds (predict, write, fill; then error visibility and question wording). Then Logic Circuit, Linear Algebra, and Discrete Math. Weeks 11–15 wait for class material.
+- C Programming (D73, 2026-11-10): the exam has 20 questions, 38 parts, multiple choice again, difficulty levels, and 21 harder templates. A similarity guard test checks each exam. Next: the learner marks the sample exam on the Desktop ("giống đề thật" or "dễ/lặp"); turn each mark into a generator rule with a test. Then Logic Circuit, Linear Algebra, and Discrete Math. Weeks 11–15 wait for class material.
 - Logic Circuit: move the all-or-nothing marking note to the exam header in the week 12 batch. The C exam already uses `note`.
 
 ## Active rules

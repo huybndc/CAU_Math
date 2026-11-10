@@ -19,11 +19,13 @@ export function parseSeed(code) {
 export const newSeed = (rnd = Math.random) => Math.floor(rnd() * SEED_SPACE);
 
 export function buildMock(template, seed) {
-  const questions = template.makers.map((make, i) => {
+  // template.order(rnd), when present, gives the question order as maker indexes. Each question keeps its own random source.
+  const order = template.order ? template.order(seededRandom(Math.imul(seed + 7, 40503))) : template.makers.map((_, i) => i);
+  const questions = order.map((i, pos) => {
     const rnd = seededRandom(Math.imul(seed + 1, 2654435761) + i * 40503);
-    const q = make(rnd);
+    const q = template.makers[i](rnd);
     const parts = q.parts.map((p, j) => ({ ...p, label: String.fromCharCode(97 + j) }));
-    return { no: i + 1, stem: q.stem, code: q.code, parts, pts: parts.reduce((s, p) => s + p.pts, 0), source: q.source, refs: (q.refs ?? template.refs?.[i] ?? []).map(([sec, title]) => ({ sec, title })) };
+    return { no: pos + 1, stem: q.stem, code: q.code, parts, pts: parts.reduce((s, p) => s + p.pts, 0), source: q.source, ...(q.level ? { level: q.level } : {}), refs: (q.refs ?? template.refs?.[i] ?? []).map(([sec, title]) => ({ sec, title })) };
   });
   const total = questions.reduce((s, q) => s + q.pts, 0);
   return {
