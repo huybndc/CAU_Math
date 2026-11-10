@@ -14,16 +14,17 @@ describe('ngân hàng C sinh bằng clang', () => {
     expect(BANK.length).toBe(vs.length);
     for (const v of vs) expect(byId[v.id]?.hash, v.id).toBe(hashSrc(v.src));
   });
-  it('100% câu đoán kết quả: chạy lại clang ra đúng stdout đã lưu', () => {
-    for (const v of variants().filter(x => x.kind === 'predict')) {
+  const ofKind = k => TEMPLATES.filter(t => t.kind === k).map(t => t.id);
+  it.each(ofKind('predict'))('100%% câu đoán kết quả %s: chạy lại clang ra đúng stdout đã lưu', id => {
+    for (const v of variants().filter(x => x.template === id)) {
       const r = runC(v.src);
       expect(r.ok, v.id).toBe(true);
       expect(byId[v.id].out, v.id).toBe(r.out);
       expect(r.out.trim().length, v.id).toBeGreaterThan(0);
     }
   }, 120000);
-  it('câu tìm lỗi: bản sai lỗi đúng dòng đã lưu, bản sửa biên dịch được', () => {
-    for (const v of variants().filter(x => x.kind === 'find')) {
+  it.each(ofKind('find'))('câu tìm lỗi %s: bản sai lỗi đúng dòng đã lưu, bản sửa biên dịch được', id => {
+    for (const v of variants().filter(x => x.template === id)) {
       const r = runC(v.src);
       expect(r.ok, v.id).toBe(false);
       expect(r.line, v.id).toBe(byId[v.id].line);
@@ -31,7 +32,7 @@ describe('ngân hàng C sinh bằng clang', () => {
     }
   }, 120000);
   // One test per template, so the worker can report between clang runs (one long test timed out the worker RPC).
-  it.each(TEMPLATES.filter(t => t.kind === 'multi').map(t => t.id))('câu nhiều ý %s: chạy lại clang khớp kết quả đã lưu; ý nào cũng có đáp án', id => {
+  it.each(ofKind('multi'))('câu nhiều ý %s: chạy lại clang khớp kết quả đã lưu; ý nào cũng có đáp án', id => {
     for (const v of variants().filter(x => x.template === id)) {
       const r = runC(v.src, { input: v.input }), b = byId[v.id];
       expect(probeProblems(v), v.id).toEqual([]);
