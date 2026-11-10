@@ -11,11 +11,12 @@ export const SCOPE = { postMidShare: 0.8, postMidFrom: 9 };
 /**
  * The real midterm (learner, 2026-11-10): 20 questions, about 35–40 parts, 1–3 parts each.
  * Main types: find and fix the error, predict the output, write a struct or function, fill in the blanks. Multiple choice also appears.
- * Each slot is [number of parts, difficulty level 1–3, error kind for the fix group ('run', 'compile' or 'any')].
+ * Each slot is [number of parts, difficulty level 1–3, kind]. Kind is 'run' or 'compile' for the fix group,
+ * and 'theory' or 'output' for multiple choice (D74: about 2/3 of multiple choice is theory). 'any' (default) takes all.
  * D71: at least 1 run-time find-the-error question. Templates with `obvious: true` are not used.
  */
 export const BLUEPRINT = {
-  mcq: [[1, 1], [1, 2], [2, 2]],
+  mcq: [[1, 1, 'theory'], [2, 2, 'theory'], [1, 2, 'output']],
   predict: [[2, 1], [1, 2], [1, 3], [2, 2], [3, 3]],
   fill: [[2, 1], [1, 2], [2, 2], [3, 3]],
   fix: [[2, 1, 'run'], [2, 2, 'compile'], [2, 2, 'compile'], [3, 3, 'any']],
@@ -28,7 +29,7 @@ const LEVEL2 = new Set(['mcq-scanf-string', 'mcq-ptr-vs-2d', 'mcq-variadic', 'ro
 export const levelOf = t => t.level ?? (LEVEL2.has(t.id) ? 2 : 1);
 
 const FIX_TYPES = new Set(['find', 'findrun']);
-const kindOf = t => (t.type === 'findrun' ? 'run' : 'compile');
+export const kindOf = t => (t.type === 'mcq' ? (t.theory ? 'theory' : 'output') : t.type === 'findrun' ? 'run' : 'compile');
 export const groupOf = t => { const k = t.type ?? t.kind; return FIX_TYPES.has(k) ? 'fix' : k; };
 
 const byId = Object.fromEntries(BANK.map(b => [b.id, b]));
@@ -87,7 +88,7 @@ const TOPIC = { struct: 'Structures', union: 'Unions', typedef: 'typedef', opera
 
 function build(template, v) {
   const b = byId[v.id];
-  if (template.kind === 'multi') return { stem: template.stem ?? STEM[template.type], code: v.show, facts: { id: v.id, kind: 'multi', type: template.type }, parts: v.parts(b) };
+  if (template.kind === 'multi') return { stem: template.stem ?? STEM[template.type], code: v.show, facts: { id: v.id, kind: 'multi', type: template.type, theory: !!template.theory }, parts: v.parts(b) };
   if (template.kind === 'predict') {
     return { stem: STEM.predict, code: v.src, facts: { id: v.id, kind: 'predict', out: b.out },
       parts: [{ q: 'Write the exact output.', a: [`Output: ${b.out.trimEnd()}`] }, v.follow(b)] };
@@ -105,7 +106,7 @@ function question(slot, rnd) {
   const all = VARS.filter(v => v.template === template.id);
   const v = all[Math.floor(rnd() * all.length)];
   const q = build(template, v);
-  return { ...q, code: numbered(q.code), level: slot.level, parts: q.parts.map((p, i) => ({ ...p, pts: slot.pts[i] })),
+  return { ...q, code: q.code ? numbered(q.code) : '', level: slot.level, parts: q.parts.map((p, i) => ({ ...p, pts: slot.pts[i] })),
     source: `Week ${template.week}, ${TOPIC[template.topic]}. Written for this app. Answer checked with clang.` };
 }
 

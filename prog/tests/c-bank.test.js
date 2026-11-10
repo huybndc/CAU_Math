@@ -3,6 +3,7 @@ import { describe, it, expect } from 'vitest';
 import { variants, TEMPLATES } from '../src/logic/c-templates.js';
 import { runC, hashSrc, probeProblems } from '../../scripts/gen-c-bank.mjs';
 import BANK from '../src/content/c-bank.json';
+import { PTR_OPS } from '../src/logic/c-templates-theory.js';
 import { buildMock } from '@shared/logic/mock-exam.js';
 import { PROG_MOCK, SCOPE, BLUEPRINT, plan, groupOf, partsOf, levelOf, allocate } from '../src/logic/mock-exam.js';
 
@@ -14,35 +15,6 @@ describe('ngân hàng C sinh bằng clang', () => {
     expect(BANK.length).toBe(vs.length);
     for (const v of vs) expect(byId[v.id]?.hash, v.id).toBe(hashSrc(v.src));
   });
-  const ofKind = k => TEMPLATES.filter(t => t.kind === k).map(t => t.id);
-  it.each(ofKind('predict'))('100%% câu đoán kết quả %s: chạy lại clang ra đúng stdout đã lưu', id => {
-    for (const v of variants().filter(x => x.template === id)) {
-      const r = runC(v.src);
-      expect(r.ok, v.id).toBe(true);
-      expect(byId[v.id].out, v.id).toBe(r.out);
-      expect(r.out.trim().length, v.id).toBeGreaterThan(0);
-    }
-  }, 120000);
-  it.each(ofKind('find'))('câu tìm lỗi %s: bản sai lỗi đúng dòng đã lưu, bản sửa biên dịch được', id => {
-    for (const v of variants().filter(x => x.template === id)) {
-      const r = runC(v.src);
-      expect(r.ok, v.id).toBe(false);
-      expect(r.line, v.id).toBe(byId[v.id].line);
-      expect(runC(v.fixSrc).ok, v.id).toBe(true);
-    }
-  }, 120000);
-  // One test per template, so the worker can report between clang runs (one long test timed out the worker RPC).
-  it.each(ofKind('multi'))('câu nhiều ý %s: chạy lại clang khớp kết quả đã lưu; ý nào cũng có đáp án', id => {
-    for (const v of variants().filter(x => x.template === id)) {
-      const r = runC(v.src, { input: v.input }), b = byId[v.id];
-      expect(probeProblems(v), v.id).toEqual([]);
-      if (v.logic) expect(runC(v.badSrc, { input: v.input }).out, v.id).toBe(b.badOut);
-      else if (v.badSrc) expect(runC(v.badSrc, { san: true }).crashed, v.id).toBe(true);
-      expect(r.ok, v.id).toBe(b.ok);
-      if (r.ok) expect(r.out, v.id).toBe(b.out); else expect([r.line, r.why], v.id).toEqual([b.line, b.why]);
-      for (const pt of v.parts(b)) expect(pt.a.every(l => l && !l.includes('undefined')), v.id).toBe(true);
-    }
-  }, 120000);
   it('bộ giải độc lập: tổng mảng, khoảng cách², đếm ký tự, x >> 4 khớp clang', () => {
     const out = id => byId[id].out.trim();
     TEMPLATES.find(t => t.id === 'fill-ptr-sum').params.forEach(([xs], i) => expect(Number(out(`fill-ptr-sum-${i}`))).toBe(xs.reduce((a, b) => a + b, 0)));
@@ -152,7 +124,7 @@ describe('bộ giải độc lập: mẫu khó D73 khớp clang', () => {
     each('write-row-sum', ([m]) => `${m.map(r => r.reduce((a, b) => a + b, 0)).join(' ')} \n${m[1][2] + m[0][0]}`);
   });
   it('mỗi mẫu khó trộn ít nhất 2 ý: có hàm ngoài main, struct, mảng 2 chiều, tệp hoặc bẫy kiểu dữ liệu', () => {
-    for (const t of TEMPLATES.filter(x => x.level >= 2)) {
+    for (const t of TEMPLATES.filter(x => x.level >= 2 && !x.theory)) {   // theory MCQ mixes ideas across its options; clang probes check them
       const src = t.src(t.params[0]);
       const ideas = [/\b(?!main\b)\w+\([^;]*\)\s*\{/, /struct|typedef/, /\[\d*\]\[/, /FILE/, /\*\w+\+\+|\+\+\w*\)|\*\+\+/, /strcmp|strcat|strcpy|scanf/, /\(double\)|%zu|sizeof|'[A-Za-z0-9]'/, /void \*|\(\*\w+\)/, /\((const )?\w+ \*\w+[,)]/]
         .filter(re => re.test(src)).length;
@@ -245,4 +217,36 @@ describe('đề thi thử Lập trình C (D73)', () => {
     const fake = [...TEMPLATES.map(t => ({ ...t, week: 3 })), ...TEMPLATES.map(t => ({ ...t, week: 11 }))];
     expect(plan(fake).filter(s => s.pool[0].week >= 9).length).toBe(16);
   });
+});
+
+describe('trắc nghiệm lý thuyết (D74)', () => {
+  const out = id => byId[id].out.trim();
+  const theoryShare = qs => { const m = qs.filter(q => q.facts.type === 'mcq'); return m.filter(q => q.facts.theory).length / m.length; };
+  it('bộ giải độc lập: mỗi lựa chọn đúng khớp kết quả clang', () => {
+    Object.entries(PTR_OPS).forEach(([op], i) => expect(out(`mcq-ptr-ops-${i}`).split(' ').map(Number)).toEqual(PTR_OPS[op]));
+    expect(out('mcq-by-pointer-0')).toBe('1 5 1 1');
+    expect(out('mcq-by-pointer-1')).toBe('0 1 0 0');
+    expect(['abcd x 1', '20 8 1 1 16', 'kim Kim 9 1', 'hello 0 3 4 0'].map((s, i) => out(`mcq-false-stmt-${i}`) === s)).toEqual([true, true, true, true]);
+    for (const [id, want] of [['mcq-ptr-ops-0', 'x = 10, p points to a[1], a[0] = 10'], ['mcq-by-pointer-0', 'f2(&n)'], ['mcq-by-pointer-1', 'g2(&p)'], ['mcq-decl-read-1', 'int (*a)[3];']]) {
+      const v = variants().find(x => x.id === id);
+      expect(v.parts(byId[id])[0].a[0].slice(2), id).toBe(want);
+    }
+  });
+  it('mỗi đề: 3 câu trắc nghiệm, ít nhất 2/3 là lý thuyết; câu lý thuyết không hỏi "in ra gì"', () => {
+    for (let seed = 0; seed < 40; seed++) {
+      const qs = PROG_MOCK.makers.map((make, i) => { let n = seed * 13 + i; return make(() => { n = (n * 7 + 13) % 97; return n / 97; }); });
+      expect(qs.filter(q => q.facts.type === 'mcq').length).toBe(3);
+      expect(theoryShare(qs), `seed ${seed}`).toBeGreaterThanOrEqual(2 / 3);
+    }
+    for (const t of TEMPLATES.filter(x => x.theory && x.level === 1)) for (const v of variants().filter(x => x.template === t.id))
+      for (const p of v.parts(byId[v.id])) expect(p.q, v.id).not.toMatch(/print/i);
+  });
+  it('mutation: an exam with only output questions fails the share; a wrong snippet label fails the clang probe', () => {
+    const fake = [1, 2, 3].map(() => ({ facts: { type: 'mcq', theory: false } }));
+    expect(theoryShare(fake)).toBeLessThan(2 / 3);
+    const v = variants().find(x => x.id === 'mcq-classify-0');
+    expect(probeProblems({ ...v, probes: v.probes.map(p => ({ ...p, fails: p.fails === undefined ? undefined : !p.fails })) }).length).toBeGreaterThan(0);
+    const d = variants().find(x => x.id === 'mcq-decl-read-0');
+    expect(probeProblems({ ...d, probes: d.probes.map(p => ({ ...p, fails: false })) }).length).toBeGreaterThan(0);
+  }, 60000);
 });

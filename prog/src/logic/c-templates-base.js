@@ -32,7 +32,7 @@ export const BASE_TEMPLATES = [
     follow: () => ({ q: 'Why is a == b false when both arrays hold the same text?', a: ['a == b compares two addresses. Use strcmp to compare the text.'] }),
   },
   {
-    id: 'mcq-scanf-string', kind: 'multi', type: 'mcq', topic: 'string', week: 6,
+    id: 'mcq-scanf-string', kind: 'multi', type: 'mcq', theory: true, topic: 'string', week: 6,
     params: [['My name is John'], ['Hello big world'], ['Kim Min Su'], ['C is really fun']],
     input: ([s]) => s + '\n',
     src: () => lines(
@@ -52,7 +52,7 @@ export const BASE_TEMPLATES = [
     },
   },
   {
-    id: 'mcq-ptr-vs-2d', kind: 'multi', type: 'mcq', topic: 'string', week: 6,
+    id: 'mcq-ptr-vs-2d', kind: 'multi', type: 'mcq', theory: true, topic: 'string', week: 6,
     params: [[6], [10], [7], [12]],
     src: ([n]) => lines(
       '#include <stdio.h>',

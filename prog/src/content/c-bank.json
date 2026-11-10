@@ -3012,5 +3012,192 @@
   "hash": "287969a11e04108e",
   "ok": true,
   "out": "8 15 13 \n12\n"
+ },
+ {
+  "id": "mcq-ptr-ops-0",
+  "template": "mcq-ptr-ops",
+  "kind": "multi",
+  "type": "mcq",
+  "topic": "pointer",
+  "week": 5,
+  "hash": "ea321a7d3b95aeea",
+  "ok": true,
+  "out": "10 1 10\n"
+ },
+ {
+  "id": "mcq-ptr-ops-1",
+  "template": "mcq-ptr-ops",
+  "kind": "multi",
+  "type": "mcq",
+  "topic": "pointer",
+  "week": 5,
+  "hash": "9ec7537f789d6650",
+  "ok": true,
+  "out": "10 0 11\n"
+ },
+ {
+  "id": "mcq-ptr-ops-2",
+  "template": "mcq-ptr-ops",
+  "kind": "multi",
+  "type": "mcq",
+  "topic": "pointer",
+  "week": 5,
+  "hash": "07ea09d995d873b1",
+  "ok": true,
+  "out": "11 0 11\n"
+ },
+ {
+  "id": "mcq-ptr-ops-3",
+  "template": "mcq-ptr-ops",
+  "kind": "multi",
+  "type": "mcq",
+  "topic": "pointer",
+  "week": 5,
+  "hash": "2fab922921bf139f",
+  "ok": true,
+  "out": "20 1 10\n"
+ },
+ {
+  "id": "mcq-by-pointer-0",
+  "template": "mcq-by-pointer",
+  "kind": "multi",
+  "type": "mcq",
+  "topic": "function",
+  "week": 9,
+  "hash": "62a35f6786aa2d62",
+  "ok": true,
+  "out": "1 5 1 1\n"
+ },
+ {
+  "id": "mcq-by-pointer-1",
+  "template": "mcq-by-pointer",
+  "kind": "multi",
+  "type": "mcq",
+  "topic": "function",
+  "week": 9,
+  "hash": "cf5526921792b305",
+  "ok": true,
+  "out": "0 1 0 0\n"
+ },
+ {
+  "id": "mcq-decl-read-0",
+  "template": "mcq-decl-read",
+  "kind": "multi",
+  "type": "mcq",
+  "topic": "pointer",
+  "week": 10,
+  "hash": "4fb2b0d6e304cedd",
+  "ok": true,
+  "out": "4\n"
+ },
+ {
+  "id": "mcq-decl-read-1",
+  "template": "mcq-decl-read",
+  "kind": "multi",
+  "type": "mcq",
+  "topic": "pointer",
+  "week": 10,
+  "hash": "df5e6b3878f84e57",
+  "ok": true,
+  "out": "3\n"
+ },
+ {
+  "id": "mcq-decl-read-2",
+  "template": "mcq-decl-read",
+  "kind": "multi",
+  "type": "mcq",
+  "topic": "pointer",
+  "week": 10,
+  "hash": "672b9ade37550cf2",
+  "ok": true,
+  "out": "8\n"
+ },
+ {
+  "id": "mcq-decl-read-3",
+  "template": "mcq-decl-read",
+  "kind": "multi",
+  "type": "mcq",
+  "topic": "pointer",
+  "week": 10,
+  "hash": "9ae7aa2ad89ee4f1",
+  "ok": true,
+  "out": "2\n"
+ },
+ {
+  "id": "mcq-false-stmt-0",
+  "template": "mcq-false-stmt",
+  "kind": "multi",
+  "type": "mcq",
+  "topic": "pointer",
+  "week": 9,
+  "hash": "6e1ecb2dc3b61c5e",
+  "ok": true,
+  "out": "abcd x 1\n"
+ },
+ {
+  "id": "mcq-false-stmt-1",
+  "template": "mcq-false-stmt",
+  "kind": "multi",
+  "type": "mcq",
+  "topic": "pointer",
+  "week": 9,
+  "hash": "fb391d370e5fcc71",
+  "ok": true,
+  "out": "20 8 1 1 16\n"
+ },
+ {
+  "id": "mcq-false-stmt-2",
+  "template": "mcq-false-stmt",
+  "kind": "multi",
+  "type": "mcq",
+  "topic": "pointer",
+  "week": 9,
+  "hash": "463f86497678c865",
+  "ok": true,
+  "out": "kim Kim 9 1\n"
+ },
+ {
+  "id": "mcq-false-stmt-3",
+  "template": "mcq-false-stmt",
+  "kind": "multi",
+  "type": "mcq",
+  "topic": "pointer",
+  "week": 9,
+  "hash": "d558088b05f73531",
+  "ok": true,
+  "out": "hello 0 3 4 0\n"
+ },
+ {
+  "id": "mcq-classify-0",
+  "template": "mcq-classify",
+  "kind": "multi",
+  "type": "mcq",
+  "topic": "pointer",
+  "week": 9,
+  "hash": "daaeb9c7bc51381a",
+  "ok": true,
+  "out": ""
+ },
+ {
+  "id": "mcq-classify-1",
+  "template": "mcq-classify",
+  "kind": "multi",
+  "type": "mcq",
+  "topic": "pointer",
+  "week": 9,
+  "hash": "93f1408e26600879",
+  "ok": true,
+  "out": ""
+ },
+ {
+  "id": "mcq-classify-2",
+  "template": "mcq-classify",
+  "kind": "multi",
+  "type": "mcq",
+  "topic": "pointer",
+  "week": 9,
+  "hash": "f1443c6f7ddee1a5",
+  "ok": true,
+  "out": "1"
  }
 ]

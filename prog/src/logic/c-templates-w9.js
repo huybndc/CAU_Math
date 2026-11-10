@@ -143,7 +143,7 @@ export const W9_TEMPLATES = [
     ],
   },
   {
-    id: 'mcq-variadic', kind: 'multi', type: 'mcq', topic: 'function', week: 9,
+    id: 'mcq-variadic', kind: 'multi', type: 'mcq', theory: true, topic: 'function', week: 9,
     params: [['1.0', '2.0', '6.0'], ['2.0', '4.0', '9.0'], ['1.5', '2.5', '5.0'], ['4.0', '4.0', '10.0']],
     src: ([a, b, c]) => lines(
       '#include <stdio.h>',

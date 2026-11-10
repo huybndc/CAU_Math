@@ -31,6 +31,8 @@ export function runC(src, { san = false, input } = {}) {
 /** Probes are extra programs that clang must judge as the template claims. Returns the failed claims. */
 export function probeProblems(v) {
   return (v.probes ?? []).flatMap((p, i) => {
+    // A crash probe runs only under AddressSanitizer, which reports the crash instead of throwing.
+    if (p.crashes) { const s = runC(p.src, { san: true }); return s.ok && s.crashed ? [] : [`${v.id} probe ${i}: must compile and crash under AddressSanitizer`]; }
     const r = runC(p.src);
     if (p.fails !== undefined && r.ok === p.fails) return [`${v.id} probe ${i}: ${p.fails ? 'must not compile' : 'must compile'}`];
     if (p.warns && !(r.warn ?? '').includes(p.warns)) return [`${v.id} probe ${i}: no warning "${p.warns}"`];
