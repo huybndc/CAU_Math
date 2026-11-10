@@ -43,11 +43,17 @@ export function build() {
     const r = runC(v.src, { input: v.input });
     const bad = probeProblems(v);
     if (bad.length) throw new Error(bad.join('\n'));
-    if (v.badSrc && !runC(v.badSrc, { san: true }).crashed) throw new Error(`${v.id}: bản sai phải sập khi chạy`);
+    let badOut;
+    if (v.logic) {
+      // A logic error: the wrong program compiles and runs, but its output differs from the fixed program.
+      const w = runC(v.badSrc, { input: v.input });
+      if (!w.ok || w.out === r.out) throw new Error(`${v.id}: the wrong program must run and print a different output`);
+      badOut = w.out;
+    } else if (v.badSrc && !runC(v.badSrc, { san: true }).crashed) throw new Error(`${v.id}: bản sai phải sập khi chạy`);
     if (v.kind === 'multi') {
       if (!r.ok && !r.line) throw new Error(`${v.id}: lỗi không rõ dòng\n${r.err}`);
       const res = r.ok ? { ok: true, out: r.out } : { ok: false, line: r.line, why: r.why };
-      return { id: v.id, template: v.template, kind: v.kind, type: v.type, topic: v.topic, week: v.week, hash: hashSrc(v.src), ...res };
+      return { id: v.id, template: v.template, kind: v.kind, type: v.type, topic: v.topic, week: v.week, hash: hashSrc(v.src), ...res, ...(badOut ? { badOut } : {}) };
     }
     if (v.kind === 'predict') {
       if (!r.ok) throw new Error(`${v.id}: không biên dịch được\n${r.err}`);

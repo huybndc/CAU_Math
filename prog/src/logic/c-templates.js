@@ -8,6 +8,8 @@
 import { lines, BASE_TEMPLATES } from './c-templates-base.js';
 import { W9_TEMPLATES } from './c-templates-w9.js';
 import { W10_TEMPLATES } from './c-templates-w10.js';
+import { HARD_TEMPLATES } from './c-templates-hard.js';
+import { HARD2_TEMPLATES } from './c-templates-hard2.js';
 
 export const TEMPLATES = [
   {
@@ -334,6 +336,8 @@ export const TEMPLATES = [
   ...BASE_TEMPLATES,
   ...W9_TEMPLATES,
   ...W10_TEMPLATES,
+  ...HARD_TEMPLATES,
+  ...HARD2_TEMPLATES,
 ];
 
 /** Mọi biến thể: { id: 'struct-byval-0', template, kind, topic, week, src, fixSrc? }. */
@@ -344,5 +348,5 @@ export const variants = () => TEMPLATES.flatMap(t => t.params.map((p, i) => ({
   ...(t.probes ? { probes: t.probes(p) } : {}),
   ...(t.follow ? { follow: r => t.follow(p, r) } : {}),
   ...(t.kind === 'multi' ? { type: t.type, show: t.show ? t.show(p) : t.src(p), parts: r => t.parts(p, r, i),
-    ...(t.san ? { badSrc: t.src(p), src: t.src(p, true) } : {}) } : {}),
+    ...(t.san || t.logic ? { badSrc: t.src(p), src: t.src(p, true), logic: !!t.logic } : {}) } : {}),
 })));
