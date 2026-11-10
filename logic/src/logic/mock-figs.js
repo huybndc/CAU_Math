@@ -36,14 +36,6 @@ export function bcdAdder() {
   };
 }
 
-/** MUX 4×1 thực hiện một hàm 3 biến: data = ngõ vào I₀…I₃ (0, 1, z, z'), chọn S₁ = x, S₀ = y. */
-export function muxBox(data) {
-  const ys = [40, 70, 100, 130];
-  const paths = ys.map(y => `M20 ${y} H60`).concat('M80 170 V196', 'M110 170 V196', 'M130 95 H190');
-  const texts = ys.map((y, k) => T(16, y + 4, data[k], 'end')).concat(T(80, 210, 'x', 'middle'), T(110, 210, 'y', 'middle'), T(196, 99, 'F'));
-  return { w: 220, h: 220, boxes: [{ x: 60, y: 20, w: 70, h: 150, t: '4×1 MUX' }], gates: [], paths, texts };
-}
-
 /** Mạch cổng nối theo nhãn: gates = [{ op, ins:[nhãn], out, col, row }]; nhãn vào cách nhau GAP rồi dây chụm vào thân cổng. */
 function labeledGates(gates, { colW = 210, rowH = 62, ox = 0, oy = 0 } = {}) {
   const OUT = { AND: 42, OR: 42, XOR: 42, XNOR: 51 }, GAP = 22;
@@ -79,13 +71,4 @@ export function comparator2() {
     { op: 'OR', ins: ['g₁', 'g₀'], out: 'G (A>B)', col: 2, row: 1.5 },
     { op: 'OR', ins: ['l₁', 'l₀'], out: 'L (A<B)', col: 2, row: 3.5 },
   ], { rowH: 74 });
-}
-
-/** Decoder 3×8 + một cổng OR cho mỗi hàm (§4.9): fns = [[tên, [minterm…]], …]. */
-export function decoderOr(fns) {
-  const ys = Array.from({ length: 8 }, (_, k) => 26 + k * 26);
-  const paths = ['M20 70 H60', 'M20 110 H60', 'M20 150 H60', ...ys.map(y => `M150 ${y} H172`)];
-  const texts = [T(16, 70, 'x', 'end'), T(16, 110, 'y', 'end'), T(16, 150, 'z', 'end'), ...ys.map((y, k) => T(176, y, `D${sub(k)}`))];
-  const g = labeledGates(fns.map(([name, mins], i) => ({ op: 'OR', ins: mins.map(m => `D${sub(m)}`), out: name, col: 0, row: i })), { ox: 220, oy: 30, rowH: 130 });
-  return { w: g.w, h: Math.max(g.h, 240), boxes: [{ x: 60, y: 14, w: 90, h: 212, t: '3×8 DEC' }], gates: g.gates, paths: [...paths, ...g.paths], texts: [...texts, ...g.texts] };
 }
