@@ -10,6 +10,7 @@ import { W9_TEMPLATES } from './c-templates-w9.js';
 import { W10_TEMPLATES } from './c-templates-w10.js';
 import { HARD_TEMPLATES } from './c-templates-hard.js';
 import { HARD2_TEMPLATES } from './c-templates-hard2.js';
+import { THEORY_TEMPLATES } from './c-templates-theory.js';
 
 export const TEMPLATES = [
   {
@@ -338,6 +339,7 @@ export const TEMPLATES = [
   ...W10_TEMPLATES,
   ...HARD_TEMPLATES,
   ...HARD2_TEMPLATES,
+  ...THEORY_TEMPLATES,
 ];
 
 /** Mọi biến thể: { id: 'struct-byval-0', template, kind, topic, week, src, fixSrc? }. */

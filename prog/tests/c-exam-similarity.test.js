@@ -21,8 +21,8 @@ export function maxSimilarity(questions) {
   }
   return best;
 }
-/** Share of questions whose program has only main and no struct (the "main + printf" skeleton). */
-export const onlyMainShare = questions => questions.filter(q => !/struct|typedef|\b(?!main\b)\w+\s*\([^;)]*\)\s*\{/.test(q.code ?? '')).length / questions.length;
+/** Share of questions with code whose program has only main and no struct (the "main + printf" skeleton). A theory question without code is not main-only. */
+export const onlyMainShare = questions => questions.filter(q => q.code && !/struct|typedef|\b(?!main\b)\w+\s*\([^;)]*\)\s*\{/.test(q.code)).length / questions.length;
 
 export const LIMIT = 0.5, MAIN_LIMIT = 0.45;
 
