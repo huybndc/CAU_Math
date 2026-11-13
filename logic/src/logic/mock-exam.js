@@ -1,12 +1,14 @@
 /* ---------------------------------------------------------------
-   ĐỀ THI THỬ (Logic Circuit) — PHỎNG ĐOÁN theo mô tả của người học (đề giữa kỳ, chưa có đề thật): chương 3–4, 3 câu,
-   200 điểm, 60 phút, đúng 2 K-map (7 đoạn a/f/e, BCD → Excess-3; không vẽ mạch) và 2 câu vẽ, mỗi câu MỘT mạch cỡ sơ đồ giáo trình:
-   bộ cộng BCD (Fig. 4.14) hoặc bộ so sánh 2 bit, và MUX 4×1 hoặc decoder + OR thực hiện hàm. Câu chuyển mã rút một trong excess-3, Gray, 2421.
-   Đề cuối kỳ nhiều khả năng khác. Thuần, chữ Anh, LaTeX $…$; part.rubric = thang chấm [điểm, bước]; part.figs = hình mẫu, part.checks = đầu ra để kiểm mạch.
+   PRACTICE FINAL EXAM (Logic Circuit), pure. Scope = the class slides: Ch3–4 (before the midterm) and Ch5 §5.3–5.5 (latches,
+   flip-flops, analysis of clocked circuits). Form follows the real midterm (D75): few questions with many parts, easy to hard,
+   later parts use earlier ones, all-or-nothing per part. 4 questions, 200 points: K-map design 40, circuit design 65,
+   flip-flop 35, sequential analysis 60. The midterm template (3–4 combinational questions) is in git history before D75.
+   English text, LaTeX $…$; part.rubric = [points, step]; part.figs = sample figures; facts = raw data for tests.
    --------------------------------------------------------------- */
 import { minimizeSOP, varNames, literalCount } from './quine-mccluskey.js';
 import { kmap, table } from './mock-tex.js';
-import { bcdAdder, muxBox, comparator2, decoderOr } from './mock-figs.js';
+import { bcdAdder, comparator2 } from './mock-figs.js';
+import { makeFlipFlop, makeSeqAnalysis } from './mock-seq.js';
 
 const r = String.raw;
 const ON = { a: [0, 2, 3, 5, 6, 7, 8, 9], f: [0, 4, 5, 6, 8, 9], e: [0, 2, 6, 8] };      // đoạn sáng theo chữ số BCD (6 sáng a, 9 sáng d)
@@ -82,30 +84,6 @@ export function makeBcdAdder() {
   };
 }
 
-const DATA = ['0', '1', 'z', "z'"], PAIR = { 0: [0, 0], 1: [1, 1], z: [0, 1], "z'": [1, 0] };
-const tx = s => s.replace("z'", '\\bar z');
-
-export function makeMux(rnd) {
-  let data;
-  do data = Array.from({ length: 4 }, () => DATA[Math.floor(rnd() * 4)]); while (!(data.includes('z') && data.includes("z'")));
-  const f = data.flatMap(d => PAIR[d]), mins = f.map((v, m) => (v ? m : -1)).filter(m => m >= 0);
-  return {
-    stem: r`A $4$-to-$1$ multiplexer has data inputs $I_0..I_3$, selects $S_1, S_0$ and output $Y$.`,
-    parts: [
-      { pts: 15, q: r`Write the function table of the multiplexer and its Boolean equation for $Y$.`,
-        a: [r`$${table(['S_1', 'S_0', 'Y'], [['0', '0', 'I_0'], ['0', '1', 'I_1'], ['1', '0', 'I_2'], ['1', '1', 'I_3']])}$`,
-          r`$Y = S_1'S_0'I_0 + S_1'S_0I_1 + S_1S_0'I_2 + S_1S_0I_3$`], rubric: [[7, r`function table`], [8, r`equation of $Y$`]], facts: {} },
-      { pts: 25, q: r`Implement $F(x,y,z) = \sum m(${mins.join(',')})$ with one $4$-to-$1$ multiplexer, $x, y$ on the selects ($S_1 = x$, $S_0 = y$). Write the truth table of $F$ and find what each data input must be ($0$, $1$, $z$ or $\bar z$).`,
-        a: [r`$${table(['x', 'y', 'z', 'F'], rowsOf(3, [f]))}$`,
-          r`For each $xy$, read $F$ for $z = 0, 1$: $F = 0, 0 \Rightarrow I = 0$; $1, 1 \Rightarrow I = 1$; $0, 1 \Rightarrow I = z$; $1, 0 \Rightarrow I = \bar z$.`,
-          r`$I_0 = ${tx(data[0])},\; I_1 = ${tx(data[1])},\; I_2 = ${tx(data[2])},\; I_3 = ${tx(data[3])}$`], rubric: [[9, r`truth table of $F$`], [16, r`each data input $I_0$ to $I_3$ ($4$ each)`]], facts: { kind: 'mux', mins, data, f } },
-      { pts: 15, q: r`Draw the complete circuit of $F$: the multiplexer as a block with all its inputs connected (use an inverter where you need $\bar z$).`,
-        a: [r`Connect $x, y$ to $S_1, S_0$, and each data input as found above (sample below).`], figs: [muxBox(data)], rubric: [[4, r`$x, y$ on $S_1, S_0$`], [8, r`data inputs connected as found`], [3, r`inverter for $\bar z$`]], facts: {} },
-    ],
-    refs: [['4.11', 'Multiplexers (implementing a Boolean function)']],
-  };
-}
-
 export function makeComparator() {
   const rows = Array.from({ length: 16 }, (_, m) => {
     const a = m >> 2, b = m & 3;
@@ -129,42 +107,18 @@ export function makeComparator() {
   };
 }
 
-const pickMins = rnd => {
-  let m;
-  do m = [0, 1, 2, 3, 4, 5, 6, 7].filter(() => rnd() < 0.45); while (m.length < 2 || m.length > 5);
-  return m;
+// Each slot draws one question type, so one seed gives one of 2 × 2 × 3 × 3 forms.
+const pick = makers => rnd => makers[Math.floor(rnd() * makers.length)](rnd);
+// The teacher gives no partial marks: each part has one marking row that lists what must all be right.
+const allOrNothing = maker => rnd => {
+  const q = maker(rnd);
+  return { ...q, parts: q.parts.map(p => ({ ...p, rubric: [[p.pts, `all of: ${p.rubric.map(([, step]) => step).join('; ')}`]] })) };
 };
 
-export function makeDecoder(rnd) {
-  const f1 = pickMins(rnd);
-  let f2;
-  do f2 = pickMins(rnd); while (f2.join() === f1.join());
-  const val = (mins, m) => (mins.includes(m) ? 1 : 0), ors = mins => mins.map(m => `D_${m}`).join(' + ');
-  return {
-    stem: r`A $3$-to-$8$ line decoder has inputs $x, y, z$ ($x$ most significant) and outputs $D_0..D_7$.`,
-    parts: [
-      { pts: 15, q: r`Write the function table of the decoder and the Boolean expression of each output $D_i$.`,
-        a: [r`Exactly one output is $1$: $D_i = 1$ when $xyz$ is the binary number $i$.`, r`$${Array.from({ length: 8 }, (_, i) => `D_${i} = ${bits(i, 3).map((b, k) => 'xyz'[k] + (b === '1' ? '' : "'")).join('')}`).join(', ')}$`],
-        rubric: [[7, r`function table`], [8, r`each $D_i$ is minterm $m_i$`]], facts: { kind: 'dec' } },
-      { pts: 25, q: r`Implement $F_1 = \sum m(${f1.join(',')})$ and $F_2 = \sum m(${f2.join(',')})$ with this decoder and OR gates. Write the truth table of $F_1, F_2$ and say which decoder outputs go to each OR gate.`,
-        a: [r`$${table(['x', 'y', 'z', 'F_1', 'F_2'], Array.from({ length: 8 }, (_, m) => [...bits(m, 3), String(val(f1, m)), String(val(f2, m))]))}$`,
-          r`Each OR gate takes the outputs of the minterms of its function: $F_1 = ${ors(f1)}$, $F_2 = ${ors(f2)}$`],
-        rubric: [[9, r`truth table of $F_1, F_2$`], [16, r`decoder outputs for each OR gate ($8$ each)`]], facts: { f1, f2 } },
-      { pts: 15, q: r`Draw the complete circuit: the decoder as a block with its inputs, and the OR gates.`,
-        a: [r`Connect $x, y, z$ to the decoder and each OR gate to the outputs found above (sample below).`],
-        rubric: [[4, r`decoder with inputs $x, y, z$`], [8, r`OR inputs as found`], [3, r`outputs $F_1, F_2$ labelled`]],
-        figs: [decoderOr([['F₁', f1], ['F₂', f2]])], facts: {} },
-    ],
-    refs: [['4.9', 'Decoders (combinational logic implementation)']],
-  };
-}
-
-// mỗi chỗ trong đề rút một dạng: câu K-map 2 = một mã đích, câu vẽ = một trong hai mạch
-const pick = makers => rnd => makers[Math.floor(rnd() * makers.length)](rnd);
-
 export const LOGIC_MOCK = {
-  id: 'logic', title: 'Logic Circuit — Practice Exam',
+  id: 'logic', title: 'Logic Circuit — Practice Final Exam',
   book: 'M. Morris Mano, Digital Design (6th ed.)',
+  note: 'Marking (as on the real midterm): each part is all or nothing. Label every input, output and signal of a circuit. Write the work and the answer.',
   minutesPerPoint: 60 / 200,
-  makers: [makeSevenSeg, makeCodeConv, pick([makeBcdAdder, makeComparator]), pick([makeMux, makeDecoder])],
+  makers: [pick([makeSevenSeg, makeCodeConv]), pick([makeBcdAdder, makeComparator]), makeFlipFlop, makeSeqAnalysis].map(allOrNothing),
 };

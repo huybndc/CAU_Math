@@ -70,3 +70,13 @@ This English archive keeps the decisions that still guide the code and identifie
 - A hidden course keeps its folder. Learning data stays in the browser.
 - The root page now goes to the first active course. The old page always went to `/logic/`.
 - The learner rejected the Hub focus control as useless. Hub already changes courses at the term start. Do not propose this control again without a new reason from the learner.
+
+**D75. Final-exam review exams and outlines for the three math courses (2026-11-10).**
+
+- The learner asked for a review outline and new mock exams for each core course, as for C (D73, D74), and said that Exlab must show the new exams.
+- Scope source: class slides for Logic Circuit and Linear Algebra; the course syllabus for Discrete Math.
+- Logic Circuit: the slides reach Chapter 5 part 1 (latches, flip-flops, analysis of clocked circuits). The exam keeps the form of the real midterm: few questions, many parts, easy to hard, later parts use earlier results, no partial marks.
+- The MUX and decoder questions left the exam to keep 4 questions in 60 minutes. Their code is in git history before this decision.
+- Each sequential circuit must reach all 4 states from 00, must depend on x, and must print minimal input equations. An independent oracle test simulates each circuit again from the printed equations.
+- Trade-off: the outline is a Markdown file, not an app screen. A screen is a new control and needs the learner's approval.
+

@@ -16,7 +16,7 @@ Read this file at the start of work. Keep open work and active rules here. Compl
 - Possible Discrete Math work: add variety for definitions, lemmas, and induction.
 - Around 2026-11-20, review whether to add practice around Free Response and Mock Exam. Do not restore the removed practice screens without a new decision.
 - C Programming (D73, D74, 2026-11-10): the exam has 20 questions, 38 parts, difficulty levels, and 21 harder templates. Multiple choice has 2 theory questions and 1 output question. A similarity guard test checks each exam. Next: the learner marks the sample exam and the theory multiple-choice sample on the Desktop ("giống đề thật" or "dễ/lặp"); turn each mark into a generator rule with a test. Then Logic Circuit, Linear Algebra, and Discrete Math. Weeks 11–15 wait for class material.
-- Logic Circuit: move the all-or-nothing marking note to the exam header in the week 12 batch. The C exam already uses `note`.
+- Final review (D75, 2026-11-10): Logic Circuit has a review outline (`docs/review/logic.md`) and a new exam with Chapter 5 questions and all-or-nothing marking. Next: the same for Linear Algebra, then Discrete Math. Add Mano 5.7–5.8 and Chapters 6–7 to the Logic outline and exam when class slides exist.
 
 ## Active rules
 

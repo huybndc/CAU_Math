@@ -23,10 +23,12 @@ const CODE_TABLE = {
 const SEG = { a: '0235 6789', f: '0456 89', e: '0268' };           // bảng chuẩn chép tay: đoạn nào sáng ở chữ số nào
 
 describe('đề Logic', () => {
-  it('4 câu, 200 điểm, 60 phút; chương 3–4; cùng seed ⇒ cùng đề', () => {
-    expect(ex.questions.map(q => q.parts.length)).toEqual([2, 2, 2, 3]);
+  it('4 câu, 200 điểm, 60 phút; chương 3–5; cùng seed ⇒ cùng đề; có ghi chú chấm', () => {
+    expect(ex.questions.map(q => q.parts.length)).toEqual([2, 2, 4, 4]);
+    expect(ex.questions.map(q => q.pts)).toEqual([40, 65, 35, 60]);
     expect([ex.total, ex.minutes]).toEqual([200, 60]);
-    ex.questions.forEach(q => q.refs.forEach(x => expect(x.sec).toMatch(/^[34]\./)));
+    ex.questions.forEach(q => q.refs.forEach(x => expect(x.sec).toMatch(/^[345]\./)));
+    expect(ex.note).toMatch(/all or nothing/);
     expect(buildMock(LOGIC_MOCK, 9)).toEqual(ex);
   });
   it('mọi công thức KaTeX dựng được, dấu $ cặp đủ, không NaN/undefined, không ",;"', () => {
@@ -38,7 +40,8 @@ describe('đề Logic', () => {
     }
   });
   it('7 đoạn: bảng đúng chuẩn (6 sáng a, 9 sáng d→f không đổi), 10–15 là don\'t-care; SOP đúng mọi ô bắt buộc', () => {
-    const f = part(0, 0).facts, s = part(0, 1).facts;
+    const q = SEEDS.map(sd => buildMock(LOGIC_MOCK, sd).questions[0]).find(x => !x.parts[0].facts.kind);
+    const f = q.parts[0].facts, s = q.parts[1].facts;
     for (const k of ['a', 'f', 'e']) {
       const on = [...SEG[k].replace(' ', '')].map(Number);
       f[k].forEach((v, m) => expect(v, `${k}${m}`).toBe(m >= 10 ? 2 : on.includes(m) ? 1 : 0));
@@ -48,7 +51,8 @@ describe('đề Logic', () => {
   it('chuyển mã: excess-3 / Gray / 2421 đúng bảng chép tay; SOP đúng mọi ô bắt buộc', () => {
     const seen = new Set();
     for (const seed of SEEDS) {
-      const q = buildMock(LOGIC_MOCK, seed).questions[1], f = q.parts[0].facts, s = q.parts[1].facts;
+      const q = buildMock(LOGIC_MOCK, seed).questions[0], f = q.parts[0].facts, s = q.parts[1].facts;
+      if (!f.kind) continue;
       const L = f.kind.slice(-1), ks = [3, 2, 1, 0].map(n => `${L}_${n}`);
       seen.add(f.kind);
       for (let d = 0; d < 10; d++) {
@@ -82,55 +86,24 @@ describe('đề Logic', () => {
     }
     expect(q.parts[1].figs[0].gates.map(g => g.op).sort().join()).toBe('AND,AND,AND,AND,AND,OR,OR,XNOR,XNOR');
   });
-  it('MUX: dữ liệu I0..I3 tái dựng đúng hàm F trên 60 mã đề, có cả z và z\'', () => {
-    for (let s = 1; s <= 60; s++) {
-      const q3 = buildMock(LOGIC_MOCK, s * 977).questions[3];
-      if (q3.parts[0].facts.kind === 'dec') continue;
-      const { mins, data, f } = q3.parts[1].facts;
-      for (let m = 0; m < 8; m++) {
-        const d = data[m >> 1], z = m & 1;
-        expect(d === '0' ? 0 : d === '1' ? 1 : d === 'z' ? z : 1 - z, `seed ${s} m${m}`).toBe(f[m]);
-        expect(mins.includes(m)).toBe(f[m] === 1);
-      }
-      expect(data.includes('z') && data.includes("z'")).toBe(true);
-    }
-  });
-  it('decoder: D_i là minterm i; cổng OR nối đúng các đầu ra của từng hàm; bảng F đúng', () => {
-    for (const seed of SEEDS) {
-      const q = buildMock(LOGIC_MOCK, seed).questions[3];
-      if (q.parts[0].facts.kind !== 'dec') continue;
-      const { f1, f2 } = q.parts[1].facts;
-      expect(f1.join()).not.toBe(f2.join());
-      [f1, f2].forEach(f => expect(f.length >= 2 && f.length <= 5).toBe(true));
-      const minLine = q.parts[0].a[1];
-      for (let i = 0; i < 8; i++) expect(minLine).toContain(`D_${i} = ${'xyz'.split('').map((c, k) => c + ((i >> (2 - k)) & 1 ? '' : "'")).join('')}`);
-      const ors = q.parts[2].figs[0].gates;
-      expect(ors.map(g => g.op)).toEqual(['OR', 'OR']);
-      const fig = q.parts[2].figs[0];
-      // nhãn chân vào của từng cổng OR: chữ canh phải, ngay trái cổng, trong chiều cao cổng
-      const insOf = g => fig.texts.filter(t => t.a === 'end' && t.x === g.x - 60 && t.y > g.y - 50 && t.y < g.y + 90).map(t => '₀₁₂₃₄₅₆₇'.indexOf(t.t.slice(1)));
-      expect(ors.map(insOf)).toEqual([f1, f2]);
-      expect(q.parts[1].a[1]).toContain(`F_1 = ${f1.map(m => `D_${m}`).join(' + ')}`);
-    }
-    qOf('dec');
-  });
   it('đề đa dạng: 10 mã đề liên tiếp cho ít nhất 6 tổ hợp dạng', () => {
     const combo = s => buildMock(LOGIC_MOCK, s).questions.map(q => q.parts[0].facts.kind ?? '7seg').join('/');
     expect(new Set(Array.from({ length: 10 }, (_, s) => combo(s + 1))).size).toBeGreaterThanOrEqual(6);
   });
-  it('đúng 2 câu K-map (không vẽ) và 2 câu vẽ một mạch, ở mọi mã đề', () => {
+  it('đúng 1 câu K-map (không vẽ), 1 câu vẽ mạch, 2 câu chương 5, ở mọi mã đề', () => {
     for (const seed of SEEDS) {
-      const e = buildMock(LOGIC_MOCK, seed), text = e.questions.slice(0, 2).flatMap(q => q.parts.flatMap(p => p.a)).join(' ');
-      expect(text.match(/\\begin\{array\}\{c\|cccc\}/g).length).toBe(3 + 4);
-      expect(e.questions.map(q => q.parts.filter(p => p.figs).length)).toEqual([0, 0, 1, 1]);
+      const e = buildMock(LOGIC_MOCK, seed);
+      expect(e.questions.map(q => q.parts.filter(p => p.figs).length)).toEqual([0, 1, 0, 0]);
+      expect(e.questions[2].parts[0].facts.kind).toMatch(/^ff-/);
+      expect(e.questions[3].parts[0].facts.kind).toMatch(/^seq-/);
       expect([e.total, e.minutes]).toEqual([200, 60]);
     }
   });
 });
 
 describe('mục sách trích dẫn khớp mục lục Mano 6th', () => {
-  // Chép tay từ mục lục sách (chương 3–4) để bắt số mục sai như §3.6 cho don't-care (đúng là §3.5).
-  const TOC = { '3.2': 'map method', '3.3': 'four-variable', '3.5': "don't-care", '4.4': 'design procedure', '4.5': 'adder', '4.6': 'decimal adder', '4.8': 'magnitude comparator', '4.9': 'decoder', '4.11': 'multiplexer' };
+  // Chép tay từ mục lục sách (chương 3–5) để bắt số mục sai như §3.6 cho don't-care (đúng là §3.5).
+  const TOC = { '3.2': 'map method', '3.3': 'four-variable', '3.5': "don't-care", '4.4': 'design procedure', '4.5': 'adder', '4.6': 'decimal adder', '4.8': 'magnitude comparator', '5.3': 'latches', '5.4': 'flip-flops', '5.5': 'analysis of clocked sequential circuits' };
   it('mỗi ref có số mục trong mục lục và tên khớp', () => {
     for (const s of SEEDS) buildMock(LOGIC_MOCK, s).questions.forEach(q => q.refs.forEach(r => {
       expect(TOC[r.sec], `§${r.sec}`).toBeTruthy();
@@ -139,10 +112,11 @@ describe('mục sách trích dẫn khớp mục lục Mano 6th', () => {
   });
 });
 
-describe('thang chấm theo bước (chấm bài làm giấy)', () => {
-  it('mọi ý có thang, tổng thang = điểm của ý, ở nhiều mã đề', () => {
+describe('thang chấm: không điểm từng phần', () => {
+  it('mỗi ý đúng một dòng chấm (đúng hết hoặc 0), điểm dòng = điểm của ý, ở nhiều mã đề', () => {
     for (let seed = 0; seed < 30; seed++) for (const q of buildMock(LOGIC_MOCK, seed).questions) for (const p of q.parts) {
-      expect(p.rubric?.length, `${seed} ${q.no}${p.label}`).toBeGreaterThan(1);
+      expect(p.rubric?.length, `${seed} ${q.no}${p.label}`).toBe(1);
+      expect(p.rubric[0][1]).toMatch(/^all of: /);
       expect(p.rubric.reduce((s, [n]) => s + n, 0), `${seed} ${q.no}${p.label}`).toBe(p.pts);
       for (const [, s] of p.rubric) for (const f of s.split('$').filter((_, i) => i % 2)) expect(() => katex.renderToString(f, { throwOnError: true })).not.toThrow();
     }
