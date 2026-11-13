@@ -109,11 +109,16 @@ export function makeComparator() {
 
 // Each slot draws one question type, so one seed gives one of 2 × 2 × 3 × 3 forms.
 const pick = makers => rnd => makers[Math.floor(rnd() * makers.length)](rnd);
+// The teacher gives no partial marks: each part has one marking row that lists what must all be right.
+const allOrNothing = maker => rnd => {
+  const q = maker(rnd);
+  return { ...q, parts: q.parts.map(p => ({ ...p, rubric: [[p.pts, `all of: ${p.rubric.map(([, step]) => step).join('; ')}`]] })) };
+};
 
 export const LOGIC_MOCK = {
   id: 'logic', title: 'Logic Circuit — Practice Final Exam',
   book: 'M. Morris Mano, Digital Design (6th ed.)',
   note: 'Marking (as on the real midterm): each part is all or nothing. Label every input, output and signal of a circuit. Write the work and the answer.',
   minutesPerPoint: 60 / 200,
-  makers: [pick([makeSevenSeg, makeCodeConv]), pick([makeBcdAdder, makeComparator]), makeFlipFlop, makeSeqAnalysis],
+  makers: [pick([makeSevenSeg, makeCodeConv]), pick([makeBcdAdder, makeComparator]), makeFlipFlop, makeSeqAnalysis].map(allOrNothing),
 };

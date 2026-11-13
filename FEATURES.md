@@ -17,7 +17,7 @@ Shared UI and logic live in `shared/ui/` and `shared/logic/`.
 - The app rail links to Study_Hub and Live_Lecture when their build URLs exist in `.env.local`.
 - Screens use `section.screen[data-screen]`. The Overview shows course status, a 16-week timeline, Today, Learn, and Mock Exam. During a term break, it shows the next-term date.
 - Routes use the hash router in `shared/logic/route.js`.
-- Mock exams use a seed. The screen can show the exam or answer and can print an A4 copy. KaTeX renders formulas. Printed answers show worked steps. Logic Circuit answers can include a circuit diagram and marking rubric.
+- Mock exams use a seed. The screen can show the exam or answer and can print an A4 copy. KaTeX renders formulas. Printed answers show worked steps. Logic Circuit answers can include a circuit diagram and one all-or-nothing marking row per part. The Logic Circuit exam is a final-exam review exam (D75): 4 questions, 200 points, 60 minutes, with K-map design, circuit design, a flip-flop question, and the analysis of a clocked sequential circuit (`logic/src/logic/mock-seq.js`). Review outlines are in `docs/review/`.
 - Mock exams have no app timer or automatic grading. The learner times and grades the printed exam.
 - Type-based Practice, Mock Exam, and Mistakes screens were removed on 2026-10-22. Old practice and exam URLs return to Overview.
 - Current visible features are Overview, Mock Exam, scratchpad, and screen help. Lessons, examples, interactive tools, concept questions, free response, flags, and glossary are hidden.

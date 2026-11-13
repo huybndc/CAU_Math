@@ -4,16 +4,7 @@ This file lists active decisions. Find reasons and trade-offs in [`docs/DECISION
 
 Subject-specific decisions are in `logic/PLAN.md` and `linalg/PLAN.md`.
 
-- D01. Keep three separate apps on one local server. The shared overview was removed by D62.
-- D02. Put shared code in `shared/` and keep one root `package.json`.
-- D03. Run through localhost. Do not build one-file apps or use `file://`.
-- D04. Resolve include paths from each HTML file's directory.
-- D05. Follow each course syllabus. Rewrite learning material and cite sources. Do not commit course materials.
-- D06. Do not add excluded services or features from the archived decision record.
-- D07. Commit and push only in this repository.
-- D08. Use the approved workbench visual design (S1).
-- D09. Show help in an ⓘ popover by using the browser Popover API.
-- D10. Use routes in the form `#/<chapter>/<section>`.
+- D01–D10. App structure, localhost, syllabus sources, workbench design, help popover, and routes. See the archive section "D01–D16".
 - D11. Prioritize course content over framework work.
 - D12. Use one shared practice runner and generated question banks per chapter.
 - D13. Show each `##` lesson section as a card. The 120-word display cap applies to lesson cards only.
@@ -79,3 +70,4 @@ Subject-specific decisions are in `logic/PLAN.md` and `linalg/PLAN.md`.
 - D71. C find-the-error questions have no obvious syntax errors, and each exam has at least 1 run-time error (2026-11-10). Templates with `obvious: true` leave the exam.
 - D73. Rework the C mock exam (learner, 2026-11-10). The real midterm has 20 questions with 1–3 parts each, about 35–40 parts in all, and some multiple choice. Real questions mix ideas and do not repeat one skeleton. `BLUEPRINT` sets 20 slots (parts, level), 38 parts, 100 points. Order follows level with a small random shift. A test fails when two questions in one exam share more than half of their code lines.
 - D74. Make C multiple choice theory-heavy (learner, 2026-11-10). The real exam asks theory, such as the difference between pointer operators. Of 3 multiple-choice questions, 2 are theory and 1 is output. Theory types: pointer operators, pass by value or pointer, reading declarations, pick the false statement, and classify snippets. A clang probe backs each option. Other question types do not change.
+- D75. Change the Logic Circuit, Linear Algebra, and Discrete Math mock exams to final-exam review exams (learner, 2026-11-10). Each course has a review outline in `docs/review/<course>.md` with topics, textbook sections, question types, and a schedule from week 12. The new exam replaces the midterm exam on screen; the old template stays in git history. Logic Circuit: 4 questions, 200 points, 60 minutes: K-map design, circuit design, flip-flop, and sequential-circuit analysis (Mano 5.3–5.5). Each part has one all-or-nothing marking row, as on the real midterm.
