@@ -78,5 +78,6 @@ This English archive keeps the decisions that still guide the code and identifie
 - Logic Circuit: the slides reach Chapter 5 part 1 (latches, flip-flops, analysis of clocked circuits). The exam keeps the form of the real midterm: few questions, many parts, easy to hard, later parts use earlier results, no partial marks.
 - The MUX and decoder questions left the exam to keep 4 questions in 60 minutes. Their code is in git history before this decision.
 - Each sequential circuit must reach all 4 states from 00, must depend on x, and must print minimal input equations. An independent oracle test simulates each circuit again from the printed equations.
+- Linear Algebra (2026-11-13): the vault lessons reach W11 (Strang 3.5–4.3: independence, basis, dimension, four subspaces, orthogonality, projections, least squares). The final covers only material after the midterm, because the midterm already tested Chapters 1–3.4. 5 questions, 200 points, 120 minutes, as the real exam (0.6 minutes per point). The midterm template and its makers are in git history before this change. An independent oracle test checks every answer, and 4 mutations make it fail.
 - Trade-off: the outline is a Markdown file, not an app screen. A screen is a new control and needs the learner's approval.
 

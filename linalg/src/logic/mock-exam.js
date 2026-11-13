@@ -1,23 +1,19 @@
-/* Mẫu "Đề thi thử" của Linear Algebra, theo cấu trúc đề giữa kỳ thật bỏ phần Đúng/Sai (162/200 điểm). */
-import { makeDot, makeCombo, makePlane, makeRankOne } from './mock-vectors.js';
-import { makeParam, makeInverse, makeLdl, makeRref, makeSolvable } from './mock-systems.js';
+/* Practice final exam template for Linear Algebra (D75). Scope: class after the midterm (Strang 3.5–4.3).
+   The midterm template (9 questions, Ch1–3) is in git history before D75. */
+import { makeIndependence, makeFourSubspaces, makeProjLine, makeProjPlane, makeLeastSquares } from './mock-final.js';
 
-// 120 phút / 200 điểm của đề thật ⇒ 0,6 phút mỗi điểm; đề rút còn 162 điểm ⇒ 97 phút.
+// Real exam: 120 minutes for 200 points ⇒ 0.6 minutes per point.
 export const LINALG_MOCK = {
-  id: 'linalg', title: 'Linear Algebra — Practice Exam',
-  // Số mục theo bản 4th (2009) của sách; chương 1–2 trùng bản 5th, chương 3 bản 5th gộp 3.3 vào 3.2 nên lệch.
+  id: 'linalg', title: 'Linear Algebra — Practice Final Exam',
+  // Section numbers follow the 4th edition (2009).
   book: 'Gilbert Strang, Introduction to Linear Algebra (4th ed.)',
   minutesPerPoint: 120 / 200,
-  makers: [makeDot, makeCombo, makeParam, makeInverse, makeLdl, makePlane, makeRankOne, makeRref, makeSolvable],
+  makers: [makeIndependence, makeFourSubspaces, makeProjLine, makeProjPlane, makeLeastSquares],
   refs: [
-    [['1.2', 'Lengths and Dot Products']],
-    [['2.1', 'Vectors and Linear Equations'], ['1.3', 'Matrices']],
-    [['2.2', 'The Idea of Elimination'], ['2.3', 'Elimination Using Matrices']],
-    [['2.5', 'Inverse Matrices'], ['2.7', 'Transposes and Permutations']],
-    [['2.6', 'Elimination = Factorization: A = LU'], ['2.7', 'Transposes and Permutations']],
-    [['3.1', 'Spaces of Vectors']],
-    [['2.4', 'Rules for Matrix Operations']],
-    [['3.2', 'The Nullspace of A: Solving Ax = 0'], ['3.3', 'The Rank and the Row Reduced Form']],
-    [['3.4', 'The Complete Solution to Ax = b']],
+    [['3.5', 'Independence, Basis and Dimension']],
+    [['3.6', 'Dimensions of the Four Subspaces'], ['4.1', 'Orthogonality of the Four Subspaces']],
+    [['4.2', 'Projections']],
+    [['4.2', 'Projections']],
+    [['4.3', 'Least Squares Approximations']],
   ],
 };
