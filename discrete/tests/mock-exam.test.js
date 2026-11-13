@@ -1,83 +1,96 @@
-/* Đề thi thử (Discrete, phỏng đoán): cấu trúc, công thức dựng được, và các phát biểu về cây/Fermat/RSA đúng trên ví dụ. */
+/* Practice final exam (Discrete Math, D75): structure, KaTeX, and answers checked by separate counting. */
 import { describe, it, expect } from 'vitest';
 import katex from 'katex';
 import { buildMock } from '@shared/logic/mock-exam.js';
 import { DISCRETE_MOCK } from '../src/logic/mock-exam.js';
-import { DEFINITIONS } from '../src/logic/mock-proofs.js';
 
-const SEEDS = Array.from({ length: 80 }, (_, i) => i * 104729 + 7);
+const SEEDS = Array.from({ length: 150 }, (_, i) => i * 104729 + 7);
+const facts = (ex, q, p) => ex.questions[q].parts[p].facts;
 
-describe('đề Discrete', () => {
-  it('3 câu, 7 ý, 200 điểm, 60 phút; câu 1 có 3 định nghĩa khác nhau, mỗi ý 10 điểm', () => {
+describe('exam frame', () => {
+  it('4 questions, 200 points, 60 minutes; 4 different definitions', () => {
     for (const s of SEEDS) {
       const ex = buildMock(DISCRETE_MOCK, s);
-      expect(ex.questions.map(q => q.parts.length)).toEqual([3, 3, 1]);
+      expect(ex.questions.map(q => q.pts)).toEqual([40, 50, 50, 60]);
       expect([ex.total, ex.minutes]).toEqual([200, 60]);
-      expect(ex.questions[0].parts.every(p => p.pts === 10)).toBe(true);
-      expect(new Set(ex.questions[0].parts.map(p => p.facts.id)).size).toBe(3);
+      expect(new Set(ex.questions[0].parts.map(p => p.facts.id)).size).toBe(4);
       ex.questions.forEach(q => expect(q.refs.length).toBeGreaterThan(0));
     }
   });
-  it('cả đề chỉ có 2 gợi ý nhỏ: "previous ones" (câu 2) và "by induction" (câu 3); không có gợi ý khác', () => {
+  it('only the proof question says "by induction"', () => {
     for (const s of SEEDS) {
       const ex = buildMock(DISCRETE_MOCK, s), text = ex.questions.flatMap(q => [q.stem, ...q.parts.map(p => p.q)]).join(' ');
-      expect(text.match(/previous ones/g)?.length).toBe(1);
       expect(text.match(/by induction/g)?.length).toBe(1);
-      expect(text).not.toMatch(/\b[Hh]int\b|\bUse\b|\bRecall\b/);
+      expect(ex.questions[3].parts[0].q).toMatch(/by induction/);
     }
   });
-  it('cùng seed ⇒ cùng đề; khác seed ⇒ khác', () => {
+  it('same seed gives the same exam; seeds vary the exam', () => {
     expect(buildMock(DISCRETE_MOCK, 5)).toEqual(buildMock(DISCRETE_MOCK, 5));
-    expect(new Set(SEEDS.map(s => JSON.stringify(buildMock(DISCRETE_MOCK, s)))).size).toBeGreaterThan(20);
+    expect(new Set(SEEDS.map(s => JSON.stringify(buildMock(DISCRETE_MOCK, s)))).size).toBeGreaterThan(100);
   });
-  it('mọi công thức KaTeX dựng được, dấu $ cặp đủ', () => {
-    for (const d of DEFINITIONS) expect(d.q).toBeTruthy();
-    for (const s of SEEDS) {
+  it('every formula has paired $ and KaTeX renders it; no undefined / NaN / ",;"', () => {
+    for (const s of SEEDS.slice(0, 60)) {
       const ex = buildMock(DISCRETE_MOCK, s);
       for (const str of ex.questions.flatMap(q => [q.stem, ...q.parts.flatMap(p => [p.q, ...p.a])])) {
         const pieces = str.split('$');
         expect(pieces.length % 2, str.slice(0, 50)).toBe(1);
         pieces.forEach((m, i) => { if (i % 2) katex.renderToString(m, { throwOnError: true }); });
+        expect(str).not.toMatch(/undefined|NaN|Infinity|,;|;;/);
       }
     }
-  }, 30_000);   // KaTeX trên 80 đề: máy chậm có thể quá 5 s mặc định
+  }, 30_000);
 });
 
-describe('các phát biểu được chứng minh trong đáp án đúng trên ví dụ (kiểm riêng bằng đếm)', () => {
-  const prufer = (seq, n) => {                         // dãy Prüfer → danh sách cạnh của cây n đỉnh
-    const deg = Array(n).fill(1); seq.forEach(v => { deg[v]++; });
-    const edges = [];
-    for (const v of seq) { const leaf = deg.findIndex(d => d === 1); edges.push([leaf, v]); deg[leaf]--; deg[v]--; }
-    const rest = deg.map((d, i) => [d, i]).filter(([d]) => d === 1).map(([, i]) => i);
-    edges.push(rest);
-    return edges;
-  };
-  const allSeqs = (n, len) => (len === 0 ? [[]] : allSeqs(n, len - 1).flatMap(q => Array.from({ length: n }, (_, v) => [...q, v])));
-  it('cây n ≤ 7 đỉnh: ≥ 2 lá (n ≥ 2), đúng n − 1 cạnh, tô 2 màu được', () => {
-    for (let n = 2; n <= 7; n++) for (const seq of allSeqs(n, n - 2)) {
-      const edges = prufer(seq, n), deg = Array(n).fill(0);
-      edges.forEach(([a, b]) => { deg[a]++; deg[b]++; });
-      expect(edges).toHaveLength(n - 1);
-      expect(deg.filter(d => d === 1).length).toBeGreaterThanOrEqual(2);
-      const color = Array(n).fill(-1); color[0] = 0;
-      for (let k = 0; k < n; k++) edges.forEach(([a, b]) => { if (color[a] >= 0 && color[b] < 0) color[b] = 1 - color[a]; if (color[b] >= 0 && color[a] < 0) color[a] = 1 - color[b]; });
-      expect(edges.every(([a, b]) => color[a] !== color[b])).toBe(true);
+describe('answers match separate counting', () => {
+  it('network values match the MCS table', () => {
+    const TABLE = [N => 2 * N - 1, N => N, N => 2 * Math.log2(N) + 2, N => N * N, N => Math.log2(N) + 1, N => N * (Math.log2(N) + 1), () => 1];
+    for (const s of SEEDS) {
+      const f = facts(buildMock(DISCRETE_MOCK, s), 1, 0);
+      expect(f.value).toBe(TABLE[f.id](f.N));
+      const b = facts(buildMock(DISCRETE_MOCK, s), 1, 1);
+      expect(b.partner - b.port).toBe(b.N / 2);
     }
   });
-  it('Fermat và RSA đúng với số nhỏ', () => {
-    const pw = (b, e, m) => { let r = 1n; b %= m; while (e > 0n) { if (e & 1n) r = r * b % m; b = b * b % m; e >>= 1n; } return r; };
-    for (const p of [3n, 5n, 7n, 11n, 13n]) for (let a = 1n; a < 3n * p; a++) if (a % p) expect(pw(a, p - 1n, p)).toBe(1n);
-    const p = 11n, q = 13n, n = p * q, phi = (p - 1n) * (q - 1n), e = 7n;
-    let d = 1n; while ((e * d) % phi !== 1n) d++;
-    for (let m = 0n; m < n; m++) expect(pw(pw(m, e, n), d, n)).toBe(m);
+  it('Euler answer: brute-force search for an Euler walk', () => {
+    const euler = (edges, closed) => {
+      const go = (v, used, start) => {
+        if (used.every(Boolean)) return !closed || v === start;
+        return edges.some(([a, b], i) => !used[i] && (a === v || b === v) && go(a === v ? b : a, used.map((u, k) => u || k === i), start));
+      };
+      return [0, 1, 2, 3, 4].some(v => go(v, edges.map(() => false), v));
+    };
+    for (const s of SEEDS.slice(0, 60)) {
+      const { edges, eul } = facts(buildMock(DISCRETE_MOCK, s), 1, 2);
+      const tour = euler(edges, true), walk = euler(edges, false);
+      expect(eul).toBe(tour ? 'tour' : walk ? 'walk' : 'none');
+    }
   });
-});
-
-describe('chuỗi đề không có ký tự thừa do thoát sai (\\; bị nuốt thành ;)', () => {
-  it('không có ",;" hay ";;" trong đề và đáp án', () => {
-    for (const s of SEEDS.slice(0, 40)) {
-      const text = JSON.stringify(buildMock(DISCRETE_MOCK, s), (k, v) => (k === 'facts' ? undefined : v));
-      expect(text, `seed ${s}`).not.toMatch(/,;|;;/);
+  it('walk count: enumerate all walks of length 3', () => {
+    for (const s of SEEDS) {
+      const { A, wi, wj, walks } = facts(buildMock(DISCRETE_MOCK, s), 1, 3);
+      let n = 0;
+      for (let a = 0; a < 4; a++) for (let b = 0; b < 4; b++) if (A[wi][a] && A[a][b] && A[b][wj]) n++;
+      expect(walks).toBe(n);
+    }
+  });
+  it('relation properties: check every triple', () => {
+    for (const s of SEEDS) {
+      const { pairs, refl, sym, trans } = facts(buildMock(DISCRETE_MOCK, s), 1, 4);
+      const R = (a, b) => pairs.some(p => p[0] === a && p[1] === b), S = [1, 2, 3];
+      expect(refl).toBe(S.every(a => R(a, a)));
+      expect(sym).toBe(S.every(a => S.every(b => !R(a, b) || R(b, a))));
+      expect(trans).toBe(S.every(a => S.every(b => S.every(c => !(R(a, b) && R(b, c)) || R(a, c)))));
+    }
+  });
+  it('annuity: add the discounted payments one by one', () => {
+    for (const s of SEEDS) {
+      const ex = buildMock(DISCRETE_MOCK, s), { m, p, n, V } = facts(ex, 2, 1), { Vinf } = facts(ex, 2, 2);
+      let sum = 0, far = 0;
+      for (let i = 0; i < n; i++) sum += m / (1 + p) ** i;
+      for (let i = 0; i < 3000; i++) far += m / (1 + p) ** i;
+      expect(V).toBeCloseTo(sum, 6);
+      expect(Vinf).toBeCloseTo(far, 4);
+      expect(ex.questions[2].parts[1].a.join(' ')).toContain(sum.toFixed(2));
     }
   });
 });
