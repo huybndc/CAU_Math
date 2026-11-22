@@ -1,5 +1,5 @@
-/* Practice final exam template for Discrete Math (D75). Scope: class after the midterm (networks, Euler tours, digraphs, relations, sums, integral bounds, asymptotic notation).
-   Form follows the midterm: definitions, short answers, one proof by induction. The midterm template is in git history before D75. */
+/* Practice final exam template for Discrete Math (D75). Scope: class after the midterm (networks, Euler tours, digraphs, relations, sums, integral bounds, asymptotic notation, recursion).
+   Form follows the midterm: definitions, short answers, one proof: the Beneš proof by induction in every exam. The midterm template is in git history before D75. */
 import { makeDefinitions, makeShortAnswers, makeAnnuity, makeSumBounds, makeProof } from './mock-final.js';
 
 // Section numbers follow MCS (MIT 6.042J, 2017). Each maker gives its own refs.
