@@ -1,6 +1,6 @@
 # Đề cương ôn cuối kỳ: Logic Circuit
 
-Sách: M. Morris Mano, *Digital Design* (6th ed.). Phạm vi lấy theo slide lớp đã có đến ngày 2026-11-10 (chương 1–4 và chương 5 phần 1). Ngày thi cuối kỳ chưa có thông báo chính thức; lịch dưới đây dùng mốc tạm là tuần 16 (2026-12-14 đến 2026-12-18).
+Sách: M. Morris Mano, *Digital Design* (6th ed.). Phạm vi lấy theo slide lớp: chương 1–4 và chương 5 (phần 1 và phần 2). Ngày thi cuối kỳ chưa có thông báo chính thức; lịch dưới đây dùng mốc tạm là tuần 16 (2026-12-14 đến 2026-12-18).
 
 Dạng đề: theo đề giữa kỳ thật. Ít câu lớn, mỗi câu nhiều ý từ dễ đến khó, ý sau dùng kết quả ý trước. Giáo không cho điểm từng phần: một ý đúng hết thì đủ điểm, sai một chỗ thì 0. Giáo nói đề cuối kỳ có thể đổi dạng.
 
@@ -20,19 +20,21 @@ Dạng đề: theo đề giữa kỳ thật. Ít câu lớn, mỗi câu nhiều 
 | 10 | Latch: SR (NOR, NAND), SR có điều khiển, D latch | 5.3 | Bảng chức năng; trạng thái cấm; dò Q theo chuỗi vào |
 | 11 | Flip-flop D, JK, T; kích cạnh, master-slave | 5.4 | Bảng đặc tính, phương trình đặc tính; dựng JK hoặc T từ D |
 | 12 | Phân tích mạch tuần tự đồng bộ; Mealy và Moore | 5.5 | Phương trình trạng thái, bảng trạng thái, sơ đồ trạng thái, dò chuỗi vào |
+| 13 | Rút gọn trạng thái và gán mã trạng thái | 5.7 | Gộp trạng thái tương đương; số flip-flop tối thiểu; mã nhị phân, Gray, one-hot |
+| 14 | Quy trình thiết kế mạch tuần tự; bảng kích thích JK và T; bộ đếm | 5.8 | Thiết kế bộ dò chuỗi (Moore) bằng D, JK hoặc T; bộ đếm 3 hoặc 4 bit bằng T |
 
-Chưa có slide (sẽ thêm vào đề cương và đề khi lớp học tới): rút gọn trạng thái và quy trình thiết kế (5.7–5.8), thanh ghi và bộ đếm (chương 6), bộ nhớ (chương 7).
+Chưa có slide (sẽ thêm vào đề cương và đề khi lớp học tới): thanh ghi và bộ đếm (chương 6), bộ nhớ (chương 7).
 
 ## Lịch ôn (tuần 12 bắt đầu 2026-11-16)
 
 | Tuần | Từ ngày | Ôn | Làm |
 |---|---|---|---|
-| 12 | 11-16 | Chủ đề 10–12: latch, flip-flop, phân tích mạch tuần tự | 1 đề Exlab, chỉ làm câu 3 và 4 |
+| 12 | 11-16 | Chủ đề 10–14: latch, flip-flop, phân tích, rút gọn và thiết kế mạch tuần tự | 1 đề Exlab, chỉ làm câu 3 và 4 |
 | 13 | 11-23 | Chủ đề 3–5: K-map, don't-care, POS, chuyển mã | 1 đề Exlab, chỉ làm câu 1; tự làm thêm POS |
 | 14 | 11-30 | Chủ đề 6–9: adder, BCD adder, comparator, decoder, MUX | 1 đề Exlab, chỉ làm câu 2; vẽ lại Fig. 4.13 và 4.14 |
-| 15 | 12-07 | Phần mới của tuần 12–14 (khi có slide) và điểm yếu | 2 đề Exlab trọn vẹn, bấm giờ 60 phút |
+| 15 | 12-07 | Điểm yếu của tuần 12–14 | 2 đề Exlab trọn vẹn, bấm giờ 60 phút |
 | 16 | 12-14 | Thi (ngày chưa rõ) | Xem lại cheatsheet và các ý đã sai |
 
 ## Đề Exlab
 
-Mỗi mã đề cho 4 câu, 200 điểm, 60 phút: K-map thiết kế (40), thiết kế mạch (65), flip-flop (35), phân tích mạch tuần tự (60). Đây là đề tự soạn, không phải đề thật của giáo.
+Mỗi mã đề cho 4 câu, 200 điểm, 60 phút: K-map thiết kế (40), thiết kế mạch (65), flip-flop (35), phân tích mạch tuần tự (60). Câu 3 và câu 4 chọn một dạng cho mỗi mã đề: câu 3 là flip-flop hoặc rút gọn trạng thái (5.7); câu 4 là phân tích mạch, thiết kế bộ dò chuỗi hoặc thiết kế bộ đếm (5.8). Câu 1 và câu 2 cũng chọn một trong hai dạng. Số câu, điểm và thời gian không đổi. Đây là đề tự soạn, không phải đề thật của giáo.

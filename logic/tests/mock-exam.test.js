@@ -23,7 +23,7 @@ const CODE_TABLE = {
 const SEG = { a: '0235 6789', f: '0456 89', e: '0268' };           // bảng chuẩn chép tay: đoạn nào sáng ở chữ số nào
 
 describe('đề Logic', () => {
-  it('4 câu, 200 điểm, 60 phút; chương 3–5; cùng seed ⇒ cùng đề; có ghi chú chấm', () => {
+  it('4 câu, 200 điểm, 60 phút; chương 3–5 (đến §5.8); cùng seed ⇒ cùng đề; có ghi chú chấm', () => {
     expect(ex.questions.map(q => q.parts.length)).toEqual([2, 2, 4, 4]);
     expect(ex.questions.map(q => q.pts)).toEqual([40, 65, 35, 60]);
     expect([ex.total, ex.minutes]).toEqual([200, 60]);
@@ -94,8 +94,8 @@ describe('đề Logic', () => {
     for (const seed of SEEDS) {
       const e = buildMock(LOGIC_MOCK, seed);
       expect(e.questions.map(q => q.parts.filter(p => p.figs).length)).toEqual([0, 1, 0, 0]);
-      expect(e.questions[2].parts[0].facts.kind).toMatch(/^ff-/);
-      expect(e.questions[3].parts[0].facts.kind).toMatch(/^seq-/);
+      expect(e.questions[2].parts[0].facts.kind).toMatch(/^(ff|reduce)-/);
+      expect(e.questions[3].parts[0].facts.kind).toMatch(/^(seq|design|counter)-/);
       expect([e.total, e.minutes]).toEqual([200, 60]);
     }
   });
@@ -103,7 +103,7 @@ describe('đề Logic', () => {
 
 describe('mục sách trích dẫn khớp mục lục Mano 6th', () => {
   // Chép tay từ mục lục sách (chương 3–5) để bắt số mục sai như §3.6 cho don't-care (đúng là §3.5).
-  const TOC = { '3.2': 'map method', '3.3': 'four-variable', '3.5': "don't-care", '4.4': 'design procedure', '4.5': 'adder', '4.6': 'decimal adder', '4.8': 'magnitude comparator', '5.3': 'latches', '5.4': 'flip-flops', '5.5': 'analysis of clocked sequential circuits' };
+  const TOC = { '3.2': 'map method', '3.3': 'four-variable', '3.5': "don't-care", '4.4': 'design procedure', '4.5': 'adder', '4.6': 'decimal adder', '4.8': 'magnitude comparator', '5.3': 'latches', '5.4': 'flip-flops', '5.5': 'analysis of clocked sequential circuits', '5.7': 'state reduction and assignment', '5.8': 'design procedure' };
   it('mỗi ref có số mục trong mục lục và tên khớp', () => {
     for (const s of SEEDS) buildMock(LOGIC_MOCK, s).questions.forEach(q => q.refs.forEach(r => {
       expect(TOC[r.sec], `§${r.sec}`).toBeTruthy();

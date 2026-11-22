@@ -1,14 +1,14 @@
 /* ---------------------------------------------------------------
-   PRACTICE FINAL EXAM (Logic Circuit), pure. Scope = the class slides: Ch3–4 (before the midterm) and Ch5 §5.3–5.5 (latches,
-   flip-flops, analysis of clocked circuits). Form follows the real midterm (D75): few questions with many parts, easy to hard,
+   PRACTICE FINAL EXAM (Logic Circuit), pure. Scope = the class slides: Ch3–4 (before the midterm) and all of Ch5 so far (§5.3–5.5 latches, flip-flops,
+   analysis of clocked circuits; §5.7 state reduction and assignment; §5.8 design procedure). Form follows the real midterm (D75): few questions with many parts, easy to hard,
    later parts use earlier ones, all-or-nothing per part. 4 questions, 200 points: K-map design 40, circuit design 65,
-   flip-flop 35, sequential analysis 60. The midterm template (3–4 combinational questions) is in git history before D75.
+   flip-flop or state reduction 35, sequential analysis or design 60. The midterm template (3–4 combinational questions) is in git history before D75.
    English text, LaTeX $…$; part.rubric = [points, step]; part.figs = sample figures; facts = raw data for tests.
    --------------------------------------------------------------- */
 import { minimizeSOP, varNames, literalCount } from './quine-mccluskey.js';
 import { kmap, table } from './mock-tex.js';
 import { bcdAdder, comparator2 } from './mock-figs.js';
-import { makeFlipFlop, makeSeqAnalysis } from './mock-seq.js';
+import { makeFlipFlop, makeSeqAnalysis, makeStateReduction, makeSeqDesign, makeCounterDesign } from './mock-seq.js';
 
 const r = String.raw;
 const ON = { a: [0, 2, 3, 5, 6, 7, 8, 9], f: [0, 4, 5, 6, 8, 9], e: [0, 2, 6, 8] };      // đoạn sáng theo chữ số BCD (6 sáng a, 9 sáng d)
@@ -107,7 +107,7 @@ export function makeComparator() {
   };
 }
 
-// Each slot draws one question type, so one seed gives one of 2 × 2 × 3 × 3 forms.
+// Each slot draws one question type, so one seed gives one of 2 × 2 × 5 × 5 forms.
 const pick = makers => rnd => makers[Math.floor(rnd() * makers.length)](rnd);
 // The teacher gives no partial marks: each part has one marking row that lists what must all be right.
 const allOrNothing = maker => rnd => {
@@ -120,5 +120,5 @@ export const LOGIC_MOCK = {
   book: 'M. Morris Mano, Digital Design (6th ed.)',
   note: 'Marking (as on the real midterm): each part is all or nothing. Label every input, output and signal of a circuit. Write the work and the answer.',
   minutesPerPoint: 60 / 200,
-  makers: [pick([makeSevenSeg, makeCodeConv]), pick([makeBcdAdder, makeComparator]), makeFlipFlop, makeSeqAnalysis].map(allOrNothing),
+  makers: [pick([makeSevenSeg, makeCodeConv]), pick([makeBcdAdder, makeComparator]), pick([makeFlipFlop, makeStateReduction]), pick([makeSeqAnalysis, makeSeqDesign, makeCounterDesign])].map(allOrNothing),
 };
