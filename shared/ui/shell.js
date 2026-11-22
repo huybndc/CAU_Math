@@ -111,14 +111,14 @@ function labelHints() {
   });
 }
 
-/** Link sang Study Hub và Live Lecture, nhóm riêng ghim đáy thanh bên (như Live_Lecture). Địa chỉ lấy lúc build từ .env.local (VITE_HUB_URL, VITE_LIVE_URL),
+/** Link sang Live Lecture, nhóm riêng ghim đáy thanh bên. Study Hub đã bỏ (2026-11-22). Địa chỉ lấy lúc build từ .env.local (VITE_LIVE_URL),
  *  không ghi trong repo công khai; thiếu biến thì không hiện link đó. */
 function addAppLinks() {
   const nav = document.querySelector('.appnav');
   if (!nav || nav.querySelector('.nav-apps')) return;
   const group = Object.assign(document.createElement('nav'), { className: 'nav-apps' });
   const env = import.meta.env ?? {};
-  for (const [url, key, app] of [[env.VITE_HUB_URL, 'shell.hub', 'hub'], [env.VITE_LIVE_URL, 'shell.live', 'live']]) {
+  for (const [url, key, app] of [[env.VITE_LIVE_URL, 'shell.live', 'live']]) {
     if (!url) continue;
     const a = document.createElement('a');
     Object.assign(a, { className: 'tab app-link', href: url, textContent: T(key) });

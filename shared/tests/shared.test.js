@@ -62,7 +62,7 @@ describe('icon menu', () => {
     const navs = [...new Set([...html.matchAll(/data-nav="(\w+)"/g)].map(m => m[1]))];
     const apps = [...js.matchAll(/'shell\.\w+', '(\w+)'\]/g)].map(m => m[1]);
     expect(navs.length).toBeGreaterThan(2);
-    expect(apps).toEqual(['hub', 'live']);
+    expect(apps).toEqual(['live']);
     for (const n of navs) expect(css, n).toContain(`.tab[data-nav="${n}"]{--ico:`);
     for (const a of apps) expect(css, a).toContain(`.tab[data-app="${a}"]{--ico:`);
   });

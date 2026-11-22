@@ -2,7 +2,6 @@
 export const en = {
   'app.brand': 'Exlab',
   'shell.subject': 'Choose subject',
-  'shell.hub': 'Study Hub',
   'shell.live': 'Live Lecture',
   'shell.home': 'Back to the home page (all subjects)',
   'shell.chapter': 'Chapter {n}',
