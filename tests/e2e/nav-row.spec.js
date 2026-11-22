@@ -54,3 +54,23 @@ test('nút chọn môn: danh sách các môn khác (không có môn đang mở),
   await page.waitForURL('**/prog/**');
   await expect(page.locator('html')).toHaveAttribute('data-subject', 'prog');
 });
+
+/* Điện thoại dọc: nút chọn môn ở góc dưới trái; danh sách phải nằm trong màn hình (lỗi cũ: mở xuống, ra ngoài màn). Không còn link Study Hub. */
+test('điện thoại: chọn được môn khác, không có link Study Hub', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto(FIRST);
+  await page.waitForSelector('#screen-home h1');
+  await expect(page.locator('a[data-app="hub"]')).toHaveCount(0);
+  await expect(page.locator('.nav-apps')).toBeHidden();
+  const sw = page.locator('.subject-switch');
+  await expect(sw).toBeVisible();
+  await sw.click();
+  const menu = await page.locator('.subject-menu').boundingBox();
+  expect(menu, 'menu hiện').toBeTruthy();
+  expect(menu.y, 'menu không tràn trên').toBeGreaterThanOrEqual(0);
+  expect(menu.y + menu.height, 'menu không tràn dưới').toBeLessThanOrEqual(844);
+  expect(menu.x + menu.width).toBeLessThanOrEqual(390);
+  await page.click('.subject-menu a[href="/linalg/"]');
+  await page.waitForURL('**/linalg/**');
+  await expect(page.locator('html')).toHaveAttribute('data-subject', 'linalg');
+});

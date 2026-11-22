@@ -2,7 +2,6 @@
 export const vi = {
   'app.brand': 'Exlab',
   'shell.subject': 'Chọn môn',
-  'shell.hub': 'Study Hub',
   'shell.live': 'Live Lecture',
   'shell.home': 'Về trang chủ (tất cả môn)',
   'shell.chapter': 'Chương {n}',

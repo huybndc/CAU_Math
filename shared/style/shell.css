@@ -33,9 +33,7 @@ body{padding-left:var(--nav-width)}
 .tab[data-nav="tools"]{--ico:var(--i-sliders)}
 .tab[data-nav="mock"]{--ico:var(--i-pencil)}
 /* link sang app khác: nét như menu, màu nhẹ theo favicon của app đó */
-.tab[data-app="hub"]{--ico:var(--i-library)}
 .tab[data-app="live"]{--ico:var(--i-mic)}
-.tab[data-app="hub"]::before{color:#5b6fa8}
 .tab[data-app="live"]::before{color:#d93a3a}
 .appnav-foot{display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:0 .4rem}   /* thanh bên hẹp (≈1024px) thì xuống dòng, không tràn đè tiêu đề */
 /* tiêu đề app = về trang tất cả môn (/): mũi tên nhỏ hiện khi rê chuột */
@@ -320,7 +318,10 @@ a.entry:hover .row-go{background:var(--accent)}
     background:color-mix(in srgb,var(--side) 94%,transparent);
     backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
   }
-  .nav-brand,.appnav-foot,.nav-apps{display:none}
+  .nav-brand,.appnav-foot,.appnav .nav-apps{display:none}
+  /* Chọn môn trên điện thoại: nút ▾ ở góc dưới trái thanh tab; danh sách mở LÊN trên (mở xuống thì nằm ngoài màn hình). */
+  .nav-head .subject-switch{flex-basis:44px;width:44px;height:44px;margin-top:0}
+  .nav-head .subject-menu{top:auto;bottom:calc(100% + 10px);right:auto;min-width:13rem}
   .tabs{display:flex;flex:1;min-width:0;height:100%;flex-direction:row;align-items:stretch;justify-content:space-around;gap:2px}
   .tab{
     flex:1 1 0;min-width:0;min-height:48px;flex-direction:column;justify-content:center;gap:3px;

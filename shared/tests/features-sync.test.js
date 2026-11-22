@@ -54,6 +54,7 @@ describe('FEATURES.md khớp thay đổi UI', () => {
 
 // Tính năng đã gỡ: mỗi dòng = một chuỗi không được còn trong mã nguồn. Gỡ tính năng thì thêm dòng vào đây.
 const REMOVED = [
+  ['shell.hub', 'link Study Hub (Hub đã bỏ, 2026-11-22)'],
   ['practice.old', 'bài luyện chương cũ (PR #91)'],
   ['/practice`', 'route #/learn/chN/practice (PR #91)'],
   ['home/index.html', 'trang tổng quan chung / (PR #91)'],

@@ -25,8 +25,8 @@ export const HELP = {
     vi: { title: 'Tổng quan', rows: [
       ['Hôm nay', 'Bài gợi ý cho bạn lúc này. Bấm Bắt đầu để làm ngay.'],
       ['Học · Đề thi', 'Cột bên phải: học tiếp thẻ kế, công cụ, đề thi thử, tự luận.'],
-      ['Chọn môn', 'Nút ▾ cạnh tên môn: mở danh sách các môn khác, bấm để chuyển môn.'],
-      ['Study Hub · Live Lecture', 'Cuối menu bên trái: link sang hai app kia.'],
+      ['Chọn môn', 'Nút ▾ cạnh tên môn (điện thoại: góc dưới trái): mở danh sách các môn khác, bấm để chuyển môn.'],
+      ['Live Lecture', 'Cuối menu bên trái: link sang app Live Lecture.'],
       ['Ctrl K', 'Tìm nhanh trong app (gõ không dấu cũng được), Enter mở đúng bài.'],
       ['Nháp', 'Nút nổi góc dưới phải, mở ở mọi màn: ghi chú, máy tính, bảng chân trị, bìa K, vẽ.'],
       ['Đám mây', 'Bản online không đồng bộ giữa các máy; dữ liệu lưu trong trình duyệt này.'],
@@ -34,8 +34,8 @@ export const HELP = {
     en: { title: 'Overview', rows: [
       ['Today', 'The suggested task right now. Press Start to do it now.'],
       ['Learn · Exams', 'Right column: next lesson card, tools, exam practice, free-response.'],
-      ['Choose subject', 'The ▾ button next to the subject name lists the other subjects; click one to switch.'],
-      ['Study Hub · Live Lecture', 'Bottom of the left menu: links to the other two apps.'],
+      ['Choose subject', 'The ▾ button next to the subject name (phone: bottom left) lists the other subjects; click one to switch.'],
+      ['Live Lecture', 'Bottom of the left menu: link to the Live Lecture app.'],
       ['Ctrl K', 'Quick search in the app; press Enter to open the result.'],
       ['Scratch', 'Floating button at the bottom right on every screen: notes, calculator, truth table, K-map, draw.'],
       ['Cloud', 'The online version does not sync between devices; data stays in this browser.'],
