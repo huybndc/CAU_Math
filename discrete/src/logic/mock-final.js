@@ -183,7 +183,7 @@ export function makeSumBounds(rnd) {
   };
 }
 
-// The teacher said Beneš is important, so every exam has the Beneš proof (by induction). No Big O proof uses induction.
+// The teacher said Beneš is important, so the Beneš proof (by induction) is favored, not certain. No Big O proof uses induction.
 const BENES_PROOF =
   { id: 'benes', ref: NET, q: r`Let $P(a)$: the Beneš network with $N = 2^a$ inputs routes every permutation with congestion $1$. Prove by induction that $P(a)$ holds for all $a \ge 1$.`,
     a: [r`Base $a = 1$: one $2 \times 2$ switch passes the two packets straight or crossed, one packet each way.`,
@@ -191,7 +191,26 @@ const BENES_PROOF =
       r`Each packet has at most one edge of each kind, and edges of the two kinds alternate around any cycle, so every cycle is even and the graph has a $2$-coloring.`,
       r`Send one color through the upper Beneš subnetwork and the other through the lower one. The first and last levels then carry one packet per switch side, and by $P(a)$ each subnetwork routes its packets with congestion $1$. This is $P(a+1)$.`] };
 
-export function makeProof() {
-  const pr = BENES_PROOF;
-  return { stem: 'Proof.', parts: [{ pts: 60, q: pr.q, a: pr.a, facts: { id: pr.id, induction: true } }], refs: [pr.ref] };
+const OTHER_PROOFS = [
+  { id: 'walks', ref: DIG, q: r`Let $A$ be the adjacency matrix of a digraph and $P(k)$: entry $(i,j)$ of $A^k$ is the number of walks of length $k$ from $v_i$ to $v_j$. Prove by induction that $P(k)$ holds for all $k \ge 1$.`,
+    a: [r`Base $k = 1$: $a_{ij} = 1$ exactly when there is an edge $v_i \to v_j$, the only walk of length $1$.`,
+      r`Step: assume $P(k)$. A walk of length $k+1$ from $v_i$ to $v_j$ is an edge $v_i \to v_h$ followed by a walk of length $k$ from $v_h$ to $v_j$.`,
+      r`So the number is $\sum_h a_{ih}\,(A^k)_{hj} = (A \cdot A^k)_{ij} = (A^{k+1})_{ij}$, which is $P(k+1)$.`] },
+  { id: 'geometric', ref: SUM, q: r`Let $x \ne 1$ and $P(n)$: $\sum_{i=0}^{n-1} x^i = \dfrac{1 - x^n}{1 - x}$. Prove by induction that $P(n)$ holds for all $n \ge 1$.`,
+    a: [r`Base $n = 1$: the left side is $1$ and the right side is $\tfrac{1 - x}{1 - x} = 1$.`,
+      r`Step: assume $P(n)$. Then $\sum_{i=0}^{n} x^i = \dfrac{1 - x^n}{1 - x} + x^n = \dfrac{1 - x^n + x^n - x^{n+1}}{1 - x} = \dfrac{1 - x^{n+1}}{1 - x}$, which is $P(n+1)$.`] },
+  { id: 'bounds', ref: APP, plain: true, q: r`Let $f$ be increasing and positive, $S = \sum_{i=1}^{n} f(i)$ and $I = \int_1^n f(x)\,dx$. Prove that $I + f(1) \le S \le I + f(n)$.`,
+    a: [r`For an increasing $f$ and each $i$: $f(i) \le \int_i^{i+1} f(x)\,dx \le f(i+1)$.`,
+      r`Add these for $i = 1, \dots, n-1$: $\sum_{i=1}^{n-1} f(i) \le I \le \sum_{i=2}^{n} f(i)$.`,
+      r`Add $f(n)$ to the left sum: $S \le I + f(n)$. Add $f(1)$ to the right sum: $I + f(1) \le S$.`] },
+  { id: 'bigtheta', ref: ASY, plain: true, q: r`Prove from the definitions that $6x^3 + 5x^2 = \Theta(x^3)$.`,
+    a: [r`Upper bound: for $x \ge 1$, $5x^2 \le 5x^3$, so $6x^3 + 5x^2 \le 11x^3$. Take $c = 11$, $x_0 = 1$: $f = O(x^3)$.`,
+      r`Lower bound: $6x^3 + 5x^2 \ge 6x^3$ for all $x \ge 0$, so $f = \Omega(x^3)$.`, r`Both hold, so $f = \Theta(x^3)$.`] },
+];
+
+export const BENES_WEIGHT = 0.4;
+
+export function makeProof(rnd, weight = BENES_WEIGHT) {
+  const pr = rnd() < weight ? BENES_PROOF : pick(OTHER_PROOFS, rnd);
+  return { stem: 'Proof.', parts: [{ pts: 60, q: pr.q, a: pr.a, facts: { id: pr.id, induction: !pr.plain } }], refs: [pr.ref] };
 }

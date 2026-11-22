@@ -3,6 +3,8 @@ import { describe, it, expect } from 'vitest';
 import katex from 'katex';
 import { buildMock } from '@shared/logic/mock-exam.js';
 import { DISCRETE_MOCK } from '../src/logic/mock-exam.js';
+import { seededRandom } from '@shared/logic/shuffle.js';
+import { makeProof, BENES_WEIGHT } from '../src/logic/mock-final.js';
 
 const SEEDS = Array.from({ length: 150 }, (_, i) => i * 104729 + 7);
 // Slots draw one of several types per seed, so tests find a part by facts.kind.
@@ -41,11 +43,29 @@ describe('exam frame', () => {
     expect([...kinds].sort()).toEqual(['annuity', 'benes', 'bigO', 'bounds', 'doubling', 'euler', 'hanoi', 'net', 'relation', 'tilde', 'walks']);
     for (const id of ['tilde', 'bigO', 'theta', 'basecase', 'recursion', 'recurrence', 'sqrt', 'recip', 'logn']) expect(ids.has(id), id).toBe(true);
   });
-  it('every exam has the Beneš induction proof; the Big O answers carry the class note', () => {
+  it('Beneš proof is favored: 30–50% of 200 seeds, all five proofs appear; the weight is checked (mutation)', () => {
+    const share = weight => {
+      const ids = Array.from({ length: 200 }, (_, i) => makeProof(seededRandom(i * 7919 + 3), weight).parts[0].facts.id);
+      return { frac: ids.filter(x => x === 'benes').length / ids.length, ids: new Set(ids) };
+    };
+    const real = share(BENES_WEIGHT);
+    expect(real.frac).toBeGreaterThanOrEqual(0.3);
+    expect(real.frac).toBeLessThanOrEqual(0.5);
+    expect([...real.ids].sort()).toEqual(['benes', 'bigtheta', 'bounds', 'geometric', 'walks']);
+    expect(BENES_WEIGHT).toBe(0.4);
+    // mutation: weight 1 makes every proof Beneš, so the share bounds must fail
+    expect(share(1).frac).toBeGreaterThan(0.5);
+    // the same seed gives the same exam proof
+    expect(buildMock(DISCRETE_MOCK, 9).questions[3]).toEqual(buildMock(DISCRETE_MOCK, 9).questions[3]);
+    for (const s of SEEDS) {
+      const proof = buildMock(DISCRETE_MOCK, s).questions[3].parts[0];
+      expect(proof.facts.induction).toBe(!['bounds', 'bigtheta'].includes(proof.facts.id));
+    }
+  });
+  it('proofs match the exam; Big O answers carry the class note', () => {
     const NOTE = 'a proof of a Big O claim by induction scores 0. Use the definition with constants c and x0.';
     for (const s of SEEDS) {
-      const ex = buildMock(DISCRETE_MOCK, s), proof = ex.questions[3].parts[0];
-      expect([proof.facts.id, proof.facts.induction]).toEqual(['benes', true]);
+      const ex = buildMock(DISCRETE_MOCK, s);
       ex.questions.flatMap(q => q.parts).filter(p => p.facts.kind === 'bigO' || p.facts.id === 'bigO')
         .forEach(p => expect(p.a.join(' ')).toContain(NOTE));
       // no question that asks for a Big O proof says "by induction"

@@ -9,7 +9,7 @@ Dạng đề: theo lời giáo trong giờ. Câu khái niệm trả lời ngắn
 | # | Chủ đề | Buổi | Dạng câu hay gặp |
 |---|---|---|---|
 | 1 | Mạng truyền thông: cây, mảng 2D, butterfly | W09 | Số switch, diameter, congestion theo $N$ |
-| 2 | Mạng Beneš (**quan trọng**: giáo nhấn mạnh; mọi mã đề đều có chứng minh Beneš) | W09–W10 | Hai cổng chung switch tầng đầu ($i$ và $i+N/2$); chứng minh congestion 1 bằng quy nạp và tô 2 màu |
+| 2 | Mạng Beneš (**quan trọng**: giáo nhấn mạnh; ưu tiên: khoảng 40% mã đề có chứng minh Beneš; mã còn lại có một trong bốn chứng minh khác) | W09–W10 | Hai cổng chung switch tầng đầu ($i$ và $i+N/2$); chứng minh congestion 1 bằng quy nạp và tô 2 màu |
 | 3 | Euler tour, Euler walk, Hamiltonian cycle | W10 | Xét bậc chẵn/lẻ để kết luận |
 | 4 | Đồ thị có hướng, ma trận kề, đếm walk | W10 | Ô $(i,j)$ của $A^k$; chứng minh định lý đếm walk bằng quy nạp |
 | 5 | Liên thông mạnh, DAG | W10 | Định nghĩa; kiểm trên ví dụ nhỏ |
@@ -33,4 +33,4 @@ Chưa học (sẽ thêm vào đề cương và đề khi lớp học tới): cá
 
 ## Đề Exlab
 
-Mỗi mã đề cho 4 câu, 200 điểm, 60 phút: 4 định nghĩa, trong đó 1 định nghĩa về ký hiệu tiệm cận (40); 5 câu trả lời ngắn (50): mạng hoặc Beneš, Euler hoặc walk, quan hệ, thời gian gấp đôi hoặc tháp Hà Nội, giới hạn $f/g$ cho $\sim$, và $O$ với $c$, $x_0$; annuity hoặc kẹp tổng bằng tích phân (50); một chứng minh (60): luôn là chứng minh Beneš bằng quy nạp. Không có chứng minh Big O bằng quy nạp; câu Big O có ghi chú của giáo. Định nghĩa có thể hỏi thêm trường hợp cơ sở, đệ quy, hệ thức truy hồi. Số câu, điểm và thời gian không đổi. Đây là đề tự soạn, không phải đề thật của giáo.
+Mỗi mã đề cho 4 câu, 200 điểm, 60 phút: 4 định nghĩa, trong đó 1 định nghĩa về ký hiệu tiệm cận (40); 5 câu trả lời ngắn (50): mạng hoặc Beneš, Euler hoặc walk, quan hệ, thời gian gấp đôi hoặc tháp Hà Nội, giới hạn $f/g$ cho $\sim$, và $O$ với $c$, $x_0$; annuity hoặc kẹp tổng bằng tích phân (50); một chứng minh (60): ưu tiên chứng minh Beneš bằng quy nạp (khoảng 40% mã đề); mã còn lại có một trong bốn chứng minh khác (đường đi, tổng cấp số nhân, kẹp tổng bằng tích phân, Big Theta). Không có chứng minh Big O bằng quy nạp; câu Big O có ghi chú của giáo. Định nghĩa có thể hỏi thêm trường hợp cơ sở, đệ quy, hệ thức truy hồi. Số câu, điểm và thời gian không đổi. Đây là đề tự soạn, không phải đề thật của giáo.
