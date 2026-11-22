@@ -38,8 +38,20 @@ describe('exam frame', () => {
       ex.questions.flatMap(q => q.parts).forEach(p => { if (p.facts.kind) kinds.add(p.facts.kind); if (p.facts.id) ids.add(p.facts.id); });
       ex.questions.forEach(q => q.refs.forEach(r => expect(r.sec, s).toBeTruthy()));
     }
-    expect([...kinds].sort()).toEqual(['annuity', 'benes', 'bigO', 'bounds', 'doubling', 'euler', 'net', 'relation', 'tilde', 'walks']);
-    for (const id of ['tilde', 'bigO', 'theta', 'bounds', 'bigtheta', 'sqrt', 'recip', 'logn']) expect(ids.has(id), id).toBe(true);
+    expect([...kinds].sort()).toEqual(['annuity', 'benes', 'bigO', 'bounds', 'doubling', 'euler', 'hanoi', 'net', 'relation', 'tilde', 'walks']);
+    for (const id of ['tilde', 'bigO', 'theta', 'basecase', 'recursion', 'recurrence', 'sqrt', 'recip', 'logn']) expect(ids.has(id), id).toBe(true);
+  });
+  it('every exam has the Beneš induction proof; the Big O answers carry the class note', () => {
+    const NOTE = 'a proof of a Big O claim by induction scores 0. Use the definition with constants c and x0.';
+    for (const s of SEEDS) {
+      const ex = buildMock(DISCRETE_MOCK, s), proof = ex.questions[3].parts[0];
+      expect([proof.facts.id, proof.facts.induction]).toEqual(['benes', true]);
+      ex.questions.flatMap(q => q.parts).filter(p => p.facts.kind === 'bigO' || p.facts.id === 'bigO')
+        .forEach(p => expect(p.a.join(' ')).toContain(NOTE));
+      // no question that asks for a Big O proof says "by induction"
+      ex.questions.flatMap(q => q.parts).filter(p => /O\(|\\Theta|\bBig O\b/.test(p.q) && p.facts.id !== 'benes').forEach(p => expect(p.q).not.toMatch(/induction/));
+    }
+    each('bigO', (f, p) => expect(p.a.join(' ')).toContain(NOTE));
   });
   it('same seed gives the same exam; seeds vary the exam', () => {
     expect(buildMock(DISCRETE_MOCK, 5)).toEqual(buildMock(DISCRETE_MOCK, 5));
@@ -102,6 +114,74 @@ describe('answers match separate counting', () => {
       expect(Vinf).toBeCloseTo(far, 4);
       expect(q.parts[1].a.join(' ')).toContain(sum.toFixed(2));
     });
+  });
+});
+
+describe('recursion: Towers of Hanoi (week 12)', () => {
+  // own simulation: rules checked on a peg state; own breadth-first search for the fewest moves
+  const apply = (st, d, a, b) => {
+    if (st[a].at(-1) !== d) return null;
+    if (st[b].length && st[b].at(-1) < d) return null;
+    const nx = { ...st, [a]: st[a].slice(0, -1), [b]: [...st[b], d] };
+    return nx;
+  };
+  const start = (n, src) => ({ A: [], B: [], C: [], [src]: Array.from({ length: n }, (_, i) => n - i) });
+  const shortest = (n, src, dst) => {
+    const key = s => JSON.stringify(s), goal = key(start(n, dst)); let level = [start(n, src)], seen = new Set([key(level[0])]);
+    for (let k = 0; ; k++) {
+      if (level.some(s => key(s) === goal)) return k;
+      const next = [];
+      for (const s of level) for (const a of 'ABC') for (const b of 'ABC') {
+        const d = s[a].at(-1), t = a !== b && d && apply(s, d, a, b);
+        if (t && !seen.has(key(t))) { seen.add(key(t)); next.push(t); }
+      }
+      level = next;
+    }
+  };
+  const parse = text => [...text.matchAll(/(\d): ([ABC])→([ABC])/g)].map(m => [+m[1], m[2], m[3]]);
+  const replay = (n, src, dst, moves) => {
+    let st = start(n, src);
+    for (const [d, a, b] of moves) { st = apply(st, d, a, b); if (!st) return false; }
+    return JSON.stringify(st) === JSON.stringify(start(n, dst));
+  };
+  const hanoiParts = [];
+  for (const s of SEEDS) { const p = find(buildMock(DISCRETE_MOCK, s), 'hanoi'); if (p) hanoiParts.push(p); }
+
+  it('moves variant: the printed moves obey the rules, reach the goal, and match the shortest count', () => {
+    const parts = hanoiParts.filter(p => p.facts.variant === 'moves');
+    expect(parts.length).toBeGreaterThan(10);
+    for (const p of parts) {
+      const [src, dst] = p.q.match(/peg ([ABC]) to peg ([ABC])/).slice(1), lines = p.a.slice(0, 3);
+      const moves = lines.flatMap(parse), total = +p.a[3].match(/= (\d+)/)[1];
+      expect(src).not.toBe(dst);
+      expect(replay(3, src, dst, moves)).toBe(true);
+      expect(moves.length).toBe(total);
+      expect(total).toBe(shortest(3, src, dst));
+      expect(moves.map(m => m[0])).toEqual([1, 2, 1, 3, 1, 2, 1]);
+      expect(parse(lines[1])).toEqual([[3, src, dst]]);
+    }
+  });
+  it('count variant: phase counts and total match the shortest solutions', () => {
+    const parts = hanoiParts.filter(p => p.facts.variant === 'count');
+    expect(parts.length).toBeGreaterThan(10);
+    for (const p of parts) {
+      expect(p.a.join(' ')).toContain(`${shortest(3, 'A', 'C')} + 1 + ${shortest(3, 'A', 'C')} = ${shortest(4, 'A', 'C')}`);
+    }
+  });
+  it('recurrence definition: T(n) = 2T(n-1) + 1 matches the shortest solutions for n = 1..4', () => {
+    for (let n = 1; n <= 4; n++) expect(shortest(n, 'A', 'C')).toBe(n === 1 ? 1 : 2 * shortest(n - 1, 'A', 'C') + 1);
+    let found = 0;
+    for (const s of SEEDS) for (const p of buildMock(DISCRETE_MOCK, s).questions[0].parts) if (p.facts.id === 'recurrence') { found++; expect(p.a.join(' ')).toContain('T(n) = 2T(n-1) + 1'); }
+    expect(found).toBeGreaterThan(10);
+  });
+  it('mutation: a wrong move, a missing move or a wrong total fails the check', () => {
+    const p = hanoiParts.find(x => x.facts.variant === 'moves'), { src, dst } = p.facts, moves = p.facts.moves;
+    const parsed = p.a.slice(0, 3).flatMap(parse);
+    expect(replay(3, src, dst, parsed)).toBe(true);
+    expect(replay(3, src, dst, parsed.slice(0, 6))).toBe(false);
+    expect(replay(3, src, dst, parsed.map((m, i) => (i === 3 ? [3, m[2], m[1]] : m)))).toBe(false);
+    expect(replay(3, src, dst, [...parsed.slice(1, 2), ...parsed.slice(0, 1), ...parsed.slice(2)])).toBe(false);
+    expect(moves.length + 1).not.toBe(shortest(3, src, dst));
   });
 });
 

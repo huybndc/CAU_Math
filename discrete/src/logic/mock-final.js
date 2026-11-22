@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------
    PRACTICE FINAL EXAM (Discrete Math), pure. Scope = class after the midterm (D75): communication networks (Beneš),
    Euler tours, directed graphs and walk counting, relations, sums (annuities, geometric series), bounds on sums by
-   integrals, asymptotic notation (~, O, Θ). Counting rules are not taught yet, so they are not asked.
+   integrals, asymptotic notation (~, O, Θ), and recursion (Towers of Hanoi, class of week 12). Counting rules are not taught yet, so they are not asked.
    Form follows the midterm: definitions, short answers, short proofs. English text, LaTeX $…$; facts = raw data for tests.
    Section numbers follow MCS (MIT 6.042J, 2017); "11" and "10" are chapter-level where the section is not checked.
    --------------------------------------------------------------- */
@@ -16,6 +16,8 @@ const num = (a, c) => { const g = gcd(a, c), [n, d] = [a / g, c / g]; return d =
 
 const NET = ['11', 'Communication networks'], DIG = ['10', 'Directed graphs and partial orders'], SUM = ['14.1', 'The value of an annuity'];
 const EUL = ['12', 'Simple graphs (Euler tours)'], REL = ['10', 'Directed graphs: relations'];
+const REC = ['10.1', 'Towers of Hanoi (course reading)'];
+const BIGO_NOTE = r`Note (from class, as remembered): a proof of a Big O claim by induction scores 0. Use the definition with constants c and x0.`;
 const APP = ['9.3', 'Approximating sums'], ASY = ['9.7', 'Asymptotic notation'], HAR = ['9.4', 'Hanging out over the edge (harmonic numbers)'], PRD = ['9.6', 'Products (n!)'];
 
 const DEFS = [
@@ -29,11 +31,16 @@ const DEFS = [
     a: [r`For a routing of a permutation, the congestion is the largest number of paths through one switch. The congestion of the network is the largest such value over all permutations, each routed in the best way.`] },
   { id: 'pv', ref: SUM, q: r`Define the present value of a payment of $M$ dollars made $t$ years from now, at yearly interest rate $p$.`,
     a: [r`It is the amount that grows to $M$ in $t$ years at rate $p$: $M/(1+p)^t$.`] },
+  // Recursion: only what class taught on Towers of Hanoi (base case, subproblem, recurrence as a statement about the phases).
+  { id: 'basecase', ref: REC, q: r`Define the base case of a recursive solution.`, a: [r`The smallest case, whose answer is known at once with no further splitting. For Towers of Hanoi it is $n = 0$ disks: there is nothing to move.`] },
+  { id: 'recursion', ref: REC, q: r`Define recursion (a recursive solution) and name its two parts.`, a: [r`Recursion solves a problem by using the solution of the same problem on a smaller input (a subproblem). It has a base case that stops the chain and a recursive step that reduces the problem to smaller ones.`] },
+  { id: 'recurrence', ref: REC, q: r`Define a recurrence. Give the one for the number of moves $T(n)$ of the three-phase Towers of Hanoi method.`,
+    a: [r`A recurrence gives a value of a sequence in terms of smaller values of the same sequence.`, r`The three phases move $n-1$ disks, then $1$ disk, then $n-1$ disks again, so $T(n) = 2T(n-1) + 1$ with $T(0) = 0$.`] },
 ];
 
 const ASY_DEFS = [
   { id: 'tilde', ref: ASY, q: r`Define $f(x) \sim g(x)$ (asymptotic equality).`, a: [r`$f(x) \sim g(x)$ means $\displaystyle\lim_{x \to \infty} f(x)/g(x) = 1$.`] },
-  { id: 'bigO', ref: ASY, q: r`Define $f(x) = O(g(x))$.`, a: [r`There are constants $c > 0$ and $x_0$ such that $|f(x)| \le c\,|g(x)|$ for all $x \ge x_0$. It is an upper bound only.`] },
+  { id: 'bigO', ref: ASY, q: r`Define $f(x) = O(g(x))$.`, a: [r`There are constants $c > 0$ and $x_0$ such that $|f(x)| \le c\,|g(x)|$ for all $x \ge x_0$. It is an upper bound only.`, BIGO_NOTE] },
   { id: 'theta', ref: ASY, q: r`Define $f(x) = \Theta(g(x))$.`, a: [r`$f = O(g)$ and $f = \Omega(g)$, where $f = \Omega(g)$ means $f$ is at least a positive multiple of $g$ for all large $x$ ($g = O(f)$).`] },
 ];
 
@@ -45,6 +52,10 @@ export function makeDefinitions(rnd) {
     refs: defs.map(d => d.ref).filter(x => !seen.has(x.join()) && seen.add(x.join())),
   };
 }
+
+// Towers of Hanoi by the three phases taught in class (n-1 disks to the spare peg, the big disk, n-1 disks onto it).
+const hanoiMoves = (n, src, dst, tmp) => (n === 0 ? [] : [...hanoiMoves(n - 1, src, tmp, dst), [n, src, dst], ...hanoiMoves(n - 1, tmp, dst, src)]);
+const showMoves = ms => ms.map(([d, a, b]) => `${d}: ${a}→${b}`).join(', ');
 
 // network facts for N = 2^a inputs: [question, value(N, lg), answer text]
 const NETS = [
@@ -85,6 +96,13 @@ export function makeShortAnswers(rnd) {
   const vx = i => `v_${i + 1}`;
   const [ta, tb, tc] = [int(1, 3, rnd), int(1, 5, rnd), int(1, 3, rnd)], tlim = ta / tc;
   const od = int(2, 3, rnd), [oa, ob] = [int(1, 6, rnd), int(1, 6, rnd)], pc = pick([2, 3, 4, 5, 6, 8, 10], rnd), dbl = Math.log(2) / Math.log(1 + pc / 100);
+  const [hs, hd, ht] = shuffled(['A', 'B', 'C'], rnd), moves3 = hanoiMoves(3, hs, hd, ht);
+  const hanoi = pick([true, false], rnd)
+    ? { pts: 10, q: r`Towers of Hanoi with $4$ disks, solved by the three phases. Class found that $3$ disks take $7$ moves. How many moves do phase 1, phase 2 and phase 3 take for $4$ disks, and what is the total?`,
+        a: [r`Phase 1 moves $3$ disks: $7$ moves. Phase 2 moves the largest disk: $1$ move. Phase 3 moves $3$ disks again: $7$ moves.`, r`Total: $T(4) = 2T(3) + 1 = 7 + 1 + 7 = 15$ moves.`], facts: { kind: 'hanoi', variant: 'count', n: 4, steps: 15 } }
+    : { pts: 10, q: r`Towers of Hanoi with $3$ disks (disk $1$ is the smallest) on pegs A, B, C. Move all disks from peg ${hs} to peg ${hd} with the three phases. List the moves of each phase and the total.`,
+        a: [`Phase 1 (disks 1–2, ${hs}→${ht}): ${showMoves(hanoiMoves(2, hs, ht, hd))}.`, `Phase 2 (disk 3, ${hs}→${hd}): ${showMoves([[3, hs, hd]])}.`, `Phase 3 (disks 1–2, ${ht}→${hd}): ${showMoves(hanoiMoves(2, ht, hd, hs))}.`, r`Total: $3 + 1 + 3 = 7$ moves.`],
+        facts: { kind: 'hanoi', variant: 'moves', n: 3, src: hs, dst: hd, tmp: ht, moves: moves3, steps: moves3.length } };
   const P = [
       { pts: 10, q: r`Let $N = ${N}$. ${net[0]}`, a: [r`$${net[2]} = ${netVal}$ for $N = ${N}$ ($\log N = ${lg}$).`], facts: { kind: 'net', N, lg, id: NETS.indexOf(net), value: netVal } },
       { pts: 10, q: r`In a Beneš network with $N = ${N}$ inputs, which input shares a first-level switch with input $${port}$? Can their packets use the same subnetwork?`,
@@ -101,9 +119,10 @@ export function makeShortAnswers(rnd) {
       { pts: 10, q: r`Let $f(x) = ${ta}x^2 + ${tb}x$ and $g(x) = ${tc}x^2$. Compute $\lim_{x \to \infty} f(x)/g(x)$. Is $f(x) \sim g(x)$?`,
         a: [r`$f/g = \dfrac{${ta} + ${tb}/x}{${tc}} \to ${num(ta, tc)}$ as $x \to \infty$.`, tlim === 1 ? r`The limit is $1$, so $f \sim g$.` : r`The limit is not $1$, so $f \not\sim g$ (but $f = \Theta(g)$).`], facts: { kind: 'tilde', a: ta, b: tb, c: tc, limit: tlim, sim: tlim === 1 } },
       { pts: 10, q: r`Let $f(x) = ${oa}x^${od} + ${ob}x^${od - 1}$. Find constants $c$ and $x_0$ with $f(x) \le c\,x^${od}$ for all $x \ge x_0$. Is $f = \Theta(x^${od})$?`,
-        a: [r`For $x \ge 1$: $${ob}x^${od - 1} \le ${ob}x^${od}$, so $f(x) \le ${oa + ob}\,x^${od}$. Take $c = ${oa + ob}$, $x_0 = 1$, so $f = O(x^${od})$.`, r`Also $f(x) \ge ${oa}x^${od}$, so $f = \Omega(x^${od})$. Hence $f = \Theta(x^${od})$.`], facts: { kind: 'bigO', d: od, a: oa, b: ob, c: oa + ob, x0: 1 } },
+        a: [r`For $x \ge 1$: $${ob}x^${od - 1} \le ${ob}x^${od}$, so $f(x) \le ${oa + ob}\,x^${od}$. Take $c = ${oa + ob}$, $x_0 = 1$, so $f = O(x^${od})$.`, r`Also $f(x) \ge ${oa}x^${od}$, so $f = \Omega(x^${od})$. Hence $f = \Theta(x^${od})$.`, BIGO_NOTE], facts: { kind: 'bigO', d: od, a: oa, b: ob, c: oa + ob, x0: 1 } },
+      hanoi,
   ];
-  const chosen = [pick([P[0], P[1]], rnd), pick([P[2], P[3]], rnd), pick([P[4], P[5]], rnd), P[6], P[7]], refOf = { net: NET, benes: NET, euler: EUL, walks: DIG, relation: REL, doubling: SUM, tilde: ASY, bigO: ASY };
+  const chosen = [pick([P[0], P[1]], rnd), pick([P[2], P[3]], rnd), pick([P[4], P[5], P[8]], rnd), P[6], P[7]], refOf = { net: NET, benes: NET, euler: EUL, walks: DIG, relation: REL, doubling: SUM, tilde: ASY, bigO: ASY, hanoi: REC };
   return {
     stem: r`Short answers. Give the value and one line of reason.`,
     parts: chosen,
@@ -164,29 +183,15 @@ export function makeSumBounds(rnd) {
   };
 }
 
-const PROOFS = [
-  { id: 'walks', ref: DIG, q: r`Let $A$ be the adjacency matrix of a digraph and $P(k)$: entry $(i,j)$ of $A^k$ is the number of walks of length $k$ from $v_i$ to $v_j$. Prove by induction that $P(k)$ holds for all $k \ge 1$.`,
-    a: [r`Base $k = 1$: $a_{ij} = 1$ exactly when there is an edge $v_i \to v_j$, the only walk of length $1$.`,
-      r`Step: assume $P(k)$. A walk of length $k+1$ from $v_i$ to $v_j$ is an edge $v_i \to v_h$ followed by a walk of length $k$ from $v_h$ to $v_j$.`,
-      r`So the number is $\sum_h a_{ih}\,(A^k)_{hj} = (A \cdot A^k)_{ij} = (A^{k+1})_{ij}$, which is $P(k+1)$.`] },
-  { id: 'geometric', ref: SUM, q: r`Let $x \ne 1$ and $P(n)$: $\sum_{i=0}^{n-1} x^i = \dfrac{1 - x^n}{1 - x}$. Prove by induction that $P(n)$ holds for all $n \ge 1$.`,
-    a: [r`Base $n = 1$: the left side is $1$ and the right side is $\tfrac{1 - x}{1 - x} = 1$.`,
-      r`Step: assume $P(n)$. Then $\sum_{i=0}^{n} x^i = \dfrac{1 - x^n}{1 - x} + x^n = \dfrac{1 - x^n + x^n - x^{n+1}}{1 - x} = \dfrac{1 - x^{n+1}}{1 - x}$, which is $P(n+1)$.`] },
+// The teacher said Beneš is important, so every exam has the Beneš proof (by induction). No Big O proof uses induction.
+const BENES_PROOF =
   { id: 'benes', ref: NET, q: r`Let $P(a)$: the Beneš network with $N = 2^a$ inputs routes every permutation with congestion $1$. Prove by induction that $P(a)$ holds for all $a \ge 1$.`,
     a: [r`Base $a = 1$: one $2 \times 2$ switch passes the two packets straight or crossed, one packet each way.`,
       r`Step: assume $P(a)$. Join two packets by an edge if their inputs differ by $N/2$ (same first-level switch) or their outputs differ by $N/2$ (same last-level switch).`,
       r`Each packet has at most one edge of each kind, and edges of the two kinds alternate around any cycle, so every cycle is even and the graph has a $2$-coloring.`,
-      r`Send one color through the upper Beneš subnetwork and the other through the lower one. The first and last levels then carry one packet per switch side, and by $P(a)$ each subnetwork routes its packets with congestion $1$. This is $P(a+1)$.`] },
-  { id: 'bounds', ref: APP, plain: true, q: r`Let $f$ be increasing and positive, $S = \sum_{i=1}^{n} f(i)$ and $I = \int_1^n f(x)\,dx$. Prove that $I + f(1) \le S \le I + f(n)$.`,
-    a: [r`For an increasing $f$ and each $i$: $f(i) \le \int_i^{i+1} f(x)\,dx \le f(i+1)$.`,
-      r`Add these for $i = 1, \dots, n-1$: $\sum_{i=1}^{n-1} f(i) \le I \le \sum_{i=2}^{n} f(i)$.`,
-      r`Add $f(n)$ to the left sum: $S \le I + f(n)$. Add $f(1)$ to the right sum: $I + f(1) \le S$.`] },
-  { id: 'bigtheta', ref: ASY, plain: true, q: r`Prove from the definitions that $6x^3 + 5x^2 = \Theta(x^3)$.`,
-    a: [r`Upper bound: for $x \ge 1$, $5x^2 \le 5x^3$, so $6x^3 + 5x^2 \le 11x^3$. Take $c = 11$, $x_0 = 1$: $f = O(x^3)$.`,
-      r`Lower bound: $6x^3 + 5x^2 \ge 6x^3$ for all $x \ge 0$, so $f = \Omega(x^3)$.`, r`Both hold, so $f = \Theta(x^3)$.`] },
-];
+      r`Send one color through the upper Beneš subnetwork and the other through the lower one. The first and last levels then carry one packet per switch side, and by $P(a)$ each subnetwork routes its packets with congestion $1$. This is $P(a+1)$.`] };
 
-export function makeProof(rnd) {
-  const pr = pick(PROOFS, rnd);
-  return { stem: 'Proof.', parts: [{ pts: 60, q: pr.q, a: pr.a, facts: { id: pr.id, induction: !pr.plain } }], refs: [pr.ref] };
+export function makeProof() {
+  const pr = BENES_PROOF;
+  return { stem: 'Proof.', parts: [{ pts: 60, q: pr.q, a: pr.a, facts: { id: pr.id, induction: true } }], refs: [pr.ref] };
 }
