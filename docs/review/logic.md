@@ -1,6 +1,6 @@
 # Đề cương ôn cuối kỳ: Logic Circuit
 
-Sách: M. Morris Mano, *Digital Design* (6th ed.). Phạm vi lấy theo slide lớp: chương 1–4 và chương 5 (phần 1 và phần 2). Ngày thi cuối kỳ chưa có thông báo chính thức; lịch dưới đây dùng mốc tạm là tuần 16 (2026-12-14 đến 2026-12-18).
+Sách: M. Morris Mano, *Digital Design* (6th ed.). Giữa kỳ đã thi chương 1–4, và cuối kỳ không ra lại các dạng câu của giữa kỳ (Huy, 2026-11-22). Vì vậy đề cuối kỳ chỉ lấy chương 5 (phần 1 và phần 2). Chủ đề 1–9 dưới đây là nền để làm chương 5, không ra thành câu riêng. Ngày thi cuối kỳ chưa có thông báo chính thức; lịch dưới đây dùng mốc tạm là tuần 16 (2026-12-14 đến 2026-12-18).
 
 Dạng đề: theo đề giữa kỳ thật. Ít câu lớn, mỗi câu nhiều ý từ dễ đến khó, ý sau dùng kết quả ý trước. Giáo không cho điểm từng phần: một ý đúng hết thì đủ điểm, sai một chỗ thì 0. Giáo nói đề cuối kỳ có thể đổi dạng.
 
@@ -29,12 +29,12 @@ Chưa có slide (sẽ thêm vào đề cương và đề khi lớp học tới):
 
 | Tuần | Từ ngày | Ôn | Làm |
 |---|---|---|---|
-| 12 | 11-16 | Chủ đề 10–14: latch, flip-flop, phân tích, rút gọn và thiết kế mạch tuần tự | 1 đề Exlab, chỉ làm câu 3 và 4 |
-| 13 | 11-23 | Chủ đề 3–5: K-map, don't-care, POS, chuyển mã | 1 đề Exlab, chỉ làm câu 1; tự làm thêm POS |
-| 14 | 11-30 | Chủ đề 6–9: adder, BCD adder, comparator, decoder, MUX | 1 đề Exlab, chỉ làm câu 2; vẽ lại Fig. 4.13 và 4.14 |
+| 12 | 11-16 | Chủ đề 10–12: latch, flip-flop, phân tích mạch tuần tự | 1 đề Exlab, chỉ làm câu 1 và 3 |
+| 13 | 11-23 | Chủ đề 13: rút gọn và gán mã trạng thái; ôn lại K-map (dùng trong thiết kế) | 1 đề Exlab, chỉ làm câu 2 |
+| 14 | 11-30 | Chủ đề 14: thiết kế bộ dò chuỗi và bộ đếm bằng D, JK, T | 2 đề Exlab, chỉ làm câu 4 (một bộ dò chuỗi, một bộ đếm) |
 | 15 | 12-07 | Điểm yếu của tuần 12–14 | 2 đề Exlab trọn vẹn, bấm giờ 60 phút |
 | 16 | 12-14 | Thi (ngày chưa rõ) | Xem lại cheatsheet và các ý đã sai |
 
 ## Đề Exlab
 
-Mỗi mã đề cho 4 câu, 200 điểm, 60 phút: K-map thiết kế (40), thiết kế mạch (65), flip-flop (35), phân tích mạch tuần tự (60). Câu 3 và câu 4 chọn một dạng cho mỗi mã đề: câu 3 là flip-flop hoặc rút gọn trạng thái (5.7); câu 4 là phân tích mạch, thiết kế bộ dò chuỗi hoặc thiết kế bộ đếm (5.8). Câu 1 và câu 2 cũng chọn một trong hai dạng. Số câu, điểm và thời gian không đổi. Đây là đề tự soạn, không phải đề thật của giáo.
+Mỗi mã đề cho 4 câu, 200 điểm, 60 phút, chỉ chương 5: flip-flop (40), rút gọn trạng thái (40), phân tích mạch tuần tự (60), thiết kế bộ dò chuỗi hoặc bộ đếm (60). Câu 4 chọn một dạng cho mỗi mã đề. Đây là đề tự soạn, không phải đề thật của giáo.

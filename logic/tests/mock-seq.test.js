@@ -27,8 +27,8 @@ function oracle(kind, eqs, out) {
   });
 }
 
-describe('Ch5 sequential analysis (Q4)', () => {
-  const qs = exams.map(e => e.questions[3]).filter(q => (q.parts[0].facts.kind ?? '').startsWith('seq-'));
+describe('Ch5 sequential analysis (Q3)', () => {
+  const qs = qOfKind('seq-');
   it('state table, state equations, diagram and trace match the oracle on 60 seeds', () => {
     for (const q of qs) {
       const [pEq, pTab, pDia, pSeq] = q.parts;
@@ -78,8 +78,8 @@ describe('Ch5 sequential analysis (Q4)', () => {
   });
 });
 
-describe('Ch5 latch and flip-flop (Q3)', () => {
-  const qs = exams.map(e => e.questions[2]).filter(q => (q.parts[0].facts.kind ?? '').startsWith('ff-'));
+describe('Ch5 latch and flip-flop (Q1)', () => {
+  const qs = qOfKind('ff-');
   it('Q sequence follows the hand-copied characteristic table; SR never gets S = R = 1', () => {
     for (const q of qs) {
       const kind = q.parts[0].facts.kind.slice(3), { steps } = q.parts[2].facts;
@@ -117,7 +117,7 @@ const qOfKind = prefix => exams.map(e => e.questions).flat().filter(q => (q.part
 const eqOf = (lines, name) => lines.map(l => l.match(new RegExp(`^\\$${name.replace('_', '_')} = (.*)\\$(?::|$)`))).find(Boolean)?.[1];
 const evalSopText = (expr, v) => (expr === '0' ? 0 : expr === '1' ? 1 : expr.split(' + ').some(t => [...t.matchAll(/([ABx])('?)/g)].every(([, n, p]) => (p ? 1 - v[n] : v[n]) === 1)) ? 1 : 0);
 
-describe('Ch5 state reduction and assignment (Q3, Mano 5.7)', () => {
+describe('Ch5 state reduction and assignment (Q2, Mano 5.7)', () => {
   const qs = qOfKind('reduce-pair');
   // Own oracle: run every input string of length <= 6 from a state and collect the outputs.
   const run = (nx, ot, s, str) => str.map(x => { const o = ot[s][x]; s = nx[s][x]; return o; }).join('');
