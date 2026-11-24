@@ -1,4 +1,4 @@
-/* Đề thi thử cuối kỳ (Logic): chỉ chương 5, vì giữa kỳ đã thi chương 1–4 và cuối kỳ không ra lại (Huy, 2026-11-22). Oracle từng dạng ở mock-seq.test.js. */
+/* Đề thi thử cuối kỳ (Logic): chương 5–7; không lặp dạng giữa kỳ. Oracle ở mock-seq.test.js và mock-storage.test.js. */
 import { describe, it, expect } from 'vitest';
 import katex from 'katex';
 import { buildMock } from '@shared/logic/mock-exam.js';
@@ -8,12 +8,12 @@ const ex = buildMock(LOGIC_MOCK, 9);
 const SEEDS = Array.from({ length: 40 }, (_, i) => i * 131 + 7);
 
 describe('đề Logic', () => {
-  it('4 câu, 200 điểm, 60 phút; chỉ chương 5 ở mọi mã đề (không ra lại dạng giữa kỳ); cùng seed ⇒ cùng đề; có ghi chú chấm', () => {
+  it('4 câu, 200 điểm, 60 phút; chỉ chương 5–7; cùng seed ⇒ cùng đề; có ghi chú chấm', () => {
     for (const seed of SEEDS) {
       const e = buildMock(LOGIC_MOCK, seed);
       expect(e.questions.map(q => q.pts), `${seed}`).toEqual([40, 40, 60, 60]);
       expect([e.total, e.minutes]).toEqual([200, 60]);
-      e.questions.forEach(q => { expect(q.refs.length).toBeGreaterThan(0); q.refs.forEach(x => expect(x.sec, `${seed}`).toMatch(/^5\./)); });
+      e.questions.forEach(q => { expect(q.refs.length).toBeGreaterThan(0); q.refs.forEach(x => expect(x.sec, `${seed}`).toMatch(/^[5-7]\./)); });
     }
     expect(ex.note).toMatch(/all or nothing/);
     expect(buildMock(LOGIC_MOCK, 9)).toEqual(ex);
@@ -30,12 +30,12 @@ describe('đề Logic', () => {
     const combo = s => buildMock(LOGIC_MOCK, s).questions.map(q => q.parts[0].facts.kind).join('/');
     expect(new Set(Array.from({ length: 10 }, (_, s) => combo(s + 1))).size).toBeGreaterThanOrEqual(6);
   });
-  it('thứ tự dễ đến khó: flip-flop, rút gọn trạng thái, phân tích, thiết kế hoặc bộ đếm, ở mọi mã đề', () => {
+  it('thứ tự giữ bốn slot: flip-flop; reduction/memory; analysis/register; design/counter', () => {
     for (const seed of SEEDS) {
       const e = buildMock(LOGIC_MOCK, seed);
       expect(e.questions[0].parts[0].facts.kind).toMatch(/^ff-/);
-      expect(e.questions[1].parts[0].facts.kind).toMatch(/^reduce-/);
-      expect(e.questions[2].parts[0].facts.kind).toMatch(/^seq-/);
+      expect(e.questions[1].parts[0].facts.kind).toMatch(/^(reduce-|memory-)/);
+      expect(e.questions[2].parts[0].facts.kind).toMatch(/^(seq-|register-)/);
       expect(e.questions[3].parts[0].facts.kind).toMatch(/^(design|counter)-/);
       expect([e.total, e.minutes]).toEqual([200, 60]);
     }
@@ -43,8 +43,12 @@ describe('đề Logic', () => {
 });
 
 describe('mục sách trích dẫn khớp mục lục Mano 6th', () => {
-  // Chép tay từ mục lục sách (chương 5) để bắt số mục sai.
-  const TOC = { '5.3': 'latches', '5.4': 'flip-flops', '5.5': 'analysis of clocked sequential circuits', '5.7': 'state reduction and assignment', '5.8': 'design procedure' };
+  const TOC = {
+    '5.3': 'latches', '5.4': 'flip-flops', '5.5': 'analysis of clocked sequential circuits',
+    '5.7': 'state reduction and assignment', '5.8': 'design procedure',
+    '6.1': 'registers', '6.2': 'shift registers',
+    '7.2': 'random-access memory', '7.3': 'memory decoding', '7.5': 'read-only memory',
+  };
   it('mỗi ref có số mục trong mục lục và tên khớp', () => {
     for (const s of SEEDS) buildMock(LOGIC_MOCK, s).questions.forEach(q => q.refs.forEach(r => {
       expect(TOC[r.sec], `§${r.sec}`).toBeTruthy();

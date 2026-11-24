@@ -5,57 +5,9 @@ This file lists active decisions. Find reasons and trade-offs in [`docs/DECISION
 Subject-specific decisions are in `logic/PLAN.md` and `linalg/PLAN.md`.
 
 - D01–D10. App structure, localhost, syllabus sources, workbench design, help popover, and routes. See the archive section "D01–D16".
-- D11. Prioritize course content over framework work.
-- D12. Use one shared practice runner and generated question banks per chapter.
-- D13. Show each `##` lesson section as a card. The 120-word display cap applies to lesson cards only.
-- D14. Use an interactive control when the answer has a natural visual form.
-- D15. Use a text scratchpad. Do not add handwriting input.
-- D16. Use task-based navigation: Overview, Learn, Practice, and Mock Exam.
-- D17. Keep practice logs append-only. Derive totals from the log.
-- D18. Give each question type a standard time value in `SECONDS`.
-- D19. Do not copy the TOEIC app. Use fewer options, a technical-document style, and desktop UI.
-- D20. Build full exams from seeds. Use 60–90 minutes, weight topics by course week, and omit quick-recognition questions.
-- D21. Explain where an answer is wrong and how to fix it.
-- D22. Use clear textbook-style exams. Avoid duplicate questions and balance multiple-choice and free-response questions.
-- D23. Give a step-by-step solution for every question, whether the answer is right or wrong.
-- D24. Include both free-response and multiple-choice questions in the Linear Algebra bank.
-- D25. Keep a Tools section in navigation.
-- D26. Phase 3 uses lessons organized by knowledge point (research U-R6).
-- D27. Generate concept questions in batches with Gemini. Validate them by machine and approve them before adding them to the app.
-- D28. Show K-map diagrams beside their solution steps. Keep the Tools page compact.
-- D29. Use a tree for course structure and a graph for prerequisite links.
-- D30. Group related features under four navigation sections. Group practice by topic.
-- D31. Measure duplication before refactoring.
-- D32. Build computable Discrete Math chapters first: D1, D6, and D7.
-- D33. Complete D1–D7 before the midterm, including computable questions for proof-focused chapters.
-- D34. Add interactive Discrete Math tools under Tools.
-- D35. Build Discrete Math D8 when the class reaches graph theory.
-- D36. Write Discrete Math concept questions by hand. Keep answer length close to the question's needs.
-- D37. Sync progress between two laptops through a cloud folder. Do not deploy this feature.
-- D38. Export progress to `~/study-progress/math.json`.
-- D39. Complete Logic Circuit Chapter 4 question types before the midterm. Build tools later.
-- D40. Prevent duplicate questions at the source, shorten practice rounds, and expand the question bank.
-- D41. Show real truth tables in solutions and use an independent oracle before generating questions.
-- D42. Accept `sqrt(x)` in numeric fields and mix question types in mock exams.
-- D43. Start the semester calendar on September 1. Infer the current chapter from learner activity, not the syllabus.
-- D44. Add independent oracle tests for all 25 Linear Algebra computational types.
-- D45. Add independent oracle tests for Logic Circuit Chapters 1, 3, and 4.
-- D46. Add independent oracle tests for Discrete Math D2–D8.
-- D47. Serve the online app through a Study_Hub Worker while keeping this repository independent (2026-09-26).
-- D48. Base concept questions on external problems with worked solutions, not AI-derived content (2026-09-26).
-- D49. Use Discrete Math handouts for topic structure only. Do not copy their content (2026-09-29).
-- D51. Reduce scrolling in Linear Algebra practice and use answer fields that match the math (2026-10-01).
-- D52. Keep `shared/` pure and connect host storage through `@host`. Use tabbed scratch storage as the standard (2026-10-01).
-- D53. Use TOPIK-style mock exams with 80% free-response and 20% multiple-choice questions in every subject (2026-10-01).
-- D54. Use a Desmos-style scientific calculator. Do not add another Tools section (2026-10-01).
-- D55. Add an `Ax = b` solver to the scratchpad and plan math calculators for later subjects (2026-10-01).
-- D56. Add drag, resize, and a drawing tab to the scratchpad (2026-10-01).
-- D57. Add real Discrete Math free-response questions to reach the 80/20 exam mix (2026-10-01).
-- D56b. Make the scratchpad a floating window that does not move page content (2026-10-01).
-- D58. Apply changes from the first user review (2026-10-01).
-- D59. Apply changes from the second user review (2026-10-01).
-- D60. Import history into the correct account (2026-10-01).
-- D61. Merge logs by occurrence count (2026-10-01).
+- D11–D29. Course content, shared practice, lesson cards, task navigation, seeded exams, worked solutions, tools, and course structure. See the archive and git history.
+- D30–D46. Practice grouping, Discrete Math build order, progress export, duplicate prevention, and independent solution oracles. See the archive and git history.
+- D47–D61. Repository independence, source rules, compact practice UI, mock-exam mix, scratchpad behavior, and log migration. See the archive and git history.
 - D-no-billing. Do not enable billing for project services (2026-10-03).
 - D-help. Put help on each screen. Do not create a separate help page (2026-10-03).
 - D62. Remove the shared overview at `/`. Study_Hub owns cross-course views (2026-10-15).
@@ -71,3 +23,4 @@ Subject-specific decisions are in `logic/PLAN.md` and `linalg/PLAN.md`.
 - D73. Rework the C mock exam (learner, 2026-11-10). The real midterm has 20 questions with 1–3 parts each, about 35–40 parts in all, and some multiple choice. Real questions mix ideas and do not repeat one skeleton. `BLUEPRINT` sets 20 slots (parts, level), 38 parts, 100 points. Order follows level with a small random shift. A test fails when two questions in one exam share more than half of their code lines.
 - D74. Make C multiple choice theory-heavy (learner, 2026-11-10). The real exam asks theory, such as the difference between pointer operators. Of 3 multiple-choice questions, 2 are theory and 1 is output. Theory types: pointer operators, pass by value or pointer, reading declarations, pick the false statement, and classify snippets. A clang probe backs each option. Other question types do not change.
 - D75. Change the Logic Circuit, Linear Algebra, and Discrete Math mock exams to final-exam review exams (learner, 2026-11-10). Each course has an outline in `docs/review/<course>.md` with topics, book sections, question types, and a schedule from week 12. The exam replaces the midterm exam on screen; the old template stays in git history. Logic Circuit: 4 questions, 200 points, 60 minutes, one all-or-nothing marking row per part; scope Mano 5.3–5.8 only, because the final does not repeat midterm question types (learner, 2026-11-22). Linear Algebra: 5 questions, 200 points, 120 minutes; scope Strang 3.5–4.4 and 5.1–5.3 (2026-11-21). Discrete Math: 4 questions, 200 points, 60 minutes; scope post-midterm topics with integral bounds and asymptotic notation (2026-11-21). Slots draw one of two or three question types per code. Update 2026-11-22: the Beneš induction proof is favored (weight 0.4, about 40% of exams), else one of four other proofs (the teacher stressed Beneš); a Big O proof never uses induction (the learner remembers the teacher said it scores 0, no recording); recursion (Towers of Hanoi, class of 2026-11-20) adds three definitions and one short answer, within the taught scope only.
+- D76. Extend the final-review banks to the new class scope (learner, 2026-11-24). Linear Algebra adds Strang 6.1–6.2 eigenvalues and eigenvectors. Discrete Math adds counting rules, named lemmas, more induction proofs, and scoring rubrics. Logic Circuit adds Mano Chapters 6–7 register and memory templates. Keep the existing exam totals and independent oracle tests.

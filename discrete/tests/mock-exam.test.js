@@ -7,11 +7,12 @@ import { seededRandom } from '@shared/logic/shuffle.js';
 import { makeProof, BENES_WEIGHT } from '../src/logic/mock-final.js';
 
 const SEEDS = Array.from({ length: 150 }, (_, i) => i * 104729 + 7);
+const EXAMS = SEEDS.map(s => buildMock(DISCRETE_MOCK, s));
 // Slots draw one of several types per seed, so tests find a part by facts.kind.
 const find = (ex, kind) => ex.questions.flatMap(q => q.parts).find(p => p.facts.kind === kind);
 const each = (kind, fn) => {
   let n = 0;
-  for (const s of SEEDS) { const ex = buildMock(DISCRETE_MOCK, s), p = find(ex, kind); if (p) { n++; fn(p.facts, p, ex); } }
+  for (const ex of EXAMS) { const p = find(ex, kind); if (p) { n++; fn(p.facts, p, ex); } }
   expect(n, kind).toBeGreaterThan(20);
 };
 
@@ -40,8 +41,8 @@ describe('exam frame', () => {
       ex.questions.flatMap(q => q.parts).forEach(p => { if (p.facts.kind) kinds.add(p.facts.kind); if (p.facts.id) ids.add(p.facts.id); });
       ex.questions.forEach(q => q.refs.forEach(r => expect(r.sec, s).toBeTruthy()));
     }
-    expect([...kinds].sort()).toEqual(['annuity', 'benes', 'bigO', 'bounds', 'doubling', 'euler', 'hanoi', 'net', 'relation', 'tilde', 'walks']);
-    for (const id of ['tilde', 'bigO', 'theta', 'basecase', 'recursion', 'recurrence', 'sqrt', 'recip', 'logn']) expect(ids.has(id), id).toBe(true);
+    expect([...kinds].sort()).toEqual(['annuity', 'benes', 'bigO', 'bounds', 'count-combination', 'count-division', 'count-product', 'doubling', 'euler', 'hanoi', 'net', 'relation', 'tilde', 'walks']);
+    for (const id of ['tilde', 'bigO', 'theta', 'basecase', 'recursion', 'recurrence', 'sum-rule', 'product-rule', 'division-rule', 'pigeonhole', 'pascal', 'sqrt', 'recip', 'logn']) expect(ids.has(id), id).toBe(true);
   });
   it('Beneš proof is favored: 30–50% of 200 seeds, all five proofs appear; the weight is checked (mutation)', () => {
     const share = weight => {
@@ -51,7 +52,7 @@ describe('exam frame', () => {
     const real = share(BENES_WEIGHT);
     expect(real.frac).toBeGreaterThanOrEqual(0.3);
     expect(real.frac).toBeLessThanOrEqual(0.5);
-    expect([...real.ids].sort()).toEqual(['benes', 'bigtheta', 'bounds', 'geometric', 'walks']);
+    expect([...real.ids].sort()).toEqual(['benes', 'bigtheta', 'bounds', 'geometric', 'odd-sum', 'pascal-sum', 'walks']);
     expect(BENES_WEIGHT).toBe(0.4);
     // mutation: weight 1 makes every proof Beneš, so the share bounds must fail
     expect(share(1).frac).toBeGreaterThan(0.5);
@@ -77,6 +78,12 @@ describe('exam frame', () => {
     expect(buildMock(DISCRETE_MOCK, 5)).toEqual(buildMock(DISCRETE_MOCK, 5));
     expect(new Set(SEEDS.map(s => JSON.stringify(buildMock(DISCRETE_MOCK, s)))).size).toBeGreaterThan(100);
   });
+  it('every part has a scoring rubric whose points equal the part points', () => {
+    for (const s of SEEDS) for (const q of buildMock(DISCRETE_MOCK, s).questions) for (const p of q.parts) {
+      expect(p.rubric?.length, `${s} ${q.no}${p.label}`).toBeGreaterThan(0);
+      expect(p.rubric.reduce((sum, [points]) => sum + points, 0)).toBe(p.pts);
+    }
+  });
   it('every formula has paired $ and KaTeX renders it; no undefined / NaN / ",;"', () => {
     for (const s of SEEDS.slice(0, 60)) {
       const ex = buildMock(DISCRETE_MOCK, s);
@@ -95,6 +102,37 @@ describe('answers match separate counting', () => {
     const TABLE = [N => 2 * N - 1, N => N, N => 2 * Math.log2(N) + 2, N => N * N, N => Math.log2(N) + 1, N => N * (Math.log2(N) + 1), () => 1];
     each('net', f => expect(f.value).toBe(TABLE[f.id](f.N)));
     each('benes', b => expect(b.partner - b.port).toBe(b.N / 2));
+  });
+
+  describe('counting rules', () => {
+    const fact = n => Array.from({ length: n }, (_, i) => i + 1).reduce((a, b) => a * b, 1);
+    const C = (n, k) => fact(n) / (fact(k) * fact(n - k));
+
+    it('product, division and combination answers match independent enumeration/formulas', () => {
+      each('count-product', f => {
+        let n = 0;
+        const visit = (left, seen) => {
+          if (!left) { n += +seen; return; }
+          for (let x = 0; x < f.alphabet; x++) visit(left - 1, seen || x === 0);
+        };
+        visit(f.length, false);
+        expect(f.value).toBe(n);
+      });
+      each('count-division', f => {
+        const total = f.repeated.reduce((a, b) => a + b, 0);
+        expect(f.value).toBe(fact(total) / f.repeated.reduce((p, n) => p * fact(n), 1));
+      });
+      each('count-combination', f => expect(f.value).toBe(C(f.n, f.k) - C(f.n - f.special, f.k)));
+    });
+
+    it('mutation: changing any counting answer is detected', () => {
+      each('count-product', f => expect(f.value + 1).not.toBe(f.alphabet ** f.length - (f.alphabet - 1) ** f.length));
+      each('count-division', f => {
+        const total = f.repeated.reduce((a, b) => a + b, 0);
+        expect(f.value + 1).not.toBe(fact(total) / f.repeated.reduce((p, n) => p * fact(n), 1));
+      });
+      each('count-combination', f => expect(f.value + 1).not.toBe(C(f.n, f.k) - C(f.n - f.special, f.k)));
+    });
   });
   it('Euler answer: brute-force search for an Euler walk', () => {
     const euler = (edges, closed) => {
@@ -254,9 +292,12 @@ describe('new final scope: integral bounds and asymptotic notation (MCS 9.3–9.
   it('O question: c and x0 work for every x; one less does not', () => {
     each('bigO', (f, p) => {
       const fx = x => f.a * x ** f.d + f.b * x ** (f.d - 1);
-      for (let x = f.x0; x <= 2000; x += 0.5) expect(fx(x)).toBeLessThanOrEqual(f.c * x ** f.d + 1e-6);
+      let upperWorks = true, lowerWorks = true;
+      for (let x = f.x0; x <= 2000; x += 0.5) upperWorks &&= fx(x) <= f.c * x ** f.d + 1e-6;
       expect(fx(f.x0)).toBeGreaterThan((f.c - 1) * f.x0 ** f.d);
-      for (let x = 1; x <= 2000; x += 7) expect(fx(x)).toBeGreaterThanOrEqual(f.a * x ** f.d);       // lower bound for Theta
+      for (let x = 1; x <= 2000; x += 7) lowerWorks &&= fx(x) >= f.a * x ** f.d;
+      expect(upperWorks).toBe(true);
+      expect(lowerWorks).toBe(true);
       expect(p.a.join(' ')).toContain(`c = ${f.c}`);
     });
   });

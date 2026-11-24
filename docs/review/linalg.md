@@ -19,8 +19,10 @@ Dạng đề: theo đề giữa kỳ thật, 200 điểm trong 120 phút. Mỗi 
 | 9 | Tính chất của định thức, công thức pivot | 5.1–5.2 | $\det$ bằng khử; $\det(2A)$, $\det(A^{-1})$, $\det(A^TA)$; tìm $c$ để ma trận suy biến |
 | 10 | Cofactor, ma trận nghịch đảo, quy tắc Cramer | 5.2–5.3 | Khai triển theo hàng; $A^{-1}=C^T/\det A$; giải $Ax=b$ bằng Cramer |
 | 11 | Diện tích, thể tích, tích có hướng | 5.3 | Diện tích tam giác bằng định thức; $u\times v$; tích hỗn hợp; công thức lớn 6 số hạng |
+| 12 | Trị riêng và vector riêng | 6.1 | Lập $\det(A-\lambda I)$; tìm trị riêng; giải $(A-\lambda I)v=0$ |
+| 13 | Chéo hóa | 6.2 | Lập $S$ từ các vector riêng; kiểm $AS=S\Lambda$; viết $A=S\Lambda S^{-1}$ |
 
-Chưa học: trị riêng (chương 6). Slide chưa có phần này nên đề không hỏi.
+Đã thêm ngày 2026-11-24: trị riêng, vector riêng và chéo hóa (chương 6).
 
 ## Lịch ôn (tuần 12 bắt đầu 2026-11-16)
 
@@ -34,4 +36,4 @@ Chưa học: trị riêng (chương 6). Slide chưa có phần này nên đề k
 
 ## Đề Exlab
 
-Mỗi mã đề cho 5 câu, 200 điểm, 120 phút: độc lập, basis, dimension (35); bốn subspace (50); chiếu lên đường thẳng (30); chiếu lên mặt phẳng (40); bình phương tối thiểu (45). Câu 1, 3, 4, 5 chọn một dạng cho mỗi mã đề: câu 1 là độc lập hoặc định thức (5.1–5.2); câu 3 là chiếu lên đường thẳng hoặc Cramer (5.2–5.3); câu 4 là chiếu lên mặt phẳng hoặc Gram–Schmidt (4.4); câu 5 là bình phương tối thiểu hoặc diện tích và thể tích (5.3). Câu 2 luôn là bốn subspace. Số câu, điểm và thời gian không đổi. Đây là đề tự soạn, không phải đề thật của giáo.
+Mỗi mã đề cho 5 câu, 200 điểm, 120 phút. Câu 1 (35) chọn độc lập, định thức, hoặc trị riêng và vector riêng. Câu 2 (50) luôn là bốn subspace. Câu 3 (30) chọn chiếu lên đường thẳng hoặc Cramer. Câu 4 (40) chọn chiếu lên mặt phẳng hoặc Gram–Schmidt. Câu 5 (45) chọn bình phương tối thiểu hoặc diện tích và thể tích. Số câu, điểm và thời gian không đổi. Đây là đề tự soạn, không phải đề thật của giáo.

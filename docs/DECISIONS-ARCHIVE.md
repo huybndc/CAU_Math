@@ -82,3 +82,11 @@ This English archive keeps the decisions that still guide the code and identifie
 - Discrete Math (2026-11-13): the vault lessons reach W11 (Beneš networks, Euler tours, digraphs and walk counting, relations, annuities and geometric sums). The midterm covered material up to spanning trees, so the final covers only later material. The form follows the midterm and the teacher's words: definitions, short answers, and short proofs. 4 questions, 200 points, 60 minutes: 4 definitions (40), 5 short answers with numbers (50), an annuity question (50), and one induction proof (60). Brute-force oracle tests check every computed answer, and 5 mutations make them fail. Network section numbers are chapter-level because the MCS 2017 section numbers are not checked.
 - Trade-off: the outline is a Markdown file, not an app screen. A screen is a new control and needs the learner's approval.
 
+**D76. Extend the final-review banks to the new class scope (2026-11-24).**
+
+- The learner confirmed that the final review now includes Strang Chapter 6, counting rules, and Mano Chapters 6–7.
+- Linear Algebra adds a 35-point eigenvalue question type. It covers the characteristic polynomial, eigenspaces, and diagonalization. A separate oracle checks each root, eigenvector, and matrix identity.
+- Discrete Math keeps four questions and 200 points. The applied slot can now ask counting. The definition slot includes named rules and lemmas. The proof bank adds two induction forms. Every part has a scoring rubric.
+- Logic Circuit keeps four questions, 200 points, 60 minutes, and all-or-nothing marking. The second slot can ask RAM and ROM. The third slot can ask a universal register. Existing Chapter 5 forms stay available.
+- The change does not add slides, PDFs, or cross-repository code.
+

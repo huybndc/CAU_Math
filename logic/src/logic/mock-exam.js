@@ -1,11 +1,11 @@
 /* ---------------------------------------------------------------
-   PRACTICE FINAL EXAM (Logic Circuit), pure. The midterm covered Ch1–4, and the final does not repeat midterm question types
-   (learner, 2026-11-22). Scope = Ch5 slides only: §5.3–5.4 latches and flip-flops, §5.5 analysis of clocked circuits,
-   §5.7 state reduction and assignment, §5.8 design procedure. Form follows the real midterm (D75): few questions with many parts,
+   PRACTICE FINAL EXAM (Logic Circuit), pure. The midterm covered Ch1–4, and the final does not repeat midterm question types.
+   Scope = Mano Chapters 5–7: sequential circuits, registers, counters, RAM, memory decoding and ROM. Form follows the real midterm (D75): few questions with many parts,
    easy to hard, all-or-nothing per part. 4 questions, 200 points: flip-flop 40, state reduction 40, analysis 60, design or counter 60.
    Question makers are in mock-seq.js. The Ch3–4 questions (K-map design, BCD adder, comparator) are in git history.
    --------------------------------------------------------------- */
 import { makeFlipFlop, makeSeqAnalysis, makeStateReduction, makeSeqDesign, makeCounterDesign } from './mock-seq.js';
+import { makeRegister, makeMemory } from './mock-storage.js';
 
 // Each slot draws one question type.
 const pick = makers => rnd => makers[Math.floor(rnd() * makers.length)](rnd);
@@ -31,5 +31,10 @@ export const LOGIC_MOCK = {
   book: 'M. Morris Mano, Digital Design (6th ed.)',
   note: 'Marking (as on the real midterm): each part is all or nothing. Label every input, output and signal of a circuit. Write the work and the answer.',
   minutesPerPoint: 60 / 200,
-  makers: [scaleTo(40, makeFlipFlop), scaleTo(40, makeStateReduction), makeSeqAnalysis, pick([makeSeqDesign, makeCounterDesign])].map(allOrNothing),
+  makers: [
+    scaleTo(40, makeFlipFlop),
+    pick([scaleTo(40, makeStateReduction), scaleTo(40, makeMemory)]),
+    pick([makeSeqAnalysis, scaleTo(60, makeRegister)]),
+    pick([makeSeqDesign, makeCounterDesign]),
+  ].map(allOrNothing),
 };

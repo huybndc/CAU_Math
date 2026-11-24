@@ -26,7 +26,7 @@ const rank = A0 => {
 const SEEDS = Array.from({ length: 150 }, (_, i) => i * 7919 + 3);
 const facts = (ex, q, p) => ex.questions[q].parts[p].facts;
 // Slots draw one of several types per seed, so tests find a question by facts.kind.
-const KINDS = ['indep', 'four', 'projLine', 'projPlane', 'ls', 'det', 'cramer', 'gs', 'detGeo'];
+const KINDS = ['indep', 'eigen', 'four', 'projLine', 'projPlane', 'ls', 'det', 'cramer', 'gs', 'detGeo'];
 const each = (kind, fn) => {
   let n = 0;
   for (const s of SEEDS) {
@@ -46,11 +46,11 @@ describe('exam frame', () => {
     expect(ex.questions.map(q => q.pts)).toEqual([35, 50, 30, 40, 45]);
     expect([ex.total, ex.minutes]).toEqual([200, 120]);
   });
-  it('each question cites book sections from 3.5 to 5.3', () => {
+  it('each question cites a section in the final scope', () => {
     const ex = buildMock(LINALG_MOCK, 9);
     expect(ex.book).toMatch(/Strang/);
     expect(LINALG_MOCK.refs).toHaveLength(LINALG_MOCK.makers.length);
-    for (const s of SEEDS.slice(0, 40)) for (const q of buildMock(LINALG_MOCK, s).questions) for (const r of q.refs) expect(['3.5', '3.6', '4.1', '4.2', '4.3', '4.4', '5.1', '5.2', '5.3']).toContain(r.sec);
+    for (const s of SEEDS.slice(0, 40)) for (const q of buildMock(LINALG_MOCK, s).questions) for (const r of q.refs) expect(['3.5', '3.6', '4.1', '4.2', '4.3', '4.4', '5.1', '5.2', '5.3', '6.1', '6.2']).toContain(r.sec);
   });
   it('every question type appears and keeps its slot points', () => {
     const seen = new Set();
@@ -170,6 +170,38 @@ describe('new final scope: determinants, Cramer, Gram–Schmidt, volumes (Strang
       expect(det3(at(c.c0))).toBe(0);
       expect(det3(at(c.c0 + 1))).not.toBe(0);
       expect(q.parts[2].a.join(' ')).toContain(`c = ${c.c0}`);
+    });
+
+    describe('eigenvalues and eigenvectors (Strang 6.1–6.2)', () => {
+      const det3 = M => M[0][0] * (M[1][1] * M[2][2] - M[1][2] * M[2][1])
+        - M[0][1] * (M[1][0] * M[2][2] - M[1][2] * M[2][0])
+        + M[0][2] * (M[1][0] * M[2][1] - M[1][1] * M[2][0]);
+
+      it('characteristic roots, eigenspaces and diagonalization match independent arithmetic', () => {
+        each('eigen', (q, [a, b, c]) => {
+          expect(new Set(a.eigenvalues).size).toBe(3);
+          for (let i = 0; i < 3; i++) {
+            const lambda = a.eigenvalues[i], v = b.eigenvectors[i];
+            expect(det3(a.A.map((row, r) => row.map((x, col) => x - (r === col ? lambda : 0))))).toBe(0);
+            expect(mv(a.A, v)).toEqual(v.map(x => lambda * x));
+            expect(rank(a.A.map((row, r) => row.map((x, col) => x - (r === col ? lambda : 0))))).toBe(2);
+          }
+          expect(close(mm(c.S, c.Sinv), [[1, 0, 0], [0, 1, 0], [0, 0, 1]])).toBe(true);
+          expect(close(mm(a.A, c.S), mm(c.S, c.Lambda))).toBe(true);
+          expect(close(mm(mm(c.S, c.Lambda), c.Sinv), a.A)).toBe(true);
+          expect(c.checks.flat().every(x => x === 0)).toBe(true);
+          expect(q.parts[2].a.join(' ')).toContain(mat(c.Lambda));
+        });
+      });
+
+      it('mutation: a changed eigenvalue or eigenvector fails the oracle', () => {
+        each('eigen', (q, [a, b]) => {
+          const badLambda = a.eigenvalues[0] + 1, v = b.eigenvectors[0];
+          expect(mv(a.A, v)).not.toEqual(v.map(x => badLambda * x));
+          const bad = v.slice(); bad[0] += 1;
+          expect(mv(a.A, bad)).not.toEqual(bad.map(x => a.eigenvalues[0] * x));
+        });
+      });
     });
   });
   it('Q Cramer: cofactor expansion, inverse and solution', () => {
