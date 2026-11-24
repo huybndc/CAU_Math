@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------
    PRACTICE FINAL EXAM (Discrete Math), pure. Scope = class after the midterm (D75): communication networks (Beneš),
    Euler tours, directed graphs and walk counting, relations, sums (annuities, geometric series), bounds on sums by
-   integrals, asymptotic notation (~, O, Θ), and recursion (Towers of Hanoi, class of week 12). Counting rules are not taught yet, so they are not asked.
+   integrals, asymptotic notation (~, O, Θ), recursion (Towers of Hanoi), and counting rules.
    Form follows the midterm: definitions, short answers, short proofs. English text, LaTeX $…$; facts = raw data for tests.
    Section numbers follow MCS (MIT 6.042J, 2017); "11" and "10" are chapter-level where the section is not checked.
    --------------------------------------------------------------- */
@@ -17,6 +17,7 @@ const num = (a, c) => { const g = gcd(a, c), [n, d] = [a / g, c / g]; return d =
 const NET = ['11', 'Communication networks'], DIG = ['10', 'Directed graphs and partial orders'], SUM = ['14.1', 'The value of an annuity'];
 const EUL = ['12', 'Simple graphs (Euler tours)'], REL = ['10', 'Directed graphs: relations'];
 const REC = ['10.1', 'Towers of Hanoi (course reading)'];
+const COUNT = ['15.1', 'Cardinality rules'];
 const BIGO_NOTE = r`Note (from class, as remembered): a proof of a Big O claim by induction scores 0. Use the definition with constants c and x0.`;
 const APP = ['9.3', 'Approximating sums'], ASY = ['9.7', 'Asymptotic notation'], HAR = ['9.4', 'Hanging out over the edge (harmonic numbers)'], PRD = ['9.6', 'Products (n!)'];
 
@@ -44,11 +45,24 @@ const ASY_DEFS = [
   { id: 'theta', ref: ASY, q: r`Define $f(x) = \Theta(g(x))$.`, a: [r`$f = O(g)$ and $f = \Omega(g)$, where $f = \Omega(g)$ means $f$ is at least a positive multiple of $g$ for all large $x$ ($g = O(f)$).`] },
 ];
 
+const COUNT_RULES = [
+  { id: 'sum-rule', ref: COUNT, q: r`State the sum rule for disjoint finite sets.`,
+    a: [r`If finite sets $A_1,\ldots,A_k$ are pairwise disjoint, then $|A_1\cup\cdots\cup A_k|=|A_1|+\cdots+|A_k|$.`] },
+  { id: 'product-rule', ref: COUNT, q: r`State the product rule for a sequence of choices.`,
+    a: [r`If a procedure has $k$ successive choices with $n_i$ options at step $i$, independent of the earlier choices, then it has $\prod_{i=1}^{k}n_i$ outcomes.`] },
+  { id: 'division-rule', ref: COUNT, q: r`State the division rule.`,
+    a: [r`If every object in a finite set of representations corresponds to exactly $d$ objects of interest, then the number of objects of interest is the number of representations divided by $d$.`] },
+  { id: 'pigeonhole', ref: COUNT, q: r`State the pigeonhole principle.`,
+    a: [r`If more than $n$ objects are placed into $n$ boxes, at least one box contains at least two objects.`] },
+  { id: 'pascal', ref: ['15.3', 'Binomial coefficients'], q: r`State Pascal's identity and give its counting interpretation.`,
+    a: [r`$\binom{n}{k}=\binom{n-1}{k}+\binom{n-1}{k-1}$. Count $k$-subsets by whether they omit or contain one fixed element.`] },
+];
+
 export function makeDefinitions(rnd) {
-  const defs = [...shuffled(DEFS, rnd).slice(0, 3), pick(ASY_DEFS, rnd)], seen = new Set();
+  const defs = [...shuffled(DEFS, rnd).slice(0, 2), pick(COUNT_RULES, rnd), pick(ASY_DEFS, rnd)], seen = new Set();
   return {
-    stem: 'Definitions. State each definition precisely. Examples alone earn nothing.',
-    parts: defs.map(d => ({ pts: 10, q: d.q, a: d.a, facts: { id: d.id } })),
+    stem: 'Definitions and named rules. State each item precisely. Examples alone earn nothing.',
+    parts: defs.map(d => ({ pts: 10, q: d.q, a: d.a, rubric: [[6, 'precise statement'], [4, 'all conditions and quantifiers']], facts: { id: d.id } })),
     refs: defs.map(d => d.ref).filter(x => !seen.has(x.join()) && seen.add(x.join())),
   };
 }
@@ -122,6 +136,7 @@ export function makeShortAnswers(rnd) {
         a: [r`For $x \ge 1$: $${ob}x^${od - 1} \le ${ob}x^${od}$, so $f(x) \le ${oa + ob}\,x^${od}$. Take $c = ${oa + ob}$, $x_0 = 1$, so $f = O(x^${od})$.`, r`Also $f(x) \ge ${oa}x^${od}$, so $f = \Omega(x^${od})$. Hence $f = \Theta(x^${od})$.`, BIGO_NOTE], facts: { kind: 'bigO', d: od, a: oa, b: ob, c: oa + ob, x0: 1 } },
       hanoi,
   ];
+  P.forEach(p => { p.rubric = [[6, 'correct result or classification'], [4, 'one valid line of reasoning']]; });
   const chosen = [pick([P[0], P[1]], rnd), pick([P[2], P[3]], rnd), pick([P[4], P[5], P[8]], rnd), P[6], P[7]], refOf = { net: NET, benes: NET, euler: EUL, walks: DIG, relation: REL, doubling: SUM, tilde: ASY, bigO: ASY, hanoi: REC };
   return {
     stem: r`Short answers. Give the value and one line of reason.`,
@@ -137,11 +152,14 @@ export function makeAnnuity(rnd) {
     stem: r`An annuity pays $${m}$ dollars at the start of each year. The yearly interest rate is $p = ${pc}\%$. Let $x = 1/(1+p)$.`,
     parts: [
       { pts: 20, q: r`Prove that $\sum_{i=0}^{n-1} x^i = \dfrac{1 - x^n}{1 - x}$ for $x \ne 1$ by the perturbation method.`,
-        a: [r`Let $S = 1 + x + \dots + x^{n-1}$. Then $xS = x + x^2 + \dots + x^n$.`, r`Subtract: $S - xS = 1 - x^n$, so $S = \dfrac{1 - x^n}{1 - x}$ ($x \ne 1$).`], facts: { kind: 'annuity' } },
+        a: [r`Let $S = 1 + x + \dots + x^{n-1}$. Then $xS = x + x^2 + \dots + x^n$.`, r`Subtract: $S - xS = 1 - x^n$, so $S = \dfrac{1 - x^n}{1 - x}$ ($x \ne 1$).`],
+        rubric: [[8, r`write $S$ and $xS$ correctly`], [8, 'subtract and cancel terms'], [4, r`solve for $S$ with $x\ne1$`]], facts: { kind: 'annuity' } },
       { pts: 20, q: r`Find the present value of the annuity if it pays $${n}$ times. Give the formula and the value to $2$ decimals.`,
-        a: [r`The payment at the start of year $i+1$ is worth $${m}x^i$ today, so $V = ${m}\sum_{i=0}^{${n - 1}} x^i = ${m}\dfrac{1 - x^{${n}}}{1 - x}$.`, r`$V \approx ${money(V)}$ dollars.`], facts: { m, p, n, V } },
+        a: [r`The payment at the start of year $i+1$ is worth $${m}x^i$ today, so $V = ${m}\sum_{i=0}^{${n - 1}} x^i = ${m}\dfrac{1 - x^{${n}}}{1 - x}$.`, r`$V \approx ${money(V)}$ dollars.`],
+        rubric: [[8, 'discount each payment at the correct time'], [8, 'finite geometric-sum formula'], [4, 'correct numerical value']], facts: { m, p, n, V } },
       { pts: 10, q: r`Find the present value if the annuity pays forever. Why does the infinite sum converge?`,
-        a: [r`$|x| < 1$, so $x^n \to 0$ and $V = \dfrac{${m}}{1 - x} = ${m}\cdot\dfrac{1 + p}{p} = ${money(Vinf)}$ dollars.`], facts: { Vinf } },
+        a: [r`$|x| < 1$, so $x^n \to 0$ and $V = \dfrac{${m}}{1 - x} = ${m}\cdot\dfrac{1 + p}{p} = ${money(Vinf)}$ dollars.`],
+        rubric: [[4, r`state $|x|<1$ and convergence`], [4, 'infinite-sum formula'], [2, 'correct value']], facts: { Vinf } },
     ],
     refs: [SUM, ['14.1', 'Sums: the perturbation method']],
   };
@@ -173,13 +191,40 @@ export function makeSumBounds(rnd) {
     parts: [
       { pts: 15, q: r`Is $f$ increasing or decreasing for $x \ge 1$? Write the two integral bounds on $S$ and compute $I$.`,
         a: [r`$f$ is ${B.inc ? 'increasing' : 'decreasing'}, so ${B.inc ? r`$I + f(1) \le S \le I + f(n)$` : r`$I + f(n) \le S \le I + f(1)$`}.`, r`$I = ${B.Itex(n)} \approx ${d(I)}$.`],
-        facts: { kind: 'bounds', id, inc: B.inc, n, I } },
+        rubric: [[4, 'correct monotonicity'], [6, 'both integral bounds'], [5, 'correct integral']], facts: { kind: 'bounds', id, inc: B.inc, n, I } },
       { pts: 20, q: r`Compute both bounds for $n = ${n}$ and the sum $S$ to $3$ decimals. Is $S$ between them?`,
         a: [r`Lower bound $= I + ${a1} = ${d(I)} + ${d(a)} = ${d(lo)}$.`, r`Upper bound $= I + ${a2} = ${d(I)} + ${d(b)} = ${d(hi)}$.`, r`$S = ${d(S)}$, and $${d(lo)} \le ${d(S)} \le ${d(hi)}$: yes.`],
-        facts: { n, id, lo, hi, S } },
-      { pts: 15, q: last[0], a: last[1], facts: { n, id } },
+        rubric: [[8, 'both numerical bounds'], [8, 'sum computed'], [4, 'comparison stated']], facts: { n, id, lo, hi, S } },
+      { pts: 15, q: last[0], a: last[1], rubric: [[6, 'substitute the bounds'], [6, 'derive the requested asymptotic or product bound'], [3, 'state the conclusion']], facts: { n, id } },
     ],
     refs: [B.ref, APP],
+  };
+}
+
+const factorial = n => Array.from({ length: n }, (_, i) => i + 1).reduce((a, b) => a * b, 1);
+const choose = (n, k) => (k < 0 || k > n ? 0 : factorial(n) / (factorial(k) * factorial(n - k)));
+
+export function makeCounting(rnd) {
+  const alphabet = int(3, 6, rnd), length = int(3, 5, rnd);
+  const withSpecial = alphabet ** length - (alphabet - 1) ** length;
+  const repeated = [int(2, 4, rnd), int(2, 3, rnd), int(1, 2, rnd)], total = repeated.reduce((a, b) => a + b, 0);
+  const arrangements = factorial(total) / repeated.reduce((p, n) => p * factorial(n), 1);
+  const n = int(8, 12, rnd), k = int(3, 5, rnd), special = int(2, Math.min(4, n - k + 1), rnd);
+  const committees = choose(n, k) - choose(n - special, k);
+  return {
+    stem: 'Counting rules. Name the rule used in each part.',
+    parts: [
+      { pts: 15, q: r`A code has length $${length}$ over an alphabet of $${alphabet}$ symbols. One symbol is marked. How many codes contain the marked symbol at least once?`,
+        a: [r`Use the product rule and complement rule: $${alphabet}^{${length}}-(${alphabet}-1)^{${length}}=${withSpecial}$.`],
+        rubric: [[5, 'count all codes'], [5, 'subtract codes without the marked symbol'], [5, 'correct value']], facts: { kind: 'count-product', alphabet, length, value: withSpecial } },
+      { pts: 15, q: r`How many distinct strings can be formed from a multiset with $${repeated[0]}$ copies of A, $${repeated[1]}$ copies of B and $${repeated[2]}$ copies of C?`,
+        a: [r`The division rule removes permutations of equal letters: $\dfrac{${total}!}{${repeated[0]}!\,${repeated[1]}!\,${repeated[2]}!}=${arrangements}$.`],
+        rubric: [[5, r`start with $${total}!$ arrangements`], [5, 'divide by permutations of equal copies'], [5, 'correct value']], facts: { kind: 'count-division', repeated, value: arrangements } },
+      { pts: 20, q: r`A committee of $${k}$ is chosen from $${n}$ people. A fixed group of $${special}$ people contains the mentors. How many committees contain at least one mentor?`,
+        a: [r`Use combinations and the complement rule: $\binom{${n}}{${k}}-\binom{${n - special}}{${k}}=${committees}$.`],
+        rubric: [[6, 'count all committees'], [6, 'count committees with no mentor'], [4, 'subtract the complement'], [4, 'correct value']], facts: { kind: 'count-combination', n, k, special, value: committees } },
+    ],
+    refs: [COUNT, ['15.3', 'Binomial coefficients']],
   };
 }
 
@@ -206,11 +251,21 @@ const OTHER_PROOFS = [
   { id: 'bigtheta', ref: ASY, plain: true, q: r`Prove from the definitions that $6x^3 + 5x^2 = \Theta(x^3)$.`,
     a: [r`Upper bound: for $x \ge 1$, $5x^2 \le 5x^3$, so $6x^3 + 5x^2 \le 11x^3$. Take $c = 11$, $x_0 = 1$: $f = O(x^3)$.`,
       r`Lower bound: $6x^3 + 5x^2 \ge 6x^3$ for all $x \ge 0$, so $f = \Omega(x^3)$.`, r`Both hold, so $f = \Theta(x^3)$.`] },
+  { id: 'odd-sum', ref: ['3.1', 'Induction'], q: r`Prove by induction that $\sum_{i=1}^{n}(2i-1)=n^2$ for every $n\ge1$.`,
+    a: [r`Base $n=1$: the sum is $1=1^2$.`, r`Assume $\sum_{i=1}^{n}(2i-1)=n^2$.`,
+      r`Then $\sum_{i=1}^{n+1}(2i-1)=n^2+2(n+1)-1=n^2+2n+1=(n+1)^2$. Thus the claim holds for $n+1$.`] },
+  { id: 'pascal-sum', ref: ['15.3', 'Binomial coefficients'], q: r`Prove by induction that $\sum_{k=0}^{n}\binom{k}{2}=\binom{n+1}{3}$ for every $n\ge2$.`,
+    a: [r`Base $n=2$: $\binom{0}{2}+\binom{1}{2}+\binom{2}{2}=1=\binom{3}{3}$.`,
+      r`Assume the identity for $n$. Add $\binom{n+1}{2}$ to both sides.`,
+      r`Pascal's identity gives $\binom{n+1}{3}+\binom{n+1}{2}=\binom{n+2}{3}$, which is the formula for $n+1$.`] },
 ];
 
 export const BENES_WEIGHT = 0.4;
 
 export function makeProof(rnd, weight = BENES_WEIGHT) {
   const pr = rnd() < weight ? BENES_PROOF : pick(OTHER_PROOFS, rnd);
-  return { stem: 'Proof.', parts: [{ pts: 60, q: pr.q, a: pr.a, facts: { id: pr.id, induction: !pr.plain } }], refs: [pr.ref] };
+  const rubric = pr.plain
+    ? [[15, 'set up the definitions or comparison'], [30, 'complete the main inequalities or counting argument'], [15, 'state the proved conclusion']]
+    : [[10, 'correct base case'], [15, 'clear induction hypothesis'], [25, 'valid induction step'], [10, 'conclusion with the right range']];
+  return { stem: 'Proof.', parts: [{ pts: 60, q: pr.q, a: pr.a, rubric, facts: { id: pr.id, induction: !pr.plain } }], refs: [pr.ref] };
 }

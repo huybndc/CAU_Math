@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------
-   PRACTICE FINAL EXAM (Linear Algebra), pure. Scope = class after the midterm (D75): Strang 3.5–3.6, 4.1–4.4, 5.1–5.3
+   PRACTICE FINAL EXAM (Linear Algebra), pure. Scope = class after the midterm (D75): Strang 3.5–3.6, 4.1–4.4, 5.1–5.3, 6.1–6.2
    (independence, basis, dimension, four subspaces, orthogonality, projections, least squares, Gram–Schmidt and QR,
    determinants, cofactors, Cramer's rule, volumes). Each part 0 has facts.kind so tests can find the question type.
    Each maker(rnd) → { stem, parts: [{ pts, q, a, facts }] }; LaTeX between $…$; facts = raw data for the oracle test.
@@ -289,5 +289,34 @@ export function makeDetGeometry(rnd) {
         a: [r`$${terms.map((t, i) => `${t.sg < 0 ? '-' : i ? '+' : ''} ${t.t}`).join(' ')} = ${big}$, the same as the triple product.`], facts: { M, big } },
     ],
     refs: [['5.3', "Cramer's Rule, Inverses, and Volumes"], ['5.2', 'Permutations and Cofactors']],
+  };
+}
+
+/* ---- Strang 6.1–6.2: eigenvalues, eigenvectors and diagonalization ---- */
+export function makeEigen(rnd) {
+  const eigenvalues = [...pick([[-2, 1, 3], [-1, 2, 4], [1, 2, 5], [-3, -1, 2]], rnd)];
+  const a = pick([-2, -1, 1, 2], rnd), b = pick([-2, -1, 1, 2], rnd), c = pick([-2, -1, 1, 2], rnd);
+  const S = [[1, 0, 0], [a, 1, 0], [b, c, 1]];
+  const Sinv = [[1, 0, 0], [-a, 1, 0], [a * c - b, -c, 1]];
+  const Lambda = eigenvalues.map((v, i) => eigenvalues.map((_, j) => (i === j ? v : 0)));
+  const A = multiply(multiply(S, Lambda), Sinv);
+  const eigenvectors = transpose(S);
+  const checks = eigenvectors.map((v, i) => matVec(A, v).map((x, j) => x - eigenvalues[i] * v[j]));
+  return {
+    stem: r`Let $A = ${mat(A)}$.`,
+    parts: [
+      { pts: 10, q: r`Find the characteristic polynomial $\det(A-\lambda I)$ and all eigenvalues of $A$.`,
+        a: [r`$A-\lambda I$ is lower triangular, so $\det(A-\lambda I) = (${eigenvalues[0]}-\lambda)(${eigenvalues[1]}-\lambda)(${eigenvalues[2]}-\lambda)$.`,
+          r`The eigenvalues are $\lambda = ${eigenvalues.join(', ')}$.`],
+        facts: { kind: 'eigen', A, eigenvalues } },
+      { pts: 15, q: r`For each eigenvalue, solve $(A-\lambda I)v=0$ and give a basis for its eigenspace.`,
+        a: eigenvalues.map((v, i) => r`For $\lambda=${v}$, row reduction of $A-${v}I$ gives $E_{\lambda}=\operatorname{span}\{${vec(eigenvectors[i])}\}$.`),
+        facts: { eigenvectors } },
+      { pts: 10, q: r`Use the eigenvectors as the columns of $S$. Verify $AS=S\Lambda$ and write a diagonalization of $A$.`,
+        a: [r`$S=${mat(S)}$, $\Lambda=${mat(Lambda)}$, and $S^{-1}=${mat(Sinv)}$.`,
+          r`The columns satisfy $Av_i=\lambda_i v_i$ (the residuals are ${list(checks)}), so $AS=S\Lambda$ and $A=S\Lambda S^{-1}$.`],
+        facts: { S, Sinv, Lambda, checks } },
+    ],
+    refs: [['6.1', 'Introduction to Eigenvalues'], ['6.2', 'Diagonalizing a Matrix']],
   };
 }

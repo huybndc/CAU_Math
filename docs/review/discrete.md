@@ -18,8 +18,10 @@ Dạng đề: theo lời giáo trong giờ. Câu khái niệm trả lời ngắn
 | 8 | Đệ quy: tháp Hà Nội, trường hợp cơ sở, ba giai đoạn, hệ thức truy hồi | W12 (2026-11-20) | Định nghĩa; liệt kê các bước với 3 đĩa; số bước với 4 đĩa từ ba giai đoạn. Chưa học: công thức $2^n-1$ và chứng minh nó |
 | 9 | Kẹp tổng bằng tích phân (hàm tăng, hàm giảm); số điều hòa; cận của $n!$ | W11–W12 | Cận trên và cận dưới của $S$; $H_n=\Theta(\ln n)$; $n^n/e^{n-1}\le n!\le n^{n+1}/e^{n-1}$ |
 | 10 | Ký hiệu tiệm cận $\sim$, $O$, $\Omega$, $\Theta$ | W11–W12 | Định nghĩa; tính giới hạn $f/g$; tìm $c$ và $x_0$. Lưu ý (theo trí nhớ, không có bản ghi): giáo nói chứng minh một mệnh đề Big O bằng quy nạp thì 0 điểm; phải dùng định nghĩa với $c$ và $x_0$ |
+| 11 | Quy tắc đếm | W13 | Quy tắc tổng, tích, chia, phần bù; chỉnh hợp có lặp; tổ hợp |
+| 12 | Nguyên lý pigeonhole và đồng nhất thức Pascal | W13 | Phát biểu chính xác; giải thích bằng cách đếm; dùng trong chứng minh |
 
-Chưa học (sẽ thêm vào đề cương và đề khi lớp học tới): các quy tắc đếm. Buổi W10 chỉ mở đầu bằng việc đếm thời gian và bộ nhớ, chưa có công thức nên đề không hỏi.
+Đã thêm ngày 2026-11-24: các quy tắc đếm, nguyên lý pigeonhole và đồng nhất thức Pascal.
 
 ## Lịch ôn (tuần 12 bắt đầu 2026-11-16)
 
@@ -33,4 +35,4 @@ Chưa học (sẽ thêm vào đề cương và đề khi lớp học tới): cá
 
 ## Đề Exlab
 
-Mỗi mã đề cho 4 câu, 200 điểm, 60 phút: 4 định nghĩa, trong đó 1 định nghĩa về ký hiệu tiệm cận (40); 5 câu trả lời ngắn (50): mạng hoặc Beneš, Euler hoặc walk, quan hệ, thời gian gấp đôi hoặc tháp Hà Nội, giới hạn $f/g$ cho $\sim$, và $O$ với $c$, $x_0$; annuity hoặc kẹp tổng bằng tích phân (50); một chứng minh (60): ưu tiên chứng minh Beneš bằng quy nạp (khoảng 40% mã đề); mã còn lại có một trong bốn chứng minh khác (đường đi, tổng cấp số nhân, kẹp tổng bằng tích phân, Big Theta). Không có chứng minh Big O bằng quy nạp; câu Big O có ghi chú của giáo. Định nghĩa có thể hỏi thêm trường hợp cơ sở, đệ quy, hệ thức truy hồi. Số câu, điểm và thời gian không đổi. Đây là đề tự soạn, không phải đề thật của giáo.
+Mỗi mã đề cho 4 câu, 200 điểm, 60 phút: định nghĩa và quy tắc có tên (40); 5 câu trả lời ngắn (50); annuity, kẹp tổng bằng tích phân, hoặc quy tắc đếm (50); một chứng minh (60). Chứng minh Beneš bằng quy nạp vẫn có trọng số 40%. Các mã còn lại lấy từ ngân hàng chứng minh về walk, tổng, cận tích phân, Big Theta, tổng số lẻ, hoặc đồng nhất thức tổ hợp. Không có chứng minh Big O bằng quy nạp. Mỗi ý có thang điểm theo bước. Số câu, điểm và thời gian không đổi. Đây là đề tự soạn, không phải đề thật của giáo.

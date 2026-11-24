@@ -1,6 +1,6 @@
 # Đề cương ôn cuối kỳ: Logic Circuit
 
-Sách: M. Morris Mano, *Digital Design* (6th ed.). Giữa kỳ đã thi chương 1–4, và cuối kỳ không ra lại các dạng câu của giữa kỳ (Huy, 2026-11-22). Vì vậy đề cuối kỳ chỉ lấy chương 5 (phần 1 và phần 2). Chủ đề 1–9 dưới đây là nền để làm chương 5, không ra thành câu riêng. Ngày thi cuối kỳ chưa có thông báo chính thức; lịch dưới đây dùng mốc tạm là tuần 16 (2026-12-14 đến 2026-12-18).
+Sách: M. Morris Mano, *Digital Design* (6th ed.). Giữa kỳ đã thi chương 1–4, và cuối kỳ không ra lại các dạng câu của giữa kỳ (Huy, 2026-11-22). Đề cuối kỳ lấy chương 5–7. Chủ đề 1–9 dưới đây là nền và không ra thành câu riêng. Ngày thi cuối kỳ chưa có thông báo chính thức; lịch dưới đây dùng mốc tạm là tuần 16 (2026-12-14 đến 2026-12-18).
 
 Dạng đề: theo đề giữa kỳ thật. Ít câu lớn, mỗi câu nhiều ý từ dễ đến khó, ý sau dùng kết quả ý trước. Giáo không cho điểm từng phần: một ý đúng hết thì đủ điểm, sai một chỗ thì 0. Giáo nói đề cuối kỳ có thể đổi dạng.
 
@@ -22,8 +22,11 @@ Dạng đề: theo đề giữa kỳ thật. Ít câu lớn, mỗi câu nhiều 
 | 12 | Phân tích mạch tuần tự đồng bộ; Mealy và Moore | 5.5 | Phương trình trạng thái, bảng trạng thái, sơ đồ trạng thái, dò chuỗi vào |
 | 13 | Rút gọn trạng thái và gán mã trạng thái | 5.7 | Gộp trạng thái tương đương; số flip-flop tối thiểu; mã nhị phân, Gray, one-hot |
 | 14 | Quy trình thiết kế mạch tuần tự; bảng kích thích JK và T; bộ đếm | 5.8 | Thiết kế bộ dò chuỗi (Moore) bằng D, JK hoặc T; bộ đếm 3 hoặc 4 bit bằng T |
+| 15 | Thanh ghi và thanh ghi dịch | 6.1–6.2 | Bảng hoạt động; phương trình ngõ vào D; dò trạng thái của thanh ghi đa năng |
+| 16 | RAM và giải mã bộ nhớ | 7.2–7.3 | Số đường địa chỉ và dữ liệu; ghép chip theo độ sâu và độ rộng; chọn bank |
+| 17 | ROM | 7.5 | Lập bảng nội dung; viết minterm; nối decoder với các cổng OR |
 
-Chưa có slide (sẽ thêm vào đề cương và đề khi lớp học tới): thanh ghi và bộ đếm (chương 6), bộ nhớ (chương 7).
+Đã thêm ngày 2026-11-24: thanh ghi (chương 6), RAM, giải mã bộ nhớ và ROM (chương 7).
 
 ## Lịch ôn (tuần 12 bắt đầu 2026-11-16)
 
@@ -37,4 +40,4 @@ Chưa có slide (sẽ thêm vào đề cương và đề khi lớp học tới):
 
 ## Đề Exlab
 
-Mỗi mã đề cho 4 câu, 200 điểm, 60 phút, chỉ chương 5: flip-flop (40), rút gọn trạng thái (40), phân tích mạch tuần tự (60), thiết kế bộ dò chuỗi hoặc bộ đếm (60). Câu 4 chọn một dạng cho mỗi mã đề. Đây là đề tự soạn, không phải đề thật của giáo.
+Mỗi mã đề cho 4 câu, 200 điểm, 60 phút. Câu 1 là flip-flop (40). Câu 2 chọn rút gọn trạng thái hoặc bộ nhớ (40). Câu 3 chọn phân tích mạch tuần tự hoặc thanh ghi đa năng (60). Câu 4 chọn thiết kế bộ dò chuỗi hoặc bộ đếm (60). Mỗi ý vẫn chấm đúng hết hoặc 0. Đây là đề tự soạn, không phải đề thật của giáo.
